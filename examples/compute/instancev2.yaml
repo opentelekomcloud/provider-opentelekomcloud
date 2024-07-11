@@ -1,0 +1,26 @@
+apiVersion: compute.crossplane.io/v1alpha1
+kind: InstanceV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: compute/v1alpha1/instancev2
+  labels:
+    testing.upbound.io/example-name: basic
+  name: basic
+spec:
+  forProvider:
+    flavorId: s2.medium.1
+    imageName: Standard_Debian_10_latest
+    keyPairSelector:
+      matchLabels:
+        testing.upbound.io/example-name: as-terraform
+    metadata:
+      this: that
+    name: instance_cross_1
+    availabilityZone: eu-de-01
+    stopBeforeDestroy: true
+    network:
+      - uuid: 44ed75f0-65df-4865-b4d9-4565fc56e2f1
+    securityGroupsRefs:
+      - name: default
+    tags:
+      muh: kuh
