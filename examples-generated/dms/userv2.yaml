@@ -1,0 +1,16 @@
+apiVersion: dms.crossplane.io/v1alpha1
+kind: UserV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dms/v1alpha1/userv2
+  labels:
+    testing.upbound.io/example-name: user_1
+  name: user-1
+spec:
+  forProvider:
+    instanceId: ${instance_id}
+    passwordSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system
+    username: Test-user

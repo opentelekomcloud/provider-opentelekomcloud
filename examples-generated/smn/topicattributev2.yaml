@@ -1,0 +1,48 @@
+apiVersion: smn.crossplane.io/v1alpha1
+kind: TopicAttributeV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: smn/v1alpha1/topicattributev2
+  labels:
+    testing.upbound.io/example-name: attribute_1
+  name: attribute-1
+spec:
+  forProvider:
+    attributeName: access_policy
+    topicAttribute: |
+      {
+        "Version": "2016-09-07",
+        "Id": "__default_policy_ID",
+        "Statement": [
+          {
+            "Sid": "__service_pub_0",
+            "Effect": "Allow",
+            "Principal": {
+              "Service": [
+                "OBS"
+              ]
+            },
+            "Action": [
+              "SMN:Publish",
+              "SMN:QueryTopicDetail"
+            ],
+            "Resource": "${opentelekomcloud_smn_topic_v2.topic_1.topic_urn}"
+          }
+        ]
+      }
+    topicUrn: ${opentelekomcloud_smn_topic_v2.topic_1.topic_urn}
+
+---
+
+apiVersion: smn.crossplane.io/v1alpha1
+kind: TopicV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: smn/v1alpha1/topicattributev2
+  labels:
+    testing.upbound.io/example-name: topic_1
+  name: topic-1
+spec:
+  forProvider:
+    displayName: The display name of topic_1
+    name: topic_1

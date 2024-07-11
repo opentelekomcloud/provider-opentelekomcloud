@@ -1,0 +1,63 @@
+apiVersion: vpc.crossplane.io/v1alpha1
+kind: PeeringConnectionAccepterV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/peeringconnectionaccepterv2
+  labels:
+    testing.upbound.io/example-name: peer
+  name: peer
+spec:
+  forProvider:
+    accept: true
+    provider: opentelekomcloud.peer
+    vpcPeeringConnectionId: ${opentelekomcloud_vpc_peering_connection_v2.peering.id}
+
+---
+
+apiVersion: vpc.crossplane.io/v1alpha1
+kind: PeeringConnectionV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/peeringconnectionaccepterv2
+  labels:
+    testing.upbound.io/example-name: peering
+  name: peering
+spec:
+  forProvider:
+    name: ${var.peer_name}
+    peerTenantId: ${var.tenant_id}
+    peerVpcId: ${opentelekomcloud_vpc_v1.vpc_peer.id}
+    provider: opentelekomcloud.main
+    vpcId: ${opentelekomcloud_vpc_v1.vpc_main.id}
+
+---
+
+apiVersion: vpc.crossplane.io/v1alpha1
+kind: V1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/peeringconnectionaccepterv2
+  labels:
+    testing.upbound.io/example-name: vpc_main
+  name: vpc-main
+spec:
+  forProvider:
+    cidr: ${var.vpc_cidr}
+    name: ${var.vpc_name}
+    provider: opentelekomcloud.main
+
+---
+
+apiVersion: vpc.crossplane.io/v1alpha1
+kind: V1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/peeringconnectionaccepterv2
+  labels:
+    testing.upbound.io/example-name: vpc_peer
+  name: vpc-peer
+spec:
+  forProvider:
+    cidr: ${var.peer_vpc_cidr}
+    name: ${var.peer_vpc_name}
+    provider: opentelekomcloud.peer

@@ -1,0 +1,61 @@
+apiVersion: identity.crossplane.io/v1alpha1
+kind: UserGroupMembershipV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: identity/v1alpha1/usergroupmembershipv3
+  labels:
+    testing.upbound.io/example-name: membership_1
+  name: membership-1
+spec:
+  forProvider:
+    groups:
+    - ${opentelekomcloud_identity_group_v3.group_1.id}
+    - ${opentelekomcloud_identity_group_v3.group_2.id}
+    user: ${opentelekomcloud_identity_user_v3.user_1.id}
+
+---
+
+apiVersion: identity.crossplane.io/v1alpha1
+kind: GroupV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: identity/v1alpha1/usergroupmembershipv3
+  labels:
+    testing.upbound.io/example-name: group_1
+  name: group-1
+spec:
+  forProvider:
+    name: group-1
+
+---
+
+apiVersion: identity.crossplane.io/v1alpha1
+kind: GroupV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: identity/v1alpha1/usergroupmembershipv3
+  labels:
+    testing.upbound.io/example-name: group_2
+  name: group-2
+spec:
+  forProvider:
+    name: group-2
+
+---
+
+apiVersion: identity.crossplane.io/v1alpha1
+kind: UserV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: identity/v1alpha1/usergroupmembershipv3
+  labels:
+    testing.upbound.io/example-name: user_1
+  name: user-1
+spec:
+  forProvider:
+    enabled: true
+    name: user-1
+    passwordSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system

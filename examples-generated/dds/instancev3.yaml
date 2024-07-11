@@ -1,0 +1,33 @@
+apiVersion: dds.crossplane.io/v1alpha1
+kind: InstanceV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dds/v1alpha1/instancev3
+  labels:
+    testing.upbound.io/example-name: instance
+  name: instance
+spec:
+  forProvider:
+    availabilityZone: ${var.availability_zone}
+    datastore:
+    - storageEngine: wiredTiger
+      type: DDS-Community
+      version: "3.4"
+    flavor:
+    - num: 1
+      size: 30
+      specCode: dds.mongodb.s2.medium.4.repset
+      storage: ULTRAHIGH
+      type: replica
+    mode: ReplicaSet
+    name: dds-instance
+    passwordSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system
+    securityGroupId: ${var.security_group_id}
+    subnetId: ${var.subnet_id}
+    tags:
+      foo: bar
+      new_test: new_test2
+    vpcId: ${var.vpc_id}

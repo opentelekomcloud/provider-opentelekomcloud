@@ -1,0 +1,13 @@
+apiVersion: vpc.crossplane.io/v1alpha1
+kind: PeeringConnectionV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/peeringconnectionv2
+  labels:
+    testing.upbound.io/example-name: peering
+  name: peering
+spec:
+  forProvider:
+    name: ${var.peer_conn_name}
+    peerVpcId: ${var.accepter_vpc_id}
+    vpcId: ${var.vpc_id}

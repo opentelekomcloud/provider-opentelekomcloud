@@ -1,0 +1,19 @@
+apiVersion: cce.crossplane.io/v1alpha1
+kind: ClusterV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cce/v1alpha1/clusterv3
+  labels:
+    testing.upbound.io/example-name: cluster_1
+  name: cluster-1
+spec:
+  forProvider:
+    authenticationMode: rbac
+    clusterType: VirtualMachine
+    containerNetworkType: overlay_l2
+    description: Create cluster
+    flavorId: ${var.flavor_id}
+    kubeProxyMode: ipvs
+    name: cluster
+    subnetId: ${var.subnet_id}
+    vpcId: ${var.vpc_id}

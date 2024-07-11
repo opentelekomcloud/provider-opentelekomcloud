@@ -1,0 +1,80 @@
+apiVersion: networking.crossplane.io/v1alpha1
+kind: VipV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: networking/v1alpha1/vipv2
+  labels:
+    testing.upbound.io/example-name: vip_1
+  name: vip-1
+spec:
+  forProvider:
+    networkId: ${opentelekomcloud_networking_network_v2.network_1.id}
+    subnetId: ${opentelekomcloud_networking_subnet_v2.subnet_1.id}
+
+---
+
+apiVersion: networking.crossplane.io/v1alpha1
+kind: NetworkV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: networking/v1alpha1/vipv2
+  labels:
+    testing.upbound.io/example-name: network_1
+  name: network-1
+spec:
+  forProvider:
+    adminStateUp: "true"
+    name: network_1
+
+---
+
+apiVersion: networking.crossplane.io/v1alpha1
+kind: RouterInterfaceV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: networking/v1alpha1/vipv2
+  labels:
+    testing.upbound.io/example-name: router_interface_1
+  name: router-interface-1
+spec:
+  forProvider:
+    routerIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: router_1
+    subnetIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: subnet_1
+
+---
+
+apiVersion: networking.crossplane.io/v1alpha1
+kind: RouterV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: networking/v1alpha1/vipv2
+  labels:
+    testing.upbound.io/example-name: router_1
+  name: router-1
+spec:
+  forProvider:
+    externalGateway: 0a2228f2-7f8a-45f1-8e09-9039e1d09975
+    name: router_1
+
+---
+
+apiVersion: networking.crossplane.io/v1alpha1
+kind: SubnetV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: networking/v1alpha1/vipv2
+  labels:
+    testing.upbound.io/example-name: subnet_1
+  name: subnet-1
+spec:
+  forProvider:
+    cidr: 192.168.199.0/24
+    ipVersion: 4
+    name: subnet_1
+    networkIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: network_1

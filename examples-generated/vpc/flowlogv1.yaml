@@ -1,0 +1,32 @@
+apiVersion: vpc.crossplane.io/v1alpha1
+kind: FlowLogV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/flowlogv1
+  labels:
+    testing.upbound.io/example-name: flowlog1
+  name: flowlog1
+spec:
+  forProvider:
+    description: ${var.flow_log_desc}
+    logGroupId: ${opentelekomcloud_logtank_group_v2.log_group1.id}
+    logTopicId: ${opentelekomcloud_logtank_topic_v2.log_topic1.id}
+    name: ${var.flow_log_name}
+    resourceId: ${opentelekomcloud_vpc_v1.vpc_v1.id}
+    resourceType: vpc
+    trafficType: all
+
+---
+
+apiVersion: vpc.crossplane.io/v1alpha1
+kind: V1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/flowlogv1
+  labels:
+    testing.upbound.io/example-name: vpc_v1
+  name: vpc-v1
+spec:
+  forProvider:
+    cidr: ${var.vpc_cidr}
+    name: ${var.vpc_name}

@@ -1,0 +1,13 @@
+apiVersion: identity.crossplane.io/v1alpha1
+kind: ProviderV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: identity/v1alpha1/providerv3
+  labels:
+    testing.upbound.io/example-name: provider
+  name: provider
+spec:
+  forProvider:
+    description: This is simple identity provider
+    enabled: true
+    name: ACME

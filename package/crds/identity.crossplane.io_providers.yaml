@@ -1,0 +1,591 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.13.0
+  name: providers.identity.crossplane.io
+spec:
+  group: identity.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - opentelekomcloud
+    kind: Provider
+    listKind: ProviderList
+    plural: providers
+    singular: provider
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: Provider is the Schema for the Providers API. Manages a IAM Provider
+          resource within OpenTelekomCloud.
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: ProviderSpec defines the desired state of Provider
+            properties:
+              deletionPolicy:
+                default: Delete
+                description: 'DeletionPolicy specifies what will happen to the underlying
+                  external when this managed resource is deleted - either "Delete"
+                  or "Orphan" the external resource. This field is planned to be deprecated
+                  in favor of the ManagementPolicies field in a future release. Currently,
+                  both could be set independently and non-default values would be
+                  honored if the feature flag is enabled. See the design doc for more
+                  information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223'
+                enum:
+                - Orphan
+                - Delete
+                type: string
+              forProvider:
+                properties:
+                  accessConfig:
+                    description: Specifies the description of the identity provider.
+                      This field is required only if the protocol is set to oidc.
+                    items:
+                      properties:
+                        accessType:
+                          description: 'Specifies the access type of the identity
+                            provider. Available options are:'
+                          type: string
+                        authorizationEndpoint:
+                          description: Specifies the authorization endpoint of the
+                            OpenID Connect identity provider. This field is required
+                            only if the access type is set to program_console.
+                          type: string
+                        clientId:
+                          description: Specifies the ID of a client registered with
+                            the OpenID Connect identity provider.
+                          type: string
+                        providerUrl:
+                          description: Specifies the URL of the identity provider.
+                            This field corresponds to the iss field in the ID token.
+                          type: string
+                        responseMode:
+                          description: Response mode. Valid values is form_post and
+                            fragment, default value is form_post. This field is required
+                            only if the access type is set to program_console.
+                          type: string
+                        responseType:
+                          description: Response type. Valid values is id_token, default
+                            value is id_token. This field is required only if the
+                            access type is set to program_console.
+                          type: string
+                        scopes:
+                          description: Specifies the scopes of authorization requests.
+                            It is an array of one or more scopes. Valid values are
+                            openid, email, profile and other values defined by you.
+                            This field is required only if the access type is set
+                            to program_console.
+                          items:
+                            type: string
+                          type: array
+                        signingKey:
+                          description: Public key used to sign the ID token of the
+                            OpenID Connect identity provider. This field is required
+                            only if the protocol is set to oidc.
+                          type: string
+                      type: object
+                    type: array
+                  description:
+                    description: Specifies the description of the identity provider.
+                    type: string
+                  mappingRules:
+                    description: Rules used to map federated users to local users.
+                      Details on mapping_rules are available in this link under rules
+                      section.
+                    type: string
+                  metadata:
+                    description: Specifies the metadata of the IDP(Identity Provider)
+                      server. This field is used to import a metadata file to IAM
+                      to implement federated identity authentication. This field is
+                      required only if the protocol is set to saml. The maximum length
+                      is 30,000 characters and it stores in the state with SHA1 algorithm.
+                    type: string
+                  name:
+                    description: Specifies the name of the identity provider to be
+                      registered. The maximum length is 64 characters. Only letters,
+                      digits, underscores (_), and hyphens (-) are allowed. The name
+                      is unique, it is recommended to include domain name information.
+                      Changing this creates a new resource.
+                    type: string
+                  protocol:
+                    description: Specifies the protocol of the identity provider.
+                      Valid values are saml and oidc.
+                    type: string
+                  status:
+                    description: 'Enabled status for the identity provider. Default:
+                      true.'
+                    type: boolean
+                type: object
+              initProvider:
+                description: THIS IS A BETA FIELD. It will be honored unless the Management
+                  Policies feature flag is disabled. InitProvider holds the same fields
+                  as ForProvider, with the exception of Identifier and other resource
+                  reference fields. The fields that are in InitProvider are merged
+                  into ForProvider when the resource is created. The same fields are
+                  also added to the terraform ignore_changes hook, to avoid updating
+                  them after creation. This is useful for fields that are required
+                  on creation, but we do not desire to update them after creation,
+                  for example because of an external controller is managing them,
+                  like an autoscaler.
+                properties:
+                  accessConfig:
+                    description: Specifies the description of the identity provider.
+                      This field is required only if the protocol is set to oidc.
+                    items:
+                      properties:
+                        accessType:
+                          description: 'Specifies the access type of the identity
+                            provider. Available options are:'
+                          type: string
+                        authorizationEndpoint:
+                          description: Specifies the authorization endpoint of the
+                            OpenID Connect identity provider. This field is required
+                            only if the access type is set to program_console.
+                          type: string
+                        clientId:
+                          description: Specifies the ID of a client registered with
+                            the OpenID Connect identity provider.
+                          type: string
+                        providerUrl:
+                          description: Specifies the URL of the identity provider.
+                            This field corresponds to the iss field in the ID token.
+                          type: string
+                        responseMode:
+                          description: Response mode. Valid values is form_post and
+                            fragment, default value is form_post. This field is required
+                            only if the access type is set to program_console.
+                          type: string
+                        responseType:
+                          description: Response type. Valid values is id_token, default
+                            value is id_token. This field is required only if the
+                            access type is set to program_console.
+                          type: string
+                        scopes:
+                          description: Specifies the scopes of authorization requests.
+                            It is an array of one or more scopes. Valid values are
+                            openid, email, profile and other values defined by you.
+                            This field is required only if the access type is set
+                            to program_console.
+                          items:
+                            type: string
+                          type: array
+                        signingKey:
+                          description: Public key used to sign the ID token of the
+                            OpenID Connect identity provider. This field is required
+                            only if the protocol is set to oidc.
+                          type: string
+                      type: object
+                    type: array
+                  description:
+                    description: Specifies the description of the identity provider.
+                    type: string
+                  mappingRules:
+                    description: Rules used to map federated users to local users.
+                      Details on mapping_rules are available in this link under rules
+                      section.
+                    type: string
+                  metadata:
+                    description: Specifies the metadata of the IDP(Identity Provider)
+                      server. This field is used to import a metadata file to IAM
+                      to implement federated identity authentication. This field is
+                      required only if the protocol is set to saml. The maximum length
+                      is 30,000 characters and it stores in the state with SHA1 algorithm.
+                    type: string
+                  name:
+                    description: Specifies the name of the identity provider to be
+                      registered. The maximum length is 64 characters. Only letters,
+                      digits, underscores (_), and hyphens (-) are allowed. The name
+                      is unique, it is recommended to include domain name information.
+                      Changing this creates a new resource.
+                    type: string
+                  protocol:
+                    description: Specifies the protocol of the identity provider.
+                      Valid values are saml and oidc.
+                    type: string
+                  status:
+                    description: 'Enabled status for the identity provider. Default:
+                      true.'
+                    type: boolean
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: 'THIS IS A BETA FIELD. It is on by default but can be
+                  opted out through a Crossplane feature flag. ManagementPolicies
+                  specify the array of actions Crossplane is allowed to take on the
+                  managed and external resources. This field is planned to replace
+                  the DeletionPolicy field in a future release. Currently, both could
+                  be set independently and non-default values would be honored if
+                  the feature flag is enabled. If both are custom, the DeletionPolicy
+                  field will be ignored. See the design doc for more information:
+                  https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md'
+                items:
+                  description: A ManagementAction represents an action that the Crossplane
+                    controllers can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
+              providerConfigRef:
+                default:
+                  name: default
+                description: ProviderConfigReference specifies how the provider that
+                  will be used to create, observe, update, and delete this managed
+                  resource should be configured.
+                properties:
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                  policy:
+                    description: Policies for referencing.
+                    properties:
+                      resolution:
+                        default: Required
+                        description: Resolution specifies whether resolution of this
+                          reference is required. The default is 'Required', which
+                          means the reconcile will fail if the reference cannot be
+                          resolved. 'Optional' means this reference will be a no-op
+                          if it cannot be resolved.
+                        enum:
+                        - Required
+                        - Optional
+                        type: string
+                      resolve:
+                        description: Resolve specifies when this reference should
+                          be resolved. The default is 'IfNotPresent', which will attempt
+                          to resolve the reference only when the corresponding field
+                          is not present. Use 'Always' to resolve the reference on
+                          every reconcile.
+                        enum:
+                        - Always
+                        - IfNotPresent
+                        type: string
+                    type: object
+                required:
+                - name
+                type: object
+              publishConnectionDetailsTo:
+                description: PublishConnectionDetailsTo specifies the connection secret
+                  config which contains a name, metadata and a reference to secret
+                  store config to which any connection details for this managed resource
+                  should be written. Connection details frequently include the endpoint,
+                  username, and password required to connect to the managed resource.
+                properties:
+                  configRef:
+                    default:
+                      name: default
+                    description: SecretStoreConfigRef specifies which secret store
+                      config should be used for this ConnectionSecret.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: Resolution specifies whether resolution of
+                              this reference is required. The default is 'Required',
+                              which means the reconcile will fail if the reference
+                              cannot be resolved. 'Optional' means this reference
+                              will be a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: Resolve specifies when this reference should
+                              be resolved. The default is 'IfNotPresent', which will
+                              attempt to resolve the reference only when the corresponding
+                              field is not present. Use 'Always' to resolve the reference
+                              on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  metadata:
+                    description: Metadata is the metadata for connection secret.
+                    properties:
+                      annotations:
+                        additionalProperties:
+                          type: string
+                        description: Annotations are the annotations to be added to
+                          connection secret. - For Kubernetes secrets, this will be
+                          used as "metadata.annotations". - It is up to Secret Store
+                          implementation for others store types.
+                        type: object
+                      labels:
+                        additionalProperties:
+                          type: string
+                        description: Labels are the labels/tags to be added to connection
+                          secret. - For Kubernetes secrets, this will be used as "metadata.labels".
+                          - It is up to Secret Store implementation for others store
+                          types.
+                        type: object
+                      type:
+                        description: Type is the SecretType for the connection secret.
+                          - Only valid for Kubernetes Secret Stores.
+                        type: string
+                    type: object
+                  name:
+                    description: Name is the name of the connection secret.
+                    type: string
+                required:
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: WriteConnectionSecretToReference specifies the namespace
+                  and name of a Secret to which any connection details for this managed
+                  resource should be written. Connection details frequently include
+                  the endpoint, username, and password required to connect to the
+                  managed resource. This field is planned to be replaced in a future
+                  release in favor of PublishConnectionDetailsTo. Currently, both
+                  could be set independently and connection details would be published
+                  to both without affecting each other.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                  namespace:
+                    description: Namespace of the secret.
+                    type: string
+                required:
+                - name
+                - namespace
+                type: object
+            required:
+            - forProvider
+            type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.name is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
+                || (has(self.initProvider) && has(self.initProvider.name))'
+            - message: spec.forProvider.protocol is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.protocol)
+                || (has(self.initProvider) && has(self.initProvider.protocol))'
+          status:
+            description: ProviderStatus defines the observed state of Provider.
+            properties:
+              atProvider:
+                properties:
+                  accessConfig:
+                    description: Specifies the description of the identity provider.
+                      This field is required only if the protocol is set to oidc.
+                    items:
+                      properties:
+                        accessType:
+                          description: 'Specifies the access type of the identity
+                            provider. Available options are:'
+                          type: string
+                        authorizationEndpoint:
+                          description: Specifies the authorization endpoint of the
+                            OpenID Connect identity provider. This field is required
+                            only if the access type is set to program_console.
+                          type: string
+                        clientId:
+                          description: Specifies the ID of a client registered with
+                            the OpenID Connect identity provider.
+                          type: string
+                        providerUrl:
+                          description: Specifies the URL of the identity provider.
+                            This field corresponds to the iss field in the ID token.
+                          type: string
+                        responseMode:
+                          description: Response mode. Valid values is form_post and
+                            fragment, default value is form_post. This field is required
+                            only if the access type is set to program_console.
+                          type: string
+                        responseType:
+                          description: Response type. Valid values is id_token, default
+                            value is id_token. This field is required only if the
+                            access type is set to program_console.
+                          type: string
+                        scopes:
+                          description: Specifies the scopes of authorization requests.
+                            It is an array of one or more scopes. Valid values are
+                            openid, email, profile and other values defined by you.
+                            This field is required only if the access type is set
+                            to program_console.
+                          items:
+                            type: string
+                          type: array
+                        signingKey:
+                          description: Public key used to sign the ID token of the
+                            OpenID Connect identity provider. This field is required
+                            only if the protocol is set to oidc.
+                          type: string
+                      type: object
+                    type: array
+                  conversionRules:
+                    description: The identity conversion rules of the identity provider.
+                      The structure is documented below.
+                    items:
+                      properties:
+                        local:
+                          description: The federated user information on the cloud
+                            platform.
+                          items:
+                            properties:
+                              group:
+                                description: The user group to which the federated
+                                  user belongs on the cloud platform.
+                                type: string
+                              groups:
+                                description: The user groups to which the federated
+                                  user belongs on the cloud platform.
+                                type: string
+                              username:
+                                description: The name of a federated user on the cloud
+                                  platform.
+                                type: string
+                            type: object
+                          type: array
+                        remote:
+                          description: The description of the identity provider.
+                          items:
+                            properties:
+                              attribute:
+                                description: The attribute in the IDP assertion.
+                                type: string
+                              condition:
+                                description: The condition of conversion rule.
+                                type: string
+                              value:
+                                description: The rule is matched only if the specified
+                                  strings appear in the attribute type.
+                                items:
+                                  type: string
+                                type: array
+                            type: object
+                          type: array
+                      type: object
+                    type: array
+                  description:
+                    description: Specifies the description of the identity provider.
+                    type: string
+                  id:
+                    description: A resource ID in UUID format.
+                    type: string
+                  links:
+                    additionalProperties:
+                      type: string
+                    description: Resource links of an identity mapping.
+                    type: object
+                  loginLink:
+                    description: The login link of the identity provider.
+                    type: string
+                  mappingRules:
+                    description: Rules used to map federated users to local users.
+                      Details on mapping_rules are available in this link under rules
+                      section.
+                    type: string
+                  metadata:
+                    description: Specifies the metadata of the IDP(Identity Provider)
+                      server. This field is used to import a metadata file to IAM
+                      to implement federated identity authentication. This field is
+                      required only if the protocol is set to saml. The maximum length
+                      is 30,000 characters and it stores in the state with SHA1 algorithm.
+                    type: string
+                  name:
+                    description: Specifies the name of the identity provider to be
+                      registered. The maximum length is 64 characters. Only letters,
+                      digits, underscores (_), and hyphens (-) are allowed. The name
+                      is unique, it is recommended to include domain name information.
+                      Changing this creates a new resource.
+                    type: string
+                  protocol:
+                    description: Specifies the protocol of the identity provider.
+                      Valid values are saml and oidc.
+                    type: string
+                  status:
+                    description: 'Enabled status for the identity provider. Default:
+                      true.'
+                    type: boolean
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: LastTransitionTime is the last time this condition
+                        transitioned from one status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: A Message containing details about this condition's
+                        last transition from one status to another, if any.
+                      type: string
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: Type of this condition. At most one of each condition
+                        type may apply to a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

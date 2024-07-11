@@ -1,0 +1,52 @@
+apiVersion: dcs.crossplane.io/v1alpha1
+kind: InstanceV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dcs/v1alpha1/instancev2
+  labels:
+    testing.upbound.io/example-name: instance_1
+  name: instance-1
+spec:
+  forProvider:
+    availabilityZones:
+    - eu-de-01
+    backupPolicy:
+    - backupAt:
+      - 1
+      - 2
+      - 4
+      - 6
+      backupType: manual
+      beginAt: 00:00-01:00
+      periodType: weekly
+      saveDays: 1
+    capacity: 2
+    engine: Redis
+    engineVersion: "3.0"
+    flavor: dcs.master_standby
+    name: test_dcs_instance
+    passwordSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system
+    securityGroupId: ${opentelekomcloud_networking_secgroup_v2.secgroup_1.id}
+    subnetId: ${var.network_id}
+    tags:
+      environment: basic
+      managed_by: terraform
+    vpcId: ${var.vpc_id}
+
+---
+
+apiVersion: networking.crossplane.io/v1alpha1
+kind: SecgroupV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dcs/v1alpha1/instancev2
+  labels:
+    testing.upbound.io/example-name: secgroup_1
+  name: secgroup-1
+spec:
+  forProvider:
+    description: secgroup_1
+    name: secgroup_1

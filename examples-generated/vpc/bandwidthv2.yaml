@@ -1,0 +1,12 @@
+apiVersion: vpc.crossplane.io/v1alpha1
+kind: BandwidthV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/bandwidthv2
+  labels:
+    testing.upbound.io/example-name: band_100mb
+  name: band-100mb
+spec:
+  forProvider:
+    name: shared-100Mbit
+    size: 100

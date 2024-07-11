@@ -1,0 +1,20 @@
+apiVersion: ecs.crossplane.io/v1alpha1
+kind: InstanceV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ecs/v1alpha1/instancev1
+  labels:
+    testing.upbound.io/example-name: basic
+  name: basic
+spec:
+  forProvider:
+    availabilityZone: eu-de-01
+    flavor: s2.large.2
+    imageId: ad091b52-742f-469e-8f3c-fd81cadf0743
+    keyName: KeyPair-test
+    name: server_1
+    nics:
+    - networkId: 55534eaa-533a-419d-9b40-ec427ea7195a
+    tags:
+      muh: kuh
+    vpcId: 8eed4fc7-e5e5-44a2-b5f2-23b3e5d46235

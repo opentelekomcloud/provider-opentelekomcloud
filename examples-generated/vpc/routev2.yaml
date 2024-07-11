@@ -1,0 +1,14 @@
+apiVersion: vpc.crossplane.io/v1alpha1
+kind: RouteV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/routev2
+  labels:
+    testing.upbound.io/example-name: vpc_route
+  name: vpc-route
+spec:
+  forProvider:
+    destination: 192.168.0.0/16
+    nexthop: ${var.nexthop}
+    type: peering
+    vpcId: ${var.vpc_id}

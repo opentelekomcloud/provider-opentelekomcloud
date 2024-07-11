@@ -1,0 +1,1009 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.13.0
+  name: instancev2s.dcs.crossplane.io
+spec:
+  group: dcs.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - opentelekomcloud
+    kind: InstanceV2
+    listKind: InstanceV2List
+    plural: instancev2s
+    singular: instancev2
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: InstanceV2 is the Schema for the InstanceV2s API. Manages a DCS
+          Instance v2 resource within OpenTelekomCloud.
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: InstanceV2Spec defines the desired state of InstanceV2
+            properties:
+              deletionPolicy:
+                default: Delete
+                description: 'DeletionPolicy specifies what will happen to the underlying
+                  external when this managed resource is deleted - either "Delete"
+                  or "Orphan" the external resource. This field is planned to be deprecated
+                  in favor of the ManagementPolicies field in a future release. Currently,
+                  both could be set independently and non-default values would be
+                  honored if the feature flag is enabled. See the design doc for more
+                  information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223'
+                enum:
+                - Orphan
+                - Delete
+                type: string
+              forProvider:
+                properties:
+                  accessUser:
+                    description: Specifies the username used for accessing a DCS instance.
+                      The username starts with a letter, consists of 1 to 64 characters,
+                      and supports only letters, digits, and hyphens (-). Changing
+                      this creates a new instance.
+                    type: string
+                  availabilityZones:
+                    description: The code of the AZ where the cache node resides.
+                      Master/Standby, Proxy Cluster, and Redis Cluster DCS instances
+                      support cross-AZ deployment. You can specify an AZ for the standby
+                      node. When specifying AZs for nodes, use commas (,) to separate
+                      AZs. Changing this creates a new instance.
+                    items:
+                      type: string
+                    type: array
+                  backupPolicy:
+                    description: Specifies the backup configuration to be used with
+                      the instance. The structure is described below.
+                    items:
+                      properties:
+                        backupAt:
+                          description: 'Day in a week on which backup starts, the
+                            value ranges from 1 to 7. Where: 1 indicates Monday; 7
+                            indicates Sunday.'
+                          items:
+                            type: number
+                          type: array
+                        backupType:
+                          description: 'Backup type. Default value is auto. The valid
+                            values are as follows:'
+                          type: string
+                        beginAt:
+                          description: 'Time at which backup starts. Format: hh24:00-hh24:00,
+                            "00:00-01:00" indicates that backup starts at 00:00:00.'
+                          type: string
+                        periodType:
+                          description: Interval at which backup is performed. Default
+                            value is weekly. Currently, only weekly backup is supported.
+                          type: string
+                        saveDays:
+                          description: 'Retention time. Unit: day, the value ranges
+                            from 1 to 7. This parameter is required if the backup_type
+                            is auto.'
+                          type: number
+                      type: object
+                    type: array
+                  capacity:
+                    description: 'Specifies the cache capacity. Unit: GB.'
+                    type: number
+                  deletedNodes:
+                    description: Specifies the ID of the replica to delete. This parameter
+                      is mandatory when you delete replicas of a master/standby DCS
+                      Redis 4.0 or 5.0 instance. Currently, only one replica can be
+                      deleted at a time.
+                    items:
+                      type: string
+                    type: array
+                  description:
+                    description: Specifies the description of an instance. It is a
+                      string that contains a maximum of 1024 characters.
+                    type: string
+                  enableWhitelist:
+                    description: Enable or disable the IP address whitelists. Defaults
+                      to true. If the whitelist is disabled, all IP addresses connected
+                      to the VPC can access the instance.
+                    type: boolean
+                  engine:
+                    description: 'Specifies a cache engine. Options: Redis and Memcached.
+                      Changing this creates a new instance.'
+                    type: string
+                  engineVersion:
+                    description: Specifies the version of a cache engine. It is mandatory
+                      when the engine is Redis, the value can be 3.0, 4.0, 5.0 or
+                      6.0. Changing this creates a new instance.
+                    type: string
+                  flavor:
+                    description: 'The flavor of the cache instance, which including
+                      the total memory, available memory, maximum number of connections
+                      allowed, maximum/assured bandwidth and reference performance.
+                      It also includes the modes of Redis instances. You can query
+                      the flavor as follows:'
+                    type: string
+                  maintainBegin:
+                    description: Time at which the maintenance time window starts.
+                      Defaults to 02:00:00.
+                    type: string
+                  maintainEnd:
+                    description: Time at which the maintenance time window ends. Defaults
+                      to 06:00:00.
+                    type: string
+                  name:
+                    description: Specifies the name of an instance. The name must
+                      be 4 to 64 characters and start with a letter. Only chinese,
+                      letters (case-insensitive), digits, underscores (_) ,and hyphens
+                      (-) are allowed.
+                    type: string
+                  parameters:
+                    description: Specify an array of one or more parameters to be
+                      set to the DCS instance after launched. You can check on console
+                      to see which parameters supported. The parameters structure
+                      is documented below.
+                    items:
+                      properties:
+                        id:
+                          description: Specifies the ID of the configuration item.
+                          type: string
+                        name:
+                          description: Specifies the name of the configuration item.
+                          type: string
+                        value:
+                          description: Specifies the value of the configuration item.
+                          type: string
+                      type: object
+                    type: array
+                  passwordSecretRef:
+                    description: 'Specifies the password of a DCS instance. The password
+                      of a DCS instance must meet the following complexity requirements:'
+                    properties:
+                      key:
+                        description: The key to select.
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                      namespace:
+                        description: Namespace of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    - namespace
+                    type: object
+                  port:
+                    description: Port customization, which is supported only by Redis
+                      4.0 and Redis 5.0 instances. Redis instance defaults to 6379.
+                      Memcached instance does not use this argument.
+                    type: number
+                  privateIp:
+                    description: The IP address of the DCS instance, which can only
+                      be the currently available IP address the selected subnet. You
+                      can specify an available IP for the Redis instance (except for
+                      the Redis Cluster type). If omitted, the system will automatically
+                      allocate an available IP address to the Redis instance. Changing
+                      this creates a new instance resource.
+                    type: string
+                  renameCommands:
+                    additionalProperties:
+                      type: string
+                    description: 'Critical command renaming, which is supported only
+                      by Redis 4.0 and Redis 5.0 instances but not by Redis 3.0 instance.
+                      The valid commands that can be renamed are: command, keys, flushdb,
+                      flushall and hgetall.'
+                    type: object
+                  reservedIps:
+                    description: Specifies IP addresses to retain. Mandatory during
+                      cluster scale-in. If this parameter is not set, the system randomly
+                      deletes unnecessary shards.
+                    items:
+                      type: string
+                    type: array
+                  securityGroupId:
+                    description: The ID of the security group which the instance belongs
+                      to. This parameter is mandatory for Memcached and Redis 3.0
+                      version.
+                    type: string
+                  sslEnable:
+                    description: 'Specifies whether to enable the SSL. Value options:
+                      true, false.'
+                    type: boolean
+                  subnetId:
+                    description: The ID of subnet which the instance belongs to. Changing
+                      this creates a new instance resource.
+                    type: string
+                  tags:
+                    additionalProperties:
+                      type: string
+                    description: The key/value pairs to associate with the dcs instance.
+                    type: object
+                  templateId:
+                    description: The Parameter Template ID. Changing this creates
+                      a new instance resource.
+                    type: string
+                  vpcId:
+                    description: The ID of VPC which the instance belongs to. Changing
+                      this creates a new instance resource.
+                    type: string
+                  whitelist:
+                    description: Specifies the IP addresses which can access the instance.
+                      This parameter is valid for Redis 4.0 and 5.0 versions. The
+                      structure is described below.
+                    items:
+                      properties:
+                        groupName:
+                          description: Specifies the name of IP address group.
+                          type: string
+                        ipList:
+                          description: Specifies the list of IP address or CIDR which
+                            can be whitelisted for an instance. The maximum is 20.
+                          items:
+                            type: string
+                          type: array
+                      type: object
+                    type: array
+                type: object
+              initProvider:
+                description: THIS IS A BETA FIELD. It will be honored unless the Management
+                  Policies feature flag is disabled. InitProvider holds the same fields
+                  as ForProvider, with the exception of Identifier and other resource
+                  reference fields. The fields that are in InitProvider are merged
+                  into ForProvider when the resource is created. The same fields are
+                  also added to the terraform ignore_changes hook, to avoid updating
+                  them after creation. This is useful for fields that are required
+                  on creation, but we do not desire to update them after creation,
+                  for example because of an external controller is managing them,
+                  like an autoscaler.
+                properties:
+                  accessUser:
+                    description: Specifies the username used for accessing a DCS instance.
+                      The username starts with a letter, consists of 1 to 64 characters,
+                      and supports only letters, digits, and hyphens (-). Changing
+                      this creates a new instance.
+                    type: string
+                  availabilityZones:
+                    description: The code of the AZ where the cache node resides.
+                      Master/Standby, Proxy Cluster, and Redis Cluster DCS instances
+                      support cross-AZ deployment. You can specify an AZ for the standby
+                      node. When specifying AZs for nodes, use commas (,) to separate
+                      AZs. Changing this creates a new instance.
+                    items:
+                      type: string
+                    type: array
+                  backupPolicy:
+                    description: Specifies the backup configuration to be used with
+                      the instance. The structure is described below.
+                    items:
+                      properties:
+                        backupAt:
+                          description: 'Day in a week on which backup starts, the
+                            value ranges from 1 to 7. Where: 1 indicates Monday; 7
+                            indicates Sunday.'
+                          items:
+                            type: number
+                          type: array
+                        backupType:
+                          description: 'Backup type. Default value is auto. The valid
+                            values are as follows:'
+                          type: string
+                        beginAt:
+                          description: 'Time at which backup starts. Format: hh24:00-hh24:00,
+                            "00:00-01:00" indicates that backup starts at 00:00:00.'
+                          type: string
+                        periodType:
+                          description: Interval at which backup is performed. Default
+                            value is weekly. Currently, only weekly backup is supported.
+                          type: string
+                        saveDays:
+                          description: 'Retention time. Unit: day, the value ranges
+                            from 1 to 7. This parameter is required if the backup_type
+                            is auto.'
+                          type: number
+                      type: object
+                    type: array
+                  capacity:
+                    description: 'Specifies the cache capacity. Unit: GB.'
+                    type: number
+                  deletedNodes:
+                    description: Specifies the ID of the replica to delete. This parameter
+                      is mandatory when you delete replicas of a master/standby DCS
+                      Redis 4.0 or 5.0 instance. Currently, only one replica can be
+                      deleted at a time.
+                    items:
+                      type: string
+                    type: array
+                  description:
+                    description: Specifies the description of an instance. It is a
+                      string that contains a maximum of 1024 characters.
+                    type: string
+                  enableWhitelist:
+                    description: Enable or disable the IP address whitelists. Defaults
+                      to true. If the whitelist is disabled, all IP addresses connected
+                      to the VPC can access the instance.
+                    type: boolean
+                  engine:
+                    description: 'Specifies a cache engine. Options: Redis and Memcached.
+                      Changing this creates a new instance.'
+                    type: string
+                  engineVersion:
+                    description: Specifies the version of a cache engine. It is mandatory
+                      when the engine is Redis, the value can be 3.0, 4.0, 5.0 or
+                      6.0. Changing this creates a new instance.
+                    type: string
+                  flavor:
+                    description: 'The flavor of the cache instance, which including
+                      the total memory, available memory, maximum number of connections
+                      allowed, maximum/assured bandwidth and reference performance.
+                      It also includes the modes of Redis instances. You can query
+                      the flavor as follows:'
+                    type: string
+                  maintainBegin:
+                    description: Time at which the maintenance time window starts.
+                      Defaults to 02:00:00.
+                    type: string
+                  maintainEnd:
+                    description: Time at which the maintenance time window ends. Defaults
+                      to 06:00:00.
+                    type: string
+                  name:
+                    description: Specifies the name of an instance. The name must
+                      be 4 to 64 characters and start with a letter. Only chinese,
+                      letters (case-insensitive), digits, underscores (_) ,and hyphens
+                      (-) are allowed.
+                    type: string
+                  parameters:
+                    description: Specify an array of one or more parameters to be
+                      set to the DCS instance after launched. You can check on console
+                      to see which parameters supported. The parameters structure
+                      is documented below.
+                    items:
+                      properties:
+                        id:
+                          description: Specifies the ID of the configuration item.
+                          type: string
+                        name:
+                          description: Specifies the name of the configuration item.
+                          type: string
+                        value:
+                          description: Specifies the value of the configuration item.
+                          type: string
+                      type: object
+                    type: array
+                  port:
+                    description: Port customization, which is supported only by Redis
+                      4.0 and Redis 5.0 instances. Redis instance defaults to 6379.
+                      Memcached instance does not use this argument.
+                    type: number
+                  privateIp:
+                    description: The IP address of the DCS instance, which can only
+                      be the currently available IP address the selected subnet. You
+                      can specify an available IP for the Redis instance (except for
+                      the Redis Cluster type). If omitted, the system will automatically
+                      allocate an available IP address to the Redis instance. Changing
+                      this creates a new instance resource.
+                    type: string
+                  renameCommands:
+                    additionalProperties:
+                      type: string
+                    description: 'Critical command renaming, which is supported only
+                      by Redis 4.0 and Redis 5.0 instances but not by Redis 3.0 instance.
+                      The valid commands that can be renamed are: command, keys, flushdb,
+                      flushall and hgetall.'
+                    type: object
+                  reservedIps:
+                    description: Specifies IP addresses to retain. Mandatory during
+                      cluster scale-in. If this parameter is not set, the system randomly
+                      deletes unnecessary shards.
+                    items:
+                      type: string
+                    type: array
+                  securityGroupId:
+                    description: The ID of the security group which the instance belongs
+                      to. This parameter is mandatory for Memcached and Redis 3.0
+                      version.
+                    type: string
+                  sslEnable:
+                    description: 'Specifies whether to enable the SSL. Value options:
+                      true, false.'
+                    type: boolean
+                  subnetId:
+                    description: The ID of subnet which the instance belongs to. Changing
+                      this creates a new instance resource.
+                    type: string
+                  tags:
+                    additionalProperties:
+                      type: string
+                    description: The key/value pairs to associate with the dcs instance.
+                    type: object
+                  templateId:
+                    description: The Parameter Template ID. Changing this creates
+                      a new instance resource.
+                    type: string
+                  vpcId:
+                    description: The ID of VPC which the instance belongs to. Changing
+                      this creates a new instance resource.
+                    type: string
+                  whitelist:
+                    description: Specifies the IP addresses which can access the instance.
+                      This parameter is valid for Redis 4.0 and 5.0 versions. The
+                      structure is described below.
+                    items:
+                      properties:
+                        groupName:
+                          description: Specifies the name of IP address group.
+                          type: string
+                        ipList:
+                          description: Specifies the list of IP address or CIDR which
+                            can be whitelisted for an instance. The maximum is 20.
+                          items:
+                            type: string
+                          type: array
+                      type: object
+                    type: array
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: 'THIS IS A BETA FIELD. It is on by default but can be
+                  opted out through a Crossplane feature flag. ManagementPolicies
+                  specify the array of actions Crossplane is allowed to take on the
+                  managed and external resources. This field is planned to replace
+                  the DeletionPolicy field in a future release. Currently, both could
+                  be set independently and non-default values would be honored if
+                  the feature flag is enabled. If both are custom, the DeletionPolicy
+                  field will be ignored. See the design doc for more information:
+                  https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md'
+                items:
+                  description: A ManagementAction represents an action that the Crossplane
+                    controllers can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
+              providerConfigRef:
+                default:
+                  name: default
+                description: ProviderConfigReference specifies how the provider that
+                  will be used to create, observe, update, and delete this managed
+                  resource should be configured.
+                properties:
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                  policy:
+                    description: Policies for referencing.
+                    properties:
+                      resolution:
+                        default: Required
+                        description: Resolution specifies whether resolution of this
+                          reference is required. The default is 'Required', which
+                          means the reconcile will fail if the reference cannot be
+                          resolved. 'Optional' means this reference will be a no-op
+                          if it cannot be resolved.
+                        enum:
+                        - Required
+                        - Optional
+                        type: string
+                      resolve:
+                        description: Resolve specifies when this reference should
+                          be resolved. The default is 'IfNotPresent', which will attempt
+                          to resolve the reference only when the corresponding field
+                          is not present. Use 'Always' to resolve the reference on
+                          every reconcile.
+                        enum:
+                        - Always
+                        - IfNotPresent
+                        type: string
+                    type: object
+                required:
+                - name
+                type: object
+              publishConnectionDetailsTo:
+                description: PublishConnectionDetailsTo specifies the connection secret
+                  config which contains a name, metadata and a reference to secret
+                  store config to which any connection details for this managed resource
+                  should be written. Connection details frequently include the endpoint,
+                  username, and password required to connect to the managed resource.
+                properties:
+                  configRef:
+                    default:
+                      name: default
+                    description: SecretStoreConfigRef specifies which secret store
+                      config should be used for this ConnectionSecret.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: Resolution specifies whether resolution of
+                              this reference is required. The default is 'Required',
+                              which means the reconcile will fail if the reference
+                              cannot be resolved. 'Optional' means this reference
+                              will be a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: Resolve specifies when this reference should
+                              be resolved. The default is 'IfNotPresent', which will
+                              attempt to resolve the reference only when the corresponding
+                              field is not present. Use 'Always' to resolve the reference
+                              on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  metadata:
+                    description: Metadata is the metadata for connection secret.
+                    properties:
+                      annotations:
+                        additionalProperties:
+                          type: string
+                        description: Annotations are the annotations to be added to
+                          connection secret. - For Kubernetes secrets, this will be
+                          used as "metadata.annotations". - It is up to Secret Store
+                          implementation for others store types.
+                        type: object
+                      labels:
+                        additionalProperties:
+                          type: string
+                        description: Labels are the labels/tags to be added to connection
+                          secret. - For Kubernetes secrets, this will be used as "metadata.labels".
+                          - It is up to Secret Store implementation for others store
+                          types.
+                        type: object
+                      type:
+                        description: Type is the SecretType for the connection secret.
+                          - Only valid for Kubernetes Secret Stores.
+                        type: string
+                    type: object
+                  name:
+                    description: Name is the name of the connection secret.
+                    type: string
+                required:
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: WriteConnectionSecretToReference specifies the namespace
+                  and name of a Secret to which any connection details for this managed
+                  resource should be written. Connection details frequently include
+                  the endpoint, username, and password required to connect to the
+                  managed resource. This field is planned to be replaced in a future
+                  release in favor of PublishConnectionDetailsTo. Currently, both
+                  could be set independently and connection details would be published
+                  to both without affecting each other.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                  namespace:
+                    description: Namespace of the secret.
+                    type: string
+                required:
+                - name
+                - namespace
+                type: object
+            required:
+            - forProvider
+            type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.availabilityZones is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.availabilityZones)
+                || (has(self.initProvider) && has(self.initProvider.availabilityZones))'
+            - message: spec.forProvider.capacity is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.capacity)
+                || (has(self.initProvider) && has(self.initProvider.capacity))'
+            - message: spec.forProvider.engine is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.engine)
+                || (has(self.initProvider) && has(self.initProvider.engine))'
+            - message: spec.forProvider.flavor is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.flavor)
+                || (has(self.initProvider) && has(self.initProvider.flavor))'
+            - message: spec.forProvider.name is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
+                || (has(self.initProvider) && has(self.initProvider.name))'
+            - message: spec.forProvider.subnetId is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.subnetId)
+                || (has(self.initProvider) && has(self.initProvider.subnetId))'
+            - message: spec.forProvider.vpcId is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.vpcId)
+                || (has(self.initProvider) && has(self.initProvider.vpcId))'
+          status:
+            description: InstanceV2Status defines the observed state of InstanceV2.
+            properties:
+              atProvider:
+                properties:
+                  accessUser:
+                    description: Specifies the username used for accessing a DCS instance.
+                      The username starts with a letter, consists of 1 to 64 characters,
+                      and supports only letters, digits, and hyphens (-). Changing
+                      this creates a new instance.
+                    type: string
+                  availabilityZones:
+                    description: The code of the AZ where the cache node resides.
+                      Master/Standby, Proxy Cluster, and Redis Cluster DCS instances
+                      support cross-AZ deployment. You can specify an AZ for the standby
+                      node. When specifying AZs for nodes, use commas (,) to separate
+                      AZs. Changing this creates a new instance.
+                    items:
+                      type: string
+                    type: array
+                  backupPolicy:
+                    description: Specifies the backup configuration to be used with
+                      the instance. The structure is described below.
+                    items:
+                      properties:
+                        backupAt:
+                          description: 'Day in a week on which backup starts, the
+                            value ranges from 1 to 7. Where: 1 indicates Monday; 7
+                            indicates Sunday.'
+                          items:
+                            type: number
+                          type: array
+                        backupType:
+                          description: 'Backup type. Default value is auto. The valid
+                            values are as follows:'
+                          type: string
+                        beginAt:
+                          description: 'Time at which backup starts. Format: hh24:00-hh24:00,
+                            "00:00-01:00" indicates that backup starts at 00:00:00.'
+                          type: string
+                        periodType:
+                          description: Interval at which backup is performed. Default
+                            value is weekly. Currently, only weekly backup is supported.
+                          type: string
+                        saveDays:
+                          description: 'Retention time. Unit: day, the value ranges
+                            from 1 to 7. This parameter is required if the backup_type
+                            is auto.'
+                          type: number
+                      type: object
+                    type: array
+                  bandwidthInfo:
+                    description: Indicates the bandwidth information of the instance.
+                      The bandwidth_info structure is documented below.
+                    items:
+                      properties:
+                        bandwidth:
+                          description: Indicates the bandwidth size, the unit is GB.
+                          type: number
+                        beginTime:
+                          description: Indicates the begin time of temporary increase.
+                          type: string
+                        currentTime:
+                          description: Indicates the current time.
+                          type: string
+                        endTime:
+                          description: Indicates the end time of temporary increase.
+                          type: string
+                        expandCount:
+                          description: Indicates the number of increases.
+                          type: number
+                        expandEffectTime:
+                          description: Indicates the interval between temporary increases,
+                            the unit is ms.
+                          type: number
+                        expandIntervalTime:
+                          description: Indicates the time interval to the next increase,
+                            the unit is ms.
+                          type: number
+                        maxExpandCount:
+                          description: Indicates the maximum number of increases.
+                          type: number
+                        nextExpandTime:
+                          description: Indicates the next increase time.
+                          type: string
+                        taskRunning:
+                          description: Indicates whether the increase task is running.
+                          type: boolean
+                      type: object
+                    type: array
+                  cacheMode:
+                    description: Indicates the instance type. The value can be single,
+                      ha, cluster or proxy.
+                    type: string
+                  capacity:
+                    description: 'Specifies the cache capacity. Unit: GB.'
+                    type: number
+                  cpuType:
+                    description: Indicates the CPU type of the instance. The value
+                      can be x86_64 or aarch64.
+                    type: string
+                  createdAt:
+                    description: Indicates the time when the instance is created,
+                      in RFC3339 format.
+                    type: string
+                  deletedNodes:
+                    description: Specifies the ID of the replica to delete. This parameter
+                      is mandatory when you delete replicas of a master/standby DCS
+                      Redis 4.0 or 5.0 instance. Currently, only one replica can be
+                      deleted at a time.
+                    items:
+                      type: string
+                    type: array
+                  description:
+                    description: Specifies the description of an instance. It is a
+                      string that contains a maximum of 1024 characters.
+                    type: string
+                  domainName:
+                    description: Domain name of the instance. Usually, we use domain
+                      name and port to connect to the DCS instances.
+                    type: string
+                  enableWhitelist:
+                    description: Enable or disable the IP address whitelists. Defaults
+                      to true. If the whitelist is disabled, all IP addresses connected
+                      to the VPC can access the instance.
+                    type: boolean
+                  engine:
+                    description: 'Specifies a cache engine. Options: Redis and Memcached.
+                      Changing this creates a new instance.'
+                    type: string
+                  engineVersion:
+                    description: Specifies the version of a cache engine. It is mandatory
+                      when the engine is Redis, the value can be 3.0, 4.0, 5.0 or
+                      6.0. Changing this creates a new instance.
+                    type: string
+                  flavor:
+                    description: 'The flavor of the cache instance, which including
+                      the total memory, available memory, maximum number of connections
+                      allowed, maximum/assured bandwidth and reference performance.
+                      It also includes the modes of Redis instances. You can query
+                      the flavor as follows:'
+                    type: string
+                  id:
+                    description: A resource ID in UUID format.
+                    type: string
+                  launchedAt:
+                    description: Indicates the time when the instance is started,
+                      in RFC3339 format.
+                    type: string
+                  maintainBegin:
+                    description: Time at which the maintenance time window starts.
+                      Defaults to 02:00:00.
+                    type: string
+                  maintainEnd:
+                    description: Time at which the maintenance time window ends. Defaults
+                      to 06:00:00.
+                    type: string
+                  maxMemory:
+                    description: 'Total memory size. Unit: MB.'
+                    type: number
+                  name:
+                    description: Specifies the name of an instance. The name must
+                      be 4 to 64 characters and start with a letter. Only chinese,
+                      letters (case-insensitive), digits, underscores (_) ,and hyphens
+                      (-) are allowed.
+                    type: string
+                  parameters:
+                    description: Specify an array of one or more parameters to be
+                      set to the DCS instance after launched. You can check on console
+                      to see which parameters supported. The parameters structure
+                      is documented below.
+                    items:
+                      properties:
+                        id:
+                          description: Specifies the ID of the configuration item.
+                          type: string
+                        name:
+                          description: Specifies the name of the configuration item.
+                          type: string
+                        value:
+                          description: Specifies the value of the configuration item.
+                          type: string
+                      type: object
+                    type: array
+                  port:
+                    description: Port customization, which is supported only by Redis
+                      4.0 and Redis 5.0 instances. Redis instance defaults to 6379.
+                      Memcached instance does not use this argument.
+                    type: number
+                  privateIp:
+                    description: The IP address of the DCS instance, which can only
+                      be the currently available IP address the selected subnet. You
+                      can specify an available IP for the Redis instance (except for
+                      the Redis Cluster type). If omitted, the system will automatically
+                      allocate an available IP address to the Redis instance. Changing
+                      this creates a new instance resource.
+                    type: string
+                  productType:
+                    description: 'Indicates the product type of the instance. The
+                      value can be: generic or enterprise.'
+                    type: string
+                  readonlyDomainName:
+                    description: Indicates the read-only domain name of the instance.
+                      This parameter is available only for master/standby instances.
+                    type: string
+                  region:
+                    description: Indicates the region in which DCS instance resource
+                      is created.
+                    type: string
+                  renameCommands:
+                    additionalProperties:
+                      type: string
+                    description: 'Critical command renaming, which is supported only
+                      by Redis 4.0 and Redis 5.0 instances but not by Redis 3.0 instance.
+                      The valid commands that can be renamed are: command, keys, flushdb,
+                      flushall and hgetall.'
+                    type: object
+                  replicaCount:
+                    description: Indicates the number of replicas in the instance.
+                    type: number
+                  reservedIps:
+                    description: Specifies IP addresses to retain. Mandatory during
+                      cluster scale-in. If this parameter is not set, the system randomly
+                      deletes unnecessary shards.
+                    items:
+                      type: string
+                    type: array
+                  securityGroupId:
+                    description: The ID of the security group which the instance belongs
+                      to. This parameter is mandatory for Memcached and Redis 3.0
+                      version.
+                    type: string
+                  securityGroupName:
+                    description: The name of security group which the instance belongs
+                      to.
+                    type: string
+                  shardingCount:
+                    description: Indicates the number of shards in a cluster instance.
+                    type: number
+                  sslEnable:
+                    description: 'Specifies whether to enable the SSL. Value options:
+                      true, false.'
+                    type: boolean
+                  status:
+                    description: 'Cache instance status. The valid values are as follows:'
+                    type: string
+                  subnetCidr:
+                    description: Indicates the subnet segment.
+                    type: string
+                  subnetId:
+                    description: The ID of subnet which the instance belongs to. Changing
+                      this creates a new instance resource.
+                    type: string
+                  subnetName:
+                    description: The name of subnet which the instance belongs to.
+                    type: string
+                  tags:
+                    additionalProperties:
+                      type: string
+                    description: The key/value pairs to associate with the dcs instance.
+                    type: object
+                  templateId:
+                    description: The Parameter Template ID. Changing this creates
+                      a new instance resource.
+                    type: string
+                  transparentClientIpEnable:
+                    description: Indicates whether client IP pass-through is enabled.
+                    type: boolean
+                  usedMemory:
+                    description: 'Size of the used memory. Unit: MB.'
+                    type: number
+                  userId:
+                    description: A resource ID in UUID format.
+                    type: string
+                  userName:
+                    description: Specifies the name of an instance. The name must
+                      be 4 to 64 characters and start with a letter. Only chinese,
+                      letters (case-insensitive), digits, underscores (_) ,and hyphens
+                      (-) are allowed.
+                    type: string
+                  vpcId:
+                    description: The ID of VPC which the instance belongs to. Changing
+                      this creates a new instance resource.
+                    type: string
+                  vpcName:
+                    description: The name of VPC which the instance belongs to.
+                    type: string
+                  whitelist:
+                    description: Specifies the IP addresses which can access the instance.
+                      This parameter is valid for Redis 4.0 and 5.0 versions. The
+                      structure is described below.
+                    items:
+                      properties:
+                        groupName:
+                          description: Specifies the name of IP address group.
+                          type: string
+                        ipList:
+                          description: Specifies the list of IP address or CIDR which
+                            can be whitelisted for an instance. The maximum is 20.
+                          items:
+                            type: string
+                          type: array
+                      type: object
+                    type: array
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: LastTransitionTime is the last time this condition
+                        transitioned from one status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: A Message containing details about this condition's
+                        last transition from one status to another, if any.
+                      type: string
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: Type of this condition. At most one of each condition
+                        type may apply to a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

@@ -1,0 +1,43 @@
+apiVersion: dms.crossplane.io/v1alpha1
+kind: InstanceV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dms/v1alpha1/instancev2
+  labels:
+    testing.upbound.io/example-name: instance_1
+  name: instance-1
+spec:
+  forProvider:
+    accessUser: ${var.access_user}
+    availableZones:
+    - ${data.opentelekomcloud_dms_az_v1.az_1.id}
+    engine: kafka
+    engineVersion: ${data.opentelekomcloud_dms_product_v1.product_1.version}
+    name: kafka-test
+    partitionNum: ${data.opentelekomcloud_dms_product_v1.product_1.partition_num}
+    passwordSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system
+    productId: ${data.opentelekomcloud_dms_product_v1.product_1.id}
+    securityGroupId: ${opentelekomcloud_networking_secgroup_v2.secgroup_1.id}
+    specification: ${data.opentelekomcloud_dms_product_v1.product_1.bandwidth}
+    storageSpace: ${data.opentelekomcloud_dms_product_v1.product_1.storage}
+    storageSpecCode: ${data.opentelekomcloud_dms_product_v1.product_1.storage_spec_code}
+    subnetId: ${var.subnet_id}
+    vpcId: ${var.vpc_id}
+
+---
+
+apiVersion: networking.crossplane.io/v1alpha1
+kind: SecgroupV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dms/v1alpha1/instancev2
+  labels:
+    testing.upbound.io/example-name: secgroup_1
+  name: secgroup-1
+spec:
+  forProvider:
+    description: secgroup_1
+    name: secgroup_1

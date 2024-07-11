@@ -1,0 +1,29 @@
+apiVersion: waf.crossplane.io/v1alpha1
+kind: DedicatedAntiCrawlerRuleV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: waf/v1alpha1/dedicatedanticrawlerrulev1
+  labels:
+    testing.upbound.io/example-name: rule_1
+  name: rule-1
+spec:
+  forProvider:
+    logic: 3
+    name: anticrawler_1
+    policyId: ${opentelekomcloud_waf_dedicated_policy_v1.policy_1.id}
+    protectionMode: anticrawler_except_url
+    url: /patent/id
+
+---
+
+apiVersion: waf.crossplane.io/v1alpha1
+kind: DedicatedPolicyV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: waf/v1alpha1/dedicatedanticrawlerrulev1
+  labels:
+    testing.upbound.io/example-name: policy_1
+  name: policy-1
+spec:
+  forProvider:
+    name: policy_cc

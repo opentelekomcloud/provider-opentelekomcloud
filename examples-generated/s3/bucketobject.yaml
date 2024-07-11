@@ -1,0 +1,29 @@
+apiVersion: s3.crossplane.io/v1alpha1
+kind: BucketObject
+metadata:
+  annotations:
+    meta.upbound.io/example-id: s3/v1alpha1/bucketobject
+  labels:
+    testing.upbound.io/example-name: object
+  name: object
+spec:
+  forProvider:
+    bucket: your_bucket_name
+    etag: ${md5(file("path/to/file"))}
+    key: new_object_key
+    source: path/to/file
+
+---
+
+apiVersion: s3.crossplane.io/v1alpha1
+kind: Bucket
+metadata:
+  annotations:
+    meta.upbound.io/example-id: s3/v1alpha1/bucketobject
+  labels:
+    testing.upbound.io/example-name: examplebucket
+  name: examplebucket
+spec:
+  forProvider:
+    acl: private
+    bucket: examplebuckettftest

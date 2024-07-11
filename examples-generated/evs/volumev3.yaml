@@ -1,0 +1,18 @@
+apiVersion: evs.crossplane.io/v1alpha1
+kind: VolumeV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: evs/v1alpha1/volumev3
+  labels:
+    testing.upbound.io/example-name: volume_1
+  name: volume-1
+spec:
+  forProvider:
+    availabilityZone: eu-de-01
+    description: first test volume
+    name: volume_1
+    size: 20
+    tags:
+      foo: bar
+      key: value
+    volumeType: SATA

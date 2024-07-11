@@ -1,0 +1,65 @@
+apiVersion: lb.crossplane.io/v1alpha1
+kind: L7PolicyV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lb/v1alpha1/l7policyv2
+  labels:
+    testing.upbound.io/example-name: l7policy_1
+  name: l7policy-1
+spec:
+  forProvider:
+    action: REDIRECT_TO_POOL
+    description: test l7 policy
+    listenerId: ${opentelekomcloud_lb_listener_v2.listener_1.id}
+    name: test
+    position: 1
+    redirectPoolId: ${opentelekomcloud_lb_pool_v2.pool_1.id}
+
+---
+
+apiVersion: lb.crossplane.io/v1alpha1
+kind: ListenerV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lb/v1alpha1/l7policyv2
+  labels:
+    testing.upbound.io/example-name: listener_1
+  name: listener-1
+spec:
+  forProvider:
+    loadbalancerId: ${opentelekomcloud_lb_loadbalancer_v2.loadbalancer_1.id}
+    name: listener_1
+    protocol: HTTP
+    protocolPort: 8080
+
+---
+
+apiVersion: lb.crossplane.io/v1alpha1
+kind: LoadbalancerV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lb/v1alpha1/l7policyv2
+  labels:
+    testing.upbound.io/example-name: loadbalancer_1
+  name: loadbalancer-1
+spec:
+  forProvider:
+    name: loadbalancer_1
+    vipSubnetId: SUBNET_ID
+
+---
+
+apiVersion: lb.crossplane.io/v1alpha1
+kind: PoolV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lb/v1alpha1/l7policyv2
+  labels:
+    testing.upbound.io/example-name: pool_1
+  name: pool-1
+spec:
+  forProvider:
+    lbMethod: ROUND_ROBIN
+    loadbalancerId: ${opentelekomcloud_lb_loadbalancer_v2.loadbalancer_1.id}
+    name: pool_1
+    protocol: HTTP

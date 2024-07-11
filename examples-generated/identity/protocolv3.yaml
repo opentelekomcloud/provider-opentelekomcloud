@@ -1,0 +1,44 @@
+apiVersion: identity.crossplane.io/v1alpha1
+kind: ProtocolV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: identity/v1alpha1/protocolv3
+  labels:
+    testing.upbound.io/example-name: saml
+  name: saml
+spec:
+  forProvider:
+    mappingId: ${opentelekomcloud_identity_mapping_v3.mapping.id}
+    protocol: saml
+    providerId: ${opentelekomcloud_identity_provider_v3.provider.id}
+
+---
+
+apiVersion: identity.crossplane.io/v1alpha1
+kind: MappingV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: identity/v1alpha1/protocolv3
+  labels:
+    testing.upbound.io/example-name: mapping
+  name: mapping
+spec:
+  forProvider:
+    mappingId: ACME
+    rules: ${file("./rules.json")}
+
+---
+
+apiVersion: identity.crossplane.io/v1alpha1
+kind: ProviderV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: identity/v1alpha1/protocolv3
+  labels:
+    testing.upbound.io/example-name: provider
+  name: provider
+spec:
+  forProvider:
+    description: This is simple identity provider
+    enabled: true
+    name: ACME

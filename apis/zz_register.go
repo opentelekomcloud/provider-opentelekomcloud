@@ -14,17 +14,73 @@ package apis
 import (
 	"k8s.io/apimachinery/pkg/runtime"
 
-	v1alpha1 "github.com/upbound/upjet-provider-template/apis/null/v1alpha1"
-	v1alpha1apis "github.com/upbound/upjet-provider-template/apis/v1alpha1"
-	v1beta1 "github.com/upbound/upjet-provider-template/apis/v1beta1"
+	v1alpha1 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/blockstorage/v1alpha1"
+	v1alpha1cce "github.com/opentelekomcloud/provider-opentelekomcloud/apis/cce/v1alpha1"
+	v1alpha1compute "github.com/opentelekomcloud/provider-opentelekomcloud/apis/compute/v1alpha1"
+	v1alpha1dcs "github.com/opentelekomcloud/provider-opentelekomcloud/apis/dcs/v1alpha1"
+	v1alpha1dds "github.com/opentelekomcloud/provider-opentelekomcloud/apis/dds/v1alpha1"
+	v1alpha1deh "github.com/opentelekomcloud/provider-opentelekomcloud/apis/deh/v1alpha1"
+	v1alpha1dis "github.com/opentelekomcloud/provider-opentelekomcloud/apis/dis/v1alpha1"
+	v1alpha1dms "github.com/opentelekomcloud/provider-opentelekomcloud/apis/dms/v1alpha1"
+	v1alpha1dns "github.com/opentelekomcloud/provider-opentelekomcloud/apis/dns/v1alpha1"
+	v1alpha1ecs "github.com/opentelekomcloud/provider-opentelekomcloud/apis/ecs/v1alpha1"
+	v1alpha1evs "github.com/opentelekomcloud/provider-opentelekomcloud/apis/evs/v1alpha1"
+	v1alpha1fgs "github.com/opentelekomcloud/provider-opentelekomcloud/apis/fgs/v1alpha1"
+	v1alpha1fw "github.com/opentelekomcloud/provider-opentelekomcloud/apis/fw/v1alpha1"
+	v1alpha1identity "github.com/opentelekomcloud/provider-opentelekomcloud/apis/identity/v1alpha1"
+	v1alpha1images "github.com/opentelekomcloud/provider-opentelekomcloud/apis/images/v1alpha1"
+	v1alpha1ims "github.com/opentelekomcloud/provider-opentelekomcloud/apis/ims/v1alpha1"
+	v1alpha1kms "github.com/opentelekomcloud/provider-opentelekomcloud/apis/kms/v1alpha1"
+	v1alpha1lb "github.com/opentelekomcloud/provider-opentelekomcloud/apis/lb/v1alpha1"
+	v1alpha1nat "github.com/opentelekomcloud/provider-opentelekomcloud/apis/nat/v1alpha1"
+	v1alpha1networking "github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1"
+	v1alpha1obs "github.com/opentelekomcloud/provider-opentelekomcloud/apis/obs/v1alpha1"
+	v1alpha1rds "github.com/opentelekomcloud/provider-opentelekomcloud/apis/rds/v1alpha1"
+	v1alpha1s3 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/s3/v1alpha1"
+	v1alpha1sfs "github.com/opentelekomcloud/provider-opentelekomcloud/apis/sfs/v1alpha1"
+	v1alpha1smn "github.com/opentelekomcloud/provider-opentelekomcloud/apis/smn/v1alpha1"
+	v1alpha1apis "github.com/opentelekomcloud/provider-opentelekomcloud/apis/v1alpha1"
+	v1beta1 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/v1beta1"
+	v1alpha1vpc "github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1"
+	v1alpha1vpcep "github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpcep/v1alpha1"
+	v1alpha1vpnaas "github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpnaas/v1alpha1"
+	v1alpha1waf "github.com/opentelekomcloud/provider-opentelekomcloud/apis/waf/v1alpha1"
 )
 
 func init() {
 	// Register the types with the Scheme so the components can map objects to GroupVersionKinds and back
 	AddToSchemes = append(AddToSchemes,
 		v1alpha1.SchemeBuilder.AddToScheme,
+		v1alpha1cce.SchemeBuilder.AddToScheme,
+		v1alpha1compute.SchemeBuilder.AddToScheme,
+		v1alpha1dcs.SchemeBuilder.AddToScheme,
+		v1alpha1dds.SchemeBuilder.AddToScheme,
+		v1alpha1deh.SchemeBuilder.AddToScheme,
+		v1alpha1dis.SchemeBuilder.AddToScheme,
+		v1alpha1dms.SchemeBuilder.AddToScheme,
+		v1alpha1dns.SchemeBuilder.AddToScheme,
+		v1alpha1ecs.SchemeBuilder.AddToScheme,
+		v1alpha1evs.SchemeBuilder.AddToScheme,
+		v1alpha1fgs.SchemeBuilder.AddToScheme,
+		v1alpha1fw.SchemeBuilder.AddToScheme,
+		v1alpha1identity.SchemeBuilder.AddToScheme,
+		v1alpha1images.SchemeBuilder.AddToScheme,
+		v1alpha1ims.SchemeBuilder.AddToScheme,
+		v1alpha1kms.SchemeBuilder.AddToScheme,
+		v1alpha1lb.SchemeBuilder.AddToScheme,
+		v1alpha1nat.SchemeBuilder.AddToScheme,
+		v1alpha1networking.SchemeBuilder.AddToScheme,
+		v1alpha1obs.SchemeBuilder.AddToScheme,
+		v1alpha1rds.SchemeBuilder.AddToScheme,
+		v1alpha1s3.SchemeBuilder.AddToScheme,
+		v1alpha1sfs.SchemeBuilder.AddToScheme,
+		v1alpha1smn.SchemeBuilder.AddToScheme,
 		v1alpha1apis.SchemeBuilder.AddToScheme,
 		v1beta1.SchemeBuilder.AddToScheme,
+		v1alpha1vpc.SchemeBuilder.AddToScheme,
+		v1alpha1vpcep.SchemeBuilder.AddToScheme,
+		v1alpha1vpnaas.SchemeBuilder.AddToScheme,
+		v1alpha1waf.SchemeBuilder.AddToScheme,
 	)
 }
 

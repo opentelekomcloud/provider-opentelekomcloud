@@ -1,0 +1,17 @@
+apiVersion: vpc.crossplane.io/v1alpha1
+kind: EIPV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/eipv1
+  labels:
+    testing.upbound.io/example-name: eip_1
+  name: eip-1
+spec:
+  forProvider:
+    bandwidth:
+    - chargeMode: traffic
+      name: test
+      shareType: PER
+      size: 8
+    publicip:
+    - type: 5_bgp

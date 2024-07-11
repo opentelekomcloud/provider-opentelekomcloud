@@ -1,0 +1,16 @@
+apiVersion: nat.crossplane.io/v1alpha1
+kind: DnatRuleV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: nat/v1alpha1/dnatrulev2
+  labels:
+    testing.upbound.io/example-name: dnat_1
+  name: dnat-1
+spec:
+  forProvider:
+    externalServicePort: 242
+    floatingIpId: ${var.floating_ip_id}
+    internalServicePort: 993
+    natGatewayId: ${var.nat_gw_id}
+    privateIp: ${var.private_id}
+    protocol: tcp

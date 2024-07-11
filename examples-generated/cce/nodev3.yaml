@@ -1,0 +1,29 @@
+apiVersion: cce.crossplane.io/v1alpha1
+kind: NodeV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cce/v1alpha1/nodev3
+  labels:
+    testing.upbound.io/example-name: node_1
+  name: node-1
+spec:
+  forProvider:
+    agencyName: test-agency
+    availabilityZone: ${var.availability_zone}
+    bandwidthSize: 100
+    clusterId: ${var.cluster_id}
+    dataVolumes:
+    - size: 100
+      volumetype: SATA
+    - extendParams:
+        useType: docker
+      size: 100
+      volumetype: SSD
+    flavorId: s2.large.2
+    keyPair: ${var.ssh_key}
+    name: node1
+    os: EulerOS 2.9
+    rootVolume:
+    - size: 40
+      volumetype: SATA
+    runtime: containerd

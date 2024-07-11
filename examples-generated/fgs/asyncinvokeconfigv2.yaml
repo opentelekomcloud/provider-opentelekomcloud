@@ -1,0 +1,27 @@
+apiVersion: fgs.crossplane.io/v1alpha1
+kind: AsyncInvokeConfigV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: fgs/v1alpha1/asyncinvokeconfigv2
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    functionUrn: ${var.function_urn}
+    maxAsyncEventAgeInSeconds: 3500
+    maxAsyncRetryAttempts: 2
+    onFailure:
+    - destination: SMN
+      param: |-
+        ${jsonencode({
+              topic_urn = var.topic_urn
+            })}
+    onSuccess:
+    - destination: OBS
+      param: |-
+        ${jsonencode({
+              bucket  = var.bucket_name
+              prefix  = "/success"
+              expires = 5
+            })}

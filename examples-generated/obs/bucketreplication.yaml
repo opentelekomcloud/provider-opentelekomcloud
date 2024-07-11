@@ -1,0 +1,13 @@
+apiVersion: obs.crossplane.io/v1alpha1
+kind: BucketReplication
+metadata:
+  annotations:
+    meta.upbound.io/example-id: obs/v1alpha1/bucketreplication
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    agency: ${var.agency}
+    bucket: ${var.bucket}
+    destinationBucket: ${var.destination_bucket}

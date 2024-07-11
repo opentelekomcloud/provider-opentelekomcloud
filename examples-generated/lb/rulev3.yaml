@@ -1,0 +1,81 @@
+apiVersion: lb.crossplane.io/v1alpha1
+kind: RuleV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lb/v1alpha1/rulev3
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+spec:
+  forProvider:
+    compareType: REGEX
+    policyId: ${opentelekomcloud_lb_policy_v3.this.id}
+    type: PATH
+    value: ^.+$
+
+---
+
+apiVersion: lb.crossplane.io/v1alpha1
+kind: ListenerV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lb/v1alpha1/rulev3
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+spec:
+  forProvider:
+    loadbalancerId: ${opentelekomcloud_lb_loadbalancer_v3.this.id}
+    protocol: HTTP
+    protocolPort: 8080
+
+---
+
+apiVersion: lb.crossplane.io/v1alpha1
+kind: LoadbalancerV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lb/v1alpha1/rulev3
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+spec:
+  forProvider:
+    availabilityZones:
+    - ${var.az}
+    networkIds:
+    - ${var.network_id}
+    routerId: ${var.router_id}
+
+---
+
+apiVersion: lb.crossplane.io/v1alpha1
+kind: PolicyV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lb/v1alpha1/rulev3
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+spec:
+  forProvider:
+    action: REDIRECT_TO_POOL
+    listenerId: ${opentelekomcloud_lb_listener_v3.this.id}
+    position: 37
+    redirectPoolId: ${opentelekomcloud_lb_pool_v3.this.id}
+
+---
+
+apiVersion: lb.crossplane.io/v1alpha1
+kind: PoolV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lb/v1alpha1/rulev3
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+spec:
+  forProvider:
+    lbAlgorithm: ROUND_ROBIN
+    loadbalancerId: ${opentelekomcloud_lb_loadbalancer_v3.this.id}
+    protocol: HTTP

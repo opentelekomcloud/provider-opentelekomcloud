@@ -1,0 +1,11 @@
+apiVersion: dis.crossplane.io/v1alpha1
+kind: AppV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dis/v1alpha1/appv2
+  labels:
+    testing.upbound.io/example-name: app_1
+  name: app-1
+spec:
+  forProvider:
+    name: app_name

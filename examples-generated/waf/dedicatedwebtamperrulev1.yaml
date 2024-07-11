@@ -1,0 +1,28 @@
+apiVersion: waf.crossplane.io/v1alpha1
+kind: DedicatedWebTamperRuleV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: waf/v1alpha1/dedicatedwebtamperrulev1
+  labels:
+    testing.upbound.io/example-name: rule_1
+  name: rule-1
+spec:
+  forProvider:
+    description: test description
+    hostname: www.domain.com
+    policyId: ${opentelekomcloud_waf_dedicated_policy_v1.policy_1.id}
+    url: /login
+
+---
+
+apiVersion: waf.crossplane.io/v1alpha1
+kind: DedicatedPolicyV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: waf/v1alpha1/dedicatedwebtamperrulev1
+  labels:
+    testing.upbound.io/example-name: policy_1
+  name: policy-1
+spec:
+  forProvider:
+    name: policy_at

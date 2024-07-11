@@ -1,0 +1,15 @@
+apiVersion: lb.crossplane.io/v1alpha1
+kind: ListenerV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lb/v1alpha1/listenerv3
+  labels:
+    testing.upbound.io/example-name: listener_1
+  name: listener-1
+spec:
+  forProvider:
+    loadbalancerId: ${var.loadbalancer_id}
+    protocol: HTTP
+    protocolPort: 8080
+    tags:
+      muh: kuh

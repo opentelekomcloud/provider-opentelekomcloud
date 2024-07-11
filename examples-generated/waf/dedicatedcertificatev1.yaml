@@ -1,0 +1,26 @@
+apiVersion: waf.crossplane.io/v1alpha1
+kind: DedicatedCertificateV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: waf/v1alpha1/dedicatedcertificatev1
+  labels:
+    testing.upbound.io/example-name: certificate_1
+  name: certificate-1
+spec:
+  forProvider:
+    content: |
+      -----BEGIN CERTIFICATE-----
+      MIIFazCCA1OgAwIBAgIUN3w1KX8/T/HWVxZIOdHXPhUOnsAwDQYJKoZIhvcNAQEL
+      BQAwRTELMAkGA1UEBhMCQVUxEzARBgNVBAgMClNvbWUtU3RhdGUxITAfBgNVBAoM
+      ...
+      dKvZbPEsygYRIjwyhHHUh/YXH8KDI/uu6u6AxDckQ3rP1BkkKXr5NPBGjVgM3ZI=
+      -----END CERTIFICATE-----
+    key: |
+      -----BEGIN PRIVATE KEY-----
+      MIIJQQIBADANBgkqhkiG9w0BAQEFAASCCSswggknAgEAAoICAQC+9uwFVenCdPD9
+      5LWSWMuy4riZW718wxBpYV5Y9N8nM7N0qZLLdpImZrzBbaBldTI+AZGI3Nupuurw
+      ...
+      s9urs/Kk/tbQhsEvu0X8FyGwo0zH6rG8apTFTlac+v4mJ4vlpxSvT5+FW2lgLISE
+      +4sM7kp0qO3/p+45HykwBY5iHq3H
+      -----END PRIVATE KEY-----
+    name: certificate_1

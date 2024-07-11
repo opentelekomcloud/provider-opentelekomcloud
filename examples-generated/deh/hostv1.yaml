@@ -1,0 +1,14 @@
+apiVersion: deh.crossplane.io/v1alpha1
+kind: HostV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: deh/v1alpha1/hostv1
+  labels:
+    testing.upbound.io/example-name: deh_host
+  name: deh-host
+spec:
+  forProvider:
+    autoPlacement: "on"
+    availabilityZone: eu-de-02
+    hostType: h1
+    name: high_performance_deh

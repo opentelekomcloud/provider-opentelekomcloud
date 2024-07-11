@@ -1,0 +1,13 @@
+apiVersion: fgs.crossplane.io/v1alpha1
+kind: EventV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: fgs/v1alpha1/eventv2
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    content: ${base64encode(var.event_content)}
+    functionUrn: ${var.function_urn}
+    name: ${var.event_name}

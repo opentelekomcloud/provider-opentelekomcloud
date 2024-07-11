@@ -1,0 +1,40 @@
+apiVersion: cce.crossplane.io/v1alpha1
+kind: AddonV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cce/v1alpha1/addonv3
+  labels:
+    testing.upbound.io/example-name: addon
+  name: addon
+spec:
+  forProvider:
+    clusterId: ${opentelekomcloud_cce_cluster_v3.cluster_1.id}
+    templateName: metrics-server
+    templateVersion: 1.3.6
+    values:
+    - basic:
+        image_version: v0.6.2
+        swr_addr: 100.125.7.25:20202
+        swr_user: cce-addons
+      custom: {}
+
+---
+
+apiVersion: cce.crossplane.io/v1alpha1
+kind: ClusterV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cce/v1alpha1/addonv3
+  labels:
+    testing.upbound.io/example-name: cluster_1
+  name: cluster-1
+spec:
+  forProvider:
+    clusterType: VirtualMachine
+    clusterVersion: v1.17.9-r0
+    containerNetworkType: overlay_l2
+    flavorId: ${var.flavor_id}
+    kubernetesSvcIpRange: 10.247.0.0/16
+    name: cce-cluster-1
+    subnetId: ${var.subnet_id}
+    vpcId: ${var.vpc_id}

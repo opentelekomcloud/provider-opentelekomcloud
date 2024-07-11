@@ -1,0 +1,13 @@
+apiVersion: images.crossplane.io/v1alpha1
+kind: ImageAccessAcceptV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: images/v1alpha1/imageaccessacceptv2
+  labels:
+    testing.upbound.io/example-name: rancheros_member
+  name: rancheros-member
+spec:
+  forProvider:
+    imageId: ${data.opentelekomcloud_images_image_v2.rancheros.id}
+    memberId: bed6b6cbb86a4e2d8dc2735c2f1000e4
+    status: accepted

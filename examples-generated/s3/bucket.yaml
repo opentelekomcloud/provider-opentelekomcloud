@@ -1,0 +1,15 @@
+apiVersion: s3.crossplane.io/v1alpha1
+kind: Bucket
+metadata:
+  annotations:
+    meta.upbound.io/example-id: s3/v1alpha1/bucket
+  labels:
+    testing.upbound.io/example-name: bucket
+  name: bucket
+spec:
+  forProvider:
+    acl: private
+    bucket: my-tf-test-bucket
+    tags:
+      Environment: Dev
+      Name: My bucket

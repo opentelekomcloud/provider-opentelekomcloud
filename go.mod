@@ -1,4 +1,4 @@
-module github.com/upbound/upjet-provider-template
+module github.com/opentelekomcloud/provider-opentelekomcloud
 
 go 1.19
 

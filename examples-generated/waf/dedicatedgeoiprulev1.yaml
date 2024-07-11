@@ -1,0 +1,29 @@
+apiVersion: waf.crossplane.io/v1alpha1
+kind: DedicatedGeoIPRuleV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: waf/v1alpha1/dedicatedgeoiprulev1
+  labels:
+    testing.upbound.io/example-name: rule_1
+  name: rule-1
+spec:
+  forProvider:
+    action: 0
+    description: test description
+    name: test
+    policyId: ${opentelekomcloud_waf_dedicated_policy_v1.policy_1.id}
+    regionCode: BR
+
+---
+
+apiVersion: waf.crossplane.io/v1alpha1
+kind: DedicatedPolicyV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: waf/v1alpha1/dedicatedgeoiprulev1
+  labels:
+    testing.upbound.io/example-name: policy_1
+  name: policy-1
+spec:
+  forProvider:
+    name: policy_gi

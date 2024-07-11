@@ -1,0 +1,29 @@
+apiVersion: smn.crossplane.io/v1alpha1
+kind: SubscriptionV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: smn/v1alpha1/subscriptionv2
+  labels:
+    testing.upbound.io/example-name: subscription_1
+  name: subscription-1
+spec:
+  forProvider:
+    endpoint: mailtest@gmail.com
+    protocol: email
+    remark: O&M
+    topicUrn: ${opentelekomcloud_smn_topic_v2.topic_1.id}
+
+---
+
+apiVersion: smn.crossplane.io/v1alpha1
+kind: TopicV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: smn/v1alpha1/subscriptionv2
+  labels:
+    testing.upbound.io/example-name: topic_1
+  name: topic-1
+spec:
+  forProvider:
+    displayName: The display name of topic_1
+    name: topic_1

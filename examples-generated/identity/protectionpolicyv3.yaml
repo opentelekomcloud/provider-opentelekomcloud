@@ -1,0 +1,11 @@
+apiVersion: identity.crossplane.io/v1alpha1
+kind: ProtectionPolicyV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: identity/v1alpha1/protectionpolicyv3
+  labels:
+    testing.upbound.io/example-name: policy_1
+  name: policy-1
+spec:
+  forProvider:
+    enableOperationProtectionPolicy: false

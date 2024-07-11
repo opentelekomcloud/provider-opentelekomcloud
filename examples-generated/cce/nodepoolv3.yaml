@@ -1,0 +1,34 @@
+apiVersion: cce.crossplane.io/v1alpha1
+kind: NodePoolV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cce/v1alpha1/nodepoolv3
+  labels:
+    testing.upbound.io/example-name: node_pool_1
+  name: node-pool-1
+spec:
+  forProvider:
+    agencyName: test-agency
+    availabilityZone: ${var.availability_zone}
+    clusterId: ${var.cluster_id}
+    dataVolumes:
+    - size: 100
+      volumetype: SSD
+    - extendParams:
+        useType: docker
+      size: 100
+      volumetype: SSD
+    flavor: s2.xlarge.2
+    initialNodeCount: 2
+    keyPair: ${var.ssh_key}
+    maxNodeCount: 9
+    minNodeCount: 2
+    name: opentelekomcloud-cce-node-pool-test
+    os: EulerOS 2.9
+    priority: 1
+    rootVolume:
+    - size: 40
+      volumetype: SSD
+    runtime: containerd
+    scaleDownCooldownTime: 100
+    scaleEnable: true

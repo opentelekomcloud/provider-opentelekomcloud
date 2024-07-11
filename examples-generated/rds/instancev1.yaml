@@ -1,0 +1,50 @@
+apiVersion: rds.crossplane.io/v1alpha1
+kind: InstanceV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: rds/v1alpha1/instancev1
+  labels:
+    testing.upbound.io/example-name: instance
+  name: instance
+spec:
+  forProvider:
+    availabilityzone: eu-de-01
+    backupstrategy:
+    - keepdays: 4
+      starttime: "04:00:00"
+    datastore:
+    - type: PostgreSQL
+      version: 9.5.5
+    dbport: "8635"
+    dbrtpd: P@ssw0rd1!9851
+    flavorref: ${data.opentelekomcloud_rds_flavors_v1.flavor.id}
+    ha:
+    - enable: true
+      replicationmode: async
+    name: rds-instance
+    nics:
+    - subnetid: b65f8d25-c533-47e2-8601-cfaa265a3e3e
+    securitygroup:
+    - id: ${opentelekomcloud_compute_secgroup_v2.secgrp_rds.id}
+    tag:
+      foo: bar
+      key: value
+    volume:
+    - size: 200
+      type: COMMON
+    vpc: c1095fe7-03df-4205-ad2d-6f4c181d436e
+
+---
+
+apiVersion: compute.crossplane.io/v1alpha1
+kind: SecgroupV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: rds/v1alpha1/instancev1
+  labels:
+    testing.upbound.io/example-name: secgrp_rds
+  name: secgrp-rds
+spec:
+  forProvider:
+    description: Rds Security Group
+    name: secgrp-rds-instance

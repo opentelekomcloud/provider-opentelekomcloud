@@ -1,0 +1,19 @@
+apiVersion: fgs.crossplane.io/v1alpha1
+kind: TriggerV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: fgs/v1alpha1/triggerv2
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    eventData: |-
+      ${jsonencode({
+          "name" : format("%s_rate", var.trigger_name),
+          "schedule_type" : "Rate",
+          "user_event" : "Created by terraform script",
+          "schedule" : "3m"
+        })}
+    functionUrn: ${var.function_urn}
+    type: TIMER

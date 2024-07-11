@@ -1,0 +1,17 @@
+apiVersion: nat.crossplane.io/v1alpha1
+kind: GatewayV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: nat/v1alpha1/gatewayv2
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+spec:
+  forProvider:
+    description: NAT GW created by terraform
+    internalNetworkId: ${var.internal_network_id}
+    name: tf_nat
+    routerId: ${var.router_id}
+    spec: "0"
+    tags:
+      muh: kuh

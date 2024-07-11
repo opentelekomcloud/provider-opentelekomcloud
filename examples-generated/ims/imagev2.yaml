@@ -1,0 +1,16 @@
+apiVersion: ims.crossplane.io/v1alpha1
+kind: ImageV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ims/v1alpha1/imagev2
+  labels:
+    testing.upbound.io/example-name: ims_test
+  name: ims-test
+spec:
+  forProvider:
+    description: Create an image using an ECS.
+    instanceId: 54a6c3a4-8511-4d01-818f-3fe5177cbb06
+    name: imt_test
+    tags:
+      foo: bar
+      key: value
