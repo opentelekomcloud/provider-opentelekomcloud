@@ -1,4 +1,4 @@
-apiVersion: fw.crossplane.io/v1alpha1
+apiVersion: fw.opentelekomcloud.crossplane.io/v1alpha1
 kind: PolicyV2
 metadata:
   annotations:
@@ -15,7 +15,7 @@ spec:
 
 ---
 
-apiVersion: fw.crossplane.io/v1alpha1
+apiVersion: fw.opentelekomcloud.crossplane.io/v1alpha1
 kind: RuleV2
 metadata:
   annotations:
@@ -34,7 +34,7 @@ spec:
 
 ---
 
-apiVersion: fw.crossplane.io/v1alpha1
+apiVersion: fw.opentelekomcloud.crossplane.io/v1alpha1
 kind: RuleV2
 metadata:
   annotations:

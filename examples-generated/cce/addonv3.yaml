@@ -1,4 +1,4 @@
-apiVersion: cce.crossplane.io/v1alpha1
+apiVersion: cce.opentelekomcloud.crossplane.io/v1alpha1
 kind: AddonV3
 metadata:
   annotations:
@@ -20,7 +20,7 @@ spec:
 
 ---
 
-apiVersion: cce.crossplane.io/v1alpha1
+apiVersion: cce.opentelekomcloud.crossplane.io/v1alpha1
 kind: ClusterV3
 metadata:
   annotations:

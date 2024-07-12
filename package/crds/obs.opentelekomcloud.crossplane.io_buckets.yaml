@@ -1,0 +1,1148 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.13.0
+  name: buckets.obs.opentelekomcloud.crossplane.io
+spec:
+  group: obs.opentelekomcloud.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - opentelekomcloud
+    kind: Bucket
+    listKind: BucketList
+    plural: buckets
+    singular: bucket
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: Bucket is the Schema for the Buckets API. Manages a OBS Bucket
+          resource within OpenTelekomCloud.
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: BucketSpec defines the desired state of Bucket
+            properties:
+              deletionPolicy:
+                default: Delete
+                description: 'DeletionPolicy specifies what will happen to the underlying
+                  external when this managed resource is deleted - either "Delete"
+                  or "Orphan" the external resource. This field is planned to be deprecated
+                  in favor of the ManagementPolicies field in a future release. Currently,
+                  both could be set independently and non-default values would be
+                  honored if the feature flag is enabled. See the design doc for more
+                  information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223'
+                enum:
+                - Orphan
+                - Delete
+                type: string
+              forProvider:
+                properties:
+                  acl:
+                    description: 'Specifies the ACL policy for a bucket. The predefined
+                      common policies are as follows: private, public-read, public-read-write
+                      and log-delivery-write. Defaults to private.'
+                    type: string
+                  bucket:
+                    description: 'Specifies the name of the bucket. Changing this
+                      parameter will create a new resource. A bucket must be named
+                      according to the globally applied DNS naming regulations as
+                      follows:'
+                    type: string
+                  corsRule:
+                    description: A rule of Cross-Origin Resource Sharing (documented
+                      below).
+                    items:
+                      properties:
+                        allowedHeaders:
+                          description: Specifies the allowed header of cross-origin
+                            requests. Only CORS requests matching the allowed header
+                            are valid.
+                          items:
+                            type: string
+                          type: array
+                        allowedMethods:
+                          description: Specifies the acceptable operation type of
+                            buckets and objects. The methods include GET, PUT, POST,
+                            DELETE or HEAD.
+                          items:
+                            type: string
+                          type: array
+                        allowedOrigins:
+                          description: Requests from this origin can access the bucket.
+                            Multiple matching rules are allowed. One rule occupies
+                            one line, and allows one wildcard character (*) at most.
+                          items:
+                            type: string
+                          type: array
+                        exposeHeaders:
+                          description: Specifies the exposed header in CORS responses,
+                            providing additional information for clients.
+                          items:
+                            type: string
+                          type: array
+                        maxAgeSeconds:
+                          description: Specifies the duration that your browser can
+                            cache CORS responses, expressed in seconds. The default
+                            value is 100.
+                          type: number
+                      type: object
+                    type: array
+                  eventNotifications:
+                    description: A configuration of bucket event notifications (documented
+                      below).
+                    items:
+                      properties:
+                        events:
+                          description: Type of events that need to be notified.
+                          items:
+                            type: string
+                          type: array
+                        filterRule:
+                          description: Filtering rules. The rules filter objects based
+                            on the prefixes and suffixes of object names.
+                          items:
+                            properties:
+                              name:
+                                description: Unique identifier for lifecycle rules.
+                                  The Rule Name contains a maximum of 255 characters.
+                                type: string
+                              value:
+                                description: Specifies keywords of object names so
+                                  that objects can be filtered based on the prefixes
+                                  or suffixes. The value contains a maximum of 1024
+                                  characters.
+                                type: string
+                            type: object
+                          type: array
+                        id:
+                          description: Unique ID of the event notification. If the
+                            user does not specify an ID, the system assigns an ID
+                            automatically.
+                          type: string
+                        topic:
+                          description: URN of the event notification topic. After
+                            detecting a specific event, OBS sends a message to the
+                            topic.
+                          type: string
+                      type: object
+                    type: array
+                  forceDestroy:
+                    description: A boolean that indicates all objects should be deleted
+                      from the bucket so that the bucket can be destroyed without
+                      error. Default to false.
+                    type: boolean
+                  lifecycleRule:
+                    description: A configuration of object lifecycle management (documented
+                      below).
+                    items:
+                      properties:
+                        enabled:
+                          description: Specifies lifecycle rule status.
+                          type: boolean
+                        expiration:
+                          description: Specifies a period when objects that have been
+                            last updated are automatically deleted. (documented below).
+                          items:
+                            properties:
+                              days:
+                                description: Default protection period, in days. The
+                                  value is from 1 to 36500.
+                                type: number
+                            type: object
+                          type: array
+                        name:
+                          description: Unique identifier for lifecycle rules. The
+                            Rule Name contains a maximum of 255 characters.
+                          type: string
+                        noncurrentVersionExpiration:
+                          description: Specifies a period when noncurrent object versions
+                            are automatically deleted. (documented below).
+                          items:
+                            properties:
+                              days:
+                                description: Default protection period, in days. The
+                                  value is from 1 to 36500.
+                                type: number
+                            type: object
+                          type: array
+                        noncurrentVersionTransition:
+                          description: Specifies a period when noncurrent object versions
+                            are automatically transitioned to WARM or COLD storage
+                            class (documented below).
+                          items:
+                            properties:
+                              days:
+                                description: Default protection period, in days. The
+                                  value is from 1 to 36500.
+                                type: number
+                              storageClass:
+                                description: 'Specifies the storage class of the bucket.
+                                  OBS provides three storage classes: STANDARD, WARM
+                                  (Infrequent Access) and COLD (Archive). Defaults
+                                  to STANDARD.'
+                                type: string
+                            type: object
+                          type: array
+                        prefix:
+                          description: 'Object key prefix identifying one or more
+                            objects to which the rule applies. If omitted, all objects
+                            in the bucket will be managed by the lifecycle rule. The
+                            prefix cannot start or end with a slash (/), cannot have
+                            consecutive slashes (/), and cannot contain the following
+                            special characters: :*?"<>|.'
+                          type: string
+                        transition:
+                          description: Specifies a period when objects that have been
+                            last updated are automatically transitioned to WARM or
+                            COLD storage class (documented below).
+                          items:
+                            properties:
+                              days:
+                                description: Default protection period, in days. The
+                                  value is from 1 to 36500.
+                                type: number
+                              storageClass:
+                                description: 'Specifies the storage class of the bucket.
+                                  OBS provides three storage classes: STANDARD, WARM
+                                  (Infrequent Access) and COLD (Archive). Defaults
+                                  to STANDARD.'
+                                type: string
+                            type: object
+                          type: array
+                      type: object
+                    type: array
+                  logging:
+                    description: A settings of bucket logging (documented below).
+                    items:
+                      properties:
+                        targetBucket:
+                          description: The name of the bucket that will receive the
+                            log objects. The acl policy of the target bucket should
+                            be log-delivery-write.
+                          type: string
+                        targetPrefix:
+                          description: To specify a key prefix for log objects.
+                          type: string
+                      type: object
+                    type: array
+                  parallelFs:
+                    description: Whether enable a bucket as a parallel file system.
+                    type: boolean
+                  region:
+                    description: If specified, the region this bucket should reside
+                      in. Otherwise, the region used by the provider.
+                    type: string
+                  serverSideEncryption:
+                    description: A configuration of server side encryption (documented
+                      below).
+                    items:
+                      properties:
+                        algorithm:
+                          description: The algorithm used for SSE. Only kms is supported.
+                          type: string
+                        kmsKeyId:
+                          description: The ID of KMS key used for the encryption.
+                          type: string
+                      type: object
+                    type: array
+                  storageClass:
+                    description: 'Specifies the storage class of the bucket. OBS provides
+                      three storage classes: STANDARD, WARM (Infrequent Access) and
+                      COLD (Archive). Defaults to STANDARD.'
+                    type: string
+                  tags:
+                    additionalProperties:
+                      type: string
+                    description: A mapping of tags to assign to the bucket. Each tag
+                      is represented by one key-value pair.
+                    type: object
+                  userDomainNames:
+                    description: 'Specifies the user domain names. The restriction
+                      requirements for this field are as follows:'
+                    items:
+                      type: string
+                    type: array
+                  versioning:
+                    description: Set to true to enable versioning. Once you version-enable
+                      a bucket, it can never return to an unversioned state. You can,
+                      however, suspend versioning on that bucket. If omitted, during
+                      bucket creation it will be in Disabled state.
+                    type: boolean
+                  website:
+                    description: A website object (documented below).
+                    items:
+                      properties:
+                        errorDocument:
+                          description: Specifies the error page returned when an error
+                            occurs during static website access. Only HTML, JPG, PNG,
+                            BMP, and WEBP files under the root directory are supported.
+                          type: string
+                        indexDocument:
+                          description: Specifies the default homepage of the static
+                            website, only HTML web pages are supported. OBS only allows
+                            files such as index.html in the root directory of a bucket
+                            to function as the default homepage. That is to say, do
+                            not set the default homepage with a multi-level directory
+                            structure (for example, /page/index.html).
+                          type: string
+                        redirectAllRequestsTo:
+                          description: A hostname to redirect all website requests
+                            for this bucket to. Hostname can optionally be prefixed
+                            with a protocol (http:// or https://) to use when redirecting
+                            requests. The default is the protocol that is used in
+                            the original request.
+                          type: string
+                        routingRules:
+                          description: 'A JSON or XML format containing routing rules
+                            describing redirect behavior and when redirects are applied.
+                            Each rule contains a Condition and a Redirect as shown
+                            in the following table:'
+                          type: string
+                      type: object
+                    type: array
+                  wormPolicy:
+                    description: A settings of bucket default WORM policy and a retention
+                      period (documented below). worm_policy requires versioning to
+                      be enabled.
+                    items:
+                      properties:
+                        days:
+                          description: Default protection period, in days. The value
+                            is from 1 to 36500.
+                          type: number
+                        years:
+                          description: Default protection period, in years. In a leap
+                            year, only 365 days are calculated. The value is from
+                            1 to 100.
+                          type: number
+                      type: object
+                    type: array
+                type: object
+              initProvider:
+                description: THIS IS A BETA FIELD. It will be honored unless the Management
+                  Policies feature flag is disabled. InitProvider holds the same fields
+                  as ForProvider, with the exception of Identifier and other resource
+                  reference fields. The fields that are in InitProvider are merged
+                  into ForProvider when the resource is created. The same fields are
+                  also added to the terraform ignore_changes hook, to avoid updating
+                  them after creation. This is useful for fields that are required
+                  on creation, but we do not desire to update them after creation,
+                  for example because of an external controller is managing them,
+                  like an autoscaler.
+                properties:
+                  acl:
+                    description: 'Specifies the ACL policy for a bucket. The predefined
+                      common policies are as follows: private, public-read, public-read-write
+                      and log-delivery-write. Defaults to private.'
+                    type: string
+                  bucket:
+                    description: 'Specifies the name of the bucket. Changing this
+                      parameter will create a new resource. A bucket must be named
+                      according to the globally applied DNS naming regulations as
+                      follows:'
+                    type: string
+                  corsRule:
+                    description: A rule of Cross-Origin Resource Sharing (documented
+                      below).
+                    items:
+                      properties:
+                        allowedHeaders:
+                          description: Specifies the allowed header of cross-origin
+                            requests. Only CORS requests matching the allowed header
+                            are valid.
+                          items:
+                            type: string
+                          type: array
+                        allowedMethods:
+                          description: Specifies the acceptable operation type of
+                            buckets and objects. The methods include GET, PUT, POST,
+                            DELETE or HEAD.
+                          items:
+                            type: string
+                          type: array
+                        allowedOrigins:
+                          description: Requests from this origin can access the bucket.
+                            Multiple matching rules are allowed. One rule occupies
+                            one line, and allows one wildcard character (*) at most.
+                          items:
+                            type: string
+                          type: array
+                        exposeHeaders:
+                          description: Specifies the exposed header in CORS responses,
+                            providing additional information for clients.
+                          items:
+                            type: string
+                          type: array
+                        maxAgeSeconds:
+                          description: Specifies the duration that your browser can
+                            cache CORS responses, expressed in seconds. The default
+                            value is 100.
+                          type: number
+                      type: object
+                    type: array
+                  eventNotifications:
+                    description: A configuration of bucket event notifications (documented
+                      below).
+                    items:
+                      properties:
+                        events:
+                          description: Type of events that need to be notified.
+                          items:
+                            type: string
+                          type: array
+                        filterRule:
+                          description: Filtering rules. The rules filter objects based
+                            on the prefixes and suffixes of object names.
+                          items:
+                            properties:
+                              name:
+                                description: Unique identifier for lifecycle rules.
+                                  The Rule Name contains a maximum of 255 characters.
+                                type: string
+                              value:
+                                description: Specifies keywords of object names so
+                                  that objects can be filtered based on the prefixes
+                                  or suffixes. The value contains a maximum of 1024
+                                  characters.
+                                type: string
+                            type: object
+                          type: array
+                        id:
+                          description: Unique ID of the event notification. If the
+                            user does not specify an ID, the system assigns an ID
+                            automatically.
+                          type: string
+                        topic:
+                          description: URN of the event notification topic. After
+                            detecting a specific event, OBS sends a message to the
+                            topic.
+                          type: string
+                      type: object
+                    type: array
+                  forceDestroy:
+                    description: A boolean that indicates all objects should be deleted
+                      from the bucket so that the bucket can be destroyed without
+                      error. Default to false.
+                    type: boolean
+                  lifecycleRule:
+                    description: A configuration of object lifecycle management (documented
+                      below).
+                    items:
+                      properties:
+                        enabled:
+                          description: Specifies lifecycle rule status.
+                          type: boolean
+                        expiration:
+                          description: Specifies a period when objects that have been
+                            last updated are automatically deleted. (documented below).
+                          items:
+                            properties:
+                              days:
+                                description: Default protection period, in days. The
+                                  value is from 1 to 36500.
+                                type: number
+                            type: object
+                          type: array
+                        name:
+                          description: Unique identifier for lifecycle rules. The
+                            Rule Name contains a maximum of 255 characters.
+                          type: string
+                        noncurrentVersionExpiration:
+                          description: Specifies a period when noncurrent object versions
+                            are automatically deleted. (documented below).
+                          items:
+                            properties:
+                              days:
+                                description: Default protection period, in days. The
+                                  value is from 1 to 36500.
+                                type: number
+                            type: object
+                          type: array
+                        noncurrentVersionTransition:
+                          description: Specifies a period when noncurrent object versions
+                            are automatically transitioned to WARM or COLD storage
+                            class (documented below).
+                          items:
+                            properties:
+                              days:
+                                description: Default protection period, in days. The
+                                  value is from 1 to 36500.
+                                type: number
+                              storageClass:
+                                description: 'Specifies the storage class of the bucket.
+                                  OBS provides three storage classes: STANDARD, WARM
+                                  (Infrequent Access) and COLD (Archive). Defaults
+                                  to STANDARD.'
+                                type: string
+                            type: object
+                          type: array
+                        prefix:
+                          description: 'Object key prefix identifying one or more
+                            objects to which the rule applies. If omitted, all objects
+                            in the bucket will be managed by the lifecycle rule. The
+                            prefix cannot start or end with a slash (/), cannot have
+                            consecutive slashes (/), and cannot contain the following
+                            special characters: :*?"<>|.'
+                          type: string
+                        transition:
+                          description: Specifies a period when objects that have been
+                            last updated are automatically transitioned to WARM or
+                            COLD storage class (documented below).
+                          items:
+                            properties:
+                              days:
+                                description: Default protection period, in days. The
+                                  value is from 1 to 36500.
+                                type: number
+                              storageClass:
+                                description: 'Specifies the storage class of the bucket.
+                                  OBS provides three storage classes: STANDARD, WARM
+                                  (Infrequent Access) and COLD (Archive). Defaults
+                                  to STANDARD.'
+                                type: string
+                            type: object
+                          type: array
+                      type: object
+                    type: array
+                  logging:
+                    description: A settings of bucket logging (documented below).
+                    items:
+                      properties:
+                        targetBucket:
+                          description: The name of the bucket that will receive the
+                            log objects. The acl policy of the target bucket should
+                            be log-delivery-write.
+                          type: string
+                        targetPrefix:
+                          description: To specify a key prefix for log objects.
+                          type: string
+                      type: object
+                    type: array
+                  parallelFs:
+                    description: Whether enable a bucket as a parallel file system.
+                    type: boolean
+                  region:
+                    description: If specified, the region this bucket should reside
+                      in. Otherwise, the region used by the provider.
+                    type: string
+                  serverSideEncryption:
+                    description: A configuration of server side encryption (documented
+                      below).
+                    items:
+                      properties:
+                        algorithm:
+                          description: The algorithm used for SSE. Only kms is supported.
+                          type: string
+                        kmsKeyId:
+                          description: The ID of KMS key used for the encryption.
+                          type: string
+                      type: object
+                    type: array
+                  storageClass:
+                    description: 'Specifies the storage class of the bucket. OBS provides
+                      three storage classes: STANDARD, WARM (Infrequent Access) and
+                      COLD (Archive). Defaults to STANDARD.'
+                    type: string
+                  tags:
+                    additionalProperties:
+                      type: string
+                    description: A mapping of tags to assign to the bucket. Each tag
+                      is represented by one key-value pair.
+                    type: object
+                  userDomainNames:
+                    description: 'Specifies the user domain names. The restriction
+                      requirements for this field are as follows:'
+                    items:
+                      type: string
+                    type: array
+                  versioning:
+                    description: Set to true to enable versioning. Once you version-enable
+                      a bucket, it can never return to an unversioned state. You can,
+                      however, suspend versioning on that bucket. If omitted, during
+                      bucket creation it will be in Disabled state.
+                    type: boolean
+                  website:
+                    description: A website object (documented below).
+                    items:
+                      properties:
+                        errorDocument:
+                          description: Specifies the error page returned when an error
+                            occurs during static website access. Only HTML, JPG, PNG,
+                            BMP, and WEBP files under the root directory are supported.
+                          type: string
+                        indexDocument:
+                          description: Specifies the default homepage of the static
+                            website, only HTML web pages are supported. OBS only allows
+                            files such as index.html in the root directory of a bucket
+                            to function as the default homepage. That is to say, do
+                            not set the default homepage with a multi-level directory
+                            structure (for example, /page/index.html).
+                          type: string
+                        redirectAllRequestsTo:
+                          description: A hostname to redirect all website requests
+                            for this bucket to. Hostname can optionally be prefixed
+                            with a protocol (http:// or https://) to use when redirecting
+                            requests. The default is the protocol that is used in
+                            the original request.
+                          type: string
+                        routingRules:
+                          description: 'A JSON or XML format containing routing rules
+                            describing redirect behavior and when redirects are applied.
+                            Each rule contains a Condition and a Redirect as shown
+                            in the following table:'
+                          type: string
+                      type: object
+                    type: array
+                  wormPolicy:
+                    description: A settings of bucket default WORM policy and a retention
+                      period (documented below). worm_policy requires versioning to
+                      be enabled.
+                    items:
+                      properties:
+                        days:
+                          description: Default protection period, in days. The value
+                            is from 1 to 36500.
+                          type: number
+                        years:
+                          description: Default protection period, in years. In a leap
+                            year, only 365 days are calculated. The value is from
+                            1 to 100.
+                          type: number
+                      type: object
+                    type: array
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: 'THIS IS A BETA FIELD. It is on by default but can be
+                  opted out through a Crossplane feature flag. ManagementPolicies
+                  specify the array of actions Crossplane is allowed to take on the
+                  managed and external resources. This field is planned to replace
+                  the DeletionPolicy field in a future release. Currently, both could
+                  be set independently and non-default values would be honored if
+                  the feature flag is enabled. If both are custom, the DeletionPolicy
+                  field will be ignored. See the design doc for more information:
+                  https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md'
+                items:
+                  description: A ManagementAction represents an action that the Crossplane
+                    controllers can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
+              providerConfigRef:
+                default:
+                  name: default
+                description: ProviderConfigReference specifies how the provider that
+                  will be used to create, observe, update, and delete this managed
+                  resource should be configured.
+                properties:
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                  policy:
+                    description: Policies for referencing.
+                    properties:
+                      resolution:
+                        default: Required
+                        description: Resolution specifies whether resolution of this
+                          reference is required. The default is 'Required', which
+                          means the reconcile will fail if the reference cannot be
+                          resolved. 'Optional' means this reference will be a no-op
+                          if it cannot be resolved.
+                        enum:
+                        - Required
+                        - Optional
+                        type: string
+                      resolve:
+                        description: Resolve specifies when this reference should
+                          be resolved. The default is 'IfNotPresent', which will attempt
+                          to resolve the reference only when the corresponding field
+                          is not present. Use 'Always' to resolve the reference on
+                          every reconcile.
+                        enum:
+                        - Always
+                        - IfNotPresent
+                        type: string
+                    type: object
+                required:
+                - name
+                type: object
+              publishConnectionDetailsTo:
+                description: PublishConnectionDetailsTo specifies the connection secret
+                  config which contains a name, metadata and a reference to secret
+                  store config to which any connection details for this managed resource
+                  should be written. Connection details frequently include the endpoint,
+                  username, and password required to connect to the managed resource.
+                properties:
+                  configRef:
+                    default:
+                      name: default
+                    description: SecretStoreConfigRef specifies which secret store
+                      config should be used for this ConnectionSecret.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: Resolution specifies whether resolution of
+                              this reference is required. The default is 'Required',
+                              which means the reconcile will fail if the reference
+                              cannot be resolved. 'Optional' means this reference
+                              will be a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: Resolve specifies when this reference should
+                              be resolved. The default is 'IfNotPresent', which will
+                              attempt to resolve the reference only when the corresponding
+                              field is not present. Use 'Always' to resolve the reference
+                              on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  metadata:
+                    description: Metadata is the metadata for connection secret.
+                    properties:
+                      annotations:
+                        additionalProperties:
+                          type: string
+                        description: Annotations are the annotations to be added to
+                          connection secret. - For Kubernetes secrets, this will be
+                          used as "metadata.annotations". - It is up to Secret Store
+                          implementation for others store types.
+                        type: object
+                      labels:
+                        additionalProperties:
+                          type: string
+                        description: Labels are the labels/tags to be added to connection
+                          secret. - For Kubernetes secrets, this will be used as "metadata.labels".
+                          - It is up to Secret Store implementation for others store
+                          types.
+                        type: object
+                      type:
+                        description: Type is the SecretType for the connection secret.
+                          - Only valid for Kubernetes Secret Stores.
+                        type: string
+                    type: object
+                  name:
+                    description: Name is the name of the connection secret.
+                    type: string
+                required:
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: WriteConnectionSecretToReference specifies the namespace
+                  and name of a Secret to which any connection details for this managed
+                  resource should be written. Connection details frequently include
+                  the endpoint, username, and password required to connect to the
+                  managed resource. This field is planned to be replaced in a future
+                  release in favor of PublishConnectionDetailsTo. Currently, both
+                  could be set independently and connection details would be published
+                  to both without affecting each other.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                  namespace:
+                    description: Namespace of the secret.
+                    type: string
+                required:
+                - name
+                - namespace
+                type: object
+            required:
+            - forProvider
+            type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.bucket is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.bucket)
+                || (has(self.initProvider) && has(self.initProvider.bucket))'
+          status:
+            description: BucketStatus defines the observed state of Bucket.
+            properties:
+              atProvider:
+                properties:
+                  acl:
+                    description: 'Specifies the ACL policy for a bucket. The predefined
+                      common policies are as follows: private, public-read, public-read-write
+                      and log-delivery-write. Defaults to private.'
+                    type: string
+                  bucket:
+                    description: 'Specifies the name of the bucket. Changing this
+                      parameter will create a new resource. A bucket must be named
+                      according to the globally applied DNS naming regulations as
+                      follows:'
+                    type: string
+                  bucketDomainName:
+                    description: The bucket domain name. Will be of format bucketname.obs.region.otc.t-systems.com.
+                    type: string
+                  bucketVersion:
+                    description: The OBS version of the bucket.
+                    type: string
+                  corsRule:
+                    description: A rule of Cross-Origin Resource Sharing (documented
+                      below).
+                    items:
+                      properties:
+                        allowedHeaders:
+                          description: Specifies the allowed header of cross-origin
+                            requests. Only CORS requests matching the allowed header
+                            are valid.
+                          items:
+                            type: string
+                          type: array
+                        allowedMethods:
+                          description: Specifies the acceptable operation type of
+                            buckets and objects. The methods include GET, PUT, POST,
+                            DELETE or HEAD.
+                          items:
+                            type: string
+                          type: array
+                        allowedOrigins:
+                          description: Requests from this origin can access the bucket.
+                            Multiple matching rules are allowed. One rule occupies
+                            one line, and allows one wildcard character (*) at most.
+                          items:
+                            type: string
+                          type: array
+                        exposeHeaders:
+                          description: Specifies the exposed header in CORS responses,
+                            providing additional information for clients.
+                          items:
+                            type: string
+                          type: array
+                        maxAgeSeconds:
+                          description: Specifies the duration that your browser can
+                            cache CORS responses, expressed in seconds. The default
+                            value is 100.
+                          type: number
+                      type: object
+                    type: array
+                  eventNotifications:
+                    description: A configuration of bucket event notifications (documented
+                      below).
+                    items:
+                      properties:
+                        events:
+                          description: Type of events that need to be notified.
+                          items:
+                            type: string
+                          type: array
+                        filterRule:
+                          description: Filtering rules. The rules filter objects based
+                            on the prefixes and suffixes of object names.
+                          items:
+                            properties:
+                              name:
+                                description: Unique identifier for lifecycle rules.
+                                  The Rule Name contains a maximum of 255 characters.
+                                type: string
+                              value:
+                                description: Specifies keywords of object names so
+                                  that objects can be filtered based on the prefixes
+                                  or suffixes. The value contains a maximum of 1024
+                                  characters.
+                                type: string
+                            type: object
+                          type: array
+                        id:
+                          description: Unique ID of the event notification. If the
+                            user does not specify an ID, the system assigns an ID
+                            automatically.
+                          type: string
+                        topic:
+                          description: URN of the event notification topic. After
+                            detecting a specific event, OBS sends a message to the
+                            topic.
+                          type: string
+                      type: object
+                    type: array
+                  forceDestroy:
+                    description: A boolean that indicates all objects should be deleted
+                      from the bucket so that the bucket can be destroyed without
+                      error. Default to false.
+                    type: boolean
+                  id:
+                    description: Unique ID of the event notification. If the user
+                      does not specify an ID, the system assigns an ID automatically.
+                    type: string
+                  lifecycleRule:
+                    description: A configuration of object lifecycle management (documented
+                      below).
+                    items:
+                      properties:
+                        enabled:
+                          description: Specifies lifecycle rule status.
+                          type: boolean
+                        expiration:
+                          description: Specifies a period when objects that have been
+                            last updated are automatically deleted. (documented below).
+                          items:
+                            properties:
+                              days:
+                                description: Default protection period, in days. The
+                                  value is from 1 to 36500.
+                                type: number
+                            type: object
+                          type: array
+                        name:
+                          description: Unique identifier for lifecycle rules. The
+                            Rule Name contains a maximum of 255 characters.
+                          type: string
+                        noncurrentVersionExpiration:
+                          description: Specifies a period when noncurrent object versions
+                            are automatically deleted. (documented below).
+                          items:
+                            properties:
+                              days:
+                                description: Default protection period, in days. The
+                                  value is from 1 to 36500.
+                                type: number
+                            type: object
+                          type: array
+                        noncurrentVersionTransition:
+                          description: Specifies a period when noncurrent object versions
+                            are automatically transitioned to WARM or COLD storage
+                            class (documented below).
+                          items:
+                            properties:
+                              days:
+                                description: Default protection period, in days. The
+                                  value is from 1 to 36500.
+                                type: number
+                              storageClass:
+                                description: 'Specifies the storage class of the bucket.
+                                  OBS provides three storage classes: STANDARD, WARM
+                                  (Infrequent Access) and COLD (Archive). Defaults
+                                  to STANDARD.'
+                                type: string
+                            type: object
+                          type: array
+                        prefix:
+                          description: 'Object key prefix identifying one or more
+                            objects to which the rule applies. If omitted, all objects
+                            in the bucket will be managed by the lifecycle rule. The
+                            prefix cannot start or end with a slash (/), cannot have
+                            consecutive slashes (/), and cannot contain the following
+                            special characters: :*?"<>|.'
+                          type: string
+                        transition:
+                          description: Specifies a period when objects that have been
+                            last updated are automatically transitioned to WARM or
+                            COLD storage class (documented below).
+                          items:
+                            properties:
+                              days:
+                                description: Default protection period, in days. The
+                                  value is from 1 to 36500.
+                                type: number
+                              storageClass:
+                                description: 'Specifies the storage class of the bucket.
+                                  OBS provides three storage classes: STANDARD, WARM
+                                  (Infrequent Access) and COLD (Archive). Defaults
+                                  to STANDARD.'
+                                type: string
+                            type: object
+                          type: array
+                      type: object
+                    type: array
+                  logging:
+                    description: A settings of bucket logging (documented below).
+                    items:
+                      properties:
+                        targetBucket:
+                          description: The name of the bucket that will receive the
+                            log objects. The acl policy of the target bucket should
+                            be log-delivery-write.
+                          type: string
+                        targetPrefix:
+                          description: To specify a key prefix for log objects.
+                          type: string
+                      type: object
+                    type: array
+                  parallelFs:
+                    description: Whether enable a bucket as a parallel file system.
+                    type: boolean
+                  region:
+                    description: If specified, the region this bucket should reside
+                      in. Otherwise, the region used by the provider.
+                    type: string
+                  serverSideEncryption:
+                    description: A configuration of server side encryption (documented
+                      below).
+                    items:
+                      properties:
+                        algorithm:
+                          description: The algorithm used for SSE. Only kms is supported.
+                          type: string
+                        kmsKeyId:
+                          description: The ID of KMS key used for the encryption.
+                          type: string
+                      type: object
+                    type: array
+                  storageClass:
+                    description: 'Specifies the storage class of the bucket. OBS provides
+                      three storage classes: STANDARD, WARM (Infrequent Access) and
+                      COLD (Archive). Defaults to STANDARD.'
+                    type: string
+                  tags:
+                    additionalProperties:
+                      type: string
+                    description: A mapping of tags to assign to the bucket. Each tag
+                      is represented by one key-value pair.
+                    type: object
+                  userDomainNames:
+                    description: 'Specifies the user domain names. The restriction
+                      requirements for this field are as follows:'
+                    items:
+                      type: string
+                    type: array
+                  versioning:
+                    description: Set to true to enable versioning. Once you version-enable
+                      a bucket, it can never return to an unversioned state. You can,
+                      however, suspend versioning on that bucket. If omitted, during
+                      bucket creation it will be in Disabled state.
+                    type: boolean
+                  website:
+                    description: A website object (documented below).
+                    items:
+                      properties:
+                        errorDocument:
+                          description: Specifies the error page returned when an error
+                            occurs during static website access. Only HTML, JPG, PNG,
+                            BMP, and WEBP files under the root directory are supported.
+                          type: string
+                        indexDocument:
+                          description: Specifies the default homepage of the static
+                            website, only HTML web pages are supported. OBS only allows
+                            files such as index.html in the root directory of a bucket
+                            to function as the default homepage. That is to say, do
+                            not set the default homepage with a multi-level directory
+                            structure (for example, /page/index.html).
+                          type: string
+                        redirectAllRequestsTo:
+                          description: A hostname to redirect all website requests
+                            for this bucket to. Hostname can optionally be prefixed
+                            with a protocol (http:// or https://) to use when redirecting
+                            requests. The default is the protocol that is used in
+                            the original request.
+                          type: string
+                        routingRules:
+                          description: 'A JSON or XML format containing routing rules
+                            describing redirect behavior and when redirects are applied.
+                            Each rule contains a Condition and a Redirect as shown
+                            in the following table:'
+                          type: string
+                      type: object
+                    type: array
+                  wormPolicy:
+                    description: A settings of bucket default WORM policy and a retention
+                      period (documented below). worm_policy requires versioning to
+                      be enabled.
+                    items:
+                      properties:
+                        days:
+                          description: Default protection period, in days. The value
+                            is from 1 to 36500.
+                          type: number
+                        years:
+                          description: Default protection period, in years. In a leap
+                            year, only 365 days are calculated. The value is from
+                            1 to 100.
+                          type: number
+                      type: object
+                    type: array
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: LastTransitionTime is the last time this condition
+                        transitioned from one status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: A Message containing details about this condition's
+                        last transition from one status to another, if any.
+                      type: string
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: Type of this condition. At most one of each condition
+                        type may apply to a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

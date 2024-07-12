@@ -1,4 +1,4 @@
-apiVersion: deh.crossplane.io/v1alpha1
+apiVersion: deh.opentelekomcloud.crossplane.io/v1alpha1
 kind: HostV1
 metadata:
   annotations:

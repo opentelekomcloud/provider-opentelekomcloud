@@ -1,4 +1,4 @@
-apiVersion: fgs.crossplane.io/v1alpha1
+apiVersion: fgs.opentelekomcloud.crossplane.io/v1alpha1
 kind: AsyncInvokeConfigV2
 metadata:
   annotations:

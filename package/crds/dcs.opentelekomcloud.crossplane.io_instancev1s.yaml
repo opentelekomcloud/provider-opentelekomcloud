@@ -1,0 +1,877 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.13.0
+  name: instancev1s.dcs.opentelekomcloud.crossplane.io
+spec:
+  group: dcs.opentelekomcloud.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - opentelekomcloud
+    kind: InstanceV1
+    listKind: InstanceV1List
+    plural: instancev1s
+    singular: instancev1
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: InstanceV1 is the Schema for the InstanceV1s API. Manages a DCS
+          Instance v1 resource within OpenTelekomCloud.
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: InstanceV1Spec defines the desired state of InstanceV1
+            properties:
+              deletionPolicy:
+                default: Delete
+                description: 'DeletionPolicy specifies what will happen to the underlying
+                  external when this managed resource is deleted - either "Delete"
+                  or "Orphan" the external resource. This field is planned to be deprecated
+                  in favor of the ManagementPolicies field in a future release. Currently,
+                  both could be set independently and non-default values would be
+                  honored if the feature flag is enabled. See the design doc for more
+                  information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223'
+                enum:
+                - Orphan
+                - Delete
+                type: string
+              forProvider:
+                properties:
+                  availableZones:
+                    description: 'IDs of the AZs where cache nodes reside. For details
+                      on how to query AZs, see Querying AZ Information or use opentelekomcloud_dcs_az_v1
+                      data source:'
+                    items:
+                      type: string
+                    type: array
+                  backupAt:
+                    description: 'Day in a week on which backup starts. Range: 1–7.
+                      Where: 1 indicates Monday; 7 indicates Sunday.'
+                    items:
+                      type: number
+                    type: array
+                  backupPolicy:
+                    description: Describes the backup configuration to be used with
+                      the instance.
+                    items:
+                      properties:
+                        backupAt:
+                          description: 'Day in a week on which backup starts. Range:
+                            1–7. Where: 1 indicates Monday; 7 indicates Sunday.'
+                          items:
+                            type: number
+                          type: array
+                        backupType:
+                          description: 'Backup type. Valid values are: auto automatic
+                            backup, manual manual backup (default).'
+                          type: string
+                        beginAt:
+                          description: Time at which backup starts. 00:00-01:00 indicates
+                            that backup starts at 00:00:00.
+                          type: string
+                        periodType:
+                          description: Interval at which backup is performed. Currently,
+                            only weekly backup is supported.
+                          type: string
+                        saveDays:
+                          description: 'Retention time. Unit: day. Range: 1–7.'
+                          type: number
+                      type: object
+                    type: array
+                  backupType:
+                    description: 'Backup type. Valid values are: auto automatic backup,
+                      manual manual backup (default).'
+                    type: string
+                  beginAt:
+                    description: Time at which backup starts. 00:00-01:00 indicates
+                      that backup starts at 00:00:00.
+                    type: string
+                  capacity:
+                    description: 'Indicates the Cache capacity. Unit: GB.'
+                    type: number
+                  configuration:
+                    description: Describes the array of configuration items of the
+                      DCS instance. Configured values can be found here.
+                    items:
+                      properties:
+                        parameterId:
+                          description: Configuration item ID.
+                          type: string
+                        parameterName:
+                          description: Configuration item name.
+                          type: string
+                        parameterValue:
+                          description: Value of the configuration item.
+                          type: string
+                      type: object
+                    type: array
+                  description:
+                    description: Indicates the description of an instance. It is a
+                      character string containing not more than 1024 characters.
+                    type: string
+                  enableWhitelist:
+                    description: Specifies whether to enable or disable whitelist.
+                      Only available when engine_version is set to 4.0/5.0. Parameter
+                      have to be used together with whitelist.
+                    type: boolean
+                  engine:
+                    description: Indicates a cache engine. Only Redis is supported.
+                      Changing this creates a new instance.
+                    type: string
+                  engineVersion:
+                    description: Indicates the version of a cache engine, which can
+                      be 3.0/4.0/5.0/6.0. Changing this creates a new instance.
+                    type: string
+                  maintainBegin:
+                    description: 'Indicates the time at which a maintenance time window
+                      starts. Format: HH:mm:ss. The start time and end time of a maintenance
+                      time window must indicate the time segment of a supported maintenance
+                      time window. For details, see section Querying Maintenance Time
+                      Windows. The start time must be set to 22:00, 02:00, 06:00,
+                      10:00, 14:00, or 18:00.'
+                    type: string
+                  maintainEnd:
+                    description: 'Indicates the time at which a maintenance time window
+                      ends. Format: HH:mm:ss. The start time and end time of a maintenance
+                      time window must indicate the time segment of a supported maintenance
+                      time window. For details, see section Querying Maintenance Time
+                      Windows. The end time is four hours later than the start time.
+                      For example, if the start time is 22:00, the end time is 02:00.'
+                    type: string
+                  name:
+                    description: Indicates the name of an instance. An instance name
+                      starts with a letter, consists of 4 to 64 characters, and supports
+                      only letters, digits, and hyphens (-).
+                    type: string
+                  passwordSecretRef:
+                    description: 'Indicates the password of an instance. An instance
+                      password must meet the following complexity requirements: Must
+                      be 8 to 32 characters long. Must contain at least 3 of the following
+                      character types: lowercase letters, uppercase letters, digits,
+                      and special characters: `~!@#$^&*()-_=+|{}:,<>./? Changing this
+                      creates a new instance.'
+                    properties:
+                      key:
+                        description: The key to select.
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                      namespace:
+                        description: Namespace of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    - namespace
+                    type: object
+                  periodType:
+                    description: Interval at which backup is performed. Currently,
+                      only weekly backup is supported.
+                    type: string
+                  privateIp:
+                    description: IP address that is manually specified for a DCS instance.
+                    type: string
+                  productId:
+                    description: Product ID used to differentiate DCS instance types.
+                      Changing this creates a new instance.
+                    type: string
+                  saveDays:
+                    description: 'Retention time. Unit: day. Range: 1–7.'
+                    type: number
+                  securityGroupId:
+                    description: Security group ID. This parameter is mandatory when
+                      engine_version is 3.0.
+                    type: string
+                  subnetId:
+                    description: Specifies the subnet Network ID. Changing this creates
+                      a new instance.
+                    type: string
+                  tags:
+                    additionalProperties:
+                      type: string
+                    description: The key/value pairs to associate with the dcs instance.
+                    type: object
+                  vpcId:
+                    description: Specifies the VPC ID. Changing this creates a new
+                      instance.
+                    type: string
+                  whitelist:
+                    description: 'Describes the whitelist groups to be used with the
+                      instance. Only available when engine_version is set to 4.0/5.0.
+                      Parameter have to be used together with enable_whitelist. Resource
+                      fields:'
+                    items:
+                      properties:
+                        groupName:
+                          description: Whitelist group name. A maximum of four groups
+                            can be created for each instance.
+                          type: string
+                        ipList:
+                          description: List of IP addresses in the whitelist group.
+                            A maximum of 20 IP addresses or IP address ranges can
+                            be added to an instance. Separate multiple IP addresses
+                            or IP address ranges with commas (,). IP address 0.0.0.0
+                            and IP address range 0.0.0/0 are not supported.
+                          items:
+                            type: string
+                          type: array
+                      type: object
+                    type: array
+                type: object
+              initProvider:
+                description: THIS IS A BETA FIELD. It will be honored unless the Management
+                  Policies feature flag is disabled. InitProvider holds the same fields
+                  as ForProvider, with the exception of Identifier and other resource
+                  reference fields. The fields that are in InitProvider are merged
+                  into ForProvider when the resource is created. The same fields are
+                  also added to the terraform ignore_changes hook, to avoid updating
+                  them after creation. This is useful for fields that are required
+                  on creation, but we do not desire to update them after creation,
+                  for example because of an external controller is managing them,
+                  like an autoscaler.
+                properties:
+                  availableZones:
+                    description: 'IDs of the AZs where cache nodes reside. For details
+                      on how to query AZs, see Querying AZ Information or use opentelekomcloud_dcs_az_v1
+                      data source:'
+                    items:
+                      type: string
+                    type: array
+                  backupAt:
+                    description: 'Day in a week on which backup starts. Range: 1–7.
+                      Where: 1 indicates Monday; 7 indicates Sunday.'
+                    items:
+                      type: number
+                    type: array
+                  backupPolicy:
+                    description: Describes the backup configuration to be used with
+                      the instance.
+                    items:
+                      properties:
+                        backupAt:
+                          description: 'Day in a week on which backup starts. Range:
+                            1–7. Where: 1 indicates Monday; 7 indicates Sunday.'
+                          items:
+                            type: number
+                          type: array
+                        backupType:
+                          description: 'Backup type. Valid values are: auto automatic
+                            backup, manual manual backup (default).'
+                          type: string
+                        beginAt:
+                          description: Time at which backup starts. 00:00-01:00 indicates
+                            that backup starts at 00:00:00.
+                          type: string
+                        periodType:
+                          description: Interval at which backup is performed. Currently,
+                            only weekly backup is supported.
+                          type: string
+                        saveDays:
+                          description: 'Retention time. Unit: day. Range: 1–7.'
+                          type: number
+                      type: object
+                    type: array
+                  backupType:
+                    description: 'Backup type. Valid values are: auto automatic backup,
+                      manual manual backup (default).'
+                    type: string
+                  beginAt:
+                    description: Time at which backup starts. 00:00-01:00 indicates
+                      that backup starts at 00:00:00.
+                    type: string
+                  capacity:
+                    description: 'Indicates the Cache capacity. Unit: GB.'
+                    type: number
+                  configuration:
+                    description: Describes the array of configuration items of the
+                      DCS instance. Configured values can be found here.
+                    items:
+                      properties:
+                        parameterId:
+                          description: Configuration item ID.
+                          type: string
+                        parameterName:
+                          description: Configuration item name.
+                          type: string
+                        parameterValue:
+                          description: Value of the configuration item.
+                          type: string
+                      type: object
+                    type: array
+                  description:
+                    description: Indicates the description of an instance. It is a
+                      character string containing not more than 1024 characters.
+                    type: string
+                  enableWhitelist:
+                    description: Specifies whether to enable or disable whitelist.
+                      Only available when engine_version is set to 4.0/5.0. Parameter
+                      have to be used together with whitelist.
+                    type: boolean
+                  engine:
+                    description: Indicates a cache engine. Only Redis is supported.
+                      Changing this creates a new instance.
+                    type: string
+                  engineVersion:
+                    description: Indicates the version of a cache engine, which can
+                      be 3.0/4.0/5.0/6.0. Changing this creates a new instance.
+                    type: string
+                  maintainBegin:
+                    description: 'Indicates the time at which a maintenance time window
+                      starts. Format: HH:mm:ss. The start time and end time of a maintenance
+                      time window must indicate the time segment of a supported maintenance
+                      time window. For details, see section Querying Maintenance Time
+                      Windows. The start time must be set to 22:00, 02:00, 06:00,
+                      10:00, 14:00, or 18:00.'
+                    type: string
+                  maintainEnd:
+                    description: 'Indicates the time at which a maintenance time window
+                      ends. Format: HH:mm:ss. The start time and end time of a maintenance
+                      time window must indicate the time segment of a supported maintenance
+                      time window. For details, see section Querying Maintenance Time
+                      Windows. The end time is four hours later than the start time.
+                      For example, if the start time is 22:00, the end time is 02:00.'
+                    type: string
+                  name:
+                    description: Indicates the name of an instance. An instance name
+                      starts with a letter, consists of 4 to 64 characters, and supports
+                      only letters, digits, and hyphens (-).
+                    type: string
+                  periodType:
+                    description: Interval at which backup is performed. Currently,
+                      only weekly backup is supported.
+                    type: string
+                  privateIp:
+                    description: IP address that is manually specified for a DCS instance.
+                    type: string
+                  productId:
+                    description: Product ID used to differentiate DCS instance types.
+                      Changing this creates a new instance.
+                    type: string
+                  saveDays:
+                    description: 'Retention time. Unit: day. Range: 1–7.'
+                    type: number
+                  securityGroupId:
+                    description: Security group ID. This parameter is mandatory when
+                      engine_version is 3.0.
+                    type: string
+                  subnetId:
+                    description: Specifies the subnet Network ID. Changing this creates
+                      a new instance.
+                    type: string
+                  tags:
+                    additionalProperties:
+                      type: string
+                    description: The key/value pairs to associate with the dcs instance.
+                    type: object
+                  vpcId:
+                    description: Specifies the VPC ID. Changing this creates a new
+                      instance.
+                    type: string
+                  whitelist:
+                    description: 'Describes the whitelist groups to be used with the
+                      instance. Only available when engine_version is set to 4.0/5.0.
+                      Parameter have to be used together with enable_whitelist. Resource
+                      fields:'
+                    items:
+                      properties:
+                        groupName:
+                          description: Whitelist group name. A maximum of four groups
+                            can be created for each instance.
+                          type: string
+                        ipList:
+                          description: List of IP addresses in the whitelist group.
+                            A maximum of 20 IP addresses or IP address ranges can
+                            be added to an instance. Separate multiple IP addresses
+                            or IP address ranges with commas (,). IP address 0.0.0.0
+                            and IP address range 0.0.0/0 are not supported.
+                          items:
+                            type: string
+                          type: array
+                      type: object
+                    type: array
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: 'THIS IS A BETA FIELD. It is on by default but can be
+                  opted out through a Crossplane feature flag. ManagementPolicies
+                  specify the array of actions Crossplane is allowed to take on the
+                  managed and external resources. This field is planned to replace
+                  the DeletionPolicy field in a future release. Currently, both could
+                  be set independently and non-default values would be honored if
+                  the feature flag is enabled. If both are custom, the DeletionPolicy
+                  field will be ignored. See the design doc for more information:
+                  https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md'
+                items:
+                  description: A ManagementAction represents an action that the Crossplane
+                    controllers can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
+              providerConfigRef:
+                default:
+                  name: default
+                description: ProviderConfigReference specifies how the provider that
+                  will be used to create, observe, update, and delete this managed
+                  resource should be configured.
+                properties:
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                  policy:
+                    description: Policies for referencing.
+                    properties:
+                      resolution:
+                        default: Required
+                        description: Resolution specifies whether resolution of this
+                          reference is required. The default is 'Required', which
+                          means the reconcile will fail if the reference cannot be
+                          resolved. 'Optional' means this reference will be a no-op
+                          if it cannot be resolved.
+                        enum:
+                        - Required
+                        - Optional
+                        type: string
+                      resolve:
+                        description: Resolve specifies when this reference should
+                          be resolved. The default is 'IfNotPresent', which will attempt
+                          to resolve the reference only when the corresponding field
+                          is not present. Use 'Always' to resolve the reference on
+                          every reconcile.
+                        enum:
+                        - Always
+                        - IfNotPresent
+                        type: string
+                    type: object
+                required:
+                - name
+                type: object
+              publishConnectionDetailsTo:
+                description: PublishConnectionDetailsTo specifies the connection secret
+                  config which contains a name, metadata and a reference to secret
+                  store config to which any connection details for this managed resource
+                  should be written. Connection details frequently include the endpoint,
+                  username, and password required to connect to the managed resource.
+                properties:
+                  configRef:
+                    default:
+                      name: default
+                    description: SecretStoreConfigRef specifies which secret store
+                      config should be used for this ConnectionSecret.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: Resolution specifies whether resolution of
+                              this reference is required. The default is 'Required',
+                              which means the reconcile will fail if the reference
+                              cannot be resolved. 'Optional' means this reference
+                              will be a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: Resolve specifies when this reference should
+                              be resolved. The default is 'IfNotPresent', which will
+                              attempt to resolve the reference only when the corresponding
+                              field is not present. Use 'Always' to resolve the reference
+                              on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  metadata:
+                    description: Metadata is the metadata for connection secret.
+                    properties:
+                      annotations:
+                        additionalProperties:
+                          type: string
+                        description: Annotations are the annotations to be added to
+                          connection secret. - For Kubernetes secrets, this will be
+                          used as "metadata.annotations". - It is up to Secret Store
+                          implementation for others store types.
+                        type: object
+                      labels:
+                        additionalProperties:
+                          type: string
+                        description: Labels are the labels/tags to be added to connection
+                          secret. - For Kubernetes secrets, this will be used as "metadata.labels".
+                          - It is up to Secret Store implementation for others store
+                          types.
+                        type: object
+                      type:
+                        description: Type is the SecretType for the connection secret.
+                          - Only valid for Kubernetes Secret Stores.
+                        type: string
+                    type: object
+                  name:
+                    description: Name is the name of the connection secret.
+                    type: string
+                required:
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: WriteConnectionSecretToReference specifies the namespace
+                  and name of a Secret to which any connection details for this managed
+                  resource should be written. Connection details frequently include
+                  the endpoint, username, and password required to connect to the
+                  managed resource. This field is planned to be replaced in a future
+                  release in favor of PublishConnectionDetailsTo. Currently, both
+                  could be set independently and connection details would be published
+                  to both without affecting each other.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                  namespace:
+                    description: Namespace of the secret.
+                    type: string
+                required:
+                - name
+                - namespace
+                type: object
+            required:
+            - forProvider
+            type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.availableZones is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.availableZones)
+                || (has(self.initProvider) && has(self.initProvider.availableZones))'
+            - message: spec.forProvider.capacity is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.capacity)
+                || (has(self.initProvider) && has(self.initProvider.capacity))'
+            - message: spec.forProvider.engine is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.engine)
+                || (has(self.initProvider) && has(self.initProvider.engine))'
+            - message: spec.forProvider.engineVersion is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.engineVersion)
+                || (has(self.initProvider) && has(self.initProvider.engineVersion))'
+            - message: spec.forProvider.name is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
+                || (has(self.initProvider) && has(self.initProvider.name))'
+            - message: spec.forProvider.productId is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.productId)
+                || (has(self.initProvider) && has(self.initProvider.productId))'
+            - message: spec.forProvider.subnetId is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.subnetId)
+                || (has(self.initProvider) && has(self.initProvider.subnetId))'
+            - message: spec.forProvider.vpcId is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.vpcId)
+                || (has(self.initProvider) && has(self.initProvider.vpcId))'
+          status:
+            description: InstanceV1Status defines the observed state of InstanceV1.
+            properties:
+              atProvider:
+                properties:
+                  availableZones:
+                    description: 'IDs of the AZs where cache nodes reside. For details
+                      on how to query AZs, see Querying AZ Information or use opentelekomcloud_dcs_az_v1
+                      data source:'
+                    items:
+                      type: string
+                    type: array
+                  backupAt:
+                    description: 'Day in a week on which backup starts. Range: 1–7.
+                      Where: 1 indicates Monday; 7 indicates Sunday.'
+                    items:
+                      type: number
+                    type: array
+                  backupPolicy:
+                    description: Describes the backup configuration to be used with
+                      the instance.
+                    items:
+                      properties:
+                        backupAt:
+                          description: 'Day in a week on which backup starts. Range:
+                            1–7. Where: 1 indicates Monday; 7 indicates Sunday.'
+                          items:
+                            type: number
+                          type: array
+                        backupType:
+                          description: 'Backup type. Valid values are: auto automatic
+                            backup, manual manual backup (default).'
+                          type: string
+                        beginAt:
+                          description: Time at which backup starts. 00:00-01:00 indicates
+                            that backup starts at 00:00:00.
+                          type: string
+                        periodType:
+                          description: Interval at which backup is performed. Currently,
+                            only weekly backup is supported.
+                          type: string
+                        saveDays:
+                          description: 'Retention time. Unit: day. Range: 1–7.'
+                          type: number
+                      type: object
+                    type: array
+                  backupType:
+                    description: 'Backup type. Valid values are: auto automatic backup,
+                      manual manual backup (default).'
+                    type: string
+                  beginAt:
+                    description: Time at which backup starts. 00:00-01:00 indicates
+                      that backup starts at 00:00:00.
+                    type: string
+                  capacity:
+                    description: 'Indicates the Cache capacity. Unit: GB.'
+                    type: number
+                  configuration:
+                    description: Describes the array of configuration items of the
+                      DCS instance. Configured values can be found here.
+                    items:
+                      properties:
+                        parameterId:
+                          description: Configuration item ID.
+                          type: string
+                        parameterName:
+                          description: Configuration item name.
+                          type: string
+                        parameterValue:
+                          description: Value of the configuration item.
+                          type: string
+                      type: object
+                    type: array
+                  createdAt:
+                    description: Time at which the DCS instance is created. For example,
+                      2017-03-31T12:24:46.297Z.
+                    type: string
+                  description:
+                    description: Indicates the description of an instance. It is a
+                      character string containing not more than 1024 characters.
+                    type: string
+                  enableWhitelist:
+                    description: Specifies whether to enable or disable whitelist.
+                      Only available when engine_version is set to 4.0/5.0. Parameter
+                      have to be used together with whitelist.
+                    type: boolean
+                  engine:
+                    description: Indicates a cache engine. Only Redis is supported.
+                      Changing this creates a new instance.
+                    type: string
+                  engineVersion:
+                    description: Indicates the version of a cache engine, which can
+                      be 3.0/4.0/5.0/6.0. Changing this creates a new instance.
+                    type: string
+                  id:
+                    type: string
+                  internalVersion:
+                    description: Internal DCS version.
+                    type: string
+                  ip:
+                    description: Cache node's IP address in the tenant's VPC.
+                    type: string
+                  maintainBegin:
+                    description: 'Indicates the time at which a maintenance time window
+                      starts. Format: HH:mm:ss. The start time and end time of a maintenance
+                      time window must indicate the time segment of a supported maintenance
+                      time window. For details, see section Querying Maintenance Time
+                      Windows. The start time must be set to 22:00, 02:00, 06:00,
+                      10:00, 14:00, or 18:00.'
+                    type: string
+                  maintainEnd:
+                    description: 'Indicates the time at which a maintenance time window
+                      ends. Format: HH:mm:ss. The start time and end time of a maintenance
+                      time window must indicate the time segment of a supported maintenance
+                      time window. For details, see section Querying Maintenance Time
+                      Windows. The end time is four hours later than the start time.
+                      For example, if the start time is 22:00, the end time is 02:00.'
+                    type: string
+                  maxMemory:
+                    description: 'Overall memory size. Unit: MB.'
+                    type: number
+                  name:
+                    description: Indicates the name of an instance. An instance name
+                      starts with a letter, consists of 4 to 64 characters, and supports
+                      only letters, digits, and hyphens (-).
+                    type: string
+                  noPasswordAccess:
+                    description: An indicator of whether a DCS instance can be accessed
+                      in password-free mode. true when password not set.
+                    type: string
+                  orderId:
+                    description: An order ID is generated only in the monthly or yearly
+                      billing mode. In other billing modes, no value is returned for
+                      this parameter.
+                    type: string
+                  periodType:
+                    description: Interval at which backup is performed. Currently,
+                      only weekly backup is supported.
+                    type: string
+                  port:
+                    description: Port of the cache node.
+                    type: number
+                  privateIp:
+                    description: IP address that is manually specified for a DCS instance.
+                    type: string
+                  productId:
+                    description: Product ID used to differentiate DCS instance types.
+                      Changing this creates a new instance.
+                    type: string
+                  resourceSpecCode:
+                    description: Resource specifications.
+                    type: string
+                  saveDays:
+                    description: 'Retention time. Unit: day. Range: 1–7.'
+                    type: number
+                  securityGroupId:
+                    description: Security group ID. This parameter is mandatory when
+                      engine_version is 3.0.
+                    type: string
+                  securityGroupName:
+                    description: Indicates the name of a security group.
+                    type: string
+                  status:
+                    description: Cache instance status. One of CREATING, CREATEFAILED,
+                      RUNNING, ERROR, RESTARTING, EXTENDING, RESTORING
+                    type: string
+                  subnetId:
+                    description: Specifies the subnet Network ID. Changing this creates
+                      a new instance.
+                    type: string
+                  subnetName:
+                    description: Indicates the name of a subnet.
+                    type: string
+                  tags:
+                    additionalProperties:
+                      type: string
+                    description: The key/value pairs to associate with the dcs instance.
+                    type: object
+                  usedMemory:
+                    description: 'Size of the used memory. Unit: MB.'
+                    type: number
+                  userId:
+                    description: Indicates a user ID.
+                    type: string
+                  userName:
+                    description: Username.
+                    type: string
+                  vpcId:
+                    description: Specifies the VPC ID. Changing this creates a new
+                      instance.
+                    type: string
+                  vpcName:
+                    description: Indicates the name of a vpc.
+                    type: string
+                  whitelist:
+                    description: 'Describes the whitelist groups to be used with the
+                      instance. Only available when engine_version is set to 4.0/5.0.
+                      Parameter have to be used together with enable_whitelist. Resource
+                      fields:'
+                    items:
+                      properties:
+                        groupName:
+                          description: Whitelist group name. A maximum of four groups
+                            can be created for each instance.
+                          type: string
+                        ipList:
+                          description: List of IP addresses in the whitelist group.
+                            A maximum of 20 IP addresses or IP address ranges can
+                            be added to an instance. Separate multiple IP addresses
+                            or IP address ranges with commas (,). IP address 0.0.0.0
+                            and IP address range 0.0.0/0 are not supported.
+                          items:
+                            type: string
+                          type: array
+                      type: object
+                    type: array
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: LastTransitionTime is the last time this condition
+                        transitioned from one status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: A Message containing details about this condition's
+                        last transition from one status to another, if any.
+                      type: string
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: Type of this condition. At most one of each condition
+                        type may apply to a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

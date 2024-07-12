@@ -1,4 +1,4 @@
-apiVersion: fgs.crossplane.io/v1alpha1
+apiVersion: fgs.opentelekomcloud.crossplane.io/v1alpha1
 kind: EventV2
 metadata:
   annotations:

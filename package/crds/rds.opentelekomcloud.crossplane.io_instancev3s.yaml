@@ -1,0 +1,1017 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.13.0
+  name: instancev3s.rds.opentelekomcloud.crossplane.io
+spec:
+  group: rds.opentelekomcloud.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - opentelekomcloud
+    kind: InstanceV3
+    listKind: InstanceV3List
+    plural: instancev3s
+    singular: instancev3
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: InstanceV3 is the Schema for the InstanceV3s API. Manages an
+          RDS Instance v3 resource within OpenTelekomCloud.
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: InstanceV3Spec defines the desired state of InstanceV3
+            properties:
+              deletionPolicy:
+                default: Delete
+                description: 'DeletionPolicy specifies what will happen to the underlying
+                  external when this managed resource is deleted - either "Delete"
+                  or "Orphan" the external resource. This field is planned to be deprecated
+                  in favor of the ManagementPolicies field in a future release. Currently,
+                  both could be set independently and non-default values would be
+                  honored if the feature flag is enabled. See the design doc for more
+                  information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223'
+                enum:
+                - Orphan
+                - Delete
+                type: string
+              forProvider:
+                properties:
+                  availabilityZone:
+                    description: Specifies the AZ name. Changing this parameter will
+                      create a new resource.
+                    items:
+                      type: string
+                    type: array
+                  backupStrategy:
+                    description: Specifies the advanced backup policy. Structure is
+                      documented below.
+                    items:
+                      properties:
+                        keepDays:
+                          description: 'Specifies the retention days for specific
+                            backup files. The value range is from 0 to 732. If this
+                            parameter is not specified or set to 0, the automated
+                            backup policy is disabled. NOTICE: Primary/standby DB
+                            instances of Microsoft SQL Server do not support disabling
+                            the automated backup policy.'
+                          type: number
+                        startTime:
+                          description: 'Specifies the backup time window. Automated
+                            backups will be triggered during the backup time window.
+                            It must be a valid value in the "hh:mm-HH:MM" format.
+                            The current time is in the UTC format. The HH value must
+                            be 1 greater than the hh value. The values of mm and MM
+                            must be the same and must be set to any of the following:
+                            00, 15, 30, or 45. Example value: 08:15-09:15 23:00-00:00.'
+                          type: string
+                      type: object
+                    type: array
+                  db:
+                    description: Specifies the database information. Structure is
+                      documented below. Changing this parameter will create a new
+                      resource.
+                    items:
+                      properties:
+                        passwordSecretRef:
+                          description: 'Specifies the database password. The value
+                            cannot be empty and should contain 8 to 32 characters,
+                            including uppercase and lowercase letters, digits, and
+                            the following special characters: ~!@#%^*-_=+? You are
+                            advised to enter a strong password to improve security,
+                            preventing security risks such as brute force cracking.  Changing
+                            this parameter will create a new resource.'
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                        port:
+                          description: 'Specifies the database port information. The
+                            MySQL database port ranges from 1024 to 65535 (excluding
+                            12017 and 33071, which are occupied by the RDS system
+                            and cannot be used). The PostgreSQL database port ranges
+                            from 2100 to 9500. The Microsoft SQL Server database port
+                            can be 1433 or ranges from 2100 to 9500, excluding 5355
+                            and 5985. If this parameter is not set, the default value
+                            is as follows: For MySQL, the default value is 3306. For
+                            PostgreSQL, the default value is 5432. For Microsoft SQL
+                            Server, the default value is 1433.  Changing this parameter
+                            will create a new resource.'
+                          type: number
+                        type:
+                          description: 'Specifies the DB engine. Value: MySQL, PostgreSQL,
+                            SQLServer. Changing this parameter will create a new resource.'
+                          type: string
+                        version:
+                          description: Specifies the database version. MySQL databases
+                            support MySQL 5.6 and above. PostgreSQL databases support
+                            PostgreSQL 9.5 and above. Microsoft SQL Server databases
+                            support 2014 SE, 2016 SE, and above. Changing this parameter
+                            will create a new resource.
+                          type: string
+                      required:
+                      - passwordSecretRef
+                      type: object
+                    type: array
+                  flavor:
+                    description: Specifies the specification code. Use data source
+                      opentelekomcloud_rds_flavors_v3 to get a list of available flavor
+                      names. Examples could be rds.pg.c2.medium or   rds.pg.c2.medium.ha
+                      for HA clusters.
+                    type: string
+                  haReplicationMode:
+                    description: Specifies the replication mode for the standby DB
+                      instance. For MySQL, the value is async or semisync. For PostgreSQL,
+                      the value is async or sync. For Microsoft SQL Server, the value
+                      is sync. Parameter is required for HA clusters.
+                    type: string
+                  lowerCaseTableNames:
+                    description: Specifies the case-sensitive state of the database
+                      table name, the default value is "1". Changing this parameter
+                      will create a new resource.
+                    type: string
+                  name:
+                    description: Specifies the DB instance name. The DB instance name
+                      of the same type must be unique for the same tenant. The value
+                      must be 4 to 64 characters in length and start with a letter.
+                      It is case-sensitive and can contain only letters, digits, hyphens
+                      (-), and underscores (_).  Changing this parameter will create
+                      a new resource.
+                    type: string
+                  paramGroupId:
+                    description: Specifies the parameter group ID.
+                    type: string
+                  parameters:
+                    additionalProperties:
+                      type: string
+                    description: Map of additional configuration parameters. Values
+                      should be strings. Parameters set here overrides values from
+                      configuration template (parameter group).
+                    type: object
+                  publicIps:
+                    description: Specifies floating IP to be assigned to the instance.
+                      This should be a list with single element only.
+                    items:
+                      type: string
+                    type: array
+                  restoreFromBackup:
+                    description: Specifies whether to restore database to an instance
+                      described in current resource. Structure is documented below.
+                    items:
+                      properties:
+                        backupId:
+                          description: Specifies the ID of the backup used to restore
+                            data. This parameter must be specified when the backup
+                            file is used for restoration.
+                          type: string
+                        restoreTime:
+                          description: Specifies the time point of data restoration
+                            in the UNIX timestamp. The unit is millisecond and the
+                            time zone is UTC.
+                          type: number
+                        sourceInstanceId:
+                          description: Specifies the source instance ID.
+                          type: string
+                        type:
+                          description: 'Specifies the restoration mode. The values
+                            can be:'
+                          type: string
+                      type: object
+                    type: array
+                  restorePoint:
+                    description: Specifies the restoration information. By selecting
+                      this option a new RDS instance will be created from separate
+                      instance backup. Structure is documented below.
+                    items:
+                      properties:
+                        backupId:
+                          description: Specifies the ID of the backup used to restore
+                            data.
+                          type: string
+                        instanceId:
+                          description: Specifies the original DB instance ID.
+                          type: string
+                        restoreTime:
+                          description: Specifies the time point of data restoration
+                            in the UNIX timestamp. The unit is millisecond and the
+                            time zone is UTC.
+                          type: number
+                      type: object
+                    type: array
+                  securityGroupId:
+                    description: Specifies the security group which the RDS DB instance
+                      belongs to. Changing this parameter will create a new resource.
+                    type: string
+                  sslEnable:
+                    description: Specifies whether SSL should be enabled for MySql
+                      instances.
+                    type: boolean
+                  subnetId:
+                    description: Specifies the subnet id. Changing this parameter
+                      will create a new resource.
+                    type: string
+                  tag:
+                    additionalProperties:
+                      type: string
+                    description: Tags key/value pairs to associate with the instance.
+                      Deprecated, please use the tags instead.
+                    type: object
+                  tags:
+                    additionalProperties:
+                      type: string
+                    description: Tags key/value pairs to associate with the instance.
+                    type: object
+                  volume:
+                    description: Specifies the volume information. Structure is documented
+                      below.
+                    items:
+                      properties:
+                        diskEncryptionId:
+                          description: Specifies the key ID for disk encryption. Changing
+                            this parameter will create a new resource.
+                          type: string
+                        limitSize:
+                          description: Specifies the upper limit of automatic expansion
+                            of storage, in GB.
+                          type: number
+                        size:
+                          description: Specifies the volume size. Its value range
+                            is from 40 GB to 4000 GB. The value must be a multiple
+                            of 10. Changing this resize the volume.
+                          type: number
+                        triggerThreshold:
+                          description: 'Specifies the threshold to trigger automatic
+                            expansion. If the available storage drops to this threshold
+                            or 10 GB, the automatic expansion is triggered. The valid
+                            values are as follows:'
+                          type: number
+                        type:
+                          description: 'Specifies the volume type. Its value can be
+                            any of the following and is case-sensitive: COMMON: indicates
+                            the SATA type. ULTRAHIGH: indicates the SSD type.  Changing
+                            this parameter will create a new resource.'
+                          type: string
+                      type: object
+                    type: array
+                  vpcId:
+                    description: Specifies the VPC ID. Changing this parameter will
+                      create a new resource.
+                    type: string
+                type: object
+              initProvider:
+                description: THIS IS A BETA FIELD. It will be honored unless the Management
+                  Policies feature flag is disabled. InitProvider holds the same fields
+                  as ForProvider, with the exception of Identifier and other resource
+                  reference fields. The fields that are in InitProvider are merged
+                  into ForProvider when the resource is created. The same fields are
+                  also added to the terraform ignore_changes hook, to avoid updating
+                  them after creation. This is useful for fields that are required
+                  on creation, but we do not desire to update them after creation,
+                  for example because of an external controller is managing them,
+                  like an autoscaler.
+                properties:
+                  availabilityZone:
+                    description: Specifies the AZ name. Changing this parameter will
+                      create a new resource.
+                    items:
+                      type: string
+                    type: array
+                  backupStrategy:
+                    description: Specifies the advanced backup policy. Structure is
+                      documented below.
+                    items:
+                      properties:
+                        keepDays:
+                          description: 'Specifies the retention days for specific
+                            backup files. The value range is from 0 to 732. If this
+                            parameter is not specified or set to 0, the automated
+                            backup policy is disabled. NOTICE: Primary/standby DB
+                            instances of Microsoft SQL Server do not support disabling
+                            the automated backup policy.'
+                          type: number
+                        startTime:
+                          description: 'Specifies the backup time window. Automated
+                            backups will be triggered during the backup time window.
+                            It must be a valid value in the "hh:mm-HH:MM" format.
+                            The current time is in the UTC format. The HH value must
+                            be 1 greater than the hh value. The values of mm and MM
+                            must be the same and must be set to any of the following:
+                            00, 15, 30, or 45. Example value: 08:15-09:15 23:00-00:00.'
+                          type: string
+                      type: object
+                    type: array
+                  db:
+                    description: Specifies the database information. Structure is
+                      documented below. Changing this parameter will create a new
+                      resource.
+                    items:
+                      properties:
+                        port:
+                          description: 'Specifies the database port information. The
+                            MySQL database port ranges from 1024 to 65535 (excluding
+                            12017 and 33071, which are occupied by the RDS system
+                            and cannot be used). The PostgreSQL database port ranges
+                            from 2100 to 9500. The Microsoft SQL Server database port
+                            can be 1433 or ranges from 2100 to 9500, excluding 5355
+                            and 5985. If this parameter is not set, the default value
+                            is as follows: For MySQL, the default value is 3306. For
+                            PostgreSQL, the default value is 5432. For Microsoft SQL
+                            Server, the default value is 1433.  Changing this parameter
+                            will create a new resource.'
+                          type: number
+                        type:
+                          description: 'Specifies the DB engine. Value: MySQL, PostgreSQL,
+                            SQLServer. Changing this parameter will create a new resource.'
+                          type: string
+                        version:
+                          description: Specifies the database version. MySQL databases
+                            support MySQL 5.6 and above. PostgreSQL databases support
+                            PostgreSQL 9.5 and above. Microsoft SQL Server databases
+                            support 2014 SE, 2016 SE, and above. Changing this parameter
+                            will create a new resource.
+                          type: string
+                      type: object
+                    type: array
+                  flavor:
+                    description: Specifies the specification code. Use data source
+                      opentelekomcloud_rds_flavors_v3 to get a list of available flavor
+                      names. Examples could be rds.pg.c2.medium or   rds.pg.c2.medium.ha
+                      for HA clusters.
+                    type: string
+                  haReplicationMode:
+                    description: Specifies the replication mode for the standby DB
+                      instance. For MySQL, the value is async or semisync. For PostgreSQL,
+                      the value is async or sync. For Microsoft SQL Server, the value
+                      is sync. Parameter is required for HA clusters.
+                    type: string
+                  lowerCaseTableNames:
+                    description: Specifies the case-sensitive state of the database
+                      table name, the default value is "1". Changing this parameter
+                      will create a new resource.
+                    type: string
+                  name:
+                    description: Specifies the DB instance name. The DB instance name
+                      of the same type must be unique for the same tenant. The value
+                      must be 4 to 64 characters in length and start with a letter.
+                      It is case-sensitive and can contain only letters, digits, hyphens
+                      (-), and underscores (_).  Changing this parameter will create
+                      a new resource.
+                    type: string
+                  paramGroupId:
+                    description: Specifies the parameter group ID.
+                    type: string
+                  parameters:
+                    additionalProperties:
+                      type: string
+                    description: Map of additional configuration parameters. Values
+                      should be strings. Parameters set here overrides values from
+                      configuration template (parameter group).
+                    type: object
+                  publicIps:
+                    description: Specifies floating IP to be assigned to the instance.
+                      This should be a list with single element only.
+                    items:
+                      type: string
+                    type: array
+                  restoreFromBackup:
+                    description: Specifies whether to restore database to an instance
+                      described in current resource. Structure is documented below.
+                    items:
+                      properties:
+                        backupId:
+                          description: Specifies the ID of the backup used to restore
+                            data. This parameter must be specified when the backup
+                            file is used for restoration.
+                          type: string
+                        restoreTime:
+                          description: Specifies the time point of data restoration
+                            in the UNIX timestamp. The unit is millisecond and the
+                            time zone is UTC.
+                          type: number
+                        sourceInstanceId:
+                          description: Specifies the source instance ID.
+                          type: string
+                        type:
+                          description: 'Specifies the restoration mode. The values
+                            can be:'
+                          type: string
+                      type: object
+                    type: array
+                  restorePoint:
+                    description: Specifies the restoration information. By selecting
+                      this option a new RDS instance will be created from separate
+                      instance backup. Structure is documented below.
+                    items:
+                      properties:
+                        backupId:
+                          description: Specifies the ID of the backup used to restore
+                            data.
+                          type: string
+                        instanceId:
+                          description: Specifies the original DB instance ID.
+                          type: string
+                        restoreTime:
+                          description: Specifies the time point of data restoration
+                            in the UNIX timestamp. The unit is millisecond and the
+                            time zone is UTC.
+                          type: number
+                      type: object
+                    type: array
+                  securityGroupId:
+                    description: Specifies the security group which the RDS DB instance
+                      belongs to. Changing this parameter will create a new resource.
+                    type: string
+                  sslEnable:
+                    description: Specifies whether SSL should be enabled for MySql
+                      instances.
+                    type: boolean
+                  subnetId:
+                    description: Specifies the subnet id. Changing this parameter
+                      will create a new resource.
+                    type: string
+                  tag:
+                    additionalProperties:
+                      type: string
+                    description: Tags key/value pairs to associate with the instance.
+                      Deprecated, please use the tags instead.
+                    type: object
+                  tags:
+                    additionalProperties:
+                      type: string
+                    description: Tags key/value pairs to associate with the instance.
+                    type: object
+                  volume:
+                    description: Specifies the volume information. Structure is documented
+                      below.
+                    items:
+                      properties:
+                        diskEncryptionId:
+                          description: Specifies the key ID for disk encryption. Changing
+                            this parameter will create a new resource.
+                          type: string
+                        limitSize:
+                          description: Specifies the upper limit of automatic expansion
+                            of storage, in GB.
+                          type: number
+                        size:
+                          description: Specifies the volume size. Its value range
+                            is from 40 GB to 4000 GB. The value must be a multiple
+                            of 10. Changing this resize the volume.
+                          type: number
+                        triggerThreshold:
+                          description: 'Specifies the threshold to trigger automatic
+                            expansion. If the available storage drops to this threshold
+                            or 10 GB, the automatic expansion is triggered. The valid
+                            values are as follows:'
+                          type: number
+                        type:
+                          description: 'Specifies the volume type. Its value can be
+                            any of the following and is case-sensitive: COMMON: indicates
+                            the SATA type. ULTRAHIGH: indicates the SSD type.  Changing
+                            this parameter will create a new resource.'
+                          type: string
+                      type: object
+                    type: array
+                  vpcId:
+                    description: Specifies the VPC ID. Changing this parameter will
+                      create a new resource.
+                    type: string
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: 'THIS IS A BETA FIELD. It is on by default but can be
+                  opted out through a Crossplane feature flag. ManagementPolicies
+                  specify the array of actions Crossplane is allowed to take on the
+                  managed and external resources. This field is planned to replace
+                  the DeletionPolicy field in a future release. Currently, both could
+                  be set independently and non-default values would be honored if
+                  the feature flag is enabled. If both are custom, the DeletionPolicy
+                  field will be ignored. See the design doc for more information:
+                  https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md'
+                items:
+                  description: A ManagementAction represents an action that the Crossplane
+                    controllers can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
+              providerConfigRef:
+                default:
+                  name: default
+                description: ProviderConfigReference specifies how the provider that
+                  will be used to create, observe, update, and delete this managed
+                  resource should be configured.
+                properties:
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                  policy:
+                    description: Policies for referencing.
+                    properties:
+                      resolution:
+                        default: Required
+                        description: Resolution specifies whether resolution of this
+                          reference is required. The default is 'Required', which
+                          means the reconcile will fail if the reference cannot be
+                          resolved. 'Optional' means this reference will be a no-op
+                          if it cannot be resolved.
+                        enum:
+                        - Required
+                        - Optional
+                        type: string
+                      resolve:
+                        description: Resolve specifies when this reference should
+                          be resolved. The default is 'IfNotPresent', which will attempt
+                          to resolve the reference only when the corresponding field
+                          is not present. Use 'Always' to resolve the reference on
+                          every reconcile.
+                        enum:
+                        - Always
+                        - IfNotPresent
+                        type: string
+                    type: object
+                required:
+                - name
+                type: object
+              publishConnectionDetailsTo:
+                description: PublishConnectionDetailsTo specifies the connection secret
+                  config which contains a name, metadata and a reference to secret
+                  store config to which any connection details for this managed resource
+                  should be written. Connection details frequently include the endpoint,
+                  username, and password required to connect to the managed resource.
+                properties:
+                  configRef:
+                    default:
+                      name: default
+                    description: SecretStoreConfigRef specifies which secret store
+                      config should be used for this ConnectionSecret.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: Resolution specifies whether resolution of
+                              this reference is required. The default is 'Required',
+                              which means the reconcile will fail if the reference
+                              cannot be resolved. 'Optional' means this reference
+                              will be a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: Resolve specifies when this reference should
+                              be resolved. The default is 'IfNotPresent', which will
+                              attempt to resolve the reference only when the corresponding
+                              field is not present. Use 'Always' to resolve the reference
+                              on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  metadata:
+                    description: Metadata is the metadata for connection secret.
+                    properties:
+                      annotations:
+                        additionalProperties:
+                          type: string
+                        description: Annotations are the annotations to be added to
+                          connection secret. - For Kubernetes secrets, this will be
+                          used as "metadata.annotations". - It is up to Secret Store
+                          implementation for others store types.
+                        type: object
+                      labels:
+                        additionalProperties:
+                          type: string
+                        description: Labels are the labels/tags to be added to connection
+                          secret. - For Kubernetes secrets, this will be used as "metadata.labels".
+                          - It is up to Secret Store implementation for others store
+                          types.
+                        type: object
+                      type:
+                        description: Type is the SecretType for the connection secret.
+                          - Only valid for Kubernetes Secret Stores.
+                        type: string
+                    type: object
+                  name:
+                    description: Name is the name of the connection secret.
+                    type: string
+                required:
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: WriteConnectionSecretToReference specifies the namespace
+                  and name of a Secret to which any connection details for this managed
+                  resource should be written. Connection details frequently include
+                  the endpoint, username, and password required to connect to the
+                  managed resource. This field is planned to be replaced in a future
+                  release in favor of PublishConnectionDetailsTo. Currently, both
+                  could be set independently and connection details would be published
+                  to both without affecting each other.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                  namespace:
+                    description: Namespace of the secret.
+                    type: string
+                required:
+                - name
+                - namespace
+                type: object
+            required:
+            - forProvider
+            type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.availabilityZone is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.availabilityZone)
+                || (has(self.initProvider) && has(self.initProvider.availabilityZone))'
+            - message: spec.forProvider.db is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.db)
+                || (has(self.initProvider) && has(self.initProvider.db))'
+            - message: spec.forProvider.flavor is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.flavor)
+                || (has(self.initProvider) && has(self.initProvider.flavor))'
+            - message: spec.forProvider.name is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
+                || (has(self.initProvider) && has(self.initProvider.name))'
+            - message: spec.forProvider.securityGroupId is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.securityGroupId)
+                || (has(self.initProvider) && has(self.initProvider.securityGroupId))'
+            - message: spec.forProvider.subnetId is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.subnetId)
+                || (has(self.initProvider) && has(self.initProvider.subnetId))'
+            - message: spec.forProvider.volume is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.volume)
+                || (has(self.initProvider) && has(self.initProvider.volume))'
+            - message: spec.forProvider.vpcId is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.vpcId)
+                || (has(self.initProvider) && has(self.initProvider.vpcId))'
+          status:
+            description: InstanceV3Status defines the observed state of InstanceV3.
+            properties:
+              atProvider:
+                properties:
+                  availabilityZone:
+                    description: Specifies the AZ name. Changing this parameter will
+                      create a new resource.
+                    items:
+                      type: string
+                    type: array
+                  availabilityZones:
+                    description: Indicates the instance AZs.
+                    items:
+                      type: string
+                    type: array
+                  backupStrategy:
+                    description: Specifies the advanced backup policy. Structure is
+                      documented below.
+                    items:
+                      properties:
+                        keepDays:
+                          description: 'Specifies the retention days for specific
+                            backup files. The value range is from 0 to 732. If this
+                            parameter is not specified or set to 0, the automated
+                            backup policy is disabled. NOTICE: Primary/standby DB
+                            instances of Microsoft SQL Server do not support disabling
+                            the automated backup policy.'
+                          type: number
+                        startTime:
+                          description: 'Specifies the backup time window. Automated
+                            backups will be triggered during the backup time window.
+                            It must be a valid value in the "hh:mm-HH:MM" format.
+                            The current time is in the UTC format. The HH value must
+                            be 1 greater than the hh value. The values of mm and MM
+                            must be the same and must be set to any of the following:
+                            00, 15, 30, or 45. Example value: 08:15-09:15 23:00-00:00.'
+                          type: string
+                      type: object
+                    type: array
+                  created:
+                    description: Indicates the creation time.
+                    type: string
+                  db:
+                    description: Specifies the database information. Structure is
+                      documented below. Changing this parameter will create a new
+                      resource.
+                    items:
+                      properties:
+                        port:
+                          description: 'Specifies the database port information. The
+                            MySQL database port ranges from 1024 to 65535 (excluding
+                            12017 and 33071, which are occupied by the RDS system
+                            and cannot be used). The PostgreSQL database port ranges
+                            from 2100 to 9500. The Microsoft SQL Server database port
+                            can be 1433 or ranges from 2100 to 9500, excluding 5355
+                            and 5985. If this parameter is not set, the default value
+                            is as follows: For MySQL, the default value is 3306. For
+                            PostgreSQL, the default value is 5432. For Microsoft SQL
+                            Server, the default value is 1433.  Changing this parameter
+                            will create a new resource.'
+                          type: number
+                        type:
+                          description: 'Specifies the DB engine. Value: MySQL, PostgreSQL,
+                            SQLServer. Changing this parameter will create a new resource.'
+                          type: string
+                        userName:
+                          description: Indicates the default user name of database.
+                          type: string
+                        version:
+                          description: Specifies the database version. MySQL databases
+                            support MySQL 5.6 and above. PostgreSQL databases support
+                            PostgreSQL 9.5 and above. Microsoft SQL Server databases
+                            support 2014 SE, 2016 SE, and above. Changing this parameter
+                            will create a new resource.
+                          type: string
+                      type: object
+                    type: array
+                  flavor:
+                    description: Specifies the specification code. Use data source
+                      opentelekomcloud_rds_flavors_v3 to get a list of available flavor
+                      names. Examples could be rds.pg.c2.medium or   rds.pg.c2.medium.ha
+                      for HA clusters.
+                    type: string
+                  haReplicationMode:
+                    description: Specifies the replication mode for the standby DB
+                      instance. For MySQL, the value is async or semisync. For PostgreSQL,
+                      the value is async or sync. For Microsoft SQL Server, the value
+                      is sync. Parameter is required for HA clusters.
+                    type: string
+                  id:
+                    description: Indicates the node ID.
+                    type: string
+                  lowerCaseTableNames:
+                    description: Specifies the case-sensitive state of the database
+                      table name, the default value is "1". Changing this parameter
+                      will create a new resource.
+                    type: string
+                  name:
+                    description: Specifies the DB instance name. The DB instance name
+                      of the same type must be unique for the same tenant. The value
+                      must be 4 to 64 characters in length and start with a letter.
+                      It is case-sensitive and can contain only letters, digits, hyphens
+                      (-), and underscores (_).  Changing this parameter will create
+                      a new resource.
+                    type: string
+                  nodes:
+                    description: Indicates the instance nodes information. Structure
+                      is documented below.
+                    items:
+                      properties:
+                        availabilityZone:
+                          description: Indicates the AZ.
+                          type: string
+                        id:
+                          description: Indicates the node ID.
+                          type: string
+                        name:
+                          description: Indicates the node name.
+                          type: string
+                        role:
+                          description: Indicates the node type. The value can be master
+                            or slave, indicating the primary node or standby node
+                            respectively.
+                          type: string
+                        status:
+                          description: Indicates the node status.
+                          type: string
+                      type: object
+                    type: array
+                  paramGroupId:
+                    description: Specifies the parameter group ID.
+                    type: string
+                  parameters:
+                    additionalProperties:
+                      type: string
+                    description: Map of additional configuration parameters. Values
+                      should be strings. Parameters set here overrides values from
+                      configuration template (parameter group).
+                    type: object
+                  privateIps:
+                    description: Indicates the private IP address list. It is a blank
+                      string until an ECS is created.
+                    items:
+                      type: string
+                    type: array
+                  publicIps:
+                    description: Specifies floating IP to be assigned to the instance.
+                      This should be a list with single element only.
+                    items:
+                      type: string
+                    type: array
+                  restoreFromBackup:
+                    description: Specifies whether to restore database to an instance
+                      described in current resource. Structure is documented below.
+                    items:
+                      properties:
+                        backupId:
+                          description: Specifies the ID of the backup used to restore
+                            data. This parameter must be specified when the backup
+                            file is used for restoration.
+                          type: string
+                        restoreTime:
+                          description: Specifies the time point of data restoration
+                            in the UNIX timestamp. The unit is millisecond and the
+                            time zone is UTC.
+                          type: number
+                        sourceInstanceId:
+                          description: Specifies the source instance ID.
+                          type: string
+                        type:
+                          description: 'Specifies the restoration mode. The values
+                            can be:'
+                          type: string
+                      type: object
+                    type: array
+                  restorePoint:
+                    description: Specifies the restoration information. By selecting
+                      this option a new RDS instance will be created from separate
+                      instance backup. Structure is documented below.
+                    items:
+                      properties:
+                        backupId:
+                          description: Specifies the ID of the backup used to restore
+                            data.
+                          type: string
+                        instanceId:
+                          description: Specifies the original DB instance ID.
+                          type: string
+                        restoreTime:
+                          description: Specifies the time point of data restoration
+                            in the UNIX timestamp. The unit is millisecond and the
+                            time zone is UTC.
+                          type: number
+                      type: object
+                    type: array
+                  restoredBackupId:
+                    description: Indicates the backup ID in cases when instance was
+                      restored by using restore_from_backup block.
+                    type: string
+                  securityGroupId:
+                    description: Specifies the security group which the RDS DB instance
+                      belongs to. Changing this parameter will create a new resource.
+                    type: string
+                  sslEnable:
+                    description: Specifies whether SSL should be enabled for MySql
+                      instances.
+                    type: boolean
+                  subnetId:
+                    description: Specifies the subnet id. Changing this parameter
+                      will create a new resource.
+                    type: string
+                  tag:
+                    additionalProperties:
+                      type: string
+                    description: Tags key/value pairs to associate with the instance.
+                      Deprecated, please use the tags instead.
+                    type: object
+                  tags:
+                    additionalProperties:
+                      type: string
+                    description: Tags key/value pairs to associate with the instance.
+                    type: object
+                  volume:
+                    description: Specifies the volume information. Structure is documented
+                      below.
+                    items:
+                      properties:
+                        diskEncryptionId:
+                          description: Specifies the key ID for disk encryption. Changing
+                            this parameter will create a new resource.
+                          type: string
+                        limitSize:
+                          description: Specifies the upper limit of automatic expansion
+                            of storage, in GB.
+                          type: number
+                        size:
+                          description: Specifies the volume size. Its value range
+                            is from 40 GB to 4000 GB. The value must be a multiple
+                            of 10. Changing this resize the volume.
+                          type: number
+                        triggerThreshold:
+                          description: 'Specifies the threshold to trigger automatic
+                            expansion. If the available storage drops to this threshold
+                            or 10 GB, the automatic expansion is triggered. The valid
+                            values are as follows:'
+                          type: number
+                        type:
+                          description: 'Specifies the volume type. Its value can be
+                            any of the following and is case-sensitive: COMMON: indicates
+                            the SATA type. ULTRAHIGH: indicates the SSD type.  Changing
+                            this parameter will create a new resource.'
+                          type: string
+                      type: object
+                    type: array
+                  vpcId:
+                    description: Specifies the VPC ID. Changing this parameter will
+                      create a new resource.
+                    type: string
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: LastTransitionTime is the last time this condition
+                        transitioned from one status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: A Message containing details about this condition's
+                        last transition from one status to another, if any.
+                      type: string
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: Type of this condition. At most one of each condition
+                        type may apply to a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

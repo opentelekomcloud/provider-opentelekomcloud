@@ -1,4 +1,4 @@
-apiVersion: vpc.crossplane.io/v1alpha1
+apiVersion: vpc.opentelekomcloud.crossplane.io/v1alpha1
 kind: PeeringConnectionAccepterV2
 metadata:
   annotations:
@@ -14,7 +14,7 @@ spec:
 
 ---
 
-apiVersion: vpc.crossplane.io/v1alpha1
+apiVersion: vpc.opentelekomcloud.crossplane.io/v1alpha1
 kind: PeeringConnectionV2
 metadata:
   annotations:
@@ -32,7 +32,7 @@ spec:
 
 ---
 
-apiVersion: vpc.crossplane.io/v1alpha1
+apiVersion: vpc.opentelekomcloud.crossplane.io/v1alpha1
 kind: V1
 metadata:
   annotations:
@@ -48,7 +48,7 @@ spec:
 
 ---
 
-apiVersion: vpc.crossplane.io/v1alpha1
+apiVersion: vpc.opentelekomcloud.crossplane.io/v1alpha1
 kind: V1
 metadata:
   annotations:

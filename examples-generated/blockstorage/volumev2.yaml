@@ -1,4 +1,4 @@
-apiVersion: blockstorage.crossplane.io/v1alpha1
+apiVersion: blockstorage.opentelekomcloud.crossplane.io/v1alpha1
 kind: VolumeV2
 metadata:
   annotations:

@@ -1,4 +1,4 @@
-apiVersion: waf.crossplane.io/v1alpha1
+apiVersion: waf.opentelekomcloud.crossplane.io/v1alpha1
 kind: DedicatedReferenceTableV1
 metadata:
   annotations:

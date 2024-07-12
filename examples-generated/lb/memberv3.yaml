@@ -1,4 +1,4 @@
-apiVersion: lb.crossplane.io/v1alpha1
+apiVersion: lb.opentelekomcloud.crossplane.io/v1alpha1
 kind: MemberV3
 metadata:
   annotations:
@@ -15,7 +15,7 @@ spec:
 
 ---
 
-apiVersion: lb.crossplane.io/v1alpha1
+apiVersion: lb.opentelekomcloud.crossplane.io/v1alpha1
 kind: LoadbalancerV3
 metadata:
   annotations:
@@ -35,7 +35,7 @@ spec:
 
 ---
 
-apiVersion: lb.crossplane.io/v1alpha1
+apiVersion: lb.opentelekomcloud.crossplane.io/v1alpha1
 kind: PoolV3
 metadata:
   annotations:

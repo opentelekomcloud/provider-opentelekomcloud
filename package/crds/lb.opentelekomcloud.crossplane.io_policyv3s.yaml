@@ -1,0 +1,747 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.13.0
+  name: policyv3s.lb.opentelekomcloud.crossplane.io
+spec:
+  group: lb.opentelekomcloud.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - opentelekomcloud
+    kind: PolicyV3
+    listKind: PolicyV3List
+    plural: policyv3s
+    singular: policyv3
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: PolicyV3 is the Schema for the PolicyV3s API. Manages a LB Policy
+          resource within OpenTelekomCloud.
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: PolicyV3Spec defines the desired state of PolicyV3
+            properties:
+              deletionPolicy:
+                default: Delete
+                description: 'DeletionPolicy specifies what will happen to the underlying
+                  external when this managed resource is deleted - either "Delete"
+                  or "Orphan" the external resource. This field is planned to be deprecated
+                  in favor of the ManagementPolicies field in a future release. Currently,
+                  both could be set independently and non-default values would be
+                  honored if the feature flag is enabled. See the design doc for more
+                  information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223'
+                enum:
+                - Orphan
+                - Delete
+                type: string
+              forProvider:
+                properties:
+                  action:
+                    description: The Policy action - can either be REDIRECT_TO_POOL,
+                      or REDIRECT_TO_LISTENER. Changing this creates a new Policy.
+                    type: string
+                  description:
+                    description: Provides supplementary information about the forwarding
+                      policy.
+                    type: string
+                  fixedResponseConfig:
+                    description: Specifies the configuration of the page that will
+                      be returned. This parameter will take effect when advanced_forwarding
+                      is set to true. If this parameter is passed and advanced_forwarding
+                      is set to false, an error will be returned. Not available in
+                      eu-nl.
+                    items:
+                      properties:
+                        contentType:
+                          description: '- Specifies the format of the response body.'
+                          type: string
+                        messageBody:
+                          description: '- Specifies the content of the response message
+                            body.'
+                          type: string
+                        statusCode:
+                          description: Specifies the fixed HTTP status code configured
+                            in the forwarding rule. The value can be any integer in
+                            the range of 200-299, 400-499, or 500-599.
+                          type: string
+                      type: object
+                    type: array
+                  listenerId:
+                    description: The Listener on which the Policy will be associated
+                      with. Changing this creates a new Policy.
+                    type: string
+                  name:
+                    description: Specifies the forwarding policy name.
+                    type: string
+                  position:
+                    description: The position of this policy on the listener. Positions
+                      start at 1. Changing this creates a new Policy.
+                    type: number
+                  priority:
+                    description: Specifies the forwarding policy priority. A smaller
+                      value indicates a higher priority. The value must be unique
+                      for forwarding policies of the same listener. This parameter
+                      will take effect only when advanced_forwarding is set to true.
+                      If this parameter is passed and advanced_forwarding is set to
+                      false, an error will be returned. This parameter is unsupported
+                      for shared load balancers and not available in eu-nl.
+                    type: number
+                  projectId:
+                    description: Required for admins. The UUID of the tenant who owns
+                      the Policy. Only administrative users can specify a tenant UUID
+                      other than their own. Changing this creates a new Policy.
+                    type: string
+                  redirectListenerId:
+                    description: Requests matching this policy will be redirected
+                      to the listener with this ID. Only valid if action is REDIRECT_TO_LISTENER.
+                    type: string
+                  redirectPoolId:
+                    description: Requests matching this policy will be redirected
+                      to the pool with this ID. Only valid if action is REDIRECT_TO_POOL.
+                    type: string
+                  redirectPoolsConfig:
+                    description: Specifies the configuration of the backend server
+                      group that the requests are forwarded to. This parameter is
+                      valid only when action is set to REDIRECT_TO_POOL.
+                    items:
+                      properties:
+                        poolId:
+                          description: '- Specifies the ID of the backend server group.'
+                          type: string
+                        weight:
+                          description: '- Specifies the weight of the backend server
+                            group. The value ranges from 0 to 100.'
+                          type: number
+                      type: object
+                    type: array
+                  redirectUrl:
+                    description: Specifies the URL to which requests are forwarded.
+                    type: string
+                  redirectUrlConfig:
+                    description: Specifies the URL to which requests are forwarded.
+                      For dedicated load balancers, This parameter will take effect
+                      when advanced_forwarding is set to true. If it is passed when
+                      advanced_forwarding is set to false, an error will be returned.
+                      Not available in eu-nl.
+                    items:
+                      properties:
+                        host:
+                          description: '- Specifies the host name that requests are
+                            redirected to. The value can contain only letters, digits,
+                            hyphens (-), and periods (.) and must start with a letter
+                            or digit. The default value is ${host}, indicating that
+                            the host of the request will be used.'
+                          type: string
+                        path:
+                          description: '- Specifies the path that requests are redirected
+                            to. The default value is ${path}, indicating that the
+                            path of the request will be used. The value can contain
+                            only letters, digits, and special characters _~'';@^-
+                            %#&$.*+?,=!:|/()[]{} and must start with a slash (/).'
+                          type: string
+                        port:
+                          description: '- Specifies the port that requests are redirected
+                            to. The default value is ${port}, indicating that the
+                            port of the request will be used.'
+                          type: string
+                        protocol:
+                          description: '- Specifies the protocol for redirection.
+                            The value can be HTTP, HTTPS, or ${protocol}. The default
+                            value is ${protocol}, indicating that the protocol of
+                            the request will be used.'
+                          type: string
+                        query:
+                          description: '- Specifies the query string set in the URL
+                            for redirection. The default value is ${query}, indicating
+                            that the query string of the request will be used.'
+                          type: string
+                        statusCode:
+                          description: Specifies the fixed HTTP status code configured
+                            in the forwarding rule. The value can be any integer in
+                            the range of 200-299, 400-499, or 500-599.
+                          type: string
+                      type: object
+                    type: array
+                  rules:
+                    description: Lists the forwarding rules in the forwarding policy.
+                    items:
+                      properties:
+                        compareType:
+                          description: '- Specifies how requests are matched with
+                            the domain name or URL. The values can be: EQUAL_TO, REGEX,
+                            STARTS_WITH.'
+                          type: string
+                        type:
+                          description: 'Specifies the match content. The value can
+                            be one of the following: HOST_NAME, PATH.'
+                          type: string
+                        value:
+                          description: Specifies the value of the match item. For
+                            example, if a domain name is used for matching, value
+                            is the domain name.
+                          type: string
+                      type: object
+                    type: array
+                type: object
+              initProvider:
+                description: THIS IS A BETA FIELD. It will be honored unless the Management
+                  Policies feature flag is disabled. InitProvider holds the same fields
+                  as ForProvider, with the exception of Identifier and other resource
+                  reference fields. The fields that are in InitProvider are merged
+                  into ForProvider when the resource is created. The same fields are
+                  also added to the terraform ignore_changes hook, to avoid updating
+                  them after creation. This is useful for fields that are required
+                  on creation, but we do not desire to update them after creation,
+                  for example because of an external controller is managing them,
+                  like an autoscaler.
+                properties:
+                  action:
+                    description: The Policy action - can either be REDIRECT_TO_POOL,
+                      or REDIRECT_TO_LISTENER. Changing this creates a new Policy.
+                    type: string
+                  description:
+                    description: Provides supplementary information about the forwarding
+                      policy.
+                    type: string
+                  fixedResponseConfig:
+                    description: Specifies the configuration of the page that will
+                      be returned. This parameter will take effect when advanced_forwarding
+                      is set to true. If this parameter is passed and advanced_forwarding
+                      is set to false, an error will be returned. Not available in
+                      eu-nl.
+                    items:
+                      properties:
+                        contentType:
+                          description: '- Specifies the format of the response body.'
+                          type: string
+                        messageBody:
+                          description: '- Specifies the content of the response message
+                            body.'
+                          type: string
+                        statusCode:
+                          description: Specifies the fixed HTTP status code configured
+                            in the forwarding rule. The value can be any integer in
+                            the range of 200-299, 400-499, or 500-599.
+                          type: string
+                      type: object
+                    type: array
+                  listenerId:
+                    description: The Listener on which the Policy will be associated
+                      with. Changing this creates a new Policy.
+                    type: string
+                  name:
+                    description: Specifies the forwarding policy name.
+                    type: string
+                  position:
+                    description: The position of this policy on the listener. Positions
+                      start at 1. Changing this creates a new Policy.
+                    type: number
+                  priority:
+                    description: Specifies the forwarding policy priority. A smaller
+                      value indicates a higher priority. The value must be unique
+                      for forwarding policies of the same listener. This parameter
+                      will take effect only when advanced_forwarding is set to true.
+                      If this parameter is passed and advanced_forwarding is set to
+                      false, an error will be returned. This parameter is unsupported
+                      for shared load balancers and not available in eu-nl.
+                    type: number
+                  projectId:
+                    description: Required for admins. The UUID of the tenant who owns
+                      the Policy. Only administrative users can specify a tenant UUID
+                      other than their own. Changing this creates a new Policy.
+                    type: string
+                  redirectListenerId:
+                    description: Requests matching this policy will be redirected
+                      to the listener with this ID. Only valid if action is REDIRECT_TO_LISTENER.
+                    type: string
+                  redirectPoolId:
+                    description: Requests matching this policy will be redirected
+                      to the pool with this ID. Only valid if action is REDIRECT_TO_POOL.
+                    type: string
+                  redirectPoolsConfig:
+                    description: Specifies the configuration of the backend server
+                      group that the requests are forwarded to. This parameter is
+                      valid only when action is set to REDIRECT_TO_POOL.
+                    items:
+                      properties:
+                        poolId:
+                          description: '- Specifies the ID of the backend server group.'
+                          type: string
+                        weight:
+                          description: '- Specifies the weight of the backend server
+                            group. The value ranges from 0 to 100.'
+                          type: number
+                      type: object
+                    type: array
+                  redirectUrl:
+                    description: Specifies the URL to which requests are forwarded.
+                    type: string
+                  redirectUrlConfig:
+                    description: Specifies the URL to which requests are forwarded.
+                      For dedicated load balancers, This parameter will take effect
+                      when advanced_forwarding is set to true. If it is passed when
+                      advanced_forwarding is set to false, an error will be returned.
+                      Not available in eu-nl.
+                    items:
+                      properties:
+                        host:
+                          description: '- Specifies the host name that requests are
+                            redirected to. The value can contain only letters, digits,
+                            hyphens (-), and periods (.) and must start with a letter
+                            or digit. The default value is ${host}, indicating that
+                            the host of the request will be used.'
+                          type: string
+                        path:
+                          description: '- Specifies the path that requests are redirected
+                            to. The default value is ${path}, indicating that the
+                            path of the request will be used. The value can contain
+                            only letters, digits, and special characters _~'';@^-
+                            %#&$.*+?,=!:|/()[]{} and must start with a slash (/).'
+                          type: string
+                        port:
+                          description: '- Specifies the port that requests are redirected
+                            to. The default value is ${port}, indicating that the
+                            port of the request will be used.'
+                          type: string
+                        protocol:
+                          description: '- Specifies the protocol for redirection.
+                            The value can be HTTP, HTTPS, or ${protocol}. The default
+                            value is ${protocol}, indicating that the protocol of
+                            the request will be used.'
+                          type: string
+                        query:
+                          description: '- Specifies the query string set in the URL
+                            for redirection. The default value is ${query}, indicating
+                            that the query string of the request will be used.'
+                          type: string
+                        statusCode:
+                          description: Specifies the fixed HTTP status code configured
+                            in the forwarding rule. The value can be any integer in
+                            the range of 200-299, 400-499, or 500-599.
+                          type: string
+                      type: object
+                    type: array
+                  rules:
+                    description: Lists the forwarding rules in the forwarding policy.
+                    items:
+                      properties:
+                        compareType:
+                          description: '- Specifies how requests are matched with
+                            the domain name or URL. The values can be: EQUAL_TO, REGEX,
+                            STARTS_WITH.'
+                          type: string
+                        type:
+                          description: 'Specifies the match content. The value can
+                            be one of the following: HOST_NAME, PATH.'
+                          type: string
+                        value:
+                          description: Specifies the value of the match item. For
+                            example, if a domain name is used for matching, value
+                            is the domain name.
+                          type: string
+                      type: object
+                    type: array
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: 'THIS IS A BETA FIELD. It is on by default but can be
+                  opted out through a Crossplane feature flag. ManagementPolicies
+                  specify the array of actions Crossplane is allowed to take on the
+                  managed and external resources. This field is planned to replace
+                  the DeletionPolicy field in a future release. Currently, both could
+                  be set independently and non-default values would be honored if
+                  the feature flag is enabled. If both are custom, the DeletionPolicy
+                  field will be ignored. See the design doc for more information:
+                  https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md'
+                items:
+                  description: A ManagementAction represents an action that the Crossplane
+                    controllers can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
+              providerConfigRef:
+                default:
+                  name: default
+                description: ProviderConfigReference specifies how the provider that
+                  will be used to create, observe, update, and delete this managed
+                  resource should be configured.
+                properties:
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                  policy:
+                    description: Policies for referencing.
+                    properties:
+                      resolution:
+                        default: Required
+                        description: Resolution specifies whether resolution of this
+                          reference is required. The default is 'Required', which
+                          means the reconcile will fail if the reference cannot be
+                          resolved. 'Optional' means this reference will be a no-op
+                          if it cannot be resolved.
+                        enum:
+                        - Required
+                        - Optional
+                        type: string
+                      resolve:
+                        description: Resolve specifies when this reference should
+                          be resolved. The default is 'IfNotPresent', which will attempt
+                          to resolve the reference only when the corresponding field
+                          is not present. Use 'Always' to resolve the reference on
+                          every reconcile.
+                        enum:
+                        - Always
+                        - IfNotPresent
+                        type: string
+                    type: object
+                required:
+                - name
+                type: object
+              publishConnectionDetailsTo:
+                description: PublishConnectionDetailsTo specifies the connection secret
+                  config which contains a name, metadata and a reference to secret
+                  store config to which any connection details for this managed resource
+                  should be written. Connection details frequently include the endpoint,
+                  username, and password required to connect to the managed resource.
+                properties:
+                  configRef:
+                    default:
+                      name: default
+                    description: SecretStoreConfigRef specifies which secret store
+                      config should be used for this ConnectionSecret.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: Resolution specifies whether resolution of
+                              this reference is required. The default is 'Required',
+                              which means the reconcile will fail if the reference
+                              cannot be resolved. 'Optional' means this reference
+                              will be a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: Resolve specifies when this reference should
+                              be resolved. The default is 'IfNotPresent', which will
+                              attempt to resolve the reference only when the corresponding
+                              field is not present. Use 'Always' to resolve the reference
+                              on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  metadata:
+                    description: Metadata is the metadata for connection secret.
+                    properties:
+                      annotations:
+                        additionalProperties:
+                          type: string
+                        description: Annotations are the annotations to be added to
+                          connection secret. - For Kubernetes secrets, this will be
+                          used as "metadata.annotations". - It is up to Secret Store
+                          implementation for others store types.
+                        type: object
+                      labels:
+                        additionalProperties:
+                          type: string
+                        description: Labels are the labels/tags to be added to connection
+                          secret. - For Kubernetes secrets, this will be used as "metadata.labels".
+                          - It is up to Secret Store implementation for others store
+                          types.
+                        type: object
+                      type:
+                        description: Type is the SecretType for the connection secret.
+                          - Only valid for Kubernetes Secret Stores.
+                        type: string
+                    type: object
+                  name:
+                    description: Name is the name of the connection secret.
+                    type: string
+                required:
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: WriteConnectionSecretToReference specifies the namespace
+                  and name of a Secret to which any connection details for this managed
+                  resource should be written. Connection details frequently include
+                  the endpoint, username, and password required to connect to the
+                  managed resource. This field is planned to be replaced in a future
+                  release in favor of PublishConnectionDetailsTo. Currently, both
+                  could be set independently and connection details would be published
+                  to both without affecting each other.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                  namespace:
+                    description: Namespace of the secret.
+                    type: string
+                required:
+                - name
+                - namespace
+                type: object
+            required:
+            - forProvider
+            type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.action is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.action)
+                || (has(self.initProvider) && has(self.initProvider.action))'
+            - message: spec.forProvider.listenerId is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.listenerId)
+                || (has(self.initProvider) && has(self.initProvider.listenerId))'
+          status:
+            description: PolicyV3Status defines the observed state of PolicyV3.
+            properties:
+              atProvider:
+                properties:
+                  action:
+                    description: The Policy action - can either be REDIRECT_TO_POOL,
+                      or REDIRECT_TO_LISTENER. Changing this creates a new Policy.
+                    type: string
+                  description:
+                    description: Provides supplementary information about the forwarding
+                      policy.
+                    type: string
+                  fixedResponseConfig:
+                    description: Specifies the configuration of the page that will
+                      be returned. This parameter will take effect when advanced_forwarding
+                      is set to true. If this parameter is passed and advanced_forwarding
+                      is set to false, an error will be returned. Not available in
+                      eu-nl.
+                    items:
+                      properties:
+                        contentType:
+                          description: '- Specifies the format of the response body.'
+                          type: string
+                        messageBody:
+                          description: '- Specifies the content of the response message
+                            body.'
+                          type: string
+                        statusCode:
+                          description: Specifies the fixed HTTP status code configured
+                            in the forwarding rule. The value can be any integer in
+                            the range of 200-299, 400-499, or 500-599.
+                          type: string
+                      type: object
+                    type: array
+                  id:
+                    description: The unique ID for the policy.
+                    type: string
+                  listenerId:
+                    description: The Listener on which the Policy will be associated
+                      with. Changing this creates a new Policy.
+                    type: string
+                  name:
+                    description: Specifies the forwarding policy name.
+                    type: string
+                  position:
+                    description: The position of this policy on the listener. Positions
+                      start at 1. Changing this creates a new Policy.
+                    type: number
+                  priority:
+                    description: Specifies the forwarding policy priority. A smaller
+                      value indicates a higher priority. The value must be unique
+                      for forwarding policies of the same listener. This parameter
+                      will take effect only when advanced_forwarding is set to true.
+                      If this parameter is passed and advanced_forwarding is set to
+                      false, an error will be returned. This parameter is unsupported
+                      for shared load balancers and not available in eu-nl.
+                    type: number
+                  projectId:
+                    description: Required for admins. The UUID of the tenant who owns
+                      the Policy. Only administrative users can specify a tenant UUID
+                      other than their own. Changing this creates a new Policy.
+                    type: string
+                  redirectListenerId:
+                    description: Requests matching this policy will be redirected
+                      to the listener with this ID. Only valid if action is REDIRECT_TO_LISTENER.
+                    type: string
+                  redirectPoolId:
+                    description: Requests matching this policy will be redirected
+                      to the pool with this ID. Only valid if action is REDIRECT_TO_POOL.
+                    type: string
+                  redirectPoolsConfig:
+                    description: Specifies the configuration of the backend server
+                      group that the requests are forwarded to. This parameter is
+                      valid only when action is set to REDIRECT_TO_POOL.
+                    items:
+                      properties:
+                        poolId:
+                          description: '- Specifies the ID of the backend server group.'
+                          type: string
+                        weight:
+                          description: '- Specifies the weight of the backend server
+                            group. The value ranges from 0 to 100.'
+                          type: number
+                      type: object
+                    type: array
+                  redirectUrl:
+                    description: Specifies the URL to which requests are forwarded.
+                    type: string
+                  redirectUrlConfig:
+                    description: Specifies the URL to which requests are forwarded.
+                      For dedicated load balancers, This parameter will take effect
+                      when advanced_forwarding is set to true. If it is passed when
+                      advanced_forwarding is set to false, an error will be returned.
+                      Not available in eu-nl.
+                    items:
+                      properties:
+                        host:
+                          description: '- Specifies the host name that requests are
+                            redirected to. The value can contain only letters, digits,
+                            hyphens (-), and periods (.) and must start with a letter
+                            or digit. The default value is ${host}, indicating that
+                            the host of the request will be used.'
+                          type: string
+                        path:
+                          description: '- Specifies the path that requests are redirected
+                            to. The default value is ${path}, indicating that the
+                            path of the request will be used. The value can contain
+                            only letters, digits, and special characters _~'';@^-
+                            %#&$.*+?,=!:|/()[]{} and must start with a slash (/).'
+                          type: string
+                        port:
+                          description: '- Specifies the port that requests are redirected
+                            to. The default value is ${port}, indicating that the
+                            port of the request will be used.'
+                          type: string
+                        protocol:
+                          description: '- Specifies the protocol for redirection.
+                            The value can be HTTP, HTTPS, or ${protocol}. The default
+                            value is ${protocol}, indicating that the protocol of
+                            the request will be used.'
+                          type: string
+                        query:
+                          description: '- Specifies the query string set in the URL
+                            for redirection. The default value is ${query}, indicating
+                            that the query string of the request will be used.'
+                          type: string
+                        statusCode:
+                          description: Specifies the fixed HTTP status code configured
+                            in the forwarding rule. The value can be any integer in
+                            the range of 200-299, 400-499, or 500-599.
+                          type: string
+                      type: object
+                    type: array
+                  rules:
+                    description: Lists the forwarding rules in the forwarding policy.
+                    items:
+                      properties:
+                        compareType:
+                          description: '- Specifies how requests are matched with
+                            the domain name or URL. The values can be: EQUAL_TO, REGEX,
+                            STARTS_WITH.'
+                          type: string
+                        type:
+                          description: 'Specifies the match content. The value can
+                            be one of the following: HOST_NAME, PATH.'
+                          type: string
+                        value:
+                          description: Specifies the value of the match item. For
+                            example, if a domain name is used for matching, value
+                            is the domain name.
+                          type: string
+                      type: object
+                    type: array
+                  status:
+                    description: Specifies the provisioning status of the forwarding
+                      policy.
+                    type: string
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: LastTransitionTime is the last time this condition
+                        transitioned from one status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: A Message containing details about this condition's
+                        last transition from one status to another, if any.
+                      type: string
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: Type of this condition. At most one of each condition
+                        type may apply to a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

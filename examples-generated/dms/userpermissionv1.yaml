@@ -1,4 +1,4 @@
-apiVersion: dms.crossplane.io/v1alpha1
+apiVersion: dms.opentelekomcloud.crossplane.io/v1alpha1
 kind: UserPermissionV1
 metadata:
   annotations:
@@ -18,7 +18,7 @@ spec:
 
 ---
 
-apiVersion: dms.crossplane.io/v1alpha1
+apiVersion: dms.opentelekomcloud.crossplane.io/v1alpha1
 kind: UserV2
 metadata:
   annotations:
@@ -37,7 +37,7 @@ spec:
 
 ---
 
-apiVersion: dms.crossplane.io/v1alpha1
+apiVersion: dms.opentelekomcloud.crossplane.io/v1alpha1
 kind: UserV2
 metadata:
   annotations:

@@ -1,4 +1,4 @@
-apiVersion: dis.crossplane.io/v1alpha1
+apiVersion: dis.opentelekomcloud.crossplane.io/v1alpha1
 kind: DumpTaskV2
 metadata:
   annotations:
@@ -23,7 +23,7 @@ spec:
 
 ---
 
-apiVersion: dis.crossplane.io/v1alpha1
+apiVersion: dis.opentelekomcloud.crossplane.io/v1alpha1
 kind: AppV2
 metadata:
   annotations:
@@ -37,7 +37,7 @@ spec:
 
 ---
 
-apiVersion: dis.crossplane.io/v1alpha1
+apiVersion: dis.opentelekomcloud.crossplane.io/v1alpha1
 kind: StreamV2
 metadata:
   annotations:
@@ -60,7 +60,7 @@ spec:
 
 ---
 
-apiVersion: obs.crossplane.io/v1alpha1
+apiVersion: obs.opentelekomcloud.crossplane.io/v1alpha1
 kind: Bucket
 metadata:
   annotations:

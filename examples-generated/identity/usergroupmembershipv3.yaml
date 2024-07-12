@@ -1,4 +1,4 @@
-apiVersion: identity.crossplane.io/v1alpha1
+apiVersion: identity.opentelekomcloud.crossplane.io/v1alpha1
 kind: UserGroupMembershipV3
 metadata:
   annotations:
@@ -15,7 +15,7 @@ spec:
 
 ---
 
-apiVersion: identity.crossplane.io/v1alpha1
+apiVersion: identity.opentelekomcloud.crossplane.io/v1alpha1
 kind: GroupV3
 metadata:
   annotations:
@@ -29,7 +29,7 @@ spec:
 
 ---
 
-apiVersion: identity.crossplane.io/v1alpha1
+apiVersion: identity.opentelekomcloud.crossplane.io/v1alpha1
 kind: GroupV3
 metadata:
   annotations:
@@ -43,7 +43,7 @@ spec:
 
 ---
 
-apiVersion: identity.crossplane.io/v1alpha1
+apiVersion: identity.opentelekomcloud.crossplane.io/v1alpha1
 kind: UserV3
 metadata:
   annotations:

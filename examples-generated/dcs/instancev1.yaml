@@ -1,4 +1,4 @@
-apiVersion: dcs.crossplane.io/v1alpha1
+apiVersion: dcs.opentelekomcloud.crossplane.io/v1alpha1
 kind: InstanceV1
 metadata:
   annotations:
@@ -38,7 +38,7 @@ spec:
 
 ---
 
-apiVersion: networking.crossplane.io/v1alpha1
+apiVersion: networking.opentelekomcloud.crossplane.io/v1alpha1
 kind: SecgroupV2
 metadata:
   annotations:

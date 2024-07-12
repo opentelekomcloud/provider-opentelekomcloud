@@ -1,4 +1,4 @@
-apiVersion: waf.crossplane.io/v1alpha1
+apiVersion: waf.opentelekomcloud.crossplane.io/v1alpha1
 kind: DedicatedDataMaskingRuleV1
 metadata:
   annotations:
@@ -16,7 +16,7 @@ spec:
 
 ---
 
-apiVersion: waf.crossplane.io/v1alpha1
+apiVersion: waf.opentelekomcloud.crossplane.io/v1alpha1
 kind: DedicatedPolicyV1
 metadata:
   annotations:

@@ -1,4 +1,4 @@
-apiVersion: dns.crossplane.io/v1alpha1
+apiVersion: dns.opentelekomcloud.crossplane.io/v1alpha1
 kind: PtrrecordV2
 metadata:
   annotations:
@@ -17,7 +17,7 @@ spec:
 
 ---
 
-apiVersion: networking.crossplane.io/v1alpha1
+apiVersion: networking.opentelekomcloud.crossplane.io/v1alpha1
 kind: FloatingipV2
 metadata:
   annotations:

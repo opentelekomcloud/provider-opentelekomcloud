@@ -1,4 +1,4 @@
-apiVersion: obs.crossplane.io/v1alpha1
+apiVersion: obs.opentelekomcloud.crossplane.io/v1alpha1
 kind: BucketObject
 metadata:
   annotations:

@@ -1,4 +1,4 @@
-apiVersion: nat.crossplane.io/v1alpha1
+apiVersion: nat.opentelekomcloud.crossplane.io/v1alpha1
 kind: DnatRuleV2
 metadata:
   annotations:

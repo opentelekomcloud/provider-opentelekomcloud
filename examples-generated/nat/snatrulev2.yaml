@@ -1,4 +1,4 @@
-apiVersion: nat.crossplane.io/v1alpha1
+apiVersion: nat.opentelekomcloud.crossplane.io/v1alpha1
 kind: SnatRuleV2
 metadata:
   annotations:
@@ -15,7 +15,7 @@ spec:
 
 ---
 
-apiVersion: nat.crossplane.io/v1alpha1
+apiVersion: nat.opentelekomcloud.crossplane.io/v1alpha1
 kind: GatewayV2
 metadata:
   annotations:
@@ -33,7 +33,7 @@ spec:
 
 ---
 
-apiVersion: networking.crossplane.io/v1alpha1
+apiVersion: networking.opentelekomcloud.crossplane.io/v1alpha1
 kind: FloatingipV2
 metadata:
   annotations:

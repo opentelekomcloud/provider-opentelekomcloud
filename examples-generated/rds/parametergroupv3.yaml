@@ -1,4 +1,4 @@
-apiVersion: rds.crossplane.io/v1alpha1
+apiVersion: rds.opentelekomcloud.crossplane.io/v1alpha1
 kind: ParametergroupV3
 metadata:
   annotations:

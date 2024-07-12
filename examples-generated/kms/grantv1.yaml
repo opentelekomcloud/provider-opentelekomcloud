@@ -1,4 +1,4 @@
-apiVersion: kms.crossplane.io/v1alpha1
+apiVersion: kms.opentelekomcloud.crossplane.io/v1alpha1
 kind: GrantV1
 metadata:
   annotations:

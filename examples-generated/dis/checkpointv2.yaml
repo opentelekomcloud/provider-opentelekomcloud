@@ -1,4 +1,4 @@
-apiVersion: dis.crossplane.io/v1alpha1
+apiVersion: dis.opentelekomcloud.crossplane.io/v1alpha1
 kind: CheckpointV2
 metadata:
   annotations:
@@ -16,7 +16,7 @@ spec:
 
 ---
 
-apiVersion: dis.crossplane.io/v1alpha1
+apiVersion: dis.opentelekomcloud.crossplane.io/v1alpha1
 kind: AppV2
 metadata:
   annotations:
@@ -30,7 +30,7 @@ spec:
 
 ---
 
-apiVersion: dis.crossplane.io/v1alpha1
+apiVersion: dis.opentelekomcloud.crossplane.io/v1alpha1
 kind: StreamV2
 metadata:
   annotations:

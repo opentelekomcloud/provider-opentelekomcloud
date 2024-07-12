@@ -1,4 +1,4 @@
-apiVersion: networking.crossplane.io/v1alpha1
+apiVersion: networking.opentelekomcloud.crossplane.io/v1alpha1
 kind: VipAssociateV2
 metadata:
   annotations:
@@ -15,7 +15,7 @@ spec:
 
 ---
 
-apiVersion: compute.crossplane.io/v1alpha1
+apiVersion: compute.opentelekomcloud.crossplane.io/v1alpha1
 kind: InstanceV2
 metadata:
   annotations:
@@ -33,7 +33,7 @@ spec:
 
 ---
 
-apiVersion: compute.crossplane.io/v1alpha1
+apiVersion: compute.opentelekomcloud.crossplane.io/v1alpha1
 kind: InstanceV2
 metadata:
   annotations:
@@ -51,7 +51,7 @@ spec:
 
 ---
 
-apiVersion: networking.crossplane.io/v1alpha1
+apiVersion: networking.opentelekomcloud.crossplane.io/v1alpha1
 kind: NetworkV2
 metadata:
   annotations:
@@ -66,7 +66,7 @@ spec:
 
 ---
 
-apiVersion: networking.crossplane.io/v1alpha1
+apiVersion: networking.opentelekomcloud.crossplane.io/v1alpha1
 kind: PortV2
 metadata:
   annotations:
@@ -84,7 +84,7 @@ spec:
 
 ---
 
-apiVersion: networking.crossplane.io/v1alpha1
+apiVersion: networking.opentelekomcloud.crossplane.io/v1alpha1
 kind: PortV2
 metadata:
   annotations:
@@ -102,7 +102,7 @@ spec:
 
 ---
 
-apiVersion: networking.crossplane.io/v1alpha1
+apiVersion: networking.opentelekomcloud.crossplane.io/v1alpha1
 kind: RouterInterfaceV2
 metadata:
   annotations:
@@ -121,7 +121,7 @@ spec:
 
 ---
 
-apiVersion: networking.crossplane.io/v1alpha1
+apiVersion: networking.opentelekomcloud.crossplane.io/v1alpha1
 kind: RouterV2
 metadata:
   annotations:
@@ -136,7 +136,7 @@ spec:
 
 ---
 
-apiVersion: networking.crossplane.io/v1alpha1
+apiVersion: networking.opentelekomcloud.crossplane.io/v1alpha1
 kind: SubnetV2
 metadata:
   annotations:
@@ -155,7 +155,7 @@ spec:
 
 ---
 
-apiVersion: networking.crossplane.io/v1alpha1
+apiVersion: networking.opentelekomcloud.crossplane.io/v1alpha1
 kind: VipV2
 metadata:
   annotations:

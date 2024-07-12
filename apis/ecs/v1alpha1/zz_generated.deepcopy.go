@@ -202,6 +202,17 @@ func (in *InstanceV1InitParameters) DeepCopyInto(out *InstanceV1InitParameters) 
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.SecurityGroups != nil {
+		in, out := &in.SecurityGroups, &out.SecurityGroups
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
+	}
 	if in.SystemDiskKMSID != nil {
 		in, out := &in.SystemDiskKMSID, &out.SystemDiskKMSID
 		*out = new(string)
@@ -487,18 +498,6 @@ func (in *InstanceV1Parameters) DeepCopyInto(out *InstanceV1Parameters) {
 				**out = **in
 			}
 		}
-	}
-	if in.SecurityGroupsRefs != nil {
-		in, out := &in.SecurityGroupsRefs, &out.SecurityGroupsRefs
-		*out = make([]v1.Reference, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
-	}
-	if in.SecurityGroupsSelector != nil {
-		in, out := &in.SecurityGroupsSelector, &out.SecurityGroupsSelector
-		*out = new(v1.Selector)
-		(*in).DeepCopyInto(*out)
 	}
 	if in.SystemDiskKMSID != nil {
 		in, out := &in.SystemDiskKMSID, &out.SystemDiskKMSID

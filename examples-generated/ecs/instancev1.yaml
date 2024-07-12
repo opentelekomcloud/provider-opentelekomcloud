@@ -1,4 +1,4 @@
-apiVersion: ecs.crossplane.io/v1alpha1
+apiVersion: ecs.opentelekomcloud.crossplane.io/v1alpha1
 kind: InstanceV1
 metadata:
   annotations:

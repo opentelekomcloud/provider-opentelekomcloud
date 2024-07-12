@@ -116,6 +116,11 @@ type InstanceV1InitParameters struct {
 	// creates a new server.
 	Nics []NicsInitParameters `json:"nics,omitempty" tf:"nics,omitempty"`
 
+	// An array of one or more security group IDs
+	// to associate with the server. If this parameter is left blank, the default
+	// security group is bound to the ECS by default.
+	SecurityGroups []*string `json:"securityGroups,omitempty" tf:"security_groups,omitempty"`
+
 	// The Encryption KMS ID of the system disk. Changing this
 	// creates a new server.
 	SystemDiskKMSID *string `json:"systemDiskKmsId,omitempty" tf:"system_disk_kms_id,omitempty"`
@@ -265,17 +270,8 @@ type InstanceV1Parameters struct {
 	// An array of one or more security group IDs
 	// to associate with the server. If this parameter is left blank, the default
 	// security group is bound to the ECS by default.
-	// +crossplane:generate:reference:type=SecgroupV2
 	// +kubebuilder:validation:Optional
 	SecurityGroups []*string `json:"securityGroups,omitempty" tf:"security_groups,omitempty"`
-
-	// References to SecgroupV2 to populate securityGroups.
-	// +kubebuilder:validation:Optional
-	SecurityGroupsRefs []v1.Reference `json:"securityGroupsRefs,omitempty" tf:"-"`
-
-	// Selector for a list of SecgroupV2 to populate securityGroups.
-	// +kubebuilder:validation:Optional
-	SecurityGroupsSelector *v1.Selector `json:"securityGroupsSelector,omitempty" tf:"-"`
 
 	// The Encryption KMS ID of the system disk. Changing this
 	// creates a new server.

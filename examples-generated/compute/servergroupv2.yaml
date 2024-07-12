@@ -1,4 +1,4 @@
-apiVersion: compute.crossplane.io/v1alpha1
+apiVersion: compute.opentelekomcloud.crossplane.io/v1alpha1
 kind: ServergroupV2
 metadata:
   annotations:

@@ -1,4 +1,4 @@
-apiVersion: evs.crossplane.io/v1alpha1
+apiVersion: evs.opentelekomcloud.crossplane.io/v1alpha1
 kind: VolumeV3
 metadata:
   annotations:
