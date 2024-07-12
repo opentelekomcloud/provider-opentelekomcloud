@@ -1,4 +1,4 @@
-apiVersion: smn.crossplane.io/v1alpha1
+apiVersion: smn.opentelekomcloud.crossplane.io/v1alpha1
 kind: TopicV2
 metadata:
   annotations:

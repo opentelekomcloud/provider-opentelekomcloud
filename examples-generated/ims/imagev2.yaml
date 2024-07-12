@@ -1,4 +1,4 @@
-apiVersion: ims.crossplane.io/v1alpha1
+apiVersion: ims.opentelekomcloud.crossplane.io/v1alpha1
 kind: ImageV2
 metadata:
   annotations:

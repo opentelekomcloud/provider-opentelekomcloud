@@ -1,4 +1,4 @@
-apiVersion: sfs.crossplane.io/v1alpha1
+apiVersion: sfs.opentelekomcloud.crossplane.io/v1alpha1
 kind: TurboShareV1
 metadata:
   annotations:

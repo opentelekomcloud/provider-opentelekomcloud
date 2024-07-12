@@ -1,4 +1,4 @@
-apiVersion: identity.crossplane.io/v1alpha1
+apiVersion: identity.opentelekomcloud.crossplane.io/v1alpha1
 kind: ProtocolV3
 metadata:
   annotations:
@@ -14,7 +14,7 @@ spec:
 
 ---
 
-apiVersion: identity.crossplane.io/v1alpha1
+apiVersion: identity.opentelekomcloud.crossplane.io/v1alpha1
 kind: MappingV3
 metadata:
   annotations:
@@ -29,7 +29,7 @@ spec:
 
 ---
 
-apiVersion: identity.crossplane.io/v1alpha1
+apiVersion: identity.opentelekomcloud.crossplane.io/v1alpha1
 kind: ProviderV3
 metadata:
   annotations:

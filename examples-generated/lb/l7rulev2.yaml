@@ -1,4 +1,4 @@
-apiVersion: lb.crossplane.io/v1alpha1
+apiVersion: lb.opentelekomcloud.crossplane.io/v1alpha1
 kind: L7RuleV2
 metadata:
   annotations:
@@ -15,7 +15,7 @@ spec:
 
 ---
 
-apiVersion: lb.crossplane.io/v1alpha1
+apiVersion: lb.opentelekomcloud.crossplane.io/v1alpha1
 kind: L7PolicyV2
 metadata:
   annotations:
@@ -34,7 +34,7 @@ spec:
 
 ---
 
-apiVersion: lb.crossplane.io/v1alpha1
+apiVersion: lb.opentelekomcloud.crossplane.io/v1alpha1
 kind: ListenerV2
 metadata:
   annotations:
@@ -51,7 +51,7 @@ spec:
 
 ---
 
-apiVersion: lb.crossplane.io/v1alpha1
+apiVersion: lb.opentelekomcloud.crossplane.io/v1alpha1
 kind: LoadbalancerV2
 metadata:
   annotations:
@@ -66,7 +66,7 @@ spec:
 
 ---
 
-apiVersion: lb.crossplane.io/v1alpha1
+apiVersion: lb.opentelekomcloud.crossplane.io/v1alpha1
 kind: PoolV2
 metadata:
   annotations:

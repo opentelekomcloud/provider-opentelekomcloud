@@ -1,4 +1,4 @@
-apiVersion: networking.crossplane.io/v1alpha1
+apiVersion: networking.opentelekomcloud.crossplane.io/v1alpha1
 kind: SecgroupV2
 metadata:
   annotations:

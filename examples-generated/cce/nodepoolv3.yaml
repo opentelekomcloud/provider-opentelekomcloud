@@ -1,4 +1,4 @@
-apiVersion: cce.crossplane.io/v1alpha1
+apiVersion: cce.opentelekomcloud.crossplane.io/v1alpha1
 kind: NodePoolV3
 metadata:
   annotations:

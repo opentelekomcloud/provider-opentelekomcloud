@@ -12,12 +12,4 @@ func Configure(p *config.Provider) {
 			Type: "SecgroupV2",
 		}
 	})
-	p.AddResourceConfigurator("opentelekomcloud_ecs_instance_v1", func(r *config.Resource) {
-		r.References["key_pair"] = config.Reference{
-			Type: "KeypairV2",
-		}
-		r.References["security_groups"] = config.Reference{
-			Type: "SecgroupV2",
-		}
-	})
 }

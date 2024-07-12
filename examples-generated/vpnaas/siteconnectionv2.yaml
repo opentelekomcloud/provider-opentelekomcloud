@@ -1,4 +1,4 @@
-apiVersion: vpnaas.crossplane.io/v1alpha1
+apiVersion: vpnaas.opentelekomcloud.crossplane.io/v1alpha1
 kind: SiteConnectionV2
 metadata:
   annotations:

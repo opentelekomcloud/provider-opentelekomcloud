@@ -1,4 +1,4 @@
-apiVersion: compute.crossplane.io/v1alpha1
+apiVersion: compute.opentelekomcloud.crossplane.io/v1alpha1
 kind: VolumeAttachV2
 metadata:
   annotations:
@@ -13,7 +13,7 @@ spec:
 
 ---
 
-apiVersion: blockstorage.crossplane.io/v1alpha1
+apiVersion: blockstorage.opentelekomcloud.crossplane.io/v1alpha1
 kind: VolumeV2
 metadata:
   annotations:
@@ -28,7 +28,7 @@ spec:
 
 ---
 
-apiVersion: compute.crossplane.io/v1alpha1
+apiVersion: compute.opentelekomcloud.crossplane.io/v1alpha1
 kind: InstanceV2
 metadata:
   annotations:

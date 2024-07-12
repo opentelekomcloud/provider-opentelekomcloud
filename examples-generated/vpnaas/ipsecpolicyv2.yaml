@@ -1,4 +1,4 @@
-apiVersion: vpnaas.crossplane.io/v1alpha1
+apiVersion: vpnaas.opentelekomcloud.crossplane.io/v1alpha1
 kind: IpsecPolicyV2
 metadata:
   annotations:

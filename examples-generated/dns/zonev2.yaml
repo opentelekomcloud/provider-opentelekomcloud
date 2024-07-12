@@ -1,4 +1,4 @@
-apiVersion: dns.crossplane.io/v1alpha1
+apiVersion: dns.opentelekomcloud.crossplane.io/v1alpha1
 kind: ZoneV2
 metadata:
   annotations:

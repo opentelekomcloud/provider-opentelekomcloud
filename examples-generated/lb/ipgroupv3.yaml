@@ -1,4 +1,4 @@
-apiVersion: lb.crossplane.io/v1alpha1
+apiVersion: lb.opentelekomcloud.crossplane.io/v1alpha1
 kind: IpgroupV3
 metadata:
   annotations:
