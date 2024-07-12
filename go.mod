@@ -1,6 +1,6 @@
 module github.com/opentelekomcloud/provider-opentelekomcloud
 
-go 1.20
+go 1.19
 
 require (
 	github.com/crossplane/crossplane-runtime v1.14.0-rc.0.0.20231011070344-cc691421c2e5
