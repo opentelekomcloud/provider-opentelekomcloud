@@ -21,13 +21,13 @@ kind: Provider
 metadata:
   name: provider-opentelekomcloud
 spec:
-  package: opentelekomcloud/provider-opentelekomcloud:v0.1.0
+  package: xpkg.upbound.io/opentelekomcloud/provider-opentelekomcloud:v0.1.0
 EOF
 ```
 
 Notice that in this example Provider resource is referencing ControllerConfig with debug enabled.
 
-You can see the API reference [here](https://doc.crds.dev/github.com/opentelekomcloud/provider-opentelekomcloud).
+You can see the API reference [here](https://marketplace.upbound.io/providers/opentelekomcloud/provider-opentelekomcloud/latest).
 
 ## Developing
 
