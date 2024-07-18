@@ -2,3 +2,18 @@ apiVersion: meta.pkg.crossplane.io/v1
 kind: Provider
 metadata:
   name: provider-opentelekomcloud
+  annotations:
+    meta.crossplane.io/maintainer: OTC Ecosystem Squad
+    meta.crossplane.io/source: github.com/opentelekomcloud/provider-opentelekomcloud
+    meta.crossplane.io/license: Apache-2.0
+    meta.crossplane.io/description: |
+      The OpenTelekomCloud Crossplane provider adds support for
+      managing OTC resources in Kubernetes.
+
+    meta.crossplane.io/readme: |
+      `provider-opentelekomcloud` is the Crossplane infrastructure provider for [OpenTelekomCloud (OTC)](https://www.open-telekom-cloud.com/).
+
+      ## Report a Bug
+
+      If you encounter any bugs, have suggestions for improvements, or want to request new features, please
+      open an [issue](https://github.com/opentelekomcloud/provider-opentelekomcloud/issues).
