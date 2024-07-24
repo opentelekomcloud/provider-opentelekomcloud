@@ -129,9 +129,6 @@ type InstanceV1InitParameters struct {
 	// The user data to provide when launching the instance.
 	// Changing this creates a new server.
 	UserData *string `json:"userData,omitempty" tf:"user_data,omitempty"`
-
-	// The ID of the desired VPC for the server. Changing this creates a new server.
-	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
 }
 
 type InstanceV1Observation struct {
@@ -308,8 +305,17 @@ type InstanceV1Parameters struct {
 	UserData *string `json:"userData,omitempty" tf:"user_data,omitempty"`
 
 	// The ID of the desired VPC for the server. Changing this creates a new server.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.V1
 	// +kubebuilder:validation:Optional
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
+
+	// Reference to a V1 in vpc to populate vpcId.
+	// +kubebuilder:validation:Optional
+	VPCIDRef *v1.Reference `json:"vpcIdRef,omitempty" tf:"-"`
+
+	// Selector for a V1 in vpc to populate vpcId.
+	// +kubebuilder:validation:Optional
+	VPCIDSelector *v1.Selector `json:"vpcIdSelector,omitempty" tf:"-"`
 }
 
 type NicsInitParameters struct {
@@ -317,9 +323,6 @@ type NicsInitParameters struct {
 	// Specifies a fixed IPv4 address to be used on this
 	// network. Changing this creates a new server.
 	IPAddress *string `json:"ipAddress,omitempty" tf:"ip_address,omitempty"`
-
-	// The network UUID to attach to the server. Changing this creates a new server.
-	NetworkID *string `json:"networkId,omitempty" tf:"network_id,omitempty"`
 }
 
 type NicsObservation struct {
@@ -348,8 +351,18 @@ type NicsParameters struct {
 	IPAddress *string `json:"ipAddress,omitempty" tf:"ip_address,omitempty"`
 
 	// The network UUID to attach to the server. Changing this creates a new server.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.SubnetV1
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/compute.ExtractNetworkId()
 	// +kubebuilder:validation:Optional
-	NetworkID *string `json:"networkId" tf:"network_id,omitempty"`
+	NetworkID *string `json:"networkId,omitempty" tf:"network_id,omitempty"`
+
+	// Reference to a SubnetV1 in vpc to populate networkId.
+	// +kubebuilder:validation:Optional
+	NetworkIDRef *v1.Reference `json:"networkIdRef,omitempty" tf:"-"`
+
+	// Selector for a SubnetV1 in vpc to populate networkId.
+	// +kubebuilder:validation:Optional
+	NetworkIDSelector *v1.Selector `json:"networkIdSelector,omitempty" tf:"-"`
 }
 
 type VolumesAttachedInitParameters struct {
@@ -418,7 +431,6 @@ type InstanceV1 struct {
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.imageId) || (has(self.initProvider) && has(self.initProvider.imageId))",message="spec.forProvider.imageId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.nics) || (has(self.initProvider) && has(self.initProvider.nics))",message="spec.forProvider.nics is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.vpcId) || (has(self.initProvider) && has(self.initProvider.vpcId))",message="spec.forProvider.vpcId is a required parameter"
 	Spec   InstanceV1Spec   `json:"spec"`
 	Status InstanceV1Status `json:"status,omitempty"`
 }

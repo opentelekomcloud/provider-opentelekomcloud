@@ -9,6 +9,8 @@ import (
 	"context"
 	reference "github.com/crossplane/crossplane-runtime/pkg/reference"
 	v1alpha1 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/compute/v1alpha1"
+	v1alpha11 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1"
+	compute "github.com/opentelekomcloud/provider-opentelekomcloud/config/compute"
 	errors "github.com/pkg/errors"
 	client "sigs.k8s.io/controller-runtime/pkg/client"
 )
@@ -37,6 +39,24 @@ func (mg *InstanceV1) ResolveReferences(ctx context.Context, c client.Reader) er
 	mg.Spec.ForProvider.KeyName = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.KeyNameRef = rsp.ResolvedReference
 
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.Nics); i3++ {
+		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Nics[i3].NetworkID),
+			Extract:      compute.ExtractNetworkId(),
+			Reference:    mg.Spec.ForProvider.Nics[i3].NetworkIDRef,
+			Selector:     mg.Spec.ForProvider.Nics[i3].NetworkIDSelector,
+			To: reference.To{
+				List:    &v1alpha11.SubnetV1List{},
+				Managed: &v1alpha11.SubnetV1{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.Nics[i3].NetworkID")
+		}
+		mg.Spec.ForProvider.Nics[i3].NetworkID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.Nics[i3].NetworkIDRef = rsp.ResolvedReference
+
+	}
 	mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
 		CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.SecurityGroups),
 		Extract:       reference.ExternalName(),
@@ -52,6 +72,22 @@ func (mg *InstanceV1) ResolveReferences(ctx context.Context, c client.Reader) er
 	}
 	mg.Spec.ForProvider.SecurityGroups = reference.ToPtrValues(mrsp.ResolvedValues)
 	mg.Spec.ForProvider.ComputeSecurityGroupIDRefs = mrsp.ResolvedReferences
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.VPCID),
+		Extract:      reference.ExternalName(),
+		Reference:    mg.Spec.ForProvider.VPCIDRef,
+		Selector:     mg.Spec.ForProvider.VPCIDSelector,
+		To: reference.To{
+			List:    &v1alpha11.V1List{},
+			Managed: &v1alpha11.V1{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.VPCID")
+	}
+	mg.Spec.ForProvider.VPCID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.VPCIDRef = rsp.ResolvedReference
 
 	return nil
 }

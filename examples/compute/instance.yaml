@@ -25,7 +25,8 @@ spec:
   forProvider:
     cidr: "192.168.0.0/16"
     name: crossplane-vpc
-
+    tags:
+      managed-by: crossplane
 ---
 
 apiVersion: vpc.opentelekomcloud.crossplane.io/v1alpha1
@@ -42,6 +43,64 @@ spec:
     gatewayIp: "192.168.0.1"
     name: crossplane-subnet
     ntpAddresses: "10.100.0.33,10.100.0.34"
-    vpcidSelector:
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sample-instance
+    tags:
+      managed-by: crossplane
+
+---
+
+apiVersion: compute.opentelekomcloud.crossplane.io/v1alpha1
+kind: SecgroupV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: compute/v1alpha1/secgroupv2
+  labels:
+    testing.upbound.io/example-name: sample-instance
+  name: sample-instance
+spec:
+  forProvider:
+    description: crossplane security group
+    name: crossplane-sg
+    rule:
+      - cidr: 0.0.0.0/0
+        fromPort: 22
+        ipProtocol: tcp
+        toPort: 22
+      - cidr: 0.0.0.0/0
+        fromPort: 8080
+        ipProtocol: tcp
+        toPort: 8080
+
+---
+
+apiVersion: ecs.opentelekomcloud.crossplane.io/v1alpha1
+kind: InstanceV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ecs/v1alpha1/instancev1
+  labels:
+    testing.upbound.io/example-name: sample-instance
+  name: sample-instance
+spec:
+  forProvider:
+    availabilityZone: eu-de-01
+    flavor: s2.large.2
+    imageId: 54c617ad-5c85-4426-b721-494a9c7719c2
+    keyNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sample-instance
+    computeSecurityGroupIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sample-instance
+    name: server_1
+    nics:
+      - networkIdSelector:
+          matchLabels:
+            testing.upbound.io/example-name: sample-instance
+    tags:
+      muh: kuh
+    vpcIdSelector:
       matchLabels:
         testing.upbound.io/example-name: sample-instance
