@@ -103,11 +103,6 @@ type InstanceV1InitParameters struct {
 	// The ID of the desired image for the server. Changing this creates a new server.
 	ImageID *string `json:"imageId,omitempty" tf:"image_id,omitempty"`
 
-	// The name of a key pair to put on the server. The key
-	// pair must already be created and associated with the tenant's account.
-	// Changing this creates a new server.
-	KeyName *string `json:"keyName,omitempty" tf:"key_name,omitempty"`
-
 	// A unique name for the instance.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -115,11 +110,6 @@ type InstanceV1InitParameters struct {
 	// instance. The nics object structure is documented below. Changing this
 	// creates a new server.
 	Nics []NicsInitParameters `json:"nics,omitempty" tf:"nics,omitempty"`
-
-	// An array of one or more security group IDs
-	// to associate with the server. If this parameter is left blank, the default
-	// security group is bound to the ECS by default.
-	SecurityGroups []*string `json:"securityGroups,omitempty" tf:"security_groups,omitempty"`
 
 	// The Encryption KMS ID of the system disk. Changing this
 	// creates a new server.
@@ -227,6 +217,14 @@ type InstanceV1Parameters struct {
 	// +kubebuilder:validation:Optional
 	AvailabilityZone *string `json:"availabilityZone,omitempty" tf:"availability_zone,omitempty"`
 
+	// References to SecgroupV2 in compute to populate securityGroups.
+	// +kubebuilder:validation:Optional
+	ComputeSecurityGroupIDRefs []v1.Reference `json:"computeSecurityGroupIdRefs,omitempty" tf:"-"`
+
+	// Selector for a list of SecgroupV2 in compute to populate securityGroups.
+	// +kubebuilder:validation:Optional
+	ComputeSecurityGroupIDSelector *v1.Selector `json:"computeSecurityGroupIdSelector,omitempty" tf:"-"`
+
 	// An array of one or more data disks to attach to the
 	// instance. The data_disks object structure is documented below. Changing this
 	// creates a new server.
@@ -249,8 +247,17 @@ type InstanceV1Parameters struct {
 	// The name of a key pair to put on the server. The key
 	// pair must already be created and associated with the tenant's account.
 	// Changing this creates a new server.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/compute/v1alpha1.KeypairV2
 	// +kubebuilder:validation:Optional
 	KeyName *string `json:"keyName,omitempty" tf:"key_name,omitempty"`
+
+	// Reference to a KeypairV2 in compute to populate keyName.
+	// +kubebuilder:validation:Optional
+	KeyNameRef *v1.Reference `json:"keyNameRef,omitempty" tf:"-"`
+
+	// Selector for a KeypairV2 in compute to populate keyName.
+	// +kubebuilder:validation:Optional
+	KeyNameSelector *v1.Selector `json:"keyNameSelector,omitempty" tf:"-"`
 
 	// A unique name for the instance.
 	// +kubebuilder:validation:Optional
@@ -270,6 +277,9 @@ type InstanceV1Parameters struct {
 	// An array of one or more security group IDs
 	// to associate with the server. If this parameter is left blank, the default
 	// security group is bound to the ECS by default.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/compute/v1alpha1.SecgroupV2
+	// +crossplane:generate:reference:refFieldName=ComputeSecurityGroupIDRefs
+	// +crossplane:generate:reference:selectorFieldName=ComputeSecurityGroupIDSelector
 	// +kubebuilder:validation:Optional
 	SecurityGroups []*string `json:"securityGroups,omitempty" tf:"security_groups,omitempty"`
 
