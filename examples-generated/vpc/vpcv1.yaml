@@ -1,8 +1,8 @@
 apiVersion: vpc.opentelekomcloud.crossplane.io/v1alpha1
-kind: V1
+kind: VpcV1
 metadata:
   annotations:
-    meta.upbound.io/example-id: vpc/v1alpha1/v1
+    meta.upbound.io/example-id: vpc/v1alpha1/vpcv1
   labels:
     testing.upbound.io/example-name: vpc_v1
   name: vpc-v1

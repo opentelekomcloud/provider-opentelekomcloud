@@ -36,7 +36,7 @@ func Configure(p *config.Provider) {
 		}
 		r.References["nics.network_id"] = config.Reference{
 			TerraformName: "opentelekomcloud_vpc_subnet_v1",
-			Extractor:     ExtractNetworkIdFunc,
+			Extractor:     ExtractNetworkIDFunc,
 		}
 	})
 }
@@ -45,14 +45,14 @@ const (
 	// APISPackagePath is the package path for generated APIs root package
 	APISPackagePath = "github.com/opentelekomcloud/provider-opentelekomcloud/config/compute"
 
-	// ExtractNetworkIdFunc extracts network_id from subnet resource
-	ExtractNetworkIdFunc = APISPackagePath + ".ExtractNetworkId()"
+	// ExtractNetworkIDFunc extracts network_id from subnet resource
+	ExtractNetworkIDFunc = APISPackagePath + ".ExtractNetworkID()"
 )
 
-// ExtractNetworkId extracts the value of `spec.forProvider.network_id`
+// ExtractNetworkID extracts the value of `spec.forProvider.network_id`
 // from a Observable resource. If mr is not a Observable
 // resource, returns an empty string.
-func ExtractNetworkId() xpref.ExtractValueFn {
+func ExtractNetworkID() xpref.ExtractValueFn {
 	return func(mr xpresource.Managed) string {
 		tr, ok := mr.(resource.Observable)
 		if !ok {

@@ -93,7 +93,7 @@ spec:
 ---
 
 apiVersion: vpc.opentelekomcloud.crossplane.io/v1alpha1
-kind: V1
+kind: VpcV1
 metadata:
   annotations:
     meta.upbound.io/example-id: vpc/v1alpha1/routetablev1
@@ -108,7 +108,7 @@ spec:
 ---
 
 apiVersion: vpc.opentelekomcloud.crossplane.io/v1alpha1
-kind: V1
+kind: VpcV1
 metadata:
   annotations:
     meta.upbound.io/example-id: vpc/v1alpha1/routetablev1

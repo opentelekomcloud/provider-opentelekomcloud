@@ -205,15 +205,15 @@ type SubnetV1Parameters struct {
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// Specifies the ID of the VPC to which the subnet belongs. Changing this creates a new Subnet.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.V1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.VpcV1
 	// +kubebuilder:validation:Optional
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
 
-	// Reference to a V1 in vpc to populate vpcId.
+	// Reference to a VpcV1 in vpc to populate vpcId.
 	// +kubebuilder:validation:Optional
 	VPCIDRef *v1.Reference `json:"vpcIdRef,omitempty" tf:"-"`
 
-	// Selector for a V1 in vpc to populate vpcId.
+	// Selector for a VpcV1 in vpc to populate vpcId.
 	// +kubebuilder:validation:Optional
 	VPCIDSelector *v1.Selector `json:"vpcIdSelector,omitempty" tf:"-"`
 }

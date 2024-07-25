@@ -305,15 +305,15 @@ type InstanceV1Parameters struct {
 	UserData *string `json:"userData,omitempty" tf:"user_data,omitempty"`
 
 	// The ID of the desired VPC for the server. Changing this creates a new server.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.V1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.VpcV1
 	// +kubebuilder:validation:Optional
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
 
-	// Reference to a V1 in vpc to populate vpcId.
+	// Reference to a VpcV1 in vpc to populate vpcId.
 	// +kubebuilder:validation:Optional
 	VPCIDRef *v1.Reference `json:"vpcIdRef,omitempty" tf:"-"`
 
-	// Selector for a V1 in vpc to populate vpcId.
+	// Selector for a VpcV1 in vpc to populate vpcId.
 	// +kubebuilder:validation:Optional
 	VPCIDSelector *v1.Selector `json:"vpcIdSelector,omitempty" tf:"-"`
 }
@@ -352,7 +352,7 @@ type NicsParameters struct {
 
 	// The network UUID to attach to the server. Changing this creates a new server.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.SubnetV1
-	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/compute.ExtractNetworkId()
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/compute.ExtractNetworkID()
 	// +kubebuilder:validation:Optional
 	NetworkID *string `json:"networkId,omitempty" tf:"network_id,omitempty"`
 

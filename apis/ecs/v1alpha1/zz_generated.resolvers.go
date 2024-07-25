@@ -42,7 +42,7 @@ func (mg *InstanceV1) ResolveReferences(ctx context.Context, c client.Reader) er
 	for i3 := 0; i3 < len(mg.Spec.ForProvider.Nics); i3++ {
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Nics[i3].NetworkID),
-			Extract:      compute.ExtractNetworkId(),
+			Extract:      compute.ExtractNetworkID(),
 			Reference:    mg.Spec.ForProvider.Nics[i3].NetworkIDRef,
 			Selector:     mg.Spec.ForProvider.Nics[i3].NetworkIDSelector,
 			To: reference.To{
@@ -79,8 +79,8 @@ func (mg *InstanceV1) ResolveReferences(ctx context.Context, c client.Reader) er
 		Reference:    mg.Spec.ForProvider.VPCIDRef,
 		Selector:     mg.Spec.ForProvider.VPCIDSelector,
 		To: reference.To{
-			List:    &v1alpha11.V1List{},
-			Managed: &v1alpha11.V1{},
+			List:    &v1alpha11.VpcV1List{},
+			Managed: &v1alpha11.VpcV1{},
 		},
 	})
 	if err != nil {

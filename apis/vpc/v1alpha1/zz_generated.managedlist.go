@@ -88,8 +88,8 @@ func (l *SubnetV1List) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this V1List.
-func (l *V1List) GetItems() []resource.Managed {
+// GetItems of this VpcV1List.
+func (l *VpcV1List) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]

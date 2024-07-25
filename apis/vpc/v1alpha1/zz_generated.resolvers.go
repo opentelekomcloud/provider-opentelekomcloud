@@ -25,8 +25,8 @@ func (mg *SubnetV1) ResolveReferences(ctx context.Context, c client.Reader) erro
 		Reference:    mg.Spec.ForProvider.VPCIDRef,
 		Selector:     mg.Spec.ForProvider.VPCIDSelector,
 		To: reference.To{
-			List:    &V1List{},
-			Managed: &V1{},
+			List:    &VpcV1List{},
+			Managed: &VpcV1{},
 		},
 	})
 	if err != nil {

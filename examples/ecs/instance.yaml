@@ -14,7 +14,7 @@ spec:
 ---
 
 apiVersion: vpc.opentelekomcloud.crossplane.io/v1alpha1
-kind: V1
+kind: VpcV1
 metadata:
   annotations:
     meta.upbound.io/example-id: vpc/v1alpha1/v1
@@ -94,13 +94,13 @@ spec:
     computeSecurityGroupIdSelector:
       matchLabels:
         testing.upbound.io/example-name: sample-instance
-    name: server_1
+    name: crossplane-instance-01
     nics:
       - networkIdSelector:
           matchLabels:
             testing.upbound.io/example-name: sample-instance
     tags:
-      muh: kuh
+      managed-by: crossplane
     vpcIdSelector:
       matchLabels:
         testing.upbound.io/example-name: sample-instance

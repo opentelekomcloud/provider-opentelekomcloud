@@ -417,7 +417,7 @@ spec:
                       this creates a new server.
                     type: string
                   vpcIdRef:
-                    description: Reference to a V1 in vpc to populate vpcId.
+                    description: Reference to a VpcV1 in vpc to populate vpcId.
                     properties:
                       name:
                         description: Name of the referenced object.
@@ -451,7 +451,7 @@ spec:
                     - name
                     type: object
                   vpcIdSelector:
-                    description: Selector for a V1 in vpc to populate vpcId.
+                    description: Selector for a VpcV1 in vpc to populate vpcId.
                     properties:
                       matchControllerRef:
                         description: MatchControllerRef ensures an object with the

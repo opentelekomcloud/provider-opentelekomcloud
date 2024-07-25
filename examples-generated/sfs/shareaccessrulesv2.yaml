@@ -37,7 +37,7 @@ spec:
 ---
 
 apiVersion: vpc.opentelekomcloud.crossplane.io/v1alpha1
-kind: V1
+kind: VpcV1
 metadata:
   annotations:
     meta.upbound.io/example-id: sfs/v1alpha1/shareaccessrulesv2
@@ -52,7 +52,7 @@ spec:
 ---
 
 apiVersion: vpc.opentelekomcloud.crossplane.io/v1alpha1
-kind: V1
+kind: VpcV1
 metadata:
   annotations:
     meta.upbound.io/example-id: sfs/v1alpha1/shareaccessrulesv2

@@ -132,7 +132,7 @@ import (
 	routetablev1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/vpc/routetablev1"
 	routev2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/vpc/routev2"
 	subnetv1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/vpc/subnetv1"
-	v1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/vpc/v1"
+	vpcv1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/vpc/vpcv1"
 	endpointv1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/vpcep/endpointv1"
 	servicev1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/vpcep/servicev1"
 	endpointgroupv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/vpnaas/endpointgroupv2"
@@ -284,7 +284,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		routetablev1.Setup,
 		routev2.Setup,
 		subnetv1.Setup,
-		v1.Setup,
+		vpcv1.Setup,
 		endpointv1.Setup,
 		servicev1.Setup,
 		endpointgroupv2.Setup,

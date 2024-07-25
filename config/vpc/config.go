@@ -9,4 +9,7 @@ func Configure(p *config.Provider) {
 			TerraformName: "opentelekomcloud_vpc_v1",
 		}
 	})
+	p.AddResourceConfigurator("opentelekomcloud_vpc_v1", func(r *config.Resource) {
+		r.Kind = "VpcV1"
+	})
 }
