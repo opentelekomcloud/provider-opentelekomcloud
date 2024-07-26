@@ -4,7 +4,7 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.13.0
-  name: v1s.vpc.opentelekomcloud.crossplane.io
+  name: vpcv1s.vpc.opentelekomcloud.crossplane.io
 spec:
   group: vpc.opentelekomcloud.crossplane.io
   names:
@@ -12,10 +12,10 @@ spec:
     - crossplane
     - managed
     - opentelekomcloud
-    kind: V1
-    listKind: V1List
-    plural: v1s
-    singular: v1
+    kind: VpcV1
+    listKind: VpcV1List
+    plural: vpcv1s
+    singular: vpcv1
   scope: Cluster
   versions:
   - additionalPrinterColumns:
@@ -34,8 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: V1 is the Schema for the V1s API. Manages a VPC resource within
-          OpenTelekomCloud.
+        description: VpcV1 is the Schema for the VpcV1s API. Manages a VPC resource
+          within OpenTelekomCloud.
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -50,7 +50,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: V1Spec defines the desired state of V1
+            description: VpcV1Spec defines the desired state of VpcV1
             properties:
               deletionPolicy:
                 default: Delete
@@ -319,7 +319,7 @@ spec:
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
                 || (has(self.initProvider) && has(self.initProvider.name))'
           status:
-            description: V1Status defines the observed state of V1.
+            description: VpcV1Status defines the observed state of VpcV1.
             properties:
               atProvider:
                 properties:

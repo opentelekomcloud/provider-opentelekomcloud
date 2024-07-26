@@ -8,6 +8,8 @@ import (
 	// Note(turkenh): we are importing this to embed provider schema document
 	_ "embed"
 
+	"github.com/opentelekomcloud/provider-opentelekomcloud/config/vpc"
+
 	"github.com/opentelekomcloud/provider-opentelekomcloud/config/blockstorage"
 	"github.com/opentelekomcloud/provider-opentelekomcloud/config/cce"
 	"github.com/opentelekomcloud/provider-opentelekomcloud/config/compute"
@@ -77,6 +79,7 @@ func GetProvider() *ujconfig.Provider {
 		sfs.Configure,
 		smn.Configure,
 		vpcep.Configure,
+		vpc.Configure,
 		vpnaas.Configure,
 		wafd.Configure,
 	} {

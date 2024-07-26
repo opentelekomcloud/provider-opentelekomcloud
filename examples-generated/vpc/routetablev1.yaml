@@ -48,7 +48,9 @@ spec:
     cidr: 192.168.0.0/24
     gatewayIp: 192.168.0.1
     name: vpc-1-subnet-1-1
-    vpcId: ${opentelekomcloud_vpc_v1.vpc_1.id}
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: vpc_1
 
 ---
 
@@ -65,7 +67,9 @@ spec:
     cidr: 192.168.10.0/24
     gatewayIp: 192.168.10.1
     name: vpc-1-subnet-1-2
-    vpcId: ${opentelekomcloud_vpc_v1.vpc_1.id}
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: vpc_1
 
 ---
 
@@ -82,12 +86,14 @@ spec:
     cidr: 172.16.10.0/24
     gatewayIp: 172.16.10.1
     name: vpc-2-subnet-2-1
-    vpcId: ${opentelekomcloud_vpc_v1.vpc_2.id}
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: vpc_2
 
 ---
 
 apiVersion: vpc.opentelekomcloud.crossplane.io/v1alpha1
-kind: V1
+kind: VpcV1
 metadata:
   annotations:
     meta.upbound.io/example-id: vpc/v1alpha1/routetablev1
@@ -102,7 +108,7 @@ spec:
 ---
 
 apiVersion: vpc.opentelekomcloud.crossplane.io/v1alpha1
-kind: V1
+kind: VpcV1
 metadata:
   annotations:
     meta.upbound.io/example-id: vpc/v1alpha1/routetablev1

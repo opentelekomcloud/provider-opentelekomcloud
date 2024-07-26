@@ -773,18 +773,18 @@ func (tr *SubnetV1) GetTerraformSchemaVersion() int {
 	return 0
 }
 
-// GetTerraformResourceType returns Terraform resource type for this V1
-func (mg *V1) GetTerraformResourceType() string {
+// GetTerraformResourceType returns Terraform resource type for this VpcV1
+func (mg *VpcV1) GetTerraformResourceType() string {
 	return "opentelekomcloud_vpc_v1"
 }
 
-// GetConnectionDetailsMapping for this V1
-func (tr *V1) GetConnectionDetailsMapping() map[string]string {
+// GetConnectionDetailsMapping for this VpcV1
+func (tr *VpcV1) GetConnectionDetailsMapping() map[string]string {
 	return nil
 }
 
-// GetObservation of this V1
-func (tr *V1) GetObservation() (map[string]any, error) {
+// GetObservation of this VpcV1
+func (tr *VpcV1) GetObservation() (map[string]any, error) {
 	o, err := json.TFParser.Marshal(tr.Status.AtProvider)
 	if err != nil {
 		return nil, err
@@ -793,8 +793,8 @@ func (tr *V1) GetObservation() (map[string]any, error) {
 	return base, json.TFParser.Unmarshal(o, &base)
 }
 
-// SetObservation for this V1
-func (tr *V1) SetObservation(obs map[string]any) error {
+// SetObservation for this VpcV1
+func (tr *VpcV1) SetObservation(obs map[string]any) error {
 	p, err := json.TFParser.Marshal(obs)
 	if err != nil {
 		return err
@@ -802,16 +802,16 @@ func (tr *V1) SetObservation(obs map[string]any) error {
 	return json.TFParser.Unmarshal(p, &tr.Status.AtProvider)
 }
 
-// GetID returns ID of underlying Terraform resource of this V1
-func (tr *V1) GetID() string {
+// GetID returns ID of underlying Terraform resource of this VpcV1
+func (tr *VpcV1) GetID() string {
 	if tr.Status.AtProvider.ID == nil {
 		return ""
 	}
 	return *tr.Status.AtProvider.ID
 }
 
-// GetParameters of this V1
-func (tr *V1) GetParameters() (map[string]any, error) {
+// GetParameters of this VpcV1
+func (tr *VpcV1) GetParameters() (map[string]any, error) {
 	p, err := json.TFParser.Marshal(tr.Spec.ForProvider)
 	if err != nil {
 		return nil, err
@@ -820,8 +820,8 @@ func (tr *V1) GetParameters() (map[string]any, error) {
 	return base, json.TFParser.Unmarshal(p, &base)
 }
 
-// SetParameters for this V1
-func (tr *V1) SetParameters(params map[string]any) error {
+// SetParameters for this VpcV1
+func (tr *VpcV1) SetParameters(params map[string]any) error {
 	p, err := json.TFParser.Marshal(params)
 	if err != nil {
 		return err
@@ -829,8 +829,8 @@ func (tr *V1) SetParameters(params map[string]any) error {
 	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
 }
 
-// GetInitParameters of this V1
-func (tr *V1) GetInitParameters() (map[string]any, error) {
+// GetInitParameters of this VpcV1
+func (tr *VpcV1) GetInitParameters() (map[string]any, error) {
 	p, err := json.TFParser.Marshal(tr.Spec.InitProvider)
 	if err != nil {
 		return nil, err
@@ -839,10 +839,10 @@ func (tr *V1) GetInitParameters() (map[string]any, error) {
 	return base, json.TFParser.Unmarshal(p, &base)
 }
 
-// LateInitialize this V1 using its observed tfState.
+// LateInitialize this VpcV1 using its observed tfState.
 // returns True if there are any spec changes for the resource.
-func (tr *V1) LateInitialize(attrs []byte) (bool, error) {
-	params := &V1Parameters{}
+func (tr *VpcV1) LateInitialize(attrs []byte) (bool, error) {
+	params := &VpcV1Parameters{}
 	if err := json.TFParser.Unmarshal(attrs, params); err != nil {
 		return false, errors.Wrap(err, "failed to unmarshal Terraform state parameters for late-initialization")
 	}
@@ -853,6 +853,6 @@ func (tr *V1) LateInitialize(attrs []byte) (bool, error) {
 }
 
 // GetTerraformSchemaVersion returns the associated Terraform schema version
-func (tr *V1) GetTerraformSchemaVersion() int {
+func (tr *VpcV1) GetTerraformSchemaVersion() int {
 	return 0
 }

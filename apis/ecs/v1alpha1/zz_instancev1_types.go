@@ -103,11 +103,6 @@ type InstanceV1InitParameters struct {
 	// The ID of the desired image for the server. Changing this creates a new server.
 	ImageID *string `json:"imageId,omitempty" tf:"image_id,omitempty"`
 
-	// The name of a key pair to put on the server. The key
-	// pair must already be created and associated with the tenant's account.
-	// Changing this creates a new server.
-	KeyName *string `json:"keyName,omitempty" tf:"key_name,omitempty"`
-
 	// A unique name for the instance.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -115,11 +110,6 @@ type InstanceV1InitParameters struct {
 	// instance. The nics object structure is documented below. Changing this
 	// creates a new server.
 	Nics []NicsInitParameters `json:"nics,omitempty" tf:"nics,omitempty"`
-
-	// An array of one or more security group IDs
-	// to associate with the server. If this parameter is left blank, the default
-	// security group is bound to the ECS by default.
-	SecurityGroups []*string `json:"securityGroups,omitempty" tf:"security_groups,omitempty"`
 
 	// The Encryption KMS ID of the system disk. Changing this
 	// creates a new server.
@@ -139,9 +129,6 @@ type InstanceV1InitParameters struct {
 	// The user data to provide when launching the instance.
 	// Changing this creates a new server.
 	UserData *string `json:"userData,omitempty" tf:"user_data,omitempty"`
-
-	// The ID of the desired VPC for the server. Changing this creates a new server.
-	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
 }
 
 type InstanceV1Observation struct {
@@ -227,6 +214,14 @@ type InstanceV1Parameters struct {
 	// +kubebuilder:validation:Optional
 	AvailabilityZone *string `json:"availabilityZone,omitempty" tf:"availability_zone,omitempty"`
 
+	// References to SecgroupV2 in compute to populate securityGroups.
+	// +kubebuilder:validation:Optional
+	ComputeSecurityGroupIDRefs []v1.Reference `json:"computeSecurityGroupIdRefs,omitempty" tf:"-"`
+
+	// Selector for a list of SecgroupV2 in compute to populate securityGroups.
+	// +kubebuilder:validation:Optional
+	ComputeSecurityGroupIDSelector *v1.Selector `json:"computeSecurityGroupIdSelector,omitempty" tf:"-"`
+
 	// An array of one or more data disks to attach to the
 	// instance. The data_disks object structure is documented below. Changing this
 	// creates a new server.
@@ -249,8 +244,17 @@ type InstanceV1Parameters struct {
 	// The name of a key pair to put on the server. The key
 	// pair must already be created and associated with the tenant's account.
 	// Changing this creates a new server.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/compute/v1alpha1.KeypairV2
 	// +kubebuilder:validation:Optional
 	KeyName *string `json:"keyName,omitempty" tf:"key_name,omitempty"`
+
+	// Reference to a KeypairV2 in compute to populate keyName.
+	// +kubebuilder:validation:Optional
+	KeyNameRef *v1.Reference `json:"keyNameRef,omitempty" tf:"-"`
+
+	// Selector for a KeypairV2 in compute to populate keyName.
+	// +kubebuilder:validation:Optional
+	KeyNameSelector *v1.Selector `json:"keyNameSelector,omitempty" tf:"-"`
 
 	// A unique name for the instance.
 	// +kubebuilder:validation:Optional
@@ -270,6 +274,9 @@ type InstanceV1Parameters struct {
 	// An array of one or more security group IDs
 	// to associate with the server. If this parameter is left blank, the default
 	// security group is bound to the ECS by default.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/compute/v1alpha1.SecgroupV2
+	// +crossplane:generate:reference:refFieldName=ComputeSecurityGroupIDRefs
+	// +crossplane:generate:reference:selectorFieldName=ComputeSecurityGroupIDSelector
 	// +kubebuilder:validation:Optional
 	SecurityGroups []*string `json:"securityGroups,omitempty" tf:"security_groups,omitempty"`
 
@@ -298,8 +305,17 @@ type InstanceV1Parameters struct {
 	UserData *string `json:"userData,omitempty" tf:"user_data,omitempty"`
 
 	// The ID of the desired VPC for the server. Changing this creates a new server.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.VpcV1
 	// +kubebuilder:validation:Optional
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
+
+	// Reference to a VpcV1 in vpc to populate vpcId.
+	// +kubebuilder:validation:Optional
+	VPCIDRef *v1.Reference `json:"vpcIdRef,omitempty" tf:"-"`
+
+	// Selector for a VpcV1 in vpc to populate vpcId.
+	// +kubebuilder:validation:Optional
+	VPCIDSelector *v1.Selector `json:"vpcIdSelector,omitempty" tf:"-"`
 }
 
 type NicsInitParameters struct {
@@ -307,9 +323,6 @@ type NicsInitParameters struct {
 	// Specifies a fixed IPv4 address to be used on this
 	// network. Changing this creates a new server.
 	IPAddress *string `json:"ipAddress,omitempty" tf:"ip_address,omitempty"`
-
-	// The network UUID to attach to the server. Changing this creates a new server.
-	NetworkID *string `json:"networkId,omitempty" tf:"network_id,omitempty"`
 }
 
 type NicsObservation struct {
@@ -338,8 +351,18 @@ type NicsParameters struct {
 	IPAddress *string `json:"ipAddress,omitempty" tf:"ip_address,omitempty"`
 
 	// The network UUID to attach to the server. Changing this creates a new server.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.SubnetV1
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/compute.ExtractNetworkID()
 	// +kubebuilder:validation:Optional
-	NetworkID *string `json:"networkId" tf:"network_id,omitempty"`
+	NetworkID *string `json:"networkId,omitempty" tf:"network_id,omitempty"`
+
+	// Reference to a SubnetV1 in vpc to populate networkId.
+	// +kubebuilder:validation:Optional
+	NetworkIDRef *v1.Reference `json:"networkIdRef,omitempty" tf:"-"`
+
+	// Selector for a SubnetV1 in vpc to populate networkId.
+	// +kubebuilder:validation:Optional
+	NetworkIDSelector *v1.Selector `json:"networkIdSelector,omitempty" tf:"-"`
 }
 
 type VolumesAttachedInitParameters struct {
@@ -408,7 +431,6 @@ type InstanceV1 struct {
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.imageId) || (has(self.initProvider) && has(self.initProvider.imageId))",message="spec.forProvider.imageId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.nics) || (has(self.initProvider) && has(self.initProvider.nics))",message="spec.forProvider.nics is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.vpcId) || (has(self.initProvider) && has(self.initProvider.vpcId))",message="spec.forProvider.vpcId is a required parameter"
 	Spec   InstanceV1Spec   `json:"spec"`
 	Status InstanceV1Status `json:"status,omitempty"`
 }

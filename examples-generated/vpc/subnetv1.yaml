@@ -12,12 +12,14 @@ spec:
     gatewayIp: ${var.subnet_gateway_ip}
     name: ${var.subnet_name}
     ntpAddresses: 10.100.0.33,10.100.0.34
-    vpcId: ${opentelekomcloud_vpc_v1.vpc_v1.id}
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: vpc_v1
 
 ---
 
 apiVersion: vpc.opentelekomcloud.crossplane.io/v1alpha1
-kind: V1
+kind: VpcV1
 metadata:
   annotations:
     meta.upbound.io/example-id: vpc/v1alpha1/subnetv1

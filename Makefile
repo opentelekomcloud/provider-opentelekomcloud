@@ -168,7 +168,7 @@ submodules:
 run: go.build
 	@$(INFO) Running Crossplane locally out-of-cluster . . .
 	@# To see other arguments that can be provided, run the command with --help instead
-	UPBOUND_CONTEXT="local" $(GO_OUT_DIR)/provider --debug
+	UPBOUND_CONTEXT="local" $(GO_OUT_DIR)/provider --debug --poll 1m
 
 # ====================================================================================
 # End to End Testing
