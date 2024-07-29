@@ -50,7 +50,7 @@ const (
 )
 
 // ExtractNetworkID extracts the value of `spec.forProvider.network_id`
-// from a Observable resource. If mr is not a Observable
+// from an Observable resource. If mr is not a Observable
 // resource, returns an empty string.
 func ExtractNetworkID() xpref.ExtractValueFn {
 	return func(mr xpresource.Managed) string {

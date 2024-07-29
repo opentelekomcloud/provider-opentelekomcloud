@@ -31,6 +31,9 @@ spec:
     backupStrategy:
     - keepDays: 1
       startTime: 08:00-09:00
+    computeSecurityGroupIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     db:
     - passwordSecretRef:
         key: example-key
@@ -41,11 +44,14 @@ spec:
       version: "10"
     flavor: rds.pg.c2.medium
     name: test-instance
-    securityGroupId: ${var.sg_id}
-    subnetId: ${var.os_network_id}
+    subnetIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     tag:
       created: terraform
     volume:
     - size: 40
       type: ULTRAHIGH
-    vpcId: ${var.os_router_id}
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example

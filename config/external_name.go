@@ -157,7 +157,6 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 
 	// RDS
 	"opentelekomcloud_rds_backup_v3":         config.IdentifierFromProvider,
-	"opentelekomcloud_rds_instance_v1":       config.IdentifierFromProvider,
 	"opentelekomcloud_rds_instance_v3":       config.IdentifierFromProvider,
 	"opentelekomcloud_rds_parametergroup_v3": config.IdentifierFromProvider,
 	"opentelekomcloud_rds_read_replica_v3":   config.IdentifierFromProvider,

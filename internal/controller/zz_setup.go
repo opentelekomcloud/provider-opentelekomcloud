@@ -110,7 +110,6 @@ import (
 	bucketreplication "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/obs/bucketreplication"
 	providerconfig "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/providerconfig"
 	backupv3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/rds/backupv3"
-	instancev1rds "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/rds/instancev1"
 	instancev3rds "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/rds/instancev3"
 	parametergroupv3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/rds/parametergroupv3"
 	readreplicav3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/rds/readreplicav3"
@@ -262,7 +261,6 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		bucketreplication.Setup,
 		providerconfig.Setup,
 		backupv3.Setup,
-		instancev1rds.Setup,
 		instancev3rds.Setup,
 		parametergroupv3.Setup,
 		readreplicav3.Setup,
