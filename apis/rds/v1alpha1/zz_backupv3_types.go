@@ -27,9 +27,6 @@ type BackupV3InitParameters struct {
 	// It contains a maximum of 256 characters and cannot contain the following special characters: >!<"&'=
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// The ID of the RDS instance to which the backup belongs.
-	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
-
 	// The name of the backup.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -97,8 +94,17 @@ type BackupV3Parameters struct {
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// The ID of the RDS instance to which the backup belongs.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/rds/v1alpha1.InstanceV3
 	// +kubebuilder:validation:Optional
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
+
+	// Reference to a InstanceV3 in rds to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceIDRef *v1.Reference `json:"instanceIdRef,omitempty" tf:"-"`
+
+	// Selector for a InstanceV3 in rds to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceIDSelector *v1.Selector `json:"instanceIdSelector,omitempty" tf:"-"`
 
 	// The name of the backup.
 	// +kubebuilder:validation:Optional
@@ -167,7 +173,6 @@ type BackupV3Status struct {
 type BackupV3 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.instanceId) || (has(self.initProvider) && has(self.initProvider.instanceId))",message="spec.forProvider.instanceId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	Spec   BackupV3Spec   `json:"spec"`
 	Status BackupV3Status `json:"status,omitempty"`

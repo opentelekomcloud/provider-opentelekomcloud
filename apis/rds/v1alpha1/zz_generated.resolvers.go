@@ -15,6 +15,32 @@ import (
 	client "sigs.k8s.io/controller-runtime/pkg/client"
 )
 
+// ResolveReferences of this BackupV3.
+func (mg *BackupV3) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPIResolver(c, mg)
+
+	var rsp reference.ResolutionResponse
+	var err error
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.InstanceID),
+		Extract:      reference.ExternalName(),
+		Reference:    mg.Spec.ForProvider.InstanceIDRef,
+		Selector:     mg.Spec.ForProvider.InstanceIDSelector,
+		To: reference.To{
+			List:    &InstanceV3List{},
+			Managed: &InstanceV3{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.InstanceID")
+	}
+	mg.Spec.ForProvider.InstanceID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.InstanceIDRef = rsp.ResolvedReference
+
+	return nil
+}
+
 // ResolveReferences of this InstanceV3.
 func (mg *InstanceV3) ResolveReferences(ctx context.Context, c client.Reader) error {
 	r := reference.NewAPIResolver(c, mg)
@@ -102,6 +128,49 @@ func (mg *InstanceV3) ResolveReferences(ctx context.Context, c client.Reader) er
 	}
 	mg.Spec.ForProvider.VPCID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.VPCIDRef = rsp.ResolvedReference
+
+	return nil
+}
+
+// ResolveReferences of this ReadReplicaV3.
+func (mg *ReadReplicaV3) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPIResolver(c, mg)
+
+	var rsp reference.ResolutionResponse
+	var mrsp reference.MultiResolutionResponse
+	var err error
+
+	mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
+		CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.PublicIps),
+		Extract:       rds.ExtractEipAddress(),
+		References:    mg.Spec.ForProvider.PublicIpsRefs,
+		Selector:      mg.Spec.ForProvider.PublicIpsSelector,
+		To: reference.To{
+			List:    &v1alpha1.EIPV1List{},
+			Managed: &v1alpha1.EIPV1{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.PublicIps")
+	}
+	mg.Spec.ForProvider.PublicIps = reference.ToPtrValues(mrsp.ResolvedValues)
+	mg.Spec.ForProvider.PublicIpsRefs = mrsp.ResolvedReferences
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ReplicaOfID),
+		Extract:      reference.ExternalName(),
+		Reference:    mg.Spec.ForProvider.ReplicaOfIDRef,
+		Selector:     mg.Spec.ForProvider.ReplicaOfIDSelector,
+		To: reference.To{
+			List:    &InstanceV3List{},
+			Managed: &InstanceV3{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.ReplicaOfID")
+	}
+	mg.Spec.ForProvider.ReplicaOfID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.ReplicaOfIDRef = rsp.ResolvedReference
 
 	return nil
 }

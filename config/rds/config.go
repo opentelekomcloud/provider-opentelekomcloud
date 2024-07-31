@@ -33,6 +33,24 @@ func Configure(p *config.Provider) {
 			TerraformName: "opentelekomcloud_rds_parametergroup_v3",
 		}
 	})
+	p.AddResourceConfigurator("opentelekomcloud_rds_backup_v3", func(r *config.Resource) {
+		r.UseAsync = true
+		r.References["instance_id"] = config.Reference{
+			TerraformName: "opentelekomcloud_rds_instance_v3",
+		}
+	})
+	p.AddResourceConfigurator("opentelekomcloud_rds_read_replica_v3", func(r *config.Resource) {
+		r.UseAsync = true
+		r.References["replica_of_id"] = config.Reference{
+			TerraformName: "opentelekomcloud_rds_instance_v3",
+		}
+		r.References["public_ips"] = config.Reference{
+			TerraformName:     "opentelekomcloud_vpc_eip_v1",
+			Extractor:         ExtractEipAddressFunc,
+			RefFieldName:      "PublicIpsRefs",
+			SelectorFieldName: "PublicIpsSelector",
+		}
+	})
 }
 
 const (

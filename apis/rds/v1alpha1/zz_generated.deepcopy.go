@@ -130,11 +130,6 @@ func (in *BackupV3InitParameters) DeepCopyInto(out *BackupV3InitParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.InstanceID != nil {
-		in, out := &in.InstanceID, &out.InstanceID
-		*out = new(string)
-		**out = **in
-	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)
@@ -275,6 +270,16 @@ func (in *BackupV3Parameters) DeepCopyInto(out *BackupV3Parameters) {
 		in, out := &in.InstanceID, &out.InstanceID
 		*out = new(string)
 		**out = **in
+	}
+	if in.InstanceIDRef != nil {
+		in, out := &in.InstanceIDRef, &out.InstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceIDSelector != nil {
+		in, out := &in.InstanceIDSelector, &out.InstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
@@ -1738,24 +1743,8 @@ func (in *ReadReplicaV3InitParameters) DeepCopyInto(out *ReadReplicaV3InitParame
 		*out = new(string)
 		**out = **in
 	}
-	if in.PublicIps != nil {
-		in, out := &in.PublicIps, &out.PublicIps
-		*out = make([]*string, len(*in))
-		for i := range *in {
-			if (*in)[i] != nil {
-				in, out := &(*in)[i], &(*out)[i]
-				*out = new(string)
-				**out = **in
-			}
-		}
-	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
-		*out = new(string)
-		**out = **in
-	}
-	if in.ReplicaOfID != nil {
-		in, out := &in.ReplicaOfID, &out.ReplicaOfID
 		*out = new(string)
 		**out = **in
 	}
@@ -1935,6 +1924,18 @@ func (in *ReadReplicaV3Parameters) DeepCopyInto(out *ReadReplicaV3Parameters) {
 			}
 		}
 	}
+	if in.PublicIpsRefs != nil {
+		in, out := &in.PublicIpsRefs, &out.PublicIpsRefs
+		*out = make([]v1.Reference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.PublicIpsSelector != nil {
+		in, out := &in.PublicIpsSelector, &out.PublicIpsSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
 		*out = new(string)
@@ -1944,6 +1945,16 @@ func (in *ReadReplicaV3Parameters) DeepCopyInto(out *ReadReplicaV3Parameters) {
 		in, out := &in.ReplicaOfID, &out.ReplicaOfID
 		*out = new(string)
 		**out = **in
+	}
+	if in.ReplicaOfIDRef != nil {
+		in, out := &in.ReplicaOfIDRef, &out.ReplicaOfIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ReplicaOfIDSelector != nil {
+		in, out := &in.ReplicaOfIDSelector, &out.ReplicaOfIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Volume != nil {
 		in, out := &in.Volume, &out.Volume

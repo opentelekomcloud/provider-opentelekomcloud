@@ -9,7 +9,9 @@ metadata:
 spec:
   forProvider:
     description: manual
-    instanceId: ${opentelekomcloud_rds_instance_v3.instance.id}
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: instance
     name: rds-backup-test-01
 
 ---

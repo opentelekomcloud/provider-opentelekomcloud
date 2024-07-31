@@ -11,7 +11,9 @@ spec:
     availabilityZone: ${var.az_replica}
     flavorRef: rds.pg.c2.medium
     name: test-replica
-    replicaOfId: ${opentelekomcloud_rds_instance_v3.instance.id}
+    replicaOfIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: instance
     volume:
     - type: COMMON
 
