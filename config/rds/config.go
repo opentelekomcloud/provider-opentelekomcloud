@@ -58,7 +58,8 @@ const (
 	APISPackagePath = "github.com/opentelekomcloud/provider-opentelekomcloud/config/rds"
 
 	// ExtractNetworkIDFunc extracts network_id from subnet resource
-	ExtractNetworkIDFunc  = APISPackagePath + ".ExtractNetworkID()"
+	ExtractNetworkIDFunc = APISPackagePath + ".ExtractNetworkID()"
+	// ExtractEipAddressFunc extracts ip_address from eip resource
 	ExtractEipAddressFunc = APISPackagePath + ".ExtractEipAddress()"
 )
 
