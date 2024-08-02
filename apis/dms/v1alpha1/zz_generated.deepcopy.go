@@ -94,6 +94,11 @@ func (in *InstanceV1InitParameters) DeepCopyInto(out *InstanceV1InitParameters) 
 		*out = new(float64)
 		**out = **in
 	}
+	if in.PasswordSecretRef != nil {
+		in, out := &in.PasswordSecretRef, &out.PasswordSecretRef
+		*out = new(v1.SecretKeySelector)
+		**out = **in
+	}
 	if in.ProductID != nil {
 		in, out := &in.ProductID, &out.ProductID
 		*out = new(string)
@@ -594,6 +599,11 @@ func (in *InstanceV2InitParameters) DeepCopyInto(out *InstanceV2InitParameters) 
 	if in.PartitionNum != nil {
 		in, out := &in.PartitionNum, &out.PartitionNum
 		*out = new(float64)
+		**out = **in
+	}
+	if in.PasswordSecretRef != nil {
+		in, out := &in.PasswordSecretRef, &out.PasswordSecretRef
+		*out = new(v1.SecretKeySelector)
 		**out = **in
 	}
 	if in.ProductID != nil {
@@ -1773,6 +1783,7 @@ func (in *UserV2InitParameters) DeepCopyInto(out *UserV2InitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	out.PasswordSecretRef = in.PasswordSecretRef
 	if in.Username != nil {
 		in, out := &in.Username, &out.Username
 		*out = new(string)

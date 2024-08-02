@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -58,10 +54,12 @@ type BucketInitParameters struct {
 	StorageClass *string `json:"storageClass,omitempty" tf:"storage_class,omitempty"`
 
 	// A mapping of tags to assign to the bucket. Each tag is represented by one key-value pair.
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// Specifies the user domain names. The restriction requirements for this field
 	// are as follows:
+	// +listType=set
 	UserDomainNames []*string `json:"userDomainNames,omitempty" tf:"user_domain_names,omitempty"`
 
 	// Set to true to enable versioning. Once you version-enable a bucket, it can never return to an
@@ -127,10 +125,12 @@ type BucketObservation struct {
 	StorageClass *string `json:"storageClass,omitempty" tf:"storage_class,omitempty"`
 
 	// A mapping of tags to assign to the bucket. Each tag is represented by one key-value pair.
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// Specifies the user domain names. The restriction requirements for this field
 	// are as follows:
+	// +listType=set
 	UserDomainNames []*string `json:"userDomainNames,omitempty" tf:"user_domain_names,omitempty"`
 
 	// Set to true to enable versioning. Once you version-enable a bucket, it can never return to an
@@ -199,11 +199,13 @@ type BucketParameters struct {
 
 	// A mapping of tags to assign to the bucket. Each tag is represented by one key-value pair.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// Specifies the user domain names. The restriction requirements for this field
 	// are as follows:
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	UserDomainNames []*string `json:"userDomainNames,omitempty" tf:"user_domain_names,omitempty"`
 
 	// Set to true to enable versioning. Once you version-enable a bucket, it can never return to an
@@ -299,6 +301,7 @@ type CorsRuleParameters struct {
 type EventNotificationsInitParameters struct {
 
 	// Type of events that need to be notified.
+	// +listType=set
 	Events []*string `json:"events,omitempty" tf:"events,omitempty"`
 
 	// Filtering rules. The rules filter objects based on the prefixes and suffixes of object names.
@@ -314,6 +317,7 @@ type EventNotificationsInitParameters struct {
 type EventNotificationsObservation struct {
 
 	// Type of events that need to be notified.
+	// +listType=set
 	Events []*string `json:"events,omitempty" tf:"events,omitempty"`
 
 	// Filtering rules. The rules filter objects based on the prefixes and suffixes of object names.
@@ -330,6 +334,7 @@ type EventNotificationsParameters struct {
 
 	// Type of events that need to be notified.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	Events []*string `json:"events" tf:"events,omitempty"`
 
 	// Filtering rules. The rules filter objects based on the prefixes and suffixes of object names.
@@ -784,13 +789,14 @@ type BucketStatus struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // Bucket is the Schema for the Buckets API. Manages a OBS Bucket resource within OpenTelekomCloud.
-// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,opentelekomcloud}
 type Bucket struct {
 	metav1.TypeMeta   `json:",inline"`

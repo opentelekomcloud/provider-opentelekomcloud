@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -190,6 +186,10 @@ type InstanceV2InitParameters struct {
 	// The parameters structure is documented below.
 	Parameters []ParametersInitParameters `json:"parameters,omitempty" tf:"parameters,omitempty"`
 
+	// Specifies the password of a DCS instance.
+	// The password of a DCS instance must meet the following complexity requirements:
+	PasswordSecretRef *v1.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
+
 	// Port customization, which is supported only by Redis 4.0 and Redis 5.0 instances.
 	// Redis instance defaults to 6379. Memcached instance does not use this argument.
 	Port *float64 `json:"port,omitempty" tf:"port,omitempty"`
@@ -204,6 +204,7 @@ type InstanceV2InitParameters struct {
 	// Critical command renaming, which is supported only by Redis 4.0 and
 	// Redis 5.0 instances but not by Redis 3.0 instance.
 	// The valid commands that can be renamed are: command, keys, flushdb, flushall and hgetall.
+	// +mapType=granular
 	RenameCommands map[string]*string `json:"renameCommands,omitempty" tf:"rename_commands,omitempty"`
 
 	// Specifies IP addresses to retain. Mandatory during cluster scale-in. If this
@@ -222,6 +223,7 @@ type InstanceV2InitParameters struct {
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 
 	// The key/value pairs to associate with the dcs instance.
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// The Parameter Template ID.
@@ -349,6 +351,7 @@ type InstanceV2Observation struct {
 	// Critical command renaming, which is supported only by Redis 4.0 and
 	// Redis 5.0 instances but not by Redis 3.0 instance.
 	// The valid commands that can be renamed are: command, keys, flushdb, flushall and hgetall.
+	// +mapType=granular
 	RenameCommands map[string]*string `json:"renameCommands,omitempty" tf:"rename_commands,omitempty"`
 
 	// Indicates the number of replicas in the instance.
@@ -385,6 +388,7 @@ type InstanceV2Observation struct {
 	SubnetName *string `json:"subnetName,omitempty" tf:"subnet_name,omitempty"`
 
 	// The key/value pairs to associate with the dcs instance.
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// The Parameter Template ID.
@@ -516,6 +520,7 @@ type InstanceV2Parameters struct {
 	// Redis 5.0 instances but not by Redis 3.0 instance.
 	// The valid commands that can be renamed are: command, keys, flushdb, flushall and hgetall.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	RenameCommands map[string]*string `json:"renameCommands,omitempty" tf:"rename_commands,omitempty"`
 
 	// Specifies IP addresses to retain. Mandatory during cluster scale-in. If this
@@ -539,6 +544,7 @@ type InstanceV2Parameters struct {
 
 	// The key/value pairs to associate with the dcs instance.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// The Parameter Template ID.
@@ -652,13 +658,14 @@ type InstanceV2Status struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // InstanceV2 is the Schema for the InstanceV2s API. Manages a DCS Instance v2 resource within OpenTelekomCloud.
-// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,opentelekomcloud}
 type InstanceV2 struct {
 	metav1.TypeMeta   `json:",inline"`

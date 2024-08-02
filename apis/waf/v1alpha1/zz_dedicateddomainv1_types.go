@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -77,6 +73,7 @@ type DedicatedDomainV1Observation struct {
 	AccessStatus *float64 `json:"accessStatus,omitempty" tf:"access_status,omitempty"`
 
 	// The alarm page of domain. Valid values are:
+	// +mapType=granular
 	AlarmPage map[string]*string `json:"alarmPage,omitempty" tf:"alarm_page,omitempty"`
 
 	// Specifies the certificate ID. This parameter is mandatory when client_protocol
@@ -91,6 +88,7 @@ type DedicatedDomainV1Observation struct {
 	Cipher *string `json:"cipher,omitempty" tf:"cipher,omitempty"`
 
 	// The compliance certifications of the domain, values are:
+	// +mapType=granular
 	ComplianceCertification map[string]*bool `json:"complianceCertification,omitempty" tf:"compliance_certification,omitempty"`
 
 	// Timestamp when the dedicated WAF domain was created.
@@ -146,6 +144,7 @@ type DedicatedDomainV1Observation struct {
 	TimeoutConfig []TimeoutConfigObservation `json:"timeoutConfig,omitempty" tf:"timeout_config,omitempty"`
 
 	// The traffic identifier of domain. Valid values are:
+	// +mapType=granular
 	TrafficIdentifier map[string]*string `json:"trafficIdentifier,omitempty" tf:"traffic_identifier,omitempty"`
 }
 
@@ -360,13 +359,14 @@ type DedicatedDomainV1Status struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // DedicatedDomainV1 is the Schema for the DedicatedDomainV1s API. Manages a WAF Dedicated Domain resource within OpenTelekomCloud.
-// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,opentelekomcloud}
 type DedicatedDomainV1 struct {
 	metav1.TypeMeta   `json:",inline"`

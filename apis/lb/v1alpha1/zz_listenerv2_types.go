@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -132,6 +128,7 @@ type ListenerV2InitParameters struct {
 	// Lists the IDs of SNI certificates (server certificates with a domain name) used
 	// by the listener. If the parameter value is an empty list, the SNI feature is disabled.
 	// The default value is []. It only works in conjunction with TERMINATED_HTTPS.
+	// +listType=set
 	SniContainerRefs []*string `json:"sniContainerRefs,omitempty" tf:"sni_container_refs,omitempty"`
 
 	// Controls the TLS version used. Supported values are tls-1-0, tls-1-1,
@@ -141,6 +138,7 @@ type ListenerV2InitParameters struct {
 	TLSCiphersPolicy *string `json:"tlsCiphersPolicy,omitempty" tf:"tls_ciphers_policy,omitempty"`
 
 	// Tags key/value pairs to associate with the loadbalancer listener.
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// Required for admins. The UUID of the tenant who owns
@@ -215,6 +213,7 @@ type ListenerV2Observation struct {
 	// Lists the IDs of SNI certificates (server certificates with a domain name) used
 	// by the listener. If the parameter value is an empty list, the SNI feature is disabled.
 	// The default value is []. It only works in conjunction with TERMINATED_HTTPS.
+	// +listType=set
 	SniContainerRefs []*string `json:"sniContainerRefs,omitempty" tf:"sni_container_refs,omitempty"`
 
 	// Controls the TLS version used. Supported values are tls-1-0, tls-1-1,
@@ -224,6 +223,7 @@ type ListenerV2Observation struct {
 	TLSCiphersPolicy *string `json:"tlsCiphersPolicy,omitempty" tf:"tls_ciphers_policy,omitempty"`
 
 	// Tags key/value pairs to associate with the loadbalancer listener.
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// Required for admins. The UUID of the tenant who owns
@@ -305,6 +305,7 @@ type ListenerV2Parameters struct {
 	// by the listener. If the parameter value is an empty list, the SNI feature is disabled.
 	// The default value is []. It only works in conjunction with TERMINATED_HTTPS.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	SniContainerRefs []*string `json:"sniContainerRefs,omitempty" tf:"sni_container_refs,omitempty"`
 
 	// Controls the TLS version used. Supported values are tls-1-0, tls-1-1,
@@ -316,6 +317,7 @@ type ListenerV2Parameters struct {
 
 	// Tags key/value pairs to associate with the loadbalancer listener.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// Required for admins. The UUID of the tenant who owns
@@ -355,13 +357,14 @@ type ListenerV2Status struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // ListenerV2 is the Schema for the ListenerV2s API. Manages a ELB Listener resource within OpenTelekomCloud.
-// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,opentelekomcloud}
 type ListenerV2 struct {
 	metav1.TypeMeta   `json:",inline"`

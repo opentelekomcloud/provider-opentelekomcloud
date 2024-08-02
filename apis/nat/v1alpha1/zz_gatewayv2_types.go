@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -39,6 +35,7 @@ type GatewayV2InitParameters struct {
 	Spec *string `json:"spec,omitempty" tf:"spec,omitempty"`
 
 	// Tags key/value pairs to associate with the NAT Gateway.
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// The target tenant ID in which to allocate the NAT
@@ -70,6 +67,7 @@ type GatewayV2Observation struct {
 	Spec *string `json:"spec,omitempty" tf:"spec,omitempty"`
 
 	// Tags key/value pairs to associate with the NAT Gateway.
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// The target tenant ID in which to allocate the NAT
@@ -106,6 +104,7 @@ type GatewayV2Parameters struct {
 
 	// Tags key/value pairs to associate with the NAT Gateway.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// The target tenant ID in which to allocate the NAT
@@ -138,13 +137,14 @@ type GatewayV2Status struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // GatewayV2 is the Schema for the GatewayV2s API. Manages a NAT Gateway resource within OpenTelekomCloud.
-// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,opentelekomcloud}
 type GatewayV2 struct {
 	metav1.TypeMeta   `json:",inline"`

@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -209,10 +205,15 @@ type FunctionV2InitParameters struct {
 	CustomImage []CustomImageInitParameters `json:"customImage,omitempty" tf:"custom_image,omitempty"`
 
 	// Specifies the ID list of the dependencies.
+	// +listType=set
 	DependList []*string `json:"dependList,omitempty" tf:"depend_list,omitempty"`
 
 	// Specifies the description of the function.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// Specifies the key/value information defined to be encrypted for the
+	// function.
+	EncryptedUserDataSecretRef *v1.SecretKeySelector `json:"encryptedUserDataSecretRef,omitempty" tf:"-"`
 
 	// Specifies the function code.
 	// The code value can be encoded using Base64 or just with the text code.
@@ -285,6 +286,7 @@ type FunctionV2InitParameters struct {
 	Runtime *string `json:"runtime,omitempty" tf:"runtime,omitempty"`
 
 	// Specifies the key/value pairs to associate with the function.
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// Specifies the timeout interval of the function, in seconds.
@@ -338,6 +340,7 @@ type FunctionV2Observation struct {
 	DNSList *string `json:"dnsList,omitempty" tf:"dns_list,omitempty"`
 
 	// Specifies the ID list of the dependencies.
+	// +listType=set
 	DependList []*string `json:"dependList,omitempty" tf:"depend_list,omitempty"`
 
 	// Specifies the description of the function.
@@ -422,6 +425,7 @@ type FunctionV2Observation struct {
 	Runtime *string `json:"runtime,omitempty" tf:"runtime,omitempty"`
 
 	// Specifies the key/value pairs to associate with the function.
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// Specifies the timeout interval of the function, in seconds.
@@ -487,6 +491,7 @@ type FunctionV2Parameters struct {
 
 	// Specifies the ID list of the dependencies.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	DependList []*string `json:"dependList,omitempty" tf:"depend_list,omitempty"`
 
 	// Specifies the description of the function.
@@ -589,6 +594,7 @@ type FunctionV2Parameters struct {
 
 	// Specifies the key/value pairs to associate with the function.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// Specifies the timeout interval of the function, in seconds.
@@ -765,13 +771,14 @@ type FunctionV2Status struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // FunctionV2 is the Schema for the FunctionV2s API. Manages an FGS Function resource within OpenTelekomCloud.
-// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,opentelekomcloud}
 type FunctionV2 struct {
 	metav1.TypeMeta   `json:",inline"`

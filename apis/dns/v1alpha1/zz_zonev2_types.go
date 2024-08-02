@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -68,6 +64,7 @@ type ZoneV2InitParameters struct {
 	TTL *float64 `json:"ttl,omitempty" tf:"ttl,omitempty"`
 
 	// The key/value pairs to associate with the zone.
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// The type of zone. Can either be public or private.
@@ -75,6 +72,7 @@ type ZoneV2InitParameters struct {
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// Map of additional options. Changing this creates a new zone.
+	// +mapType=granular
 	ValueSpecs map[string]*string `json:"valueSpecs,omitempty" tf:"value_specs,omitempty"`
 }
 
@@ -89,6 +87,7 @@ type ZoneV2Observation struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// An array of master DNS servers.
+	// +listType=set
 	Masters []*string `json:"masters,omitempty" tf:"masters,omitempty"`
 
 	// The name of the zone.   Changing this creates a new DNS zone.
@@ -105,6 +104,7 @@ type ZoneV2Observation struct {
 	TTL *float64 `json:"ttl,omitempty" tf:"ttl,omitempty"`
 
 	// The key/value pairs to associate with the zone.
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// The type of zone. Can either be public or private.
@@ -112,6 +112,7 @@ type ZoneV2Observation struct {
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// Map of additional options. Changing this creates a new zone.
+	// +mapType=granular
 	ValueSpecs map[string]*string `json:"valueSpecs,omitempty" tf:"value_specs,omitempty"`
 }
 
@@ -144,6 +145,7 @@ type ZoneV2Parameters struct {
 
 	// The key/value pairs to associate with the zone.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// The type of zone. Can either be public or private.
@@ -153,6 +155,7 @@ type ZoneV2Parameters struct {
 
 	// Map of additional options. Changing this creates a new zone.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	ValueSpecs map[string]*string `json:"valueSpecs,omitempty" tf:"value_specs,omitempty"`
 }
 
@@ -180,13 +183,14 @@ type ZoneV2Status struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // ZoneV2 is the Schema for the ZoneV2s API. Manages a DNS Zones resource within OpenTelekomCloud.
-// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,opentelekomcloud}
 type ZoneV2 struct {
 	metav1.TypeMeta   `json:",inline"`

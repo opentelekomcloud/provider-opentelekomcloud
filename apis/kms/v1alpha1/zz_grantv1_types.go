@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -35,6 +31,7 @@ type GrantV1InitParameters struct {
 	// The valid values are: create-datakey, create-datakey-without-plaintext,
 	// encrypt-datakey, decrypt-datakey, describe-key, create-grant, retire-grant.
 	// Changing this creates new grant.
+	// +listType=set
 	Operations []*string `json:"operations,omitempty" tf:"operations,omitempty"`
 
 	// Indicates the ID of the retiring user.
@@ -69,6 +66,7 @@ type GrantV1Observation struct {
 	// The valid values are: create-datakey, create-datakey-without-plaintext,
 	// encrypt-datakey, decrypt-datakey, describe-key, create-grant, retire-grant.
 	// Changing this creates new grant.
+	// +listType=set
 	Operations []*string `json:"operations,omitempty" tf:"operations,omitempty"`
 
 	// Indicates the ID of the retiring user.
@@ -98,6 +96,7 @@ type GrantV1Parameters struct {
 	// encrypt-datakey, decrypt-datakey, describe-key, create-grant, retire-grant.
 	// Changing this creates new grant.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	Operations []*string `json:"operations,omitempty" tf:"operations,omitempty"`
 
 	// Indicates the ID of the retiring user.
@@ -130,13 +129,14 @@ type GrantV1Status struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // GrantV1 is the Schema for the GrantV1s API. Manages a KMS Grant resource within OpenTelekomCloud.
-// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,opentelekomcloud}
 type GrantV1 struct {
 	metav1.TypeMeta   `json:",inline"`

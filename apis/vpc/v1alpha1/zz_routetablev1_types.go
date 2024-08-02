@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -97,6 +93,7 @@ type RouteTableV1InitParameters struct {
 	Route []RouteInitParameters `json:"route,omitempty" tf:"route,omitempty"`
 
 	// Specifies an array of one or more subnets associating with the route table.
+	// +listType=set
 	Subnets []*string `json:"subnets,omitempty" tf:"subnets,omitempty"`
 
 	// Specifies the VPC ID for which a route table is to be added.
@@ -129,6 +126,7 @@ type RouteTableV1Observation struct {
 	Route []RouteObservation `json:"route,omitempty" tf:"route,omitempty"`
 
 	// Specifies an array of one or more subnets associating with the route table.
+	// +listType=set
 	Subnets []*string `json:"subnets,omitempty" tf:"subnets,omitempty"`
 
 	// Specifies the time (UTC) when the route table is updated.
@@ -163,6 +161,7 @@ type RouteTableV1Parameters struct {
 
 	// Specifies an array of one or more subnets associating with the route table.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	Subnets []*string `json:"subnets,omitempty" tf:"subnets,omitempty"`
 
 	// Specifies the VPC ID for which a route table is to be added.
@@ -195,13 +194,14 @@ type RouteTableV1Status struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // RouteTableV1 is the Schema for the RouteTableV1s API. Manages a VPC Route Table resource within OpenTelekomCloud.
-// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,opentelekomcloud}
 type RouteTableV1 struct {
 	metav1.TypeMeta   `json:",inline"`

@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -191,6 +187,13 @@ type InstanceV1InitParameters struct {
 	// consists of 4 to 64 characters, and supports only letters, digits, and hyphens (-).
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// Indicates the password of an instance. An instance password
+	// must meet the following complexity requirements: Must be 8 to 32 characters long.
+	// Must contain at least 3 of the following character types: lowercase letters, uppercase
+	// letters, digits, and special characters: `~!@#$^&*()-_=+|{}:,<>./?
+	// Changing this creates a new instance.
+	PasswordSecretRef *v1.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
+
 	// Interval at which backup is performed.
 	// Currently, only weekly backup is supported.
 	PeriodType *string `json:"periodType,omitempty" tf:"period_type,omitempty"`
@@ -212,6 +215,7 @@ type InstanceV1InitParameters struct {
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 
 	// The key/value pairs to associate with the dcs instance.
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// Specifies the VPC ID. Changing this creates a new instance.
@@ -346,6 +350,7 @@ type InstanceV1Observation struct {
 	SubnetName *string `json:"subnetName,omitempty" tf:"subnet_name,omitempty"`
 
 	// The key/value pairs to associate with the dcs instance.
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// Size of the used memory. Unit: MB.
@@ -483,6 +488,7 @@ type InstanceV1Parameters struct {
 
 	// The key/value pairs to associate with the dcs instance.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// Specifies the VPC ID. Changing this creates a new instance.
@@ -555,13 +561,14 @@ type InstanceV1Status struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // InstanceV1 is the Schema for the InstanceV1s API. Manages a DCS Instance v1 resource within OpenTelekomCloud.
-// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,opentelekomcloud}
 type InstanceV1 struct {
 	metav1.TypeMeta   `json:",inline"`

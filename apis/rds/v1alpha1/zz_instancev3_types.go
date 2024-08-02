@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -75,6 +71,14 @@ type BackupStrategyParameters struct {
 
 type DBInitParameters struct {
 
+	// Specifies the database password. The value cannot be
+	// empty and should contain 8 to 32 characters, including uppercase
+	// and lowercase letters, digits, and the following special
+	// characters: ~!@#%^*-_=+? You are advised to enter a strong
+	// password to improve security, preventing security risks such as
+	// brute force cracking.  Changing this parameter will create a new resource.
+	PasswordSecretRef v1.SecretKeySelector `json:"passwordSecretRef" tf:"-"`
+
 	// Specifies the database port information. The MySQL database port
 	// ranges from 1024 to 65535 (excluding 12017 and 33071, which are
 	// occupied by the RDS system and cannot be used). The PostgreSQL
@@ -130,7 +134,7 @@ type DBParameters struct {
 	// characters: ~!@#%^*-_=+? You are advised to enter a strong
 	// password to improve security, preventing security risks such as
 	// brute force cracking.  Changing this parameter will create a new resource.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	PasswordSecretRef v1.SecretKeySelector `json:"passwordSecretRef" tf:"-"`
 
 	// Specifies the database port information. The MySQL database port
@@ -165,6 +169,14 @@ type InstanceV3InitParameters struct {
 	// Specifies the advanced backup policy. Structure is documented below.
 	BackupStrategy []BackupStrategyInitParameters `json:"backupStrategy,omitempty" tf:"backup_strategy,omitempty"`
 
+	// Reference to a SecgroupV2 in compute to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	ComputeSecurityGroupIDRefs *v1.Reference `json:"computeSecurityGroupIdRefs,omitempty" tf:"-"`
+
+	// Selector for a SecgroupV2 in compute to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	ComputeSecurityGroupIDSelector *v1.Selector `json:"computeSecurityGroupIdSelector,omitempty" tf:"-"`
+
 	// Specifies the database information. Structure is documented below. Changing this parameter will create a new resource.
 	DB []DBInitParameters `json:"db,omitempty" tf:"db,omitempty"`
 
@@ -189,9 +201,38 @@ type InstanceV3InitParameters struct {
 	// (_).  Changing this parameter will create a new resource.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// Specifies the parameter group ID.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/rds/v1alpha1.ParametergroupV3
+	ParamGroupID *string `json:"paramGroupId,omitempty" tf:"param_group_id,omitempty"`
+
+	// Reference to a ParametergroupV3 in rds to populate paramGroupId.
+	// +kubebuilder:validation:Optional
+	ParamGroupIDRef *v1.Reference `json:"paramGroupIdRef,omitempty" tf:"-"`
+
+	// Selector for a ParametergroupV3 in rds to populate paramGroupId.
+	// +kubebuilder:validation:Optional
+	ParamGroupIDSelector *v1.Selector `json:"paramGroupIdSelector,omitempty" tf:"-"`
+
 	// Map of additional configuration parameters. Values should be strings. Parameters set here
 	// overrides values from configuration template (parameter group).
+	// +mapType=granular
 	Parameters map[string]*string `json:"parameters,omitempty" tf:"parameters,omitempty"`
+
+	// Specifies floating IP to be assigned to the instance.
+	// This should be a list with single element only.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.EIPV1
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/rds.ExtractEipAddress()
+	// +crossplane:generate:reference:refFieldName=PublicIpsRefs
+	// +crossplane:generate:reference:selectorFieldName=PublicIpsSelector
+	PublicIps []*string `json:"publicIps,omitempty" tf:"public_ips,omitempty"`
+
+	// References to EIPV1 in vpc to populate publicIps.
+	// +kubebuilder:validation:Optional
+	PublicIpsRefs []v1.Reference `json:"publicIpsRefs,omitempty" tf:"-"`
+
+	// Selector for a list of EIPV1 in vpc to populate publicIps.
+	// +kubebuilder:validation:Optional
+	PublicIpsSelector *v1.Selector `json:"publicIpsSelector,omitempty" tf:"-"`
 
 	// Specifies whether to restore database to an instance described in current resource.
 	// Structure is documented below.
@@ -204,12 +245,46 @@ type InstanceV3InitParameters struct {
 	// Specifies whether SSL should be enabled for MySql instances.
 	SSLEnable *bool `json:"sslEnable,omitempty" tf:"ssl_enable,omitempty"`
 
+	// Specifies the security group which the RDS DB instance belongs to.
+	// Changing this parameter will create a new resource.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/compute/v1alpha1.SecgroupV2
+	// +crossplane:generate:reference:refFieldName=ComputeSecurityGroupIDRefs
+	// +crossplane:generate:reference:selectorFieldName=ComputeSecurityGroupIDSelector
+	SecurityGroupID *string `json:"securityGroupId,omitempty" tf:"security_group_id,omitempty"`
+
+	// Specifies the subnet id. Changing this parameter will create a new resource.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.SubnetV1
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/rds.ExtractNetworkID()
+	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
+
+	// Reference to a SubnetV1 in vpc to populate subnetId.
+	// +kubebuilder:validation:Optional
+	SubnetIDRef *v1.Reference `json:"subnetIdRef,omitempty" tf:"-"`
+
+	// Selector for a SubnetV1 in vpc to populate subnetId.
+	// +kubebuilder:validation:Optional
+	SubnetIDSelector *v1.Selector `json:"subnetIdSelector,omitempty" tf:"-"`
+
 	// Tags key/value pairs to associate with the instance. Deprecated, please use
 	// the tags instead.
+	// +mapType=granular
 	Tag map[string]*string `json:"tag,omitempty" tf:"tag,omitempty"`
 
 	// Tags key/value pairs to associate with the instance.
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
+
+	// Specifies the VPC ID. Changing this parameter will create a new resource.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.VpcV1
+	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
+
+	// Reference to a VpcV1 in vpc to populate vpcId.
+	// +kubebuilder:validation:Optional
+	VPCIDRef *v1.Reference `json:"vpcIdRef,omitempty" tf:"-"`
+
+	// Selector for a VpcV1 in vpc to populate vpcId.
+	// +kubebuilder:validation:Optional
+	VPCIDSelector *v1.Selector `json:"vpcIdSelector,omitempty" tf:"-"`
 
 	// Specifies the volume information. Structure is documented below.
 	Volume []VolumeInitParameters `json:"volume,omitempty" tf:"volume,omitempty"`
@@ -264,6 +339,7 @@ type InstanceV3Observation struct {
 
 	// Map of additional configuration parameters. Values should be strings. Parameters set here
 	// overrides values from configuration template (parameter group).
+	// +mapType=granular
 	Parameters map[string]*string `json:"parameters,omitempty" tf:"parameters,omitempty"`
 
 	// Indicates the private IP address list. It is a blank string until an
@@ -298,9 +374,11 @@ type InstanceV3Observation struct {
 
 	// Tags key/value pairs to associate with the instance. Deprecated, please use
 	// the tags instead.
+	// +mapType=granular
 	Tag map[string]*string `json:"tag,omitempty" tf:"tag,omitempty"`
 
 	// Tags key/value pairs to associate with the instance.
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// Specifies the VPC ID. Changing this parameter will create a new resource.
@@ -373,6 +451,7 @@ type InstanceV3Parameters struct {
 	// Map of additional configuration parameters. Values should be strings. Parameters set here
 	// overrides values from configuration template (parameter group).
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	Parameters map[string]*string `json:"parameters,omitempty" tf:"parameters,omitempty"`
 
 	// Specifies floating IP to be assigned to the instance.
@@ -431,10 +510,12 @@ type InstanceV3Parameters struct {
 	// Tags key/value pairs to associate with the instance. Deprecated, please use
 	// the tags instead.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	Tag map[string]*string `json:"tag,omitempty" tf:"tag,omitempty"`
 
 	// Tags key/value pairs to associate with the instance.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// Specifies the VPC ID. Changing this parameter will create a new resource.
@@ -674,13 +755,14 @@ type InstanceV3Status struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // InstanceV3 is the Schema for the InstanceV3s API. Manages an RDS Instance v3 resource within OpenTelekomCloud.
-// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,opentelekomcloud}
 type InstanceV3 struct {
 	metav1.TypeMeta   `json:",inline"`

@@ -5,6 +5,7 @@ import (
 	xpresource "github.com/crossplane/crossplane-runtime/pkg/resource"
 	"github.com/crossplane/upjet/pkg/config"
 	"github.com/crossplane/upjet/pkg/resource"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
 )
 
 // Configure configures individual resources by adding custom ResourceConfigurators.
@@ -31,6 +32,12 @@ func Configure(p *config.Provider) {
 		}
 		r.References["param_group_id"] = config.Reference{
 			TerraformName: "opentelekomcloud_rds_parametergroup_v3",
+		}
+		r.TerraformCustomDiff = func(diff *terraform.InstanceDiff, _ *terraform.InstanceState, _ *terraform.ResourceConfig) (*terraform.InstanceDiff, error) {
+			if ipsDiff, ok := diff.Attributes["public_ips.#"]; ok && ipsDiff.New == "" {
+				delete(diff.Attributes, "public_ips.#")
+			}
+			return diff, nil
 		}
 	})
 	p.AddResourceConfigurator("opentelekomcloud_rds_backup_v3", func(r *config.Resource) {
@@ -85,15 +92,15 @@ func ExtractNetworkID() xpref.ExtractValueFn {
 }
 
 // ExtractEipAddress extracts the value of `spec.forProvider.address`
-// from an Observable resource. If mr is not a Observable
+// from an Terraformed resource. If mr is not a Observable
 // resource, returns an empty string.
 func ExtractEipAddress() xpref.ExtractValueFn {
 	return func(mr xpresource.Managed) string {
-		tr, ok := mr.(resource.Observable)
+		tr, ok := mr.(resource.Terraformed)
 		if !ok {
 			return ""
 		}
-		o, err := tr.GetObservation()
+		o, err := tr.GetParameters()
 		if err != nil {
 			return ""
 		}

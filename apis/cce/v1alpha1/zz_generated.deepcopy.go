@@ -1573,6 +1573,11 @@ func (in *NodePoolV3InitParameters) DeepCopyInto(out *NodePoolV3InitParameters) 
 		*out = new(string)
 		**out = **in
 	}
+	if in.PasswordSecretRef != nil {
+		in, out := &in.PasswordSecretRef, &out.PasswordSecretRef
+		*out = new(v1.SecretKeySelector)
+		**out = **in
+	}
 	if in.Postinstall != nil {
 		in, out := &in.Postinstall, &out.Postinstall
 		*out = new(string)

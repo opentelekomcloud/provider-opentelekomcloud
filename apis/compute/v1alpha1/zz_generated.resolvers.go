@@ -52,5 +52,37 @@ func (mg *InstanceV2) ResolveReferences(ctx context.Context, c client.Reader) er
 	mg.Spec.ForProvider.SecurityGroups = reference.ToPtrValues(mrsp.ResolvedValues)
 	mg.Spec.ForProvider.SecurityGroupsRefs = mrsp.ResolvedReferences
 
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.KeyPair),
+		Extract:      reference.ExternalName(),
+		Reference:    mg.Spec.InitProvider.KeyPairRef,
+		Selector:     mg.Spec.InitProvider.KeyPairSelector,
+		To: reference.To{
+			List:    &KeypairV2List{},
+			Managed: &KeypairV2{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.KeyPair")
+	}
+	mg.Spec.InitProvider.KeyPair = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.KeyPairRef = rsp.ResolvedReference
+
+	mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
+		CurrentValues: reference.FromPtrValues(mg.Spec.InitProvider.SecurityGroups),
+		Extract:       reference.ExternalName(),
+		References:    mg.Spec.InitProvider.SecurityGroupsRefs,
+		Selector:      mg.Spec.InitProvider.SecurityGroupsSelector,
+		To: reference.To{
+			List:    &SecgroupV2List{},
+			Managed: &SecgroupV2{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.SecurityGroups")
+	}
+	mg.Spec.InitProvider.SecurityGroups = reference.ToPtrValues(mrsp.ResolvedValues)
+	mg.Spec.InitProvider.SecurityGroupsRefs = mrsp.ResolvedReferences
+
 	return nil
 }

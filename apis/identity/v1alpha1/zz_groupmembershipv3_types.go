@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -23,6 +19,7 @@ type GroupMembershipV3InitParameters struct {
 	Group *string `json:"group,omitempty" tf:"group,omitempty"`
 
 	// A List of user IDs to associate to the group.
+	// +listType=set
 	Users []*string `json:"users,omitempty" tf:"users,omitempty"`
 }
 
@@ -34,6 +31,7 @@ type GroupMembershipV3Observation struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// A List of user IDs to associate to the group.
+	// +listType=set
 	Users []*string `json:"users,omitempty" tf:"users,omitempty"`
 }
 
@@ -45,6 +43,7 @@ type GroupMembershipV3Parameters struct {
 
 	// A List of user IDs to associate to the group.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	Users []*string `json:"users,omitempty" tf:"users,omitempty"`
 }
 
@@ -72,13 +71,14 @@ type GroupMembershipV3Status struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // GroupMembershipV3 is the Schema for the GroupMembershipV3s API. Manages a IAM Group Membership resource within OpenTelekomCloud.
-// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,opentelekomcloud}
 type GroupMembershipV3 struct {
 	metav1.TypeMeta   `json:",inline"`

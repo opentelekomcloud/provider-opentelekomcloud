@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -195,6 +191,9 @@ type InstanceV3InitParameters struct {
 	// type is unique in the same tenant.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// Specifies the Administrator password of the database instance.
+	PasswordSecretRef v1.SecretKeySelector `json:"passwordSecretRef" tf:"-"`
+
 	// Specifies the region of the DDS instance. Changing this creates
 	// a new instance.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
@@ -211,6 +210,7 @@ type InstanceV3InitParameters struct {
 
 	// Tags key/value pairs to associate with the volume.
 	// Changing this updates the existing volume tags.
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// Specifies the VPC ID. Changing this creates a new instance.
@@ -281,6 +281,7 @@ type InstanceV3Observation struct {
 
 	// Tags key/value pairs to associate with the volume.
 	// Changing this updates the existing volume tags.
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// Specifies the VPC ID. Changing this creates a new instance.
@@ -349,6 +350,7 @@ type InstanceV3Parameters struct {
 	// Tags key/value pairs to associate with the volume.
 	// Changing this updates the existing volume tags.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// Specifies the VPC ID. Changing this creates a new instance.
@@ -412,13 +414,14 @@ type InstanceV3Status struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // InstanceV3 is the Schema for the InstanceV3s API. Manages a DDS Instance resource within OpenTelekomCloud.
-// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,opentelekomcloud}
 type InstanceV3 struct {
 	metav1.TypeMeta   `json:",inline"`

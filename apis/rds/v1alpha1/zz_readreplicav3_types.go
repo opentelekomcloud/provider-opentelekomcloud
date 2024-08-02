@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -49,9 +45,38 @@ type ReadReplicaV3InitParameters struct {
 	// resource.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// Specifies floating IP to be assigned to the instance.
+	// This should be a list with single element only.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.EIPV1
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/rds.ExtractEipAddress()
+	// +crossplane:generate:reference:refFieldName=PublicIpsRefs
+	// +crossplane:generate:reference:selectorFieldName=PublicIpsSelector
+	// +listType=set
+	PublicIps []*string `json:"publicIps,omitempty" tf:"public_ips,omitempty"`
+
+	// References to EIPV1 in vpc to populate publicIps.
+	// +kubebuilder:validation:Optional
+	PublicIpsRefs []v1.Reference `json:"publicIpsRefs,omitempty" tf:"-"`
+
+	// Selector for a list of EIPV1 in vpc to populate publicIps.
+	// +kubebuilder:validation:Optional
+	PublicIpsSelector *v1.Selector `json:"publicIpsSelector,omitempty" tf:"-"`
+
 	// Specifies the region of the replica instance. Changing this parameter will create a new
 	// resource.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
+
+	// Specifies ID of the replicated instance. Changing this parameter will create a new resource.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/rds/v1alpha1.InstanceV3
+	ReplicaOfID *string `json:"replicaOfId,omitempty" tf:"replica_of_id,omitempty"`
+
+	// Reference to a InstanceV3 in rds to populate replicaOfId.
+	// +kubebuilder:validation:Optional
+	ReplicaOfIDRef *v1.Reference `json:"replicaOfIdRef,omitempty" tf:"-"`
+
+	// Selector for a InstanceV3 in rds to populate replicaOfId.
+	// +kubebuilder:validation:Optional
+	ReplicaOfIDSelector *v1.Selector `json:"replicaOfIdSelector,omitempty" tf:"-"`
 
 	// Specifies the volume information. Structure is documented below.
 	Volume []ReadReplicaV3VolumeInitParameters `json:"volume,omitempty" tf:"volume,omitempty"`
@@ -75,10 +100,12 @@ type ReadReplicaV3Observation struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Indicates the private IP address list.
+	// +listType=set
 	PrivateIps []*string `json:"privateIps,omitempty" tf:"private_ips,omitempty"`
 
 	// Specifies floating IP to be assigned to the instance.
 	// This should be a list with single element only.
+	// +listType=set
 	PublicIps []*string `json:"publicIps,omitempty" tf:"public_ips,omitempty"`
 
 	// Specifies the region of the replica instance. Changing this parameter will create a new
@@ -123,6 +150,7 @@ type ReadReplicaV3Parameters struct {
 	// +crossplane:generate:reference:refFieldName=PublicIpsRefs
 	// +crossplane:generate:reference:selectorFieldName=PublicIpsSelector
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	PublicIps []*string `json:"publicIps,omitempty" tf:"public_ips,omitempty"`
 
 	// References to EIPV1 in vpc to populate publicIps.
@@ -218,13 +246,14 @@ type ReadReplicaV3Status struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // ReadReplicaV3 is the Schema for the ReadReplicaV3s API. Manages an RDS Read Replica resource within OpenTelekomCloud.
-// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,opentelekomcloud}
 type ReadReplicaV3 struct {
 	metav1.TypeMeta   `json:",inline"`
