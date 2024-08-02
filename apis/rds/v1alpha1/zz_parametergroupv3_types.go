@@ -48,7 +48,7 @@ type ConfigurationParametersObservation struct {
 type ConfigurationParametersParameters struct {
 }
 
-type ParametergroupV3DatastoreInitParameters struct {
+type DatastoreInitParameters struct {
 
 	// Specifies the DB engine. Currently, MySQL, PostgreSQL and MS SQLServer are supported.
 	// The value is case-insensitive and can be mysql, postgresql or sqlserver.
@@ -58,7 +58,7 @@ type ParametergroupV3DatastoreInitParameters struct {
 	Version *string `json:"version,omitempty" tf:"version,omitempty"`
 }
 
-type ParametergroupV3DatastoreObservation struct {
+type DatastoreObservation struct {
 
 	// Specifies the DB engine. Currently, MySQL, PostgreSQL and MS SQLServer are supported.
 	// The value is case-insensitive and can be mysql, postgresql or sqlserver.
@@ -68,7 +68,7 @@ type ParametergroupV3DatastoreObservation struct {
 	Version *string `json:"version,omitempty" tf:"version,omitempty"`
 }
 
-type ParametergroupV3DatastoreParameters struct {
+type DatastoreParameters struct {
 
 	// Specifies the DB engine. Currently, MySQL, PostgreSQL and MS SQLServer are supported.
 	// The value is case-insensitive and can be mysql, postgresql or sqlserver.
@@ -83,7 +83,7 @@ type ParametergroupV3DatastoreParameters struct {
 type ParametergroupV3InitParameters struct {
 
 	// Database object. The database object structure is documented below. Changing this creates a new parameter group.
-	Datastore []ParametergroupV3DatastoreInitParameters `json:"datastore,omitempty" tf:"datastore,omitempty"`
+	Datastore []DatastoreInitParameters `json:"datastore,omitempty" tf:"datastore,omitempty"`
 
 	// The parameter group description. It contains a maximum of 256 characters
 	// and cannot contain the following special characters: >!<"&'= the value is left blank by default.
@@ -105,7 +105,7 @@ type ParametergroupV3Observation struct {
 	Created *string `json:"created,omitempty" tf:"created,omitempty"`
 
 	// Database object. The database object structure is documented below. Changing this creates a new parameter group.
-	Datastore []ParametergroupV3DatastoreObservation `json:"datastore,omitempty" tf:"datastore,omitempty"`
+	Datastore []DatastoreObservation `json:"datastore,omitempty" tf:"datastore,omitempty"`
 
 	// The parameter group description. It contains a maximum of 256 characters
 	// and cannot contain the following special characters: >!<"&'= the value is left blank by default.
@@ -128,7 +128,7 @@ type ParametergroupV3Parameters struct {
 
 	// Database object. The database object structure is documented below. Changing this creates a new parameter group.
 	// +kubebuilder:validation:Optional
-	Datastore []ParametergroupV3DatastoreParameters `json:"datastore,omitempty" tf:"datastore,omitempty"`
+	Datastore []DatastoreParameters `json:"datastore,omitempty" tf:"datastore,omitempty"`
 
 	// The parameter group description. It contains a maximum of 256 characters
 	// and cannot contain the following special characters: >!<"&'= the value is left blank by default.

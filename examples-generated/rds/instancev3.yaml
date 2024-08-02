@@ -13,6 +13,9 @@ spec:
     backupStrategy:
     - keepDays: 1
       startTime: 08:00-09:00
+    computeSecurityGroupIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: secgroup
     db:
     - passwordSecretRef:
         key: example-key
@@ -23,15 +26,18 @@ spec:
       version: "9.5"
     flavor: rds.pg.c2.medium
     name: terraform_test_rds_instance
-    securityGroupId: ${opentelekomcloud_networking_secgroup_v2.secgroup.id}
-    subnetId: ${var.subnet_id}
+    subnetIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     tags:
       foo: bar
       key: value
     volume:
     - size: 100
       type: COMMON
-    vpcId: ${var.vpc_id}
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
 
 ---
 

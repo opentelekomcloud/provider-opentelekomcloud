@@ -189,16 +189,9 @@ type InstanceV3InitParameters struct {
 	// (_).  Changing this parameter will create a new resource.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// Specifies the parameter group ID.
-	ParamGroupID *string `json:"paramGroupId,omitempty" tf:"param_group_id,omitempty"`
-
 	// Map of additional configuration parameters. Values should be strings. Parameters set here
 	// overrides values from configuration template (parameter group).
 	Parameters map[string]*string `json:"parameters,omitempty" tf:"parameters,omitempty"`
-
-	// Specifies floating IP to be assigned to the instance.
-	// This should be a list with single element only.
-	PublicIps []*string `json:"publicIps,omitempty" tf:"public_ips,omitempty"`
 
 	// Specifies whether to restore database to an instance described in current resource.
 	// Structure is documented below.
@@ -211,13 +204,6 @@ type InstanceV3InitParameters struct {
 	// Specifies whether SSL should be enabled for MySql instances.
 	SSLEnable *bool `json:"sslEnable,omitempty" tf:"ssl_enable,omitempty"`
 
-	// Specifies the security group which the RDS DB instance belongs to.
-	// Changing this parameter will create a new resource.
-	SecurityGroupID *string `json:"securityGroupId,omitempty" tf:"security_group_id,omitempty"`
-
-	// Specifies the subnet id. Changing this parameter will create a new resource.
-	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
-
 	// Tags key/value pairs to associate with the instance. Deprecated, please use
 	// the tags instead.
 	Tag map[string]*string `json:"tag,omitempty" tf:"tag,omitempty"`
@@ -225,11 +211,8 @@ type InstanceV3InitParameters struct {
 	// Tags key/value pairs to associate with the instance.
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
-	// Specifies the VPC ID. Changing this parameter will create a new resource.
-	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
-
 	// Specifies the volume information. Structure is documented below.
-	Volume []InstanceV3VolumeInitParameters `json:"volume,omitempty" tf:"volume,omitempty"`
+	Volume []VolumeInitParameters `json:"volume,omitempty" tf:"volume,omitempty"`
 }
 
 type InstanceV3Observation struct {
@@ -324,7 +307,7 @@ type InstanceV3Observation struct {
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
 
 	// Specifies the volume information. Structure is documented below.
-	Volume []InstanceV3VolumeObservation `json:"volume,omitempty" tf:"volume,omitempty"`
+	Volume []VolumeObservation `json:"volume,omitempty" tf:"volume,omitempty"`
 }
 
 type InstanceV3Parameters struct {
@@ -336,6 +319,14 @@ type InstanceV3Parameters struct {
 	// Specifies the advanced backup policy. Structure is documented below.
 	// +kubebuilder:validation:Optional
 	BackupStrategy []BackupStrategyParameters `json:"backupStrategy,omitempty" tf:"backup_strategy,omitempty"`
+
+	// Reference to a SecgroupV2 in compute to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	ComputeSecurityGroupIDRefs *v1.Reference `json:"computeSecurityGroupIdRefs,omitempty" tf:"-"`
+
+	// Selector for a SecgroupV2 in compute to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	ComputeSecurityGroupIDSelector *v1.Selector `json:"computeSecurityGroupIdSelector,omitempty" tf:"-"`
 
 	// Specifies the database information. Structure is documented below. Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
@@ -367,8 +358,17 @@ type InstanceV3Parameters struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Specifies the parameter group ID.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/rds/v1alpha1.ParametergroupV3
 	// +kubebuilder:validation:Optional
 	ParamGroupID *string `json:"paramGroupId,omitempty" tf:"param_group_id,omitempty"`
+
+	// Reference to a ParametergroupV3 in rds to populate paramGroupId.
+	// +kubebuilder:validation:Optional
+	ParamGroupIDRef *v1.Reference `json:"paramGroupIdRef,omitempty" tf:"-"`
+
+	// Selector for a ParametergroupV3 in rds to populate paramGroupId.
+	// +kubebuilder:validation:Optional
+	ParamGroupIDSelector *v1.Selector `json:"paramGroupIdSelector,omitempty" tf:"-"`
 
 	// Map of additional configuration parameters. Values should be strings. Parameters set here
 	// overrides values from configuration template (parameter group).
@@ -377,8 +377,20 @@ type InstanceV3Parameters struct {
 
 	// Specifies floating IP to be assigned to the instance.
 	// This should be a list with single element only.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.EIPV1
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/rds.ExtractEipAddress()
+	// +crossplane:generate:reference:refFieldName=PublicIpsRefs
+	// +crossplane:generate:reference:selectorFieldName=PublicIpsSelector
 	// +kubebuilder:validation:Optional
 	PublicIps []*string `json:"publicIps,omitempty" tf:"public_ips,omitempty"`
+
+	// References to EIPV1 in vpc to populate publicIps.
+	// +kubebuilder:validation:Optional
+	PublicIpsRefs []v1.Reference `json:"publicIpsRefs,omitempty" tf:"-"`
+
+	// Selector for a list of EIPV1 in vpc to populate publicIps.
+	// +kubebuilder:validation:Optional
+	PublicIpsSelector *v1.Selector `json:"publicIpsSelector,omitempty" tf:"-"`
 
 	// Specifies whether to restore database to an instance described in current resource.
 	// Structure is documented below.
@@ -396,12 +408,25 @@ type InstanceV3Parameters struct {
 
 	// Specifies the security group which the RDS DB instance belongs to.
 	// Changing this parameter will create a new resource.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/compute/v1alpha1.SecgroupV2
+	// +crossplane:generate:reference:refFieldName=ComputeSecurityGroupIDRefs
+	// +crossplane:generate:reference:selectorFieldName=ComputeSecurityGroupIDSelector
 	// +kubebuilder:validation:Optional
 	SecurityGroupID *string `json:"securityGroupId,omitempty" tf:"security_group_id,omitempty"`
 
 	// Specifies the subnet id. Changing this parameter will create a new resource.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.SubnetV1
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/rds.ExtractNetworkID()
 	// +kubebuilder:validation:Optional
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
+
+	// Reference to a SubnetV1 in vpc to populate subnetId.
+	// +kubebuilder:validation:Optional
+	SubnetIDRef *v1.Reference `json:"subnetIdRef,omitempty" tf:"-"`
+
+	// Selector for a SubnetV1 in vpc to populate subnetId.
+	// +kubebuilder:validation:Optional
+	SubnetIDSelector *v1.Selector `json:"subnetIdSelector,omitempty" tf:"-"`
 
 	// Tags key/value pairs to associate with the instance. Deprecated, please use
 	// the tags instead.
@@ -413,86 +438,21 @@ type InstanceV3Parameters struct {
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// Specifies the VPC ID. Changing this parameter will create a new resource.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.VpcV1
 	// +kubebuilder:validation:Optional
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
 
+	// Reference to a VpcV1 in vpc to populate vpcId.
+	// +kubebuilder:validation:Optional
+	VPCIDRef *v1.Reference `json:"vpcIdRef,omitempty" tf:"-"`
+
+	// Selector for a VpcV1 in vpc to populate vpcId.
+	// +kubebuilder:validation:Optional
+	VPCIDSelector *v1.Selector `json:"vpcIdSelector,omitempty" tf:"-"`
+
 	// Specifies the volume information. Structure is documented below.
 	// +kubebuilder:validation:Optional
-	Volume []InstanceV3VolumeParameters `json:"volume,omitempty" tf:"volume,omitempty"`
-}
-
-type InstanceV3VolumeInitParameters struct {
-
-	// Specifies the key ID for disk encryption. Changing this parameter will create a new resource.
-	DiskEncryptionID *string `json:"diskEncryptionId,omitempty" tf:"disk_encryption_id,omitempty"`
-
-	// Specifies the upper limit of automatic expansion of storage, in GB.
-	LimitSize *float64 `json:"limitSize,omitempty" tf:"limit_size,omitempty"`
-
-	// Specifies the volume size. Its value range is from 40 GB to 4000
-	// GB. The value must be a multiple of 10. Changing this resize the volume.
-	Size *float64 `json:"size,omitempty" tf:"size,omitempty"`
-
-	// Specifies the threshold to trigger automatic expansion.
-	// If the available storage drops to this threshold or 10 GB, the automatic expansion is triggered.
-	// The valid values are as follows:
-	TriggerThreshold *float64 `json:"triggerThreshold,omitempty" tf:"trigger_threshold,omitempty"`
-
-	// Specifies the volume type. Its value can be any of the following
-	// and is case-sensitive: COMMON: indicates the SATA type.
-	// ULTRAHIGH: indicates the SSD type.  Changing this parameter will create a new resource.
-	Type *string `json:"type,omitempty" tf:"type,omitempty"`
-}
-
-type InstanceV3VolumeObservation struct {
-
-	// Specifies the key ID for disk encryption. Changing this parameter will create a new resource.
-	DiskEncryptionID *string `json:"diskEncryptionId,omitempty" tf:"disk_encryption_id,omitempty"`
-
-	// Specifies the upper limit of automatic expansion of storage, in GB.
-	LimitSize *float64 `json:"limitSize,omitempty" tf:"limit_size,omitempty"`
-
-	// Specifies the volume size. Its value range is from 40 GB to 4000
-	// GB. The value must be a multiple of 10. Changing this resize the volume.
-	Size *float64 `json:"size,omitempty" tf:"size,omitempty"`
-
-	// Specifies the threshold to trigger automatic expansion.
-	// If the available storage drops to this threshold or 10 GB, the automatic expansion is triggered.
-	// The valid values are as follows:
-	TriggerThreshold *float64 `json:"triggerThreshold,omitempty" tf:"trigger_threshold,omitempty"`
-
-	// Specifies the volume type. Its value can be any of the following
-	// and is case-sensitive: COMMON: indicates the SATA type.
-	// ULTRAHIGH: indicates the SSD type.  Changing this parameter will create a new resource.
-	Type *string `json:"type,omitempty" tf:"type,omitempty"`
-}
-
-type InstanceV3VolumeParameters struct {
-
-	// Specifies the key ID for disk encryption. Changing this parameter will create a new resource.
-	// +kubebuilder:validation:Optional
-	DiskEncryptionID *string `json:"diskEncryptionId,omitempty" tf:"disk_encryption_id,omitempty"`
-
-	// Specifies the upper limit of automatic expansion of storage, in GB.
-	// +kubebuilder:validation:Optional
-	LimitSize *float64 `json:"limitSize,omitempty" tf:"limit_size,omitempty"`
-
-	// Specifies the volume size. Its value range is from 40 GB to 4000
-	// GB. The value must be a multiple of 10. Changing this resize the volume.
-	// +kubebuilder:validation:Optional
-	Size *float64 `json:"size" tf:"size,omitempty"`
-
-	// Specifies the threshold to trigger automatic expansion.
-	// If the available storage drops to this threshold or 10 GB, the automatic expansion is triggered.
-	// The valid values are as follows:
-	// +kubebuilder:validation:Optional
-	TriggerThreshold *float64 `json:"triggerThreshold,omitempty" tf:"trigger_threshold,omitempty"`
-
-	// Specifies the volume type. Its value can be any of the following
-	// and is case-sensitive: COMMON: indicates the SATA type.
-	// ULTRAHIGH: indicates the SSD type.  Changing this parameter will create a new resource.
-	// +kubebuilder:validation:Optional
-	Type *string `json:"type" tf:"type,omitempty"`
+	Volume []VolumeParameters `json:"volume,omitempty" tf:"volume,omitempty"`
 }
 
 type NodesInitParameters struct {
@@ -616,6 +576,80 @@ type RestorePointParameters struct {
 	RestoreTime *float64 `json:"restoreTime,omitempty" tf:"restore_time,omitempty"`
 }
 
+type VolumeInitParameters struct {
+
+	// Specifies the key ID for disk encryption. Changing this parameter will create a new resource.
+	DiskEncryptionID *string `json:"diskEncryptionId,omitempty" tf:"disk_encryption_id,omitempty"`
+
+	// Specifies the upper limit of automatic expansion of storage, in GB.
+	LimitSize *float64 `json:"limitSize,omitempty" tf:"limit_size,omitempty"`
+
+	// Specifies the volume size. Its value range is from 40 GB to 4000
+	// GB. The value must be a multiple of 10. Changing this resize the volume.
+	Size *float64 `json:"size,omitempty" tf:"size,omitempty"`
+
+	// Specifies the threshold to trigger automatic expansion.
+	// If the available storage drops to this threshold or 10 GB, the automatic expansion is triggered.
+	// The valid values are as follows:
+	TriggerThreshold *float64 `json:"triggerThreshold,omitempty" tf:"trigger_threshold,omitempty"`
+
+	// Specifies the volume type. Its value can be any of the following
+	// and is case-sensitive: COMMON: indicates the SATA type.
+	// ULTRAHIGH: indicates the SSD type.  Changing this parameter will create a new resource.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+}
+
+type VolumeObservation struct {
+
+	// Specifies the key ID for disk encryption. Changing this parameter will create a new resource.
+	DiskEncryptionID *string `json:"diskEncryptionId,omitempty" tf:"disk_encryption_id,omitempty"`
+
+	// Specifies the upper limit of automatic expansion of storage, in GB.
+	LimitSize *float64 `json:"limitSize,omitempty" tf:"limit_size,omitempty"`
+
+	// Specifies the volume size. Its value range is from 40 GB to 4000
+	// GB. The value must be a multiple of 10. Changing this resize the volume.
+	Size *float64 `json:"size,omitempty" tf:"size,omitempty"`
+
+	// Specifies the threshold to trigger automatic expansion.
+	// If the available storage drops to this threshold or 10 GB, the automatic expansion is triggered.
+	// The valid values are as follows:
+	TriggerThreshold *float64 `json:"triggerThreshold,omitempty" tf:"trigger_threshold,omitempty"`
+
+	// Specifies the volume type. Its value can be any of the following
+	// and is case-sensitive: COMMON: indicates the SATA type.
+	// ULTRAHIGH: indicates the SSD type.  Changing this parameter will create a new resource.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+}
+
+type VolumeParameters struct {
+
+	// Specifies the key ID for disk encryption. Changing this parameter will create a new resource.
+	// +kubebuilder:validation:Optional
+	DiskEncryptionID *string `json:"diskEncryptionId,omitempty" tf:"disk_encryption_id,omitempty"`
+
+	// Specifies the upper limit of automatic expansion of storage, in GB.
+	// +kubebuilder:validation:Optional
+	LimitSize *float64 `json:"limitSize,omitempty" tf:"limit_size,omitempty"`
+
+	// Specifies the volume size. Its value range is from 40 GB to 4000
+	// GB. The value must be a multiple of 10. Changing this resize the volume.
+	// +kubebuilder:validation:Optional
+	Size *float64 `json:"size" tf:"size,omitempty"`
+
+	// Specifies the threshold to trigger automatic expansion.
+	// If the available storage drops to this threshold or 10 GB, the automatic expansion is triggered.
+	// The valid values are as follows:
+	// +kubebuilder:validation:Optional
+	TriggerThreshold *float64 `json:"triggerThreshold,omitempty" tf:"trigger_threshold,omitempty"`
+
+	// Specifies the volume type. Its value can be any of the following
+	// and is case-sensitive: COMMON: indicates the SATA type.
+	// ULTRAHIGH: indicates the SSD type.  Changing this parameter will create a new resource.
+	// +kubebuilder:validation:Optional
+	Type *string `json:"type" tf:"type,omitempty"`
+}
+
 // InstanceV3Spec defines the desired state of InstanceV3
 type InstanceV3Spec struct {
 	v1.ResourceSpec `json:",inline"`
@@ -655,10 +689,7 @@ type InstanceV3 struct {
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.db) || (has(self.initProvider) && has(self.initProvider.db))",message="spec.forProvider.db is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.flavor) || (has(self.initProvider) && has(self.initProvider.flavor))",message="spec.forProvider.flavor is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.securityGroupId) || (has(self.initProvider) && has(self.initProvider.securityGroupId))",message="spec.forProvider.securityGroupId is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.subnetId) || (has(self.initProvider) && has(self.initProvider.subnetId))",message="spec.forProvider.subnetId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.volume) || (has(self.initProvider) && has(self.initProvider.volume))",message="spec.forProvider.volume is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.vpcId) || (has(self.initProvider) && has(self.initProvider.vpcId))",message="spec.forProvider.vpcId is a required parameter"
 	Spec   InstanceV3Spec   `json:"spec"`
 	Status InstanceV3Status `json:"status,omitempty"`
 }

@@ -49,16 +49,9 @@ type ReadReplicaV3InitParameters struct {
 	// resource.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// Specifies floating IP to be assigned to the instance.
-	// This should be a list with single element only.
-	PublicIps []*string `json:"publicIps,omitempty" tf:"public_ips,omitempty"`
-
 	// Specifies the region of the replica instance. Changing this parameter will create a new
 	// resource.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
-
-	// Specifies ID of the replicated instance. Changing this parameter will create a new resource.
-	ReplicaOfID *string `json:"replicaOfId,omitempty" tf:"replica_of_id,omitempty"`
 
 	// Specifies the volume information. Structure is documented below.
 	Volume []ReadReplicaV3VolumeInitParameters `json:"volume,omitempty" tf:"volume,omitempty"`
@@ -125,8 +118,20 @@ type ReadReplicaV3Parameters struct {
 
 	// Specifies floating IP to be assigned to the instance.
 	// This should be a list with single element only.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.EIPV1
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/rds.ExtractEipAddress()
+	// +crossplane:generate:reference:refFieldName=PublicIpsRefs
+	// +crossplane:generate:reference:selectorFieldName=PublicIpsSelector
 	// +kubebuilder:validation:Optional
 	PublicIps []*string `json:"publicIps,omitempty" tf:"public_ips,omitempty"`
+
+	// References to EIPV1 in vpc to populate publicIps.
+	// +kubebuilder:validation:Optional
+	PublicIpsRefs []v1.Reference `json:"publicIpsRefs,omitempty" tf:"-"`
+
+	// Selector for a list of EIPV1 in vpc to populate publicIps.
+	// +kubebuilder:validation:Optional
+	PublicIpsSelector *v1.Selector `json:"publicIpsSelector,omitempty" tf:"-"`
 
 	// Specifies the region of the replica instance. Changing this parameter will create a new
 	// resource.
@@ -134,8 +139,17 @@ type ReadReplicaV3Parameters struct {
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
 	// Specifies ID of the replicated instance. Changing this parameter will create a new resource.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/rds/v1alpha1.InstanceV3
 	// +kubebuilder:validation:Optional
 	ReplicaOfID *string `json:"replicaOfId,omitempty" tf:"replica_of_id,omitempty"`
+
+	// Reference to a InstanceV3 in rds to populate replicaOfId.
+	// +kubebuilder:validation:Optional
+	ReplicaOfIDRef *v1.Reference `json:"replicaOfIdRef,omitempty" tf:"-"`
+
+	// Selector for a InstanceV3 in rds to populate replicaOfId.
+	// +kubebuilder:validation:Optional
+	ReplicaOfIDSelector *v1.Selector `json:"replicaOfIdSelector,omitempty" tf:"-"`
 
 	// Specifies the volume information. Structure is documented below.
 	// +kubebuilder:validation:Optional
@@ -217,7 +231,6 @@ type ReadReplicaV3 struct {
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.flavorRef) || (has(self.initProvider) && has(self.initProvider.flavorRef))",message="spec.forProvider.flavorRef is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.replicaOfId) || (has(self.initProvider) && has(self.initProvider.replicaOfId))",message="spec.forProvider.replicaOfId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.volume) || (has(self.initProvider) && has(self.initProvider.volume))",message="spec.forProvider.volume is a required parameter"
 	Spec   ReadReplicaV3Spec   `json:"spec"`
 	Status ReadReplicaV3Status `json:"status,omitempty"`
