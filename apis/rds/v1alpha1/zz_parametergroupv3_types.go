@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -93,6 +89,7 @@ type ParametergroupV3InitParameters struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Parameter group values key/value pairs defined by users based on the default parameter groups.
+	// +mapType=granular
 	Values map[string]*string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
@@ -121,6 +118,7 @@ type ParametergroupV3Observation struct {
 	Updated *string `json:"updated,omitempty" tf:"updated,omitempty"`
 
 	// Parameter group values key/value pairs defined by users based on the default parameter groups.
+	// +mapType=granular
 	Values map[string]*string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
@@ -141,6 +139,7 @@ type ParametergroupV3Parameters struct {
 
 	// Parameter group values key/value pairs defined by users based on the default parameter groups.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	Values map[string]*string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
@@ -168,13 +167,14 @@ type ParametergroupV3Status struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // ParametergroupV3 is the Schema for the ParametergroupV3s API. Manages an RDS Parameter Group resource within OpenTelekomCloud.
-// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,opentelekomcloud}
 type ParametergroupV3 struct {
 	metav1.TypeMeta   `json:",inline"`

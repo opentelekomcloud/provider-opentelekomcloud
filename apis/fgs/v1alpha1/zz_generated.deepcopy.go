@@ -896,6 +896,11 @@ func (in *FunctionV2InitParameters) DeepCopyInto(out *FunctionV2InitParameters) 
 		*out = new(string)
 		**out = **in
 	}
+	if in.EncryptedUserDataSecretRef != nil {
+		in, out := &in.EncryptedUserDataSecretRef, &out.EncryptedUserDataSecretRef
+		*out = new(v1.SecretKeySelector)
+		**out = **in
+	}
 	if in.FuncCode != nil {
 		in, out := &in.FuncCode, &out.FuncCode
 		*out = new(string)

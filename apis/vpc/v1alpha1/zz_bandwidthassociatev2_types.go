@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -31,6 +27,7 @@ type BandwidthAssociateV2InitParameters struct {
 	Bandwidth *string `json:"bandwidth,omitempty" tf:"bandwidth,omitempty"`
 
 	// Specifies IDs of floating IPs to be added to the bandwidth.
+	// +listType=set
 	FloatingIps []*string `json:"floatingIps,omitempty" tf:"floating_ips,omitempty"`
 }
 
@@ -48,6 +45,7 @@ type BandwidthAssociateV2Observation struct {
 	Bandwidth *string `json:"bandwidth,omitempty" tf:"bandwidth,omitempty"`
 
 	// Specifies IDs of floating IPs to be added to the bandwidth.
+	// +listType=set
 	FloatingIps []*string `json:"floatingIps,omitempty" tf:"floating_ips,omitempty"`
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -71,6 +69,7 @@ type BandwidthAssociateV2Parameters struct {
 
 	// Specifies IDs of floating IPs to be added to the bandwidth.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	FloatingIps []*string `json:"floatingIps,omitempty" tf:"floating_ips,omitempty"`
 }
 
@@ -98,13 +97,14 @@ type BandwidthAssociateV2Status struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // BandwidthAssociateV2 is the Schema for the BandwidthAssociateV2s API. Manages a VPC Bandwidth Association resource within OpenTelekomCloud.
-// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,opentelekomcloud}
 type BandwidthAssociateV2 struct {
 	metav1.TypeMeta   `json:",inline"`

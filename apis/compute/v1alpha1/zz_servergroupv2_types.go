@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -32,6 +28,7 @@ type ServergroupV2InitParameters struct {
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
 	// Map of additional options.
+	// +mapType=granular
 	ValueSpecs map[string]*string `json:"valueSpecs,omitempty" tf:"value_specs,omitempty"`
 }
 
@@ -56,6 +53,7 @@ type ServergroupV2Observation struct {
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
 	// Map of additional options.
+	// +mapType=granular
 	ValueSpecs map[string]*string `json:"valueSpecs,omitempty" tf:"value_specs,omitempty"`
 }
 
@@ -78,6 +76,7 @@ type ServergroupV2Parameters struct {
 
 	// Map of additional options.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	ValueSpecs map[string]*string `json:"valueSpecs,omitempty" tf:"value_specs,omitempty"`
 }
 
@@ -105,13 +104,14 @@ type ServergroupV2Status struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // ServergroupV2 is the Schema for the ServergroupV2s API. Manages an ECS Server Group Management resource within OpenTelekomCloud.
-// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,opentelekomcloud}
 type ServergroupV2 struct {
 	metav1.TypeMeta   `json:",inline"`

@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -92,12 +88,14 @@ type EIPV1InitParameters struct {
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
 	// See Argument Reference above.
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// The value true indicates that port will be unassigned from EIP.
 	// This parameter work only with already allocated resource.
 	UnbindPort *bool `json:"unbindPort,omitempty" tf:"unbind_port,omitempty"`
 
+	// +mapType=granular
 	ValueSpecs map[string]*string `json:"valueSpecs,omitempty" tf:"value_specs,omitempty"`
 }
 
@@ -117,12 +115,14 @@ type EIPV1Observation struct {
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
 	// See Argument Reference above.
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// The value true indicates that port will be unassigned from EIP.
 	// This parameter work only with already allocated resource.
 	UnbindPort *bool `json:"unbindPort,omitempty" tf:"unbind_port,omitempty"`
 
+	// +mapType=granular
 	ValueSpecs map[string]*string `json:"valueSpecs,omitempty" tf:"value_specs,omitempty"`
 }
 
@@ -144,6 +144,7 @@ type EIPV1Parameters struct {
 
 	// See Argument Reference above.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// The value true indicates that port will be unassigned from EIP.
@@ -152,6 +153,7 @@ type EIPV1Parameters struct {
 	UnbindPort *bool `json:"unbindPort,omitempty" tf:"unbind_port,omitempty"`
 
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	ValueSpecs map[string]*string `json:"valueSpecs,omitempty" tf:"value_specs,omitempty"`
 }
 
@@ -237,13 +239,14 @@ type EIPV1Status struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // EIPV1 is the Schema for the EIPV1s API. Manages a VPC EIP resource within OpenTelekomCloud.
-// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,opentelekomcloud}
 type EIPV1 struct {
 	metav1.TypeMeta   `json:",inline"`

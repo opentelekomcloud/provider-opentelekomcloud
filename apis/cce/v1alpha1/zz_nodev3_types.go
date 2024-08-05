@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -24,6 +20,7 @@ type NodeV3DataVolumesInitParameters struct {
 	ExtendParam *string `json:"extendParam,omitempty" tf:"extend_param,omitempty"`
 
 	// Disk expansion parameters. A list of strings which describes additional disk parameters.
+	// +mapType=granular
 	ExtendParams map[string]*string `json:"extendParams,omitempty" tf:"extend_params,omitempty"`
 
 	// The Encryption KMS ID of the system volume. By default, it tries to get from env by OS_KMS_ID.
@@ -43,6 +40,7 @@ type NodeV3DataVolumesObservation struct {
 	ExtendParam *string `json:"extendParam,omitempty" tf:"extend_param,omitempty"`
 
 	// Disk expansion parameters. A list of strings which describes additional disk parameters.
+	// +mapType=granular
 	ExtendParams map[string]*string `json:"extendParams,omitempty" tf:"extend_params,omitempty"`
 
 	// The Encryption KMS ID of the system volume. By default, it tries to get from env by OS_KMS_ID.
@@ -64,6 +62,7 @@ type NodeV3DataVolumesParameters struct {
 
 	// Disk expansion parameters. A list of strings which describes additional disk parameters.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	ExtendParams map[string]*string `json:"extendParams,omitempty" tf:"extend_params,omitempty"`
 
 	// The Encryption KMS ID of the system volume. By default, it tries to get from env by OS_KMS_ID.
@@ -85,6 +84,7 @@ type NodeV3InitParameters struct {
 	AgencyName *string `json:"agencyName,omitempty" tf:"agency_name,omitempty"`
 
 	// Node annotation, key/value pair format. Changing this parameter will create a new resource
+	// +mapType=granular
 	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
 	// specify the name of the available partition (AZ). Changing this parameter will create a new resource.
@@ -117,6 +117,7 @@ type NodeV3InitParameters struct {
 	EIPCount *float64 `json:"eipCount,omitempty" tf:"eip_count,omitempty"`
 
 	// List of existing elastic IP IDs.
+	// +listType=set
 	EIPIds []*string `json:"eipIds,omitempty" tf:"eip_ids,omitempty"`
 
 	// Classification of cloud server specifications. Changing this parameter will create a new cluster resource.
@@ -132,12 +133,14 @@ type NodeV3InitParameters struct {
 	Iptype *string `json:"iptype,omitempty" tf:"iptype,omitempty"`
 
 	// Tags of a Kubernetes node, key/value pair format.
+	// +mapType=granular
 	K8STags map[string]*string `json:"k8sTags,omitempty" tf:"k8s_tags,omitempty"`
 
 	// Key pair name when logging in to select the key pair mode. Changing this parameter will create a new resource.
 	KeyPair *string `json:"keyPair,omitempty" tf:"key_pair,omitempty"`
 
 	// Node tag, key/value pair format. Changing this parameter will create a new resource.
+	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
 	// The maximum number of instances a node is allowed to create. Changing this parameter will create a new node resource.
@@ -188,6 +191,7 @@ type NodeV3InitParameters struct {
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 
 	// The field is alternative to labels, key/value pair format.
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// Taints to created nodes to configure anti-affinity.
@@ -200,6 +204,7 @@ type NodeV3Observation struct {
 	AgencyName *string `json:"agencyName,omitempty" tf:"agency_name,omitempty"`
 
 	// Node annotation, key/value pair format. Changing this parameter will create a new resource
+	// +mapType=granular
 	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
 	// specify the name of the available partition (AZ). Changing this parameter will create a new resource.
@@ -232,6 +237,7 @@ type NodeV3Observation struct {
 	EIPCount *float64 `json:"eipCount,omitempty" tf:"eip_count,omitempty"`
 
 	// List of existing elastic IP IDs.
+	// +listType=set
 	EIPIds []*string `json:"eipIds,omitempty" tf:"eip_ids,omitempty"`
 
 	// Classification of cloud server specifications. Changing this parameter will create a new cluster resource.
@@ -249,12 +255,14 @@ type NodeV3Observation struct {
 	Iptype *string `json:"iptype,omitempty" tf:"iptype,omitempty"`
 
 	// Tags of a Kubernetes node, key/value pair format.
+	// +mapType=granular
 	K8STags map[string]*string `json:"k8sTags,omitempty" tf:"k8s_tags,omitempty"`
 
 	// Key pair name when logging in to select the key pair mode. Changing this parameter will create a new resource.
 	KeyPair *string `json:"keyPair,omitempty" tf:"key_pair,omitempty"`
 
 	// Node tag, key/value pair format. Changing this parameter will create a new resource.
+	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
 	// The maximum number of instances a node is allowed to create. Changing this parameter will create a new node resource.
@@ -314,6 +322,7 @@ type NodeV3Observation struct {
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 
 	// The field is alternative to labels, key/value pair format.
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// Taints to created nodes to configure anti-affinity.
@@ -328,6 +337,7 @@ type NodeV3Parameters struct {
 
 	// Node annotation, key/value pair format. Changing this parameter will create a new resource
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
 	// specify the name of the available partition (AZ). Changing this parameter will create a new resource.
@@ -370,6 +380,7 @@ type NodeV3Parameters struct {
 
 	// List of existing elastic IP IDs.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	EIPIds []*string `json:"eipIds,omitempty" tf:"eip_ids,omitempty"`
 
 	// Classification of cloud server specifications. Changing this parameter will create a new cluster resource.
@@ -390,6 +401,7 @@ type NodeV3Parameters struct {
 
 	// Tags of a Kubernetes node, key/value pair format.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	K8STags map[string]*string `json:"k8sTags,omitempty" tf:"k8s_tags,omitempty"`
 
 	// Key pair name when logging in to select the key pair mode. Changing this parameter will create a new resource.
@@ -398,6 +410,7 @@ type NodeV3Parameters struct {
 
 	// Node tag, key/value pair format. Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
 	// The maximum number of instances a node is allowed to create. Changing this parameter will create a new node resource.
@@ -463,6 +476,7 @@ type NodeV3Parameters struct {
 
 	// The field is alternative to labels, key/value pair format.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// Taints to created nodes to configure anti-affinity.
@@ -477,6 +491,7 @@ type NodeV3RootVolumeInitParameters struct {
 	ExtendParam *string `json:"extendParam,omitempty" tf:"extend_param,omitempty"`
 
 	// Disk expansion parameters. A list of strings which describes additional disk parameters.
+	// +mapType=granular
 	ExtendParams map[string]*string `json:"extendParams,omitempty" tf:"extend_params,omitempty"`
 
 	// The Encryption KMS ID of the system volume. By default, it tries to get from env by OS_KMS_ID.
@@ -496,6 +511,7 @@ type NodeV3RootVolumeObservation struct {
 	ExtendParam *string `json:"extendParam,omitempty" tf:"extend_param,omitempty"`
 
 	// Disk expansion parameters. A list of strings which describes additional disk parameters.
+	// +mapType=granular
 	ExtendParams map[string]*string `json:"extendParams,omitempty" tf:"extend_params,omitempty"`
 
 	// The Encryption KMS ID of the system volume. By default, it tries to get from env by OS_KMS_ID.
@@ -517,6 +533,7 @@ type NodeV3RootVolumeParameters struct {
 
 	// Disk expansion parameters. A list of strings which describes additional disk parameters.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	ExtendParams map[string]*string `json:"extendParams,omitempty" tf:"extend_params,omitempty"`
 
 	// The Encryption KMS ID of the system volume. By default, it tries to get from env by OS_KMS_ID.
@@ -595,13 +612,14 @@ type NodeV3Status struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // NodeV3 is the Schema for the NodeV3s API. Manages a CCE Cluster Node resource within OpenTelekomCloud.
-// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,opentelekomcloud}
 type NodeV3 struct {
 	metav1.TypeMeta   `json:",inline"`

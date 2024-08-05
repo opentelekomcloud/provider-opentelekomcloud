@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -89,6 +85,7 @@ type SubnetV2InitParameters struct {
 	// An array of DNS name server names used by hosts
 	// in this subnet. Changing this updates the DNS name servers for the existing
 	// subnet. Default value is ["100.125.4.25", "100.125.129.199"]
+	// +listType=set
 	DNSNameservers []*string `json:"dnsNameservers,omitempty" tf:"dns_nameservers,omitempty"`
 
 	// The administrative state of the network.
@@ -116,6 +113,19 @@ type SubnetV2InitParameters struct {
 	// the existing subnet.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// The UUID of the parent network. Changing this
+	// creates a new subnet.
+	// +crossplane:generate:reference:type=NetworkV2
+	NetworkID *string `json:"networkId,omitempty" tf:"network_id,omitempty"`
+
+	// Reference to a NetworkV2 to populate networkId.
+	// +kubebuilder:validation:Optional
+	NetworkIDRef *v1.Reference `json:"networkIdRef,omitempty" tf:"-"`
+
+	// Selector for a NetworkV2 to populate networkId.
+	// +kubebuilder:validation:Optional
+	NetworkIDSelector *v1.Selector `json:"networkIdSelector,omitempty" tf:"-"`
+
 	// Do not set a gateway IP on this subnet. Changing
 	// this removes or adds a default gateway IP of the existing subnet.
 	NoGateway *bool `json:"noGateway,omitempty" tf:"no_gateway,omitempty"`
@@ -127,6 +137,7 @@ type SubnetV2InitParameters struct {
 	TenantID *string `json:"tenantId,omitempty" tf:"tenant_id,omitempty"`
 
 	// Map of additional options.
+	// +mapType=granular
 	ValueSpecs map[string]*string `json:"valueSpecs,omitempty" tf:"value_specs,omitempty"`
 }
 
@@ -144,6 +155,7 @@ type SubnetV2Observation struct {
 	// An array of DNS name server names used by hosts
 	// in this subnet. Changing this updates the DNS name servers for the existing
 	// subnet. Default value is ["100.125.4.25", "100.125.129.199"]
+	// +listType=set
 	DNSNameservers []*string `json:"dnsNameservers,omitempty" tf:"dns_nameservers,omitempty"`
 
 	// The administrative state of the network.
@@ -188,6 +200,7 @@ type SubnetV2Observation struct {
 	TenantID *string `json:"tenantId,omitempty" tf:"tenant_id,omitempty"`
 
 	// Map of additional options.
+	// +mapType=granular
 	ValueSpecs map[string]*string `json:"valueSpecs,omitempty" tf:"value_specs,omitempty"`
 }
 
@@ -208,6 +221,7 @@ type SubnetV2Parameters struct {
 	// in this subnet. Changing this updates the DNS name servers for the existing
 	// subnet. Default value is ["100.125.4.25", "100.125.129.199"]
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	DNSNameservers []*string `json:"dnsNameservers,omitempty" tf:"dns_nameservers,omitempty"`
 
 	// The administrative state of the network.
@@ -269,6 +283,7 @@ type SubnetV2Parameters struct {
 
 	// Map of additional options.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	ValueSpecs map[string]*string `json:"valueSpecs,omitempty" tf:"value_specs,omitempty"`
 }
 
@@ -296,13 +311,14 @@ type SubnetV2Status struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // SubnetV2 is the Schema for the SubnetV2s API. Manages a VPC Subnet resource within OpenTelekomCloud.
-// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,opentelekomcloud}
 type SubnetV2 struct {
 	metav1.TypeMeta   `json:",inline"`

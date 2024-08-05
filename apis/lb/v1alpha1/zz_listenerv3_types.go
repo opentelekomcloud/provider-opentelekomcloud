@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -222,6 +218,7 @@ type ListenerV3InitParameters struct {
 	// Lists the IDs of SNI certificates (server certificates with domain names) used by the listener.
 	// Each SNI certificate can have up to 30 domain names, and each domain name in the SNI certificate must be unique.
 	// This parameter will be ignored and an empty array will be returned if the listener's protocol is not HTTPS.
+	// +listType=set
 	SniContainerRefs []*string `json:"sniContainerRefs,omitempty" tf:"sni_container_refs,omitempty"`
 
 	// Specifies how wildcard domain name matches with the SNI certificates
@@ -235,6 +232,7 @@ type ListenerV3InitParameters struct {
 	TLSCiphersPolicy *string `json:"tlsCiphersPolicy,omitempty" tf:"tls_ciphers_policy,omitempty"`
 
 	// Tags key/value pairs to associate with the loadbalancer listener.
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
 
@@ -319,6 +317,7 @@ type ListenerV3Observation struct {
 	// Lists the IDs of SNI certificates (server certificates with domain names) used by the listener.
 	// Each SNI certificate can have up to 30 domain names, and each domain name in the SNI certificate must be unique.
 	// This parameter will be ignored and an empty array will be returned if the listener's protocol is not HTTPS.
+	// +listType=set
 	SniContainerRefs []*string `json:"sniContainerRefs,omitempty" tf:"sni_container_refs,omitempty"`
 
 	// Specifies how wildcard domain name matches with the SNI certificates
@@ -332,6 +331,7 @@ type ListenerV3Observation struct {
 	TLSCiphersPolicy *string `json:"tlsCiphersPolicy,omitempty" tf:"tls_ciphers_policy,omitempty"`
 
 	// Tags key/value pairs to associate with the loadbalancer listener.
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// Indicates the update time.
@@ -430,6 +430,7 @@ type ListenerV3Parameters struct {
 	// Each SNI certificate can have up to 30 domain names, and each domain name in the SNI certificate must be unique.
 	// This parameter will be ignored and an empty array will be returned if the listener's protocol is not HTTPS.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	SniContainerRefs []*string `json:"sniContainerRefs,omitempty" tf:"sni_container_refs,omitempty"`
 
 	// Specifies how wildcard domain name matches with the SNI certificates
@@ -446,6 +447,7 @@ type ListenerV3Parameters struct {
 
 	// Tags key/value pairs to associate with the loadbalancer listener.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
 
@@ -473,13 +475,14 @@ type ListenerV3Status struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // ListenerV3 is the Schema for the ListenerV3s API. Manages a LB Listener resource within OpenTelekomCloud.
-// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,opentelekomcloud}
 type ListenerV3 struct {
 	metav1.TypeMeta   `json:",inline"`

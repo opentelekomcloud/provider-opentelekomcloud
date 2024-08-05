@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -88,6 +84,14 @@ type InstanceV1InitParameters struct {
 	// Changing this creates a new server.
 	AvailabilityZone *string `json:"availabilityZone,omitempty" tf:"availability_zone,omitempty"`
 
+	// References to SecgroupV2 in compute to populate securityGroups.
+	// +kubebuilder:validation:Optional
+	ComputeSecurityGroupIDRefs []v1.Reference `json:"computeSecurityGroupIdRefs,omitempty" tf:"-"`
+
+	// Selector for a list of SecgroupV2 in compute to populate securityGroups.
+	// +kubebuilder:validation:Optional
+	ComputeSecurityGroupIDSelector *v1.Selector `json:"computeSecurityGroupIdSelector,omitempty" tf:"-"`
+
 	// An array of one or more data disks to attach to the
 	// instance. The data_disks object structure is documented below. Changing this
 	// creates a new server.
@@ -103,6 +107,20 @@ type InstanceV1InitParameters struct {
 	// The ID of the desired image for the server. Changing this creates a new server.
 	ImageID *string `json:"imageId,omitempty" tf:"image_id,omitempty"`
 
+	// The name of a key pair to put on the server. The key
+	// pair must already be created and associated with the tenant's account.
+	// Changing this creates a new server.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/compute/v1alpha1.KeypairV2
+	KeyName *string `json:"keyName,omitempty" tf:"key_name,omitempty"`
+
+	// Reference to a KeypairV2 in compute to populate keyName.
+	// +kubebuilder:validation:Optional
+	KeyNameRef *v1.Reference `json:"keyNameRef,omitempty" tf:"-"`
+
+	// Selector for a KeypairV2 in compute to populate keyName.
+	// +kubebuilder:validation:Optional
+	KeyNameSelector *v1.Selector `json:"keyNameSelector,omitempty" tf:"-"`
+
 	// A unique name for the instance.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -110,6 +128,19 @@ type InstanceV1InitParameters struct {
 	// instance. The nics object structure is documented below. Changing this
 	// creates a new server.
 	Nics []NicsInitParameters `json:"nics,omitempty" tf:"nics,omitempty"`
+
+	// The administrative password to assign to the server.
+	// Changing this creates a new server.
+	PasswordSecretRef *v1.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
+
+	// An array of one or more security group IDs
+	// to associate with the server. If this parameter is left blank, the default
+	// security group is bound to the ECS by default.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/compute/v1alpha1.SecgroupV2
+	// +crossplane:generate:reference:refFieldName=ComputeSecurityGroupIDRefs
+	// +crossplane:generate:reference:selectorFieldName=ComputeSecurityGroupIDSelector
+	// +listType=set
+	SecurityGroups []*string `json:"securityGroups,omitempty" tf:"security_groups,omitempty"`
 
 	// The Encryption KMS ID of the system disk. Changing this
 	// creates a new server.
@@ -124,11 +155,24 @@ type InstanceV1InitParameters struct {
 	SystemDiskType *string `json:"systemDiskType,omitempty" tf:"system_disk_type,omitempty"`
 
 	// Tags key/value pairs to associate with the instance.
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// The user data to provide when launching the instance.
 	// Changing this creates a new server.
 	UserData *string `json:"userData,omitempty" tf:"user_data,omitempty"`
+
+	// The ID of the desired VPC for the server. Changing this creates a new server.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.VpcV1
+	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
+
+	// Reference to a VpcV1 in vpc to populate vpcId.
+	// +kubebuilder:validation:Optional
+	VPCIDRef *v1.Reference `json:"vpcIdRef,omitempty" tf:"-"`
+
+	// Selector for a VpcV1 in vpc to populate vpcId.
+	// +kubebuilder:validation:Optional
+	VPCIDSelector *v1.Selector `json:"vpcIdSelector,omitempty" tf:"-"`
 }
 
 type InstanceV1Observation struct {
@@ -173,6 +217,7 @@ type InstanceV1Observation struct {
 	// An array of one or more security group IDs
 	// to associate with the server. If this parameter is left blank, the default
 	// security group is bound to the ECS by default.
+	// +listType=set
 	SecurityGroups []*string `json:"securityGroups,omitempty" tf:"security_groups,omitempty"`
 
 	// The ID of the system disk.
@@ -191,6 +236,7 @@ type InstanceV1Observation struct {
 	SystemDiskType *string `json:"systemDiskType,omitempty" tf:"system_disk_type,omitempty"`
 
 	// Tags key/value pairs to associate with the instance.
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// The user data to provide when launching the instance.
@@ -278,6 +324,7 @@ type InstanceV1Parameters struct {
 	// +crossplane:generate:reference:refFieldName=ComputeSecurityGroupIDRefs
 	// +crossplane:generate:reference:selectorFieldName=ComputeSecurityGroupIDSelector
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	SecurityGroups []*string `json:"securityGroups,omitempty" tf:"security_groups,omitempty"`
 
 	// The Encryption KMS ID of the system disk. Changing this
@@ -297,6 +344,7 @@ type InstanceV1Parameters struct {
 
 	// Tags key/value pairs to associate with the instance.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// The user data to provide when launching the instance.
@@ -323,6 +371,19 @@ type NicsInitParameters struct {
 	// Specifies a fixed IPv4 address to be used on this
 	// network. Changing this creates a new server.
 	IPAddress *string `json:"ipAddress,omitempty" tf:"ip_address,omitempty"`
+
+	// The network UUID to attach to the server. Changing this creates a new server.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.SubnetV1
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/compute.ExtractNetworkID()
+	NetworkID *string `json:"networkId,omitempty" tf:"network_id,omitempty"`
+
+	// Reference to a SubnetV1 in vpc to populate networkId.
+	// +kubebuilder:validation:Optional
+	NetworkIDRef *v1.Reference `json:"networkIdRef,omitempty" tf:"-"`
+
+	// Selector for a SubnetV1 in vpc to populate networkId.
+	// +kubebuilder:validation:Optional
+	NetworkIDSelector *v1.Selector `json:"networkIdSelector,omitempty" tf:"-"`
 }
 
 type NicsObservation struct {
@@ -415,13 +476,14 @@ type InstanceV1Status struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // InstanceV1 is the Schema for the InstanceV1s API. Manages a ECS Instance resource within OpenTelekomCloud.
-// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,opentelekomcloud}
 type InstanceV1 struct {
 	metav1.TypeMeta   `json:",inline"`

@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -35,6 +31,7 @@ type PortSecgroupAssociateV2InitParameters struct {
 	// A list of security group IDs to apply to
 	// the port. The security groups must be specified by ID and not name (as
 	// opposed to how they are configured with the Compute Instance).
+	// +listType=set
 	SecurityGroupIds []*string `json:"securityGroupIds,omitempty" tf:"security_group_ids,omitempty"`
 }
 
@@ -42,6 +39,7 @@ type PortSecgroupAssociateV2Observation struct {
 
 	// The collection of Security Group IDs on the port
 	// which have been explicitly and implicitly added.
+	// +listType=set
 	AllSecurityGroupIds []*string `json:"allSecurityGroupIds,omitempty" tf:"all_security_group_ids,omitempty"`
 
 	// Whether to replace or append the list of security
@@ -62,6 +60,7 @@ type PortSecgroupAssociateV2Observation struct {
 	// A list of security group IDs to apply to
 	// the port. The security groups must be specified by ID and not name (as
 	// opposed to how they are configured with the Compute Instance).
+	// +listType=set
 	SecurityGroupIds []*string `json:"securityGroupIds,omitempty" tf:"security_group_ids,omitempty"`
 }
 
@@ -87,6 +86,7 @@ type PortSecgroupAssociateV2Parameters struct {
 	// the port. The security groups must be specified by ID and not name (as
 	// opposed to how they are configured with the Compute Instance).
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	SecurityGroupIds []*string `json:"securityGroupIds,omitempty" tf:"security_group_ids,omitempty"`
 }
 
@@ -114,13 +114,14 @@ type PortSecgroupAssociateV2Status struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // PortSecgroupAssociateV2 is the Schema for the PortSecgroupAssociateV2s API. Manages a VPC Port's Security Groups resource within OpenTelekomCloud.
-// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,opentelekomcloud}
 type PortSecgroupAssociateV2 struct {
 	metav1.TypeMeta   `json:",inline"`

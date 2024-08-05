@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -142,6 +138,10 @@ type InstanceV2InitParameters struct {
 	// The first detected Fixed IPv6 address.
 	AccessIPV6 *string `json:"accessIpV6,omitempty" tf:"access_ip_v6,omitempty"`
 
+	// The administrative password to assign to the server. Changing this changes the root password
+	// on the existing server.
+	AdminPassSecretRef *v1.SecretKeySelector `json:"adminPassSecretRef,omitempty" tf:"-"`
+
 	// Configures or deletes automatic recovery of an instance. Defaults to true.
 	AutoRecovery *bool `json:"autoRecovery,omitempty" tf:"auto_recovery,omitempty"`
 
@@ -177,8 +177,22 @@ type InstanceV2InitParameters struct {
 	// The name of the desired image for the server. Changing this creates a new server.
 	ImageName *string `json:"imageName,omitempty" tf:"image_name,omitempty"`
 
+	// The name of a key pair to put on the server. The key pair must already be created and
+	// associated with the tenant's account. Changing this creates a new server.
+	// +crossplane:generate:reference:type=KeypairV2
+	KeyPair *string `json:"keyPair,omitempty" tf:"key_pair,omitempty"`
+
+	// Reference to a KeypairV2 to populate keyPair.
+	// +kubebuilder:validation:Optional
+	KeyPairRef *v1.Reference `json:"keyPairRef,omitempty" tf:"-"`
+
+	// Selector for a KeypairV2 to populate keyPair.
+	// +kubebuilder:validation:Optional
+	KeyPairSelector *v1.Selector `json:"keyPairSelector,omitempty" tf:"-"`
+
 	// Metadata key/value pairs to make available from within the instance. Changing this updates the
 	// existing server metadata.
+	// +mapType=granular
 	Metadata map[string]*string `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
 	// A unique name for the resource.
@@ -193,15 +207,34 @@ type InstanceV2InitParameters struct {
 
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
+	// The path to the private key to use for SSH access. Required only if you want to
+	// get the password from the windows instance.
+	SSHPrivateKeyPathSecretRef *v1.SecretKeySelector `json:"sshPrivateKeyPathSecretRef,omitempty" tf:"-"`
+
 	// Provide the Nova scheduler with hints on how the instance should be launched. The
 	// available hints are described below.
 	SchedulerHints []SchedulerHintsInitParameters `json:"schedulerHints,omitempty" tf:"scheduler_hints,omitempty"`
+
+	// An array of one or more security group names to associate with the server. Changing
+	// this results in adding/removing security groups from the existing server.
+	// +crossplane:generate:reference:type=SecgroupV2
+	// +listType=set
+	SecurityGroups []*string `json:"securityGroups,omitempty" tf:"security_groups,omitempty"`
+
+	// References to SecgroupV2 to populate securityGroups.
+	// +kubebuilder:validation:Optional
+	SecurityGroupsRefs []v1.Reference `json:"securityGroupsRefs,omitempty" tf:"-"`
+
+	// Selector for a list of SecgroupV2 to populate securityGroups.
+	// +kubebuilder:validation:Optional
+	SecurityGroupsSelector *v1.Selector `json:"securityGroupsSelector,omitempty" tf:"-"`
 
 	// Whether to try stop instance gracefully before destroying it, thus giving chance
 	// for guest OS daemons to stop correctly. If instance doesn't stop within a timeout, it will be destroyed anyway.
 	StopBeforeDestroy *bool `json:"stopBeforeDestroy,omitempty" tf:"stop_before_destroy,omitempty"`
 
 	// Tags key/value pairs to associate with the instance.
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// The user data to provide when launching the instance. Changing this creates a new server.
@@ -216,6 +249,7 @@ type InstanceV2Observation struct {
 	// The first detected Fixed IPv6 address.
 	AccessIPV6 *string `json:"accessIpV6,omitempty" tf:"access_ip_v6,omitempty"`
 
+	// +mapType=granular
 	AllMetadata map[string]*string `json:"allMetadata,omitempty" tf:"all_metadata,omitempty"`
 
 	// Configures or deletes automatic recovery of an instance. Defaults to true.
@@ -261,6 +295,7 @@ type InstanceV2Observation struct {
 
 	// Metadata key/value pairs to make available from within the instance. Changing this updates the
 	// existing server metadata.
+	// +mapType=granular
 	Metadata map[string]*string `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
 	// A unique name for the resource.
@@ -281,6 +316,7 @@ type InstanceV2Observation struct {
 
 	// An array of one or more security group names to associate with the server. Changing
 	// this results in adding/removing security groups from the existing server.
+	// +listType=set
 	SecurityGroups []*string `json:"securityGroups,omitempty" tf:"security_groups,omitempty"`
 
 	// Whether to try stop instance gracefully before destroying it, thus giving chance
@@ -288,6 +324,7 @@ type InstanceV2Observation struct {
 	StopBeforeDestroy *bool `json:"stopBeforeDestroy,omitempty" tf:"stop_before_destroy,omitempty"`
 
 	// Tags key/value pairs to associate with the instance.
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// The user data to provide when launching the instance. Changing this creates a new server.
@@ -372,6 +409,7 @@ type InstanceV2Parameters struct {
 	// Metadata key/value pairs to make available from within the instance. Changing this updates the
 	// existing server metadata.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	Metadata map[string]*string `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
 	// A unique name for the resource.
@@ -404,6 +442,7 @@ type InstanceV2Parameters struct {
 	// this results in adding/removing security groups from the existing server.
 	// +crossplane:generate:reference:type=SecgroupV2
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	SecurityGroups []*string `json:"securityGroups,omitempty" tf:"security_groups,omitempty"`
 
 	// References to SecgroupV2 to populate securityGroups.
@@ -421,6 +460,7 @@ type InstanceV2Parameters struct {
 
 	// Tags key/value pairs to associate with the instance.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// The user data to provide when launching the instance. Changing this creates a new server.
@@ -649,13 +689,14 @@ type InstanceV2Status struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // InstanceV2 is the Schema for the InstanceV2s API. Manages an ECS Instance resource within OpenTelekomCloud.
-// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,opentelekomcloud}
 type InstanceV2 struct {
 	metav1.TypeMeta   `json:",inline"`

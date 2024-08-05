@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -26,6 +22,18 @@ type BackupV3InitParameters struct {
 	// Specifies the backup description.
 	// It contains a maximum of 256 characters and cannot contain the following special characters: >!<"&'=
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// The ID of the RDS instance to which the backup belongs.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/rds/v1alpha1.InstanceV3
+	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
+
+	// Reference to a InstanceV3 in rds to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceIDRef *v1.Reference `json:"instanceIdRef,omitempty" tf:"-"`
+
+	// Selector for a InstanceV3 in rds to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceIDSelector *v1.Selector `json:"instanceIdSelector,omitempty" tf:"-"`
 
 	// The name of the backup.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -162,13 +170,14 @@ type BackupV3Status struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // BackupV3 is the Schema for the BackupV3s API. Manages an RDS Backup resource within OpenTelekomCloud.
-// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,opentelekomcloud}
 type BackupV3 struct {
 	metav1.TypeMeta   `json:",inline"`

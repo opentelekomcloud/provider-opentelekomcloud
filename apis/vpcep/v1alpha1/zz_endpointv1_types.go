@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -30,6 +26,7 @@ type EndpointV1InitParameters struct {
 	PortIP *string `json:"portIp,omitempty" tf:"port_ip,omitempty"`
 
 	// Lists the IDs of route tables.
+	// +listType=set
 	RouteTables []*string `json:"routeTables,omitempty" tf:"route_tables,omitempty"`
 
 	// Specifies the ID of the VPC endpoint service.
@@ -41,6 +38,7 @@ type EndpointV1InitParameters struct {
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 
 	// Lists the resource tags.
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// Specifies the ID of the VPC (OpenStack router) where the VPC endpoint is to be created.
@@ -49,6 +47,7 @@ type EndpointV1InitParameters struct {
 	// Specifies an array of whitelisted IPs for controlling access to the VPC endpoint.
 	// IPv4 addresses or CIDR blocks can be specified to control access when you create a VPC endpoint.
 	// This parameter is mandatory only when you create a VPC endpoint for connecting to an interface VPC endpoint service.
+	// +listType=set
 	Whitelist []*string `json:"whitelist,omitempty" tf:"whitelist,omitempty"`
 }
 
@@ -56,6 +55,7 @@ type EndpointV1Observation struct {
 
 	// Specifies the domain name for accessing the associated VPC endpoint service.
 	// This parameter is only available when enable_dns is set to true.
+	// +listType=set
 	DNSNames []*string `json:"dnsNames,omitempty" tf:"dns_names,omitempty"`
 
 	// Specifies whether to create a private domain name. The default value is false.
@@ -78,6 +78,7 @@ type EndpointV1Observation struct {
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
 
 	// Lists the IDs of route tables.
+	// +listType=set
 	RouteTables []*string `json:"routeTables,omitempty" tf:"route_tables,omitempty"`
 
 	// Specifies the ID of the VPC endpoint service.
@@ -95,6 +96,7 @@ type EndpointV1Observation struct {
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 
 	// Lists the resource tags.
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// Specifies the ID of the VPC (OpenStack router) where the VPC endpoint is to be created.
@@ -103,6 +105,7 @@ type EndpointV1Observation struct {
 	// Specifies an array of whitelisted IPs for controlling access to the VPC endpoint.
 	// IPv4 addresses or CIDR blocks can be specified to control access when you create a VPC endpoint.
 	// This parameter is mandatory only when you create a VPC endpoint for connecting to an interface VPC endpoint service.
+	// +listType=set
 	Whitelist []*string `json:"whitelist,omitempty" tf:"whitelist,omitempty"`
 }
 
@@ -123,6 +126,7 @@ type EndpointV1Parameters struct {
 
 	// Lists the IDs of route tables.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	RouteTables []*string `json:"routeTables,omitempty" tf:"route_tables,omitempty"`
 
 	// Specifies the ID of the VPC endpoint service.
@@ -137,6 +141,7 @@ type EndpointV1Parameters struct {
 
 	// Lists the resource tags.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// Specifies the ID of the VPC (OpenStack router) where the VPC endpoint is to be created.
@@ -147,6 +152,7 @@ type EndpointV1Parameters struct {
 	// IPv4 addresses or CIDR blocks can be specified to control access when you create a VPC endpoint.
 	// This parameter is mandatory only when you create a VPC endpoint for connecting to an interface VPC endpoint service.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	Whitelist []*string `json:"whitelist,omitempty" tf:"whitelist,omitempty"`
 }
 
@@ -174,13 +180,14 @@ type EndpointV1Status struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // EndpointV1 is the Schema for the EndpointV1s API. Manages a VPCEP Endpoint resource within OpenTelekomCloud.
-// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,opentelekomcloud}
 type EndpointV1 struct {
 	metav1.TypeMeta   `json:",inline"`

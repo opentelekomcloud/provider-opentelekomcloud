@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -24,6 +20,7 @@ type LoadbalancerV3InitParameters struct {
 
 	// Specifies the availability zones where the LoadBalancer will be located.
 	// Changing this creates a new LoadBalancer.
+	// +listType=set
 	AvailabilityZones []*string `json:"availabilityZones,omitempty" tf:"availability_zones,omitempty"`
 
 	// Specifies whether to enable deletion protection for the load balancer.
@@ -47,6 +44,7 @@ type LoadbalancerV3InitParameters struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Specifies the subnet Network ID.
+	// +listType=set
 	NetworkIds []*string `json:"networkIds,omitempty" tf:"network_ids,omitempty"`
 
 	// The elastic IP address of the instance. The public_ip structure
@@ -60,6 +58,7 @@ type LoadbalancerV3InitParameters struct {
 	// The ID of the subnet to which the LoadBalancer belongs. Required when using vip_address.
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// The ip address of the LoadBalancer. Changing this creates a new LoadBalancer.
@@ -73,6 +72,7 @@ type LoadbalancerV3Observation struct {
 
 	// Specifies the availability zones where the LoadBalancer will be located.
 	// Changing this creates a new LoadBalancer.
+	// +listType=set
 	AvailabilityZones []*string `json:"availabilityZones,omitempty" tf:"availability_zones,omitempty"`
 
 	// The time the LoadBalancer was created.
@@ -102,6 +102,7 @@ type LoadbalancerV3Observation struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Specifies the subnet Network ID.
+	// +listType=set
 	NetworkIds []*string `json:"networkIds,omitempty" tf:"network_ids,omitempty"`
 
 	// The elastic IP address of the instance. The public_ip structure
@@ -115,6 +116,7 @@ type LoadbalancerV3Observation struct {
 	// The ID of the subnet to which the LoadBalancer belongs. Required when using vip_address.
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// The time the LoadBalancer was last updated.
@@ -136,6 +138,7 @@ type LoadbalancerV3Parameters struct {
 	// Specifies the availability zones where the LoadBalancer will be located.
 	// Changing this creates a new LoadBalancer.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	AvailabilityZones []*string `json:"availabilityZones,omitempty" tf:"availability_zones,omitempty"`
 
 	// Specifies whether to enable deletion protection for the load balancer.
@@ -166,6 +169,7 @@ type LoadbalancerV3Parameters struct {
 
 	// Specifies the subnet Network ID.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	NetworkIds []*string `json:"networkIds,omitempty" tf:"network_ids,omitempty"`
 
 	// The elastic IP address of the instance. The public_ip structure
@@ -183,6 +187,7 @@ type LoadbalancerV3Parameters struct {
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// The ip address of the LoadBalancer. Changing this creates a new LoadBalancer.
@@ -292,13 +297,14 @@ type LoadbalancerV3Status struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // LoadbalancerV3 is the Schema for the LoadbalancerV3s API. Manages a LB Loadbalancer resource within OpenTelekomCloud.
-// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,opentelekomcloud}
 type LoadbalancerV3 struct {
 	metav1.TypeMeta   `json:",inline"`

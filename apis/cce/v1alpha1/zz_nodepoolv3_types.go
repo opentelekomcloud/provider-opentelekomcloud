@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -24,6 +20,7 @@ type DataVolumesInitParameters struct {
 	ExtendParam *string `json:"extendParam,omitempty" tf:"extend_param,omitempty"`
 
 	// Disk expansion parameters. A list of strings which describes additional disk parameters.
+	// +mapType=granular
 	ExtendParams map[string]*string `json:"extendParams,omitempty" tf:"extend_params,omitempty"`
 
 	// The Encryption KMS ID of the system volume. By default, it tries to get from env by OS_KMS_ID.
@@ -43,6 +40,7 @@ type DataVolumesObservation struct {
 	ExtendParam *string `json:"extendParam,omitempty" tf:"extend_param,omitempty"`
 
 	// Disk expansion parameters. A list of strings which describes additional disk parameters.
+	// +mapType=granular
 	ExtendParams map[string]*string `json:"extendParams,omitempty" tf:"extend_params,omitempty"`
 
 	// The Encryption KMS ID of the system volume. By default, it tries to get from env by OS_KMS_ID.
@@ -64,6 +62,7 @@ type DataVolumesParameters struct {
 
 	// Disk expansion parameters. A list of strings which describes additional disk parameters.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	ExtendParams map[string]*string `json:"extendParams,omitempty" tf:"extend_params,omitempty"`
 
 	// The Encryption KMS ID of the system volume. By default, it tries to get from env by OS_KMS_ID.
@@ -110,6 +109,7 @@ type NodePoolV3InitParameters struct {
 	InitialNodeCount *float64 `json:"initialNodeCount,omitempty" tf:"initial_node_count,omitempty"`
 
 	// Tags of a Kubernetes node, key/value pair format.
+	// +mapType=granular
 	K8STags map[string]*string `json:"k8sTags,omitempty" tf:"k8s_tags,omitempty"`
 
 	// Key pair name when logging in to select the key pair mode.
@@ -132,6 +132,10 @@ type NodePoolV3InitParameters struct {
 	// Node OS. Changing this parameter will create a new resource.
 	// Supported OS depends on kubernetes version of the cluster.
 	Os *string `json:"os,omitempty" tf:"os,omitempty"`
+
+	// Key pair name when logging in to select the key pair mode.
+	// This parameter and password are alternative. Changing this parameter will create a new resource.
+	PasswordSecretRef *v1.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
 
 	// Script required after installation. The input value can be a Base64 encoded string or not.
 	// Changing this parameter will create a new resource.
@@ -174,6 +178,7 @@ type NodePoolV3InitParameters struct {
 	Taints []TaintsInitParameters `json:"taints,omitempty" tf:"taints,omitempty"`
 
 	// Tag of a VM, key/value pair format. Changing this parameter will create a new resource.
+	// +mapType=granular
 	UserTags map[string]*string `json:"userTags,omitempty" tf:"user_tags,omitempty"`
 }
 
@@ -211,6 +216,7 @@ type NodePoolV3Observation struct {
 	InitialNodeCount *float64 `json:"initialNodeCount,omitempty" tf:"initial_node_count,omitempty"`
 
 	// Tags of a Kubernetes node, key/value pair format.
+	// +mapType=granular
 	K8STags map[string]*string `json:"k8sTags,omitempty" tf:"k8s_tags,omitempty"`
 
 	// Key pair name when logging in to select the key pair mode.
@@ -278,6 +284,7 @@ type NodePoolV3Observation struct {
 	Taints []TaintsObservation `json:"taints,omitempty" tf:"taints,omitempty"`
 
 	// Tag of a VM, key/value pair format. Changing this parameter will create a new resource.
+	// +mapType=granular
 	UserTags map[string]*string `json:"userTags,omitempty" tf:"user_tags,omitempty"`
 }
 
@@ -321,6 +328,7 @@ type NodePoolV3Parameters struct {
 
 	// Tags of a Kubernetes node, key/value pair format.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	K8STags map[string]*string `json:"k8sTags,omitempty" tf:"k8s_tags,omitempty"`
 
 	// Key pair name when logging in to select the key pair mode.
@@ -408,6 +416,7 @@ type NodePoolV3Parameters struct {
 
 	// Tag of a VM, key/value pair format. Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	UserTags map[string]*string `json:"userTags,omitempty" tf:"user_tags,omitempty"`
 }
 
@@ -418,6 +427,7 @@ type RootVolumeInitParameters struct {
 	ExtendParam *string `json:"extendParam,omitempty" tf:"extend_param,omitempty"`
 
 	// Disk expansion parameters. A list of strings which describes additional disk parameters.
+	// +mapType=granular
 	ExtendParams map[string]*string `json:"extendParams,omitempty" tf:"extend_params,omitempty"`
 
 	// The Encryption KMS ID of the system volume. By default, it tries to get from env by OS_KMS_ID.
@@ -437,6 +447,7 @@ type RootVolumeObservation struct {
 	ExtendParam *string `json:"extendParam,omitempty" tf:"extend_param,omitempty"`
 
 	// Disk expansion parameters. A list of strings which describes additional disk parameters.
+	// +mapType=granular
 	ExtendParams map[string]*string `json:"extendParams,omitempty" tf:"extend_params,omitempty"`
 
 	// The Encryption KMS ID of the system volume. By default, it tries to get from env by OS_KMS_ID.
@@ -458,6 +469,7 @@ type RootVolumeParameters struct {
 
 	// Disk expansion parameters. A list of strings which describes additional disk parameters.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	ExtendParams map[string]*string `json:"extendParams,omitempty" tf:"extend_params,omitempty"`
 
 	// The Encryption KMS ID of the system volume. By default, it tries to get from env by OS_KMS_ID.
@@ -536,13 +548,14 @@ type NodePoolV3Status struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // NodePoolV3 is the Schema for the NodePoolV3s API. Manages a CCE Cluster Node Pool resource within OpenTelekomCloud.
-// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,opentelekomcloud}
 type NodePoolV3 struct {
 	metav1.TypeMeta   `json:",inline"`

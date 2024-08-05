@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -26,6 +22,7 @@ type RecordsetV2InitParameters struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// An array of DNS records.
+	// +listType=set
 	Records []*string `json:"records,omitempty" tf:"records,omitempty"`
 
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
@@ -34,6 +31,7 @@ type RecordsetV2InitParameters struct {
 	TTL *float64 `json:"ttl,omitempty" tf:"ttl,omitempty"`
 
 	// The key/value pairs to associate with the zone.
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// The type of record set. Examples: "A", "MX".
@@ -42,6 +40,7 @@ type RecordsetV2InitParameters struct {
 
 	// Map of additional options. Changing this creates a
 	// new record set.
+	// +mapType=granular
 	ValueSpecs map[string]*string `json:"valueSpecs,omitempty" tf:"value_specs,omitempty"`
 
 	// The ID of the zone in which to create the record set.
@@ -60,6 +59,7 @@ type RecordsetV2Observation struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// An array of DNS records.
+	// +listType=set
 	Records []*string `json:"records,omitempty" tf:"records,omitempty"`
 
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
@@ -70,6 +70,7 @@ type RecordsetV2Observation struct {
 	TTL *float64 `json:"ttl,omitempty" tf:"ttl,omitempty"`
 
 	// The key/value pairs to associate with the zone.
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// The type of record set. Examples: "A", "MX".
@@ -78,6 +79,7 @@ type RecordsetV2Observation struct {
 
 	// Map of additional options. Changing this creates a
 	// new record set.
+	// +mapType=granular
 	ValueSpecs map[string]*string `json:"valueSpecs,omitempty" tf:"value_specs,omitempty"`
 
 	// The ID of the zone in which to create the record set.
@@ -97,6 +99,7 @@ type RecordsetV2Parameters struct {
 
 	// An array of DNS records.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	Records []*string `json:"records,omitempty" tf:"records,omitempty"`
 
 	// +kubebuilder:validation:Optional
@@ -108,6 +111,7 @@ type RecordsetV2Parameters struct {
 
 	// The key/value pairs to associate with the zone.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// The type of record set. Examples: "A", "MX".
@@ -118,6 +122,7 @@ type RecordsetV2Parameters struct {
 	// Map of additional options. Changing this creates a
 	// new record set.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	ValueSpecs map[string]*string `json:"valueSpecs,omitempty" tf:"value_specs,omitempty"`
 
 	// The ID of the zone in which to create the record set.
@@ -150,13 +155,14 @@ type RecordsetV2Status struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // RecordsetV2 is the Schema for the RecordsetV2s API. Manages a DNS Recordset resource within OpenTelekomCloud.
-// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,opentelekomcloud}
 type RecordsetV2 struct {
 	metav1.TypeMeta   `json:",inline"`

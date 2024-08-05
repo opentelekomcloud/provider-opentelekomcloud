@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -95,6 +91,7 @@ type CertificateUsersParameters struct {
 type ClusterV3InitParameters struct {
 
 	// Cluster annotation, key/value pair format. Changing this parameter will create a new cluster resource.
+	// +mapType=granular
 	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
 	// Authenticating proxy configuration. Required if authentication_mode is set to authenticating_proxy.
@@ -174,6 +171,7 @@ type ClusterV3InitParameters struct {
 
 	// Extended parameter. Changing this parameter will create a new cluster resource.
 	// List of cluster extended params.
+	// +mapType=granular
 	ExtendParam map[string]*string `json:"extendParam,omitempty" tf:"extend_param,omitempty"`
 
 	// Cluster specifications. Changing this parameter will create a new cluster resource.
@@ -199,6 +197,7 @@ type ClusterV3InitParameters struct {
 	KubernetesSvcIPRange *string `json:"kubernetesSvcIpRange,omitempty" tf:"kubernetes_svc_ip_range,omitempty"`
 
 	// Cluster tag, key/value pair format. Changing this parameter will create a new cluster resource.
+	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
 	// Enable multiple AZs for the cluster, only when using HA flavors. Changing this parameter will create a new cluster resource.
@@ -222,6 +221,7 @@ type ClusterV3InitParameters struct {
 type ClusterV3Observation struct {
 
 	// Cluster annotation, key/value pair format. Changing this parameter will create a new cluster resource.
+	// +mapType=granular
 	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
 	// Authenticating proxy configuration. Required if authentication_mode is set to authenticating_proxy.
@@ -305,6 +305,7 @@ type ClusterV3Observation struct {
 
 	// Extended parameter. Changing this parameter will create a new cluster resource.
 	// List of cluster extended params.
+	// +mapType=granular
 	ExtendParam map[string]*string `json:"extendParam,omitempty" tf:"extend_param,omitempty"`
 
 	// The external network address.
@@ -332,6 +333,7 @@ type ClusterV3Observation struct {
 	IgnoreCertificateUsersData *bool `json:"ignoreCertificateUsersData,omitempty" tf:"ignore_certificate_users_data,omitempty"`
 
 	// List of installed addon IDs. Empty if ignore_addons is true.
+	// +listType=set
 	InstalledAddons []*string `json:"installedAddons,omitempty" tf:"installed_addons,omitempty"`
 
 	// The internal network address.
@@ -345,6 +347,7 @@ type ClusterV3Observation struct {
 	KubernetesSvcIPRange *string `json:"kubernetesSvcIpRange,omitempty" tf:"kubernetes_svc_ip_range,omitempty"`
 
 	// Cluster tag, key/value pair format. Changing this parameter will create a new cluster resource.
+	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
 	// Enable multiple AZs for the cluster, only when using HA flavors. Changing this parameter will create a new cluster resource.
@@ -378,6 +381,7 @@ type ClusterV3Parameters struct {
 
 	// Cluster annotation, key/value pair format. Changing this parameter will create a new cluster resource.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
 	// Authenticating proxy configuration. Required if authentication_mode is set to authenticating_proxy.
@@ -479,6 +483,7 @@ type ClusterV3Parameters struct {
 	// Extended parameter. Changing this parameter will create a new cluster resource.
 	// List of cluster extended params.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	ExtendParam map[string]*string `json:"extendParam,omitempty" tf:"extend_param,omitempty"`
 
 	// Cluster specifications. Changing this parameter will create a new cluster resource.
@@ -512,6 +517,7 @@ type ClusterV3Parameters struct {
 
 	// Cluster tag, key/value pair format. Changing this parameter will create a new cluster resource.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
 	// Enable multiple AZs for the cluster, only when using HA flavors. Changing this parameter will create a new cluster resource.
@@ -562,13 +568,14 @@ type ClusterV3Status struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // ClusterV3 is the Schema for the ClusterV3s API. Manages a CCE Cluster resource within OpenTelekomCloud.
-// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,opentelekomcloud}
 type ClusterV3 struct {
 	metav1.TypeMeta   `json:",inline"`

@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -66,6 +62,7 @@ type ImageV2InitParameters struct {
 	OsVersion *string `json:"osVersion,omitempty" tf:"os_version,omitempty"`
 
 	// The tags of the image.
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// The image type. Must be one of ECS, FusionCompute, BMS,
@@ -142,6 +139,7 @@ type ImageV2Observation struct {
 	OsVersion *string `json:"osVersion,omitempty" tf:"os_version,omitempty"`
 
 	// The tags of the image.
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// The image type. Must be one of ECS, FusionCompute, BMS,
@@ -217,6 +215,7 @@ type ImageV2Parameters struct {
 
 	// The tags of the image.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// The image type. Must be one of ECS, FusionCompute, BMS,
@@ -255,13 +254,14 @@ type ImageV2Status struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // ImageV2 is the Schema for the ImageV2s API. Manages a IMS Image resource within OpenTelekomCloud.
-// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,opentelekomcloud}
 type ImageV2 struct {
 	metav1.TypeMeta   `json:",inline"`

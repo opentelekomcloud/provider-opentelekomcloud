@@ -35,5 +35,21 @@ func (mg *SubnetV1) ResolveReferences(ctx context.Context, c client.Reader) erro
 	mg.Spec.ForProvider.VPCID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.VPCIDRef = rsp.ResolvedReference
 
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.VPCID),
+		Extract:      reference.ExternalName(),
+		Reference:    mg.Spec.InitProvider.VPCIDRef,
+		Selector:     mg.Spec.InitProvider.VPCIDSelector,
+		To: reference.To{
+			List:    &VpcV1List{},
+			Managed: &VpcV1{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.VPCID")
+	}
+	mg.Spec.InitProvider.VPCID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.VPCIDRef = rsp.ResolvedReference
+
 	return nil
 }

@@ -3,7 +3,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.13.0
+    controller-gen.kubebuilder.io/version: v0.14.0
   name: instancev2s.compute.opentelekomcloud.crossplane.io
 spec:
   group: compute.opentelekomcloud.crossplane.io
@@ -19,11 +19,11 @@ spec:
   scope: Cluster
   versions:
   - additionalPrinterColumns:
-    - jsonPath: .status.conditions[?(@.type=='Ready')].status
-      name: READY
-      type: string
     - jsonPath: .status.conditions[?(@.type=='Synced')].status
       name: SYNCED
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
       type: string
     - jsonPath: .metadata.annotations.crossplane\.io/external-name
       name: EXTERNAL-NAME
@@ -38,14 +38,19 @@ spec:
           ECS Instance resource within OpenTelekomCloud.
         properties:
           apiVersion:
-            description: 'APIVersion defines the versioned schema of this representation
-              of an object. Servers should convert recognized schemas to the latest
-              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
             type: string
           kind:
-            description: 'Kind is a string value representing the REST resource this
-              object represents. Servers may infer this from the endpoint the client
-              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
             type: string
           metadata:
             type: object
@@ -54,13 +59,14 @@ spec:
             properties:
               deletionPolicy:
                 default: Delete
-                description: 'DeletionPolicy specifies what will happen to the underlying
-                  external when this managed resource is deleted - either "Delete"
-                  or "Orphan" the external resource. This field is planned to be deprecated
-                  in favor of the ManagementPolicies field in a future release. Currently,
-                  both could be set independently and non-default values would be
-                  honored if the feature flag is enabled. See the design doc for more
-                  information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223'
+                description: |-
+                  DeletionPolicy specifies what will happen to the underlying external
+                  when this managed resource is deleted - either "Delete" or "Orphan" the
+                  external resource.
+                  This field is planned to be deprecated in favor of the ManagementPolicies
+                  field in a future release. Currently, both could be set independently and
+                  non-default values would be honored if the feature flag is enabled.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
                 enum:
                 - Orphan
                 - Delete
@@ -75,8 +81,9 @@ spec:
                     description: The first detected Fixed IPv6 address.
                     type: string
                   adminPassSecretRef:
-                    description: The administrative password to assign to the server.
-                      Changing this changes the root password on the existing server.
+                    description: |-
+                      The administrative password to assign to the server. Changing this changes the root password
+                      on the existing server.
                     properties:
                       key:
                         description: The key to select.
@@ -97,15 +104,17 @@ spec:
                       Defaults to true.
                     type: boolean
                   availabilityZone:
-                    description: The availability zone in which to create the server.
-                      Changing this creates a new server.
+                    description: |-
+                      The availability zone in which to create the server. Changing this creates a new
+                      server.
                     type: string
                   blockDevice:
-                    description: Configuration of block devices. The block_device
-                      structure is documented below. Changing this creates a new server.
-                      You can specify multiple block devices which will create an
-                      instance with multiple disks. This configuration is very flexible,
-                      so please see the following reference for more information.
+                    description: |-
+                      Configuration of block devices. The block_device structure is documented below. Changing
+                      this creates a new server. You can specify multiple block devices which will create an instance with multiple disks.
+                      This configuration is very flexible, so please see the
+                      following reference
+                      for more information.
                     items:
                       properties:
                         bootIndex:
@@ -113,13 +122,14 @@ spec:
                             0. Changing this creates a new server.
                           type: number
                         deleteOnTermination:
-                          description: Delete the volume / block device upon termination
-                            of the instance. Defaults to false. Changing this creates
-                            a new server.
+                          description: |-
+                            Delete the volume / block device upon termination of the instance. Defaults to
+                            false. Changing this creates a new server.
                           type: boolean
                         destinationType:
-                          description: The type that gets created. Currently only
-                            support "volume". Changing this creates a new server.
+                          description: |-
+                            The type that gets created. Currently only support "volume". Changing this creates a
+                            new server.
                           type: string
                         deviceName:
                           description: A unique name for the resource.
@@ -127,40 +137,44 @@ spec:
                         guestFormat:
                           type: string
                         sourceType:
-                          description: The source type of the device. Must be one
-                            of "blank", "image", "volume", or "snapshot". Changing
-                            this creates a new server.
+                          description: |-
+                            The source type of the device. Must be one of
+                            "blank", "image", "volume", or "snapshot". Changing this creates a new server.
                           type: string
                         uuid:
-                          description: The UUID of the image, volume, or snapshot.
-                            Changing this creates a new server.
+                          description: |-
+                            The UUID of the image, volume, or snapshot. Changing
+                            this creates a new server.
                           type: string
                         volumeSize:
-                          description: 'The size of the volume to create (in gigabytes).
-                            Required in the following combinations: source=image and
-                            destination=volume, and source=blank and destination=volume.
-                            Changing this creates a new server.'
+                          description: |-
+                            The size of the volume to create (in gigabytes). Required in the following combinations: source=image
+                            and destination=volume, and source=blank and destination=volume. Changing this creates a new server.
                           type: number
                         volumeType:
-                          description: Currently, the value can be SSD (ultra-I/O
-                            disk type), SAS (high I/O disk type), or SATA (common
-                            I/O disk type) OTC-API
+                          description: |-
+                            Currently, the value can be SSD (ultra-I/O disk type),
+                            SAS (high I/O disk type), or SATA (common I/O disk type)
+                            OTC-API
                           type: string
                       type: object
                     type: array
                   configDrive:
-                    description: Whether to use the config_drive feature to configure
-                      the instance. Changing this creates a new server.
+                    description: |-
+                      Whether to use the config_drive feature to configure the instance. Changing this creates a
+                      new server.
                     type: boolean
                   description:
                     description: Server description.
                     type: string
                   flavorId:
-                    description: The flavor ID of the desired flavor for the server.
+                    description: |-
+                      The flavor ID of the desired flavor for the server.
                       Changing this resizes the existing server.
                     type: string
                   flavorName:
-                    description: The name of the desired flavor for the server. Changing
+                    description: |-
+                      The name of the desired flavor for the server. Changing
                       this resizes the existing server.
                     type: string
                   imageId:
@@ -172,9 +186,9 @@ spec:
                       this creates a new server.
                     type: string
                   keyPair:
-                    description: The name of a key pair to put on the server. The
-                      key pair must already be created and associated with the tenant's
-                      account. Changing this creates a new server.
+                    description: |-
+                      The name of a key pair to put on the server. The key pair must already be created and
+                      associated with the tenant's account. Changing this creates a new server.
                     type: string
                   keyPairRef:
                     description: Reference to a KeypairV2 to populate keyPair.
@@ -187,21 +201,21 @@ spec:
                         properties:
                           resolution:
                             default: Required
-                            description: Resolution specifies whether resolution of
-                              this reference is required. The default is 'Required',
-                              which means the reconcile will fail if the reference
-                              cannot be resolved. 'Optional' means this reference
-                              will be a no-op if it cannot be resolved.
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
                             enum:
                             - Required
                             - Optional
                             type: string
                           resolve:
-                            description: Resolve specifies when this reference should
-                              be resolved. The default is 'IfNotPresent', which will
-                              attempt to resolve the reference only when the corresponding
-                              field is not present. Use 'Always' to resolve the reference
-                              on every reconcile.
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
                             enum:
                             - Always
                             - IfNotPresent
@@ -214,8 +228,9 @@ spec:
                     description: Selector for a KeypairV2 to populate keyPair.
                     properties:
                       matchControllerRef:
-                        description: MatchControllerRef ensures an object with the
-                          same controller reference as the selecting object is selected.
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
                         type: boolean
                       matchLabels:
                         additionalProperties:
@@ -228,21 +243,21 @@ spec:
                         properties:
                           resolution:
                             default: Required
-                            description: Resolution specifies whether resolution of
-                              this reference is required. The default is 'Required',
-                              which means the reconcile will fail if the reference
-                              cannot be resolved. 'Optional' means this reference
-                              will be a no-op if it cannot be resolved.
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
                             enum:
                             - Required
                             - Optional
                             type: string
                           resolve:
-                            description: Resolve specifies when this reference should
-                              be resolved. The default is 'IfNotPresent', which will
-                              attempt to resolve the reference only when the corresponding
-                              field is not present. Use 'Always' to resolve the reference
-                              on every reconcile.
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
                             enum:
                             - Always
                             - IfNotPresent
@@ -252,43 +267,49 @@ spec:
                   metadata:
                     additionalProperties:
                       type: string
-                    description: Metadata key/value pairs to make available from within
-                      the instance. Changing this updates the existing server metadata.
+                    description: |-
+                      Metadata key/value pairs to make available from within the instance. Changing this updates the
+                      existing server metadata.
                     type: object
+                    x-kubernetes-map-type: granular
                   name:
                     description: A unique name for the resource.
                     type: string
                   network:
-                    description: An array of one or more networks to attach to the
-                      instance. Required when there are multiple networks defined
-                      for the tenant. The network object structure is documented below.
-                      Changing this creates a new server.
+                    description: |-
+                      An array of one or more networks to attach to the instance. Required when there are multiple
+                      networks defined for the tenant. The network object structure is documented below. Changing this creates a new server.
                     items:
                       properties:
                         accessNetwork:
-                          description: Specifies if this network should be used for
-                            provisioning access. Accepts true or false. Defaults to
-                            false.
+                          description: |-
+                            Specifies if this network should be used for provisioning access. Accepts true or false.
+                            Defaults to false.
                           type: boolean
                         fixedIpV4:
-                          description: Specifies a fixed IPv4 address to be used on
-                            this network. Changing this creates a new server.
+                          description: |-
+                            Specifies a fixed IPv4 address to be used on this network. Changing this creates a new
+                            server.
                           type: string
                         fixedIpV6:
-                          description: Specifies a fixed IPv6 address to be used on
-                            this network. Changing this creates a new server.
+                          description: |-
+                            Specifies a fixed IPv6 address to be used on this network. Changing this creates a new
+                            server.
                           type: string
                         name:
-                          description: The human-readable name of the network. Changing
-                            this creates a new server.
+                          description: |-
+                            The human-readable name of the network. Changing this creates
+                            a new server.
                           type: string
                         port:
-                          description: The port UUID of a network to attach to the
-                            server. Changing this creates a new server.
+                          description: |-
+                            The port UUID of a network to attach to the server. Changing
+                            this creates a new server.
                           type: string
                         uuid:
-                          description: The network UUID to attach to the server. Changing
-                            this creates a new server.
+                          description: |-
+                            The network UUID to attach to the server. Changing this
+                            creates a new server.
                           type: string
                       type: object
                     type: array
@@ -299,22 +320,24 @@ spec:
                   region:
                     type: string
                   schedulerHints:
-                    description: Provide the Nova scheduler with hints on how the
-                      instance should be launched. The available hints are described
-                      below.
+                    description: |-
+                      Provide the Nova scheduler with hints on how the instance should be launched. The
+                      available hints are described below.
                     items:
                       properties:
                         buildNearHostIp:
-                          description: An IP Address in CIDR form. The instance will
-                            be placed on a compute node that is in the same subnet.
+                          description: |-
+                            An IP Address in CIDR form. The instance will be placed on a compute node that is in
+                            the same subnet.
                           type: string
                         dehId:
                           description: The ID of DeH. This parameter takes effect
                             only when the value of tenancy is dedicated.
                           type: string
                         differentHost:
-                          description: A list of instance UUIDs. The instance will
-                            be scheduled on a different host than all other instances.
+                          description: |-
+                            A list of instance UUIDs. The instance will be scheduled on a different host than all
+                            other instances.
                           items:
                             type: string
                           type: array
@@ -338,18 +361,20 @@ spec:
                           description: The name of a cell to host the instance.
                           type: string
                         tenancy:
-                          description: The tenancy specifies whether the ECS is to
-                            be created on a Dedicated Host (DeH) or in a shared pool.
+                          description: |-
+                            The tenancy specifies whether the ECS is to be created on a Dedicated Host
+                            (DeH) or in a shared pool.
                           type: string
                       type: object
                     type: array
                   securityGroups:
-                    description: An array of one or more security group names to associate
-                      with the server. Changing this results in adding/removing security
-                      groups from the existing server.
+                    description: |-
+                      An array of one or more security group names to associate with the server. Changing
+                      this results in adding/removing security groups from the existing server.
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                   securityGroupsRefs:
                     description: References to SecgroupV2 to populate securityGroups.
                     items:
@@ -363,21 +388,21 @@ spec:
                           properties:
                             resolution:
                               default: Required
-                              description: Resolution specifies whether resolution
-                                of this reference is required. The default is 'Required',
-                                which means the reconcile will fail if the reference
-                                cannot be resolved. 'Optional' means this reference
-                                will be a no-op if it cannot be resolved.
+                              description: |-
+                                Resolution specifies whether resolution of this reference is required.
+                                The default is 'Required', which means the reconcile will fail if the
+                                reference cannot be resolved. 'Optional' means this reference will be
+                                a no-op if it cannot be resolved.
                               enum:
                               - Required
                               - Optional
                               type: string
                             resolve:
-                              description: Resolve specifies when this reference should
-                                be resolved. The default is 'IfNotPresent', which
-                                will attempt to resolve the reference only when the
-                                corresponding field is not present. Use 'Always' to
-                                resolve the reference on every reconcile.
+                              description: |-
+                                Resolve specifies when this reference should be resolved. The default
+                                is 'IfNotPresent', which will attempt to resolve the reference only when
+                                the corresponding field is not present. Use 'Always' to resolve the
+                                reference on every reconcile.
                               enum:
                               - Always
                               - IfNotPresent
@@ -391,8 +416,9 @@ spec:
                     description: Selector for a list of SecgroupV2 to populate securityGroups.
                     properties:
                       matchControllerRef:
-                        description: MatchControllerRef ensures an object with the
-                          same controller reference as the selecting object is selected.
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
                         type: boolean
                       matchLabels:
                         additionalProperties:
@@ -405,21 +431,21 @@ spec:
                         properties:
                           resolution:
                             default: Required
-                            description: Resolution specifies whether resolution of
-                              this reference is required. The default is 'Required',
-                              which means the reconcile will fail if the reference
-                              cannot be resolved. 'Optional' means this reference
-                              will be a no-op if it cannot be resolved.
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
                             enum:
                             - Required
                             - Optional
                             type: string
                           resolve:
-                            description: Resolve specifies when this reference should
-                              be resolved. The default is 'IfNotPresent', which will
-                              attempt to resolve the reference only when the corresponding
-                              field is not present. Use 'Always' to resolve the reference
-                              on every reconcile.
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
                             enum:
                             - Always
                             - IfNotPresent
@@ -427,9 +453,9 @@ spec:
                         type: object
                     type: object
                   sshPrivateKeyPathSecretRef:
-                    description: The path to the private key to use for SSH access.
-                      Required only if you want to get the password from the windows
-                      instance.
+                    description: |-
+                      The path to the private key to use for SSH access. Required only if you want to
+                      get the password from the windows instance.
                     properties:
                       key:
                         description: The key to select.
@@ -446,32 +472,33 @@ spec:
                     - namespace
                     type: object
                   stopBeforeDestroy:
-                    description: Whether to try stop instance gracefully before destroying
-                      it, thus giving chance for guest OS daemons to stop correctly.
-                      If instance doesn't stop within a timeout, it will be destroyed
-                      anyway.
+                    description: |-
+                      Whether to try stop instance gracefully before destroying it, thus giving chance
+                      for guest OS daemons to stop correctly. If instance doesn't stop within a timeout, it will be destroyed anyway.
                     type: boolean
                   tags:
                     additionalProperties:
                       type: string
                     description: Tags key/value pairs to associate with the instance.
                     type: object
+                    x-kubernetes-map-type: granular
                   userData:
                     description: The user data to provide when launching the instance.
                       Changing this creates a new server.
                     type: string
                 type: object
               initProvider:
-                description: THIS IS A BETA FIELD. It will be honored unless the Management
-                  Policies feature flag is disabled. InitProvider holds the same fields
-                  as ForProvider, with the exception of Identifier and other resource
-                  reference fields. The fields that are in InitProvider are merged
-                  into ForProvider when the resource is created. The same fields are
-                  also added to the terraform ignore_changes hook, to avoid updating
-                  them after creation. This is useful for fields that are required
-                  on creation, but we do not desire to update them after creation,
-                  for example because of an external controller is managing them,
-                  like an autoscaler.
+                description: |-
+                  THIS IS A BETA FIELD. It will be honored
+                  unless the Management Policies feature flag is disabled.
+                  InitProvider holds the same fields as ForProvider, with the exception
+                  of Identifier and other resource reference fields. The fields that are
+                  in InitProvider are merged into ForProvider when the resource is created.
+                  The same fields are also added to the terraform ignore_changes hook, to
+                  avoid updating them after creation. This is useful for fields that are
+                  required on creation, but we do not desire to update them after creation,
+                  for example because of an external controller is managing them, like an
+                  autoscaler.
                 properties:
                   accessIpV4:
                     description: The first detected Fixed IPv4 address or the Floating
@@ -480,20 +507,41 @@ spec:
                   accessIpV6:
                     description: The first detected Fixed IPv6 address.
                     type: string
+                  adminPassSecretRef:
+                    description: |-
+                      The administrative password to assign to the server. Changing this changes the root password
+                      on the existing server.
+                    properties:
+                      key:
+                        description: The key to select.
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                      namespace:
+                        description: Namespace of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    - namespace
+                    type: object
                   autoRecovery:
                     description: Configures or deletes automatic recovery of an instance.
                       Defaults to true.
                     type: boolean
                   availabilityZone:
-                    description: The availability zone in which to create the server.
-                      Changing this creates a new server.
+                    description: |-
+                      The availability zone in which to create the server. Changing this creates a new
+                      server.
                     type: string
                   blockDevice:
-                    description: Configuration of block devices. The block_device
-                      structure is documented below. Changing this creates a new server.
-                      You can specify multiple block devices which will create an
-                      instance with multiple disks. This configuration is very flexible,
-                      so please see the following reference for more information.
+                    description: |-
+                      Configuration of block devices. The block_device structure is documented below. Changing
+                      this creates a new server. You can specify multiple block devices which will create an instance with multiple disks.
+                      This configuration is very flexible, so please see the
+                      following reference
+                      for more information.
                     items:
                       properties:
                         bootIndex:
@@ -501,13 +549,14 @@ spec:
                             0. Changing this creates a new server.
                           type: number
                         deleteOnTermination:
-                          description: Delete the volume / block device upon termination
-                            of the instance. Defaults to false. Changing this creates
-                            a new server.
+                          description: |-
+                            Delete the volume / block device upon termination of the instance. Defaults to
+                            false. Changing this creates a new server.
                           type: boolean
                         destinationType:
-                          description: The type that gets created. Currently only
-                            support "volume". Changing this creates a new server.
+                          description: |-
+                            The type that gets created. Currently only support "volume". Changing this creates a
+                            new server.
                           type: string
                         deviceName:
                           description: A unique name for the resource.
@@ -515,40 +564,44 @@ spec:
                         guestFormat:
                           type: string
                         sourceType:
-                          description: The source type of the device. Must be one
-                            of "blank", "image", "volume", or "snapshot". Changing
-                            this creates a new server.
+                          description: |-
+                            The source type of the device. Must be one of
+                            "blank", "image", "volume", or "snapshot". Changing this creates a new server.
                           type: string
                         uuid:
-                          description: The UUID of the image, volume, or snapshot.
-                            Changing this creates a new server.
+                          description: |-
+                            The UUID of the image, volume, or snapshot. Changing
+                            this creates a new server.
                           type: string
                         volumeSize:
-                          description: 'The size of the volume to create (in gigabytes).
-                            Required in the following combinations: source=image and
-                            destination=volume, and source=blank and destination=volume.
-                            Changing this creates a new server.'
+                          description: |-
+                            The size of the volume to create (in gigabytes). Required in the following combinations: source=image
+                            and destination=volume, and source=blank and destination=volume. Changing this creates a new server.
                           type: number
                         volumeType:
-                          description: Currently, the value can be SSD (ultra-I/O
-                            disk type), SAS (high I/O disk type), or SATA (common
-                            I/O disk type) OTC-API
+                          description: |-
+                            Currently, the value can be SSD (ultra-I/O disk type),
+                            SAS (high I/O disk type), or SATA (common I/O disk type)
+                            OTC-API
                           type: string
                       type: object
                     type: array
                   configDrive:
-                    description: Whether to use the config_drive feature to configure
-                      the instance. Changing this creates a new server.
+                    description: |-
+                      Whether to use the config_drive feature to configure the instance. Changing this creates a
+                      new server.
                     type: boolean
                   description:
                     description: Server description.
                     type: string
                   flavorId:
-                    description: The flavor ID of the desired flavor for the server.
+                    description: |-
+                      The flavor ID of the desired flavor for the server.
                       Changing this resizes the existing server.
                     type: string
                   flavorName:
-                    description: The name of the desired flavor for the server. Changing
+                    description: |-
+                      The name of the desired flavor for the server. Changing
                       this resizes the existing server.
                     type: string
                   imageId:
@@ -559,46 +612,131 @@ spec:
                     description: The name of the desired image for the server. Changing
                       this creates a new server.
                     type: string
+                  keyPair:
+                    description: |-
+                      The name of a key pair to put on the server. The key pair must already be created and
+                      associated with the tenant's account. Changing this creates a new server.
+                    type: string
+                  keyPairRef:
+                    description: Reference to a KeypairV2 to populate keyPair.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  keyPairSelector:
+                    description: Selector for a KeypairV2 to populate keyPair.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
                   metadata:
                     additionalProperties:
                       type: string
-                    description: Metadata key/value pairs to make available from within
-                      the instance. Changing this updates the existing server metadata.
+                    description: |-
+                      Metadata key/value pairs to make available from within the instance. Changing this updates the
+                      existing server metadata.
                     type: object
+                    x-kubernetes-map-type: granular
                   name:
                     description: A unique name for the resource.
                     type: string
                   network:
-                    description: An array of one or more networks to attach to the
-                      instance. Required when there are multiple networks defined
-                      for the tenant. The network object structure is documented below.
-                      Changing this creates a new server.
+                    description: |-
+                      An array of one or more networks to attach to the instance. Required when there are multiple
+                      networks defined for the tenant. The network object structure is documented below. Changing this creates a new server.
                     items:
                       properties:
                         accessNetwork:
-                          description: Specifies if this network should be used for
-                            provisioning access. Accepts true or false. Defaults to
-                            false.
+                          description: |-
+                            Specifies if this network should be used for provisioning access. Accepts true or false.
+                            Defaults to false.
                           type: boolean
                         fixedIpV4:
-                          description: Specifies a fixed IPv4 address to be used on
-                            this network. Changing this creates a new server.
+                          description: |-
+                            Specifies a fixed IPv4 address to be used on this network. Changing this creates a new
+                            server.
                           type: string
                         fixedIpV6:
-                          description: Specifies a fixed IPv6 address to be used on
-                            this network. Changing this creates a new server.
+                          description: |-
+                            Specifies a fixed IPv6 address to be used on this network. Changing this creates a new
+                            server.
                           type: string
                         name:
-                          description: The human-readable name of the network. Changing
-                            this creates a new server.
+                          description: |-
+                            The human-readable name of the network. Changing this creates
+                            a new server.
                           type: string
                         port:
-                          description: The port UUID of a network to attach to the
-                            server. Changing this creates a new server.
+                          description: |-
+                            The port UUID of a network to attach to the server. Changing
+                            this creates a new server.
                           type: string
                         uuid:
-                          description: The network UUID to attach to the server. Changing
-                            this creates a new server.
+                          description: |-
+                            The network UUID to attach to the server. Changing this
+                            creates a new server.
                           type: string
                       type: object
                     type: array
@@ -609,22 +747,24 @@ spec:
                   region:
                     type: string
                   schedulerHints:
-                    description: Provide the Nova scheduler with hints on how the
-                      instance should be launched. The available hints are described
-                      below.
+                    description: |-
+                      Provide the Nova scheduler with hints on how the instance should be launched. The
+                      available hints are described below.
                     items:
                       properties:
                         buildNearHostIp:
-                          description: An IP Address in CIDR form. The instance will
-                            be placed on a compute node that is in the same subnet.
+                          description: |-
+                            An IP Address in CIDR form. The instance will be placed on a compute node that is in
+                            the same subnet.
                           type: string
                         dehId:
                           description: The ID of DeH. This parameter takes effect
                             only when the value of tenancy is dedicated.
                           type: string
                         differentHost:
-                          description: A list of instance UUIDs. The instance will
-                            be scheduled on a different host than all other instances.
+                          description: |-
+                            A list of instance UUIDs. The instance will be scheduled on a different host than all
+                            other instances.
                           items:
                             type: string
                           type: array
@@ -648,22 +788,127 @@ spec:
                           description: The name of a cell to host the instance.
                           type: string
                         tenancy:
-                          description: The tenancy specifies whether the ECS is to
-                            be created on a Dedicated Host (DeH) or in a shared pool.
+                          description: |-
+                            The tenancy specifies whether the ECS is to be created on a Dedicated Host
+                            (DeH) or in a shared pool.
                           type: string
                       type: object
                     type: array
+                  securityGroups:
+                    description: |-
+                      An array of one or more security group names to associate with the server. Changing
+                      this results in adding/removing security groups from the existing server.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  securityGroupsRefs:
+                    description: References to SecgroupV2 to populate securityGroups.
+                    items:
+                      description: A Reference to a named object.
+                      properties:
+                        name:
+                          description: Name of the referenced object.
+                          type: string
+                        policy:
+                          description: Policies for referencing.
+                          properties:
+                            resolution:
+                              default: Required
+                              description: |-
+                                Resolution specifies whether resolution of this reference is required.
+                                The default is 'Required', which means the reconcile will fail if the
+                                reference cannot be resolved. 'Optional' means this reference will be
+                                a no-op if it cannot be resolved.
+                              enum:
+                              - Required
+                              - Optional
+                              type: string
+                            resolve:
+                              description: |-
+                                Resolve specifies when this reference should be resolved. The default
+                                is 'IfNotPresent', which will attempt to resolve the reference only when
+                                the corresponding field is not present. Use 'Always' to resolve the
+                                reference on every reconcile.
+                              enum:
+                              - Always
+                              - IfNotPresent
+                              type: string
+                          type: object
+                      required:
+                      - name
+                      type: object
+                    type: array
+                  securityGroupsSelector:
+                    description: Selector for a list of SecgroupV2 to populate securityGroups.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
+                  sshPrivateKeyPathSecretRef:
+                    description: |-
+                      The path to the private key to use for SSH access. Required only if you want to
+                      get the password from the windows instance.
+                    properties:
+                      key:
+                        description: The key to select.
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                      namespace:
+                        description: Namespace of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    - namespace
+                    type: object
                   stopBeforeDestroy:
-                    description: Whether to try stop instance gracefully before destroying
-                      it, thus giving chance for guest OS daemons to stop correctly.
-                      If instance doesn't stop within a timeout, it will be destroyed
-                      anyway.
+                    description: |-
+                      Whether to try stop instance gracefully before destroying it, thus giving chance
+                      for guest OS daemons to stop correctly. If instance doesn't stop within a timeout, it will be destroyed anyway.
                     type: boolean
                   tags:
                     additionalProperties:
                       type: string
                     description: Tags key/value pairs to associate with the instance.
                     type: object
+                    x-kubernetes-map-type: granular
                   userData:
                     description: The user data to provide when launching the instance.
                       Changing this creates a new server.
@@ -672,19 +917,21 @@ spec:
               managementPolicies:
                 default:
                 - '*'
-                description: 'THIS IS A BETA FIELD. It is on by default but can be
-                  opted out through a Crossplane feature flag. ManagementPolicies
-                  specify the array of actions Crossplane is allowed to take on the
-                  managed and external resources. This field is planned to replace
-                  the DeletionPolicy field in a future release. Currently, both could
-                  be set independently and non-default values would be honored if
-                  the feature flag is enabled. If both are custom, the DeletionPolicy
-                  field will be ignored. See the design doc for more information:
-                  https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
-                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md'
+                description: |-
+                  THIS IS A BETA FIELD. It is on by default but can be opted out
+                  through a Crossplane feature flag.
+                  ManagementPolicies specify the array of actions Crossplane is allowed to
+                  take on the managed and external resources.
+                  This field is planned to replace the DeletionPolicy field in a future
+                  release. Currently, both could be set independently and non-default
+                  values would be honored if the feature flag is enabled. If both are
+                  custom, the DeletionPolicy field will be ignored.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md
                 items:
-                  description: A ManagementAction represents an action that the Crossplane
-                    controllers can take on an external resource.
+                  description: |-
+                    A ManagementAction represents an action that the Crossplane controllers
+                    can take on an external resource.
                   enum:
                   - Observe
                   - Create
@@ -697,9 +944,10 @@ spec:
               providerConfigRef:
                 default:
                   name: default
-                description: ProviderConfigReference specifies how the provider that
-                  will be used to create, observe, update, and delete this managed
-                  resource should be configured.
+                description: |-
+                  ProviderConfigReference specifies how the provider that will be used to
+                  create, observe, update, and delete this managed resource should be
+                  configured.
                 properties:
                   name:
                     description: Name of the referenced object.
@@ -709,21 +957,21 @@ spec:
                     properties:
                       resolution:
                         default: Required
-                        description: Resolution specifies whether resolution of this
-                          reference is required. The default is 'Required', which
-                          means the reconcile will fail if the reference cannot be
-                          resolved. 'Optional' means this reference will be a no-op
-                          if it cannot be resolved.
+                        description: |-
+                          Resolution specifies whether resolution of this reference is required.
+                          The default is 'Required', which means the reconcile will fail if the
+                          reference cannot be resolved. 'Optional' means this reference will be
+                          a no-op if it cannot be resolved.
                         enum:
                         - Required
                         - Optional
                         type: string
                       resolve:
-                        description: Resolve specifies when this reference should
-                          be resolved. The default is 'IfNotPresent', which will attempt
-                          to resolve the reference only when the corresponding field
-                          is not present. Use 'Always' to resolve the reference on
-                          every reconcile.
+                        description: |-
+                          Resolve specifies when this reference should be resolved. The default
+                          is 'IfNotPresent', which will attempt to resolve the reference only when
+                          the corresponding field is not present. Use 'Always' to resolve the
+                          reference on every reconcile.
                         enum:
                         - Always
                         - IfNotPresent
@@ -733,17 +981,19 @@ spec:
                 - name
                 type: object
               publishConnectionDetailsTo:
-                description: PublishConnectionDetailsTo specifies the connection secret
-                  config which contains a name, metadata and a reference to secret
-                  store config to which any connection details for this managed resource
-                  should be written. Connection details frequently include the endpoint,
-                  username, and password required to connect to the managed resource.
+                description: |-
+                  PublishConnectionDetailsTo specifies the connection secret config which
+                  contains a name, metadata and a reference to secret store config to
+                  which any connection details for this managed resource should be written.
+                  Connection details frequently include the endpoint, username,
+                  and password required to connect to the managed resource.
                 properties:
                   configRef:
                     default:
                       name: default
-                    description: SecretStoreConfigRef specifies which secret store
-                      config should be used for this ConnectionSecret.
+                    description: |-
+                      SecretStoreConfigRef specifies which secret store config should be used
+                      for this ConnectionSecret.
                     properties:
                       name:
                         description: Name of the referenced object.
@@ -753,21 +1003,21 @@ spec:
                         properties:
                           resolution:
                             default: Required
-                            description: Resolution specifies whether resolution of
-                              this reference is required. The default is 'Required',
-                              which means the reconcile will fail if the reference
-                              cannot be resolved. 'Optional' means this reference
-                              will be a no-op if it cannot be resolved.
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
                             enum:
                             - Required
                             - Optional
                             type: string
                           resolve:
-                            description: Resolve specifies when this reference should
-                              be resolved. The default is 'IfNotPresent', which will
-                              attempt to resolve the reference only when the corresponding
-                              field is not present. Use 'Always' to resolve the reference
-                              on every reconcile.
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
                             enum:
                             - Always
                             - IfNotPresent
@@ -782,21 +1032,22 @@ spec:
                       annotations:
                         additionalProperties:
                           type: string
-                        description: Annotations are the annotations to be added to
-                          connection secret. - For Kubernetes secrets, this will be
-                          used as "metadata.annotations". - It is up to Secret Store
-                          implementation for others store types.
+                        description: |-
+                          Annotations are the annotations to be added to connection secret.
+                          - For Kubernetes secrets, this will be used as "metadata.annotations".
+                          - It is up to Secret Store implementation for others store types.
                         type: object
                       labels:
                         additionalProperties:
                           type: string
-                        description: Labels are the labels/tags to be added to connection
-                          secret. - For Kubernetes secrets, this will be used as "metadata.labels".
-                          - It is up to Secret Store implementation for others store
-                          types.
+                        description: |-
+                          Labels are the labels/tags to be added to connection secret.
+                          - For Kubernetes secrets, this will be used as "metadata.labels".
+                          - It is up to Secret Store implementation for others store types.
                         type: object
                       type:
-                        description: Type is the SecretType for the connection secret.
+                        description: |-
+                          Type is the SecretType for the connection secret.
                           - Only valid for Kubernetes Secret Stores.
                         type: string
                     type: object
@@ -807,14 +1058,15 @@ spec:
                 - name
                 type: object
               writeConnectionSecretToRef:
-                description: WriteConnectionSecretToReference specifies the namespace
-                  and name of a Secret to which any connection details for this managed
-                  resource should be written. Connection details frequently include
-                  the endpoint, username, and password required to connect to the
-                  managed resource. This field is planned to be replaced in a future
-                  release in favor of PublishConnectionDetailsTo. Currently, both
-                  could be set independently and connection details would be published
-                  to both without affecting each other.
+                description: |-
+                  WriteConnectionSecretToReference specifies the namespace and name of a
+                  Secret to which any connection details for this managed resource should
+                  be written. Connection details frequently include the endpoint, username,
+                  and password required to connect to the managed resource.
+                  This field is planned to be replaced in a future release in favor of
+                  PublishConnectionDetailsTo. Currently, both could be set independently
+                  and connection details would be published to both without affecting
+                  each other.
                 properties:
                   name:
                     description: Name of the secret.
@@ -850,20 +1102,23 @@ spec:
                     additionalProperties:
                       type: string
                     type: object
+                    x-kubernetes-map-type: granular
                   autoRecovery:
                     description: Configures or deletes automatic recovery of an instance.
                       Defaults to true.
                     type: boolean
                   availabilityZone:
-                    description: The availability zone in which to create the server.
-                      Changing this creates a new server.
+                    description: |-
+                      The availability zone in which to create the server. Changing this creates a new
+                      server.
                     type: string
                   blockDevice:
-                    description: Configuration of block devices. The block_device
-                      structure is documented below. Changing this creates a new server.
-                      You can specify multiple block devices which will create an
-                      instance with multiple disks. This configuration is very flexible,
-                      so please see the following reference for more information.
+                    description: |-
+                      Configuration of block devices. The block_device structure is documented below. Changing
+                      this creates a new server. You can specify multiple block devices which will create an instance with multiple disks.
+                      This configuration is very flexible, so please see the
+                      following reference
+                      for more information.
                     items:
                       properties:
                         bootIndex:
@@ -871,13 +1126,14 @@ spec:
                             0. Changing this creates a new server.
                           type: number
                         deleteOnTermination:
-                          description: Delete the volume / block device upon termination
-                            of the instance. Defaults to false. Changing this creates
-                            a new server.
+                          description: |-
+                            Delete the volume / block device upon termination of the instance. Defaults to
+                            false. Changing this creates a new server.
                           type: boolean
                         destinationType:
-                          description: The type that gets created. Currently only
-                            support "volume". Changing this creates a new server.
+                          description: |-
+                            The type that gets created. Currently only support "volume". Changing this creates a
+                            new server.
                           type: string
                         deviceName:
                           description: A unique name for the resource.
@@ -885,40 +1141,44 @@ spec:
                         guestFormat:
                           type: string
                         sourceType:
-                          description: The source type of the device. Must be one
-                            of "blank", "image", "volume", or "snapshot". Changing
-                            this creates a new server.
+                          description: |-
+                            The source type of the device. Must be one of
+                            "blank", "image", "volume", or "snapshot". Changing this creates a new server.
                           type: string
                         uuid:
-                          description: The UUID of the image, volume, or snapshot.
-                            Changing this creates a new server.
+                          description: |-
+                            The UUID of the image, volume, or snapshot. Changing
+                            this creates a new server.
                           type: string
                         volumeSize:
-                          description: 'The size of the volume to create (in gigabytes).
-                            Required in the following combinations: source=image and
-                            destination=volume, and source=blank and destination=volume.
-                            Changing this creates a new server.'
+                          description: |-
+                            The size of the volume to create (in gigabytes). Required in the following combinations: source=image
+                            and destination=volume, and source=blank and destination=volume. Changing this creates a new server.
                           type: number
                         volumeType:
-                          description: Currently, the value can be SSD (ultra-I/O
-                            disk type), SAS (high I/O disk type), or SATA (common
-                            I/O disk type) OTC-API
+                          description: |-
+                            Currently, the value can be SSD (ultra-I/O disk type),
+                            SAS (high I/O disk type), or SATA (common I/O disk type)
+                            OTC-API
                           type: string
                       type: object
                     type: array
                   configDrive:
-                    description: Whether to use the config_drive feature to configure
-                      the instance. Changing this creates a new server.
+                    description: |-
+                      Whether to use the config_drive feature to configure the instance. Changing this creates a
+                      new server.
                     type: boolean
                   description:
                     description: Server description.
                     type: string
                   flavorId:
-                    description: The flavor ID of the desired flavor for the server.
+                    description: |-
+                      The flavor ID of the desired flavor for the server.
                       Changing this resizes the existing server.
                     type: string
                   flavorName:
-                    description: The name of the desired flavor for the server. Changing
+                    description: |-
+                      The name of the desired flavor for the server. Changing
                       this resizes the existing server.
                     type: string
                   id:
@@ -932,52 +1192,58 @@ spec:
                       this creates a new server.
                     type: string
                   keyPair:
-                    description: The name of a key pair to put on the server. The
-                      key pair must already be created and associated with the tenant's
-                      account. Changing this creates a new server.
+                    description: |-
+                      The name of a key pair to put on the server. The key pair must already be created and
+                      associated with the tenant's account. Changing this creates a new server.
                     type: string
                   metadata:
                     additionalProperties:
                       type: string
-                    description: Metadata key/value pairs to make available from within
-                      the instance. Changing this updates the existing server metadata.
+                    description: |-
+                      Metadata key/value pairs to make available from within the instance. Changing this updates the
+                      existing server metadata.
                     type: object
+                    x-kubernetes-map-type: granular
                   name:
                     description: A unique name for the resource.
                     type: string
                   network:
-                    description: An array of one or more networks to attach to the
-                      instance. Required when there are multiple networks defined
-                      for the tenant. The network object structure is documented below.
-                      Changing this creates a new server.
+                    description: |-
+                      An array of one or more networks to attach to the instance. Required when there are multiple
+                      networks defined for the tenant. The network object structure is documented below. Changing this creates a new server.
                     items:
                       properties:
                         accessNetwork:
-                          description: Specifies if this network should be used for
-                            provisioning access. Accepts true or false. Defaults to
-                            false.
+                          description: |-
+                            Specifies if this network should be used for provisioning access. Accepts true or false.
+                            Defaults to false.
                           type: boolean
                         fixedIpV4:
-                          description: Specifies a fixed IPv4 address to be used on
-                            this network. Changing this creates a new server.
+                          description: |-
+                            Specifies a fixed IPv4 address to be used on this network. Changing this creates a new
+                            server.
                           type: string
                         fixedIpV6:
-                          description: Specifies a fixed IPv6 address to be used on
-                            this network. Changing this creates a new server.
+                          description: |-
+                            Specifies a fixed IPv6 address to be used on this network. Changing this creates a new
+                            server.
                           type: string
                         mac:
                           type: string
                         name:
-                          description: The human-readable name of the network. Changing
-                            this creates a new server.
+                          description: |-
+                            The human-readable name of the network. Changing this creates
+                            a new server.
                           type: string
                         port:
-                          description: The port UUID of a network to attach to the
-                            server. Changing this creates a new server.
+                          description: |-
+                            The port UUID of a network to attach to the server. Changing
+                            this creates a new server.
                           type: string
                         uuid:
-                          description: The network UUID to attach to the server. Changing
-                            this creates a new server.
+                          description: |-
+                            The network UUID to attach to the server. Changing this
+                            creates a new server.
                           type: string
                       type: object
                     type: array
@@ -988,22 +1254,24 @@ spec:
                   region:
                     type: string
                   schedulerHints:
-                    description: Provide the Nova scheduler with hints on how the
-                      instance should be launched. The available hints are described
-                      below.
+                    description: |-
+                      Provide the Nova scheduler with hints on how the instance should be launched. The
+                      available hints are described below.
                     items:
                       properties:
                         buildNearHostIp:
-                          description: An IP Address in CIDR form. The instance will
-                            be placed on a compute node that is in the same subnet.
+                          description: |-
+                            An IP Address in CIDR form. The instance will be placed on a compute node that is in
+                            the same subnet.
                           type: string
                         dehId:
                           description: The ID of DeH. This parameter takes effect
                             only when the value of tenancy is dedicated.
                           type: string
                         differentHost:
-                          description: A list of instance UUIDs. The instance will
-                            be scheduled on a different host than all other instances.
+                          description: |-
+                            A list of instance UUIDs. The instance will be scheduled on a different host than all
+                            other instances.
                           items:
                             type: string
                           type: array
@@ -1027,29 +1295,31 @@ spec:
                           description: The name of a cell to host the instance.
                           type: string
                         tenancy:
-                          description: The tenancy specifies whether the ECS is to
-                            be created on a Dedicated Host (DeH) or in a shared pool.
+                          description: |-
+                            The tenancy specifies whether the ECS is to be created on a Dedicated Host
+                            (DeH) or in a shared pool.
                           type: string
                       type: object
                     type: array
                   securityGroups:
-                    description: An array of one or more security group names to associate
-                      with the server. Changing this results in adding/removing security
-                      groups from the existing server.
+                    description: |-
+                      An array of one or more security group names to associate with the server. Changing
+                      this results in adding/removing security groups from the existing server.
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                   stopBeforeDestroy:
-                    description: Whether to try stop instance gracefully before destroying
-                      it, thus giving chance for guest OS daemons to stop correctly.
-                      If instance doesn't stop within a timeout, it will be destroyed
-                      anyway.
+                    description: |-
+                      Whether to try stop instance gracefully before destroying it, thus giving chance
+                      for guest OS daemons to stop correctly. If instance doesn't stop within a timeout, it will be destroyed anyway.
                     type: boolean
                   tags:
                     additionalProperties:
                       type: string
                     description: Tags key/value pairs to associate with the instance.
                     type: object
+                    x-kubernetes-map-type: granular
                   userData:
                     description: The user data to provide when launching the instance.
                       Changing this creates a new server.
@@ -1068,14 +1338,23 @@ spec:
                   description: A Condition that may apply to a resource.
                   properties:
                     lastTransitionTime:
-                      description: LastTransitionTime is the last time this condition
-                        transitioned from one status to another.
+                      description: |-
+                        LastTransitionTime is the last time this condition transitioned from one
+                        status to another.
                       format: date-time
                       type: string
                     message:
-                      description: A Message containing details about this condition's
-                        last transition from one status to another, if any.
+                      description: |-
+                        A Message containing details about this condition's last transition from
+                        one status to another, if any.
                       type: string
+                    observedGeneration:
+                      description: |-
+                        ObservedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      type: integer
                     reason:
                       description: A Reason for this condition's last transition from
                         one status to another.
@@ -1085,8 +1364,9 @@ spec:
                         False, or Unknown?
                       type: string
                     type:
-                      description: Type of this condition. At most one of each condition
-                        type may apply to a resource at any point in time.
+                      description: |-
+                        Type of this condition. At most one of each condition type may apply to
+                        a resource at any point in time.
                       type: string
                   required:
                   - lastTransitionTime
@@ -1098,6 +1378,13 @@ spec:
                 x-kubernetes-list-map-keys:
                 - type
                 x-kubernetes-list-type: map
+              observedGeneration:
+                description: |-
+                  ObservedGeneration is the latest metadata.generation
+                  which resulted in either a ready state, or stalled due to error
+                  it can not recover from without human intervention.
+                format: int64
+                type: integer
             type: object
         required:
         - spec

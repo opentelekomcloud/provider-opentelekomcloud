@@ -452,6 +452,11 @@ func (in *InstanceV1InitParameters) DeepCopyInto(out *InstanceV1InitParameters) 
 		*out = new(string)
 		**out = **in
 	}
+	if in.PasswordSecretRef != nil {
+		in, out := &in.PasswordSecretRef, &out.PasswordSecretRef
+		*out = new(v1.SecretKeySelector)
+		**out = **in
+	}
 	if in.PeriodType != nil {
 		in, out := &in.PeriodType, &out.PeriodType
 		*out = new(string)
@@ -1245,6 +1250,11 @@ func (in *InstanceV2InitParameters) DeepCopyInto(out *InstanceV2InitParameters) 
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.PasswordSecretRef != nil {
+		in, out := &in.PasswordSecretRef, &out.PasswordSecretRef
+		*out = new(v1.SecretKeySelector)
+		**out = **in
 	}
 	if in.Port != nil {
 		in, out := &in.Port, &out.Port

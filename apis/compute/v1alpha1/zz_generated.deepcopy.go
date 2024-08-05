@@ -626,6 +626,11 @@ func (in *InstanceV2InitParameters) DeepCopyInto(out *InstanceV2InitParameters) 
 		*out = new(string)
 		**out = **in
 	}
+	if in.AdminPassSecretRef != nil {
+		in, out := &in.AdminPassSecretRef, &out.AdminPassSecretRef
+		*out = new(v1.SecretKeySelector)
+		**out = **in
+	}
 	if in.AutoRecovery != nil {
 		in, out := &in.AutoRecovery, &out.AutoRecovery
 		*out = new(bool)
@@ -673,6 +678,21 @@ func (in *InstanceV2InitParameters) DeepCopyInto(out *InstanceV2InitParameters) 
 		*out = new(string)
 		**out = **in
 	}
+	if in.KeyPair != nil {
+		in, out := &in.KeyPair, &out.KeyPair
+		*out = new(string)
+		**out = **in
+	}
+	if in.KeyPairRef != nil {
+		in, out := &in.KeyPairRef, &out.KeyPairRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.KeyPairSelector != nil {
+		in, out := &in.KeyPairSelector, &out.KeyPairSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Metadata != nil {
 		in, out := &in.Metadata, &out.Metadata
 		*out = make(map[string]*string, len(*in))
@@ -711,12 +731,40 @@ func (in *InstanceV2InitParameters) DeepCopyInto(out *InstanceV2InitParameters) 
 		*out = new(string)
 		**out = **in
 	}
+	if in.SSHPrivateKeyPathSecretRef != nil {
+		in, out := &in.SSHPrivateKeyPathSecretRef, &out.SSHPrivateKeyPathSecretRef
+		*out = new(v1.SecretKeySelector)
+		**out = **in
+	}
 	if in.SchedulerHints != nil {
 		in, out := &in.SchedulerHints, &out.SchedulerHints
 		*out = make([]SchedulerHintsInitParameters, len(*in))
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.SecurityGroups != nil {
+		in, out := &in.SecurityGroups, &out.SecurityGroups
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
+	}
+	if in.SecurityGroupsRefs != nil {
+		in, out := &in.SecurityGroupsRefs, &out.SecurityGroupsRefs
+		*out = make([]v1.Reference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.SecurityGroupsSelector != nil {
+		in, out := &in.SecurityGroupsSelector, &out.SecurityGroupsSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.StopBeforeDestroy != nil {
 		in, out := &in.StopBeforeDestroy, &out.StopBeforeDestroy

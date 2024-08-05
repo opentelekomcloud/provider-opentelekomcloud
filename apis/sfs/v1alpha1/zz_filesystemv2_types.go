@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -45,6 +41,7 @@ type FileSystemV2InitParameters struct {
 
 	// Metadata key/value pairs as a dictionary of strings. Changing this will
 	// create a new resource.
+	// +mapType=granular
 	Metadata map[string]*string `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
 	// The name of the shared file system.
@@ -61,6 +58,7 @@ type FileSystemV2InitParameters struct {
 	Size *float64 `json:"size,omitempty" tf:"size,omitempty"`
 
 	// Tags key/value pairs to associate with the SFS File System.
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
 
@@ -104,6 +102,7 @@ type FileSystemV2Observation struct {
 
 	// Metadata key/value pairs as a dictionary of strings. Changing this will
 	// create a new resource.
+	// +mapType=granular
 	Metadata map[string]*string `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
 	// The name of the shared file system.
@@ -130,6 +129,7 @@ type FileSystemV2Observation struct {
 	Status *string `json:"status,omitempty" tf:"status,omitempty"`
 
 	// Tags key/value pairs to associate with the SFS File System.
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// The volume type.
@@ -171,6 +171,7 @@ type FileSystemV2Parameters struct {
 	// Metadata key/value pairs as a dictionary of strings. Changing this will
 	// create a new resource.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	Metadata map[string]*string `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
 	// The name of the shared file system.
@@ -192,6 +193,7 @@ type FileSystemV2Parameters struct {
 
 	// Tags key/value pairs to associate with the SFS File System.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
 
@@ -219,13 +221,14 @@ type FileSystemV2Status struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // FileSystemV2 is the Schema for the FileSystemV2s API. Manages an SFS File System resource within OpenTelekomCloud.
-// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,opentelekomcloud}
 type FileSystemV2 struct {
 	metav1.TypeMeta   `json:",inline"`

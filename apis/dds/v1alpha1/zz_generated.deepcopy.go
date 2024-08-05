@@ -368,6 +368,7 @@ func (in *InstanceV3InitParameters) DeepCopyInto(out *InstanceV3InitParameters) 
 		*out = new(string)
 		**out = **in
 	}
+	out.PasswordSecretRef = in.PasswordSecretRef
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
 		*out = new(string)
