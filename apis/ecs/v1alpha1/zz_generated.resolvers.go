@@ -10,7 +10,7 @@ import (
 	reference "github.com/crossplane/crossplane-runtime/pkg/reference"
 	v1alpha1 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/compute/v1alpha1"
 	v1alpha11 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1"
-	compute "github.com/opentelekomcloud/provider-opentelekomcloud/config/compute"
+	common "github.com/opentelekomcloud/provider-opentelekomcloud/config/common"
 	errors "github.com/pkg/errors"
 	client "sigs.k8s.io/controller-runtime/pkg/client"
 )
@@ -42,7 +42,7 @@ func (mg *InstanceV1) ResolveReferences(ctx context.Context, c client.Reader) er
 	for i3 := 0; i3 < len(mg.Spec.ForProvider.Nics); i3++ {
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Nics[i3].NetworkID),
-			Extract:      compute.ExtractNetworkID(),
+			Extract:      common.ExtractNetworkID(),
 			Reference:    mg.Spec.ForProvider.Nics[i3].NetworkIDRef,
 			Selector:     mg.Spec.ForProvider.Nics[i3].NetworkIDSelector,
 			To: reference.To{
@@ -108,7 +108,7 @@ func (mg *InstanceV1) ResolveReferences(ctx context.Context, c client.Reader) er
 	for i3 := 0; i3 < len(mg.Spec.InitProvider.Nics); i3++ {
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Nics[i3].NetworkID),
-			Extract:      compute.ExtractNetworkID(),
+			Extract:      common.ExtractNetworkID(),
 			Reference:    mg.Spec.InitProvider.Nics[i3].NetworkIDRef,
 			Selector:     mg.Spec.InitProvider.Nics[i3].NetworkIDSelector,
 			To: reference.To{

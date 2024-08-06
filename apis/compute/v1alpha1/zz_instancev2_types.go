@@ -179,14 +179,14 @@ type InstanceV2InitParameters struct {
 
 	// The name of a key pair to put on the server. The key pair must already be created and
 	// associated with the tenant's account. Changing this creates a new server.
-	// +crossplane:generate:reference:type=KeypairV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/compute/v1alpha1.KeypairV2
 	KeyPair *string `json:"keyPair,omitempty" tf:"key_pair,omitempty"`
 
-	// Reference to a KeypairV2 to populate keyPair.
+	// Reference to a KeypairV2 in compute to populate keyPair.
 	// +kubebuilder:validation:Optional
 	KeyPairRef *v1.Reference `json:"keyPairRef,omitempty" tf:"-"`
 
-	// Selector for a KeypairV2 to populate keyPair.
+	// Selector for a KeypairV2 in compute to populate keyPair.
 	// +kubebuilder:validation:Optional
 	KeyPairSelector *v1.Selector `json:"keyPairSelector,omitempty" tf:"-"`
 
@@ -217,15 +217,15 @@ type InstanceV2InitParameters struct {
 
 	// An array of one or more security group names to associate with the server. Changing
 	// this results in adding/removing security groups from the existing server.
-	// +crossplane:generate:reference:type=SecgroupV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/compute/v1alpha1.SecgroupV2
 	// +listType=set
 	SecurityGroups []*string `json:"securityGroups,omitempty" tf:"security_groups,omitempty"`
 
-	// References to SecgroupV2 to populate securityGroups.
+	// References to SecgroupV2 in compute to populate securityGroups.
 	// +kubebuilder:validation:Optional
 	SecurityGroupsRefs []v1.Reference `json:"securityGroupsRefs,omitempty" tf:"-"`
 
-	// Selector for a list of SecgroupV2 to populate securityGroups.
+	// Selector for a list of SecgroupV2 in compute to populate securityGroups.
 	// +kubebuilder:validation:Optional
 	SecurityGroupsSelector *v1.Selector `json:"securityGroupsSelector,omitempty" tf:"-"`
 
@@ -394,15 +394,15 @@ type InstanceV2Parameters struct {
 
 	// The name of a key pair to put on the server. The key pair must already be created and
 	// associated with the tenant's account. Changing this creates a new server.
-	// +crossplane:generate:reference:type=KeypairV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/compute/v1alpha1.KeypairV2
 	// +kubebuilder:validation:Optional
 	KeyPair *string `json:"keyPair,omitempty" tf:"key_pair,omitempty"`
 
-	// Reference to a KeypairV2 to populate keyPair.
+	// Reference to a KeypairV2 in compute to populate keyPair.
 	// +kubebuilder:validation:Optional
 	KeyPairRef *v1.Reference `json:"keyPairRef,omitempty" tf:"-"`
 
-	// Selector for a KeypairV2 to populate keyPair.
+	// Selector for a KeypairV2 in compute to populate keyPair.
 	// +kubebuilder:validation:Optional
 	KeyPairSelector *v1.Selector `json:"keyPairSelector,omitempty" tf:"-"`
 
@@ -440,16 +440,16 @@ type InstanceV2Parameters struct {
 
 	// An array of one or more security group names to associate with the server. Changing
 	// this results in adding/removing security groups from the existing server.
-	// +crossplane:generate:reference:type=SecgroupV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/compute/v1alpha1.SecgroupV2
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	SecurityGroups []*string `json:"securityGroups,omitempty" tf:"security_groups,omitempty"`
 
-	// References to SecgroupV2 to populate securityGroups.
+	// References to SecgroupV2 in compute to populate securityGroups.
 	// +kubebuilder:validation:Optional
 	SecurityGroupsRefs []v1.Reference `json:"securityGroupsRefs,omitempty" tf:"-"`
 
-	// Selector for a list of SecgroupV2 to populate securityGroups.
+	// Selector for a list of SecgroupV2 in compute to populate securityGroups.
 	// +kubebuilder:validation:Optional
 	SecurityGroupsSelector *v1.Selector `json:"securityGroupsSelector,omitempty" tf:"-"`
 

@@ -15,5 +15,9 @@ spec:
     flavorId: ${var.flavor_id}
     kubeProxyMode: ipvs
     name: cluster
-    subnetId: ${var.subnet_id}
-    vpcId: ${var.vpc_id}
+    subnetIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example

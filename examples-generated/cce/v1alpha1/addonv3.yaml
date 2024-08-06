@@ -8,7 +8,9 @@ metadata:
   name: addon
 spec:
   forProvider:
-    clusterId: ${opentelekomcloud_cce_cluster_v3.cluster_1.id}
+    clusterIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: cluster_1
     templateName: metrics-server
     templateVersion: 1.3.6
     values:
@@ -36,5 +38,9 @@ spec:
     flavorId: ${var.flavor_id}
     kubernetesSvcIpRange: 10.247.0.0/16
     name: cce-cluster-1
-    subnetId: ${var.subnet_id}
-    vpcId: ${var.vpc_id}
+    subnetIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example

@@ -14,18 +14,18 @@ import (
 	"github.com/crossplane/upjet/pkg/resource/json"
 )
 
-// GetTerraformResourceType returns Terraform resource type for this NodeV3
-func (mg *NodeV3) GetTerraformResourceType() string {
-	return "opentelekomcloud_cce_node_v3"
+// GetTerraformResourceType returns Terraform resource type for this KeyV1
+func (mg *KeyV1) GetTerraformResourceType() string {
+	return "opentelekomcloud_kms_key_v1"
 }
 
-// GetConnectionDetailsMapping for this NodeV3
-func (tr *NodeV3) GetConnectionDetailsMapping() map[string]string {
+// GetConnectionDetailsMapping for this KeyV1
+func (tr *KeyV1) GetConnectionDetailsMapping() map[string]string {
 	return nil
 }
 
-// GetObservation of this NodeV3
-func (tr *NodeV3) GetObservation() (map[string]any, error) {
+// GetObservation of this KeyV1
+func (tr *KeyV1) GetObservation() (map[string]any, error) {
 	o, err := json.TFParser.Marshal(tr.Status.AtProvider)
 	if err != nil {
 		return nil, err
@@ -34,8 +34,8 @@ func (tr *NodeV3) GetObservation() (map[string]any, error) {
 	return base, json.TFParser.Unmarshal(o, &base)
 }
 
-// SetObservation for this NodeV3
-func (tr *NodeV3) SetObservation(obs map[string]any) error {
+// SetObservation for this KeyV1
+func (tr *KeyV1) SetObservation(obs map[string]any) error {
 	p, err := json.TFParser.Marshal(obs)
 	if err != nil {
 		return err
@@ -43,16 +43,16 @@ func (tr *NodeV3) SetObservation(obs map[string]any) error {
 	return json.TFParser.Unmarshal(p, &tr.Status.AtProvider)
 }
 
-// GetID returns ID of underlying Terraform resource of this NodeV3
-func (tr *NodeV3) GetID() string {
+// GetID returns ID of underlying Terraform resource of this KeyV1
+func (tr *KeyV1) GetID() string {
 	if tr.Status.AtProvider.ID == nil {
 		return ""
 	}
 	return *tr.Status.AtProvider.ID
 }
 
-// GetParameters of this NodeV3
-func (tr *NodeV3) GetParameters() (map[string]any, error) {
+// GetParameters of this KeyV1
+func (tr *KeyV1) GetParameters() (map[string]any, error) {
 	p, err := json.TFParser.Marshal(tr.Spec.ForProvider)
 	if err != nil {
 		return nil, err
@@ -61,8 +61,8 @@ func (tr *NodeV3) GetParameters() (map[string]any, error) {
 	return base, json.TFParser.Unmarshal(p, &base)
 }
 
-// SetParameters for this NodeV3
-func (tr *NodeV3) SetParameters(params map[string]any) error {
+// SetParameters for this KeyV1
+func (tr *KeyV1) SetParameters(params map[string]any) error {
 	p, err := json.TFParser.Marshal(params)
 	if err != nil {
 		return err
@@ -70,8 +70,8 @@ func (tr *NodeV3) SetParameters(params map[string]any) error {
 	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
 }
 
-// GetInitParameters of this NodeV3
-func (tr *NodeV3) GetInitParameters() (map[string]any, error) {
+// GetInitParameters of this KeyV1
+func (tr *KeyV1) GetInitParameters() (map[string]any, error) {
 	p, err := json.TFParser.Marshal(tr.Spec.InitProvider)
 	if err != nil {
 		return nil, err
@@ -80,8 +80,8 @@ func (tr *NodeV3) GetInitParameters() (map[string]any, error) {
 	return base, json.TFParser.Unmarshal(p, &base)
 }
 
-// GetInitParameters of this NodeV3
-func (tr *NodeV3) GetMergedParameters(shouldMergeInitProvider bool) (map[string]any, error) {
+// GetInitParameters of this KeyV1
+func (tr *KeyV1) GetMergedParameters(shouldMergeInitProvider bool) (map[string]any, error) {
 	params, err := tr.GetParameters()
 	if err != nil {
 		return nil, errors.Wrapf(err, "cannot get parameters for resource '%q'", tr.GetName())
@@ -110,25 +110,20 @@ func (tr *NodeV3) GetMergedParameters(shouldMergeInitProvider bool) (map[string]
 	return params, nil
 }
 
-// LateInitialize this NodeV3 using its observed tfState.
+// LateInitialize this KeyV1 using its observed tfState.
 // returns True if there are any spec changes for the resource.
-func (tr *NodeV3) LateInitialize(attrs []byte) (bool, error) {
-	params := &NodeV3Parameters{}
+func (tr *KeyV1) LateInitialize(attrs []byte) (bool, error) {
+	params := &KeyV1Parameters{}
 	if err := json.TFParser.Unmarshal(attrs, params); err != nil {
 		return false, errors.Wrap(err, "failed to unmarshal Terraform state parameters for late-initialization")
 	}
 	opts := []resource.GenericLateInitializerOption{resource.WithZeroValueJSONOmitEmptyFilter(resource.CNameWildcard)}
-	opts = append(opts, resource.WithNameFilter("BandwidthChargeMode"))
-	opts = append(opts, resource.WithNameFilter("BandwidthSize"))
-	opts = append(opts, resource.WithNameFilter("EIPCount"))
-	opts = append(opts, resource.WithNameFilter("Iptype"))
-	opts = append(opts, resource.WithNameFilter("Sharetype"))
 
 	li := resource.NewGenericLateInitializer(opts...)
 	return li.LateInitialize(&tr.Spec.ForProvider, params)
 }
 
 // GetTerraformSchemaVersion returns the associated Terraform schema version
-func (tr *NodeV3) GetTerraformSchemaVersion() int {
+func (tr *KeyV1) GetTerraformSchemaVersion() int {
 	return 0
 }

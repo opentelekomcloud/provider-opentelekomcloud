@@ -10,7 +10,7 @@ import (
 	reference "github.com/crossplane/crossplane-runtime/pkg/reference"
 	v1alpha11 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/compute/v1alpha1"
 	v1alpha1 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1"
-	rds "github.com/opentelekomcloud/provider-opentelekomcloud/config/rds"
+	common "github.com/opentelekomcloud/provider-opentelekomcloud/config/common"
 	errors "github.com/pkg/errors"
 	client "sigs.k8s.io/controller-runtime/pkg/client"
 )
@@ -83,7 +83,7 @@ func (mg *InstanceV3) ResolveReferences(ctx context.Context, c client.Reader) er
 
 	mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
 		CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.PublicIps),
-		Extract:       rds.ExtractEipAddress(),
+		Extract:       common.ExtractEipAddress(),
 		References:    mg.Spec.ForProvider.PublicIpsRefs,
 		Selector:      mg.Spec.ForProvider.PublicIpsSelector,
 		To: reference.To{
@@ -115,7 +115,7 @@ func (mg *InstanceV3) ResolveReferences(ctx context.Context, c client.Reader) er
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.SubnetID),
-		Extract:      rds.ExtractNetworkID(),
+		Extract:      common.ExtractNetworkID(),
 		Reference:    mg.Spec.ForProvider.SubnetIDRef,
 		Selector:     mg.Spec.ForProvider.SubnetIDSelector,
 		To: reference.To{
@@ -163,7 +163,7 @@ func (mg *InstanceV3) ResolveReferences(ctx context.Context, c client.Reader) er
 
 	mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
 		CurrentValues: reference.FromPtrValues(mg.Spec.InitProvider.PublicIps),
-		Extract:       rds.ExtractEipAddress(),
+		Extract:       common.ExtractEipAddress(),
 		References:    mg.Spec.InitProvider.PublicIpsRefs,
 		Selector:      mg.Spec.InitProvider.PublicIpsSelector,
 		To: reference.To{
@@ -195,7 +195,7 @@ func (mg *InstanceV3) ResolveReferences(ctx context.Context, c client.Reader) er
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.SubnetID),
-		Extract:      rds.ExtractNetworkID(),
+		Extract:      common.ExtractNetworkID(),
 		Reference:    mg.Spec.InitProvider.SubnetIDRef,
 		Selector:     mg.Spec.InitProvider.SubnetIDSelector,
 		To: reference.To{
@@ -238,7 +238,7 @@ func (mg *ReadReplicaV3) ResolveReferences(ctx context.Context, c client.Reader)
 
 	mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
 		CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.PublicIps),
-		Extract:       rds.ExtractEipAddress(),
+		Extract:       common.ExtractEipAddress(),
 		References:    mg.Spec.ForProvider.PublicIpsRefs,
 		Selector:      mg.Spec.ForProvider.PublicIpsSelector,
 		To: reference.To{
@@ -270,7 +270,7 @@ func (mg *ReadReplicaV3) ResolveReferences(ctx context.Context, c client.Reader)
 
 	mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
 		CurrentValues: reference.FromPtrValues(mg.Spec.InitProvider.PublicIps),
-		Extract:       rds.ExtractEipAddress(),
+		Extract:       common.ExtractEipAddress(),
 		References:    mg.Spec.InitProvider.PublicIpsRefs,
 		Selector:      mg.Spec.InitProvider.PublicIpsSelector,
 		To: reference.To{
