@@ -48,7 +48,7 @@ type ReadReplicaV3InitParameters struct {
 	// Specifies floating IP to be assigned to the instance.
 	// This should be a list with single element only.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.EIPV1
-	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/rds.ExtractEipAddress()
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractEipAddress()
 	// +crossplane:generate:reference:refFieldName=PublicIpsRefs
 	// +crossplane:generate:reference:selectorFieldName=PublicIpsSelector
 	// +listType=set
@@ -146,7 +146,7 @@ type ReadReplicaV3Parameters struct {
 	// Specifies floating IP to be assigned to the instance.
 	// This should be a list with single element only.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.EIPV1
-	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/rds.ExtractEipAddress()
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractEipAddress()
 	// +crossplane:generate:reference:refFieldName=PublicIpsRefs
 	// +crossplane:generate:reference:selectorFieldName=PublicIpsSelector
 	// +kubebuilder:validation:Optional

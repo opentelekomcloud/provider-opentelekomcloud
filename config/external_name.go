@@ -92,6 +92,7 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"opentelekomcloud_images_image_v2":               config.IdentifierFromProvider,
 	"opentelekomcloud_ims_data_image_v2":             config.IdentifierFromProvider,
 	"opentelekomcloud_ims_image_v2":                  config.IdentifierFromProvider,
+	"opentelekomcloud_kms_key_v1":                    config.IdentifierFromProvider,
 	"opentelekomcloud_kms_grant_v1":                  config.IdentifierFromProvider,
 
 	// LB

@@ -8,10 +8,14 @@ metadata:
   name: node-1
 spec:
   forProvider:
-    agencyName: test-agency
+    agencyNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     availabilityZone: ${var.availability_zone}
     bandwidthSize: 100
-    clusterId: ${var.cluster_id}
+    clusterIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     dataVolumes:
     - size: 100
       volumetype: SATA
@@ -20,7 +24,9 @@ spec:
       size: 100
       volumetype: SSD
     flavorId: s2.large.2
-    keyPair: ${var.ssh_key}
+    keyPairSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     name: node1
     os: EulerOS 2.9
     rootVolume:

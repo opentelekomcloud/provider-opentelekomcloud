@@ -8,9 +8,13 @@ metadata:
   name: node-pool-1
 spec:
   forProvider:
-    agencyName: test-agency
+    agencyNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     availabilityZone: ${var.availability_zone}
-    clusterId: ${var.cluster_id}
+    clusterIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     dataVolumes:
     - size: 100
       volumetype: SSD
@@ -20,7 +24,9 @@ spec:
       volumetype: SSD
     flavor: s2.xlarge.2
     initialNodeCount: 2
-    keyPair: ${var.ssh_key}
+    keyPairSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     maxNodeCount: 9
     minNodeCount: 2
     name: opentelekomcloud-cce-node-pool-test

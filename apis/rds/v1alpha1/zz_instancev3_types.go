@@ -221,7 +221,7 @@ type InstanceV3InitParameters struct {
 	// Specifies floating IP to be assigned to the instance.
 	// This should be a list with single element only.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.EIPV1
-	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/rds.ExtractEipAddress()
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractEipAddress()
 	// +crossplane:generate:reference:refFieldName=PublicIpsRefs
 	// +crossplane:generate:reference:selectorFieldName=PublicIpsSelector
 	PublicIps []*string `json:"publicIps,omitempty" tf:"public_ips,omitempty"`
@@ -254,7 +254,7 @@ type InstanceV3InitParameters struct {
 
 	// Specifies the subnet id. Changing this parameter will create a new resource.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.SubnetV1
-	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/rds.ExtractNetworkID()
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractNetworkID()
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 
 	// Reference to a SubnetV1 in vpc to populate subnetId.
@@ -457,7 +457,7 @@ type InstanceV3Parameters struct {
 	// Specifies floating IP to be assigned to the instance.
 	// This should be a list with single element only.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.EIPV1
-	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/rds.ExtractEipAddress()
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractEipAddress()
 	// +crossplane:generate:reference:refFieldName=PublicIpsRefs
 	// +crossplane:generate:reference:selectorFieldName=PublicIpsSelector
 	// +kubebuilder:validation:Optional
@@ -495,7 +495,7 @@ type InstanceV3Parameters struct {
 
 	// Specifies the subnet id. Changing this parameter will create a new resource.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.SubnetV1
-	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/rds.ExtractNetworkID()
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractNetworkID()
 	// +kubebuilder:validation:Optional
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 

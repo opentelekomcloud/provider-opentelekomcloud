@@ -48,6 +48,16 @@ func (in *AddonV3InitParameters) DeepCopyInto(out *AddonV3InitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.ClusterIDRef != nil {
+		in, out := &in.ClusterIDRef, &out.ClusterIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ClusterIDSelector != nil {
+		in, out := &in.ClusterIDSelector, &out.ClusterIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.TemplateName != nil {
 		in, out := &in.TemplateName, &out.TemplateName
 		*out = new(string)
@@ -168,6 +178,16 @@ func (in *AddonV3Parameters) DeepCopyInto(out *AddonV3Parameters) {
 		in, out := &in.ClusterID, &out.ClusterID
 		*out = new(string)
 		**out = **in
+	}
+	if in.ClusterIDRef != nil {
+		in, out := &in.ClusterIDRef, &out.ClusterIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ClusterIDSelector != nil {
+		in, out := &in.ClusterIDSelector, &out.ClusterIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.TemplateName != nil {
 		in, out := &in.TemplateName, &out.TemplateName
@@ -581,6 +601,16 @@ func (in *ClusterV3InitParameters) DeepCopyInto(out *ClusterV3InitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.EIPRef != nil {
+		in, out := &in.EIPRef, &out.EIPRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.EIPSelector != nil {
+		in, out := &in.EIPSelector, &out.EIPSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.EnableVolumeEncryption != nil {
 		in, out := &in.EnableVolumeEncryption, &out.EnableVolumeEncryption
 		*out = new(bool)
@@ -591,10 +621,30 @@ func (in *ClusterV3InitParameters) DeepCopyInto(out *ClusterV3InitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.EniSubnetCidrRef != nil {
+		in, out := &in.EniSubnetCidrRef, &out.EniSubnetCidrRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.EniSubnetCidrSelector != nil {
+		in, out := &in.EniSubnetCidrSelector, &out.EniSubnetCidrSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.EniSubnetID != nil {
 		in, out := &in.EniSubnetID, &out.EniSubnetID
 		*out = new(string)
 		**out = **in
+	}
+	if in.EniSubnetIDRef != nil {
+		in, out := &in.EniSubnetIDRef, &out.EniSubnetIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.EniSubnetIDSelector != nil {
+		in, out := &in.EniSubnetIDSelector, &out.EniSubnetIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ExtendParam != nil {
 		in, out := &in.ExtendParam, &out.ExtendParam
@@ -621,6 +671,16 @@ func (in *ClusterV3InitParameters) DeepCopyInto(out *ClusterV3InitParameters) {
 		in, out := &in.HighwaySubnetID, &out.HighwaySubnetID
 		*out = new(string)
 		**out = **in
+	}
+	if in.HighwaySubnetIDRef != nil {
+		in, out := &in.HighwaySubnetIDRef, &out.HighwaySubnetIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.HighwaySubnetIDSelector != nil {
+		in, out := &in.HighwaySubnetIDSelector, &out.HighwaySubnetIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.IgnoreAddons != nil {
 		in, out := &in.IgnoreAddons, &out.IgnoreAddons
@@ -688,10 +748,30 @@ func (in *ClusterV3InitParameters) DeepCopyInto(out *ClusterV3InitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.SubnetIDRef != nil {
+		in, out := &in.SubnetIDRef, &out.SubnetIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.SubnetIDSelector != nil {
+		in, out := &in.SubnetIDSelector, &out.SubnetIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.VPCID != nil {
 		in, out := &in.VPCID, &out.VPCID
 		*out = new(string)
 		**out = **in
+	}
+	if in.VPCIDRef != nil {
+		in, out := &in.VPCIDRef, &out.VPCIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.VPCIDSelector != nil {
+		in, out := &in.VPCIDSelector, &out.VPCIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -1143,6 +1223,16 @@ func (in *ClusterV3Parameters) DeepCopyInto(out *ClusterV3Parameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.EIPRef != nil {
+		in, out := &in.EIPRef, &out.EIPRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.EIPSelector != nil {
+		in, out := &in.EIPSelector, &out.EIPSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.EnableVolumeEncryption != nil {
 		in, out := &in.EnableVolumeEncryption, &out.EnableVolumeEncryption
 		*out = new(bool)
@@ -1153,10 +1243,30 @@ func (in *ClusterV3Parameters) DeepCopyInto(out *ClusterV3Parameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.EniSubnetCidrRef != nil {
+		in, out := &in.EniSubnetCidrRef, &out.EniSubnetCidrRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.EniSubnetCidrSelector != nil {
+		in, out := &in.EniSubnetCidrSelector, &out.EniSubnetCidrSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.EniSubnetID != nil {
 		in, out := &in.EniSubnetID, &out.EniSubnetID
 		*out = new(string)
 		**out = **in
+	}
+	if in.EniSubnetIDRef != nil {
+		in, out := &in.EniSubnetIDRef, &out.EniSubnetIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.EniSubnetIDSelector != nil {
+		in, out := &in.EniSubnetIDSelector, &out.EniSubnetIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ExtendParam != nil {
 		in, out := &in.ExtendParam, &out.ExtendParam
@@ -1183,6 +1293,16 @@ func (in *ClusterV3Parameters) DeepCopyInto(out *ClusterV3Parameters) {
 		in, out := &in.HighwaySubnetID, &out.HighwaySubnetID
 		*out = new(string)
 		**out = **in
+	}
+	if in.HighwaySubnetIDRef != nil {
+		in, out := &in.HighwaySubnetIDRef, &out.HighwaySubnetIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.HighwaySubnetIDSelector != nil {
+		in, out := &in.HighwaySubnetIDSelector, &out.HighwaySubnetIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.IgnoreAddons != nil {
 		in, out := &in.IgnoreAddons, &out.IgnoreAddons
@@ -1250,10 +1370,30 @@ func (in *ClusterV3Parameters) DeepCopyInto(out *ClusterV3Parameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.SubnetIDRef != nil {
+		in, out := &in.SubnetIDRef, &out.SubnetIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.SubnetIDSelector != nil {
+		in, out := &in.SubnetIDSelector, &out.SubnetIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.VPCID != nil {
 		in, out := &in.VPCID, &out.VPCID
 		*out = new(string)
 		**out = **in
+	}
+	if in.VPCIDRef != nil {
+		in, out := &in.VPCIDRef, &out.VPCIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.VPCIDSelector != nil {
+		in, out := &in.VPCIDSelector, &out.VPCIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -1330,6 +1470,16 @@ func (in *DataVolumesInitParameters) DeepCopyInto(out *DataVolumesInitParameters
 		in, out := &in.KMSID, &out.KMSID
 		*out = new(string)
 		**out = **in
+	}
+	if in.KMSIDRef != nil {
+		in, out := &in.KMSIDRef, &out.KMSIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.KMSIDSelector != nil {
+		in, out := &in.KMSIDSelector, &out.KMSIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Size != nil {
 		in, out := &in.Size, &out.Size
@@ -1433,6 +1583,16 @@ func (in *DataVolumesParameters) DeepCopyInto(out *DataVolumesParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.KMSIDRef != nil {
+		in, out := &in.KMSIDRef, &out.KMSIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.KMSIDSelector != nil {
+		in, out := &in.KMSIDSelector, &out.KMSIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Size != nil {
 		in, out := &in.Size, &out.Size
 		*out = new(float64)
@@ -1490,6 +1650,16 @@ func (in *NodePoolV3InitParameters) DeepCopyInto(out *NodePoolV3InitParameters) 
 		*out = new(string)
 		**out = **in
 	}
+	if in.AgencyNameRef != nil {
+		in, out := &in.AgencyNameRef, &out.AgencyNameRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.AgencyNameSelector != nil {
+		in, out := &in.AgencyNameSelector, &out.AgencyNameSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.AvailabilityZone != nil {
 		in, out := &in.AvailabilityZone, &out.AvailabilityZone
 		*out = new(string)
@@ -1499,6 +1669,16 @@ func (in *NodePoolV3InitParameters) DeepCopyInto(out *NodePoolV3InitParameters) 
 		in, out := &in.ClusterID, &out.ClusterID
 		*out = new(string)
 		**out = **in
+	}
+	if in.ClusterIDRef != nil {
+		in, out := &in.ClusterIDRef, &out.ClusterIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ClusterIDSelector != nil {
+		in, out := &in.ClusterIDSelector, &out.ClusterIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.DataVolumes != nil {
 		in, out := &in.DataVolumes, &out.DataVolumes
@@ -1547,6 +1727,16 @@ func (in *NodePoolV3InitParameters) DeepCopyInto(out *NodePoolV3InitParameters) 
 		in, out := &in.KeyPair, &out.KeyPair
 		*out = new(string)
 		**out = **in
+	}
+	if in.KeyPairRef != nil {
+		in, out := &in.KeyPairRef, &out.KeyPairRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.KeyPairSelector != nil {
+		in, out := &in.KeyPairSelector, &out.KeyPairSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.MaxNodeCount != nil {
 		in, out := &in.MaxNodeCount, &out.MaxNodeCount
@@ -1629,6 +1819,16 @@ func (in *NodePoolV3InitParameters) DeepCopyInto(out *NodePoolV3InitParameters) 
 		in, out := &in.SubnetID, &out.SubnetID
 		*out = new(string)
 		**out = **in
+	}
+	if in.SubnetIDRef != nil {
+		in, out := &in.SubnetIDRef, &out.SubnetIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.SubnetIDSelector != nil {
+		in, out := &in.SubnetIDSelector, &out.SubnetIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Taints != nil {
 		in, out := &in.Taints, &out.Taints
@@ -1893,6 +2093,16 @@ func (in *NodePoolV3Parameters) DeepCopyInto(out *NodePoolV3Parameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.AgencyNameRef != nil {
+		in, out := &in.AgencyNameRef, &out.AgencyNameRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.AgencyNameSelector != nil {
+		in, out := &in.AgencyNameSelector, &out.AgencyNameSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.AvailabilityZone != nil {
 		in, out := &in.AvailabilityZone, &out.AvailabilityZone
 		*out = new(string)
@@ -1902,6 +2112,16 @@ func (in *NodePoolV3Parameters) DeepCopyInto(out *NodePoolV3Parameters) {
 		in, out := &in.ClusterID, &out.ClusterID
 		*out = new(string)
 		**out = **in
+	}
+	if in.ClusterIDRef != nil {
+		in, out := &in.ClusterIDRef, &out.ClusterIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ClusterIDSelector != nil {
+		in, out := &in.ClusterIDSelector, &out.ClusterIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.DataVolumes != nil {
 		in, out := &in.DataVolumes, &out.DataVolumes
@@ -1950,6 +2170,16 @@ func (in *NodePoolV3Parameters) DeepCopyInto(out *NodePoolV3Parameters) {
 		in, out := &in.KeyPair, &out.KeyPair
 		*out = new(string)
 		**out = **in
+	}
+	if in.KeyPairRef != nil {
+		in, out := &in.KeyPairRef, &out.KeyPairRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.KeyPairSelector != nil {
+		in, out := &in.KeyPairSelector, &out.KeyPairSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.MaxNodeCount != nil {
 		in, out := &in.MaxNodeCount, &out.MaxNodeCount
@@ -2032,6 +2262,16 @@ func (in *NodePoolV3Parameters) DeepCopyInto(out *NodePoolV3Parameters) {
 		in, out := &in.SubnetID, &out.SubnetID
 		*out = new(string)
 		**out = **in
+	}
+	if in.SubnetIDRef != nil {
+		in, out := &in.SubnetIDRef, &out.SubnetIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.SubnetIDSelector != nil {
+		in, out := &in.SubnetIDSelector, &out.SubnetIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Taints != nil {
 		in, out := &in.Taints, &out.Taints
@@ -2159,6 +2399,16 @@ func (in *NodeV3DataVolumesInitParameters) DeepCopyInto(out *NodeV3DataVolumesIn
 		*out = new(string)
 		**out = **in
 	}
+	if in.KMSIDRef != nil {
+		in, out := &in.KMSIDRef, &out.KMSIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.KMSIDSelector != nil {
+		in, out := &in.KMSIDSelector, &out.KMSIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Size != nil {
 		in, out := &in.Size, &out.Size
 		*out = new(float64)
@@ -2261,6 +2511,16 @@ func (in *NodeV3DataVolumesParameters) DeepCopyInto(out *NodeV3DataVolumesParame
 		*out = new(string)
 		**out = **in
 	}
+	if in.KMSIDRef != nil {
+		in, out := &in.KMSIDRef, &out.KMSIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.KMSIDSelector != nil {
+		in, out := &in.KMSIDSelector, &out.KMSIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Size != nil {
 		in, out := &in.Size, &out.Size
 		*out = new(float64)
@@ -2290,6 +2550,16 @@ func (in *NodeV3InitParameters) DeepCopyInto(out *NodeV3InitParameters) {
 		in, out := &in.AgencyName, &out.AgencyName
 		*out = new(string)
 		**out = **in
+	}
+	if in.AgencyNameRef != nil {
+		in, out := &in.AgencyNameRef, &out.AgencyNameRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.AgencyNameSelector != nil {
+		in, out := &in.AgencyNameSelector, &out.AgencyNameSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Annotations != nil {
 		in, out := &in.Annotations, &out.Annotations
@@ -2332,6 +2602,16 @@ func (in *NodeV3InitParameters) DeepCopyInto(out *NodeV3InitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.ClusterIDRef != nil {
+		in, out := &in.ClusterIDRef, &out.ClusterIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ClusterIDSelector != nil {
+		in, out := &in.ClusterIDSelector, &out.ClusterIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.DataVolumes != nil {
 		in, out := &in.DataVolumes, &out.DataVolumes
 		*out = make([]NodeV3DataVolumesInitParameters, len(*in))
@@ -2364,6 +2644,18 @@ func (in *NodeV3InitParameters) DeepCopyInto(out *NodeV3InitParameters) {
 				**out = **in
 			}
 		}
+	}
+	if in.EIPIdsRefs != nil {
+		in, out := &in.EIPIdsRefs, &out.EIPIdsRefs
+		*out = make([]v1.Reference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.EIPIdsSelector != nil {
+		in, out := &in.EIPIdsSelector, &out.EIPIdsSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.EcsPerformanceType != nil {
 		in, out := &in.EcsPerformanceType, &out.EcsPerformanceType
@@ -2405,6 +2697,16 @@ func (in *NodeV3InitParameters) DeepCopyInto(out *NodeV3InitParameters) {
 		in, out := &in.KeyPair, &out.KeyPair
 		*out = new(string)
 		**out = **in
+	}
+	if in.KeyPairRef != nil {
+		in, out := &in.KeyPairRef, &out.KeyPairRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.KeyPairSelector != nil {
+		in, out := &in.KeyPairSelector, &out.KeyPairSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Labels != nil {
 		in, out := &in.Labels, &out.Labels
@@ -2835,6 +3137,16 @@ func (in *NodeV3Parameters) DeepCopyInto(out *NodeV3Parameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.AgencyNameRef != nil {
+		in, out := &in.AgencyNameRef, &out.AgencyNameRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.AgencyNameSelector != nil {
+		in, out := &in.AgencyNameSelector, &out.AgencyNameSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Annotations != nil {
 		in, out := &in.Annotations, &out.Annotations
 		*out = make(map[string]*string, len(*in))
@@ -2876,6 +3188,16 @@ func (in *NodeV3Parameters) DeepCopyInto(out *NodeV3Parameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.ClusterIDRef != nil {
+		in, out := &in.ClusterIDRef, &out.ClusterIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ClusterIDSelector != nil {
+		in, out := &in.ClusterIDSelector, &out.ClusterIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.DataVolumes != nil {
 		in, out := &in.DataVolumes, &out.DataVolumes
 		*out = make([]NodeV3DataVolumesParameters, len(*in))
@@ -2908,6 +3230,18 @@ func (in *NodeV3Parameters) DeepCopyInto(out *NodeV3Parameters) {
 				**out = **in
 			}
 		}
+	}
+	if in.EIPIdsRefs != nil {
+		in, out := &in.EIPIdsRefs, &out.EIPIdsRefs
+		*out = make([]v1.Reference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.EIPIdsSelector != nil {
+		in, out := &in.EIPIdsSelector, &out.EIPIdsSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.EcsPerformanceType != nil {
 		in, out := &in.EcsPerformanceType, &out.EcsPerformanceType
@@ -2949,6 +3283,16 @@ func (in *NodeV3Parameters) DeepCopyInto(out *NodeV3Parameters) {
 		in, out := &in.KeyPair, &out.KeyPair
 		*out = new(string)
 		**out = **in
+	}
+	if in.KeyPairRef != nil {
+		in, out := &in.KeyPairRef, &out.KeyPairRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.KeyPairSelector != nil {
+		in, out := &in.KeyPairSelector, &out.KeyPairSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Labels != nil {
 		in, out := &in.Labels, &out.Labels
@@ -3102,6 +3446,16 @@ func (in *NodeV3RootVolumeInitParameters) DeepCopyInto(out *NodeV3RootVolumeInit
 		*out = new(string)
 		**out = **in
 	}
+	if in.KMSIDRef != nil {
+		in, out := &in.KMSIDRef, &out.KMSIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.KMSIDSelector != nil {
+		in, out := &in.KMSIDSelector, &out.KMSIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Size != nil {
 		in, out := &in.Size, &out.Size
 		*out = new(float64)
@@ -3203,6 +3557,16 @@ func (in *NodeV3RootVolumeParameters) DeepCopyInto(out *NodeV3RootVolumeParamete
 		in, out := &in.KMSID, &out.KMSID
 		*out = new(string)
 		**out = **in
+	}
+	if in.KMSIDRef != nil {
+		in, out := &in.KMSIDRef, &out.KMSIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.KMSIDSelector != nil {
+		in, out := &in.KMSIDSelector, &out.KMSIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Size != nil {
 		in, out := &in.Size, &out.Size
@@ -3380,6 +3744,16 @@ func (in *RootVolumeInitParameters) DeepCopyInto(out *RootVolumeInitParameters) 
 		*out = new(string)
 		**out = **in
 	}
+	if in.KMSIDRef != nil {
+		in, out := &in.KMSIDRef, &out.KMSIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.KMSIDSelector != nil {
+		in, out := &in.KMSIDSelector, &out.KMSIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Size != nil {
 		in, out := &in.Size, &out.Size
 		*out = new(float64)
@@ -3481,6 +3855,16 @@ func (in *RootVolumeParameters) DeepCopyInto(out *RootVolumeParameters) {
 		in, out := &in.KMSID, &out.KMSID
 		*out = new(string)
 		**out = **in
+	}
+	if in.KMSIDRef != nil {
+		in, out := &in.KMSIDRef, &out.KMSIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.KMSIDSelector != nil {
+		in, out := &in.KMSIDSelector, &out.KMSIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Size != nil {
 		in, out := &in.Size, &out.Size

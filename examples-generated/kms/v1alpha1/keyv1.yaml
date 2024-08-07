@@ -1,0 +1,17 @@
+apiVersion: kms.opentelekomcloud.crossplane.io/v1alpha1
+kind: KeyV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: kms/v1alpha1/keyv1
+  labels:
+    testing.upbound.io/example-name: key_1
+  name: key-1
+spec:
+  forProvider:
+    isEnabled: true
+    keyAlias: key_1
+    keyDescription: first test key
+    pendingDays: "7"
+    realm: eu-de-01
+    tags:
+      muh: kuh

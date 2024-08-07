@@ -68,6 +68,7 @@ import (
 	dataimagev2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/ims/dataimagev2"
 	imagev2ims "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/ims/imagev2"
 	grantv1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/kms/grantv1"
+	keyv1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/kms/keyv1"
 	certificatev2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/lb/certificatev2"
 	certificatev3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/lb/certificatev3"
 	ipgroupv3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/lb/ipgroupv3"
@@ -219,6 +220,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		dataimagev2.Setup,
 		imagev2ims.Setup,
 		grantv1.Setup,
+		keyv1.Setup,
 		certificatev2.Setup,
 		certificatev3.Setup,
 		ipgroupv3.Setup,

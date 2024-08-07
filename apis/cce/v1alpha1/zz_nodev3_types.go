@@ -24,7 +24,16 @@ type NodeV3DataVolumesInitParameters struct {
 	ExtendParams map[string]*string `json:"extendParams,omitempty" tf:"extend_params,omitempty"`
 
 	// The Encryption KMS ID of the system volume. By default, it tries to get from env by OS_KMS_ID.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/kms/v1alpha1.KeyV1
 	KMSID *string `json:"kmsId,omitempty" tf:"kms_id,omitempty"`
+
+	// Reference to a KeyV1 in kms to populate kmsId.
+	// +kubebuilder:validation:Optional
+	KMSIDRef *v1.Reference `json:"kmsIdRef,omitempty" tf:"-"`
+
+	// Selector for a KeyV1 in kms to populate kmsId.
+	// +kubebuilder:validation:Optional
+	KMSIDSelector *v1.Selector `json:"kmsIdSelector,omitempty" tf:"-"`
 
 	// Disk size in GB.
 	Size *float64 `json:"size,omitempty" tf:"size,omitempty"`
@@ -66,8 +75,17 @@ type NodeV3DataVolumesParameters struct {
 	ExtendParams map[string]*string `json:"extendParams,omitempty" tf:"extend_params,omitempty"`
 
 	// The Encryption KMS ID of the system volume. By default, it tries to get from env by OS_KMS_ID.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/kms/v1alpha1.KeyV1
 	// +kubebuilder:validation:Optional
 	KMSID *string `json:"kmsId,omitempty" tf:"kms_id,omitempty"`
+
+	// Reference to a KeyV1 in kms to populate kmsId.
+	// +kubebuilder:validation:Optional
+	KMSIDRef *v1.Reference `json:"kmsIdRef,omitempty" tf:"-"`
+
+	// Selector for a KeyV1 in kms to populate kmsId.
+	// +kubebuilder:validation:Optional
+	KMSIDSelector *v1.Selector `json:"kmsIdSelector,omitempty" tf:"-"`
 
 	// Disk size in GB.
 	// +kubebuilder:validation:Optional
@@ -81,7 +99,17 @@ type NodeV3DataVolumesParameters struct {
 type NodeV3InitParameters struct {
 
 	// IAM agency name. Changing this parameter will create a new resource.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/identity/v1alpha1.AgencyV3
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractAgencyName()
 	AgencyName *string `json:"agencyName,omitempty" tf:"agency_name,omitempty"`
+
+	// Reference to a AgencyV3 in identity to populate agencyName.
+	// +kubebuilder:validation:Optional
+	AgencyNameRef *v1.Reference `json:"agencyNameRef,omitempty" tf:"-"`
+
+	// Selector for a AgencyV3 in identity to populate agencyName.
+	// +kubebuilder:validation:Optional
+	AgencyNameSelector *v1.Selector `json:"agencyNameSelector,omitempty" tf:"-"`
 
 	// Node annotation, key/value pair format. Changing this parameter will create a new resource
 	// +mapType=granular
@@ -100,7 +128,16 @@ type NodeV3InitParameters struct {
 	BillingMode *float64 `json:"billingMode,omitempty" tf:"billing_mode,omitempty"`
 
 	// ID of the cluster. Changing this parameter will create a new resource.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cce/v1alpha1.ClusterV3
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
+
+	// Reference to a ClusterV3 in cce to populate clusterId.
+	// +kubebuilder:validation:Optional
+	ClusterIDRef *v1.Reference `json:"clusterIdRef,omitempty" tf:"-"`
+
+	// Selector for a ClusterV3 in cce to populate clusterId.
+	// +kubebuilder:validation:Optional
+	ClusterIDSelector *v1.Selector `json:"clusterIdSelector,omitempty" tf:"-"`
 
 	// Represents the data disk to be created. Changing this parameter will create a new resource.
 	DataVolumes []NodeV3DataVolumesInitParameters `json:"dataVolumes,omitempty" tf:"data_volumes,omitempty"`
@@ -117,8 +154,17 @@ type NodeV3InitParameters struct {
 	EIPCount *float64 `json:"eipCount,omitempty" tf:"eip_count,omitempty"`
 
 	// List of existing elastic IP IDs.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.EIPV1
 	// +listType=set
 	EIPIds []*string `json:"eipIds,omitempty" tf:"eip_ids,omitempty"`
+
+	// References to EIPV1 in vpc to populate eipIds.
+	// +kubebuilder:validation:Optional
+	EIPIdsRefs []v1.Reference `json:"eipIdsRefs,omitempty" tf:"-"`
+
+	// Selector for a list of EIPV1 in vpc to populate eipIds.
+	// +kubebuilder:validation:Optional
+	EIPIdsSelector *v1.Selector `json:"eipIdsSelector,omitempty" tf:"-"`
 
 	// Classification of cloud server specifications. Changing this parameter will create a new cluster resource.
 	EcsPerformanceType *string `json:"ecsPerformanceType,omitempty" tf:"ecs_performance_type,omitempty"`
@@ -137,7 +183,16 @@ type NodeV3InitParameters struct {
 	K8STags map[string]*string `json:"k8sTags,omitempty" tf:"k8s_tags,omitempty"`
 
 	// Key pair name when logging in to select the key pair mode. Changing this parameter will create a new resource.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/compute/v1alpha1.KeypairV2
 	KeyPair *string `json:"keyPair,omitempty" tf:"key_pair,omitempty"`
+
+	// Reference to a KeypairV2 in compute to populate keyPair.
+	// +kubebuilder:validation:Optional
+	KeyPairRef *v1.Reference `json:"keyPairRef,omitempty" tf:"-"`
+
+	// Selector for a KeypairV2 in compute to populate keyPair.
+	// +kubebuilder:validation:Optional
+	KeyPairSelector *v1.Selector `json:"keyPairSelector,omitempty" tf:"-"`
 
 	// Node tag, key/value pair format. Changing this parameter will create a new resource.
 	// +mapType=granular
@@ -332,8 +387,18 @@ type NodeV3Observation struct {
 type NodeV3Parameters struct {
 
 	// IAM agency name. Changing this parameter will create a new resource.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/identity/v1alpha1.AgencyV3
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractAgencyName()
 	// +kubebuilder:validation:Optional
 	AgencyName *string `json:"agencyName,omitempty" tf:"agency_name,omitempty"`
+
+	// Reference to a AgencyV3 in identity to populate agencyName.
+	// +kubebuilder:validation:Optional
+	AgencyNameRef *v1.Reference `json:"agencyNameRef,omitempty" tf:"-"`
+
+	// Selector for a AgencyV3 in identity to populate agencyName.
+	// +kubebuilder:validation:Optional
+	AgencyNameSelector *v1.Selector `json:"agencyNameSelector,omitempty" tf:"-"`
 
 	// Node annotation, key/value pair format. Changing this parameter will create a new resource
 	// +kubebuilder:validation:Optional
@@ -357,8 +422,17 @@ type NodeV3Parameters struct {
 	BillingMode *float64 `json:"billingMode,omitempty" tf:"billing_mode,omitempty"`
 
 	// ID of the cluster. Changing this parameter will create a new resource.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cce/v1alpha1.ClusterV3
 	// +kubebuilder:validation:Optional
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
+
+	// Reference to a ClusterV3 in cce to populate clusterId.
+	// +kubebuilder:validation:Optional
+	ClusterIDRef *v1.Reference `json:"clusterIdRef,omitempty" tf:"-"`
+
+	// Selector for a ClusterV3 in cce to populate clusterId.
+	// +kubebuilder:validation:Optional
+	ClusterIDSelector *v1.Selector `json:"clusterIdSelector,omitempty" tf:"-"`
 
 	// Represents the data disk to be created. Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
@@ -379,9 +453,18 @@ type NodeV3Parameters struct {
 	EIPCount *float64 `json:"eipCount,omitempty" tf:"eip_count,omitempty"`
 
 	// List of existing elastic IP IDs.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.EIPV1
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	EIPIds []*string `json:"eipIds,omitempty" tf:"eip_ids,omitempty"`
+
+	// References to EIPV1 in vpc to populate eipIds.
+	// +kubebuilder:validation:Optional
+	EIPIdsRefs []v1.Reference `json:"eipIdsRefs,omitempty" tf:"-"`
+
+	// Selector for a list of EIPV1 in vpc to populate eipIds.
+	// +kubebuilder:validation:Optional
+	EIPIdsSelector *v1.Selector `json:"eipIdsSelector,omitempty" tf:"-"`
 
 	// Classification of cloud server specifications. Changing this parameter will create a new cluster resource.
 	// +kubebuilder:validation:Optional
@@ -405,8 +488,17 @@ type NodeV3Parameters struct {
 	K8STags map[string]*string `json:"k8sTags,omitempty" tf:"k8s_tags,omitempty"`
 
 	// Key pair name when logging in to select the key pair mode. Changing this parameter will create a new resource.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/compute/v1alpha1.KeypairV2
 	// +kubebuilder:validation:Optional
 	KeyPair *string `json:"keyPair,omitempty" tf:"key_pair,omitempty"`
+
+	// Reference to a KeypairV2 in compute to populate keyPair.
+	// +kubebuilder:validation:Optional
+	KeyPairRef *v1.Reference `json:"keyPairRef,omitempty" tf:"-"`
+
+	// Selector for a KeypairV2 in compute to populate keyPair.
+	// +kubebuilder:validation:Optional
+	KeyPairSelector *v1.Selector `json:"keyPairSelector,omitempty" tf:"-"`
 
 	// Node tag, key/value pair format. Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
@@ -495,7 +587,16 @@ type NodeV3RootVolumeInitParameters struct {
 	ExtendParams map[string]*string `json:"extendParams,omitempty" tf:"extend_params,omitempty"`
 
 	// The Encryption KMS ID of the system volume. By default, it tries to get from env by OS_KMS_ID.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/kms/v1alpha1.KeyV1
 	KMSID *string `json:"kmsId,omitempty" tf:"kms_id,omitempty"`
+
+	// Reference to a KeyV1 in kms to populate kmsId.
+	// +kubebuilder:validation:Optional
+	KMSIDRef *v1.Reference `json:"kmsIdRef,omitempty" tf:"-"`
+
+	// Selector for a KeyV1 in kms to populate kmsId.
+	// +kubebuilder:validation:Optional
+	KMSIDSelector *v1.Selector `json:"kmsIdSelector,omitempty" tf:"-"`
 
 	// Disk size in GB.
 	Size *float64 `json:"size,omitempty" tf:"size,omitempty"`
@@ -537,8 +638,17 @@ type NodeV3RootVolumeParameters struct {
 	ExtendParams map[string]*string `json:"extendParams,omitempty" tf:"extend_params,omitempty"`
 
 	// The Encryption KMS ID of the system volume. By default, it tries to get from env by OS_KMS_ID.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/kms/v1alpha1.KeyV1
 	// +kubebuilder:validation:Optional
 	KMSID *string `json:"kmsId,omitempty" tf:"kms_id,omitempty"`
+
+	// Reference to a KeyV1 in kms to populate kmsId.
+	// +kubebuilder:validation:Optional
+	KMSIDRef *v1.Reference `json:"kmsIdRef,omitempty" tf:"-"`
+
+	// Selector for a KeyV1 in kms to populate kmsId.
+	// +kubebuilder:validation:Optional
+	KMSIDSelector *v1.Selector `json:"kmsIdSelector,omitempty" tf:"-"`
 
 	// Disk size in GB.
 	// +kubebuilder:validation:Optional
@@ -625,10 +735,8 @@ type NodeV3 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.availabilityZone) || (has(self.initProvider) && has(self.initProvider.availabilityZone))",message="spec.forProvider.availabilityZone is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.clusterId) || (has(self.initProvider) && has(self.initProvider.clusterId))",message="spec.forProvider.clusterId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.dataVolumes) || (has(self.initProvider) && has(self.initProvider.dataVolumes))",message="spec.forProvider.dataVolumes is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.flavorId) || (has(self.initProvider) && has(self.initProvider.flavorId))",message="spec.forProvider.flavorId is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.keyPair) || (has(self.initProvider) && has(self.initProvider.keyPair))",message="spec.forProvider.keyPair is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.rootVolume) || (has(self.initProvider) && has(self.initProvider.rootVolume))",message="spec.forProvider.rootVolume is a required parameter"
 	Spec   NodeV3Spec   `json:"spec"`
 	Status NodeV3Status `json:"status,omitempty"`
