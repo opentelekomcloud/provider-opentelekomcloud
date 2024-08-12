@@ -24,11 +24,29 @@ type BandwidthAssociateV2InitParameters struct {
 	BackupSize *float64 `json:"backupSize,omitempty" tf:"backup_size,omitempty"`
 
 	// Specifies ID of the bandwidth to be assigned.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.BandwidthV2
 	Bandwidth *string `json:"bandwidth,omitempty" tf:"bandwidth,omitempty"`
 
+	// Reference to a BandwidthV2 in vpc to populate bandwidth.
+	// +kubebuilder:validation:Optional
+	BandwidthRef *v1.Reference `json:"bandwidthRef,omitempty" tf:"-"`
+
+	// Selector for a BandwidthV2 in vpc to populate bandwidth.
+	// +kubebuilder:validation:Optional
+	BandwidthSelector *v1.Selector `json:"bandwidthSelector,omitempty" tf:"-"`
+
 	// Specifies IDs of floating IPs to be added to the bandwidth.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.EIPV1
 	// +listType=set
 	FloatingIps []*string `json:"floatingIps,omitempty" tf:"floating_ips,omitempty"`
+
+	// References to EIPV1 in vpc to populate floatingIps.
+	// +kubebuilder:validation:Optional
+	FloatingIpsRefs []v1.Reference `json:"floatingIpsRefs,omitempty" tf:"-"`
+
+	// Selector for a list of EIPV1 in vpc to populate floatingIps.
+	// +kubebuilder:validation:Optional
+	FloatingIpsSelector *v1.Selector `json:"floatingIpsSelector,omitempty" tf:"-"`
 }
 
 type BandwidthAssociateV2Observation struct {
@@ -64,13 +82,31 @@ type BandwidthAssociateV2Parameters struct {
 	BackupSize *float64 `json:"backupSize,omitempty" tf:"backup_size,omitempty"`
 
 	// Specifies ID of the bandwidth to be assigned.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.BandwidthV2
 	// +kubebuilder:validation:Optional
 	Bandwidth *string `json:"bandwidth,omitempty" tf:"bandwidth,omitempty"`
 
+	// Reference to a BandwidthV2 in vpc to populate bandwidth.
+	// +kubebuilder:validation:Optional
+	BandwidthRef *v1.Reference `json:"bandwidthRef,omitempty" tf:"-"`
+
+	// Selector for a BandwidthV2 in vpc to populate bandwidth.
+	// +kubebuilder:validation:Optional
+	BandwidthSelector *v1.Selector `json:"bandwidthSelector,omitempty" tf:"-"`
+
 	// Specifies IDs of floating IPs to be added to the bandwidth.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.EIPV1
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	FloatingIps []*string `json:"floatingIps,omitempty" tf:"floating_ips,omitempty"`
+
+	// References to EIPV1 in vpc to populate floatingIps.
+	// +kubebuilder:validation:Optional
+	FloatingIpsRefs []v1.Reference `json:"floatingIpsRefs,omitempty" tf:"-"`
+
+	// Selector for a list of EIPV1 in vpc to populate floatingIps.
+	// +kubebuilder:validation:Optional
+	FloatingIpsSelector *v1.Selector `json:"floatingIpsSelector,omitempty" tf:"-"`
 }
 
 // BandwidthAssociateV2Spec defines the desired state of BandwidthAssociateV2
@@ -109,10 +145,8 @@ type BandwidthAssociateV2Status struct {
 type BandwidthAssociateV2 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.bandwidth) || (has(self.initProvider) && has(self.initProvider.bandwidth))",message="spec.forProvider.bandwidth is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.floatingIps) || (has(self.initProvider) && has(self.initProvider.floatingIps))",message="spec.forProvider.floatingIps is a required parameter"
-	Spec   BandwidthAssociateV2Spec   `json:"spec"`
-	Status BandwidthAssociateV2Status `json:"status,omitempty"`
+	Spec              BandwidthAssociateV2Spec   `json:"spec"`
+	Status            BandwidthAssociateV2Status `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

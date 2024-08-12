@@ -147,7 +147,8 @@ spec:
                       creates a new subnet.
                     type: string
                   networkIdRef:
-                    description: Reference to a NetworkV2 to populate networkId.
+                    description: Reference to a NetworkV2 in networking to populate
+                      networkId.
                     properties:
                       name:
                         description: Name of the referenced object.
@@ -181,7 +182,8 @@ spec:
                     - name
                     type: object
                   networkIdSelector:
-                    description: Selector for a NetworkV2 to populate networkId.
+                    description: Selector for a NetworkV2 in networking to populate
+                      networkId.
                     properties:
                       matchControllerRef:
                         description: |-
@@ -326,7 +328,8 @@ spec:
                       creates a new subnet.
                     type: string
                   networkIdRef:
-                    description: Reference to a NetworkV2 to populate networkId.
+                    description: Reference to a NetworkV2 in networking to populate
+                      networkId.
                     properties:
                       name:
                         description: Name of the referenced object.
@@ -360,7 +363,8 @@ spec:
                     - name
                     type: object
                   networkIdSelector:
-                    description: Selector for a NetworkV2 to populate networkId.
+                    description: Selector for a NetworkV2 in networking to populate
+                      networkId.
                     properties:
                       matchControllerRef:
                         description: |-

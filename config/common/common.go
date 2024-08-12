@@ -22,6 +22,10 @@ const (
 	// in this package.
 	EipAddressExtractor = SelfPackagePath + ".ExtractEipAddress()"
 
+	// FipAddressExtractor is the golang path to ExtractFipAddress function
+	// in this package.
+	FipAddressExtractor = SelfPackagePath + ".ExtractFipAddress()"
+
 	// SubnetCIDRExtractor is the golang path to ExtractSubnetCIDR function
 	// in this package.
 	SubnetCIDRExtractor = SelfPackagePath + ".ExtractSubnetCIDR()"
@@ -71,6 +75,27 @@ func ExtractEipAddress() xpref.ExtractValueFn {
 			if k := publicIP["ip_address"]; k != nil {
 				return k.(string)
 			}
+		}
+
+		return ""
+	}
+}
+
+// ExtractFipAddress extracts the value of `spec.forProvider.address`
+// from a Terraformed resource. If mr is not a Terraformed
+// resource, returns an empty string.
+func ExtractFipAddress() xpref.ExtractValueFn {
+	return func(mr xpresource.Managed) string {
+		tr, ok := mr.(resource.Terraformed)
+		if !ok {
+			return ""
+		}
+		o, err := tr.GetParameters()
+		if err != nil {
+			return ""
+		}
+		if k := o["address"]; k != nil {
+			return k.(string)
 		}
 
 		return ""

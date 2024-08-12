@@ -1,0 +1,82 @@
+apiVersion: logtank.opentelekomcloud.crossplane.io/v1alpha1
+kind: TransferV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: logtank/v1alpha1/transferv2
+  labels:
+    testing.upbound.io/example-name: transfer
+  name: transfer
+spec:
+  forProvider:
+    dirPrefixName: dir
+    logGroupId: ${opentelekomcloud_logtank_group_v2.testacc_group.id}
+    logStreamIds:
+    - ${opentelekomcloud_logtank_topic_v2.testacc_topic.id}
+    - ${opentelekomcloud_logtank_topic_v2.testacc_topic-2.id}
+    obsBucketName: my-tf-test-bucket
+    period: 30
+    periodUnit: min
+    prefixName: prefix
+    storageFormat: JSON
+    switchOn: false
+
+---
+
+apiVersion: logtank.opentelekomcloud.crossplane.io/v1alpha1
+kind: GroupV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: logtank/v1alpha1/transferv2
+  labels:
+    testing.upbound.io/example-name: testacc_group
+  name: testacc-group
+spec:
+  forProvider:
+    groupName: test_group
+    ttlInDays: 7
+
+---
+
+apiVersion: logtank.opentelekomcloud.crossplane.io/v1alpha1
+kind: TopicV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: logtank/v1alpha1/transferv2
+  labels:
+    testing.upbound.io/example-name: testacc_topic
+  name: testacc-topic
+spec:
+  forProvider:
+    groupId: ${opentelekomcloud_logtank_group_v2.testacc_group.id}
+    topicName: test-topic-1
+
+---
+
+apiVersion: logtank.opentelekomcloud.crossplane.io/v1alpha1
+kind: TopicV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: logtank/v1alpha1/transferv2
+  labels:
+    testing.upbound.io/example-name: testacc_topic-2
+  name: testacc-topic-2
+spec:
+  forProvider:
+    groupId: ${opentelekomcloud_logtank_group_v2.testacc_group.id}
+    topicName: test-topic-2
+
+---
+
+apiVersion: obs.opentelekomcloud.crossplane.io/v1alpha1
+kind: Bucket
+metadata:
+  annotations:
+    meta.upbound.io/example-id: logtank/v1alpha1/transferv2
+  labels:
+    testing.upbound.io/example-name: bucket
+  name: bucket
+spec:
+  forProvider:
+    acl: private
+    bucket: test-bucket
+    storageClass: STANDARD

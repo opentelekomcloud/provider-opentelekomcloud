@@ -1,0 +1,26 @@
+apiVersion: logtank.opentelekomcloud.crossplane.io/v1alpha1
+kind: TopicV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: logtank/v1alpha1/topicv2
+  labels:
+    testing.upbound.io/example-name: test_topic
+  name: test-topic
+spec:
+  forProvider:
+    groupId: ${opentelekomcloud_logtank_group_v2.test_group.id}
+    topicName: test1
+
+---
+
+apiVersion: logtank.opentelekomcloud.crossplane.io/v1alpha1
+kind: GroupV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: logtank/v1alpha1/topicv2
+  labels:
+    testing.upbound.io/example-name: test_group
+  name: test-group
+spec:
+  forProvider:
+    topic_name: test_group

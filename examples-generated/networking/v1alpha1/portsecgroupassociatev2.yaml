@@ -8,6 +8,8 @@ metadata:
   name: port-1
 spec:
   forProvider:
-    portId: ${data.opentelekomcloud_networking_port_v2.system_port.id}
-    securityGroupIds:
-    - ${data.opentelekomcloud_networking_secgroup_v2.secgroup.id}
+    portIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: opentelekomcloud_networking_port_v2
+    securityGroupIdsRefs:
+    - name: opentelekomcloud_networking_secgroup_v2

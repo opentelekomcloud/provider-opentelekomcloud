@@ -21,7 +21,16 @@ type DnatRuleV2InitParameters struct {
 
 	// Specifies the ID of the floating IP address.
 	// Changing this creates a new resource.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.EIPV1
 	FloatingIPID *string `json:"floatingIpId,omitempty" tf:"floating_ip_id,omitempty"`
+
+	// Reference to a EIPV1 in vpc to populate floatingIpId.
+	// +kubebuilder:validation:Optional
+	FloatingIPIDRef *v1.Reference `json:"floatingIpIdRef,omitempty" tf:"-"`
+
+	// Selector for a EIPV1 in vpc to populate floatingIpId.
+	// +kubebuilder:validation:Optional
+	FloatingIPIDSelector *v1.Selector `json:"floatingIpIdSelector,omitempty" tf:"-"`
 
 	// Specifies port used by ECSs or BMSs
 	// to provide services for external systems. Changing this creates a new resource.
@@ -29,12 +38,30 @@ type DnatRuleV2InitParameters struct {
 
 	// ID of the NAT gateway this DNAT rule belongs to.
 	// Changing this creates a new DNAT rule.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/nat/v1alpha1.GatewayV2
 	NATGatewayID *string `json:"natGatewayId,omitempty" tf:"nat_gateway_id,omitempty"`
+
+	// Reference to a GatewayV2 in nat to populate natGatewayId.
+	// +kubebuilder:validation:Optional
+	NATGatewayIDRef *v1.Reference `json:"natGatewayIdRef,omitempty" tf:"-"`
+
+	// Selector for a GatewayV2 in nat to populate natGatewayId.
+	// +kubebuilder:validation:Optional
+	NATGatewayIDSelector *v1.Selector `json:"natGatewayIdSelector,omitempty" tf:"-"`
 
 	// Specifies the port ID of an ECS or a BMS.
 	// This parameter and private_ip are alternative. Changing this creates a
 	// new DNAT rule.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.PortV2
 	PortID *string `json:"portId,omitempty" tf:"port_id,omitempty"`
+
+	// Reference to a PortV2 in networking to populate portId.
+	// +kubebuilder:validation:Optional
+	PortIDRef *v1.Reference `json:"portIdRef,omitempty" tf:"-"`
+
+	// Selector for a PortV2 in networking to populate portId.
+	// +kubebuilder:validation:Optional
+	PortIDSelector *v1.Selector `json:"portIdSelector,omitempty" tf:"-"`
 
 	// Specifies the private IP address of a
 	// user, for example, the IP address of a VPC for dedicated connection.
@@ -101,8 +128,17 @@ type DnatRuleV2Parameters struct {
 
 	// Specifies the ID of the floating IP address.
 	// Changing this creates a new resource.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.EIPV1
 	// +kubebuilder:validation:Optional
 	FloatingIPID *string `json:"floatingIpId,omitempty" tf:"floating_ip_id,omitempty"`
+
+	// Reference to a EIPV1 in vpc to populate floatingIpId.
+	// +kubebuilder:validation:Optional
+	FloatingIPIDRef *v1.Reference `json:"floatingIpIdRef,omitempty" tf:"-"`
+
+	// Selector for a EIPV1 in vpc to populate floatingIpId.
+	// +kubebuilder:validation:Optional
+	FloatingIPIDSelector *v1.Selector `json:"floatingIpIdSelector,omitempty" tf:"-"`
 
 	// Specifies port used by ECSs or BMSs
 	// to provide services for external systems. Changing this creates a new resource.
@@ -111,14 +147,32 @@ type DnatRuleV2Parameters struct {
 
 	// ID of the NAT gateway this DNAT rule belongs to.
 	// Changing this creates a new DNAT rule.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/nat/v1alpha1.GatewayV2
 	// +kubebuilder:validation:Optional
 	NATGatewayID *string `json:"natGatewayId,omitempty" tf:"nat_gateway_id,omitempty"`
+
+	// Reference to a GatewayV2 in nat to populate natGatewayId.
+	// +kubebuilder:validation:Optional
+	NATGatewayIDRef *v1.Reference `json:"natGatewayIdRef,omitempty" tf:"-"`
+
+	// Selector for a GatewayV2 in nat to populate natGatewayId.
+	// +kubebuilder:validation:Optional
+	NATGatewayIDSelector *v1.Selector `json:"natGatewayIdSelector,omitempty" tf:"-"`
 
 	// Specifies the port ID of an ECS or a BMS.
 	// This parameter and private_ip are alternative. Changing this creates a
 	// new DNAT rule.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.PortV2
 	// +kubebuilder:validation:Optional
 	PortID *string `json:"portId,omitempty" tf:"port_id,omitempty"`
+
+	// Reference to a PortV2 in networking to populate portId.
+	// +kubebuilder:validation:Optional
+	PortIDRef *v1.Reference `json:"portIdRef,omitempty" tf:"-"`
+
+	// Selector for a PortV2 in networking to populate portId.
+	// +kubebuilder:validation:Optional
+	PortIDSelector *v1.Selector `json:"portIdSelector,omitempty" tf:"-"`
 
 	// Specifies the private IP address of a
 	// user, for example, the IP address of a VPC for dedicated connection.
@@ -169,9 +223,7 @@ type DnatRuleV2 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.externalServicePort) || (has(self.initProvider) && has(self.initProvider.externalServicePort))",message="spec.forProvider.externalServicePort is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.floatingIpId) || (has(self.initProvider) && has(self.initProvider.floatingIpId))",message="spec.forProvider.floatingIpId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.internalServicePort) || (has(self.initProvider) && has(self.initProvider.internalServicePort))",message="spec.forProvider.internalServicePort is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.natGatewayId) || (has(self.initProvider) && has(self.initProvider.natGatewayId))",message="spec.forProvider.natGatewayId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.protocol) || (has(self.initProvider) && has(self.initProvider.protocol))",message="spec.forProvider.protocol is a required parameter"
 	Spec   DnatRuleV2Spec   `json:"spec"`
 	Status DnatRuleV2Status `json:"status,omitempty"`

@@ -17,12 +17,30 @@ type VipAssociateV2InitParameters struct {
 
 	// An array of one or more IDs of the ports to attach the vip to.
 	// Changing this creates a new vip associate.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.PortV2
 	// +listType=set
 	PortIds []*string `json:"portIds,omitempty" tf:"port_ids,omitempty"`
 
+	// References to PortV2 in networking to populate portIds.
+	// +kubebuilder:validation:Optional
+	PortIdsRefs []v1.Reference `json:"portIdsRefs,omitempty" tf:"-"`
+
+	// Selector for a list of PortV2 in networking to populate portIds.
+	// +kubebuilder:validation:Optional
+	PortIdsSelector *v1.Selector `json:"portIdsSelector,omitempty" tf:"-"`
+
 	// The ID of vip to attach the port to.
 	// Changing this creates a new vip associate.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.VipV2
 	VipID *string `json:"vipId,omitempty" tf:"vip_id,omitempty"`
+
+	// Reference to a VipV2 in networking to populate vipId.
+	// +kubebuilder:validation:Optional
+	VipIDRef *v1.Reference `json:"vipIdRef,omitempty" tf:"-"`
+
+	// Selector for a VipV2 in networking to populate vipId.
+	// +kubebuilder:validation:Optional
+	VipIDSelector *v1.Selector `json:"vipIdSelector,omitempty" tf:"-"`
 }
 
 type VipAssociateV2Observation struct {
@@ -48,14 +66,32 @@ type VipAssociateV2Parameters struct {
 
 	// An array of one or more IDs of the ports to attach the vip to.
 	// Changing this creates a new vip associate.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.PortV2
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	PortIds []*string `json:"portIds,omitempty" tf:"port_ids,omitempty"`
 
+	// References to PortV2 in networking to populate portIds.
+	// +kubebuilder:validation:Optional
+	PortIdsRefs []v1.Reference `json:"portIdsRefs,omitempty" tf:"-"`
+
+	// Selector for a list of PortV2 in networking to populate portIds.
+	// +kubebuilder:validation:Optional
+	PortIdsSelector *v1.Selector `json:"portIdsSelector,omitempty" tf:"-"`
+
 	// The ID of vip to attach the port to.
 	// Changing this creates a new vip associate.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.VipV2
 	// +kubebuilder:validation:Optional
 	VipID *string `json:"vipId,omitempty" tf:"vip_id,omitempty"`
+
+	// Reference to a VipV2 in networking to populate vipId.
+	// +kubebuilder:validation:Optional
+	VipIDRef *v1.Reference `json:"vipIdRef,omitempty" tf:"-"`
+
+	// Selector for a VipV2 in networking to populate vipId.
+	// +kubebuilder:validation:Optional
+	VipIDSelector *v1.Selector `json:"vipIdSelector,omitempty" tf:"-"`
 }
 
 // VipAssociateV2Spec defines the desired state of VipAssociateV2
@@ -94,10 +130,8 @@ type VipAssociateV2Status struct {
 type VipAssociateV2 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.portIds) || (has(self.initProvider) && has(self.initProvider.portIds))",message="spec.forProvider.portIds is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.vipId) || (has(self.initProvider) && has(self.initProvider.vipId))",message="spec.forProvider.vipId is a required parameter"
-	Spec   VipAssociateV2Spec   `json:"spec"`
-	Status VipAssociateV2Status `json:"status,omitempty"`
+	Spec              VipAssociateV2Spec   `json:"spec"`
+	Status            VipAssociateV2Status `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

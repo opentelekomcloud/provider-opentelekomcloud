@@ -8,10 +8,12 @@ metadata:
   name: vip-associate-1
 spec:
   forProvider:
-    portIds:
-    - ${opentelekomcloud_networking_port_v2.port_1.id}
-    - ${opentelekomcloud_networking_port_v2.port_2.id}
-    vipId: ${opentelekomcloud_networking_vip_v2.vip_1.id}
+    portIdsRefs:
+    - name: port_1
+    - name: port_2
+    vipIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: vip_1
 
 ---
 
@@ -78,9 +80,13 @@ spec:
   forProvider:
     adminStateUp: "true"
     fixedIp:
-    - subnetId: ${opentelekomcloud_networking_subnet_v2.subnet_1.id}
+    - subnetIdSelector:
+        matchLabels:
+          testing.upbound.io/example-name: subnet_1
     name: port_1
-    networkId: ${opentelekomcloud_networking_network_v2.network_1.id}
+    networkIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: network_1
 
 ---
 
@@ -96,9 +102,13 @@ spec:
   forProvider:
     adminStateUp: "true"
     fixedIp:
-    - subnetId: ${opentelekomcloud_networking_subnet_v2.subnet_1.id}
+    - subnetIdSelector:
+        matchLabels:
+          testing.upbound.io/example-name: subnet_1
     name: port_2
-    networkId: ${opentelekomcloud_networking_network_v2.network_1.id}
+    networkIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: network_1
 
 ---
 
@@ -165,5 +175,9 @@ metadata:
   name: vip-1
 spec:
   forProvider:
-    networkId: ${opentelekomcloud_networking_network_v2.network_1.id}
-    subnetId: ${opentelekomcloud_networking_subnet_v2.subnet_1.id}
+    networkIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: network_1
+    subnetIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: subnet_1

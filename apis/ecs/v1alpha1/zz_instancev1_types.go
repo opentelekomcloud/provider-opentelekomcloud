@@ -17,7 +17,16 @@ type DataDisksInitParameters struct {
 
 	// The Encryption KMS ID of the data disk. Changing this
 	// creates a new server.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/kms/v1alpha1.KeyV1
 	KMSID *string `json:"kmsId,omitempty" tf:"kms_id,omitempty"`
+
+	// Reference to a KeyV1 in kms to populate kmsId.
+	// +kubebuilder:validation:Optional
+	KMSIDRef *v1.Reference `json:"kmsIdRef,omitempty" tf:"-"`
+
+	// Selector for a KeyV1 in kms to populate kmsId.
+	// +kubebuilder:validation:Optional
+	KMSIDSelector *v1.Selector `json:"kmsIdSelector,omitempty" tf:"-"`
 
 	// The size of the data disk in GB. The value range is 10 to 32768.
 	// Changing this creates a new server.
@@ -56,8 +65,17 @@ type DataDisksParameters struct {
 
 	// The Encryption KMS ID of the data disk. Changing this
 	// creates a new server.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/kms/v1alpha1.KeyV1
 	// +kubebuilder:validation:Optional
 	KMSID *string `json:"kmsId,omitempty" tf:"kms_id,omitempty"`
+
+	// Reference to a KeyV1 in kms to populate kmsId.
+	// +kubebuilder:validation:Optional
+	KMSIDRef *v1.Reference `json:"kmsIdRef,omitempty" tf:"-"`
+
+	// Selector for a KeyV1 in kms to populate kmsId.
+	// +kubebuilder:validation:Optional
+	KMSIDSelector *v1.Selector `json:"kmsIdSelector,omitempty" tf:"-"`
 
 	// The size of the data disk in GB. The value range is 10 to 32768.
 	// Changing this creates a new server.
@@ -144,7 +162,16 @@ type InstanceV1InitParameters struct {
 
 	// The Encryption KMS ID of the system disk. Changing this
 	// creates a new server.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/kms/v1alpha1.KeyV1
 	SystemDiskKMSID *string `json:"systemDiskKmsId,omitempty" tf:"system_disk_kms_id,omitempty"`
+
+	// Reference to a KeyV1 in kms to populate systemDiskKmsId.
+	// +kubebuilder:validation:Optional
+	SystemDiskKMSIDRef *v1.Reference `json:"systemDiskKmsIdRef,omitempty" tf:"-"`
+
+	// Selector for a KeyV1 in kms to populate systemDiskKmsId.
+	// +kubebuilder:validation:Optional
+	SystemDiskKMSIDSelector *v1.Selector `json:"systemDiskKmsIdSelector,omitempty" tf:"-"`
 
 	// The system disk size in GB, The value range is 1 to 1024.
 	// Changing this creates a new server.
@@ -329,8 +356,17 @@ type InstanceV1Parameters struct {
 
 	// The Encryption KMS ID of the system disk. Changing this
 	// creates a new server.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/kms/v1alpha1.KeyV1
 	// +kubebuilder:validation:Optional
 	SystemDiskKMSID *string `json:"systemDiskKmsId,omitempty" tf:"system_disk_kms_id,omitempty"`
+
+	// Reference to a KeyV1 in kms to populate systemDiskKmsId.
+	// +kubebuilder:validation:Optional
+	SystemDiskKMSIDRef *v1.Reference `json:"systemDiskKmsIdRef,omitempty" tf:"-"`
+
+	// Selector for a KeyV1 in kms to populate systemDiskKmsId.
+	// +kubebuilder:validation:Optional
+	SystemDiskKMSIDSelector *v1.Selector `json:"systemDiskKmsIdSelector,omitempty" tf:"-"`
 
 	// The system disk size in GB, The value range is 1 to 1024.
 	// Changing this creates a new server.

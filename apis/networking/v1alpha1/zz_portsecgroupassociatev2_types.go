@@ -20,7 +20,16 @@ type PortSecgroupAssociateV2InitParameters struct {
 	Force *bool `json:"force,omitempty" tf:"force,omitempty"`
 
 	// An UUID of the port to apply security groups to.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.PortV2
 	PortID *string `json:"portId,omitempty" tf:"port_id,omitempty"`
+
+	// Reference to a PortV2 in networking to populate portId.
+	// +kubebuilder:validation:Optional
+	PortIDRef *v1.Reference `json:"portIdRef,omitempty" tf:"-"`
+
+	// Selector for a PortV2 in networking to populate portId.
+	// +kubebuilder:validation:Optional
+	PortIDSelector *v1.Selector `json:"portIdSelector,omitempty" tf:"-"`
 
 	// The region in which to obtain the V2 networking client.
 	// A networking client is needed to manage a port. If omitted, the
@@ -31,8 +40,17 @@ type PortSecgroupAssociateV2InitParameters struct {
 	// A list of security group IDs to apply to
 	// the port. The security groups must be specified by ID and not name (as
 	// opposed to how they are configured with the Compute Instance).
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.SecgroupV2
 	// +listType=set
 	SecurityGroupIds []*string `json:"securityGroupIds,omitempty" tf:"security_group_ids,omitempty"`
+
+	// References to SecgroupV2 in networking to populate securityGroupIds.
+	// +kubebuilder:validation:Optional
+	SecurityGroupIdsRefs []v1.Reference `json:"securityGroupIdsRefs,omitempty" tf:"-"`
+
+	// Selector for a list of SecgroupV2 in networking to populate securityGroupIds.
+	// +kubebuilder:validation:Optional
+	SecurityGroupIdsSelector *v1.Selector `json:"securityGroupIdsSelector,omitempty" tf:"-"`
 }
 
 type PortSecgroupAssociateV2Observation struct {
@@ -72,8 +90,17 @@ type PortSecgroupAssociateV2Parameters struct {
 	Force *bool `json:"force,omitempty" tf:"force,omitempty"`
 
 	// An UUID of the port to apply security groups to.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.PortV2
 	// +kubebuilder:validation:Optional
 	PortID *string `json:"portId,omitempty" tf:"port_id,omitempty"`
+
+	// Reference to a PortV2 in networking to populate portId.
+	// +kubebuilder:validation:Optional
+	PortIDRef *v1.Reference `json:"portIdRef,omitempty" tf:"-"`
+
+	// Selector for a PortV2 in networking to populate portId.
+	// +kubebuilder:validation:Optional
+	PortIDSelector *v1.Selector `json:"portIdSelector,omitempty" tf:"-"`
 
 	// The region in which to obtain the V2 networking client.
 	// A networking client is needed to manage a port. If omitted, the
@@ -85,9 +112,18 @@ type PortSecgroupAssociateV2Parameters struct {
 	// A list of security group IDs to apply to
 	// the port. The security groups must be specified by ID and not name (as
 	// opposed to how they are configured with the Compute Instance).
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.SecgroupV2
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	SecurityGroupIds []*string `json:"securityGroupIds,omitempty" tf:"security_group_ids,omitempty"`
+
+	// References to SecgroupV2 in networking to populate securityGroupIds.
+	// +kubebuilder:validation:Optional
+	SecurityGroupIdsRefs []v1.Reference `json:"securityGroupIdsRefs,omitempty" tf:"-"`
+
+	// Selector for a list of SecgroupV2 in networking to populate securityGroupIds.
+	// +kubebuilder:validation:Optional
+	SecurityGroupIdsSelector *v1.Selector `json:"securityGroupIdsSelector,omitempty" tf:"-"`
 }
 
 // PortSecgroupAssociateV2Spec defines the desired state of PortSecgroupAssociateV2
@@ -126,10 +162,8 @@ type PortSecgroupAssociateV2Status struct {
 type PortSecgroupAssociateV2 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.portId) || (has(self.initProvider) && has(self.initProvider.portId))",message="spec.forProvider.portId is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.securityGroupIds) || (has(self.initProvider) && has(self.initProvider.securityGroupIds))",message="spec.forProvider.securityGroupIds is a required parameter"
-	Spec   PortSecgroupAssociateV2Spec   `json:"spec"`
-	Status PortSecgroupAssociateV2Status `json:"status,omitempty"`
+	Spec              PortSecgroupAssociateV2Spec   `json:"spec"`
+	Status            PortSecgroupAssociateV2Status `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

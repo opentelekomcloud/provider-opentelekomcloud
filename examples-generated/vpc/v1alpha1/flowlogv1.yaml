@@ -9,12 +9,47 @@ metadata:
 spec:
   forProvider:
     description: ${var.flow_log_desc}
-    logGroupId: ${opentelekomcloud_logtank_group_v2.log_group1.id}
-    logTopicId: ${opentelekomcloud_logtank_topic_v2.log_topic1.id}
+    logGroupIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: log_group1
+    logTopicIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: log_topic1
     name: ${var.flow_log_name}
-    resourceId: ${opentelekomcloud_vpc_v1.vpc_v1.id}
+    resourceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: vpc_v1
     resourceType: vpc
     trafficType: all
+
+---
+
+apiVersion: logtank.opentelekomcloud.crossplane.io/v1alpha1
+kind: GroupV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/flowlogv1
+  labels:
+    testing.upbound.io/example-name: log_group1
+  name: log-group1
+spec:
+  forProvider:
+    groupName: ${var.log_group_name}
+
+---
+
+apiVersion: logtank.opentelekomcloud.crossplane.io/v1alpha1
+kind: TopicV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/flowlogv1
+  labels:
+    testing.upbound.io/example-name: log_topic1
+  name: log-topic1
+spec:
+  forProvider:
+    groupId: ${opentelekomcloud_logtank_group_v2.log_group1.id}
+    topicName: ${var.log_topic_name}
 
 ---
 

@@ -15,7 +15,9 @@ spec:
       destination: 172.16.0.0/16
       nexthop: ${opentelekomcloud_vpc_peering_connection_v2.peering.id}
       type: peering
-    vpcId: ${opentelekomcloud_vpc_v1.vpc_1.id}
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: vpc_1
 
 ---
 
@@ -30,8 +32,12 @@ metadata:
 spec:
   forProvider:
     name: my_peering
-    peerVpcId: ${opentelekomcloud_vpc_v1.vpc_2.id}
-    vpcId: ${opentelekomcloud_vpc_v1.vpc_1.id}
+    peerVpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: vpc_2
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: vpc_1
 
 ---
 

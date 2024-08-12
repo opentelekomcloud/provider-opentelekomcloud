@@ -8,10 +8,12 @@ metadata:
   name: associate
 spec:
   forProvider:
-    bandwidth: ${opentelekomcloud_vpc_bandwidth_v2.band20m.id}
-    floatingIps:
-    - ${opentelekomcloud_networking_floatingip_v2.ip1.id}
-    - ${opentelekomcloud_networking_floatingip_v2.ip2.id}
+    bandwidthSelector:
+      matchLabels:
+        testing.upbound.io/example-name: band20m
+    floatingIpsRefs:
+    - name: ip1
+    - name: ip2
 
 ---
 

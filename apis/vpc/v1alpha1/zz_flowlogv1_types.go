@@ -24,11 +24,29 @@ type FlowLogV1InitParameters struct {
 
 	// Specifies the log group ID.
 	// Changing this creates a new VPC flow log.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/logtank/v1alpha1.GroupV2
 	LogGroupID *string `json:"logGroupId,omitempty" tf:"log_group_id,omitempty"`
+
+	// Reference to a GroupV2 in logtank to populate logGroupId.
+	// +kubebuilder:validation:Optional
+	LogGroupIDRef *v1.Reference `json:"logGroupIdRef,omitempty" tf:"-"`
+
+	// Selector for a GroupV2 in logtank to populate logGroupId.
+	// +kubebuilder:validation:Optional
+	LogGroupIDSelector *v1.Selector `json:"logGroupIdSelector,omitempty" tf:"-"`
 
 	// Specifies the log topic ID.
 	// Changing this creates a new VPC flow log.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/logtank/v1alpha1.TopicV2
 	LogTopicID *string `json:"logTopicId,omitempty" tf:"log_topic_id,omitempty"`
+
+	// Reference to a TopicV2 in logtank to populate logTopicId.
+	// +kubebuilder:validation:Optional
+	LogTopicIDRef *v1.Reference `json:"logTopicIdRef,omitempty" tf:"-"`
+
+	// Selector for a TopicV2 in logtank to populate logTopicId.
+	// +kubebuilder:validation:Optional
+	LogTopicIDSelector *v1.Selector `json:"logTopicIdSelector,omitempty" tf:"-"`
 
 	// Specifies the flow log name.
 	// The value is a string of 1 to 64 characters that can contain letters, digits, underscores (_), hyphens (-) and periods (.).
@@ -36,7 +54,16 @@ type FlowLogV1InitParameters struct {
 
 	// Specifies the ID of resource type.
 	// Changing this creates a new VPC flow log.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.VpcV1
 	ResourceID *string `json:"resourceId,omitempty" tf:"resource_id,omitempty"`
+
+	// Reference to a VpcV1 in vpc to populate resourceId.
+	// +kubebuilder:validation:Optional
+	ResourceIDRef *v1.Reference `json:"resourceIdRef,omitempty" tf:"-"`
+
+	// Selector for a VpcV1 in vpc to populate resourceId.
+	// +kubebuilder:validation:Optional
+	ResourceIDSelector *v1.Selector `json:"resourceIdSelector,omitempty" tf:"-"`
 
 	// Specifies the type of resource on which to create the VPC flow log.
 	// The value can be port, vpc and network.
@@ -105,13 +132,31 @@ type FlowLogV1Parameters struct {
 
 	// Specifies the log group ID.
 	// Changing this creates a new VPC flow log.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/logtank/v1alpha1.GroupV2
 	// +kubebuilder:validation:Optional
 	LogGroupID *string `json:"logGroupId,omitempty" tf:"log_group_id,omitempty"`
 
+	// Reference to a GroupV2 in logtank to populate logGroupId.
+	// +kubebuilder:validation:Optional
+	LogGroupIDRef *v1.Reference `json:"logGroupIdRef,omitempty" tf:"-"`
+
+	// Selector for a GroupV2 in logtank to populate logGroupId.
+	// +kubebuilder:validation:Optional
+	LogGroupIDSelector *v1.Selector `json:"logGroupIdSelector,omitempty" tf:"-"`
+
 	// Specifies the log topic ID.
 	// Changing this creates a new VPC flow log.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/logtank/v1alpha1.TopicV2
 	// +kubebuilder:validation:Optional
 	LogTopicID *string `json:"logTopicId,omitempty" tf:"log_topic_id,omitempty"`
+
+	// Reference to a TopicV2 in logtank to populate logTopicId.
+	// +kubebuilder:validation:Optional
+	LogTopicIDRef *v1.Reference `json:"logTopicIdRef,omitempty" tf:"-"`
+
+	// Selector for a TopicV2 in logtank to populate logTopicId.
+	// +kubebuilder:validation:Optional
+	LogTopicIDSelector *v1.Selector `json:"logTopicIdSelector,omitempty" tf:"-"`
 
 	// Specifies the flow log name.
 	// The value is a string of 1 to 64 characters that can contain letters, digits, underscores (_), hyphens (-) and periods (.).
@@ -120,8 +165,17 @@ type FlowLogV1Parameters struct {
 
 	// Specifies the ID of resource type.
 	// Changing this creates a new VPC flow log.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.VpcV1
 	// +kubebuilder:validation:Optional
 	ResourceID *string `json:"resourceId,omitempty" tf:"resource_id,omitempty"`
+
+	// Reference to a VpcV1 in vpc to populate resourceId.
+	// +kubebuilder:validation:Optional
+	ResourceIDRef *v1.Reference `json:"resourceIdRef,omitempty" tf:"-"`
+
+	// Selector for a VpcV1 in vpc to populate resourceId.
+	// +kubebuilder:validation:Optional
+	ResourceIDSelector *v1.Selector `json:"resourceIdSelector,omitempty" tf:"-"`
 
 	// Specifies the type of resource on which to create the VPC flow log.
 	// The value can be port, vpc and network.
@@ -175,9 +229,6 @@ type FlowLogV1Status struct {
 type FlowLogV1 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.logGroupId) || (has(self.initProvider) && has(self.initProvider.logGroupId))",message="spec.forProvider.logGroupId is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.logTopicId) || (has(self.initProvider) && has(self.initProvider.logTopicId))",message="spec.forProvider.logTopicId is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.resourceId) || (has(self.initProvider) && has(self.initProvider.resourceId))",message="spec.forProvider.resourceId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.resourceType) || (has(self.initProvider) && has(self.initProvider.resourceType))",message="spec.forProvider.resourceType is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.trafficType) || (has(self.initProvider) && has(self.initProvider.trafficType))",message="spec.forProvider.trafficType is a required parameter"
 	Spec   FlowLogV1Spec   `json:"spec"`

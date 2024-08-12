@@ -9,6 +9,7 @@ Copyright 2022 Upbound Inc.
 package v1alpha1
 
 import (
+	"github.com/crossplane/crossplane-runtime/apis/common/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 )
 
@@ -52,6 +53,16 @@ func (in *DnatRuleV2InitParameters) DeepCopyInto(out *DnatRuleV2InitParameters) 
 		*out = new(string)
 		**out = **in
 	}
+	if in.FloatingIPIDRef != nil {
+		in, out := &in.FloatingIPIDRef, &out.FloatingIPIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.FloatingIPIDSelector != nil {
+		in, out := &in.FloatingIPIDSelector, &out.FloatingIPIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.InternalServicePort != nil {
 		in, out := &in.InternalServicePort, &out.InternalServicePort
 		*out = new(float64)
@@ -62,10 +73,30 @@ func (in *DnatRuleV2InitParameters) DeepCopyInto(out *DnatRuleV2InitParameters) 
 		*out = new(string)
 		**out = **in
 	}
+	if in.NATGatewayIDRef != nil {
+		in, out := &in.NATGatewayIDRef, &out.NATGatewayIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.NATGatewayIDSelector != nil {
+		in, out := &in.NATGatewayIDSelector, &out.NATGatewayIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.PortID != nil {
 		in, out := &in.PortID, &out.PortID
 		*out = new(string)
 		**out = **in
+	}
+	if in.PortIDRef != nil {
+		in, out := &in.PortIDRef, &out.PortIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.PortIDSelector != nil {
+		in, out := &in.PortIDSelector, &out.PortIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.PrivateIP != nil {
 		in, out := &in.PrivateIP, &out.PrivateIP
@@ -209,6 +240,16 @@ func (in *DnatRuleV2Parameters) DeepCopyInto(out *DnatRuleV2Parameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.FloatingIPIDRef != nil {
+		in, out := &in.FloatingIPIDRef, &out.FloatingIPIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.FloatingIPIDSelector != nil {
+		in, out := &in.FloatingIPIDSelector, &out.FloatingIPIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.InternalServicePort != nil {
 		in, out := &in.InternalServicePort, &out.InternalServicePort
 		*out = new(float64)
@@ -219,10 +260,30 @@ func (in *DnatRuleV2Parameters) DeepCopyInto(out *DnatRuleV2Parameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.NATGatewayIDRef != nil {
+		in, out := &in.NATGatewayIDRef, &out.NATGatewayIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.NATGatewayIDSelector != nil {
+		in, out := &in.NATGatewayIDSelector, &out.NATGatewayIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.PortID != nil {
 		in, out := &in.PortID, &out.PortID
 		*out = new(string)
 		**out = **in
+	}
+	if in.PortIDRef != nil {
+		in, out := &in.PortIDRef, &out.PortIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.PortIDSelector != nil {
+		in, out := &in.PortIDSelector, &out.PortIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.PrivateIP != nil {
 		in, out := &in.PrivateIP, &out.PrivateIP
@@ -321,6 +382,16 @@ func (in *GatewayV2InitParameters) DeepCopyInto(out *GatewayV2InitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.InternalNetworkIDRef != nil {
+		in, out := &in.InternalNetworkIDRef, &out.InternalNetworkIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InternalNetworkIDSelector != nil {
+		in, out := &in.InternalNetworkIDSelector, &out.InternalNetworkIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)
@@ -335,6 +406,16 @@ func (in *GatewayV2InitParameters) DeepCopyInto(out *GatewayV2InitParameters) {
 		in, out := &in.RouterID, &out.RouterID
 		*out = new(string)
 		**out = **in
+	}
+	if in.RouterIDRef != nil {
+		in, out := &in.RouterIDRef, &out.RouterIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.RouterIDSelector != nil {
+		in, out := &in.RouterIDSelector, &out.RouterIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Spec != nil {
 		in, out := &in.Spec, &out.Spec
@@ -490,6 +571,16 @@ func (in *GatewayV2Parameters) DeepCopyInto(out *GatewayV2Parameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.InternalNetworkIDRef != nil {
+		in, out := &in.InternalNetworkIDRef, &out.InternalNetworkIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InternalNetworkIDSelector != nil {
+		in, out := &in.InternalNetworkIDSelector, &out.InternalNetworkIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)
@@ -504,6 +595,16 @@ func (in *GatewayV2Parameters) DeepCopyInto(out *GatewayV2Parameters) {
 		in, out := &in.RouterID, &out.RouterID
 		*out = new(string)
 		**out = **in
+	}
+	if in.RouterIDRef != nil {
+		in, out := &in.RouterIDRef, &out.RouterIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.RouterIDSelector != nil {
+		in, out := &in.RouterIDSelector, &out.RouterIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Spec != nil {
 		in, out := &in.Spec, &out.Spec
@@ -618,15 +719,45 @@ func (in *SnatRuleV2InitParameters) DeepCopyInto(out *SnatRuleV2InitParameters) 
 		*out = new(string)
 		**out = **in
 	}
+	if in.FloatingIPIDRef != nil {
+		in, out := &in.FloatingIPIDRef, &out.FloatingIPIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.FloatingIPIDSelector != nil {
+		in, out := &in.FloatingIPIDSelector, &out.FloatingIPIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.NATGatewayID != nil {
 		in, out := &in.NATGatewayID, &out.NATGatewayID
 		*out = new(string)
 		**out = **in
 	}
+	if in.NATGatewayIDRef != nil {
+		in, out := &in.NATGatewayIDRef, &out.NATGatewayIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.NATGatewayIDSelector != nil {
+		in, out := &in.NATGatewayIDSelector, &out.NATGatewayIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.NetworkID != nil {
 		in, out := &in.NetworkID, &out.NetworkID
 		*out = new(string)
 		**out = **in
+	}
+	if in.NetworkIDRef != nil {
+		in, out := &in.NetworkIDRef, &out.NetworkIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.NetworkIDSelector != nil {
+		in, out := &in.NetworkIDSelector, &out.NetworkIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
@@ -745,15 +876,45 @@ func (in *SnatRuleV2Parameters) DeepCopyInto(out *SnatRuleV2Parameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.FloatingIPIDRef != nil {
+		in, out := &in.FloatingIPIDRef, &out.FloatingIPIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.FloatingIPIDSelector != nil {
+		in, out := &in.FloatingIPIDSelector, &out.FloatingIPIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.NATGatewayID != nil {
 		in, out := &in.NATGatewayID, &out.NATGatewayID
 		*out = new(string)
 		**out = **in
 	}
+	if in.NATGatewayIDRef != nil {
+		in, out := &in.NATGatewayIDRef, &out.NATGatewayIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.NATGatewayIDSelector != nil {
+		in, out := &in.NATGatewayIDSelector, &out.NATGatewayIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.NetworkID != nil {
 		in, out := &in.NetworkID, &out.NetworkID
 		*out = new(string)
 		**out = **in
+	}
+	if in.NetworkIDRef != nil {
+		in, out := &in.NetworkIDRef, &out.NetworkIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.NetworkIDSelector != nil {
+		in, out := &in.NetworkIDSelector, &out.NetworkIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
