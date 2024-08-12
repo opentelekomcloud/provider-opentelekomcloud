@@ -21,7 +21,16 @@ type PeeringConnectionAccepterV2InitParameters struct {
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
 	// The VPC Peering Connection ID to manage. Changing this creates a new VPC peering connection accepter.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.PeeringConnectionV2
 	VPCPeeringConnectionID *string `json:"vpcPeeringConnectionId,omitempty" tf:"vpc_peering_connection_id,omitempty"`
+
+	// Reference to a PeeringConnectionV2 in vpc to populate vpcPeeringConnectionId.
+	// +kubebuilder:validation:Optional
+	VPCPeeringConnectionIDRef *v1.Reference `json:"vpcPeeringConnectionIdRef,omitempty" tf:"-"`
+
+	// Selector for a PeeringConnectionV2 in vpc to populate vpcPeeringConnectionId.
+	// +kubebuilder:validation:Optional
+	VPCPeeringConnectionIDSelector *v1.Selector `json:"vpcPeeringConnectionIdSelector,omitempty" tf:"-"`
 }
 
 type PeeringConnectionAccepterV2Observation struct {
@@ -63,8 +72,17 @@ type PeeringConnectionAccepterV2Parameters struct {
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
 	// The VPC Peering Connection ID to manage. Changing this creates a new VPC peering connection accepter.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.PeeringConnectionV2
 	// +kubebuilder:validation:Optional
 	VPCPeeringConnectionID *string `json:"vpcPeeringConnectionId,omitempty" tf:"vpc_peering_connection_id,omitempty"`
+
+	// Reference to a PeeringConnectionV2 in vpc to populate vpcPeeringConnectionId.
+	// +kubebuilder:validation:Optional
+	VPCPeeringConnectionIDRef *v1.Reference `json:"vpcPeeringConnectionIdRef,omitempty" tf:"-"`
+
+	// Selector for a PeeringConnectionV2 in vpc to populate vpcPeeringConnectionId.
+	// +kubebuilder:validation:Optional
+	VPCPeeringConnectionIDSelector *v1.Selector `json:"vpcPeeringConnectionIdSelector,omitempty" tf:"-"`
 }
 
 // PeeringConnectionAccepterV2Spec defines the desired state of PeeringConnectionAccepterV2
@@ -103,9 +121,8 @@ type PeeringConnectionAccepterV2Status struct {
 type PeeringConnectionAccepterV2 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.vpcPeeringConnectionId) || (has(self.initProvider) && has(self.initProvider.vpcPeeringConnectionId))",message="spec.forProvider.vpcPeeringConnectionId is a required parameter"
-	Spec   PeeringConnectionAccepterV2Spec   `json:"spec"`
-	Status PeeringConnectionAccepterV2Status `json:"status,omitempty"`
+	Spec              PeeringConnectionAccepterV2Spec   `json:"spec"`
+	Status            PeeringConnectionAccepterV2Status `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

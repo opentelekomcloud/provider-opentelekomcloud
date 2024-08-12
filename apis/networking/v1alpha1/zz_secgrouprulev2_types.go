@@ -50,7 +50,16 @@ type SecgroupRuleV2InitParameters struct {
 	// The security group id the rule should belong
 	// to, the value needs to be an OpenTelekomCloud ID of a security group in the same
 	// tenant. Changing this creates a new security group rule.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.SecgroupV2
 	SecurityGroupID *string `json:"securityGroupId,omitempty" tf:"security_group_id,omitempty"`
+
+	// Reference to a SecgroupV2 in networking to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	SecurityGroupIDRef *v1.Reference `json:"securityGroupIdRef,omitempty" tf:"-"`
+
+	// Selector for a SecgroupV2 in networking to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	SecurityGroupIDSelector *v1.Selector `json:"securityGroupIdSelector,omitempty" tf:"-"`
 
 	// The owner of the security group. Required if admin
 	// wants to create a port for another tenant. Changing this creates a new
@@ -151,8 +160,17 @@ type SecgroupRuleV2Parameters struct {
 	// The security group id the rule should belong
 	// to, the value needs to be an OpenTelekomCloud ID of a security group in the same
 	// tenant. Changing this creates a new security group rule.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.SecgroupV2
 	// +kubebuilder:validation:Optional
 	SecurityGroupID *string `json:"securityGroupId,omitempty" tf:"security_group_id,omitempty"`
+
+	// Reference to a SecgroupV2 in networking to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	SecurityGroupIDRef *v1.Reference `json:"securityGroupIdRef,omitempty" tf:"-"`
+
+	// Selector for a SecgroupV2 in networking to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	SecurityGroupIDSelector *v1.Selector `json:"securityGroupIdSelector,omitempty" tf:"-"`
 
 	// The owner of the security group. Required if admin
 	// wants to create a port for another tenant. Changing this creates a new
@@ -199,7 +217,6 @@ type SecgroupRuleV2 struct {
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.direction) || (has(self.initProvider) && has(self.initProvider.direction))",message="spec.forProvider.direction is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.ethertype) || (has(self.initProvider) && has(self.initProvider.ethertype))",message="spec.forProvider.ethertype is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.securityGroupId) || (has(self.initProvider) && has(self.initProvider.securityGroupId))",message="spec.forProvider.securityGroupId is a required parameter"
 	Spec   SecgroupRuleV2Spec   `json:"spec"`
 	Status SecgroupRuleV2Status `json:"status,omitempty"`
 }

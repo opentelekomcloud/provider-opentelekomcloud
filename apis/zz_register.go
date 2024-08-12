@@ -28,6 +28,7 @@ import (
 	v1alpha1ims "github.com/opentelekomcloud/provider-opentelekomcloud/apis/ims/v1alpha1"
 	v1alpha1kms "github.com/opentelekomcloud/provider-opentelekomcloud/apis/kms/v1alpha1"
 	v1alpha1lb "github.com/opentelekomcloud/provider-opentelekomcloud/apis/lb/v1alpha1"
+	v1alpha1logtank "github.com/opentelekomcloud/provider-opentelekomcloud/apis/logtank/v1alpha1"
 	v1alpha1nat "github.com/opentelekomcloud/provider-opentelekomcloud/apis/nat/v1alpha1"
 	v1alpha1networking "github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1"
 	v1alpha1obs "github.com/opentelekomcloud/provider-opentelekomcloud/apis/obs/v1alpha1"
@@ -64,6 +65,7 @@ func init() {
 		v1alpha1ims.SchemeBuilder.AddToScheme,
 		v1alpha1kms.SchemeBuilder.AddToScheme,
 		v1alpha1lb.SchemeBuilder.AddToScheme,
+		v1alpha1logtank.SchemeBuilder.AddToScheme,
 		v1alpha1nat.SchemeBuilder.AddToScheme,
 		v1alpha1networking.SchemeBuilder.AddToScheme,
 		v1alpha1obs.SchemeBuilder.AddToScheme,

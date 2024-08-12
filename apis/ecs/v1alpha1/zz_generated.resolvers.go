@@ -8,8 +8,9 @@ package v1alpha1
 import (
 	"context"
 	reference "github.com/crossplane/crossplane-runtime/pkg/reference"
-	v1alpha1 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/compute/v1alpha1"
-	v1alpha11 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1"
+	v1alpha11 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/compute/v1alpha1"
+	v1alpha1 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/kms/v1alpha1"
+	v1alpha12 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1"
 	common "github.com/opentelekomcloud/provider-opentelekomcloud/config/common"
 	errors "github.com/pkg/errors"
 	client "sigs.k8s.io/controller-runtime/pkg/client"
@@ -23,14 +24,32 @@ func (mg *InstanceV1) ResolveReferences(ctx context.Context, c client.Reader) er
 	var mrsp reference.MultiResolutionResponse
 	var err error
 
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.DataDisks); i3++ {
+		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.DataDisks[i3].KMSID),
+			Extract:      reference.ExternalName(),
+			Reference:    mg.Spec.ForProvider.DataDisks[i3].KMSIDRef,
+			Selector:     mg.Spec.ForProvider.DataDisks[i3].KMSIDSelector,
+			To: reference.To{
+				List:    &v1alpha1.KeyV1List{},
+				Managed: &v1alpha1.KeyV1{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.DataDisks[i3].KMSID")
+		}
+		mg.Spec.ForProvider.DataDisks[i3].KMSID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.DataDisks[i3].KMSIDRef = rsp.ResolvedReference
+
+	}
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.KeyName),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.ForProvider.KeyNameRef,
 		Selector:     mg.Spec.ForProvider.KeyNameSelector,
 		To: reference.To{
-			List:    &v1alpha1.KeypairV2List{},
-			Managed: &v1alpha1.KeypairV2{},
+			List:    &v1alpha11.KeypairV2List{},
+			Managed: &v1alpha11.KeypairV2{},
 		},
 	})
 	if err != nil {
@@ -46,8 +65,8 @@ func (mg *InstanceV1) ResolveReferences(ctx context.Context, c client.Reader) er
 			Reference:    mg.Spec.ForProvider.Nics[i3].NetworkIDRef,
 			Selector:     mg.Spec.ForProvider.Nics[i3].NetworkIDSelector,
 			To: reference.To{
-				List:    &v1alpha11.SubnetV1List{},
-				Managed: &v1alpha11.SubnetV1{},
+				List:    &v1alpha12.SubnetV1List{},
+				Managed: &v1alpha12.SubnetV1{},
 			},
 		})
 		if err != nil {
@@ -63,8 +82,8 @@ func (mg *InstanceV1) ResolveReferences(ctx context.Context, c client.Reader) er
 		References:    mg.Spec.ForProvider.ComputeSecurityGroupIDRefs,
 		Selector:      mg.Spec.ForProvider.ComputeSecurityGroupIDSelector,
 		To: reference.To{
-			List:    &v1alpha1.SecgroupV2List{},
-			Managed: &v1alpha1.SecgroupV2{},
+			List:    &v1alpha11.SecgroupV2List{},
+			Managed: &v1alpha11.SecgroupV2{},
 		},
 	})
 	if err != nil {
@@ -74,13 +93,29 @@ func (mg *InstanceV1) ResolveReferences(ctx context.Context, c client.Reader) er
 	mg.Spec.ForProvider.ComputeSecurityGroupIDRefs = mrsp.ResolvedReferences
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.SystemDiskKMSID),
+		Extract:      reference.ExternalName(),
+		Reference:    mg.Spec.ForProvider.SystemDiskKMSIDRef,
+		Selector:     mg.Spec.ForProvider.SystemDiskKMSIDSelector,
+		To: reference.To{
+			List:    &v1alpha1.KeyV1List{},
+			Managed: &v1alpha1.KeyV1{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.SystemDiskKMSID")
+	}
+	mg.Spec.ForProvider.SystemDiskKMSID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.SystemDiskKMSIDRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.VPCID),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.ForProvider.VPCIDRef,
 		Selector:     mg.Spec.ForProvider.VPCIDSelector,
 		To: reference.To{
-			List:    &v1alpha11.VpcV1List{},
-			Managed: &v1alpha11.VpcV1{},
+			List:    &v1alpha12.VpcV1List{},
+			Managed: &v1alpha12.VpcV1{},
 		},
 	})
 	if err != nil {
@@ -89,14 +124,32 @@ func (mg *InstanceV1) ResolveReferences(ctx context.Context, c client.Reader) er
 	mg.Spec.ForProvider.VPCID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.VPCIDRef = rsp.ResolvedReference
 
+	for i3 := 0; i3 < len(mg.Spec.InitProvider.DataDisks); i3++ {
+		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.DataDisks[i3].KMSID),
+			Extract:      reference.ExternalName(),
+			Reference:    mg.Spec.InitProvider.DataDisks[i3].KMSIDRef,
+			Selector:     mg.Spec.InitProvider.DataDisks[i3].KMSIDSelector,
+			To: reference.To{
+				List:    &v1alpha1.KeyV1List{},
+				Managed: &v1alpha1.KeyV1{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.InitProvider.DataDisks[i3].KMSID")
+		}
+		mg.Spec.InitProvider.DataDisks[i3].KMSID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.InitProvider.DataDisks[i3].KMSIDRef = rsp.ResolvedReference
+
+	}
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.KeyName),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.InitProvider.KeyNameRef,
 		Selector:     mg.Spec.InitProvider.KeyNameSelector,
 		To: reference.To{
-			List:    &v1alpha1.KeypairV2List{},
-			Managed: &v1alpha1.KeypairV2{},
+			List:    &v1alpha11.KeypairV2List{},
+			Managed: &v1alpha11.KeypairV2{},
 		},
 	})
 	if err != nil {
@@ -112,8 +165,8 @@ func (mg *InstanceV1) ResolveReferences(ctx context.Context, c client.Reader) er
 			Reference:    mg.Spec.InitProvider.Nics[i3].NetworkIDRef,
 			Selector:     mg.Spec.InitProvider.Nics[i3].NetworkIDSelector,
 			To: reference.To{
-				List:    &v1alpha11.SubnetV1List{},
-				Managed: &v1alpha11.SubnetV1{},
+				List:    &v1alpha12.SubnetV1List{},
+				Managed: &v1alpha12.SubnetV1{},
 			},
 		})
 		if err != nil {
@@ -129,8 +182,8 @@ func (mg *InstanceV1) ResolveReferences(ctx context.Context, c client.Reader) er
 		References:    mg.Spec.InitProvider.ComputeSecurityGroupIDRefs,
 		Selector:      mg.Spec.InitProvider.ComputeSecurityGroupIDSelector,
 		To: reference.To{
-			List:    &v1alpha1.SecgroupV2List{},
-			Managed: &v1alpha1.SecgroupV2{},
+			List:    &v1alpha11.SecgroupV2List{},
+			Managed: &v1alpha11.SecgroupV2{},
 		},
 	})
 	if err != nil {
@@ -140,13 +193,29 @@ func (mg *InstanceV1) ResolveReferences(ctx context.Context, c client.Reader) er
 	mg.Spec.InitProvider.ComputeSecurityGroupIDRefs = mrsp.ResolvedReferences
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.SystemDiskKMSID),
+		Extract:      reference.ExternalName(),
+		Reference:    mg.Spec.InitProvider.SystemDiskKMSIDRef,
+		Selector:     mg.Spec.InitProvider.SystemDiskKMSIDSelector,
+		To: reference.To{
+			List:    &v1alpha1.KeyV1List{},
+			Managed: &v1alpha1.KeyV1{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.SystemDiskKMSID")
+	}
+	mg.Spec.InitProvider.SystemDiskKMSID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.SystemDiskKMSIDRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.VPCID),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.InitProvider.VPCIDRef,
 		Selector:     mg.Spec.InitProvider.VPCIDSelector,
 		To: reference.To{
-			List:    &v1alpha11.VpcV1List{},
-			Managed: &v1alpha11.VpcV1{},
+			List:    &v1alpha12.VpcV1List{},
+			Managed: &v1alpha12.VpcV1{},
 		},
 	})
 	if err != nil {

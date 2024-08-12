@@ -58,6 +58,16 @@ func (in *BandwidthAssociateV2InitParameters) DeepCopyInto(out *BandwidthAssocia
 		*out = new(string)
 		**out = **in
 	}
+	if in.BandwidthRef != nil {
+		in, out := &in.BandwidthRef, &out.BandwidthRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.BandwidthSelector != nil {
+		in, out := &in.BandwidthSelector, &out.BandwidthSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.FloatingIps != nil {
 		in, out := &in.FloatingIps, &out.FloatingIps
 		*out = make([]*string, len(*in))
@@ -68,6 +78,18 @@ func (in *BandwidthAssociateV2InitParameters) DeepCopyInto(out *BandwidthAssocia
 				**out = **in
 			}
 		}
+	}
+	if in.FloatingIpsRefs != nil {
+		in, out := &in.FloatingIpsRefs, &out.FloatingIpsRefs
+		*out = make([]v1.Reference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.FloatingIpsSelector != nil {
+		in, out := &in.FloatingIpsSelector, &out.FloatingIpsSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -177,6 +199,16 @@ func (in *BandwidthAssociateV2Parameters) DeepCopyInto(out *BandwidthAssociateV2
 		*out = new(string)
 		**out = **in
 	}
+	if in.BandwidthRef != nil {
+		in, out := &in.BandwidthRef, &out.BandwidthRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.BandwidthSelector != nil {
+		in, out := &in.BandwidthSelector, &out.BandwidthSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.FloatingIps != nil {
 		in, out := &in.FloatingIps, &out.FloatingIps
 		*out = make([]*string, len(*in))
@@ -187,6 +219,18 @@ func (in *BandwidthAssociateV2Parameters) DeepCopyInto(out *BandwidthAssociateV2
 				**out = **in
 			}
 		}
+	}
+	if in.FloatingIpsRefs != nil {
+		in, out := &in.FloatingIpsRefs, &out.FloatingIpsRefs
+		*out = make([]v1.Reference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.FloatingIpsSelector != nil {
+		in, out := &in.FloatingIpsSelector, &out.FloatingIpsSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -876,10 +920,30 @@ func (in *FlowLogV1InitParameters) DeepCopyInto(out *FlowLogV1InitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.LogGroupIDRef != nil {
+		in, out := &in.LogGroupIDRef, &out.LogGroupIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.LogGroupIDSelector != nil {
+		in, out := &in.LogGroupIDSelector, &out.LogGroupIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.LogTopicID != nil {
 		in, out := &in.LogTopicID, &out.LogTopicID
 		*out = new(string)
 		**out = **in
+	}
+	if in.LogTopicIDRef != nil {
+		in, out := &in.LogTopicIDRef, &out.LogTopicIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.LogTopicIDSelector != nil {
+		in, out := &in.LogTopicIDSelector, &out.LogTopicIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
@@ -890,6 +954,16 @@ func (in *FlowLogV1InitParameters) DeepCopyInto(out *FlowLogV1InitParameters) {
 		in, out := &in.ResourceID, &out.ResourceID
 		*out = new(string)
 		**out = **in
+	}
+	if in.ResourceIDRef != nil {
+		in, out := &in.ResourceIDRef, &out.ResourceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ResourceIDSelector != nil {
+		in, out := &in.ResourceIDSelector, &out.ResourceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ResourceType != nil {
 		in, out := &in.ResourceType, &out.ResourceType
@@ -1033,10 +1107,30 @@ func (in *FlowLogV1Parameters) DeepCopyInto(out *FlowLogV1Parameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.LogGroupIDRef != nil {
+		in, out := &in.LogGroupIDRef, &out.LogGroupIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.LogGroupIDSelector != nil {
+		in, out := &in.LogGroupIDSelector, &out.LogGroupIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.LogTopicID != nil {
 		in, out := &in.LogTopicID, &out.LogTopicID
 		*out = new(string)
 		**out = **in
+	}
+	if in.LogTopicIDRef != nil {
+		in, out := &in.LogTopicIDRef, &out.LogTopicIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.LogTopicIDSelector != nil {
+		in, out := &in.LogTopicIDSelector, &out.LogTopicIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
@@ -1047,6 +1141,16 @@ func (in *FlowLogV1Parameters) DeepCopyInto(out *FlowLogV1Parameters) {
 		in, out := &in.ResourceID, &out.ResourceID
 		*out = new(string)
 		**out = **in
+	}
+	if in.ResourceIDRef != nil {
+		in, out := &in.ResourceIDRef, &out.ResourceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ResourceIDSelector != nil {
+		in, out := &in.ResourceIDSelector, &out.ResourceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ResourceType != nil {
 		in, out := &in.ResourceType, &out.ResourceType
@@ -1154,6 +1258,16 @@ func (in *PeeringConnectionAccepterV2InitParameters) DeepCopyInto(out *PeeringCo
 		in, out := &in.VPCPeeringConnectionID, &out.VPCPeeringConnectionID
 		*out = new(string)
 		**out = **in
+	}
+	if in.VPCPeeringConnectionIDRef != nil {
+		in, out := &in.VPCPeeringConnectionIDRef, &out.VPCPeeringConnectionIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.VPCPeeringConnectionIDSelector != nil {
+		in, out := &in.VPCPeeringConnectionIDSelector, &out.VPCPeeringConnectionIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -1277,6 +1391,16 @@ func (in *PeeringConnectionAccepterV2Parameters) DeepCopyInto(out *PeeringConnec
 		*out = new(string)
 		**out = **in
 	}
+	if in.VPCPeeringConnectionIDRef != nil {
+		in, out := &in.VPCPeeringConnectionIDRef, &out.VPCPeeringConnectionIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.VPCPeeringConnectionIDSelector != nil {
+		in, out := &in.VPCPeeringConnectionIDSelector, &out.VPCPeeringConnectionIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 }
 
 // DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new PeeringConnectionAccepterV2Parameters.
@@ -1369,6 +1493,16 @@ func (in *PeeringConnectionV2InitParameters) DeepCopyInto(out *PeeringConnection
 		*out = new(string)
 		**out = **in
 	}
+	if in.PeerVPCIDRef != nil {
+		in, out := &in.PeerVPCIDRef, &out.PeerVPCIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.PeerVPCIDSelector != nil {
+		in, out := &in.PeerVPCIDSelector, &out.PeerVPCIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
 		*out = new(string)
@@ -1378,6 +1512,16 @@ func (in *PeeringConnectionV2InitParameters) DeepCopyInto(out *PeeringConnection
 		in, out := &in.VPCID, &out.VPCID
 		*out = new(string)
 		**out = **in
+	}
+	if in.VPCIDRef != nil {
+		in, out := &in.VPCIDRef, &out.VPCIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.VPCIDSelector != nil {
+		in, out := &in.VPCIDSelector, &out.VPCIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -1491,6 +1635,16 @@ func (in *PeeringConnectionV2Parameters) DeepCopyInto(out *PeeringConnectionV2Pa
 		*out = new(string)
 		**out = **in
 	}
+	if in.PeerVPCIDRef != nil {
+		in, out := &in.PeerVPCIDRef, &out.PeerVPCIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.PeerVPCIDSelector != nil {
+		in, out := &in.PeerVPCIDSelector, &out.PeerVPCIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
 		*out = new(string)
@@ -1500,6 +1654,16 @@ func (in *PeeringConnectionV2Parameters) DeepCopyInto(out *PeeringConnectionV2Pa
 		in, out := &in.VPCID, &out.VPCID
 		*out = new(string)
 		**out = **in
+	}
+	if in.VPCIDRef != nil {
+		in, out := &in.VPCIDRef, &out.VPCIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.VPCIDSelector != nil {
+		in, out := &in.VPCIDSelector, &out.VPCIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -1826,6 +1990,16 @@ func (in *RouteTableV1InitParameters) DeepCopyInto(out *RouteTableV1InitParamete
 		*out = new(string)
 		**out = **in
 	}
+	if in.VPCIDRef != nil {
+		in, out := &in.VPCIDRef, &out.VPCIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.VPCIDSelector != nil {
+		in, out := &in.VPCIDSelector, &out.VPCIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 }
 
 // DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new RouteTableV1InitParameters.
@@ -1979,6 +2153,16 @@ func (in *RouteTableV1Parameters) DeepCopyInto(out *RouteTableV1Parameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.VPCIDRef != nil {
+		in, out := &in.VPCIDRef, &out.VPCIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.VPCIDSelector != nil {
+		in, out := &in.VPCIDSelector, &out.VPCIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 }
 
 // DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new RouteTableV1Parameters.
@@ -2085,6 +2269,16 @@ func (in *RouteV2InitParameters) DeepCopyInto(out *RouteV2InitParameters) {
 		in, out := &in.VPCID, &out.VPCID
 		*out = new(string)
 		**out = **in
+	}
+	if in.VPCIDRef != nil {
+		in, out := &in.VPCIDRef, &out.VPCIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.VPCIDSelector != nil {
+		in, out := &in.VPCIDSelector, &out.VPCIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -2212,6 +2406,16 @@ func (in *RouteV2Parameters) DeepCopyInto(out *RouteV2Parameters) {
 		in, out := &in.VPCID, &out.VPCID
 		*out = new(string)
 		**out = **in
+	}
+	if in.VPCIDRef != nil {
+		in, out := &in.VPCIDRef, &out.VPCIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.VPCIDSelector != nil {
+		in, out := &in.VPCIDSelector, &out.VPCIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 

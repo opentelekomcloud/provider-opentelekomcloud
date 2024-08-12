@@ -22,12 +22,30 @@ type PeeringConnectionV2InitParameters struct {
 	PeerTenantID *string `json:"peerTenantId,omitempty" tf:"peer_tenant_id,omitempty"`
 
 	// Specifies the VPC ID of the accepter tenant. Changing this creates a new VPC peering connection.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.VpcV1
 	PeerVPCID *string `json:"peerVpcId,omitempty" tf:"peer_vpc_id,omitempty"`
+
+	// Reference to a VpcV1 in vpc to populate peerVpcId.
+	// +kubebuilder:validation:Optional
+	PeerVPCIDRef *v1.Reference `json:"peerVpcIdRef,omitempty" tf:"-"`
+
+	// Selector for a VpcV1 in vpc to populate peerVpcId.
+	// +kubebuilder:validation:Optional
+	PeerVPCIDSelector *v1.Selector `json:"peerVpcIdSelector,omitempty" tf:"-"`
 
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
 	// Specifies the ID of a VPC involved in a VPC peering connection. Changing this creates a new VPC peering connection.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.VpcV1
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
+
+	// Reference to a VpcV1 in vpc to populate vpcId.
+	// +kubebuilder:validation:Optional
+	VPCIDRef *v1.Reference `json:"vpcIdRef,omitempty" tf:"-"`
+
+	// Selector for a VpcV1 in vpc to populate vpcId.
+	// +kubebuilder:validation:Optional
+	VPCIDSelector *v1.Selector `json:"vpcIdSelector,omitempty" tf:"-"`
 }
 
 type PeeringConnectionV2Observation struct {
@@ -64,15 +82,33 @@ type PeeringConnectionV2Parameters struct {
 	PeerTenantID *string `json:"peerTenantId,omitempty" tf:"peer_tenant_id,omitempty"`
 
 	// Specifies the VPC ID of the accepter tenant. Changing this creates a new VPC peering connection.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.VpcV1
 	// +kubebuilder:validation:Optional
 	PeerVPCID *string `json:"peerVpcId,omitempty" tf:"peer_vpc_id,omitempty"`
+
+	// Reference to a VpcV1 in vpc to populate peerVpcId.
+	// +kubebuilder:validation:Optional
+	PeerVPCIDRef *v1.Reference `json:"peerVpcIdRef,omitempty" tf:"-"`
+
+	// Selector for a VpcV1 in vpc to populate peerVpcId.
+	// +kubebuilder:validation:Optional
+	PeerVPCIDSelector *v1.Selector `json:"peerVpcIdSelector,omitempty" tf:"-"`
 
 	// +kubebuilder:validation:Optional
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
 	// Specifies the ID of a VPC involved in a VPC peering connection. Changing this creates a new VPC peering connection.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.VpcV1
 	// +kubebuilder:validation:Optional
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
+
+	// Reference to a VpcV1 in vpc to populate vpcId.
+	// +kubebuilder:validation:Optional
+	VPCIDRef *v1.Reference `json:"vpcIdRef,omitempty" tf:"-"`
+
+	// Selector for a VpcV1 in vpc to populate vpcId.
+	// +kubebuilder:validation:Optional
+	VPCIDSelector *v1.Selector `json:"vpcIdSelector,omitempty" tf:"-"`
 }
 
 // PeeringConnectionV2Spec defines the desired state of PeeringConnectionV2
@@ -112,8 +148,6 @@ type PeeringConnectionV2 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.peerVpcId) || (has(self.initProvider) && has(self.initProvider.peerVpcId))",message="spec.forProvider.peerVpcId is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.vpcId) || (has(self.initProvider) && has(self.initProvider.vpcId))",message="spec.forProvider.vpcId is a required parameter"
 	Spec   PeeringConnectionV2Spec   `json:"spec"`
 	Status PeeringConnectionV2Status `json:"status,omitempty"`
 }

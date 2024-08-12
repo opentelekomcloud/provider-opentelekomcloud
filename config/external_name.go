@@ -116,6 +116,11 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"opentelekomcloud_lb_security_policy_v3": config.IdentifierFromProvider,
 	"opentelekomcloud_lb_whitelist_v2":       config.IdentifierFromProvider,
 
+	// LTS
+	"opentelekomcloud_logtank_group_v2":    config.IdentifierFromProvider,
+	"opentelekomcloud_logtank_topic_v2":    config.IdentifierFromProvider,
+	"opentelekomcloud_logtank_transfer_v2": config.IdentifierFromProvider,
+
 	// NAT
 	"opentelekomcloud_nat_gateway_v2":   config.IdentifierFromProvider,
 	"opentelekomcloud_nat_dnat_rule_v2": config.IdentifierFromProvider,

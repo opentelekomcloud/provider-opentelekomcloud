@@ -11,9 +11,13 @@ spec:
     adminStateUp: "true"
     fixedIp:
     - ipAddress: 192.168.199.23
-      subnetId: ${opentelekomcloud_networking_subnet_v2.subnet_1.id}
+      subnetIdSelector:
+        matchLabels:
+          testing.upbound.io/example-name: subnet_1
     name: port_1
-    networkId: ${opentelekomcloud_networking_network_v2.network_1.id}
+    networkIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: network_1
 
 ---
 

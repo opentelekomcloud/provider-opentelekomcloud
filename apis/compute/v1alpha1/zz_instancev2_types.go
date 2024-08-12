@@ -37,7 +37,16 @@ type BlockDeviceInitParameters struct {
 
 	// The UUID of the image, volume, or snapshot. Changing
 	// this creates a new server.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/blockstorage/v1alpha1.VolumeV2
 	UUID *string `json:"uuid,omitempty" tf:"uuid,omitempty"`
+
+	// Reference to a VolumeV2 in blockstorage to populate uuid.
+	// +kubebuilder:validation:Optional
+	UUIDRef *v1.Reference `json:"uuidRef,omitempty" tf:"-"`
+
+	// Selector for a VolumeV2 in blockstorage to populate uuid.
+	// +kubebuilder:validation:Optional
+	UUIDSelector *v1.Selector `json:"uuidSelector,omitempty" tf:"-"`
 
 	// The size of the volume to create (in gigabytes). Required in the following combinations: source=image
 	// and destination=volume, and source=blank and destination=volume. Changing this creates a new server.
@@ -115,8 +124,17 @@ type BlockDeviceParameters struct {
 
 	// The UUID of the image, volume, or snapshot. Changing
 	// this creates a new server.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/blockstorage/v1alpha1.VolumeV2
 	// +kubebuilder:validation:Optional
 	UUID *string `json:"uuid,omitempty" tf:"uuid,omitempty"`
+
+	// Reference to a VolumeV2 in blockstorage to populate uuid.
+	// +kubebuilder:validation:Optional
+	UUIDRef *v1.Reference `json:"uuidRef,omitempty" tf:"-"`
+
+	// Selector for a VolumeV2 in blockstorage to populate uuid.
+	// +kubebuilder:validation:Optional
+	UUIDSelector *v1.Selector `json:"uuidSelector,omitempty" tf:"-"`
 
 	// The size of the volume to create (in gigabytes). Required in the following combinations: source=image
 	// and destination=volume, and source=blank and destination=volume. Changing this creates a new server.
@@ -492,7 +510,16 @@ type NetworkInitParameters struct {
 
 	// The network UUID to attach to the server. Changing this
 	// creates a new server.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.NetworkV2
 	UUID *string `json:"uuid,omitempty" tf:"uuid,omitempty"`
+
+	// Reference to a NetworkV2 in networking to populate uuid.
+	// +kubebuilder:validation:Optional
+	UUIDRef *v1.Reference `json:"uuidRef,omitempty" tf:"-"`
+
+	// Selector for a NetworkV2 in networking to populate uuid.
+	// +kubebuilder:validation:Optional
+	UUIDSelector *v1.Selector `json:"uuidSelector,omitempty" tf:"-"`
 }
 
 type NetworkObservation struct {
@@ -553,8 +580,17 @@ type NetworkParameters struct {
 
 	// The network UUID to attach to the server. Changing this
 	// creates a new server.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.NetworkV2
 	// +kubebuilder:validation:Optional
 	UUID *string `json:"uuid,omitempty" tf:"uuid,omitempty"`
+
+	// Reference to a NetworkV2 in networking to populate uuid.
+	// +kubebuilder:validation:Optional
+	UUIDRef *v1.Reference `json:"uuidRef,omitempty" tf:"-"`
+
+	// Selector for a NetworkV2 in networking to populate uuid.
+	// +kubebuilder:validation:Optional
+	UUIDSelector *v1.Selector `json:"uuidSelector,omitempty" tf:"-"`
 }
 
 type SchedulerHintsInitParameters struct {

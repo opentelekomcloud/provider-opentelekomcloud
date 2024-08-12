@@ -21,6 +21,16 @@ func (in *DataDisksInitParameters) DeepCopyInto(out *DataDisksInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.KMSIDRef != nil {
+		in, out := &in.KMSIDRef, &out.KMSIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.KMSIDSelector != nil {
+		in, out := &in.KMSIDSelector, &out.KMSIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Size != nil {
 		in, out := &in.Size, &out.Size
 		*out = new(float64)
@@ -95,6 +105,16 @@ func (in *DataDisksParameters) DeepCopyInto(out *DataDisksParameters) {
 		in, out := &in.KMSID, &out.KMSID
 		*out = new(string)
 		**out = **in
+	}
+	if in.KMSIDRef != nil {
+		in, out := &in.KMSIDRef, &out.KMSIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.KMSIDSelector != nil {
+		in, out := &in.KMSIDSelector, &out.KMSIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Size != nil {
 		in, out := &in.Size, &out.Size
@@ -244,6 +264,16 @@ func (in *InstanceV1InitParameters) DeepCopyInto(out *InstanceV1InitParameters) 
 		in, out := &in.SystemDiskKMSID, &out.SystemDiskKMSID
 		*out = new(string)
 		**out = **in
+	}
+	if in.SystemDiskKMSIDRef != nil {
+		in, out := &in.SystemDiskKMSIDRef, &out.SystemDiskKMSIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.SystemDiskKMSIDSelector != nil {
+		in, out := &in.SystemDiskKMSIDSelector, &out.SystemDiskKMSIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.SystemDiskSize != nil {
 		in, out := &in.SystemDiskSize, &out.SystemDiskSize
@@ -562,6 +592,16 @@ func (in *InstanceV1Parameters) DeepCopyInto(out *InstanceV1Parameters) {
 		in, out := &in.SystemDiskKMSID, &out.SystemDiskKMSID
 		*out = new(string)
 		**out = **in
+	}
+	if in.SystemDiskKMSIDRef != nil {
+		in, out := &in.SystemDiskKMSIDRef, &out.SystemDiskKMSIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.SystemDiskKMSIDSelector != nil {
+		in, out := &in.SystemDiskKMSIDSelector, &out.SystemDiskKMSIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.SystemDiskSize != nil {
 		in, out := &in.SystemDiskSize, &out.SystemDiskSize

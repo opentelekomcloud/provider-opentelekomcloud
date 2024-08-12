@@ -8,8 +8,12 @@ metadata:
   name: fip-1
 spec:
   forProvider:
-    floatingIp: ${opentelekomcloud_networking_floatingip_v2.fip_1.address}
-    instanceId: ${opentelekomcloud_compute_instance_v2.instance_1.id}
+    floatingIpSelector:
+      matchLabels:
+        testing.upbound.io/example-name: fip_1
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: instance_1
 
 ---
 

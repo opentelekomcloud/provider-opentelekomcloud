@@ -80,7 +80,16 @@ type FixedIPInitParameters struct {
 
 	// Subnet in which to allocate IP address for
 	// this port.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.SubnetV2
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
+
+	// Reference to a SubnetV2 in networking to populate subnetId.
+	// +kubebuilder:validation:Optional
+	SubnetIDRef *v1.Reference `json:"subnetIdRef,omitempty" tf:"-"`
+
+	// Selector for a SubnetV2 in networking to populate subnetId.
+	// +kubebuilder:validation:Optional
+	SubnetIDSelector *v1.Selector `json:"subnetIdSelector,omitempty" tf:"-"`
 }
 
 type FixedIPObservation struct {
@@ -105,8 +114,17 @@ type FixedIPParameters struct {
 
 	// Subnet in which to allocate IP address for
 	// this port.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.SubnetV2
 	// +kubebuilder:validation:Optional
-	SubnetID *string `json:"subnetId" tf:"subnet_id,omitempty"`
+	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
+
+	// Reference to a SubnetV2 in networking to populate subnetId.
+	// +kubebuilder:validation:Optional
+	SubnetIDRef *v1.Reference `json:"subnetIdRef,omitempty" tf:"-"`
+
+	// Selector for a SubnetV2 in networking to populate subnetId.
+	// +kubebuilder:validation:Optional
+	SubnetIDSelector *v1.Selector `json:"subnetIdSelector,omitempty" tf:"-"`
 }
 
 type PortV2InitParameters struct {
@@ -148,7 +166,16 @@ type PortV2InitParameters struct {
 
 	// The ID of the network to attach the port to. Changing
 	// this creates a new port.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.NetworkV2
 	NetworkID *string `json:"networkId,omitempty" tf:"network_id,omitempty"`
+
+	// Reference to a NetworkV2 in networking to populate networkId.
+	// +kubebuilder:validation:Optional
+	NetworkIDRef *v1.Reference `json:"networkIdRef,omitempty" tf:"-"`
+
+	// Selector for a NetworkV2 in networking to populate networkId.
+	// +kubebuilder:validation:Optional
+	NetworkIDSelector *v1.Selector `json:"networkIdSelector,omitempty" tf:"-"`
 
 	// If set to true, then no security groups
 	// are applied to the port. If set to false and no security_group_ids are specified,
@@ -169,8 +196,17 @@ type PortV2InitParameters struct {
 	// A list of security group IDs to apply to the
 	// port. The security groups must be specified by ID and not name (as opposed
 	// to how they are configured with the Compute Instance).
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.SecgroupV2
 	// +listType=set
 	SecurityGroupIds []*string `json:"securityGroupIds,omitempty" tf:"security_group_ids,omitempty"`
+
+	// References to SecgroupV2 in networking to populate securityGroupIds.
+	// +kubebuilder:validation:Optional
+	SecurityGroupIdsRefs []v1.Reference `json:"securityGroupIdsRefs,omitempty" tf:"-"`
+
+	// Selector for a list of SecgroupV2 in networking to populate securityGroupIds.
+	// +kubebuilder:validation:Optional
+	SecurityGroupIdsSelector *v1.Selector `json:"securityGroupIdsSelector,omitempty" tf:"-"`
 
 	// The owner of the Port. Required if admin wants
 	// to create a port for another tenant. Changing this creates a new port.
@@ -304,8 +340,17 @@ type PortV2Parameters struct {
 
 	// The ID of the network to attach the port to. Changing
 	// this creates a new port.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.NetworkV2
 	// +kubebuilder:validation:Optional
 	NetworkID *string `json:"networkId,omitempty" tf:"network_id,omitempty"`
+
+	// Reference to a NetworkV2 in networking to populate networkId.
+	// +kubebuilder:validation:Optional
+	NetworkIDRef *v1.Reference `json:"networkIdRef,omitempty" tf:"-"`
+
+	// Selector for a NetworkV2 in networking to populate networkId.
+	// +kubebuilder:validation:Optional
+	NetworkIDSelector *v1.Selector `json:"networkIdSelector,omitempty" tf:"-"`
 
 	// If set to true, then no security groups
 	// are applied to the port. If set to false and no security_group_ids are specified,
@@ -329,9 +374,18 @@ type PortV2Parameters struct {
 	// A list of security group IDs to apply to the
 	// port. The security groups must be specified by ID and not name (as opposed
 	// to how they are configured with the Compute Instance).
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.SecgroupV2
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	SecurityGroupIds []*string `json:"securityGroupIds,omitempty" tf:"security_group_ids,omitempty"`
+
+	// References to SecgroupV2 in networking to populate securityGroupIds.
+	// +kubebuilder:validation:Optional
+	SecurityGroupIdsRefs []v1.Reference `json:"securityGroupIdsRefs,omitempty" tf:"-"`
+
+	// Selector for a list of SecgroupV2 in networking to populate securityGroupIds.
+	// +kubebuilder:validation:Optional
+	SecurityGroupIdsSelector *v1.Selector `json:"securityGroupIdsSelector,omitempty" tf:"-"`
 
 	// The owner of the Port. Required if admin wants
 	// to create a port for another tenant. Changing this creates a new port.
@@ -380,9 +434,8 @@ type PortV2Status struct {
 type PortV2 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.networkId) || (has(self.initProvider) && has(self.initProvider.networkId))",message="spec.forProvider.networkId is a required parameter"
-	Spec   PortV2Spec   `json:"spec"`
-	Status PortV2Status `json:"status,omitempty"`
+	Spec              PortV2Spec   `json:"spec"`
+	Status            PortV2Status `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

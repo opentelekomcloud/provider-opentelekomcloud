@@ -9,8 +9,12 @@ metadata:
 spec:
   forProvider:
     cidr: 192.168.0.0/24
-    floatingIpId: ${opentelekomcloud_networking_floatingip_v2.fip_1.id}
-    natGatewayId: ${opentelekomcloud_nat_gateway_v2.nat_1.id}
+    floatingIpIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: fip_1
+    natGatewayIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: nat_1
     sourceType: 0
 
 ---
@@ -26,9 +30,13 @@ metadata:
 spec:
   forProvider:
     description: test for terraform
-    internalNetworkId: ${var.network_id}
+    internalNetworkIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     name: nat_1
-    routerId: ${var.vpc_id}
+    routerIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     spec: "1"
 
 ---

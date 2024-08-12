@@ -16,11 +16,30 @@ import (
 type FloatingipAssociateV2InitParameters struct {
 
 	// IP Address of an existing floating IP.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.FloatingipV2
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractFipAddress()
 	FloatingIP *string `json:"floatingIp,omitempty" tf:"floating_ip,omitempty"`
+
+	// Reference to a FloatingipV2 in networking to populate floatingIp.
+	// +kubebuilder:validation:Optional
+	FloatingIPRef *v1.Reference `json:"floatingIpRef,omitempty" tf:"-"`
+
+	// Selector for a FloatingipV2 in networking to populate floatingIp.
+	// +kubebuilder:validation:Optional
+	FloatingIPSelector *v1.Selector `json:"floatingIpSelector,omitempty" tf:"-"`
 
 	// ID of an existing port with at least one IP address to
 	// associate with this floating IP.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.PortV2
 	PortID *string `json:"portId,omitempty" tf:"port_id,omitempty"`
+
+	// Reference to a PortV2 in networking to populate portId.
+	// +kubebuilder:validation:Optional
+	PortIDRef *v1.Reference `json:"portIdRef,omitempty" tf:"-"`
+
+	// Selector for a PortV2 in networking to populate portId.
+	// +kubebuilder:validation:Optional
+	PortIDSelector *v1.Selector `json:"portIdSelector,omitempty" tf:"-"`
 
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 }
@@ -42,13 +61,32 @@ type FloatingipAssociateV2Observation struct {
 type FloatingipAssociateV2Parameters struct {
 
 	// IP Address of an existing floating IP.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.FloatingipV2
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractFipAddress()
 	// +kubebuilder:validation:Optional
 	FloatingIP *string `json:"floatingIp,omitempty" tf:"floating_ip,omitempty"`
 
+	// Reference to a FloatingipV2 in networking to populate floatingIp.
+	// +kubebuilder:validation:Optional
+	FloatingIPRef *v1.Reference `json:"floatingIpRef,omitempty" tf:"-"`
+
+	// Selector for a FloatingipV2 in networking to populate floatingIp.
+	// +kubebuilder:validation:Optional
+	FloatingIPSelector *v1.Selector `json:"floatingIpSelector,omitempty" tf:"-"`
+
 	// ID of an existing port with at least one IP address to
 	// associate with this floating IP.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.PortV2
 	// +kubebuilder:validation:Optional
 	PortID *string `json:"portId,omitempty" tf:"port_id,omitempty"`
+
+	// Reference to a PortV2 in networking to populate portId.
+	// +kubebuilder:validation:Optional
+	PortIDRef *v1.Reference `json:"portIdRef,omitempty" tf:"-"`
+
+	// Selector for a PortV2 in networking to populate portId.
+	// +kubebuilder:validation:Optional
+	PortIDSelector *v1.Selector `json:"portIdSelector,omitempty" tf:"-"`
 
 	// +kubebuilder:validation:Optional
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
@@ -90,10 +128,8 @@ type FloatingipAssociateV2Status struct {
 type FloatingipAssociateV2 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.floatingIp) || (has(self.initProvider) && has(self.initProvider.floatingIp))",message="spec.forProvider.floatingIp is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.portId) || (has(self.initProvider) && has(self.initProvider.portId))",message="spec.forProvider.portId is a required parameter"
-	Spec   FloatingipAssociateV2Spec   `json:"spec"`
-	Status FloatingipAssociateV2Status `json:"status,omitempty"`
+	Spec              FloatingipAssociateV2Spec   `json:"spec"`
+	Status            FloatingipAssociateV2Status `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

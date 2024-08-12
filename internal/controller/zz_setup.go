@@ -88,6 +88,9 @@ import (
 	rulev3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/lb/rulev3"
 	securitypolicyv3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/lb/securitypolicyv3"
 	whitelistv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/lb/whitelistv2"
+	groupv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/logtank/groupv2"
+	topicv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/logtank/topicv2"
+	transferv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/logtank/transferv2"
 	dnatrulev2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/nat/dnatrulev2"
 	gatewayv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/nat/gatewayv2"
 	snatrulev2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/nat/snatrulev2"
@@ -122,7 +125,7 @@ import (
 	turbosharev1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/sfs/turbosharev1"
 	subscriptionv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/smn/subscriptionv2"
 	topicattributev2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/smn/topicattributev2"
-	topicv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/smn/topicv2"
+	topicv2smn "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/smn/topicv2"
 	bandwidthassociatev2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/vpc/bandwidthassociatev2"
 	bandwidthv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/vpc/bandwidthv2"
 	eipv1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/vpc/eipv1"
@@ -240,6 +243,9 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		rulev3.Setup,
 		securitypolicyv3.Setup,
 		whitelistv2.Setup,
+		groupv2.Setup,
+		topicv2.Setup,
+		transferv2.Setup,
 		dnatrulev2.Setup,
 		gatewayv2.Setup,
 		snatrulev2.Setup,
@@ -274,7 +280,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		turbosharev1.Setup,
 		subscriptionv2.Setup,
 		topicattributev2.Setup,
-		topicv2.Setup,
+		topicv2smn.Setup,
 		bandwidthassociatev2.Setup,
 		bandwidthv2.Setup,
 		eipv1.Setup,

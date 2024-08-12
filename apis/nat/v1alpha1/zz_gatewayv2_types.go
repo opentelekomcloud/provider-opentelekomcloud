@@ -20,7 +20,17 @@ type GatewayV2InitParameters struct {
 
 	// ID of the network this NAT Gateway connects to.
 	// Changing this creates a new NAT Gateway.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.SubnetV1
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractNetworkID()
 	InternalNetworkID *string `json:"internalNetworkId,omitempty" tf:"internal_network_id,omitempty"`
+
+	// Reference to a SubnetV1 in vpc to populate internalNetworkId.
+	// +kubebuilder:validation:Optional
+	InternalNetworkIDRef *v1.Reference `json:"internalNetworkIdRef,omitempty" tf:"-"`
+
+	// Selector for a SubnetV1 in vpc to populate internalNetworkId.
+	// +kubebuilder:validation:Optional
+	InternalNetworkIDSelector *v1.Selector `json:"internalNetworkIdSelector,omitempty" tf:"-"`
 
 	// The name of the NAT Gateway.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -29,7 +39,16 @@ type GatewayV2InitParameters struct {
 
 	// ID of the router (or VPC) this NAT Gateway belongs to. Changing
 	// this creates a new NAT Gateway.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.VpcV1
 	RouterID *string `json:"routerId,omitempty" tf:"router_id,omitempty"`
+
+	// Reference to a VpcV1 in vpc to populate routerId.
+	// +kubebuilder:validation:Optional
+	RouterIDRef *v1.Reference `json:"routerIdRef,omitempty" tf:"-"`
+
+	// Selector for a VpcV1 in vpc to populate routerId.
+	// +kubebuilder:validation:Optional
+	RouterIDSelector *v1.Selector `json:"routerIdSelector,omitempty" tf:"-"`
 
 	// The specification of the NAT Gateway, valid values are "0","1", "2", "3", "4".
 	Spec *string `json:"spec,omitempty" tf:"spec,omitempty"`
@@ -83,8 +102,18 @@ type GatewayV2Parameters struct {
 
 	// ID of the network this NAT Gateway connects to.
 	// Changing this creates a new NAT Gateway.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.SubnetV1
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractNetworkID()
 	// +kubebuilder:validation:Optional
 	InternalNetworkID *string `json:"internalNetworkId,omitempty" tf:"internal_network_id,omitempty"`
+
+	// Reference to a SubnetV1 in vpc to populate internalNetworkId.
+	// +kubebuilder:validation:Optional
+	InternalNetworkIDRef *v1.Reference `json:"internalNetworkIdRef,omitempty" tf:"-"`
+
+	// Selector for a SubnetV1 in vpc to populate internalNetworkId.
+	// +kubebuilder:validation:Optional
+	InternalNetworkIDSelector *v1.Selector `json:"internalNetworkIdSelector,omitempty" tf:"-"`
 
 	// The name of the NAT Gateway.
 	// +kubebuilder:validation:Optional
@@ -95,8 +124,17 @@ type GatewayV2Parameters struct {
 
 	// ID of the router (or VPC) this NAT Gateway belongs to. Changing
 	// this creates a new NAT Gateway.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.VpcV1
 	// +kubebuilder:validation:Optional
 	RouterID *string `json:"routerId,omitempty" tf:"router_id,omitempty"`
+
+	// Reference to a VpcV1 in vpc to populate routerId.
+	// +kubebuilder:validation:Optional
+	RouterIDRef *v1.Reference `json:"routerIdRef,omitempty" tf:"-"`
+
+	// Selector for a VpcV1 in vpc to populate routerId.
+	// +kubebuilder:validation:Optional
+	RouterIDSelector *v1.Selector `json:"routerIdSelector,omitempty" tf:"-"`
 
 	// The specification of the NAT Gateway, valid values are "0","1", "2", "3", "4".
 	// +kubebuilder:validation:Optional
@@ -149,9 +187,7 @@ type GatewayV2Status struct {
 type GatewayV2 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.internalNetworkId) || (has(self.initProvider) && has(self.initProvider.internalNetworkId))",message="spec.forProvider.internalNetworkId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.routerId) || (has(self.initProvider) && has(self.initProvider.routerId))",message="spec.forProvider.routerId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.spec) || (has(self.initProvider) && has(self.initProvider.spec))",message="spec.forProvider.spec is a required parameter"
 	Spec   GatewayV2Spec   `json:"spec"`
 	Status GatewayV2Status `json:"status,omitempty"`
