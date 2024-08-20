@@ -50,7 +50,7 @@ kubectl get all -n crossplane-system
 Install the provider by using the following command after changing the image tag to the [latest release](https://marketplace.upbound.io/providers/opentelekomcloud/provider-opentelekomcloud):
 
 ```console
-up ctp provider install opentelekomcloud/provider-opentelekomcloud:v0.2.0
+up ctp provider install opentelekomcloud/provider-opentelekomcloud:v0.3.0
 ```
 
 Alternatively, you can use declarative installation:
@@ -62,7 +62,7 @@ kind: Provider
 metadata:
   name: provider-opentelekomcloud
 spec:
-  package: xpkg.upbound.io/opentelekomcloud/provider-opentelekomcloud:v0.2.0
+  package: xpkg.upbound.io/opentelekomcloud/provider-opentelekomcloud:v0.3.0
 EOF
 ```
 
@@ -131,7 +131,7 @@ kind: Provider
 metadata:
   name: provider-opentelekomcloud
 spec:
-  package: xpkg.upbound.io/opentelekomcloud/provider-opentelekomcloud:v0.2.0
+  package: xpkg.upbound.io/opentelekomcloud/provider-opentelekomcloud:v0.3.0
   controllerConfigRef:
     name: debug-config
 EOF
