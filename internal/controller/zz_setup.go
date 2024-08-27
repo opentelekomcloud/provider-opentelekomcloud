@@ -21,7 +21,6 @@ import (
 	secgroupv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/compute/secgroupv2"
 	servergroupv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/compute/servergroupv2"
 	volumeattachv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/compute/volumeattachv2"
-	instancev1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/dcs/instancev1"
 	instancev2dcs "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/dcs/instancev2"
 	instancev3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/dds/instancev3"
 	hostv1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/deh/hostv1"
@@ -29,7 +28,7 @@ import (
 	checkpointv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/dis/checkpointv2"
 	dumptaskv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/dis/dumptaskv2"
 	streamv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/dis/streamv2"
-	instancev1dms "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/dms/instancev1"
+	instancev1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/dms/instancev1"
 	instancev2dms "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/dms/instancev2"
 	topicv1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/dms/topicv1"
 	userpermissionv1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/dms/userpermissionv1"
@@ -176,7 +175,6 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		secgroupv2.Setup,
 		servergroupv2.Setup,
 		volumeattachv2.Setup,
-		instancev1.Setup,
 		instancev2dcs.Setup,
 		instancev3.Setup,
 		hostv1.Setup,
@@ -184,7 +182,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		checkpointv2.Setup,
 		dumptaskv2.Setup,
 		streamv2.Setup,
-		instancev1dms.Setup,
+		instancev1.Setup,
 		instancev2dms.Setup,
 		topicv1.Setup,
 		userpermissionv1.Setup,

@@ -34,7 +34,7 @@ spec:
       key: value
     volume:
     - size: 100
-      type: COMMON
+      type: CLOUDSSD
     vpcIdSelector:
       matchLabels:
         testing.upbound.io/example-name: example

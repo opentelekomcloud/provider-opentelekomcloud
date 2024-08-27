@@ -34,7 +34,7 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: AgencyV3 is the Schema for the AgencyV3s API. Manages a IAM Cgency
+        description: AgencyV3 is the Schema for the AgencyV3s API. Manages a IAM Agency
           resource within OpenTelekomCloud.
         properties:
           apiVersion:

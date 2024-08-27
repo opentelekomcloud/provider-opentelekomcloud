@@ -2619,6 +2619,11 @@ func (in *NodeV3InitParameters) DeepCopyInto(out *NodeV3InitParameters) {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.DedicatedHostID != nil {
+		in, out := &in.DedicatedHostID, &out.DedicatedHostID
+		*out = new(string)
+		**out = **in
+	}
 	if in.DockerBaseSize != nil {
 		in, out := &in.DockerBaseSize, &out.DockerBaseSize
 		*out = new(float64)
@@ -2919,6 +2924,11 @@ func (in *NodeV3Observation) DeepCopyInto(out *NodeV3Observation) {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.DedicatedHostID != nil {
+		in, out := &in.DedicatedHostID, &out.DedicatedHostID
+		*out = new(string)
+		**out = **in
+	}
 	if in.DockerBaseSize != nil {
 		in, out := &in.DockerBaseSize, &out.DockerBaseSize
 		*out = new(float64)
@@ -3204,6 +3214,11 @@ func (in *NodeV3Parameters) DeepCopyInto(out *NodeV3Parameters) {
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.DedicatedHostID != nil {
+		in, out := &in.DedicatedHostID, &out.DedicatedHostID
+		*out = new(string)
+		**out = **in
 	}
 	if in.DockerBaseSize != nil {
 		in, out := &in.DockerBaseSize, &out.DockerBaseSize

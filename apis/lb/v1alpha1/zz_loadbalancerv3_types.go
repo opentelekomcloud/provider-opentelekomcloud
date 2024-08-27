@@ -58,6 +58,7 @@ type LoadbalancerV3InitParameters struct {
 	// The ID of the subnet to which the LoadBalancer belongs. Required when using vip_address.
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 
+	// Tags key/value pairs to associate with the load balancer.
 	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
@@ -116,6 +117,7 @@ type LoadbalancerV3Observation struct {
 	// The ID of the subnet to which the LoadBalancer belongs. Required when using vip_address.
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 
+	// Tags key/value pairs to associate with the load balancer.
 	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
@@ -186,6 +188,7 @@ type LoadbalancerV3Parameters struct {
 	// +kubebuilder:validation:Optional
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 
+	// Tags key/value pairs to associate with the load balancer.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`

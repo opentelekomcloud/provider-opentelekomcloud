@@ -15,8 +15,14 @@ import (
 
 type DedicatedPolicyV1InitParameters struct {
 
+	// The deep inspection in basic web protection.
+	DeepInspection *bool `json:"deepInspection,omitempty" tf:"deep_inspection,omitempty"`
+
 	// Specifies the detection mode in Precise Protection.
 	FullDetection *bool `json:"fullDetection,omitempty" tf:"full_detection,omitempty"`
+
+	// The header inspection in basic web protection.
+	HeaderInspection *bool `json:"headerInspection,omitempty" tf:"header_inspection,omitempty"`
 
 	// Specifies the protection level.
 	// Values are:
@@ -34,6 +40,9 @@ type DedicatedPolicyV1InitParameters struct {
 	ProtectionMode *string `json:"protectionMode,omitempty" tf:"protection_mode,omitempty"`
 
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
+
+	// The shiro decryption check in basic web protection.
+	ShiroDecryptionCheck *bool `json:"shiroDecryptionCheck,omitempty" tf:"shiro_decryption_check,omitempty"`
 }
 
 type DedicatedPolicyV1Observation struct {
@@ -41,11 +50,17 @@ type DedicatedPolicyV1Observation struct {
 	// Time the policy is created. The value is a 13-digit timestamp, in ms.
 	CreatedAt *float64 `json:"createdAt,omitempty" tf:"created_at,omitempty"`
 
+	// The deep inspection in basic web protection.
+	DeepInspection *bool `json:"deepInspection,omitempty" tf:"deep_inspection,omitempty"`
+
 	// Specifies the domain IDs.
 	Domains []*string `json:"domains,omitempty" tf:"domains,omitempty"`
 
 	// Specifies the detection mode in Precise Protection.
 	FullDetection *bool `json:"fullDetection,omitempty" tf:"full_detection,omitempty"`
+
+	// The header inspection in basic web protection.
+	HeaderInspection *bool `json:"headerInspection,omitempty" tf:"header_inspection,omitempty"`
 
 	// ID of the policy.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -66,13 +81,24 @@ type DedicatedPolicyV1Observation struct {
 	ProtectionMode *string `json:"protectionMode,omitempty" tf:"protection_mode,omitempty"`
 
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
+
+	// The shiro decryption check in basic web protection.
+	ShiroDecryptionCheck *bool `json:"shiroDecryptionCheck,omitempty" tf:"shiro_decryption_check,omitempty"`
 }
 
 type DedicatedPolicyV1Parameters struct {
 
+	// The deep inspection in basic web protection.
+	// +kubebuilder:validation:Optional
+	DeepInspection *bool `json:"deepInspection,omitempty" tf:"deep_inspection,omitempty"`
+
 	// Specifies the detection mode in Precise Protection.
 	// +kubebuilder:validation:Optional
 	FullDetection *bool `json:"fullDetection,omitempty" tf:"full_detection,omitempty"`
+
+	// The header inspection in basic web protection.
+	// +kubebuilder:validation:Optional
+	HeaderInspection *bool `json:"headerInspection,omitempty" tf:"header_inspection,omitempty"`
 
 	// Specifies the protection level.
 	// Values are:
@@ -95,6 +121,10 @@ type DedicatedPolicyV1Parameters struct {
 
 	// +kubebuilder:validation:Optional
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
+
+	// The shiro decryption check in basic web protection.
+	// +kubebuilder:validation:Optional
+	ShiroDecryptionCheck *bool `json:"shiroDecryptionCheck,omitempty" tf:"shiro_decryption_check,omitempty"`
 }
 
 type OptionsInitParameters struct {

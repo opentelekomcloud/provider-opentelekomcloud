@@ -73,8 +73,14 @@ spec:
                 type: string
               forProvider:
                 properties:
+                  deepInspection:
+                    description: The deep inspection in basic web protection.
+                    type: boolean
                   fullDetection:
                     description: Specifies the detection mode in Precise Protection.
+                    type: boolean
+                  headerInspection:
+                    description: The header inspection in basic web protection.
                     type: boolean
                   level:
                     description: |-
@@ -164,6 +170,9 @@ spec:
                     type: string
                   region:
                     type: string
+                  shiroDecryptionCheck:
+                    description: The shiro decryption check in basic web protection.
+                    type: boolean
                 type: object
               initProvider:
                 description: |-
@@ -178,8 +187,14 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
+                  deepInspection:
+                    description: The deep inspection in basic web protection.
+                    type: boolean
                   fullDetection:
                     description: Specifies the detection mode in Precise Protection.
+                    type: boolean
+                  headerInspection:
+                    description: The header inspection in basic web protection.
                     type: boolean
                   level:
                     description: |-
@@ -269,6 +284,9 @@ spec:
                     type: string
                   region:
                     type: string
+                  shiroDecryptionCheck:
+                    description: The shiro decryption check in basic web protection.
+                    type: boolean
                 type: object
               managementPolicies:
                 default:
@@ -451,6 +469,9 @@ spec:
                     description: Time the policy is created. The value is a 13-digit
                       timestamp, in ms.
                     type: number
+                  deepInspection:
+                    description: The deep inspection in basic web protection.
+                    type: boolean
                   domains:
                     description: Specifies the domain IDs.
                     items:
@@ -458,6 +479,9 @@ spec:
                     type: array
                   fullDetection:
                     description: Specifies the detection mode in Precise Protection.
+                    type: boolean
+                  headerInspection:
+                    description: The header inspection in basic web protection.
                     type: boolean
                   id:
                     description: ID of the policy.
@@ -554,6 +578,9 @@ spec:
                     type: string
                   region:
                     type: string
+                  shiroDecryptionCheck:
+                    description: The shiro decryption check in basic web protection.
+                    type: boolean
                 type: object
               conditions:
                 description: Conditions of the resource.

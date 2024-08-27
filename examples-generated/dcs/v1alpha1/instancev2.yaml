@@ -29,12 +29,18 @@ spec:
       key: example-key
       name: example-secret
       namespace: upbound-system
-    securityGroupId: ${opentelekomcloud_networking_secgroup_v2.secgroup_1.id}
-    subnetId: ${var.network_id}
+    securityGroupIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: secgroup_1
+    subnetIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     tags:
       environment: basic
       managed_by: terraform
-    vpcId: ${var.vpc_id}
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
 
 ---
 

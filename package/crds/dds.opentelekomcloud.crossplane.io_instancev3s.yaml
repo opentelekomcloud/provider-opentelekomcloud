@@ -74,21 +74,22 @@ spec:
               forProvider:
                 properties:
                   availabilityZone:
-                    description: |-
-                      Specifies the ID of the availability zone. Changing
-                      this creates a new instance.
+                    description: Specifies the ID of the availability zone.
                     type: string
                   backupStrategy:
                     description: |-
                       Specifies the advanced backup policy. The structure is
-                      described below. Changing this creates a new instance.
+                      described below.
                     items:
                       properties:
                         keepDays:
-                          description: |-
-                            Specifies the number of days to retain the generated backup files. The
-                            value range is from 0 to 732.
+                          description: to 0, this parameter is no need to set.
                           type: number
+                        period:
+                          description: |-
+                            Specifies the backup cycle. Data will be automatically backed up on the
+                            selected days every week.
+                          type: string
                         startTime:
                           description: |-
                             Specifies the backup time window. Automated backups will be triggered
@@ -100,7 +101,7 @@ spec:
                   datastore:
                     description: |-
                       Specifies database information. The structure is described
-                      below. Changing this creates a new instance.
+                      below.
                     items:
                       properties:
                         storageEngine:
@@ -122,13 +123,11 @@ spec:
                       type: object
                     type: array
                   diskEncryptionId:
-                    description: |-
-                      Specifies the disk encryption ID of the instance.
-                      Changing this creates a new instance.
+                    description: Specifies the disk encryption ID of the instance.
                     type: string
                   flavor:
                     description: |-
-                      Specifies the flavors information. The structure is described below.
+                      Specifies the flavor information. The structure is described below.
                       Changing this creates a new instance.
                     items:
                       properties:
@@ -152,9 +151,7 @@ spec:
                       type: object
                     type: array
                   mode:
-                    description: |-
-                      Specifies the mode of the database instance. Changing this creates
-                      a new instance.
+                    description: Specifies the mode of the database instance.
                     type: string
                   name:
                     description: |-
@@ -179,10 +176,13 @@ spec:
                     - name
                     - namespace
                     type: object
-                  region:
+                  port:
                     description: |-
-                      Specifies the region of the DDS instance. Changing this creates
-                      a new instance.
+                      Specifies the database access port. The valid values are range from 2100 to 9500 and
+                      27017, 27018, 27019. Defaults to 8635.
+                    type: number
+                  region:
+                    description: Specifies the region of the DDS instance.
                     type: string
                   securityGroupId:
                     description: Specifies the security group ID of the DDS instance.
@@ -193,8 +193,7 @@ spec:
                       -> The instance will be restarted in the background when switching SSL. Please operate with caution.
                     type: boolean
                   subnetId:
-                    description: Specifies the subnet Network ID. Changing this creates
-                      a new instance.
+                    description: Specifies the subnet Network ID.
                     type: string
                   tags:
                     additionalProperties:
@@ -205,8 +204,7 @@ spec:
                     type: object
                     x-kubernetes-map-type: granular
                   vpcId:
-                    description: Specifies the VPC ID. Changing this creates a new
-                      instance.
+                    description: Specifies the VPC ID.
                     type: string
                 type: object
               initProvider:
@@ -223,21 +221,22 @@ spec:
                   autoscaler.
                 properties:
                   availabilityZone:
-                    description: |-
-                      Specifies the ID of the availability zone. Changing
-                      this creates a new instance.
+                    description: Specifies the ID of the availability zone.
                     type: string
                   backupStrategy:
                     description: |-
                       Specifies the advanced backup policy. The structure is
-                      described below. Changing this creates a new instance.
+                      described below.
                     items:
                       properties:
                         keepDays:
-                          description: |-
-                            Specifies the number of days to retain the generated backup files. The
-                            value range is from 0 to 732.
+                          description: to 0, this parameter is no need to set.
                           type: number
+                        period:
+                          description: |-
+                            Specifies the backup cycle. Data will be automatically backed up on the
+                            selected days every week.
+                          type: string
                         startTime:
                           description: |-
                             Specifies the backup time window. Automated backups will be triggered
@@ -249,7 +248,7 @@ spec:
                   datastore:
                     description: |-
                       Specifies database information. The structure is described
-                      below. Changing this creates a new instance.
+                      below.
                     items:
                       properties:
                         storageEngine:
@@ -271,13 +270,11 @@ spec:
                       type: object
                     type: array
                   diskEncryptionId:
-                    description: |-
-                      Specifies the disk encryption ID of the instance.
-                      Changing this creates a new instance.
+                    description: Specifies the disk encryption ID of the instance.
                     type: string
                   flavor:
                     description: |-
-                      Specifies the flavors information. The structure is described below.
+                      Specifies the flavor information. The structure is described below.
                       Changing this creates a new instance.
                     items:
                       properties:
@@ -301,9 +298,7 @@ spec:
                       type: object
                     type: array
                   mode:
-                    description: |-
-                      Specifies the mode of the database instance. Changing this creates
-                      a new instance.
+                    description: Specifies the mode of the database instance.
                     type: string
                   name:
                     description: |-
@@ -328,10 +323,13 @@ spec:
                     - name
                     - namespace
                     type: object
-                  region:
+                  port:
                     description: |-
-                      Specifies the region of the DDS instance. Changing this creates
-                      a new instance.
+                      Specifies the database access port. The valid values are range from 2100 to 9500 and
+                      27017, 27018, 27019. Defaults to 8635.
+                    type: number
+                  region:
+                    description: Specifies the region of the DDS instance.
                     type: string
                   securityGroupId:
                     description: Specifies the security group ID of the DDS instance.
@@ -342,8 +340,7 @@ spec:
                       -> The instance will be restarted in the background when switching SSL. Please operate with caution.
                     type: boolean
                   subnetId:
-                    description: Specifies the subnet Network ID. Changing this creates
-                      a new instance.
+                    description: Specifies the subnet Network ID.
                     type: string
                   tags:
                     additionalProperties:
@@ -354,8 +351,7 @@ spec:
                     type: object
                     x-kubernetes-map-type: granular
                   vpcId:
-                    description: Specifies the VPC ID. Changing this creates a new
-                      instance.
+                    description: Specifies the VPC ID.
                     type: string
                 required:
                 - passwordSecretRef
@@ -569,21 +565,22 @@ spec:
               atProvider:
                 properties:
                   availabilityZone:
-                    description: |-
-                      Specifies the ID of the availability zone. Changing
-                      this creates a new instance.
+                    description: Specifies the ID of the availability zone.
                     type: string
                   backupStrategy:
                     description: |-
                       Specifies the advanced backup policy. The structure is
-                      described below. Changing this creates a new instance.
+                      described below.
                     items:
                       properties:
                         keepDays:
-                          description: |-
-                            Specifies the number of days to retain the generated backup files. The
-                            value range is from 0 to 732.
+                          description: to 0, this parameter is no need to set.
                           type: number
+                        period:
+                          description: |-
+                            Specifies the backup cycle. Data will be automatically backed up on the
+                            selected days every week.
+                          type: string
                         startTime:
                           description: |-
                             Specifies the backup time window. Automated backups will be triggered
@@ -592,10 +589,13 @@ spec:
                           type: string
                       type: object
                     type: array
+                  createdAt:
+                    description: Indicates the creation time.
+                    type: string
                   datastore:
                     description: |-
                       Specifies database information. The structure is described
-                      below. Changing this creates a new instance.
+                      below.
                     items:
                       properties:
                         storageEngine:
@@ -620,13 +620,11 @@ spec:
                     description: Indicates the DB Administator name.
                     type: string
                   diskEncryptionId:
-                    description: |-
-                      Specifies the disk encryption ID of the instance.
-                      Changing this creates a new instance.
+                    description: Specifies the disk encryption ID of the instance.
                     type: string
                   flavor:
                     description: |-
-                      Specifies the flavors information. The structure is described below.
+                      Specifies the flavor information. The structure is described below.
                       Changing this creates a new instance.
                     items:
                       properties:
@@ -653,9 +651,7 @@ spec:
                     description: Indicates the node ID.
                     type: string
                   mode:
-                    description: |-
-                      Specifies the mode of the database instance. Changing this creates
-                      a new instance.
+                    description: Specifies the mode of the database instance.
                     type: string
                   name:
                     description: |-
@@ -699,13 +695,12 @@ spec:
                       billing mode.'
                     type: string
                   port:
-                    description: Indicates the database port number. The port range
-                      is 2100 to 9500.
+                    description: |-
+                      Specifies the database access port. The valid values are range from 2100 to 9500 and
+                      27017, 27018, 27019. Defaults to 8635.
                     type: number
                   region:
-                    description: |-
-                      Specifies the region of the DDS instance. Changing this creates
-                      a new instance.
+                    description: Specifies the region of the DDS instance.
                     type: string
                   securityGroupId:
                     description: Specifies the security group ID of the DDS instance.
@@ -716,11 +711,10 @@ spec:
                       -> The instance will be restarted in the background when switching SSL. Please operate with caution.
                     type: boolean
                   status:
-                    description: Indicates the the DB instance status.
+                    description: Indicates the DB instance status.
                     type: string
                   subnetId:
-                    description: Specifies the subnet Network ID. Changing this creates
-                      a new instance.
+                    description: Specifies the subnet Network ID.
                     type: string
                   tags:
                     additionalProperties:
@@ -730,9 +724,14 @@ spec:
                       Changing this updates the existing volume tags.
                     type: object
                     x-kubernetes-map-type: granular
+                  timeZone:
+                    description: Indicates the time zone.
+                    type: string
+                  updatedAt:
+                    description: Indicates the update time.
+                    type: string
                   vpcId:
-                    description: Specifies the VPC ID. Changing this creates a new
-                      instance.
+                    description: Specifies the VPC ID.
                     type: string
                 type: object
               conditions:

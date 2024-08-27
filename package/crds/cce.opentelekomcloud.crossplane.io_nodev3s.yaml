@@ -353,6 +353,10 @@ spec:
                           type: string
                       type: object
                     type: array
+                  dedicatedHostId:
+                    description: Specifies the ID of the DeH to which the node is
+                      scheduled.
+                    type: string
                   dockerBaseSize:
                     description: |-
                       Available disk space of a single Docker container on the node using the device mapper.
@@ -1034,6 +1038,10 @@ spec:
                           type: string
                       type: object
                     type: array
+                  dedicatedHostId:
+                    description: Specifies the ID of the DeH to which the node is
+                      scheduled.
+                    type: string
                   dockerBaseSize:
                     description: |-
                       Available disk space of a single Docker container on the node using the device mapper.
@@ -1669,6 +1677,10 @@ spec:
                           type: string
                       type: object
                     type: array
+                  dedicatedHostId:
+                    description: Specifies the ID of the DeH to which the node is
+                      scheduled.
+                    type: string
                   dockerBaseSize:
                     description: |-
                       Available disk space of a single Docker container on the node using the device mapper.

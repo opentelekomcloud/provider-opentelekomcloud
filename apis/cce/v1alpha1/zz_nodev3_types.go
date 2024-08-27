@@ -142,6 +142,9 @@ type NodeV3InitParameters struct {
 	// Represents the data disk to be created. Changing this parameter will create a new resource.
 	DataVolumes []NodeV3DataVolumesInitParameters `json:"dataVolumes,omitempty" tf:"data_volumes,omitempty"`
 
+	// Specifies the ID of the DeH to which the node is scheduled.
+	DedicatedHostID *string `json:"dedicatedHostId,omitempty" tf:"dedicated_host_id,omitempty"`
+
 	// Available disk space of a single Docker container on the node using the device mapper.
 	// Changing this parameter will create a new node.
 	DockerBaseSize *float64 `json:"dockerBaseSize,omitempty" tf:"docker_base_size,omitempty"`
@@ -279,6 +282,9 @@ type NodeV3Observation struct {
 
 	// Represents the data disk to be created. Changing this parameter will create a new resource.
 	DataVolumes []NodeV3DataVolumesObservation `json:"dataVolumes,omitempty" tf:"data_volumes,omitempty"`
+
+	// Specifies the ID of the DeH to which the node is scheduled.
+	DedicatedHostID *string `json:"dedicatedHostId,omitempty" tf:"dedicated_host_id,omitempty"`
 
 	// Available disk space of a single Docker container on the node using the device mapper.
 	// Changing this parameter will create a new node.
@@ -437,6 +443,10 @@ type NodeV3Parameters struct {
 	// Represents the data disk to be created. Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
 	DataVolumes []NodeV3DataVolumesParameters `json:"dataVolumes,omitempty" tf:"data_volumes,omitempty"`
+
+	// Specifies the ID of the DeH to which the node is scheduled.
+	// +kubebuilder:validation:Optional
+	DedicatedHostID *string `json:"dedicatedHostId,omitempty" tf:"dedicated_host_id,omitempty"`
 
 	// Available disk space of a single Docker container on the node using the device mapper.
 	// Changing this parameter will create a new node.
