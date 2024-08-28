@@ -585,8 +585,10 @@ spec:
                             this parameter will create a new resource.
                           type: string
                         limitSize:
-                          description: Specifies the upper limit of automatic expansion
-                            of storage, in GB.
+                          description: |-
+                            Specifies the upper limit of automatic expansion of storage, in GB.
+                            The value ranges from 40 GB to 4,000 GB and must be no less than the current storage of the instance.
+                            If this parameter is configured, trigger_threshold is mandatory.
                           type: number
                         size:
                           description: |-
@@ -596,14 +598,14 @@ spec:
                         triggerThreshold:
                           description: |-
                             Specifies the threshold to trigger automatic expansion.
+                            If this parameter is configured, limit_size is mandatory.
                             If the available storage drops to this threshold or 10 GB, the automatic expansion is triggered.
                             The valid values are as follows:
                           type: number
                         type:
                           description: |-
-                            Specifies the volume type. Its value can be any of the following
-                            and is case-sensitive: COMMON: indicates the SATA type.
-                            ULTRAHIGH: indicates the SSD type.  Changing this parameter will create a new resource.
+                            Specifies the volume type. Changing this resize the volume. Its value can be any of the following
+                            and is case-sensitive:
                           type: string
                       type: object
                     type: array
@@ -1213,8 +1215,10 @@ spec:
                             this parameter will create a new resource.
                           type: string
                         limitSize:
-                          description: Specifies the upper limit of automatic expansion
-                            of storage, in GB.
+                          description: |-
+                            Specifies the upper limit of automatic expansion of storage, in GB.
+                            The value ranges from 40 GB to 4,000 GB and must be no less than the current storage of the instance.
+                            If this parameter is configured, trigger_threshold is mandatory.
                           type: number
                         size:
                           description: |-
@@ -1224,14 +1228,14 @@ spec:
                         triggerThreshold:
                           description: |-
                             Specifies the threshold to trigger automatic expansion.
+                            If this parameter is configured, limit_size is mandatory.
                             If the available storage drops to this threshold or 10 GB, the automatic expansion is triggered.
                             The valid values are as follows:
                           type: number
                         type:
                           description: |-
-                            Specifies the volume type. Its value can be any of the following
-                            and is case-sensitive: COMMON: indicates the SATA type.
-                            ULTRAHIGH: indicates the SSD type.  Changing this parameter will create a new resource.
+                            Specifies the volume type. Changing this resize the volume. Its value can be any of the following
+                            and is case-sensitive:
                           type: string
                       type: object
                     type: array
@@ -1507,6 +1511,10 @@ spec:
             properties:
               atProvider:
                 properties:
+                  autoscalingEnabled:
+                    description: Indicates whether autoscaling was enabled for this
+                      resource.
+                    type: boolean
                   availabilityZone:
                     description: Specifies the AZ name. Changing this parameter will
                       create a new resource.
@@ -1743,8 +1751,10 @@ spec:
                             this parameter will create a new resource.
                           type: string
                         limitSize:
-                          description: Specifies the upper limit of automatic expansion
-                            of storage, in GB.
+                          description: |-
+                            Specifies the upper limit of automatic expansion of storage, in GB.
+                            The value ranges from 40 GB to 4,000 GB and must be no less than the current storage of the instance.
+                            If this parameter is configured, trigger_threshold is mandatory.
                           type: number
                         size:
                           description: |-
@@ -1754,14 +1764,14 @@ spec:
                         triggerThreshold:
                           description: |-
                             Specifies the threshold to trigger automatic expansion.
+                            If this parameter is configured, limit_size is mandatory.
                             If the available storage drops to this threshold or 10 GB, the automatic expansion is triggered.
                             The valid values are as follows:
                           type: number
                         type:
                           description: |-
-                            Specifies the volume type. Its value can be any of the following
-                            and is case-sensitive: COMMON: indicates the SATA type.
-                            ULTRAHIGH: indicates the SSD type.  Changing this parameter will create a new resource.
+                            Specifies the volume type. Changing this resize the volume. Its value can be any of the following
+                            and is case-sensitive:
                           type: string
                       type: object
                     type: array

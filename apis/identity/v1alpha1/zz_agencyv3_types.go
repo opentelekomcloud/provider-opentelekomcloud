@@ -159,7 +159,7 @@ type AgencyV3Status struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// AgencyV3 is the Schema for the AgencyV3s API. Manages a IAM Cgency resource within OpenTelekomCloud.
+// AgencyV3 is the Schema for the AgencyV3s API. Manages a IAM Agency resource within OpenTelekomCloud.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

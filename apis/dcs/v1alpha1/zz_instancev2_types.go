@@ -13,6 +13,77 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
+type BackupPolicyInitParameters struct {
+
+	// Day in a week on which backup starts, the value ranges from 1 to 7.
+	// Where: 1 indicates Monday; 7 indicates Sunday.
+	BackupAt []*float64 `json:"backupAt,omitempty" tf:"backup_at,omitempty"`
+
+	// Backup type. Default value is auto. The valid values are as follows:
+	BackupType *string `json:"backupType,omitempty" tf:"backup_type,omitempty"`
+
+	// Time at which backup starts.
+	// Format: hh24:00-hh24:00, "00:00-01:00" indicates that backup starts at 00:00:00.
+	BeginAt *string `json:"beginAt,omitempty" tf:"begin_at,omitempty"`
+
+	// Interval at which backup is performed. Default value is weekly.
+	// Currently, only weekly backup is supported.
+	PeriodType *string `json:"periodType,omitempty" tf:"period_type,omitempty"`
+
+	// Retention time. Unit: day, the value ranges from 1 to 7.
+	// This parameter is required if the backup_type is auto.
+	SaveDays *float64 `json:"saveDays,omitempty" tf:"save_days,omitempty"`
+}
+
+type BackupPolicyObservation struct {
+
+	// Day in a week on which backup starts, the value ranges from 1 to 7.
+	// Where: 1 indicates Monday; 7 indicates Sunday.
+	BackupAt []*float64 `json:"backupAt,omitempty" tf:"backup_at,omitempty"`
+
+	// Backup type. Default value is auto. The valid values are as follows:
+	BackupType *string `json:"backupType,omitempty" tf:"backup_type,omitempty"`
+
+	// Time at which backup starts.
+	// Format: hh24:00-hh24:00, "00:00-01:00" indicates that backup starts at 00:00:00.
+	BeginAt *string `json:"beginAt,omitempty" tf:"begin_at,omitempty"`
+
+	// Interval at which backup is performed. Default value is weekly.
+	// Currently, only weekly backup is supported.
+	PeriodType *string `json:"periodType,omitempty" tf:"period_type,omitempty"`
+
+	// Retention time. Unit: day, the value ranges from 1 to 7.
+	// This parameter is required if the backup_type is auto.
+	SaveDays *float64 `json:"saveDays,omitempty" tf:"save_days,omitempty"`
+}
+
+type BackupPolicyParameters struct {
+
+	// Day in a week on which backup starts, the value ranges from 1 to 7.
+	// Where: 1 indicates Monday; 7 indicates Sunday.
+	// +kubebuilder:validation:Optional
+	BackupAt []*float64 `json:"backupAt" tf:"backup_at,omitempty"`
+
+	// Backup type. Default value is auto. The valid values are as follows:
+	// +kubebuilder:validation:Optional
+	BackupType *string `json:"backupType,omitempty" tf:"backup_type,omitempty"`
+
+	// Time at which backup starts.
+	// Format: hh24:00-hh24:00, "00:00-01:00" indicates that backup starts at 00:00:00.
+	// +kubebuilder:validation:Optional
+	BeginAt *string `json:"beginAt" tf:"begin_at,omitempty"`
+
+	// Interval at which backup is performed. Default value is weekly.
+	// Currently, only weekly backup is supported.
+	// +kubebuilder:validation:Optional
+	PeriodType *string `json:"periodType,omitempty" tf:"period_type,omitempty"`
+
+	// Retention time. Unit: day, the value ranges from 1 to 7.
+	// This parameter is required if the backup_type is auto.
+	// +kubebuilder:validation:Optional
+	SaveDays *float64 `json:"saveDays,omitempty" tf:"save_days,omitempty"`
+}
+
 type BandwidthInfoInitParameters struct {
 }
 
@@ -52,77 +123,6 @@ type BandwidthInfoObservation struct {
 type BandwidthInfoParameters struct {
 }
 
-type InstanceV2BackupPolicyInitParameters struct {
-
-	// Day in a week on which backup starts, the value ranges from 1 to 7.
-	// Where: 1 indicates Monday; 7 indicates Sunday.
-	BackupAt []*float64 `json:"backupAt,omitempty" tf:"backup_at,omitempty"`
-
-	// Backup type. Default value is auto. The valid values are as follows:
-	BackupType *string `json:"backupType,omitempty" tf:"backup_type,omitempty"`
-
-	// Time at which backup starts.
-	// Format: hh24:00-hh24:00, "00:00-01:00" indicates that backup starts at 00:00:00.
-	BeginAt *string `json:"beginAt,omitempty" tf:"begin_at,omitempty"`
-
-	// Interval at which backup is performed. Default value is weekly.
-	// Currently, only weekly backup is supported.
-	PeriodType *string `json:"periodType,omitempty" tf:"period_type,omitempty"`
-
-	// Retention time. Unit: day, the value ranges from 1 to 7.
-	// This parameter is required if the backup_type is auto.
-	SaveDays *float64 `json:"saveDays,omitempty" tf:"save_days,omitempty"`
-}
-
-type InstanceV2BackupPolicyObservation struct {
-
-	// Day in a week on which backup starts, the value ranges from 1 to 7.
-	// Where: 1 indicates Monday; 7 indicates Sunday.
-	BackupAt []*float64 `json:"backupAt,omitempty" tf:"backup_at,omitempty"`
-
-	// Backup type. Default value is auto. The valid values are as follows:
-	BackupType *string `json:"backupType,omitempty" tf:"backup_type,omitempty"`
-
-	// Time at which backup starts.
-	// Format: hh24:00-hh24:00, "00:00-01:00" indicates that backup starts at 00:00:00.
-	BeginAt *string `json:"beginAt,omitempty" tf:"begin_at,omitempty"`
-
-	// Interval at which backup is performed. Default value is weekly.
-	// Currently, only weekly backup is supported.
-	PeriodType *string `json:"periodType,omitempty" tf:"period_type,omitempty"`
-
-	// Retention time. Unit: day, the value ranges from 1 to 7.
-	// This parameter is required if the backup_type is auto.
-	SaveDays *float64 `json:"saveDays,omitempty" tf:"save_days,omitempty"`
-}
-
-type InstanceV2BackupPolicyParameters struct {
-
-	// Day in a week on which backup starts, the value ranges from 1 to 7.
-	// Where: 1 indicates Monday; 7 indicates Sunday.
-	// +kubebuilder:validation:Optional
-	BackupAt []*float64 `json:"backupAt" tf:"backup_at,omitempty"`
-
-	// Backup type. Default value is auto. The valid values are as follows:
-	// +kubebuilder:validation:Optional
-	BackupType *string `json:"backupType,omitempty" tf:"backup_type,omitempty"`
-
-	// Time at which backup starts.
-	// Format: hh24:00-hh24:00, "00:00-01:00" indicates that backup starts at 00:00:00.
-	// +kubebuilder:validation:Optional
-	BeginAt *string `json:"beginAt" tf:"begin_at,omitempty"`
-
-	// Interval at which backup is performed. Default value is weekly.
-	// Currently, only weekly backup is supported.
-	// +kubebuilder:validation:Optional
-	PeriodType *string `json:"periodType,omitempty" tf:"period_type,omitempty"`
-
-	// Retention time. Unit: day, the value ranges from 1 to 7.
-	// This parameter is required if the backup_type is auto.
-	// +kubebuilder:validation:Optional
-	SaveDays *float64 `json:"saveDays,omitempty" tf:"save_days,omitempty"`
-}
-
 type InstanceV2InitParameters struct {
 
 	// Specifies the username used for accessing a DCS instance.
@@ -138,7 +138,7 @@ type InstanceV2InitParameters struct {
 
 	// Specifies the backup configuration to be used with the instance.
 	// The structure is described below.
-	BackupPolicy []InstanceV2BackupPolicyInitParameters `json:"backupPolicy,omitempty" tf:"backup_policy,omitempty"`
+	BackupPolicy []BackupPolicyInitParameters `json:"backupPolicy,omitempty" tf:"backup_policy,omitempty"`
 
 	// Specifies the cache capacity. Unit: GB.
 	Capacity *float64 `json:"capacity,omitempty" tf:"capacity,omitempty"`
@@ -216,11 +216,30 @@ type InstanceV2InitParameters struct {
 
 	// The ID of the security group which the instance belongs to.
 	// This parameter is mandatory for Memcached and Redis 3.0 version.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/compute/v1alpha1.SecgroupV2
 	SecurityGroupID *string `json:"securityGroupId,omitempty" tf:"security_group_id,omitempty"`
+
+	// Reference to a SecgroupV2 in compute to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	SecurityGroupIDRef *v1.Reference `json:"securityGroupIdRef,omitempty" tf:"-"`
+
+	// Selector for a SecgroupV2 in compute to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	SecurityGroupIDSelector *v1.Selector `json:"securityGroupIdSelector,omitempty" tf:"-"`
 
 	// The ID of subnet which the instance belongs to.
 	// Changing this creates a new instance resource.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.SubnetV1
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractNetworkID()
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
+
+	// Reference to a SubnetV1 in vpc to populate subnetId.
+	// +kubebuilder:validation:Optional
+	SubnetIDRef *v1.Reference `json:"subnetIdRef,omitempty" tf:"-"`
+
+	// Selector for a SubnetV1 in vpc to populate subnetId.
+	// +kubebuilder:validation:Optional
+	SubnetIDSelector *v1.Selector `json:"subnetIdSelector,omitempty" tf:"-"`
 
 	// The key/value pairs to associate with the dcs instance.
 	// +mapType=granular
@@ -232,11 +251,20 @@ type InstanceV2InitParameters struct {
 
 	// The ID of VPC which the instance belongs to.
 	// Changing this creates a new instance resource.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.VpcV1
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
+
+	// Reference to a VpcV1 in vpc to populate vpcId.
+	// +kubebuilder:validation:Optional
+	VPCIDRef *v1.Reference `json:"vpcIdRef,omitempty" tf:"-"`
+
+	// Selector for a VpcV1 in vpc to populate vpcId.
+	// +kubebuilder:validation:Optional
+	VPCIDSelector *v1.Selector `json:"vpcIdSelector,omitempty" tf:"-"`
 
 	// Specifies the IP addresses which can access the instance.
 	// This parameter is valid for Redis 4.0 and 5.0 versions. The structure is described below.
-	Whitelist []InstanceV2WhitelistInitParameters `json:"whitelist,omitempty" tf:"whitelist,omitempty"`
+	Whitelist []WhitelistInitParameters `json:"whitelist,omitempty" tf:"whitelist,omitempty"`
 }
 
 type InstanceV2Observation struct {
@@ -254,7 +282,7 @@ type InstanceV2Observation struct {
 
 	// Specifies the backup configuration to be used with the instance.
 	// The structure is described below.
-	BackupPolicy []InstanceV2BackupPolicyObservation `json:"backupPolicy,omitempty" tf:"backup_policy,omitempty"`
+	BackupPolicy []BackupPolicyObservation `json:"backupPolicy,omitempty" tf:"backup_policy,omitempty"`
 
 	// Indicates the bandwidth information of the instance.
 	// The bandwidth_info structure is documented below.
@@ -418,7 +446,7 @@ type InstanceV2Observation struct {
 
 	// Specifies the IP addresses which can access the instance.
 	// This parameter is valid for Redis 4.0 and 5.0 versions. The structure is described below.
-	Whitelist []InstanceV2WhitelistObservation `json:"whitelist,omitempty" tf:"whitelist,omitempty"`
+	Whitelist []WhitelistObservation `json:"whitelist,omitempty" tf:"whitelist,omitempty"`
 }
 
 type InstanceV2Parameters struct {
@@ -439,7 +467,7 @@ type InstanceV2Parameters struct {
 	// Specifies the backup configuration to be used with the instance.
 	// The structure is described below.
 	// +kubebuilder:validation:Optional
-	BackupPolicy []InstanceV2BackupPolicyParameters `json:"backupPolicy,omitempty" tf:"backup_policy,omitempty"`
+	BackupPolicy []BackupPolicyParameters `json:"backupPolicy,omitempty" tf:"backup_policy,omitempty"`
 
 	// Specifies the cache capacity. Unit: GB.
 	// +kubebuilder:validation:Optional
@@ -534,13 +562,32 @@ type InstanceV2Parameters struct {
 
 	// The ID of the security group which the instance belongs to.
 	// This parameter is mandatory for Memcached and Redis 3.0 version.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/compute/v1alpha1.SecgroupV2
 	// +kubebuilder:validation:Optional
 	SecurityGroupID *string `json:"securityGroupId,omitempty" tf:"security_group_id,omitempty"`
 
+	// Reference to a SecgroupV2 in compute to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	SecurityGroupIDRef *v1.Reference `json:"securityGroupIdRef,omitempty" tf:"-"`
+
+	// Selector for a SecgroupV2 in compute to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	SecurityGroupIDSelector *v1.Selector `json:"securityGroupIdSelector,omitempty" tf:"-"`
+
 	// The ID of subnet which the instance belongs to.
 	// Changing this creates a new instance resource.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.SubnetV1
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractNetworkID()
 	// +kubebuilder:validation:Optional
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
+
+	// Reference to a SubnetV1 in vpc to populate subnetId.
+	// +kubebuilder:validation:Optional
+	SubnetIDRef *v1.Reference `json:"subnetIdRef,omitempty" tf:"-"`
+
+	// Selector for a SubnetV1 in vpc to populate subnetId.
+	// +kubebuilder:validation:Optional
+	SubnetIDSelector *v1.Selector `json:"subnetIdSelector,omitempty" tf:"-"`
 
 	// The key/value pairs to associate with the dcs instance.
 	// +kubebuilder:validation:Optional
@@ -554,45 +601,22 @@ type InstanceV2Parameters struct {
 
 	// The ID of VPC which the instance belongs to.
 	// Changing this creates a new instance resource.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.VpcV1
 	// +kubebuilder:validation:Optional
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
+
+	// Reference to a VpcV1 in vpc to populate vpcId.
+	// +kubebuilder:validation:Optional
+	VPCIDRef *v1.Reference `json:"vpcIdRef,omitempty" tf:"-"`
+
+	// Selector for a VpcV1 in vpc to populate vpcId.
+	// +kubebuilder:validation:Optional
+	VPCIDSelector *v1.Selector `json:"vpcIdSelector,omitempty" tf:"-"`
 
 	// Specifies the IP addresses which can access the instance.
 	// This parameter is valid for Redis 4.0 and 5.0 versions. The structure is described below.
 	// +kubebuilder:validation:Optional
-	Whitelist []InstanceV2WhitelistParameters `json:"whitelist,omitempty" tf:"whitelist,omitempty"`
-}
-
-type InstanceV2WhitelistInitParameters struct {
-
-	// Specifies the name of IP address group.
-	GroupName *string `json:"groupName,omitempty" tf:"group_name,omitempty"`
-
-	// Specifies the list of IP address or CIDR which can be whitelisted for an instance.
-	// The maximum is 20.
-	IPList []*string `json:"ipList,omitempty" tf:"ip_list,omitempty"`
-}
-
-type InstanceV2WhitelistObservation struct {
-
-	// Specifies the name of IP address group.
-	GroupName *string `json:"groupName,omitempty" tf:"group_name,omitempty"`
-
-	// Specifies the list of IP address or CIDR which can be whitelisted for an instance.
-	// The maximum is 20.
-	IPList []*string `json:"ipList,omitempty" tf:"ip_list,omitempty"`
-}
-
-type InstanceV2WhitelistParameters struct {
-
-	// Specifies the name of IP address group.
-	// +kubebuilder:validation:Optional
-	GroupName *string `json:"groupName" tf:"group_name,omitempty"`
-
-	// Specifies the list of IP address or CIDR which can be whitelisted for an instance.
-	// The maximum is 20.
-	// +kubebuilder:validation:Optional
-	IPList []*string `json:"ipList" tf:"ip_list,omitempty"`
+	Whitelist []WhitelistParameters `json:"whitelist,omitempty" tf:"whitelist,omitempty"`
 }
 
 type ParametersInitParameters struct {
@@ -632,6 +656,38 @@ type ParametersParameters struct {
 	// Specifies the value of the configuration item.
 	// +kubebuilder:validation:Optional
 	Value *string `json:"value" tf:"value,omitempty"`
+}
+
+type WhitelistInitParameters struct {
+
+	// Specifies the name of IP address group.
+	GroupName *string `json:"groupName,omitempty" tf:"group_name,omitempty"`
+
+	// Specifies the list of IP address or CIDR which can be whitelisted for an instance.
+	// The maximum is 20.
+	IPList []*string `json:"ipList,omitempty" tf:"ip_list,omitempty"`
+}
+
+type WhitelistObservation struct {
+
+	// Specifies the name of IP address group.
+	GroupName *string `json:"groupName,omitempty" tf:"group_name,omitempty"`
+
+	// Specifies the list of IP address or CIDR which can be whitelisted for an instance.
+	// The maximum is 20.
+	IPList []*string `json:"ipList,omitempty" tf:"ip_list,omitempty"`
+}
+
+type WhitelistParameters struct {
+
+	// Specifies the name of IP address group.
+	// +kubebuilder:validation:Optional
+	GroupName *string `json:"groupName" tf:"group_name,omitempty"`
+
+	// Specifies the list of IP address or CIDR which can be whitelisted for an instance.
+	// The maximum is 20.
+	// +kubebuilder:validation:Optional
+	IPList []*string `json:"ipList" tf:"ip_list,omitempty"`
 }
 
 // InstanceV2Spec defines the desired state of InstanceV2
@@ -675,8 +731,6 @@ type InstanceV2 struct {
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.engine) || (has(self.initProvider) && has(self.initProvider.engine))",message="spec.forProvider.engine is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.flavor) || (has(self.initProvider) && has(self.initProvider.flavor))",message="spec.forProvider.flavor is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.subnetId) || (has(self.initProvider) && has(self.initProvider.subnetId))",message="spec.forProvider.subnetId is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.vpcId) || (has(self.initProvider) && has(self.initProvider.vpcId))",message="spec.forProvider.vpcId is a required parameter"
 	Spec   InstanceV2Spec   `json:"spec"`
 	Status InstanceV2Status `json:"status,omitempty"`
 }

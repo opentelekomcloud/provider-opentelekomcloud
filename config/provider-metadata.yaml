@@ -1,5 +1,39 @@
 name: opentelekomcloud/opentelekomcloud
 resources:
+    opentelekomcloud__er_propagation_v3:
+        subCategory: Enterprise Router (ER)
+        description: Manages an Enterprise Router Propagation resource within OpenTelekomCloud.
+        name: opentelekomcloud__er_propagation_v3
+        title: opentelekomcloud_er_propagation_v3
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "attachment_id": "${var.attachment_id}",
+                  "instance_id": "${var.instance_id}",
+                  "route_table_id": "${var.route_table_id}"
+                }
+              references:
+                attachment_id: var.attachment_id
+                instance_id: var.instance_id
+                route_table_id: var.route_table_id
+        argumentDocs:
+            attachment_id: '- (Required, String, ForceNew) Specifies the ID of the attachment corresponding to the propagation.'
+            attachment_type: '- The type of the attachment corresponding to the propagation.'
+            create: '- Default is 5 minutes.'
+            created_at: '- The creation time.'
+            delete: '- Default is 2 minutes.'
+            id: '- The resource ID.'
+            instance_id: |-
+                - (Required, String, ForceNew) Specifies the ID of the ER instance to which the route table and the
+                attachment belongs.
+            region: '- The region where the ER instance and route table are located.'
+            route_table_id: |-
+                - (Required, String, ForceNew) Specifies the ID of the route table to which the propagation
+                belongs.
+            status: '- The current status of the propagation.'
+            updated_at: '- The latest update time.'
+        importStatements: []
     opentelekomcloud_antiddos_v1:
         subCategory: Anti-DDoS
         description: Manages a Anti-DDoS resource within OpenTelekomCloud.
@@ -3161,6 +3195,7 @@ resources:
             cluster_id: '- (Required, ForceNew, String) ID of the cluster. Changing this parameter will create a new resource.'
             create: '- Default is 10 minutes.'
             data_volumes: '- (Required, ForceNew, List) Represents the data disk to be created. Changing this parameter will create a new resource.'
+            dedicated_host_id: '- (Optional, String, ForceNew) Specifies the ID of the DeH to which the node is scheduled.'
             delete: '- Default is 10 minutes.'
             diskType: ': disk type. Currently, only the evs, hdd, and ssd are supported.'
             docker_base_size: |-
@@ -4601,11 +4636,12 @@ resources:
                 The default value is 7.6.2.
             enable_authority: |-
                 - (Optional) Whether to enable authentication.
-                Authentication is disabled by default. When authentication is enabled, enable_https must be set to true.
+                Authentication is disabled by default.
+                When authentication is enabled, enable_https must be set to true.
                 Changing this parameter will create a new resource.
             enable_https: |-
                 - (Optional) Whether communication encryption is performed on the cluster.
-                By default, communication encryption is enabled.
+                By default, communication encryption is disabled.
                 Value true indicates that communication encryption is performed on the cluster.
                 Value false indicates that communication encryption is not performed on the cluster.
                 Changing this parameter will create a new resource.
@@ -5521,6 +5557,50 @@ resources:
                 - (Required, List) Specifies the list of IP address or CIDR which can be whitelisted for an instance.
                 The maximum is 20.
         importStatements: []
+    opentelekomcloud_dds_backup_v3:
+        subCategory: Document Database Service (DDS)
+        description: Manages a DDS backup resource within OpenTelekomCloud.
+        name: opentelekomcloud_dds_backup_v3
+        title: opentelekomcloud_dds_backup_v3
+        examples:
+            - name: backup
+              manifest: |-
+                {
+                  "instance_id": "${var.instance_id}",
+                  "name": "${var.name}"
+                }
+              references:
+                instance_id: var.instance_id
+                name: var.name
+        argumentDocs:
+            BUILDING: ': Backup in progress'
+            COMPLETED: ': Backup completed'
+            DISABLED: ': Backup being deleted'
+            FAILED: ': Backup failed'
+            Manual: ': indicates manual full backup.'
+            begin_time: '- Indicates the start time of the backup. The format is yyyy-mm-dd hh:mm:ss. The value is in UTC format.'
+            create: '- Default is 30 minutes.'
+            datastore: |-
+                - Indicates the database version.
+                The datastore structure is documented below.
+            datastore.storage_engine: '- Indicates the database storage engine.'
+            datastore.type: '- Indicates the DB engine.'
+            datastore.version: '- Indicates the database version.'
+            delete: '- Default is 10 minutes.'
+            description: '- (Optional, String, ForceNew) Specifies the manual backup description.'
+            end_time: '- Indicates the end time of the backup. The format is yyyy-mm-dd hh:mm:ss. The value is in UTC format.'
+            id: '- The resource ID.'
+            instance_id: '- (Required, String, ForceNew) Specifies the ID of a DDS instance.'
+            instance_name: '- Indicates the name of a DDS instance.'
+            name: |-
+                - (Required, String, ForceNew) Specifies the manual backup name.
+                The value must be 4 to 64 characters in length and start with a letter (from A to Z or from a to z).
+                It is case-sensitive and can contain only letters, digits (from 0 to 9), hyphens (-), and underscores (_).
+            region: '- Indicates the region in which resource was created.'
+            size: '- Indicates the backup size in KB.'
+            status: '- Indicates the backup status. Valid value:'
+            type: '- Indicates the backup type. Valid value:'
+        importStatements: []
     opentelekomcloud_dds_instance_v3:
         subCategory: Document Database Service (DDS)
         description: Manages a DDS Instance resource within OpenTelekomCloud.
@@ -5648,17 +5728,18 @@ resources:
         argumentDocs:
             "0": ', the automated backup policy is not set.'
             HH: value must be 1 greater than the hh value.
-            availability_zone: |-
-                - (Required) Specifies the ID of the availability zone. Changing
-                this creates a new instance.
+            availability_zone: '- (Required, String, ForceNew) Specifies the ID of the availability zone.'
             backup_strategy: |-
-                - (Optional) Specifies the advanced backup policy. The structure is
-                described below. Changing this creates a new instance.
+                - (Optional, List) Specifies the advanced backup policy. The structure is
+                described below.
             backup_strategy .keep_days: |-
-                - (Optional) Specifies the number of days to retain the generated backup files. The
+                - (Required, Int) Specifies the number of days to retain the generated backup files. The
                 value range is from 0 to 732.
+            backup_strategy .period: |-
+                - (Optional, String) Specifies the backup cycle. Data will be automatically backed up on the
+                selected days every week.
             backup_strategy .start_time: |-
-                - (Required) Specifies the backup time window. Automated backups will be triggered
+                - (Required, String) Specifies the backup time window. Automated backups will be triggered
                 during the backup time window. The value cannot be empty. It must be a valid value in the
                 "hh:mm-HH:MM" format. The current time is in the UTC format.
             cluster: |-
@@ -5667,39 +5748,37 @@ resources:
                 to specify the storage space for mongos nodes.
             config: ': The value is 1.'
             create: '- Default is 30 minute.'
+            created_at: '- Indicates the creation time.'
             datastore: |-
-                - (Required) Specifies database information. The structure is described
-                below. Changing this creates a new instance.
+                - (Required, List, ForceNew) Specifies database information. The structure is described
+                below.
             datastore.storage_engine: |-
-                - (Optional) Specifies the storage engine. Currently, DDS supports the WiredTiger and RocksDB
+                - (Optional, String, ForceNew) Specifies the storage engine. Currently, DDS supports the WiredTiger and RocksDB
                 storage engine. The values are wiredTiger, rocksDB.
                 WiredTiger engine supports versions 3.2, 3.4, 4.0 while RocksDB supports versions 4.2, 4.4
             datastore.type: |-
-                - (Required) Specifies the database type. DDS Community Edition is supported.
+                - (Required, String, ForceNew) Specifies the database type. DDS Community Edition is supported.
                 The value is DDS-Community.
             datastore.version: |-
-                - (Required) Specifies the database version.
+                - (Required, String, ForceNew) Specifies the database version.
                 The values are 3.2, 3.4, 4.0, 4.2, 4.4.
             db_username: '- Indicates the DB Administator name.'
             delete: '- Default is 30 minute.'
-            disk_encryption_id: |-
-                - (Required) Specifies the disk encryption ID of the instance.
-                Changing this creates a new instance.
+            disk_encryption_id: '- (Optional, String, ForceNew) Specifies the disk encryption ID of the instance.'
             flavor: |-
-                - (Required) Specifies the flavors information. The structure is described below.
+                - (Required, List, ForceNew) Specifies the flavor information. The structure is described below.
                 Changing this creates a new instance.
-            flavor.num: '- (Required) Specifies the node quantity. Valid value:'
-            flavor.size: '- (Optional) Specifies the disk size. The value must be a multiple of 10. The unit is GB.'
-            flavor.spec_code: '- (Required) Specifies the resource specification code.'
-            flavor.storage: '- (Optional) Specifies the disk type. Valid value: ULTRAHIGH which indicates the type SSD.'
-            flavor.type: '- (Required) Specifies the node type. Valid value:'
+            flavor.num: '- (Required, Int) Specifies the node quantity. Valid value:'
+            flavor.size: '- (Optional, Int) Specifies the disk size. The value must be a multiple of 10. The unit is GB.'
+            flavor.spec_code: '- (Required, String) Specifies the resource specification code.'
+            flavor.storage: '- (Optional, String, ForceNew) Specifies the disk type. Valid value: ULTRAHIGH which indicates the type SSD.'
+            flavor.type: '- (Required, String, ForceNew) Specifies the node type. Valid value:'
+            keep_days: to 0, this parameter is no need to set.
             mm: and MM must be the same and must be set to any of the following 00, 15, 30, or 45.
-            mode: |-
-                - (Required) Specifies the mode of the database instance. Changing this creates
-                a new instance.
+            mode: '- (Required, String, ForceNew) Specifies the mode of the database instance.'
             mongos: ', shard, or config.'
             name: |-
-                - (Required) Specifies the DB instance name. The DB instance name of the same
+                - (Required, String) Specifies the DB instance name. The DB instance name of the same
                 type is unique in the same tenant.
             nodes: '- Indicates the instance nodes information. Structure is documented below.'
             nodes.id: '- Indicates the node ID.'
@@ -5713,26 +5792,28 @@ resources:
             nodes.role: '- Indicates the node role.'
             nodes.status: '- Indicates the node status.'
             nodes.type: '- Indicates the node type.'
-            password: '- (Required) Specifies the Administrator password of the database instance.'
+            password: '- (Required, String) Specifies the Administrator password of the database instance.'
             pay_mode: '- Indicates the billing mode. 0: indicates the pay-per-use billing mode.'
-            port: '- Indicates the database port number. The port range is 2100 to 9500.'
-            region: |-
-                - (Optional) Specifies the region of the DDS instance. Changing this creates
-                a new instance.
+            port: |-
+                - (Optional, Int) Specifies the database access port. The valid values are range from 2100 to 9500 and
+                27017, 27018, 27019. Defaults to 8635.
+            region: '- (Optional, String, ForceNew) Specifies the region of the DDS instance.'
             replica: .
             replica set: instance, the value ranges from 10 to 2000.
-            security_group_id: '- (Required) Specifies the security group ID of the DDS instance.'
+            security_group_id: '- (Required, String) Specifies the security group ID of the DDS instance.'
             shard: ': The value ranges from 2 to 16.'
             single: .
             ssl: |-
-                - (Optional) Specifies whether to enable or disable SSL. Defaults to true.
+                - (Optional, Bool) Specifies whether to enable or disable SSL. Defaults to true.
                 -> The instance will be restarted in the background when switching SSL. Please operate with caution.
-            status: '- Indicates the the DB instance status.'
-            subnet_id: '- (Required) Specifies the subnet Network ID. Changing this creates a new instance.'
+            status: '- Indicates the DB instance status.'
+            subnet_id: '- (Required, String, ForceNew) Specifies the subnet Network ID.'
             tags: |-
-                - (Optional) Tags key/value pairs to associate with the volume.
+                - (Optional, Map) Tags key/value pairs to associate with the volume.
                 Changing this updates the existing volume tags.
-            vpc_id: '- (Required) Specifies the VPC ID. Changing this creates a new instance.'
+            time_zone: '- Indicates the time zone.'
+            updated_at: '- Indicates the update time.'
+            vpc_id: '- (Required, String, ForceNew) Specifies the VPC ID.'
         importStatements:
             - terraform import opentelekomcloud_dds_instance_v3.instance_1 c1851195-cdcb-4d23-96cb-032e6a3ee667
     opentelekomcloud_deh_host_v1:
@@ -6749,7 +6830,7 @@ resources:
             created_at: '- Create time. The format is ISO8601:YYYY-MM-DDThh:mm:ssZ'
             db_info.engine_type: |-
                 - (Required, String, ForceNew) Specifies the engine type of database. Changing this parameter will
-                create a new resource. The options are as follows: mysql, mongodb, gaussdbv5.
+                create a new resource. The options are as follows: mysql, mongodb, gaussdbv5, postgresql.
             db_info.instance_id: |-
                 - (Optional, String, ForceNew) Specifies the instance id of database when it is a RDS database.
                 Changing this parameter will create a new resource.
@@ -7219,6 +7300,40 @@ resources:
             vpc_id: '- (Required) The ID of the desired VPC for the server. Changing this creates a new server.'
         importStatements:
             - terraform import opentelekomcloud_ecs_instance_v1.instance_1 d90ce693-5ccf-4136-a0ed-152ce412b6b9
+    opentelekomcloud_er_association_v3:
+        subCategory: Enterprise Router (ER)
+        description: Manages an Enterprise Router Association resource within OpenTelekomCloud.
+        name: opentelekomcloud_er_association_v3
+        title: opentelekomcloud_er_association_v3
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "attachment_id": "${var.attachment_id}",
+                  "instance_id": "${var.instance_id}",
+                  "route_table_id": "${var.route_table_id}"
+                }
+              references:
+                attachment_id: var.attachment_id
+                instance_id: var.instance_id
+                route_table_id: var.route_table_id
+        argumentDocs:
+            attachment_id: '- (Required, String, ForceNew) Specifies the ID of the attachment corresponding to the association.'
+            attachment_type: '- The type of the attachment corresponding to the association.'
+            create: '- Default is 5 minutes.'
+            created_at: '- The creation time.'
+            delete: '- Default is 2 minutes.'
+            id: '- The resource ID.'
+            instance_id: |-
+                - (Required, String, ForceNew) Specifies the ID of the ER instance to which the route table and the
+                attachment belongs.
+            region: '- The region where the ER instance and route table are located.'
+            route_table_id: |-
+                - (Required, String, ForceNew) Specifies the ID of the route table to which the association
+                belongs.
+            status: '- The current status of the association.'
+            updated_at: '- The latest update time.'
+        importStatements: []
     opentelekomcloud_er_instance_v3:
         subCategory: Enterprise Router (ER)
         description: Manages an Enterprise Router Instance resource within OpenTelekomCloud.
@@ -7269,6 +7384,87 @@ resources:
             status: '- Current status of the router.'
             update: '- Default is 10 minutes.'
             updated_at: '- The latest update time.'
+        importStatements: []
+    opentelekomcloud_er_route_table_v3:
+        subCategory: Enterprise Router (ER)
+        description: Manages an Enterprise Router Route Table resource within OpenTelekomCloud.
+        name: opentelekomcloud_er_route_table_v3
+        title: opentelekomcloud_er_route_table_v3
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "description": "Route table created by terraform",
+                  "instance_id": "${var.instance_id}",
+                  "name": "${var.route_table_name}"
+                }
+              references:
+                instance_id: var.instance_id
+                name: var.route_table_name
+        argumentDocs:
+            create: '- Default is 5 minutes.'
+            created_at: '- The creation time.'
+            delete: '- Default is 5 minutes.'
+            description: |-
+                - (Optional, String) Specifies the description of the route table.
+                The description contain a maximum of 255 characters, and the angle brackets (< and >) are not allowed.
+            id: '- The resource ID.'
+            instance_id: '- (Required, String, ForceNew) Specifies the ID of the ER instance to which the route table belongs.'
+            is_default_association: '- Whether this route table is the default association route table.'
+            is_default_propagation: '- Whether this route table is the default propagation route table.'
+            name: |-
+                - (Required, String) Specifies the name of the route table.
+                The name can contain 1 to 64 characters, only letters, digits, underscore (_), hyphens (-) and dots (.) allowed.
+            region: '- The region where the ER instance and route table are located.'
+            status: '- The current status of the route table.'
+            update: '- Default is 5 minutes.'
+            updated_at: '- The latest update time.'
+        importStatements: []
+    opentelekomcloud_er_static_route_v3:
+        subCategory: Enterprise Router (ER)
+        description: Manages an Enterprise Router Static Route resource within OpenTelekomCloud.
+        name: opentelekomcloud_er_static_route_v3
+        title: opentelekomcloud_er_static_route_v3
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "attachment_id": "${var.source_vpc_attachment_id}",
+                  "destination": "${var.destination_vpc_cidr}",
+                  "route_table_id": "${var.route_table_id}"
+                }
+              references:
+                attachment_id: var.source_vpc_attachment_id
+                destination: var.destination_vpc_cidr
+                route_table_id: var.route_table_id
+            - name: test
+              manifest: |-
+                {
+                  "destination": "${var.destination_vpc_cidr}",
+                  "is_blackhole": true,
+                  "route_table_id": "${var.route_table_id}"
+                }
+              references:
+                destination: var.destination_vpc_cidr
+                route_table_id: var.route_table_id
+        argumentDocs:
+            attachment_id: '- (Optional, String) Specifies the ID of the corresponding attachment.'
+            create: '- Default is 5 minutes.'
+            created_at: '- The creation time of the static route.'
+            delete: '- Default is 2 minutes.'
+            destination: '- (Required, String, ForceNew) Specifies the destination of the static route.'
+            "false": ', the parameter attachment_id is required.'
+            id: '- The resource ID.'
+            is_blackhole: '- (Optional, Bool) Specifies whether route is the black hole route, defaults to false.'
+            region: '- The region where the static route and related route table are located.'
+            route_table_id: |-
+                - (Required, String, ForceNew) Specifies the ID of the route table to which the static route
+                belongs.
+            status: '- The current status of the static route.'
+            "true": ', the parameter attachment_id must be empty.'
+            type: '- The type of the static route.'
+            update: '- Default is 5 minutes.'
+            updated_at: '- The latest update time of the static route.'
         importStatements: []
     opentelekomcloud_er_vpc_attachment_v3:
         subCategory: Enterprise Router (ER)
@@ -8118,9 +8314,48 @@ resources:
             updated: '- Indicates the updated time of the DB instance.'
             vpc_id: '- (Required, String, ForceNew) Specifies the VPC ID.'
         importStatements: []
+    opentelekomcloud_identity_acl_v3:
+        subCategory: Identity and Access Management (IAM)
+        description: Manages a IAM ACL resource within OpenTelekomCloud.
+        name: opentelekomcloud_identity_acl_v3
+        title: opentelekomcloud_identity_acl_v3
+        examples:
+            - name: acl
+              manifest: |-
+                {
+                  "ip_cidrs": [
+                    {
+                      "cidr": "159.138.39.192/32",
+                      "description": "This is a test ip address"
+                    }
+                  ],
+                  "ip_ranges": [
+                    {
+                      "description": "This is a test ip range",
+                      "range": "0.0.0.0-255.255.255.0"
+                    }
+                  ],
+                  "type": "console"
+                }
+        argumentDocs:
+            id: '- The ID of identity ACL.'
+            ip_cidrs: |-
+                - (Optional, List) Specifies the IPv4 CIDR blocks from which console access or api access is allowed.
+                The ip_cidrs cannot repeat. The object structure is documented below.
+            ip_cidrs.cidr: '- (Required, String) Specifies the IPv4 CIDR block, for example, 192.168.0.0/24.'
+            ip_cidrs.description: '- (Optional, String) Specifies a description about an IPv4 CIDR block.'
+            ip_ranges: |-
+                - (Optional, List) Specifies the IP address ranges from which console access or api access is allowed.
+                The ip_ranges cannot repeat. The object structure is documented below.
+            ip_ranges.description: '- (Optional, String) Specifies a description about an IP address range.'
+            ip_ranges.range: '- (Required, String) Specifies the Ip address range, for example, 0.0.0.0-255.255.255.0.'
+            type: |-
+                - (Required, String, ForceNew) Specifies the ACL is created through the Console or API.
+                Valid values are console and api. Changing this parameter will create a new ACL.
+        importStatements: []
     opentelekomcloud_identity_agency_v3:
         subCategory: Identity and Access Management (IAM)
-        description: Manages a IAM Cgency resource within OpenTelekomCloud.
+        description: Manages a IAM Agency resource within OpenTelekomCloud.
         name: opentelekomcloud_identity_agency_v3
         title: opentelekomcloud_identity_agency_v3
         examples:
@@ -10072,6 +10307,7 @@ resources:
             public_ip.ip_type: |-
                 - (Optional) Elastic IP type. The value can be 5_bgp or 5_mailbgp.
                 Required when creating a new EIP.
+            public_ip.tags: '- (Optional, Map) Tags key/value pairs to associate with the load balancer.'
             router_id: |-
                 - (Optional) ID of the router (or VPC) this LoadBalancer belongs to. Changing
                 this creates a new LoadBalancer.
@@ -13292,7 +13528,7 @@ resources:
                   "volume": [
                     {
                       "size": 100,
-                      "type": "COMMON"
+                      "type": "CLOUDSSD"
                     }
                   ],
                   "vpc_id": "${var.vpc_id}"
@@ -13340,7 +13576,7 @@ resources:
                   "volume": [
                     {
                       "size": 100,
-                      "type": "COMMON"
+                      "type": "CLOUDSSD"
                     }
                   ],
                   "vpc_id": "${var.vpc_id}"
@@ -13391,7 +13627,7 @@ resources:
                   "volume": [
                     {
                       "size": 100,
-                      "type": "COMMON"
+                      "type": "CLOUDSSD"
                     }
                   ],
                   "vpc_id": "${var.vpc_id}"
@@ -13435,7 +13671,7 @@ resources:
                     {
                       "disk_encryption_id": "${opentelekomcloud_kms_key_v1.key.id}",
                       "size": 100,
-                      "type": "COMMON"
+                      "type": "CLOUDSSD"
                     }
                   ],
                   "vpc_id": "${var.vpc_id}"
@@ -13481,7 +13717,7 @@ resources:
                   "volume": [
                     {
                       "size": 40,
-                      "type": "COMMON"
+                      "type": "CLOUDSSD"
                     }
                   ],
                   "vpc_id": "${var.vpc_id}"
@@ -13539,7 +13775,7 @@ resources:
                   "volume": [
                     {
                       "size": 40,
-                      "type": "COMMON"
+                      "type": "CLOUDSSD"
                     }
                   ],
                   "vpc_id": "${var.os_router_id}"
@@ -13581,7 +13817,7 @@ resources:
                   "volume": [
                     {
                       "size": 40,
-                      "type": "COMMON"
+                      "type": "CLOUDSSD"
                     }
                   ],
                   "vpc_id": "${data.opentelekomcloud_vpc_subnet_v1.shared_subnet.vpc_id}"
@@ -13684,6 +13920,7 @@ resources:
                 and can contain only letters, digits, hyphens (-), and underscores
                 (_).  Changing this parameter will create a new resource.
             nodes: '- Indicates the instance nodes information. Structure is documented below.'
+            nodes.autoscaling_enabled: '- Indicates whether autoscaling was enabled for this resource.'
             nodes.availability_zone: '- Indicates the AZ.'
             nodes.id: '- Indicates the node ID.'
             nodes.name: '- Indicates the node name.'
@@ -13735,18 +13972,21 @@ resources:
                 In this mode restore_time is mandatory.
             volume: '- (Required, ForceNew) Specifies the volume information. Structure is documented below.'
             volume.disk_encryption_id: '- (Optional, ForceNew) Specifies the key ID for disk encryption. Changing this parameter will create a new resource.'
-            volume.limit_size: '- (Optional, Int) Specifies the upper limit of automatic expansion of storage, in GB.'
+            volume.limit_size: |-
+                - (Optional, Int) Specifies the upper limit of automatic expansion of storage, in GB.
+                The value ranges from 40 GB to 4,000 GB and must be no less than the current storage of the instance.
+                If this parameter is configured, trigger_threshold is mandatory.
             volume.size: |-
                 - (Required) Specifies the volume size. Its value range is from 40 GB to 4000
                 GB. The value must be a multiple of 10. Changing this resize the volume.
             volume.trigger_threshold: |-
                 - (Optional, Int) Specifies the threshold to trigger automatic expansion.
+                If this parameter is configured, limit_size is mandatory.
                 If the available storage drops to this threshold or 10 GB, the automatic expansion is triggered.
                 The valid values are as follows:
             volume.type: |-
-                - (Required, ForceNew) Specifies the volume type. Its value can be any of the following
-                and is case-sensitive: COMMON: indicates the SATA type.
-                ULTRAHIGH: indicates the SSD type.  Changing this parameter will create a new resource.
+                - (Required, ForceNew) Specifies the volume type. Changing this resize the volume. Its value can be any of the following
+                and is case-sensitive:
             vpc_id: '- (Required, ForceNew) Specifies the VPC ID. Changing this parameter will create a new resource.'
         importStatements: []
     opentelekomcloud_rds_parametergroup_v3:
@@ -16317,6 +16557,37 @@ resources:
                     {
                       "name": "policy_am"
                     }
+            - name: rule_1
+              manifest: |-
+                {
+                  "advanced_settings": [
+                    {
+                      "index": "cookie"
+                    }
+                  ],
+                  "conditions": [
+                    {
+                      "category": "url",
+                      "contents": [
+                        "/login"
+                      ],
+                      "logic_operation": "equal"
+                    }
+                  ],
+                  "description": "description",
+                  "domains": [
+                    "www.example.com"
+                  ],
+                  "policy_id": "${opentelekomcloud_waf_dedicated_policy_v1.policy_1.id}",
+                  "rule": "all"
+                }
+              references:
+                policy_id: opentelekomcloud_waf_dedicated_policy_v1.policy_1.id
+              dependencies:
+                opentelekomcloud_waf_dedicated_policy_v1.policy_1: |-
+                    {
+                      "name": "policy_am"
+                    }
         argumentDocs:
             "0": ': The rule is disabled.'
             "1": ': The rule is enabled.'
@@ -16950,39 +17221,42 @@ resources:
             "3": ': high'
             block: ': WAF blocks and logs detected attacks.'
             created_at: '- Time the policy is created. The value is a 13-digit timestamp, in ms.'
+            deep_inspection: '- (Optional, Bool) The deep inspection in basic web protection.'
             domains: '- Specifies the domain IDs.'
             "false": ': instant detection. Instant detection immediately ends threat detection after blocking a request that meets Precise Protection specified conditions.'
-            full_detection: '- (Optional) Specifies the detection mode in Precise Protection.'
+            full_detection: '- (Optional, Bool) Specifies the detection mode in Precise Protection.'
+            header_inspection: '- (Optional, Bool) The header inspection in basic web protection.'
             id: '-  ID of the policy.'
             level: |-
-                - (Optional) Specifies the protection level.
+                - (Optional, Int) Specifies the protection level.
                 Values are:
             log: ': WAF logs detected attacks only.'
-            name: '- (Required) The policy name.'
+            name: '- (Required, String) The policy name.'
             options: |-
-                - (Optional) Specifies the protection switches.
+                - (Optional, List)  Specifies the protection switches.
                 The options block supports:
-            options.anti_crawler: '- (Optional) JavaScript anti-crawler function.'
-            options.anti_leakage: '- (Optional) Whether the information leakage prevention is enabled.'
-            options.anti_tamper: '- (Optional) Specifies whether Web Tamper Protection is enabled.'
-            options.blacklist: '- (Optional) Specifies whether Blacklist and Whitelist is enabled.'
-            options.cc: '- (Optional) Specifies whether CC Attack Protection is enabled.'
-            options.common: '- (Optional) Specifies whether General Check in Basic Web Protection is enabled.'
-            options.crawler: '- (Optional) Specifies whether the master crawler detection switch in Basic Web Protection is enabled.'
-            options.crawler_engine: '- (Optional) Specifies whether the Search Engine switch in Basic Web Protection is enabled.'
-            options.crawler_other: '- (Optional) Specifies whether detection of other crawlers in Basic Web Protection is enabled.'
-            options.crawler_scanner: '- (Optional) Specifies whether the Scanner switch in Basic Web Protection is enabled.'
-            options.crawler_script: '- (Optional) Specifies whether the Script Tool switch in Basic Web Protection is enabled.'
-            options.custom: '- (Optional) Specifies whether Precise Protection is enabled.'
-            options.followed_action: '- (Optional) Whether the Known Attack Source protection is enabled.'
-            options.geolocation_access_control: '- (Optional) Whether geolocation access control is enabled.'
-            options.ignore: '- (Optional) Whether false alarm masking is enabled.'
-            options.privacy: '- (Optional) Specifies whether Data Masking is enabled.'
-            options.web_attack: '- (Optional) Specifies whether Basic Web Protection is enabled.'
-            options.web_shell: '- (Optional) Specifies whether webshell detection in Basic Web Protection is enabled.'
+            options.anti_crawler: '- (Optional, Bool) JavaScript anti-crawler function.'
+            options.anti_leakage: '- (Optional, Bool) Whether the information leakage prevention is enabled.'
+            options.anti_tamper: '- (Optional, Bool) Specifies whether Web Tamper Protection is enabled.'
+            options.blacklist: '- (Optional, Bool) Specifies whether Blacklist and Whitelist is enabled.'
+            options.cc: '- (Optional, Bool) Specifies whether CC Attack Protection is enabled.'
+            options.common: '- (Optional, Bool) Specifies whether General Check in Basic Web Protection is enabled.'
+            options.crawler: '- (Optional, Bool) Specifies whether the master crawler detection switch in Basic Web Protection is enabled.'
+            options.crawler_engine: '- (Optional, Bool) Specifies whether the Search Engine switch in Basic Web Protection is enabled.'
+            options.crawler_other: '- (Optional, Bool) Specifies whether detection of other crawlers in Basic Web Protection is enabled.'
+            options.crawler_scanner: '- (Optional, Bool) Specifies whether the Scanner switch in Basic Web Protection is enabled.'
+            options.crawler_script: '- (Optional, Bool) Specifies whether the Script Tool switch in Basic Web Protection is enabled.'
+            options.custom: '- (Optional, Bool) Specifies whether Precise Protection is enabled.'
+            options.followed_action: '- (Optional, Bool) Whether the Known Attack Source protection is enabled.'
+            options.geolocation_access_control: '- (Optional, Bool) Whether geolocation access control is enabled.'
+            options.ignore: '- (Optional, Bool) Whether false alarm masking is enabled.'
+            options.privacy: '- (Optional, Bool) Specifies whether Data Masking is enabled.'
+            options.web_attack: '- (Optional, Bool) Specifies whether Basic Web Protection is enabled.'
+            options.web_shell: '- (Optional, Bool) Specifies whether webshell detection in Basic Web Protection is enabled.'
             protection_mode: |-
-                - (Optional) Specifies the protective action after a rule is matched.
+                - (Optional, String) Specifies the protective action after a rule is matched.
                 Values are:
+            shiro_decryption_check: '- (Optional, Bool) The shiro decryption check in basic web protection.'
             "true": ': full detection, Full detection finishes all threat detections before blocking requests that meet Precise Protection specified conditions.'
         importStatements: []
     opentelekomcloud_waf_dedicated_precise_protection_rule_v1:

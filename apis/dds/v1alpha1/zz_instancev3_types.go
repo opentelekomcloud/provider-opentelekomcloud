@@ -15,9 +15,12 @@ import (
 
 type BackupStrategyInitParameters struct {
 
-	// Specifies the number of days to retain the generated backup files. The
-	// value range is from 0 to 732.
+	// to 0, this parameter is no need to set.
 	KeepDays *float64 `json:"keepDays,omitempty" tf:"keep_days,omitempty"`
+
+	// Specifies the backup cycle. Data will be automatically backed up on the
+	// selected days every week.
+	Period *string `json:"period,omitempty" tf:"period,omitempty"`
 
 	// Specifies the backup time window. Automated backups will be triggered
 	// during the backup time window. The value cannot be empty. It must be a valid value in the
@@ -27,9 +30,12 @@ type BackupStrategyInitParameters struct {
 
 type BackupStrategyObservation struct {
 
-	// Specifies the number of days to retain the generated backup files. The
-	// value range is from 0 to 732.
+	// to 0, this parameter is no need to set.
 	KeepDays *float64 `json:"keepDays,omitempty" tf:"keep_days,omitempty"`
+
+	// Specifies the backup cycle. Data will be automatically backed up on the
+	// selected days every week.
+	Period *string `json:"period,omitempty" tf:"period,omitempty"`
 
 	// Specifies the backup time window. Automated backups will be triggered
 	// during the backup time window. The value cannot be empty. It must be a valid value in the
@@ -39,10 +45,14 @@ type BackupStrategyObservation struct {
 
 type BackupStrategyParameters struct {
 
-	// Specifies the number of days to retain the generated backup files. The
-	// value range is from 0 to 732.
+	// to 0, this parameter is no need to set.
 	// +kubebuilder:validation:Optional
 	KeepDays *float64 `json:"keepDays" tf:"keep_days,omitempty"`
+
+	// Specifies the backup cycle. Data will be automatically backed up on the
+	// selected days every week.
+	// +kubebuilder:validation:Optional
+	Period *string `json:"period,omitempty" tf:"period,omitempty"`
 
 	// Specifies the backup time window. Automated backups will be triggered
 	// during the backup time window. The value cannot be empty. It must be a valid value in the
@@ -163,28 +173,25 @@ type FlavorParameters struct {
 
 type InstanceV3InitParameters struct {
 
-	// Specifies the ID of the availability zone. Changing
-	// this creates a new instance.
+	// Specifies the ID of the availability zone.
 	AvailabilityZone *string `json:"availabilityZone,omitempty" tf:"availability_zone,omitempty"`
 
 	// Specifies the advanced backup policy. The structure is
-	// described below. Changing this creates a new instance.
+	// described below.
 	BackupStrategy []BackupStrategyInitParameters `json:"backupStrategy,omitempty" tf:"backup_strategy,omitempty"`
 
 	// Specifies database information. The structure is described
-	// below. Changing this creates a new instance.
+	// below.
 	Datastore []DatastoreInitParameters `json:"datastore,omitempty" tf:"datastore,omitempty"`
 
 	// Specifies the disk encryption ID of the instance.
-	// Changing this creates a new instance.
 	DiskEncryptionID *string `json:"diskEncryptionId,omitempty" tf:"disk_encryption_id,omitempty"`
 
-	// Specifies the flavors information. The structure is described below.
+	// Specifies the flavor information. The structure is described below.
 	// Changing this creates a new instance.
 	Flavor []FlavorInitParameters `json:"flavor,omitempty" tf:"flavor,omitempty"`
 
-	// Specifies the mode of the database instance. Changing this creates
-	// a new instance.
+	// Specifies the mode of the database instance.
 	Mode *string `json:"mode,omitempty" tf:"mode,omitempty"`
 
 	// Specifies the DB instance name. The DB instance name of the same
@@ -194,8 +201,11 @@ type InstanceV3InitParameters struct {
 	// Specifies the Administrator password of the database instance.
 	PasswordSecretRef v1.SecretKeySelector `json:"passwordSecretRef" tf:"-"`
 
-	// Specifies the region of the DDS instance. Changing this creates
-	// a new instance.
+	// Specifies the database access port. The valid values are range from 2100 to 9500 and
+	// 27017, 27018, 27019. Defaults to 8635.
+	Port *float64 `json:"port,omitempty" tf:"port,omitempty"`
+
+	// Specifies the region of the DDS instance.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
 	// Specifies whether to enable or disable SSL. Defaults to true.
@@ -205,7 +215,7 @@ type InstanceV3InitParameters struct {
 	// Specifies the security group ID of the DDS instance.
 	SecurityGroupID *string `json:"securityGroupId,omitempty" tf:"security_group_id,omitempty"`
 
-	// Specifies the subnet Network ID. Changing this creates a new instance.
+	// Specifies the subnet Network ID.
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 
 	// Tags key/value pairs to associate with the volume.
@@ -213,40 +223,40 @@ type InstanceV3InitParameters struct {
 	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
-	// Specifies the VPC ID. Changing this creates a new instance.
+	// Specifies the VPC ID.
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
 }
 
 type InstanceV3Observation struct {
 
-	// Specifies the ID of the availability zone. Changing
-	// this creates a new instance.
+	// Specifies the ID of the availability zone.
 	AvailabilityZone *string `json:"availabilityZone,omitempty" tf:"availability_zone,omitempty"`
 
 	// Specifies the advanced backup policy. The structure is
-	// described below. Changing this creates a new instance.
+	// described below.
 	BackupStrategy []BackupStrategyObservation `json:"backupStrategy,omitempty" tf:"backup_strategy,omitempty"`
+
+	// Indicates the creation time.
+	CreatedAt *string `json:"createdAt,omitempty" tf:"created_at,omitempty"`
 
 	// Indicates the DB Administator name.
 	DBUsername *string `json:"dbUsername,omitempty" tf:"db_username,omitempty"`
 
 	// Specifies database information. The structure is described
-	// below. Changing this creates a new instance.
+	// below.
 	Datastore []DatastoreObservation `json:"datastore,omitempty" tf:"datastore,omitempty"`
 
 	// Specifies the disk encryption ID of the instance.
-	// Changing this creates a new instance.
 	DiskEncryptionID *string `json:"diskEncryptionId,omitempty" tf:"disk_encryption_id,omitempty"`
 
-	// Specifies the flavors information. The structure is described below.
+	// Specifies the flavor information. The structure is described below.
 	// Changing this creates a new instance.
 	Flavor []FlavorObservation `json:"flavor,omitempty" tf:"flavor,omitempty"`
 
 	// Indicates the node ID.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// Specifies the mode of the database instance. Changing this creates
-	// a new instance.
+	// Specifies the mode of the database instance.
 	Mode *string `json:"mode,omitempty" tf:"mode,omitempty"`
 
 	// Specifies the DB instance name. The DB instance name of the same
@@ -259,11 +269,11 @@ type InstanceV3Observation struct {
 	// Indicates the billing mode. 0: indicates the pay-per-use billing mode.
 	PayMode *string `json:"payMode,omitempty" tf:"pay_mode,omitempty"`
 
-	// Indicates the database port number. The port range is 2100 to 9500.
+	// Specifies the database access port. The valid values are range from 2100 to 9500 and
+	// 27017, 27018, 27019. Defaults to 8635.
 	Port *float64 `json:"port,omitempty" tf:"port,omitempty"`
 
-	// Specifies the region of the DDS instance. Changing this creates
-	// a new instance.
+	// Specifies the region of the DDS instance.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
 	// Specifies whether to enable or disable SSL. Defaults to true.
@@ -273,10 +283,10 @@ type InstanceV3Observation struct {
 	// Specifies the security group ID of the DDS instance.
 	SecurityGroupID *string `json:"securityGroupId,omitempty" tf:"security_group_id,omitempty"`
 
-	// Indicates the the DB instance status.
+	// Indicates the DB instance status.
 	Status *string `json:"status,omitempty" tf:"status,omitempty"`
 
-	// Specifies the subnet Network ID. Changing this creates a new instance.
+	// Specifies the subnet Network ID.
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 
 	// Tags key/value pairs to associate with the volume.
@@ -284,39 +294,42 @@ type InstanceV3Observation struct {
 	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
-	// Specifies the VPC ID. Changing this creates a new instance.
+	// Indicates the time zone.
+	TimeZone *string `json:"timeZone,omitempty" tf:"time_zone,omitempty"`
+
+	// Indicates the update time.
+	UpdatedAt *string `json:"updatedAt,omitempty" tf:"updated_at,omitempty"`
+
+	// Specifies the VPC ID.
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
 }
 
 type InstanceV3Parameters struct {
 
-	// Specifies the ID of the availability zone. Changing
-	// this creates a new instance.
+	// Specifies the ID of the availability zone.
 	// +kubebuilder:validation:Optional
 	AvailabilityZone *string `json:"availabilityZone,omitempty" tf:"availability_zone,omitempty"`
 
 	// Specifies the advanced backup policy. The structure is
-	// described below. Changing this creates a new instance.
+	// described below.
 	// +kubebuilder:validation:Optional
 	BackupStrategy []BackupStrategyParameters `json:"backupStrategy,omitempty" tf:"backup_strategy,omitempty"`
 
 	// Specifies database information. The structure is described
-	// below. Changing this creates a new instance.
+	// below.
 	// +kubebuilder:validation:Optional
 	Datastore []DatastoreParameters `json:"datastore,omitempty" tf:"datastore,omitempty"`
 
 	// Specifies the disk encryption ID of the instance.
-	// Changing this creates a new instance.
 	// +kubebuilder:validation:Optional
 	DiskEncryptionID *string `json:"diskEncryptionId,omitempty" tf:"disk_encryption_id,omitempty"`
 
-	// Specifies the flavors information. The structure is described below.
+	// Specifies the flavor information. The structure is described below.
 	// Changing this creates a new instance.
 	// +kubebuilder:validation:Optional
 	Flavor []FlavorParameters `json:"flavor,omitempty" tf:"flavor,omitempty"`
 
-	// Specifies the mode of the database instance. Changing this creates
-	// a new instance.
+	// Specifies the mode of the database instance.
 	// +kubebuilder:validation:Optional
 	Mode *string `json:"mode,omitempty" tf:"mode,omitempty"`
 
@@ -329,8 +342,12 @@ type InstanceV3Parameters struct {
 	// +kubebuilder:validation:Optional
 	PasswordSecretRef v1.SecretKeySelector `json:"passwordSecretRef" tf:"-"`
 
-	// Specifies the region of the DDS instance. Changing this creates
-	// a new instance.
+	// Specifies the database access port. The valid values are range from 2100 to 9500 and
+	// 27017, 27018, 27019. Defaults to 8635.
+	// +kubebuilder:validation:Optional
+	Port *float64 `json:"port,omitempty" tf:"port,omitempty"`
+
+	// Specifies the region of the DDS instance.
 	// +kubebuilder:validation:Optional
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
@@ -343,7 +360,7 @@ type InstanceV3Parameters struct {
 	// +kubebuilder:validation:Optional
 	SecurityGroupID *string `json:"securityGroupId,omitempty" tf:"security_group_id,omitempty"`
 
-	// Specifies the subnet Network ID. Changing this creates a new instance.
+	// Specifies the subnet Network ID.
 	// +kubebuilder:validation:Optional
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 
@@ -353,7 +370,7 @@ type InstanceV3Parameters struct {
 	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
-	// Specifies the VPC ID. Changing this creates a new instance.
+	// Specifies the VPC ID.
 	// +kubebuilder:validation:Optional
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
 }

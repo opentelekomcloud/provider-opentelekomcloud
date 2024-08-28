@@ -1,0 +1,88 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: example-dcs-password
+  namespace: crossplane-system
+type: Opaque
+data:
+  example-dcs-key: UG9zdGdyZXNAIzIwMjQ=
+
+---
+
+apiVersion: vpc.opentelekomcloud.crossplane.io/v1alpha1
+kind: VpcV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/v1
+  labels:
+    testing.upbound.io/example-name: sample-dcs-instance-v2
+  name: sample-dcs-instance-v2
+spec:
+  forProvider:
+    cidr: "192.168.0.0/16"
+    name: crossplane-vpc
+    tags:
+      managed-by: crossplane
+---
+
+apiVersion: vpc.opentelekomcloud.crossplane.io/v1alpha1
+kind: SubnetV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/subnetv1
+  labels:
+    testing.upbound.io/example-name: sample-dcs-instance-v2
+  name: sample-dcs-instance-v2
+spec:
+  forProvider:
+    cidr: "192.168.0.0/16"
+    gatewayIp: "192.168.0.1"
+    name: crossplane-subnet
+    ntpAddresses: "10.100.0.33,10.100.0.34"
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sample-dcs-instance-v2
+    tags:
+      managed-by: crossplane
+
+---
+
+apiVersion: dcs.opentelekomcloud.crossplane.io/v1alpha1
+kind: InstanceV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dcs/v1alpha1/instancev2
+  labels:
+    testing.upbound.io/example-name: sample-dcs-instance-v2
+  name: sample-dcs-instance-v2
+spec:
+  forProvider:
+    availabilityZones:
+      - eu-de-01
+    backupPolicy:
+      - backupAt:
+          - 1
+          - 2
+          - 4
+          - 6
+        backupType: manual
+        beginAt: 00:00-01:00
+        periodType: weekly
+        saveDays: 1
+    capacity: 0.125
+    engine: Redis
+    engineVersion: "5.0"
+    flavor: redis.ha.xu1.tiny.r2.128
+    name: crossplane-dcs-instance-v2
+    passwordSecretRef:
+      key: example-dcs-key
+      name: example-dcs-password
+      namespace: crossplane-system
+    subnetIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sample-dcs-instance-v2
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sample-dcs-instance-v2
+    tags:
+      managed-by: crossplane

@@ -20,6 +20,11 @@ func (in *BackupStrategyInitParameters) DeepCopyInto(out *BackupStrategyInitPara
 		*out = new(float64)
 		**out = **in
 	}
+	if in.Period != nil {
+		in, out := &in.Period, &out.Period
+		*out = new(string)
+		**out = **in
+	}
 	if in.StartTime != nil {
 		in, out := &in.StartTime, &out.StartTime
 		*out = new(string)
@@ -45,6 +50,11 @@ func (in *BackupStrategyObservation) DeepCopyInto(out *BackupStrategyObservation
 		*out = new(float64)
 		**out = **in
 	}
+	if in.Period != nil {
+		in, out := &in.Period, &out.Period
+		*out = new(string)
+		**out = **in
+	}
 	if in.StartTime != nil {
 		in, out := &in.StartTime, &out.StartTime
 		*out = new(string)
@@ -68,6 +78,11 @@ func (in *BackupStrategyParameters) DeepCopyInto(out *BackupStrategyParameters) 
 	if in.KeepDays != nil {
 		in, out := &in.KeepDays, &out.KeepDays
 		*out = new(float64)
+		**out = **in
+	}
+	if in.Period != nil {
+		in, out := &in.Period, &out.Period
+		*out = new(string)
 		**out = **in
 	}
 	if in.StartTime != nil {
@@ -369,6 +384,11 @@ func (in *InstanceV3InitParameters) DeepCopyInto(out *InstanceV3InitParameters) 
 		**out = **in
 	}
 	out.PasswordSecretRef = in.PasswordSecretRef
+	if in.Port != nil {
+		in, out := &in.Port, &out.Port
+		*out = new(float64)
+		**out = **in
+	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
 		*out = new(string)
@@ -469,6 +489,11 @@ func (in *InstanceV3Observation) DeepCopyInto(out *InstanceV3Observation) {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.CreatedAt != nil {
+		in, out := &in.CreatedAt, &out.CreatedAt
+		*out = new(string)
+		**out = **in
+	}
 	if in.DBUsername != nil {
 		in, out := &in.DBUsername, &out.DBUsername
 		*out = new(string)
@@ -566,6 +591,16 @@ func (in *InstanceV3Observation) DeepCopyInto(out *InstanceV3Observation) {
 			(*out)[key] = outVal
 		}
 	}
+	if in.TimeZone != nil {
+		in, out := &in.TimeZone, &out.TimeZone
+		*out = new(string)
+		**out = **in
+	}
+	if in.UpdatedAt != nil {
+		in, out := &in.UpdatedAt, &out.UpdatedAt
+		*out = new(string)
+		**out = **in
+	}
 	if in.VPCID != nil {
 		in, out := &in.VPCID, &out.VPCID
 		*out = new(string)
@@ -628,6 +663,11 @@ func (in *InstanceV3Parameters) DeepCopyInto(out *InstanceV3Parameters) {
 		**out = **in
 	}
 	out.PasswordSecretRef = in.PasswordSecretRef
+	if in.Port != nil {
+		in, out := &in.Port, &out.Port
+		*out = new(float64)
+		**out = **in
+	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
 		*out = new(string)

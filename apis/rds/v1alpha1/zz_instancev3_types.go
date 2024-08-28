@@ -292,6 +292,9 @@ type InstanceV3InitParameters struct {
 
 type InstanceV3Observation struct {
 
+	// Indicates whether autoscaling was enabled for this resource.
+	AutoscalingEnabled *bool `json:"autoscalingEnabled,omitempty" tf:"autoscaling_enabled,omitempty"`
+
 	// Specifies the AZ name. Changing this parameter will create a new resource.
 	AvailabilityZone []*string `json:"availabilityZone,omitempty" tf:"availability_zone,omitempty"`
 
@@ -663,6 +666,8 @@ type VolumeInitParameters struct {
 	DiskEncryptionID *string `json:"diskEncryptionId,omitempty" tf:"disk_encryption_id,omitempty"`
 
 	// Specifies the upper limit of automatic expansion of storage, in GB.
+	// The value ranges from 40 GB to 4,000 GB and must be no less than the current storage of the instance.
+	// If this parameter is configured, trigger_threshold is mandatory.
 	LimitSize *float64 `json:"limitSize,omitempty" tf:"limit_size,omitempty"`
 
 	// Specifies the volume size. Its value range is from 40 GB to 4000
@@ -670,13 +675,13 @@ type VolumeInitParameters struct {
 	Size *float64 `json:"size,omitempty" tf:"size,omitempty"`
 
 	// Specifies the threshold to trigger automatic expansion.
+	// If this parameter is configured, limit_size is mandatory.
 	// If the available storage drops to this threshold or 10 GB, the automatic expansion is triggered.
 	// The valid values are as follows:
 	TriggerThreshold *float64 `json:"triggerThreshold,omitempty" tf:"trigger_threshold,omitempty"`
 
-	// Specifies the volume type. Its value can be any of the following
-	// and is case-sensitive: COMMON: indicates the SATA type.
-	// ULTRAHIGH: indicates the SSD type.  Changing this parameter will create a new resource.
+	// Specifies the volume type. Changing this resize the volume. Its value can be any of the following
+	// and is case-sensitive:
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
@@ -686,6 +691,8 @@ type VolumeObservation struct {
 	DiskEncryptionID *string `json:"diskEncryptionId,omitempty" tf:"disk_encryption_id,omitempty"`
 
 	// Specifies the upper limit of automatic expansion of storage, in GB.
+	// The value ranges from 40 GB to 4,000 GB and must be no less than the current storage of the instance.
+	// If this parameter is configured, trigger_threshold is mandatory.
 	LimitSize *float64 `json:"limitSize,omitempty" tf:"limit_size,omitempty"`
 
 	// Specifies the volume size. Its value range is from 40 GB to 4000
@@ -693,13 +700,13 @@ type VolumeObservation struct {
 	Size *float64 `json:"size,omitempty" tf:"size,omitempty"`
 
 	// Specifies the threshold to trigger automatic expansion.
+	// If this parameter is configured, limit_size is mandatory.
 	// If the available storage drops to this threshold or 10 GB, the automatic expansion is triggered.
 	// The valid values are as follows:
 	TriggerThreshold *float64 `json:"triggerThreshold,omitempty" tf:"trigger_threshold,omitempty"`
 
-	// Specifies the volume type. Its value can be any of the following
-	// and is case-sensitive: COMMON: indicates the SATA type.
-	// ULTRAHIGH: indicates the SSD type.  Changing this parameter will create a new resource.
+	// Specifies the volume type. Changing this resize the volume. Its value can be any of the following
+	// and is case-sensitive:
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
@@ -710,6 +717,8 @@ type VolumeParameters struct {
 	DiskEncryptionID *string `json:"diskEncryptionId,omitempty" tf:"disk_encryption_id,omitempty"`
 
 	// Specifies the upper limit of automatic expansion of storage, in GB.
+	// The value ranges from 40 GB to 4,000 GB and must be no less than the current storage of the instance.
+	// If this parameter is configured, trigger_threshold is mandatory.
 	// +kubebuilder:validation:Optional
 	LimitSize *float64 `json:"limitSize,omitempty" tf:"limit_size,omitempty"`
 
@@ -719,14 +728,14 @@ type VolumeParameters struct {
 	Size *float64 `json:"size" tf:"size,omitempty"`
 
 	// Specifies the threshold to trigger automatic expansion.
+	// If this parameter is configured, limit_size is mandatory.
 	// If the available storage drops to this threshold or 10 GB, the automatic expansion is triggered.
 	// The valid values are as follows:
 	// +kubebuilder:validation:Optional
 	TriggerThreshold *float64 `json:"triggerThreshold,omitempty" tf:"trigger_threshold,omitempty"`
 
-	// Specifies the volume type. Its value can be any of the following
-	// and is case-sensitive: COMMON: indicates the SATA type.
-	// ULTRAHIGH: indicates the SSD type.  Changing this parameter will create a new resource.
+	// Specifies the volume type. Changing this resize the volume. Its value can be any of the following
+	// and is case-sensitive:
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type" tf:"type,omitempty"`
 }
