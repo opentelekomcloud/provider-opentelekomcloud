@@ -61,57 +61,6 @@ type BackupStrategyParameters struct {
 	StartTime *string `json:"startTime" tf:"start_time,omitempty"`
 }
 
-type DatastoreInitParameters struct {
-
-	// Specifies the storage engine. Currently, DDS supports the WiredTiger and RocksDB
-	// storage engine. The values are wiredTiger, rocksDB.
-	// WiredTiger engine supports versions 3.2, 3.4, 4.0 while RocksDB supports versions 4.2, 4.4
-	StorageEngine *string `json:"storageEngine,omitempty" tf:"storage_engine,omitempty"`
-
-	// Specifies the database type. DDS Community Edition is supported.
-	// The value is DDS-Community.
-	Type *string `json:"type,omitempty" tf:"type,omitempty"`
-
-	// Specifies the database version.
-	// The values are 3.2, 3.4, 4.0, 4.2, 4.4.
-	Version *string `json:"version,omitempty" tf:"version,omitempty"`
-}
-
-type DatastoreObservation struct {
-
-	// Specifies the storage engine. Currently, DDS supports the WiredTiger and RocksDB
-	// storage engine. The values are wiredTiger, rocksDB.
-	// WiredTiger engine supports versions 3.2, 3.4, 4.0 while RocksDB supports versions 4.2, 4.4
-	StorageEngine *string `json:"storageEngine,omitempty" tf:"storage_engine,omitempty"`
-
-	// Specifies the database type. DDS Community Edition is supported.
-	// The value is DDS-Community.
-	Type *string `json:"type,omitempty" tf:"type,omitempty"`
-
-	// Specifies the database version.
-	// The values are 3.2, 3.4, 4.0, 4.2, 4.4.
-	Version *string `json:"version,omitempty" tf:"version,omitempty"`
-}
-
-type DatastoreParameters struct {
-
-	// Specifies the storage engine. Currently, DDS supports the WiredTiger and RocksDB
-	// storage engine. The values are wiredTiger, rocksDB.
-	// WiredTiger engine supports versions 3.2, 3.4, 4.0 while RocksDB supports versions 4.2, 4.4
-	// +kubebuilder:validation:Optional
-	StorageEngine *string `json:"storageEngine,omitempty" tf:"storage_engine,omitempty"`
-
-	// Specifies the database type. DDS Community Edition is supported.
-	// The value is DDS-Community.
-	// +kubebuilder:validation:Optional
-	Type *string `json:"type" tf:"type,omitempty"`
-
-	// Specifies the database version.
-	// The values are 3.2, 3.4, 4.0, 4.2, 4.4.
-	// +kubebuilder:validation:Optional
-	Version *string `json:"version" tf:"version,omitempty"`
-}
-
 type FlavorInitParameters struct {
 
 	// Specifies the node quantity. Valid value:
@@ -171,6 +120,57 @@ type FlavorParameters struct {
 	Type *string `json:"type" tf:"type,omitempty"`
 }
 
+type InstanceV3DatastoreInitParameters struct {
+
+	// Specifies the storage engine. Currently, DDS supports the WiredTiger and RocksDB
+	// storage engine. The values are wiredTiger, rocksDB.
+	// WiredTiger engine supports versions 3.2, 3.4, 4.0 while RocksDB supports versions 4.2, 4.4
+	StorageEngine *string `json:"storageEngine,omitempty" tf:"storage_engine,omitempty"`
+
+	// Specifies the database type. DDS Community Edition is supported.
+	// The value is DDS-Community.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+	// Specifies the database version.
+	// The values are 3.2, 3.4, 4.0, 4.2, 4.4.
+	Version *string `json:"version,omitempty" tf:"version,omitempty"`
+}
+
+type InstanceV3DatastoreObservation struct {
+
+	// Specifies the storage engine. Currently, DDS supports the WiredTiger and RocksDB
+	// storage engine. The values are wiredTiger, rocksDB.
+	// WiredTiger engine supports versions 3.2, 3.4, 4.0 while RocksDB supports versions 4.2, 4.4
+	StorageEngine *string `json:"storageEngine,omitempty" tf:"storage_engine,omitempty"`
+
+	// Specifies the database type. DDS Community Edition is supported.
+	// The value is DDS-Community.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+	// Specifies the database version.
+	// The values are 3.2, 3.4, 4.0, 4.2, 4.4.
+	Version *string `json:"version,omitempty" tf:"version,omitempty"`
+}
+
+type InstanceV3DatastoreParameters struct {
+
+	// Specifies the storage engine. Currently, DDS supports the WiredTiger and RocksDB
+	// storage engine. The values are wiredTiger, rocksDB.
+	// WiredTiger engine supports versions 3.2, 3.4, 4.0 while RocksDB supports versions 4.2, 4.4
+	// +kubebuilder:validation:Optional
+	StorageEngine *string `json:"storageEngine,omitempty" tf:"storage_engine,omitempty"`
+
+	// Specifies the database type. DDS Community Edition is supported.
+	// The value is DDS-Community.
+	// +kubebuilder:validation:Optional
+	Type *string `json:"type" tf:"type,omitempty"`
+
+	// Specifies the database version.
+	// The values are 3.2, 3.4, 4.0, 4.2, 4.4.
+	// +kubebuilder:validation:Optional
+	Version *string `json:"version" tf:"version,omitempty"`
+}
+
 type InstanceV3InitParameters struct {
 
 	// Specifies the ID of the availability zone.
@@ -182,7 +182,7 @@ type InstanceV3InitParameters struct {
 
 	// Specifies database information. The structure is described
 	// below.
-	Datastore []DatastoreInitParameters `json:"datastore,omitempty" tf:"datastore,omitempty"`
+	Datastore []InstanceV3DatastoreInitParameters `json:"datastore,omitempty" tf:"datastore,omitempty"`
 
 	// Specifies the disk encryption ID of the instance.
 	DiskEncryptionID *string `json:"diskEncryptionId,omitempty" tf:"disk_encryption_id,omitempty"`
@@ -213,10 +213,29 @@ type InstanceV3InitParameters struct {
 	SSL *bool `json:"ssl,omitempty" tf:"ssl,omitempty"`
 
 	// Specifies the security group ID of the DDS instance.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/compute/v1alpha1.SecgroupV2
 	SecurityGroupID *string `json:"securityGroupId,omitempty" tf:"security_group_id,omitempty"`
 
+	// Reference to a SecgroupV2 in compute to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	SecurityGroupIDRef *v1.Reference `json:"securityGroupIdRef,omitempty" tf:"-"`
+
+	// Selector for a SecgroupV2 in compute to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	SecurityGroupIDSelector *v1.Selector `json:"securityGroupIdSelector,omitempty" tf:"-"`
+
 	// Specifies the subnet Network ID.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.SubnetV1
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractNetworkID()
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
+
+	// Reference to a SubnetV1 in vpc to populate subnetId.
+	// +kubebuilder:validation:Optional
+	SubnetIDRef *v1.Reference `json:"subnetIdRef,omitempty" tf:"-"`
+
+	// Selector for a SubnetV1 in vpc to populate subnetId.
+	// +kubebuilder:validation:Optional
+	SubnetIDSelector *v1.Selector `json:"subnetIdSelector,omitempty" tf:"-"`
 
 	// Tags key/value pairs to associate with the volume.
 	// Changing this updates the existing volume tags.
@@ -224,7 +243,16 @@ type InstanceV3InitParameters struct {
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// Specifies the VPC ID.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.VpcV1
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
+
+	// Reference to a VpcV1 in vpc to populate vpcId.
+	// +kubebuilder:validation:Optional
+	VPCIDRef *v1.Reference `json:"vpcIdRef,omitempty" tf:"-"`
+
+	// Selector for a VpcV1 in vpc to populate vpcId.
+	// +kubebuilder:validation:Optional
+	VPCIDSelector *v1.Selector `json:"vpcIdSelector,omitempty" tf:"-"`
 }
 
 type InstanceV3Observation struct {
@@ -244,7 +272,7 @@ type InstanceV3Observation struct {
 
 	// Specifies database information. The structure is described
 	// below.
-	Datastore []DatastoreObservation `json:"datastore,omitempty" tf:"datastore,omitempty"`
+	Datastore []InstanceV3DatastoreObservation `json:"datastore,omitempty" tf:"datastore,omitempty"`
 
 	// Specifies the disk encryption ID of the instance.
 	DiskEncryptionID *string `json:"diskEncryptionId,omitempty" tf:"disk_encryption_id,omitempty"`
@@ -318,7 +346,7 @@ type InstanceV3Parameters struct {
 	// Specifies database information. The structure is described
 	// below.
 	// +kubebuilder:validation:Optional
-	Datastore []DatastoreParameters `json:"datastore,omitempty" tf:"datastore,omitempty"`
+	Datastore []InstanceV3DatastoreParameters `json:"datastore,omitempty" tf:"datastore,omitempty"`
 
 	// Specifies the disk encryption ID of the instance.
 	// +kubebuilder:validation:Optional
@@ -357,12 +385,31 @@ type InstanceV3Parameters struct {
 	SSL *bool `json:"ssl,omitempty" tf:"ssl,omitempty"`
 
 	// Specifies the security group ID of the DDS instance.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/compute/v1alpha1.SecgroupV2
 	// +kubebuilder:validation:Optional
 	SecurityGroupID *string `json:"securityGroupId,omitempty" tf:"security_group_id,omitempty"`
 
+	// Reference to a SecgroupV2 in compute to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	SecurityGroupIDRef *v1.Reference `json:"securityGroupIdRef,omitempty" tf:"-"`
+
+	// Selector for a SecgroupV2 in compute to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	SecurityGroupIDSelector *v1.Selector `json:"securityGroupIdSelector,omitempty" tf:"-"`
+
 	// Specifies the subnet Network ID.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.SubnetV1
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractNetworkID()
 	// +kubebuilder:validation:Optional
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
+
+	// Reference to a SubnetV1 in vpc to populate subnetId.
+	// +kubebuilder:validation:Optional
+	SubnetIDRef *v1.Reference `json:"subnetIdRef,omitempty" tf:"-"`
+
+	// Selector for a SubnetV1 in vpc to populate subnetId.
+	// +kubebuilder:validation:Optional
+	SubnetIDSelector *v1.Selector `json:"subnetIdSelector,omitempty" tf:"-"`
 
 	// Tags key/value pairs to associate with the volume.
 	// Changing this updates the existing volume tags.
@@ -371,8 +418,17 @@ type InstanceV3Parameters struct {
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// Specifies the VPC ID.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.VpcV1
 	// +kubebuilder:validation:Optional
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
+
+	// Reference to a VpcV1 in vpc to populate vpcId.
+	// +kubebuilder:validation:Optional
+	VPCIDRef *v1.Reference `json:"vpcIdRef,omitempty" tf:"-"`
+
+	// Selector for a VpcV1 in vpc to populate vpcId.
+	// +kubebuilder:validation:Optional
+	VPCIDSelector *v1.Selector `json:"vpcIdSelector,omitempty" tf:"-"`
 }
 
 type NodesInitParameters struct {
@@ -449,9 +505,6 @@ type InstanceV3 struct {
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.mode) || (has(self.initProvider) && has(self.initProvider.mode))",message="spec.forProvider.mode is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.passwordSecretRef)",message="spec.forProvider.passwordSecretRef is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.securityGroupId) || (has(self.initProvider) && has(self.initProvider.securityGroupId))",message="spec.forProvider.securityGroupId is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.subnetId) || (has(self.initProvider) && has(self.initProvider.subnetId))",message="spec.forProvider.subnetId is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.vpcId) || (has(self.initProvider) && has(self.initProvider.vpcId))",message="spec.forProvider.vpcId is a required parameter"
 	Spec   InstanceV3Spec   `json:"spec"`
 	Status InstanceV3Status `json:"status,omitempty"`
 }

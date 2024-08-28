@@ -7,6 +7,7 @@ package config
 import (
 	// Note(turkenh): we are importing this to embed provider schema document
 	_ "embed"
+	"github.com/opentelekomcloud/provider-opentelekomcloud/config/dds"
 
 	"github.com/opentelekomcloud/provider-opentelekomcloud/config/vpc"
 
@@ -63,6 +64,7 @@ func GetProvider() *ujconfig.Provider {
 		cce.Configure,
 		compute.Configure,
 		dcs.Configure,
+		dds.Configure,
 		deh.Configure,
 		dis.Configure,
 		dms.Configure,

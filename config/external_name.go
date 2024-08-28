@@ -36,6 +36,7 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 
 	// DDS
 	"opentelekomcloud_dds_instance_v3": config.IdentifierFromProvider,
+	"opentelekomcloud_dds_backup_v3":   config.IdentifierFromProvider,
 
 	// DEH
 	"opentelekomcloud_deh_host_v1": config.IdentifierFromProvider,

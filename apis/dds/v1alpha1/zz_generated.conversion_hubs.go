@@ -7,4 +7,7 @@ Copyright 2022 Upbound Inc.
 package v1alpha1
 
 // Hub marks this type as a conversion hub.
+func (tr *BackupV3) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *InstanceV3) Hub() {}

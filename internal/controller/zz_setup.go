@@ -22,6 +22,7 @@ import (
 	servergroupv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/compute/servergroupv2"
 	volumeattachv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/compute/volumeattachv2"
 	instancev2dcs "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/dcs/instancev2"
+	backupv3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/dds/backupv3"
 	instancev3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/dds/instancev3"
 	hostv1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/deh/hostv1"
 	appv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/dis/appv2"
@@ -112,7 +113,7 @@ import (
 	bucketpolicy "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/obs/bucketpolicy"
 	bucketreplication "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/obs/bucketreplication"
 	providerconfig "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/providerconfig"
-	backupv3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/rds/backupv3"
+	backupv3rds "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/rds/backupv3"
 	instancev3rds "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/rds/instancev3"
 	parametergroupv3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/rds/parametergroupv3"
 	readreplicav3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/rds/readreplicav3"
@@ -176,6 +177,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		servergroupv2.Setup,
 		volumeattachv2.Setup,
 		instancev2dcs.Setup,
+		backupv3.Setup,
 		instancev3.Setup,
 		hostv1.Setup,
 		appv2.Setup,
@@ -266,7 +268,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		bucketpolicy.Setup,
 		bucketreplication.Setup,
 		providerconfig.Setup,
-		backupv3.Setup,
+		backupv3rds.Setup,
 		instancev3rds.Setup,
 		parametergroupv3.Setup,
 		readreplicav3.Setup,
