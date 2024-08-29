@@ -8,12 +8,11 @@ import (
 	// Note(turkenh): we are importing this to embed provider schema document
 	_ "embed"
 
-	"github.com/opentelekomcloud/provider-opentelekomcloud/config/vpc"
-
 	"github.com/opentelekomcloud/provider-opentelekomcloud/config/blockstorage"
 	"github.com/opentelekomcloud/provider-opentelekomcloud/config/cce"
 	"github.com/opentelekomcloud/provider-opentelekomcloud/config/compute"
 	"github.com/opentelekomcloud/provider-opentelekomcloud/config/dcs"
+	"github.com/opentelekomcloud/provider-opentelekomcloud/config/dds"
 	"github.com/opentelekomcloud/provider-opentelekomcloud/config/deh"
 	"github.com/opentelekomcloud/provider-opentelekomcloud/config/dis"
 	"github.com/opentelekomcloud/provider-opentelekomcloud/config/dms"
@@ -29,6 +28,7 @@ import (
 	"github.com/opentelekomcloud/provider-opentelekomcloud/config/rds"
 	"github.com/opentelekomcloud/provider-opentelekomcloud/config/sfs"
 	"github.com/opentelekomcloud/provider-opentelekomcloud/config/smn"
+	"github.com/opentelekomcloud/provider-opentelekomcloud/config/vpc"
 	"github.com/opentelekomcloud/provider-opentelekomcloud/config/vpcep"
 	"github.com/opentelekomcloud/provider-opentelekomcloud/config/vpnaas"
 	"github.com/opentelekomcloud/provider-opentelekomcloud/config/wafd"
@@ -63,6 +63,7 @@ func GetProvider() *ujconfig.Provider {
 		cce.Configure,
 		compute.Configure,
 		dcs.Configure,
+		dds.Configure,
 		deh.Configure,
 		dis.Configure,
 		dms.Configure,

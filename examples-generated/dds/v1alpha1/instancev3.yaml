@@ -25,9 +25,15 @@ spec:
       key: example-key
       name: example-secret
       namespace: upbound-system
-    securityGroupId: ${var.security_group_id}
-    subnetId: ${var.subnet_id}
+    securityGroupIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    subnetIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     tags:
       foo: bar
       new_test: new_test2
-    vpcId: ${var.vpc_id}
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
