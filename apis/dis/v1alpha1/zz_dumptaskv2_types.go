@@ -32,7 +32,17 @@ type DumpTaskV2InitParameters struct {
 	ObsProcessingSchema []ObsProcessingSchemaInitParameters `json:"obsProcessingSchema,omitempty" tf:"obs_processing_schema,omitempty"`
 
 	// Name of the stream.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/dis/v1alpha1.StreamV2
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractDisStreamName()
 	StreamName *string `json:"streamName,omitempty" tf:"stream_name,omitempty"`
+
+	// Reference to a StreamV2 in dis to populate streamName.
+	// +kubebuilder:validation:Optional
+	StreamNameRef *v1.Reference `json:"streamNameRef,omitempty" tf:"-"`
+
+	// Selector for a StreamV2 in dis to populate streamName.
+	// +kubebuilder:validation:Optional
+	StreamNameSelector *v1.Selector `json:"streamNameSelector,omitempty" tf:"-"`
 }
 
 type DumpTaskV2Observation struct {
@@ -101,8 +111,18 @@ type DumpTaskV2Parameters struct {
 	ObsProcessingSchema []ObsProcessingSchemaParameters `json:"obsProcessingSchema,omitempty" tf:"obs_processing_schema,omitempty"`
 
 	// Name of the stream.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/dis/v1alpha1.StreamV2
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractDisStreamName()
 	// +kubebuilder:validation:Optional
 	StreamName *string `json:"streamName,omitempty" tf:"stream_name,omitempty"`
+
+	// Reference to a StreamV2 in dis to populate streamName.
+	// +kubebuilder:validation:Optional
+	StreamNameRef *v1.Reference `json:"streamNameRef,omitempty" tf:"-"`
+
+	// Selector for a StreamV2 in dis to populate streamName.
+	// +kubebuilder:validation:Optional
+	StreamNameSelector *v1.Selector `json:"streamNameSelector,omitempty" tf:"-"`
 }
 
 type ObsDestinationDescriptorInitParameters struct {
@@ -128,7 +148,17 @@ type ObsDestinationDescriptorInitParameters struct {
 	FilePrefix *string `json:"filePrefix,omitempty" tf:"file_prefix,omitempty"`
 
 	// Name of the OBS bucket used to store data from the DIS stream.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/obs/v1alpha1.Bucket
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractObsBucket()
 	ObsBucketPath *string `json:"obsBucketPath,omitempty" tf:"obs_bucket_path,omitempty"`
+
+	// Reference to a Bucket in obs to populate obsBucketPath.
+	// +kubebuilder:validation:Optional
+	ObsBucketPathRef *v1.Reference `json:"obsBucketPathRef,omitempty" tf:"-"`
+
+	// Selector for a Bucket in obs to populate obsBucketPath.
+	// +kubebuilder:validation:Optional
+	ObsBucketPathSelector *v1.Selector `json:"obsBucketPathSelector,omitempty" tf:"-"`
 
 	// Directory structure of the object file written into OBS.
 	// The directory structure is in the format of yyyy/MM/dd/HH/mm (time at which the dump task was created).
@@ -207,8 +237,18 @@ type ObsDestinationDescriptorParameters struct {
 	FilePrefix *string `json:"filePrefix,omitempty" tf:"file_prefix,omitempty"`
 
 	// Name of the OBS bucket used to store data from the DIS stream.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/obs/v1alpha1.Bucket
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractObsBucket()
 	// +kubebuilder:validation:Optional
-	ObsBucketPath *string `json:"obsBucketPath" tf:"obs_bucket_path,omitempty"`
+	ObsBucketPath *string `json:"obsBucketPath,omitempty" tf:"obs_bucket_path,omitempty"`
+
+	// Reference to a Bucket in obs to populate obsBucketPath.
+	// +kubebuilder:validation:Optional
+	ObsBucketPathRef *v1.Reference `json:"obsBucketPathRef,omitempty" tf:"-"`
+
+	// Selector for a Bucket in obs to populate obsBucketPath.
+	// +kubebuilder:validation:Optional
+	ObsBucketPathSelector *v1.Selector `json:"obsBucketPathSelector,omitempty" tf:"-"`
 
 	// Directory structure of the object file written into OBS.
 	// The directory structure is in the format of yyyy/MM/dd/HH/mm (time at which the dump task was created).
@@ -330,9 +370,8 @@ type DumpTaskV2Status struct {
 type DumpTaskV2 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.streamName) || (has(self.initProvider) && has(self.initProvider.streamName))",message="spec.forProvider.streamName is a required parameter"
-	Spec   DumpTaskV2Spec   `json:"spec"`
-	Status DumpTaskV2Status `json:"status,omitempty"`
+	Spec              DumpTaskV2Spec   `json:"spec"`
+	Status            DumpTaskV2Status `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

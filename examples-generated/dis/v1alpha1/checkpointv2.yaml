@@ -8,11 +8,15 @@ metadata:
   name: checkpoint-1
 spec:
   forProvider:
-    appName: app_name
+    appNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: app_1
     metadata: my_first_checkpoint
     partitionId: "0"
     sequenceNumber: "0"
-    streamName: MyStream
+    streamNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: stream_1
 
 ---
 
