@@ -15,11 +15,15 @@ spec:
       deliverTimeInterval: 30
       destinationFileType: text
       filePrefix: _pf
-      obsBucketPath: my-tf-test-bucket
+      obsBucketPathSelector:
+        matchLabels:
+          testing.upbound.io/example-name: bucket
       partitionFormat: yyyy/MM/dd/HH/mm
       recordDelimiter: '|'
       taskName: my_task
-    streamName: MyStream
+    streamNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: stream_1
 
 ---
 

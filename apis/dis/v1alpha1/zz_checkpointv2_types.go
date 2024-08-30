@@ -17,7 +17,17 @@ type CheckpointV2InitParameters struct {
 
 	// Name of the consumer application to be created
 	// The application name contains 1 to 200 characters. Only letters, digits, hyphens (-), and underscores (_) are allowed.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/dis/v1alpha1.AppV2
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractDisAppName()
 	AppName *string `json:"appName,omitempty" tf:"app_name,omitempty"`
+
+	// Reference to a AppV2 in dis to populate appName.
+	// +kubebuilder:validation:Optional
+	AppNameRef *v1.Reference `json:"appNameRef,omitempty" tf:"-"`
+
+	// Selector for a AppV2 in dis to populate appName.
+	// +kubebuilder:validation:Optional
+	AppNameSelector *v1.Selector `json:"appNameSelector,omitempty" tf:"-"`
 
 	// Type of the checkpoint. LAST_READ: Only sequence numbers are recorded in databases.
 	// Default value: LAST_READ
@@ -36,7 +46,17 @@ type CheckpointV2InitParameters struct {
 
 	// Name of the stream. The stream name can contain 1 to 64 characters,
 	// including letters, digits, underscores (_), and hyphens (-).
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/dis/v1alpha1.StreamV2
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractDisStreamName()
 	StreamName *string `json:"streamName,omitempty" tf:"stream_name,omitempty"`
+
+	// Reference to a StreamV2 in dis to populate streamName.
+	// +kubebuilder:validation:Optional
+	StreamNameRef *v1.Reference `json:"streamNameRef,omitempty" tf:"-"`
+
+	// Selector for a StreamV2 in dis to populate streamName.
+	// +kubebuilder:validation:Optional
+	StreamNameSelector *v1.Selector `json:"streamNameSelector,omitempty" tf:"-"`
 }
 
 type CheckpointV2Observation struct {
@@ -71,8 +91,18 @@ type CheckpointV2Parameters struct {
 
 	// Name of the consumer application to be created
 	// The application name contains 1 to 200 characters. Only letters, digits, hyphens (-), and underscores (_) are allowed.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/dis/v1alpha1.AppV2
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractDisAppName()
 	// +kubebuilder:validation:Optional
 	AppName *string `json:"appName,omitempty" tf:"app_name,omitempty"`
+
+	// Reference to a AppV2 in dis to populate appName.
+	// +kubebuilder:validation:Optional
+	AppNameRef *v1.Reference `json:"appNameRef,omitempty" tf:"-"`
+
+	// Selector for a AppV2 in dis to populate appName.
+	// +kubebuilder:validation:Optional
+	AppNameSelector *v1.Selector `json:"appNameSelector,omitempty" tf:"-"`
 
 	// Type of the checkpoint. LAST_READ: Only sequence numbers are recorded in databases.
 	// Default value: LAST_READ
@@ -95,8 +125,18 @@ type CheckpointV2Parameters struct {
 
 	// Name of the stream. The stream name can contain 1 to 64 characters,
 	// including letters, digits, underscores (_), and hyphens (-).
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/dis/v1alpha1.StreamV2
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractDisStreamName()
 	// +kubebuilder:validation:Optional
 	StreamName *string `json:"streamName,omitempty" tf:"stream_name,omitempty"`
+
+	// Reference to a StreamV2 in dis to populate streamName.
+	// +kubebuilder:validation:Optional
+	StreamNameRef *v1.Reference `json:"streamNameRef,omitempty" tf:"-"`
+
+	// Selector for a StreamV2 in dis to populate streamName.
+	// +kubebuilder:validation:Optional
+	StreamNameSelector *v1.Selector `json:"streamNameSelector,omitempty" tf:"-"`
 }
 
 // CheckpointV2Spec defines the desired state of CheckpointV2
@@ -135,10 +175,8 @@ type CheckpointV2Status struct {
 type CheckpointV2 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.appName) || (has(self.initProvider) && has(self.initProvider.appName))",message="spec.forProvider.appName is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.partitionId) || (has(self.initProvider) && has(self.initProvider.partitionId))",message="spec.forProvider.partitionId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.sequenceNumber) || (has(self.initProvider) && has(self.initProvider.sequenceNumber))",message="spec.forProvider.sequenceNumber is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.streamName) || (has(self.initProvider) && has(self.initProvider.streamName))",message="spec.forProvider.streamName is a required parameter"
 	Spec   CheckpointV2Spec   `json:"spec"`
 	Status CheckpointV2Status `json:"status,omitempty"`
 }

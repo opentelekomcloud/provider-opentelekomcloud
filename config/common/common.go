@@ -32,7 +32,19 @@ const (
 
 	// AgencyNameExtractor is the golang path to ExtractAgencyName function
 	// in this package.
-	AgencyNameExtractor = SelfPackagePath + ".ExtractAgencyName()"
+	AgencyNameExtractor = SelfPackagePath + ".ExtractAgencyName()" // AgencyNameExtractor is the golang path to ExtractAgencyName function
+
+	// DisStreamNameExtractor is the golang path to ExtractDisStreamName function
+	// in this package.
+	DisStreamNameExtractor = SelfPackagePath + ".ExtractDisStreamName()"
+
+	// DisAppNameExtractor is the golang path to ExtractDisAppName function
+	// in this package.
+	DisAppNameExtractor = SelfPackagePath + ".ExtractDisAppName()"
+
+	// ObsBucketExtractor is the golang path to ExtractObsBucket function
+	// in this package.
+	ObsBucketExtractor = SelfPackagePath + ".ExtractObsBucket()"
 )
 
 // ExtractNetworkID extracts the value of `spec.forProvider.network_id`
@@ -156,6 +168,69 @@ func ExtractAgencyName() xpref.ExtractValueFn {
 			return ""
 		}
 		if k := o["name"]; k != nil {
+			return k.(string)
+		}
+
+		return ""
+	}
+}
+
+// ExtractDisStreamName extracts the value of `spec.forProvider.name`
+// from a Terraformed resource. If mr is not a Terraformed
+// resource, returns an empty string.
+func ExtractDisStreamName() xpref.ExtractValueFn {
+	return func(mr xpresource.Managed) string {
+		tr, ok := mr.(resource.Terraformed)
+		if !ok {
+			return ""
+		}
+		o, err := tr.GetParameters()
+		if err != nil {
+			return ""
+		}
+		if k := o["name"]; k != nil {
+			return k.(string)
+		}
+
+		return ""
+	}
+}
+
+// ExtractDisAppName extracts the value of `spec.forProvider.name`
+// from a Terraformed resource. If mr is not a Terraformed
+// resource, returns an empty string.
+func ExtractDisAppName() xpref.ExtractValueFn {
+	return func(mr xpresource.Managed) string {
+		tr, ok := mr.(resource.Terraformed)
+		if !ok {
+			return ""
+		}
+		o, err := tr.GetParameters()
+		if err != nil {
+			return ""
+		}
+		if k := o["name"]; k != nil {
+			return k.(string)
+		}
+
+		return ""
+	}
+}
+
+// ExtractObsBucket extracts the value of `spec.forProvider.bucket`
+// from a Terraformed resource. If mr is not a Terraformed
+// resource, returns an empty string.
+func ExtractObsBucket() xpref.ExtractValueFn {
+	return func(mr xpresource.Managed) string {
+		tr, ok := mr.(resource.Terraformed)
+		if !ok {
+			return ""
+		}
+		o, err := tr.GetParameters()
+		if err != nil {
+			return ""
+		}
+		if k := o["bucket"]; k != nil {
 			return k.(string)
 		}
 

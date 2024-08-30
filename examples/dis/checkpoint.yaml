@@ -1,0 +1,56 @@
+apiVersion: dis.opentelekomcloud.crossplane.io/v1alpha1
+kind: AppV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dis/v1alpha1/checkpointv2
+  labels:
+    testing.upbound.io/example-name: sample-app
+  name: sample-app
+spec:
+  forProvider:
+    name: crossplane-dis-app
+
+---
+
+apiVersion: dis.opentelekomcloud.crossplane.io/v1alpha1
+kind: StreamV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dis/v1alpha1/checkpointv2
+  labels:
+    testing.upbound.io/example-name: sample-stream
+  name: sample-stream
+spec:
+  forProvider:
+    autoScaleMaxPartitionCount: 4
+    autoScaleMinPartitionCount: 1
+    compressionFormat: zip
+    dataType: BLOB
+    name: crossplane-dis-stream
+    partitionCount: 3
+    retentionPeriod: 24
+    streamType: COMMON
+    tags:
+      managed-by: crossplane
+
+---
+
+apiVersion: dis.opentelekomcloud.crossplane.io/v1alpha1
+kind: CheckpointV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dis/v1alpha1/checkpointv2
+  labels:
+    testing.upbound.io/example-name: sample-checkpoint
+  name: sample-checkpoint
+spec:
+  forProvider:
+    appNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sample-app
+    metadata: crossplane-dis-checkpoint
+    partitionId: "0"
+    sequenceNumber: "0"
+    streamNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sample-stream
