@@ -252,6 +252,10 @@ spec:
                             type: string
                         type: object
                     type: object
+                  sslEnable:
+                    description: Specifies whether SSL should be enabled for MySql
+                      instances.
+                    type: boolean
                   volume:
                     description: Specifies the volume information. Structure is documented
                       below.
@@ -462,6 +466,10 @@ spec:
                             type: string
                         type: object
                     type: object
+                  sslEnable:
+                    description: Specifies whether SSL should be enabled for MySql
+                      instances.
+                    type: boolean
                   volume:
                     description: Specifies the volume information. Structure is documented
                       below.
@@ -726,6 +734,10 @@ spec:
                     description: Indicates the security group which the replica instance
                       belongs to.
                     type: string
+                  sslEnable:
+                    description: Specifies whether SSL should be enabled for MySql
+                      instances.
+                    type: boolean
                   subnetId:
                     description: Indicates the subnet id (OpenStack network ID).
                     type: string

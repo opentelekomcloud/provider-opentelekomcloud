@@ -28,7 +28,7 @@ type HostV1InitParameters struct {
 	// Allows a instance to be automatically placed onto the available Dedicated Hosts. The default value is on.
 	AutoPlacement *string `json:"autoPlacement,omitempty" tf:"auto_placement,omitempty"`
 
-	// The Availability Zone to which the Dedicated Host belongs. Changing this parameter creates a new resource.
+	// The Availability Zone to which the Dedicated Host belongs.
 	AvailabilityZone *string `json:"availabilityZone,omitempty" tf:"availability_zone,omitempty"`
 
 	// The VM flavors placed on the Dedicated Host.
@@ -43,7 +43,8 @@ type HostV1InitParameters struct {
 	// The number of host physical cores.
 	Cores *float64 `json:"cores,omitempty" tf:"cores,omitempty"`
 
-	// The Dedicated Host type. Expected values are h1, general and d1. Changing this parameter creates a new resource.
+	// The Dedicated Host type.
+	// Expected values are:
 	HostType *string `json:"hostType,omitempty" tf:"host_type,omitempty"`
 
 	// The name of the Dedicated Host type.
@@ -69,6 +70,10 @@ type HostV1InitParameters struct {
 	// Specifies the Dedicated Host status.
 	Status *string `json:"status,omitempty" tf:"status,omitempty"`
 
+	// Tags key/value pairs to associate with Host.
+	// +mapType=granular
+	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
+
 	// The number of host vCPUs.
 	Vcpus *float64 `json:"vcpus,omitempty" tf:"vcpus,omitempty"`
 }
@@ -78,7 +83,7 @@ type HostV1Observation struct {
 	// Allows a instance to be automatically placed onto the available Dedicated Hosts. The default value is on.
 	AutoPlacement *string `json:"autoPlacement,omitempty" tf:"auto_placement,omitempty"`
 
-	// The Availability Zone to which the Dedicated Host belongs. Changing this parameter creates a new resource.
+	// The Availability Zone to which the Dedicated Host belongs.
 	AvailabilityZone *string `json:"availabilityZone,omitempty" tf:"availability_zone,omitempty"`
 
 	// The VM flavors placed on the Dedicated Host.
@@ -93,7 +98,8 @@ type HostV1Observation struct {
 	// The number of host physical cores.
 	Cores *float64 `json:"cores,omitempty" tf:"cores,omitempty"`
 
-	// The Dedicated Host type. Expected values are h1, general and d1. Changing this parameter creates a new resource.
+	// The Dedicated Host type.
+	// Expected values are:
 	HostType *string `json:"hostType,omitempty" tf:"host_type,omitempty"`
 
 	// The name of the Dedicated Host type.
@@ -121,6 +127,10 @@ type HostV1Observation struct {
 	// Specifies the Dedicated Host status.
 	Status *string `json:"status,omitempty" tf:"status,omitempty"`
 
+	// Tags key/value pairs to associate with Host.
+	// +mapType=granular
+	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
+
 	// The number of host vCPUs.
 	Vcpus *float64 `json:"vcpus,omitempty" tf:"vcpus,omitempty"`
 }
@@ -131,7 +141,7 @@ type HostV1Parameters struct {
 	// +kubebuilder:validation:Optional
 	AutoPlacement *string `json:"autoPlacement,omitempty" tf:"auto_placement,omitempty"`
 
-	// The Availability Zone to which the Dedicated Host belongs. Changing this parameter creates a new resource.
+	// The Availability Zone to which the Dedicated Host belongs.
 	// +kubebuilder:validation:Optional
 	AvailabilityZone *string `json:"availabilityZone,omitempty" tf:"availability_zone,omitempty"`
 
@@ -151,7 +161,8 @@ type HostV1Parameters struct {
 	// +kubebuilder:validation:Optional
 	Cores *float64 `json:"cores,omitempty" tf:"cores,omitempty"`
 
-	// The Dedicated Host type. Expected values are h1, general and d1. Changing this parameter creates a new resource.
+	// The Dedicated Host type.
+	// Expected values are:
 	// +kubebuilder:validation:Optional
 	HostType *string `json:"hostType,omitempty" tf:"host_type,omitempty"`
 
@@ -185,6 +196,11 @@ type HostV1Parameters struct {
 	// Specifies the Dedicated Host status.
 	// +kubebuilder:validation:Optional
 	Status *string `json:"status,omitempty" tf:"status,omitempty"`
+
+	// Tags key/value pairs to associate with Host.
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// The number of host vCPUs.
 	// +kubebuilder:validation:Optional

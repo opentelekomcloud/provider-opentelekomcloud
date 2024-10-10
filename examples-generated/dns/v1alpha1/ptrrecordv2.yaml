@@ -9,7 +9,9 @@ metadata:
 spec:
   forProvider:
     description: An example PTR record
-    floatingipId: ${opentelekomcloud_networking_floatingip_v2.fip_1.id}
+    floatingipIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: fip_1
     name: ptr.example.com.
     tags:
       foo: bar

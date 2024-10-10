@@ -1890,6 +1890,11 @@ func (in *ReadReplicaV3InitParameters) DeepCopyInto(out *ReadReplicaV3InitParame
 		*out = new(v1.Selector)
 		(*in).DeepCopyInto(*out)
 	}
+	if in.SSLEnable != nil {
+		in, out := &in.SSLEnable, &out.SSLEnable
+		*out = new(bool)
+		**out = **in
+	}
 	if in.Volume != nil {
 		in, out := &in.Volume, &out.Volume
 		*out = make([]ReadReplicaV3VolumeInitParameters, len(*in))
@@ -2003,6 +2008,11 @@ func (in *ReadReplicaV3Observation) DeepCopyInto(out *ReadReplicaV3Observation) 
 		*out = new(string)
 		**out = **in
 	}
+	if in.SSLEnable != nil {
+		in, out := &in.SSLEnable, &out.SSLEnable
+		*out = new(bool)
+		**out = **in
+	}
 	if in.SecurityGroupID != nil {
 		in, out := &in.SecurityGroupID, &out.SecurityGroupID
 		*out = new(string)
@@ -2097,6 +2107,11 @@ func (in *ReadReplicaV3Parameters) DeepCopyInto(out *ReadReplicaV3Parameters) {
 		in, out := &in.ReplicaOfIDSelector, &out.ReplicaOfIDSelector
 		*out = new(v1.Selector)
 		(*in).DeepCopyInto(*out)
+	}
+	if in.SSLEnable != nil {
+		in, out := &in.SSLEnable, &out.SSLEnable
+		*out = new(bool)
+		**out = **in
 	}
 	if in.Volume != nil {
 		in, out := &in.Volume, &out.Volume

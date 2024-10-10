@@ -12,3 +12,5 @@ spec:
     availabilityZone: eu-de-02
     hostType: h1
     name: high_performance_deh
+    tags:
+      muh: kuh

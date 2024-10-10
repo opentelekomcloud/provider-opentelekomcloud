@@ -1,0 +1,103 @@
+apiVersion: vpc.opentelekomcloud.crossplane.io/v1alpha1
+kind: VpcV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/v1
+  labels:
+    testing.upbound.io/example-name: sample-dns-instance
+  name: sample-dns-instance
+spec:
+  forProvider:
+    cidr: "192.168.0.0/16"
+    name: crossplane-vpc
+    tags:
+      managed-by: crossplane
+
+---
+
+apiVersion: dns.opentelekomcloud.crossplane.io/v1alpha1
+kind: ZoneV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dns/v1alpha1/zonev2
+  labels:
+    testing.upbound.io/example-name: sample-dns-zone-private
+  name: sample-dns-zone-private
+spec:
+  forProvider:
+    description: Crossplane example for private zone
+    email: crossplane@priv-example.com
+    name: crossplane.priv-example.com.
+    router:
+    - routerIdSelector:
+        matchLabels:
+          testing.upbound.io/example-name: sample-dns-instance
+      routerRegion: eu-de
+    tags:
+      managed-by: crossplane
+    ttl: 3000
+    type: private
+
+---
+
+apiVersion: dns.opentelekomcloud.crossplane.io/v1alpha1
+kind: ZoneV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dns/v1alpha1/zonev2
+  labels:
+    testing.upbound.io/example-name: sample-dns-zone-public
+  name: sample-dns-zone-public
+spec:
+  forProvider:
+    description: Crossplane example for public zone
+    email: crossplane@pub-example.com
+    name: crossplane.pub-example.com.
+    tags:
+      managed-by: crossplane
+    ttl: 3000
+    type: public
+
+---
+
+apiVersion: dns.opentelekomcloud.crossplane.io/v1alpha1
+kind: RecordsetV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dns/v1alpha1/recordsetv2
+  labels:
+    testing.upbound.io/example-name: sample-a-record
+  name: sample-a-record
+spec:
+  forProvider:
+    description: Crossplane example record set
+    name: a.crossplane.pub-example.com
+    records:
+      - 10.0.0.1
+    ttl: 3000
+    type: A
+    zoneIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sample-dns-zone-private
+
+---
+
+apiVersion: dns.opentelekomcloud.crossplane.io/v1alpha1
+kind: RecordsetV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dns/v1alpha1/recordsetv2
+  labels:
+    testing.upbound.io/example-name: sample-txt-record
+  name: sample-txt-record
+spec:
+  forProvider:
+    description: Crossplane example record set
+    name: txt.crossplane.pub-example.com
+    records:
+      - "v=spf1 include:my.example.try.com -all"
+    ttl: 300
+    type: TXT
+    zoneIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sample-dns-zone-private
