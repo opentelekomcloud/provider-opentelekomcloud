@@ -2353,47 +2353,78 @@ resources:
                     "FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR,SA,SU;BYHOUR=14;BYMINUTE=00"
                   ]
                 }
+            - name: policy
+              manifest: |-
+                {
+                  "destination_project_id": "${var.destination_project_id}",
+                  "destination_region": "${var.destination_region}",
+                  "name": "${var.policy_name}",
+                  "operation_definition": [
+                    {
+                      "day_backups": 1,
+                      "max_backups": 10,
+                      "month_backups": 4,
+                      "timezone": "UTC+03:00",
+                      "week_backups": 2,
+                      "year_backups": 3
+                    }
+                  ],
+                  "operation_type": "replication",
+                  "trigger_pattern": [
+                    "FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR,SA,SU;BYHOUR=14;BYMINUTE=00"
+                  ]
+                }
+              references:
+                destination_project_id: var.destination_project_id
+                destination_region: var.destination_region
+                name: var.policy_name
         argumentDocs:
-            enabled: '- (Optional) Whether to enable the policy. Default value is true.'
+            destination_project_id: |-
+                - (Optional, String) Specifies the ID of the replication destination project, which is
+                mandatory for cross-region replication. Required if operation_type is replication.
+            destination_region: |-
+                - (Optional, String) Specifies the name of the replication destination region, which is mandatory
+                for cross-region replication. Required if operation_type is replication.
+            enabled: '- (Optional, Bool) Whether to enable the policy. Default value is true.'
             name: |-
-                - (Required) Specifies the policy name. The value consists of 1 to 64 characters
+                - (Required, String) Specifies the policy name. The value consists of 1 to 64 characters
                 and can contain only letters, digits, underscores (_), and hyphens (-).
-            operation_definition: '- (Optional) Scheduling parameter. See reference below.'
+            operation_definition: '- (Optional, List) Scheduling parameter. See reference below.'
             operation_definition.day_backups: |-
-                - (Optional) Specifies the number of retained daily backups. The latest
+                - (Optional, Int) Specifies the number of retained daily backups. The latest
                 backup of each day is saved in the long term. This parameter can be effective together
                 with the maximum number of retained backups specified by max_backups. The value ranges
                 from 0 to 100. If this parameter is configured, timezone is mandatory.
             operation_definition.max_backups: |-
-                - (Optional) Maximum number of retained backups. The value can be -1 or ranges
+                - (Optional, Int) Maximum number of retained backups. The value can be -1 or ranges
                 from 0 to 99999. If the value is set to -1, the backups will not be cleared even though
                 the configured retained backup quantity is exceeded. If this parameter and retention_duration_days
                 are both left blank, the backups will be retained permanently.
             operation_definition.month_backups: |-
-                - (Optional) Specifies the number of retained monthly backups. The latest
+                - (Optional, Int) Specifies the number of retained monthly backups. The latest
                 backup of each month is saved in the long term. This parameter can be effective together
                 with the maximum number of retained backups specified by max_backups. The value ranges from
                 0 to 100. If this parameter is configured, timezone is mandatory.
             operation_definition.retention_duration_days: |-
-                - (Optional) Duration of retaining a backup, in days.
+                - (Optional, Int) Duration of retaining a backup, in days.
                 The maximum value is 99999. -1 indicates that the backups will not be cleared based on
                 the retention duration. If this parameter and max_backups are left blank at the same time,
                 the backups will be retained permanently.
-            operation_definition.timezone: '- (Required) Time zone where the user is located, for example, UTC+00:00.'
+            operation_definition.timezone: '- (Required, String) Time zone where the user is located, for example, UTC+00:00.'
             operation_definition.week_backups: |-
-                - (Optional) Specifies the number of retained weekly backups. The latest
+                - (Optional, Int) Specifies the number of retained weekly backups. The latest
                 backup of each week is saved in the long term. This parameter can be effective together
                 with the maximum number of retained backups specified by max_backups. The value ranges
                 from 0 to 100. If this parameter is configured, timezone is mandatory.
             operation_definition.year_backups: |-
-                - (Optional) Specifies the number of retained yearly backups. The latest
+                - (Optional, Int) Specifies the number of retained yearly backups. The latest
                 backup of each year is saved in the long term. This parameter can be effective together
                 with the maximum number of retained backups specified by max_backups. The value ranges
                 from 0 to 100. If this parameter is configured, timezone is mandatory.
-            operation_type: '- (Required) Policy type. Enumeration values: backup, replication.'
+            operation_type: '- (Required, String) Policy type. Enumeration values: backup, replication.'
             region: '- Specifies the region of the CBRv3 policy.'
             trigger_pattern: |-
-                - (Required) Scheduling rule. In the replication policy, you are advised
+                - (Required, String) Scheduling rule. In the replication policy, you are advised
                 to set one time point for one day. A maximum of 24 rules can be configured. The scheduling
                 rule complies with iCalendar RFC 2445, but it supports only parameters FREQ, BYDAY, BYHOUR,
                 BYMINUTE, and INTERVAL. FREQ can be set only to WEEKLY and DAILY.
@@ -2610,7 +2641,6 @@ resources:
             consistent_level: '- (Optional) Backup specifications. The default value is crash_consistent'
             console_url: '- (Optional) Redirection URL.'
             description: '- (Optional) User-defined vault description.'
-            enterprise_project_id: '- (Optional) Enterprise project ID. The default value is "0".'
             exclude_volumes: '- (Optional) List of excluded volumes.'
             extra_info: '- (Optional) Map of extra info.'
             frozen_scene: '- Scenario when an account is frozen.'
@@ -5828,23 +5858,32 @@ resources:
                   "auto_placement": "on",
                   "availability_zone": "eu-de-02",
                   "host_type": "h1",
-                  "name": "high_performance_deh"
+                  "name": "high_performance_deh",
+                  "tags": {
+                    "muh": "kuh"
+                  }
                 }
         argumentDocs:
-            auto_placement: '- (Optional) Allows a instance to be automatically placed onto the available Dedicated Hosts. The default value is on.'
-            availability_zone: '- (Required) The Availability Zone to which the Dedicated Host belongs. Changing this parameter creates a new resource.'
+            auto_placement: '- (Optional, String) Allows a instance to be automatically placed onto the available Dedicated Hosts. The default value is on.'
+            availability_zone: '- (Required, String, ForceNew) The Availability Zone to which the Dedicated Host belongs.'
             available_instance_capacities: '- The VM flavors placed on the Dedicated Host.'
             available_memory: '- The size of available memory for the Dedicated Host.'
             available_vcpus: '- The number of available vCPUs for the Dedicated Host.'
             cores: '-  The number of host physical cores.'
-            host_type: '- (Required) The Dedicated Host type. Expected values are h1, general and d1. Changing this parameter creates a new resource.'
+            eu-ch2: ': s3.'
+            eu-de: ': c4, s2-medium, m3, c3 and s2.'
+            eu-nl: ': i3_pro, i3, m4, s3 and c4.'
+            host_type: |-
+                - (Required, String, ForceNew) The Dedicated Host type.
+                Expected values are:
             host_type_name: '-  The name of the Dedicated Host type.'
             instance_total: '- The number of the placed VMs.'
             instance_uuids: '- The VMs started on the Dedicated Host.'
             memory: '- The size of host physical memory (MB).'
-            name: '- (Required) The name of the Dedicated Host.'
+            name: '- (Required, String) The name of the Dedicated Host.'
             sockets: '-  The number of host physical sockets.'
             status: '- Specifies the Dedicated Host status.'
+            tags: '- (Optional, Map) Tags key/value pairs to associate with Host.'
             vcpus: '- The number of host vCPUs.'
         importStatements: []
     opentelekomcloud_direct_connect_v2:
@@ -13989,6 +14028,30 @@ resources:
                 and is case-sensitive:
             vpc_id: '- (Required, ForceNew) Specifies the VPC ID. Changing this parameter will create a new resource.'
         importStatements: []
+    opentelekomcloud_rds_maintenance_v3:
+        subCategory: Relational Database Service (RDS)
+        description: Manages an RDS Maintenance windows resource within OpenTelekomCloud.
+        name: opentelekomcloud_rds_maintenance_v3
+        title: opentelekomcloud_rds_maintenance_v3
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "end_time": "16:00",
+                  "instance_id": "${var.instance_id}",
+                  "start_time": "12:00"
+                }
+              references:
+                instance_id: var.instance_id
+        argumentDocs:
+            end_time: |-
+                - (Required, ForceNew, String) Specifies the end time.
+                The value must be a valid value in the "HH:MM" format. The current time is in the UTC format.
+            instance_id: '- (Required, ForceNew, String) The ID of the RDS instance to which the maintenance window belongs.'
+            start_time: |-
+                - (Required, ForceNew, String) Specifies the start time.
+                The value must be a valid value in the "HH:MM" format. The current time is in the UTC format.
+        importStatements: []
     opentelekomcloud_rds_parametergroup_v3:
         subCategory: Relational Database Service (RDS)
         description: Manages an RDS Parameter Group resource within OpenTelekomCloud.
@@ -14114,6 +14177,7 @@ resources:
                 resource.
             replica_of_id: '- Specifies ID of the replicated instance. Changing this parameter will create a new resource.'
             security_group_id: '- Indicates the security group which the replica instance belongs to.'
+            ssl_enable: '- (Optional) Specifies whether SSL should be enabled for MySql instances.'
             subnet_id: '- Indicates the subnet id (OpenStack network ID).'
             volume: '- Specifies the volume information. Structure is documented below.'
             volume.disk_encryption_id: |-
@@ -14584,6 +14648,7 @@ resources:
                   "description": "test description",
                   "domain_id": "${data.opentelekomcloud_sdrs_domain_v1.dom_1.id}",
                   "dr_type": "migration",
+                  "enable": true,
                   "name": "group_1",
                   "source_availability_zone": "eu-de-01",
                   "source_vpc_id": "${var.vpc_id}",
@@ -14593,19 +14658,22 @@ resources:
                 domain_id: data.opentelekomcloud_sdrs_domain_v1.dom_1.id
                 source_vpc_id: var.vpc_id
         argumentDocs:
-            description: '- (Optional) The description of a protection group. Changing this creates a new group.'
+            created_at: '- (String) Time of creation of the protection group.'
+            description: '- (Optional, String, ForceNew) The description of a protection group. Changing this creates a new group.'
             domain_id: |-
-                - (Required) Specifies the ID of an active-active domain. Changing this creates a new group.
+                - (Required, String, ForceNew) Specifies the ID of an active-active domain. Changing this creates a new group.
                 An active-active domain id can be extracted from data/opentelekomcloud_sdrs_domain_v1 and shouldn't be confused
                 with tenant domain.
             dr_type: |-
-                - (Optional) Specifies the deployment model. The default value is migration indicating migration within a VPC.
+                - (Optional, String, ForceNew) Specifies the deployment model. The default value is migration indicating migration within a VPC.
                 Changing this creates a new group.
-            id: '-  ID of the protection group.'
-            name: '- (Required) The name of a protection group.'
-            source_availability_zone: '- (Required) Specifies the source AZ of a protection group. Changing this creates a new group.'
-            source_vpc_id: '- (Required) Specifies the ID of the source VPC. Changing this creates a new group.'
-            target_availability_zone: '- (Required) Specifies the target AZ of a protection group. Changing this creates a new group.'
+            enable: '- (Optional, Boolean) Enables or disables the Protection group.'
+            id: '- (String) ID of the protection group.'
+            name: '- (Required, String) The name of a protection group.'
+            source_availability_zone: '- (Required, String, ForceNew) Specifies the source AZ of a protection group. Changing this creates a new group.'
+            source_vpc_id: '- (Required, String, ForceNew) Specifies the ID of the source VPC. Changing this creates a new group.'
+            target_availability_zone: '- (Required, String, ForceNew) Specifies the target AZ of a protection group. Changing this creates a new group.'
+            updated_at: '- (String) Time of last update of the protection group.'
         importStatements: []
     opentelekomcloud_sdrs_replication_attach_v1:
         subCategory: Storage Disaster Recovery Service (SDRS)

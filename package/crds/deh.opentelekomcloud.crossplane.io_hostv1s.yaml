@@ -79,7 +79,7 @@ spec:
                     type: string
                   availabilityZone:
                     description: The Availability Zone to which the Dedicated Host
-                      belongs. Changing this parameter creates a new resource.
+                      belongs.
                     type: string
                   availableInstanceCapacities:
                     description: The VM flavors placed on the Dedicated Host.
@@ -96,8 +96,9 @@ spec:
                     description: The number of host physical cores.
                     type: number
                   hostType:
-                    description: The Dedicated Host type. Expected values are h1,
-                      general and d1. Changing this parameter creates a new resource.
+                    description: |-
+                      The Dedicated Host type.
+                      Expected values are:
                     type: string
                   hostTypeName:
                     description: The name of the Dedicated Host type.
@@ -124,6 +125,12 @@ spec:
                   status:
                     description: Specifies the Dedicated Host status.
                     type: string
+                  tags:
+                    additionalProperties:
+                      type: string
+                    description: Tags key/value pairs to associate with Host.
+                    type: object
+                    x-kubernetes-map-type: granular
                   vcpus:
                     description: The number of host vCPUs.
                     type: number
@@ -147,7 +154,7 @@ spec:
                     type: string
                   availabilityZone:
                     description: The Availability Zone to which the Dedicated Host
-                      belongs. Changing this parameter creates a new resource.
+                      belongs.
                     type: string
                   availableInstanceCapacities:
                     description: The VM flavors placed on the Dedicated Host.
@@ -164,8 +171,9 @@ spec:
                     description: The number of host physical cores.
                     type: number
                   hostType:
-                    description: The Dedicated Host type. Expected values are h1,
-                      general and d1. Changing this parameter creates a new resource.
+                    description: |-
+                      The Dedicated Host type.
+                      Expected values are:
                     type: string
                   hostTypeName:
                     description: The name of the Dedicated Host type.
@@ -192,6 +200,12 @@ spec:
                   status:
                     description: Specifies the Dedicated Host status.
                     type: string
+                  tags:
+                    additionalProperties:
+                      type: string
+                    description: Tags key/value pairs to associate with Host.
+                    type: object
+                    x-kubernetes-map-type: granular
                   vcpus:
                     description: The number of host vCPUs.
                     type: number
@@ -387,7 +401,7 @@ spec:
                     type: string
                   availabilityZone:
                     description: The Availability Zone to which the Dedicated Host
-                      belongs. Changing this parameter creates a new resource.
+                      belongs.
                     type: string
                   availableInstanceCapacities:
                     description: The VM flavors placed on the Dedicated Host.
@@ -407,8 +421,9 @@ spec:
                     description: The number of host physical cores.
                     type: number
                   hostType:
-                    description: The Dedicated Host type. Expected values are h1,
-                      general and d1. Changing this parameter creates a new resource.
+                    description: |-
+                      The Dedicated Host type.
+                      Expected values are:
                     type: string
                   hostTypeName:
                     description: The name of the Dedicated Host type.
@@ -437,6 +452,12 @@ spec:
                   status:
                     description: Specifies the Dedicated Host status.
                     type: string
+                  tags:
+                    additionalProperties:
+                      type: string
+                    description: Tags key/value pairs to associate with Host.
+                    type: object
+                    x-kubernetes-map-type: granular
                   vcpus:
                     description: The number of host vCPUs.
                     type: number
