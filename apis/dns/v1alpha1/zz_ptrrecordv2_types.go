@@ -19,7 +19,16 @@ type PtrrecordV2InitParameters struct {
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// The ID of the FloatingIP/EIP.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.EIPV1
 	FloatingipID *string `json:"floatingipId,omitempty" tf:"floatingip_id,omitempty"`
+
+	// Reference to a EIPV1 in vpc to populate floatingipId.
+	// +kubebuilder:validation:Optional
+	FloatingipIDRef *v1.Reference `json:"floatingipIdRef,omitempty" tf:"-"`
+
+	// Selector for a EIPV1 in vpc to populate floatingipId.
+	// +kubebuilder:validation:Optional
+	FloatingipIDSelector *v1.Selector `json:"floatingipIdSelector,omitempty" tf:"-"`
 
 	// Domain name of the PTR record. A domain name is case insensitive.
 	// Uppercase letters will also be converted into lowercase letters.
@@ -68,8 +77,17 @@ type PtrrecordV2Parameters struct {
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// The ID of the FloatingIP/EIP.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.EIPV1
 	// +kubebuilder:validation:Optional
 	FloatingipID *string `json:"floatingipId,omitempty" tf:"floatingip_id,omitempty"`
+
+	// Reference to a EIPV1 in vpc to populate floatingipId.
+	// +kubebuilder:validation:Optional
+	FloatingipIDRef *v1.Reference `json:"floatingipIdRef,omitempty" tf:"-"`
+
+	// Selector for a EIPV1 in vpc to populate floatingipId.
+	// +kubebuilder:validation:Optional
+	FloatingipIDSelector *v1.Selector `json:"floatingipIdSelector,omitempty" tf:"-"`
 
 	// Domain name of the PTR record. A domain name is case insensitive.
 	// Uppercase letters will also be converted into lowercase letters.
@@ -123,7 +141,6 @@ type PtrrecordV2Status struct {
 type PtrrecordV2 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.floatingipId) || (has(self.initProvider) && has(self.initProvider.floatingipId))",message="spec.forProvider.floatingipId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	Spec   PtrrecordV2Spec   `json:"spec"`
 	Status PtrrecordV2Status `json:"status,omitempty"`
