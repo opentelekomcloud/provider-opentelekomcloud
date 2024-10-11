@@ -1,0 +1,38 @@
+apiVersion: vpc.opentelekomcloud.crossplane.io/v1alpha1
+kind: EIPV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/eipv1
+  labels:
+    testing.upbound.io/example-name: sample-ptr-instance
+  name: sample-ptr-instance
+spec:
+  forProvider:
+    bandwidth:
+      - chargeMode: traffic
+        name: crossplane-ptr-instance
+        shareType: PER
+        size: 8
+    publicip:
+      - type: 5_bgp
+
+---
+
+apiVersion: dns.opentelekomcloud.crossplane.io/v1alpha1
+kind: PtrrecordV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dns/v1alpha1/ptrrecordv2
+  labels:
+    testing.upbound.io/example-name: sample-ptr-instance
+  name: sample-ptr-instance
+spec:
+  forProvider:
+    description: Crossplane example PTR record
+    floatingipIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sample-ptr-instance
+    name: ptr.crossplane.com.
+    tags:
+      foo: bar
+    ttl: 2500

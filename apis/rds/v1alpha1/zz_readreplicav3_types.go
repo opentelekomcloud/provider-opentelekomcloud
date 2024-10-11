@@ -78,6 +78,9 @@ type ReadReplicaV3InitParameters struct {
 	// +kubebuilder:validation:Optional
 	ReplicaOfIDSelector *v1.Selector `json:"replicaOfIdSelector,omitempty" tf:"-"`
 
+	// Specifies whether SSL should be enabled for MySql instances.
+	SSLEnable *bool `json:"sslEnable,omitempty" tf:"ssl_enable,omitempty"`
+
 	// Specifies the volume information. Structure is documented below.
 	Volume []ReadReplicaV3VolumeInitParameters `json:"volume,omitempty" tf:"volume,omitempty"`
 }
@@ -114,6 +117,9 @@ type ReadReplicaV3Observation struct {
 
 	// Specifies ID of the replicated instance. Changing this parameter will create a new resource.
 	ReplicaOfID *string `json:"replicaOfId,omitempty" tf:"replica_of_id,omitempty"`
+
+	// Specifies whether SSL should be enabled for MySql instances.
+	SSLEnable *bool `json:"sslEnable,omitempty" tf:"ssl_enable,omitempty"`
 
 	// Indicates the security group which the replica instance belongs to.
 	SecurityGroupID *string `json:"securityGroupId,omitempty" tf:"security_group_id,omitempty"`
@@ -178,6 +184,10 @@ type ReadReplicaV3Parameters struct {
 	// Selector for a InstanceV3 in rds to populate replicaOfId.
 	// +kubebuilder:validation:Optional
 	ReplicaOfIDSelector *v1.Selector `json:"replicaOfIdSelector,omitempty" tf:"-"`
+
+	// Specifies whether SSL should be enabled for MySql instances.
+	// +kubebuilder:validation:Optional
+	SSLEnable *bool `json:"sslEnable,omitempty" tf:"ssl_enable,omitempty"`
 
 	// Specifies the volume information. Structure is documented below.
 	// +kubebuilder:validation:Optional

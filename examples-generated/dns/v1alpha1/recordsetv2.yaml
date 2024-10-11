@@ -14,7 +14,9 @@ spec:
     - 10.0.0.1
     ttl: 3000
     type: A
-    zoneId: ${opentelekomcloud_dns_zone_v2.example_zone.id}
+    zoneIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example_zone
 
 ---
 
