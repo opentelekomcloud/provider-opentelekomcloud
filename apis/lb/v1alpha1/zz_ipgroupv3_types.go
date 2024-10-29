@@ -20,7 +20,17 @@ type IPListInitParameters struct {
 
 	// Specifies the IP addresses in the IP address group.
 	// IPv6 is unsupported. The value cannot be an IPv6 address.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.EIPV1
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractEipAddress()
 	IP *string `json:"ip,omitempty" tf:"ip,omitempty"`
+
+	// Reference to a EIPV1 in vpc to populate ip.
+	// +kubebuilder:validation:Optional
+	IPRef *v1.Reference `json:"ipRef,omitempty" tf:"-"`
+
+	// Selector for a EIPV1 in vpc to populate ip.
+	// +kubebuilder:validation:Optional
+	IPSelector *v1.Selector `json:"ipSelector,omitempty" tf:"-"`
 }
 
 type IPListObservation struct {
@@ -41,8 +51,18 @@ type IPListParameters struct {
 
 	// Specifies the IP addresses in the IP address group.
 	// IPv6 is unsupported. The value cannot be an IPv6 address.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.EIPV1
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractEipAddress()
 	// +kubebuilder:validation:Optional
-	IP *string `json:"ip" tf:"ip,omitempty"`
+	IP *string `json:"ip,omitempty" tf:"ip,omitempty"`
+
+	// Reference to a EIPV1 in vpc to populate ip.
+	// +kubebuilder:validation:Optional
+	IPRef *v1.Reference `json:"ipRef,omitempty" tf:"-"`
+
+	// Selector for a EIPV1 in vpc to populate ip.
+	// +kubebuilder:validation:Optional
+	IPSelector *v1.Selector `json:"ipSelector,omitempty" tf:"-"`
 }
 
 type IpgroupV3InitParameters struct {
@@ -58,7 +78,16 @@ type IpgroupV3InitParameters struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Specifies the project ID of the IP address group.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/identity/v1alpha1.ProjectV3
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
+
+	// Reference to a ProjectV3 in identity to populate projectId.
+	// +kubebuilder:validation:Optional
+	ProjectIDRef *v1.Reference `json:"projectIdRef,omitempty" tf:"-"`
+
+	// Selector for a ProjectV3 in identity to populate projectId.
+	// +kubebuilder:validation:Optional
+	ProjectIDSelector *v1.Selector `json:"projectIdSelector,omitempty" tf:"-"`
 }
 
 type IpgroupV3Observation struct {
@@ -105,8 +134,17 @@ type IpgroupV3Parameters struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Specifies the project ID of the IP address group.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/identity/v1alpha1.ProjectV3
 	// +kubebuilder:validation:Optional
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
+
+	// Reference to a ProjectV3 in identity to populate projectId.
+	// +kubebuilder:validation:Optional
+	ProjectIDRef *v1.Reference `json:"projectIdRef,omitempty" tf:"-"`
+
+	// Selector for a ProjectV3 in identity to populate projectId.
+	// +kubebuilder:validation:Optional
+	ProjectIDSelector *v1.Selector `json:"projectIdSelector,omitempty" tf:"-"`
 }
 
 // IpgroupV3Spec defines the desired state of IpgroupV3

@@ -743,6 +743,11 @@ func (in *ClusterV3InitParameters) DeepCopyInto(out *ClusterV3InitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.SecurityGroupID != nil {
+		in, out := &in.SecurityGroupID, &out.SecurityGroupID
+		*out = new(string)
+		**out = **in
+	}
 	if in.SubnetID != nil {
 		in, out := &in.SubnetID, &out.SubnetID
 		*out = new(string)
@@ -1080,6 +1085,11 @@ func (in *ClusterV3Observation) DeepCopyInto(out *ClusterV3Observation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.SecurityGroupID != nil {
+		in, out := &in.SecurityGroupID, &out.SecurityGroupID
+		*out = new(string)
+		**out = **in
+	}
 	if in.SecurityGroupNode != nil {
 		in, out := &in.SecurityGroupNode, &out.SecurityGroupNode
 		*out = new(string)
@@ -1362,6 +1372,11 @@ func (in *ClusterV3Parameters) DeepCopyInto(out *ClusterV3Parameters) {
 	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
+		*out = new(string)
+		**out = **in
+	}
+	if in.SecurityGroupID != nil {
+		in, out := &in.SecurityGroupID, &out.SecurityGroupID
 		*out = new(string)
 		**out = **in
 	}
@@ -1805,6 +1820,17 @@ func (in *NodePoolV3InitParameters) DeepCopyInto(out *NodePoolV3InitParameters) 
 		*out = new(bool)
 		**out = **in
 	}
+	if in.SecurityGroupIds != nil {
+		in, out := &in.SecurityGroupIds, &out.SecurityGroupIds
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
+	}
 	if in.ServerGroupReference != nil {
 		in, out := &in.ServerGroupReference, &out.ServerGroupReference
 		*out = new(string)
@@ -2030,6 +2056,17 @@ func (in *NodePoolV3Observation) DeepCopyInto(out *NodePoolV3Observation) {
 		*out = new(bool)
 		**out = **in
 	}
+	if in.SecurityGroupIds != nil {
+		in, out := &in.SecurityGroupIds, &out.SecurityGroupIds
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
+	}
 	if in.ServerGroupReference != nil {
 		in, out := &in.ServerGroupReference, &out.ServerGroupReference
 		*out = new(string)
@@ -2247,6 +2284,17 @@ func (in *NodePoolV3Parameters) DeepCopyInto(out *NodePoolV3Parameters) {
 		in, out := &in.ScaleEnable, &out.ScaleEnable
 		*out = new(bool)
 		**out = **in
+	}
+	if in.SecurityGroupIds != nil {
+		in, out := &in.SecurityGroupIds, &out.SecurityGroupIds
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
 	}
 	if in.ServerGroupReference != nil {
 		in, out := &in.ServerGroupReference, &out.ServerGroupReference

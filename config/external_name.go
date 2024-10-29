@@ -98,25 +98,16 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"opentelekomcloud_kms_grant_v1":                  config.IdentifierFromProvider,
 
 	// LB
-	"opentelekomcloud_lb_certificate_v2":     config.IdentifierFromProvider,
 	"opentelekomcloud_lb_certificate_v3":     config.IdentifierFromProvider,
 	"opentelekomcloud_lb_ipgroup_v3":         config.IdentifierFromProvider,
-	"opentelekomcloud_lb_l7policy_v2":        config.IdentifierFromProvider,
-	"opentelekomcloud_lb_l7rule_v2":          config.IdentifierFromProvider,
-	"opentelekomcloud_lb_loadbalancer_v2":    config.IdentifierFromProvider,
 	"opentelekomcloud_lb_loadbalancer_v3":    config.IdentifierFromProvider,
-	"opentelekomcloud_lb_listener_v2":        config.IdentifierFromProvider,
 	"opentelekomcloud_lb_listener_v3":        config.IdentifierFromProvider,
-	"opentelekomcloud_lb_member_v2":          config.IdentifierFromProvider,
 	"opentelekomcloud_lb_member_v3":          config.IdentifierFromProvider,
-	"opentelekomcloud_lb_monitor_v2":         config.IdentifierFromProvider,
 	"opentelekomcloud_lb_monitor_v3":         config.IdentifierFromProvider,
 	"opentelekomcloud_lb_policy_v3":          config.IdentifierFromProvider,
-	"opentelekomcloud_lb_pool_v2":            config.IdentifierFromProvider,
 	"opentelekomcloud_lb_pool_v3":            config.IdentifierFromProvider,
 	"opentelekomcloud_lb_rule_v3":            config.IdentifierFromProvider,
 	"opentelekomcloud_lb_security_policy_v3": config.IdentifierFromProvider,
-	"opentelekomcloud_lb_whitelist_v2":       config.IdentifierFromProvider,
 
 	// LTS
 	"opentelekomcloud_logtank_group_v2":    config.IdentifierFromProvider,

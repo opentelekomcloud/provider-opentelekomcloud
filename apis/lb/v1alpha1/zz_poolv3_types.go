@@ -22,10 +22,28 @@ type PoolV3InitParameters struct {
 	LBAlgorithm *string `json:"lbAlgorithm,omitempty" tf:"lb_algorithm,omitempty"`
 
 	// Specifies the ID of the listener associated with the backend server group.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/lb/v1alpha1.ListenerV3
 	ListenerID *string `json:"listenerId,omitempty" tf:"listener_id,omitempty"`
 
+	// Reference to a ListenerV3 in lb to populate listenerId.
+	// +kubebuilder:validation:Optional
+	ListenerIDRef *v1.Reference `json:"listenerIdRef,omitempty" tf:"-"`
+
+	// Selector for a ListenerV3 in lb to populate listenerId.
+	// +kubebuilder:validation:Optional
+	ListenerIDSelector *v1.Selector `json:"listenerIdSelector,omitempty" tf:"-"`
+
 	// Specifies the ID of the associated load balancer.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/lb/v1alpha1.LoadbalancerV3
 	LoadbalancerID *string `json:"loadbalancerId,omitempty" tf:"loadbalancer_id,omitempty"`
+
+	// Reference to a LoadbalancerV3 in lb to populate loadbalancerId.
+	// +kubebuilder:validation:Optional
+	LoadbalancerIDRef *v1.Reference `json:"loadbalancerIdRef,omitempty" tf:"-"`
+
+	// Selector for a LoadbalancerV3 in lb to populate loadbalancerId.
+	// +kubebuilder:validation:Optional
+	LoadbalancerIDSelector *v1.Selector `json:"loadbalancerIdSelector,omitempty" tf:"-"`
 
 	// Specifies whether to enable removal protection for the pool members.
 	// true: Enable removal protection.
@@ -36,7 +54,16 @@ type PoolV3InitParameters struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Specifies the project ID.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/identity/v1alpha1.ProjectV3
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
+
+	// Reference to a ProjectV3 in identity to populate projectId.
+	// +kubebuilder:validation:Optional
+	ProjectIDRef *v1.Reference `json:"projectIdRef,omitempty" tf:"-"`
+
+	// Selector for a ProjectV3 in identity to populate projectId.
+	// +kubebuilder:validation:Optional
+	ProjectIDSelector *v1.Selector `json:"projectIdSelector,omitempty" tf:"-"`
 
 	// Specifies the protocol used by the backend server group to receive requests.
 	// TCP, UDP, HTTP, HTTPS, and QUIC are supported.
@@ -49,7 +76,16 @@ type PoolV3InitParameters struct {
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// Specifies the ID of the VPC where the backend server group works.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.VpcV1
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
+
+	// Reference to a VpcV1 in vpc to populate vpcId.
+	// +kubebuilder:validation:Optional
+	VPCIDRef *v1.Reference `json:"vpcIdRef,omitempty" tf:"-"`
+
+	// Selector for a VpcV1 in vpc to populate vpcId.
+	// +kubebuilder:validation:Optional
+	VPCIDSelector *v1.Selector `json:"vpcIdSelector,omitempty" tf:"-"`
 }
 
 type PoolV3Observation struct {
@@ -108,12 +144,30 @@ type PoolV3Parameters struct {
 	LBAlgorithm *string `json:"lbAlgorithm,omitempty" tf:"lb_algorithm,omitempty"`
 
 	// Specifies the ID of the listener associated with the backend server group.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/lb/v1alpha1.ListenerV3
 	// +kubebuilder:validation:Optional
 	ListenerID *string `json:"listenerId,omitempty" tf:"listener_id,omitempty"`
 
+	// Reference to a ListenerV3 in lb to populate listenerId.
+	// +kubebuilder:validation:Optional
+	ListenerIDRef *v1.Reference `json:"listenerIdRef,omitempty" tf:"-"`
+
+	// Selector for a ListenerV3 in lb to populate listenerId.
+	// +kubebuilder:validation:Optional
+	ListenerIDSelector *v1.Selector `json:"listenerIdSelector,omitempty" tf:"-"`
+
 	// Specifies the ID of the associated load balancer.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/lb/v1alpha1.LoadbalancerV3
 	// +kubebuilder:validation:Optional
 	LoadbalancerID *string `json:"loadbalancerId,omitempty" tf:"loadbalancer_id,omitempty"`
+
+	// Reference to a LoadbalancerV3 in lb to populate loadbalancerId.
+	// +kubebuilder:validation:Optional
+	LoadbalancerIDRef *v1.Reference `json:"loadbalancerIdRef,omitempty" tf:"-"`
+
+	// Selector for a LoadbalancerV3 in lb to populate loadbalancerId.
+	// +kubebuilder:validation:Optional
+	LoadbalancerIDSelector *v1.Selector `json:"loadbalancerIdSelector,omitempty" tf:"-"`
 
 	// Specifies whether to enable removal protection for the pool members.
 	// true: Enable removal protection.
@@ -126,8 +180,17 @@ type PoolV3Parameters struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Specifies the project ID.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/identity/v1alpha1.ProjectV3
 	// +kubebuilder:validation:Optional
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
+
+	// Reference to a ProjectV3 in identity to populate projectId.
+	// +kubebuilder:validation:Optional
+	ProjectIDRef *v1.Reference `json:"projectIdRef,omitempty" tf:"-"`
+
+	// Selector for a ProjectV3 in identity to populate projectId.
+	// +kubebuilder:validation:Optional
+	ProjectIDSelector *v1.Selector `json:"projectIdSelector,omitempty" tf:"-"`
 
 	// Specifies the protocol used by the backend server group to receive requests.
 	// TCP, UDP, HTTP, HTTPS, and QUIC are supported.
@@ -143,8 +206,17 @@ type PoolV3Parameters struct {
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// Specifies the ID of the VPC where the backend server group works.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.VpcV1
 	// +kubebuilder:validation:Optional
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
+
+	// Reference to a VpcV1 in vpc to populate vpcId.
+	// +kubebuilder:validation:Optional
+	VPCIDRef *v1.Reference `json:"vpcIdRef,omitempty" tf:"-"`
+
+	// Selector for a VpcV1 in vpc to populate vpcId.
+	// +kubebuilder:validation:Optional
+	VPCIDSelector *v1.Selector `json:"vpcIdSelector,omitempty" tf:"-"`
 }
 
 type SessionPersistenceInitParameters struct {

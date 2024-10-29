@@ -147,6 +147,9 @@ type InstanceV1InitParameters struct {
 	// creates a new server.
 	Nics []NicsInitParameters `json:"nics,omitempty" tf:"nics,omitempty"`
 
+	// Schedules ECSs, for example, by configuring an ECS group. The os_scheduler_hints object structure is documented below. Changing this creates a new server.
+	OsSchedulerHints []OsSchedulerHintsInitParameters `json:"osSchedulerHints,omitempty" tf:"os_scheduler_hints,omitempty"`
+
 	// The administrative password to assign to the server.
 	// Changing this creates a new server.
 	PasswordSecretRef *v1.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
@@ -241,13 +244,16 @@ type InstanceV1Observation struct {
 	// creates a new server.
 	Nics []NicsObservation `json:"nics,omitempty" tf:"nics,omitempty"`
 
+	// Schedules ECSs, for example, by configuring an ECS group. The os_scheduler_hints object structure is documented below. Changing this creates a new server.
+	OsSchedulerHints []OsSchedulerHintsObservation `json:"osSchedulerHints,omitempty" tf:"os_scheduler_hints,omitempty"`
+
 	// An array of one or more security group IDs
 	// to associate with the server. If this parameter is left blank, the default
 	// security group is bound to the ECS by default.
 	// +listType=set
 	SecurityGroups []*string `json:"securityGroups,omitempty" tf:"security_groups,omitempty"`
 
-	// The ID of the system disk.
+	// (String) The ID of the system disk.
 	SystemDiskID *string `json:"systemDiskId,omitempty" tf:"system_disk_id,omitempty"`
 
 	// The Encryption KMS ID of the system disk. Changing this
@@ -338,6 +344,10 @@ type InstanceV1Parameters struct {
 	// creates a new server.
 	// +kubebuilder:validation:Optional
 	Nics []NicsParameters `json:"nics,omitempty" tf:"nics,omitempty"`
+
+	// Schedules ECSs, for example, by configuring an ECS group. The os_scheduler_hints object structure is documented below. Changing this creates a new server.
+	// +kubebuilder:validation:Optional
+	OsSchedulerHints []OsSchedulerHintsParameters `json:"osSchedulerHints,omitempty" tf:"os_scheduler_hints,omitempty"`
 
 	// The administrative password to assign to the server.
 	// Changing this creates a new server.
@@ -460,6 +470,45 @@ type NicsParameters struct {
 	// Selector for a SubnetV1 in vpc to populate networkId.
 	// +kubebuilder:validation:Optional
 	NetworkIDSelector *v1.Selector `json:"networkIdSelector,omitempty" tf:"-"`
+}
+
+type OsSchedulerHintsInitParameters struct {
+
+	// Specifies the dedicated host ID. A Dedicated Host ID takes effect only when tenancy is set to dedicated.
+	DedicatedHostID *string `json:"dedicatedHostId,omitempty" tf:"dedicated_host_id,omitempty"`
+
+	// Specifies the ECS group ID in UUID format.
+	Group *string `json:"group,omitempty" tf:"group,omitempty"`
+
+	// Creates ECSs on a dedicated or shared host. Available options are: dedicated  or shared.
+	Tenancy *string `json:"tenancy,omitempty" tf:"tenancy,omitempty"`
+}
+
+type OsSchedulerHintsObservation struct {
+
+	// Specifies the dedicated host ID. A Dedicated Host ID takes effect only when tenancy is set to dedicated.
+	DedicatedHostID *string `json:"dedicatedHostId,omitempty" tf:"dedicated_host_id,omitempty"`
+
+	// Specifies the ECS group ID in UUID format.
+	Group *string `json:"group,omitempty" tf:"group,omitempty"`
+
+	// Creates ECSs on a dedicated or shared host. Available options are: dedicated  or shared.
+	Tenancy *string `json:"tenancy,omitempty" tf:"tenancy,omitempty"`
+}
+
+type OsSchedulerHintsParameters struct {
+
+	// Specifies the dedicated host ID. A Dedicated Host ID takes effect only when tenancy is set to dedicated.
+	// +kubebuilder:validation:Optional
+	DedicatedHostID *string `json:"dedicatedHostId,omitempty" tf:"dedicated_host_id,omitempty"`
+
+	// Specifies the ECS group ID in UUID format.
+	// +kubebuilder:validation:Optional
+	Group *string `json:"group,omitempty" tf:"group,omitempty"`
+
+	// Creates ECSs on a dedicated or shared host. Available options are: dedicated  or shared.
+	// +kubebuilder:validation:Optional
+	Tenancy *string `json:"tenancy,omitempty" tf:"tenancy,omitempty"`
 }
 
 type VolumesAttachedInitParameters struct {

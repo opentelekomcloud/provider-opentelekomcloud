@@ -612,6 +612,14 @@ spec:
                       enabled, install the autoscaler add-on to use the auto scaling
                       feature.
                     type: boolean
+                  securityGroupIds:
+                    description: |-
+                      Specifies the list of custom security group IDs for the node pool.
+                      If specified, the nodes will be put in these security groups. When specifying a security group, do not modify
+                      the rules of the port on which CCE running depends.
+                    items:
+                      type: string
+                    type: array
                   serverGroupReference:
                     description: ECS group ID. If this parameter is specified, all
                       nodes in the node pool will be created in this ECS group.
@@ -1281,6 +1289,14 @@ spec:
                       enabled, install the autoscaler add-on to use the auto scaling
                       feature.
                     type: boolean
+                  securityGroupIds:
+                    description: |-
+                      Specifies the list of custom security group IDs for the node pool.
+                      If specified, the nodes will be put in these security groups. When specifying a security group, do not modify
+                      the rules of the port on which CCE running depends.
+                    items:
+                      type: string
+                    type: array
                   serverGroupReference:
                     description: ECS group ID. If this parameter is specified, all
                       nodes in the node pool will be created in this ECS group.
@@ -1744,6 +1760,14 @@ spec:
                       enabled, install the autoscaler add-on to use the auto scaling
                       feature.
                     type: boolean
+                  securityGroupIds:
+                    description: |-
+                      Specifies the list of custom security group IDs for the node pool.
+                      If specified, the nodes will be put in these security groups. When specifying a security group, do not modify
+                      the rules of the port on which CCE running depends.
+                    items:
+                      type: string
+                    type: array
                   serverGroupReference:
                     description: ECS group ID. If this parameter is specified, all
                       nodes in the node pool will be created in this ECS group.

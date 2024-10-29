@@ -49,10 +49,28 @@ type MonitorV3InitParameters struct {
 
 	// Specifies the ID of the backend server group for which the health check is configured.
 	// Changing this creates a new monitor.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/lb/v1alpha1.PoolV3
 	PoolID *string `json:"poolId,omitempty" tf:"pool_id,omitempty"`
 
+	// Reference to a PoolV3 in lb to populate poolId.
+	// +kubebuilder:validation:Optional
+	PoolIDRef *v1.Reference `json:"poolIdRef,omitempty" tf:"-"`
+
+	// Selector for a PoolV3 in lb to populate poolId.
+	// +kubebuilder:validation:Optional
+	PoolIDSelector *v1.Selector `json:"poolIdSelector,omitempty" tf:"-"`
+
 	// Specifies the project ID. Changing this creates a new monitor.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/identity/v1alpha1.ProjectV3
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
+
+	// Reference to a ProjectV3 in identity to populate projectId.
+	// +kubebuilder:validation:Optional
+	ProjectIDRef *v1.Reference `json:"projectIdRef,omitempty" tf:"-"`
+
+	// Selector for a ProjectV3 in identity to populate projectId.
+	// +kubebuilder:validation:Optional
+	ProjectIDSelector *v1.Selector `json:"projectIdSelector,omitempty" tf:"-"`
 
 	// Specifies the maximum time required for waiting for a response from the health check, in
 	// seconds.
@@ -165,12 +183,30 @@ type MonitorV3Parameters struct {
 
 	// Specifies the ID of the backend server group for which the health check is configured.
 	// Changing this creates a new monitor.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/lb/v1alpha1.PoolV3
 	// +kubebuilder:validation:Optional
 	PoolID *string `json:"poolId,omitempty" tf:"pool_id,omitempty"`
 
+	// Reference to a PoolV3 in lb to populate poolId.
+	// +kubebuilder:validation:Optional
+	PoolIDRef *v1.Reference `json:"poolIdRef,omitempty" tf:"-"`
+
+	// Selector for a PoolV3 in lb to populate poolId.
+	// +kubebuilder:validation:Optional
+	PoolIDSelector *v1.Selector `json:"poolIdSelector,omitempty" tf:"-"`
+
 	// Specifies the project ID. Changing this creates a new monitor.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/identity/v1alpha1.ProjectV3
 	// +kubebuilder:validation:Optional
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
+
+	// Reference to a ProjectV3 in identity to populate projectId.
+	// +kubebuilder:validation:Optional
+	ProjectIDRef *v1.Reference `json:"projectIdRef,omitempty" tf:"-"`
+
+	// Selector for a ProjectV3 in identity to populate projectId.
+	// +kubebuilder:validation:Optional
+	ProjectIDSelector *v1.Selector `json:"projectIdSelector,omitempty" tf:"-"`
 
 	// Specifies the maximum time required for waiting for a response from the health check, in
 	// seconds.
@@ -224,7 +260,6 @@ type MonitorV3 struct {
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.delay) || (has(self.initProvider) && has(self.initProvider.delay))",message="spec.forProvider.delay is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.maxRetries) || (has(self.initProvider) && has(self.initProvider.maxRetries))",message="spec.forProvider.maxRetries is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.poolId) || (has(self.initProvider) && has(self.initProvider.poolId))",message="spec.forProvider.poolId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.timeout) || (has(self.initProvider) && has(self.initProvider.timeout))",message="spec.forProvider.timeout is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.type) || (has(self.initProvider) && has(self.initProvider.type))",message="spec.forProvider.type is a required parameter"
 	Spec   MonitorV3Spec   `json:"spec"`

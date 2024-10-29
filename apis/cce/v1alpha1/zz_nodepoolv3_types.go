@@ -209,6 +209,11 @@ type NodePoolV3InitParameters struct {
 	// Whether to enable auto scaling. If Autoscaler is enabled, install the autoscaler add-on to use the auto scaling feature.
 	ScaleEnable *bool `json:"scaleEnable,omitempty" tf:"scale_enable,omitempty"`
 
+	// Specifies the list of custom security group IDs for the node pool.
+	// If specified, the nodes will be put in these security groups. When specifying a security group, do not modify
+	// the rules of the port on which CCE running depends.
+	SecurityGroupIds []*string `json:"securityGroupIds,omitempty" tf:"security_group_ids,omitempty"`
+
 	// ECS group ID. If this parameter is specified, all nodes in the node pool will be created in this ECS group.
 	ServerGroupReference *string `json:"serverGroupReference,omitempty" tf:"server_group_reference,omitempty"`
 
@@ -321,6 +326,11 @@ type NodePoolV3Observation struct {
 
 	// Whether to enable auto scaling. If Autoscaler is enabled, install the autoscaler add-on to use the auto scaling feature.
 	ScaleEnable *bool `json:"scaleEnable,omitempty" tf:"scale_enable,omitempty"`
+
+	// Specifies the list of custom security group IDs for the node pool.
+	// If specified, the nodes will be put in these security groups. When specifying a security group, do not modify
+	// the rules of the port on which CCE running depends.
+	SecurityGroupIds []*string `json:"securityGroupIds,omitempty" tf:"security_group_ids,omitempty"`
 
 	// ECS group ID. If this parameter is specified, all nodes in the node pool will be created in this ECS group.
 	ServerGroupReference *string `json:"serverGroupReference,omitempty" tf:"server_group_reference,omitempty"`
@@ -479,6 +489,12 @@ type NodePoolV3Parameters struct {
 	// Whether to enable auto scaling. If Autoscaler is enabled, install the autoscaler add-on to use the auto scaling feature.
 	// +kubebuilder:validation:Optional
 	ScaleEnable *bool `json:"scaleEnable,omitempty" tf:"scale_enable,omitempty"`
+
+	// Specifies the list of custom security group IDs for the node pool.
+	// If specified, the nodes will be put in these security groups. When specifying a security group, do not modify
+	// the rules of the port on which CCE running depends.
+	// +kubebuilder:validation:Optional
+	SecurityGroupIds []*string `json:"securityGroupIds,omitempty" tf:"security_group_ids,omitempty"`
 
 	// ECS group ID. If this parameter is specified, all nodes in the node pool will be created in this ECS group.
 	// +kubebuilder:validation:Optional

@@ -13,6 +13,84 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
+type IPGroupInitParameters struct {
+
+	// Specifies whether to enable access control.
+	// true: Access control will be enabled.
+	// false (default): Access control will be disabled.
+	Enable *bool `json:"enable,omitempty" tf:"enable,omitempty"`
+
+	// Specifies the ID of the IP address group associated with the listener.
+	// Specifies the ID of the IP address group associated with the listener.
+	// If ip_list in opentelekomcloud_lb_ipgroup_v3 is set to an empty array [] and type to whitelist, no IP addresses are allowed to access the listener.
+	// If ip_list in opentelekomcloud_lb_ipgroup_v3 is set to an empty array [] and type to blacklist, any IP address is allowed to access the listener.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/lb/v1alpha1.IpgroupV3
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// Reference to a IpgroupV3 in lb to populate id.
+	// +kubebuilder:validation:Optional
+	IDRef *v1.Reference `json:"idRef,omitempty" tf:"-"`
+
+	// Selector for a IpgroupV3 in lb to populate id.
+	// +kubebuilder:validation:Optional
+	IDSelector *v1.Selector `json:"idSelector,omitempty" tf:"-"`
+
+	// Specifies how access to the listener is controlled.
+	// white (default): A whitelist will be configured. Only IP addresses in the whitelist can access the listener.
+	// black: A blacklist will be configured. IP addresses in the blacklist are not allowed to access the listener.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+}
+
+type IPGroupObservation struct {
+
+	// Specifies whether to enable access control.
+	// true: Access control will be enabled.
+	// false (default): Access control will be disabled.
+	Enable *bool `json:"enable,omitempty" tf:"enable,omitempty"`
+
+	// Specifies the ID of the IP address group associated with the listener.
+	// Specifies the ID of the IP address group associated with the listener.
+	// If ip_list in opentelekomcloud_lb_ipgroup_v3 is set to an empty array [] and type to whitelist, no IP addresses are allowed to access the listener.
+	// If ip_list in opentelekomcloud_lb_ipgroup_v3 is set to an empty array [] and type to blacklist, any IP address is allowed to access the listener.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// Specifies how access to the listener is controlled.
+	// white (default): A whitelist will be configured. Only IP addresses in the whitelist can access the listener.
+	// black: A blacklist will be configured. IP addresses in the blacklist are not allowed to access the listener.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+}
+
+type IPGroupParameters struct {
+
+	// Specifies whether to enable access control.
+	// true: Access control will be enabled.
+	// false (default): Access control will be disabled.
+	// +kubebuilder:validation:Optional
+	Enable *bool `json:"enable,omitempty" tf:"enable,omitempty"`
+
+	// Specifies the ID of the IP address group associated with the listener.
+	// Specifies the ID of the IP address group associated with the listener.
+	// If ip_list in opentelekomcloud_lb_ipgroup_v3 is set to an empty array [] and type to whitelist, no IP addresses are allowed to access the listener.
+	// If ip_list in opentelekomcloud_lb_ipgroup_v3 is set to an empty array [] and type to blacklist, any IP address is allowed to access the listener.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/lb/v1alpha1.IpgroupV3
+	// +kubebuilder:validation:Optional
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// Reference to a IpgroupV3 in lb to populate id.
+	// +kubebuilder:validation:Optional
+	IDRef *v1.Reference `json:"idRef,omitempty" tf:"-"`
+
+	// Selector for a IpgroupV3 in lb to populate id.
+	// +kubebuilder:validation:Optional
+	IDSelector *v1.Selector `json:"idSelector,omitempty" tf:"-"`
+
+	// Specifies how access to the listener is controlled.
+	// white (default): A whitelist will be configured. Only IP addresses in the whitelist can access the listener.
+	// black: A blacklist will be configured. IP addresses in the blacklist are not allowed to access the listener.
+	// +kubebuilder:validation:Optional
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+}
+
 type InsertHeadersInitParameters struct {
 
 	// Specifies whether to transparently transmit the load balancer EIP
@@ -86,66 +164,6 @@ type InsertHeadersParameters struct {
 	ForwardedPort *bool `json:"forwardedPort,omitempty" tf:"forwarded_port,omitempty"`
 }
 
-type ListenerV3IPGroupInitParameters struct {
-
-	// Specifies whether to enable access control.
-	// true: Access control will be enabled.
-	// false (default): Access control will be disabled.
-	Enable *bool `json:"enable,omitempty" tf:"enable,omitempty"`
-
-	// Specifies the ID of the IP address group associated with the listener.
-	// Specifies the ID of the IP address group associated with the listener.
-	// If ip_list in opentelekomcloud_lb_ipgroup_v3 is set to an empty array [] and type to whitelist, no IP addresses are allowed to access the listener.
-	// If ip_list in opentelekomcloud_lb_ipgroup_v3 is set to an empty array [] and type to blacklist, any IP address is allowed to access the listener.
-	ID *string `json:"id,omitempty" tf:"id,omitempty"`
-
-	// Specifies how access to the listener is controlled.
-	// white (default): A whitelist will be configured. Only IP addresses in the whitelist can access the listener.
-	// black: A blacklist will be configured. IP addresses in the blacklist are not allowed to access the listener.
-	Type *string `json:"type,omitempty" tf:"type,omitempty"`
-}
-
-type ListenerV3IPGroupObservation struct {
-
-	// Specifies whether to enable access control.
-	// true: Access control will be enabled.
-	// false (default): Access control will be disabled.
-	Enable *bool `json:"enable,omitempty" tf:"enable,omitempty"`
-
-	// Specifies the ID of the IP address group associated with the listener.
-	// Specifies the ID of the IP address group associated with the listener.
-	// If ip_list in opentelekomcloud_lb_ipgroup_v3 is set to an empty array [] and type to whitelist, no IP addresses are allowed to access the listener.
-	// If ip_list in opentelekomcloud_lb_ipgroup_v3 is set to an empty array [] and type to blacklist, any IP address is allowed to access the listener.
-	ID *string `json:"id,omitempty" tf:"id,omitempty"`
-
-	// Specifies how access to the listener is controlled.
-	// white (default): A whitelist will be configured. Only IP addresses in the whitelist can access the listener.
-	// black: A blacklist will be configured. IP addresses in the blacklist are not allowed to access the listener.
-	Type *string `json:"type,omitempty" tf:"type,omitempty"`
-}
-
-type ListenerV3IPGroupParameters struct {
-
-	// Specifies whether to enable access control.
-	// true: Access control will be enabled.
-	// false (default): Access control will be disabled.
-	// +kubebuilder:validation:Optional
-	Enable *bool `json:"enable,omitempty" tf:"enable,omitempty"`
-
-	// Specifies the ID of the IP address group associated with the listener.
-	// Specifies the ID of the IP address group associated with the listener.
-	// If ip_list in opentelekomcloud_lb_ipgroup_v3 is set to an empty array [] and type to whitelist, no IP addresses are allowed to access the listener.
-	// If ip_list in opentelekomcloud_lb_ipgroup_v3 is set to an empty array [] and type to blacklist, any IP address is allowed to access the listener.
-	// +kubebuilder:validation:Optional
-	ID *string `json:"id" tf:"id,omitempty"`
-
-	// Specifies how access to the listener is controlled.
-	// white (default): A whitelist will be configured. Only IP addresses in the whitelist can access the listener.
-	// black: A blacklist will be configured. IP addresses in the blacklist are not allowed to access the listener.
-	// +kubebuilder:validation:Optional
-	Type *string `json:"type,omitempty" tf:"type,omitempty"`
-}
-
 type ListenerV3InitParameters struct {
 	AdminStateUp *bool `json:"adminStateUp,omitempty" tf:"admin_state_up,omitempty"`
 
@@ -165,10 +183,28 @@ type ListenerV3InitParameters struct {
 
 	// Specifies the ID of the default backend server group. If there is no
 	// matched forwarding policy, requests are forwarded to the default backend server for processing.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/lb/v1alpha1.PoolV3
 	DefaultPoolID *string `json:"defaultPoolId,omitempty" tf:"default_pool_id,omitempty"`
 
+	// Reference to a PoolV3 in lb to populate defaultPoolId.
+	// +kubebuilder:validation:Optional
+	DefaultPoolIDRef *v1.Reference `json:"defaultPoolIdRef,omitempty" tf:"-"`
+
+	// Selector for a PoolV3 in lb to populate defaultPoolId.
+	// +kubebuilder:validation:Optional
+	DefaultPoolIDSelector *v1.Selector `json:"defaultPoolIdSelector,omitempty" tf:"-"`
+
 	// Specifies the ID of the server certificate used by the listener.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/lb/v1alpha1.CertificateV3
 	DefaultTLSContainerRef *string `json:"defaultTlsContainerRef,omitempty" tf:"default_tls_container_ref,omitempty"`
+
+	// Reference to a CertificateV3 in lb to populate defaultTlsContainerRef.
+	// +kubebuilder:validation:Optional
+	DefaultTLSContainerRefRef *v1.Reference `json:"defaultTlsContainerRefRef,omitempty" tf:"-"`
+
+	// Selector for a CertificateV3 in lb to populate defaultTlsContainerRef.
+	// +kubebuilder:validation:Optional
+	DefaultTLSContainerRefSelector *v1.Selector `json:"defaultTlsContainerRefSelector,omitempty" tf:"-"`
 
 	// Provides supplementary information about the listener.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
@@ -180,7 +216,7 @@ type ListenerV3InitParameters struct {
 	Http2Enable *bool `json:"http2Enable,omitempty" tf:"http2_enable,omitempty"`
 
 	// Specifies the IP address group associated with the listener.
-	IPGroup []ListenerV3IPGroupInitParameters `json:"ipGroup,omitempty" tf:"ip_group,omitempty"`
+	IPGroup []IPGroupInitParameters `json:"ipGroup,omitempty" tf:"ip_group,omitempty"`
 
 	// Specifies the HTTP header fields.
 	InsertHeaders []InsertHeadersInitParameters `json:"insertHeaders,omitempty" tf:"insert_headers,omitempty"`
@@ -189,7 +225,16 @@ type ListenerV3InitParameters struct {
 	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitempty" tf:"keep_alive_timeout,omitempty"`
 
 	// Specifies the ID of the load balancer that the listener is added to.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/lb/v1alpha1.LoadbalancerV3
 	LoadbalancerID *string `json:"loadbalancerId,omitempty" tf:"loadbalancer_id,omitempty"`
+
+	// Reference to a LoadbalancerV3 in lb to populate loadbalancerId.
+	// +kubebuilder:validation:Optional
+	LoadbalancerIDRef *v1.Reference `json:"loadbalancerIdRef,omitempty" tf:"-"`
+
+	// Selector for a LoadbalancerV3 in lb to populate loadbalancerId.
+	// +kubebuilder:validation:Optional
+	LoadbalancerIDSelector *v1.Selector `json:"loadbalancerIdSelector,omitempty" tf:"-"`
 
 	// Specifies whether to enable health check retries for backend servers.
 	// This parameter is available only for HTTP and HTTPS listeners. An error will be returned if you configure
@@ -213,7 +258,16 @@ type ListenerV3InitParameters struct {
 	ProtocolPort *float64 `json:"protocolPort,omitempty" tf:"protocol_port,omitempty"`
 
 	// Specifies the ID of the custom security policy.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/lb/v1alpha1.SecurityPolicyV3
 	SecurityPolicyID *string `json:"securityPolicyId,omitempty" tf:"security_policy_id,omitempty"`
+
+	// Reference to a SecurityPolicyV3 in lb to populate securityPolicyId.
+	// +kubebuilder:validation:Optional
+	SecurityPolicyIDRef *v1.Reference `json:"securityPolicyIdRef,omitempty" tf:"-"`
+
+	// Selector for a SecurityPolicyV3 in lb to populate securityPolicyId.
+	// +kubebuilder:validation:Optional
+	SecurityPolicyIDSelector *v1.Selector `json:"securityPolicyIdSelector,omitempty" tf:"-"`
 
 	// Lists the IDs of SNI certificates (server certificates with domain names) used by the listener.
 	// Each SNI certificate can have up to 30 domain names, and each domain name in the SNI certificate must be unique.
@@ -279,7 +333,7 @@ type ListenerV3Observation struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// Specifies the IP address group associated with the listener.
-	IPGroup []ListenerV3IPGroupObservation `json:"ipGroup,omitempty" tf:"ip_group,omitempty"`
+	IPGroup []IPGroupObservation `json:"ipGroup,omitempty" tf:"ip_group,omitempty"`
 
 	// Specifies the HTTP header fields.
 	InsertHeaders []InsertHeadersObservation `json:"insertHeaders,omitempty" tf:"insert_headers,omitempty"`
@@ -362,12 +416,30 @@ type ListenerV3Parameters struct {
 
 	// Specifies the ID of the default backend server group. If there is no
 	// matched forwarding policy, requests are forwarded to the default backend server for processing.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/lb/v1alpha1.PoolV3
 	// +kubebuilder:validation:Optional
 	DefaultPoolID *string `json:"defaultPoolId,omitempty" tf:"default_pool_id,omitempty"`
 
+	// Reference to a PoolV3 in lb to populate defaultPoolId.
+	// +kubebuilder:validation:Optional
+	DefaultPoolIDRef *v1.Reference `json:"defaultPoolIdRef,omitempty" tf:"-"`
+
+	// Selector for a PoolV3 in lb to populate defaultPoolId.
+	// +kubebuilder:validation:Optional
+	DefaultPoolIDSelector *v1.Selector `json:"defaultPoolIdSelector,omitempty" tf:"-"`
+
 	// Specifies the ID of the server certificate used by the listener.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/lb/v1alpha1.CertificateV3
 	// +kubebuilder:validation:Optional
 	DefaultTLSContainerRef *string `json:"defaultTlsContainerRef,omitempty" tf:"default_tls_container_ref,omitempty"`
+
+	// Reference to a CertificateV3 in lb to populate defaultTlsContainerRef.
+	// +kubebuilder:validation:Optional
+	DefaultTLSContainerRefRef *v1.Reference `json:"defaultTlsContainerRefRef,omitempty" tf:"-"`
+
+	// Selector for a CertificateV3 in lb to populate defaultTlsContainerRef.
+	// +kubebuilder:validation:Optional
+	DefaultTLSContainerRefSelector *v1.Selector `json:"defaultTlsContainerRefSelector,omitempty" tf:"-"`
 
 	// Provides supplementary information about the listener.
 	// +kubebuilder:validation:Optional
@@ -382,7 +454,7 @@ type ListenerV3Parameters struct {
 
 	// Specifies the IP address group associated with the listener.
 	// +kubebuilder:validation:Optional
-	IPGroup []ListenerV3IPGroupParameters `json:"ipGroup,omitempty" tf:"ip_group,omitempty"`
+	IPGroup []IPGroupParameters `json:"ipGroup,omitempty" tf:"ip_group,omitempty"`
 
 	// Specifies the HTTP header fields.
 	// +kubebuilder:validation:Optional
@@ -393,8 +465,17 @@ type ListenerV3Parameters struct {
 	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitempty" tf:"keep_alive_timeout,omitempty"`
 
 	// Specifies the ID of the load balancer that the listener is added to.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/lb/v1alpha1.LoadbalancerV3
 	// +kubebuilder:validation:Optional
 	LoadbalancerID *string `json:"loadbalancerId,omitempty" tf:"loadbalancer_id,omitempty"`
+
+	// Reference to a LoadbalancerV3 in lb to populate loadbalancerId.
+	// +kubebuilder:validation:Optional
+	LoadbalancerIDRef *v1.Reference `json:"loadbalancerIdRef,omitempty" tf:"-"`
+
+	// Selector for a LoadbalancerV3 in lb to populate loadbalancerId.
+	// +kubebuilder:validation:Optional
+	LoadbalancerIDSelector *v1.Selector `json:"loadbalancerIdSelector,omitempty" tf:"-"`
 
 	// Specifies whether to enable health check retries for backend servers.
 	// This parameter is available only for HTTP and HTTPS listeners. An error will be returned if you configure
@@ -423,8 +504,17 @@ type ListenerV3Parameters struct {
 	ProtocolPort *float64 `json:"protocolPort,omitempty" tf:"protocol_port,omitempty"`
 
 	// Specifies the ID of the custom security policy.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/lb/v1alpha1.SecurityPolicyV3
 	// +kubebuilder:validation:Optional
 	SecurityPolicyID *string `json:"securityPolicyId,omitempty" tf:"security_policy_id,omitempty"`
+
+	// Reference to a SecurityPolicyV3 in lb to populate securityPolicyId.
+	// +kubebuilder:validation:Optional
+	SecurityPolicyIDRef *v1.Reference `json:"securityPolicyIdRef,omitempty" tf:"-"`
+
+	// Selector for a SecurityPolicyV3 in lb to populate securityPolicyId.
+	// +kubebuilder:validation:Optional
+	SecurityPolicyIDSelector *v1.Selector `json:"securityPolicyIdSelector,omitempty" tf:"-"`
 
 	// Lists the IDs of SNI certificates (server certificates with domain names) used by the listener.
 	// Each SNI certificate can have up to 30 domain names, and each domain name in the SNI certificate must be unique.
@@ -487,7 +577,6 @@ type ListenerV3Status struct {
 type ListenerV3 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.loadbalancerId) || (has(self.initProvider) && has(self.initProvider.loadbalancerId))",message="spec.forProvider.loadbalancerId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.protocol) || (has(self.initProvider) && has(self.initProvider.protocol))",message="spec.forProvider.protocol is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.protocolPort) || (has(self.initProvider) && has(self.initProvider.protocolPort))",message="spec.forProvider.protocolPort is a required parameter"
 	Spec   ListenerV3Spec   `json:"spec"`

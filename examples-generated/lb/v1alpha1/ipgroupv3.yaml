@@ -11,9 +11,15 @@ spec:
     description: group description
     ipList:
     - description: one
-      ip: 192.168.50.10
+      ipSelector:
+        matchLabels:
+          testing.upbound.io/example-name: example
     - description: two
-      ip: 192.168.100.10
+      ipSelector:
+        matchLabels:
+          testing.upbound.io/example-name: example
     - description: three
-      ip: 192.168.150.10
+      ipSelector:
+        matchLabels:
+          testing.upbound.io/example-name: example
     name: group_1
