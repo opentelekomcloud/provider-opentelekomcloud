@@ -20,20 +20,6 @@ spec:
 
 ---
 
-apiVersion: lb.opentelekomcloud.crossplane.io/v1alpha1
-kind: LoadbalancerV2
-metadata:
-  annotations:
-    meta.upbound.io/example-id: vpcep/v1alpha1/endpointv1
-  labels:
-    testing.upbound.io/example-name: lb_1
-  name: lb-1
-spec:
-  forProvider:
-    vipSubnetId: ${data.opentelekomcloud_vpc_subnet_v1.shared_subnet.subnet_id}
-
----
-
 apiVersion: vpcep.opentelekomcloud.crossplane.io/v1alpha1
 kind: ServiceV1
 metadata:

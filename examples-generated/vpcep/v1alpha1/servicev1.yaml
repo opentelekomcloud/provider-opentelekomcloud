@@ -20,17 +20,3 @@ spec:
     whitelist:
     - ${var.domain_id_1}
     - ${var.domain_id_2}
-
----
-
-apiVersion: lb.opentelekomcloud.crossplane.io/v1alpha1
-kind: LoadbalancerV2
-metadata:
-  annotations:
-    meta.upbound.io/example-id: vpcep/v1alpha1/servicev1
-  labels:
-    testing.upbound.io/example-name: lb_1
-  name: lb-1
-spec:
-  forProvider:
-    vipSubnetId: ${var.os_subnet_id}

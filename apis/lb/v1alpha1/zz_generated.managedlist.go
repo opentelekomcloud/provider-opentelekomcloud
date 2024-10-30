@@ -7,15 +7,6 @@ package v1alpha1
 
 import resource "github.com/crossplane/crossplane-runtime/pkg/resource"
 
-// GetItems of this CertificateV2List.
-func (l *CertificateV2List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
-	for i := range l.Items {
-		items[i] = &l.Items[i]
-	}
-	return items
-}
-
 // GetItems of this CertificateV3List.
 func (l *CertificateV3List) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
@@ -34,44 +25,8 @@ func (l *IpgroupV3List) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this L7PolicyV2List.
-func (l *L7PolicyV2List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
-	for i := range l.Items {
-		items[i] = &l.Items[i]
-	}
-	return items
-}
-
-// GetItems of this L7RuleV2List.
-func (l *L7RuleV2List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
-	for i := range l.Items {
-		items[i] = &l.Items[i]
-	}
-	return items
-}
-
-// GetItems of this ListenerV2List.
-func (l *ListenerV2List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
-	for i := range l.Items {
-		items[i] = &l.Items[i]
-	}
-	return items
-}
-
 // GetItems of this ListenerV3List.
 func (l *ListenerV3List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
-	for i := range l.Items {
-		items[i] = &l.Items[i]
-	}
-	return items
-}
-
-// GetItems of this LoadbalancerV2List.
-func (l *LoadbalancerV2List) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -88,26 +43,8 @@ func (l *LoadbalancerV3List) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this MemberV2List.
-func (l *MemberV2List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
-	for i := range l.Items {
-		items[i] = &l.Items[i]
-	}
-	return items
-}
-
 // GetItems of this MemberV3List.
 func (l *MemberV3List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
-	for i := range l.Items {
-		items[i] = &l.Items[i]
-	}
-	return items
-}
-
-// GetItems of this MonitorV2List.
-func (l *MonitorV2List) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -126,15 +63,6 @@ func (l *MonitorV3List) GetItems() []resource.Managed {
 
 // GetItems of this PolicyV3List.
 func (l *PolicyV3List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
-	for i := range l.Items {
-		items[i] = &l.Items[i]
-	}
-	return items
-}
-
-// GetItems of this PoolV2List.
-func (l *PoolV2List) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -162,15 +90,6 @@ func (l *RuleV3List) GetItems() []resource.Managed {
 
 // GetItems of this SecurityPolicyV3List.
 func (l *SecurityPolicyV3List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
-	for i := range l.Items {
-		items[i] = &l.Items[i]
-	}
-	return items
-}
-
-// GetItems of this WhitelistV2List.
-func (l *WhitelistV2List) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]

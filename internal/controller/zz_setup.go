@@ -69,25 +69,16 @@ import (
 	imagev2ims "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/ims/imagev2"
 	grantv1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/kms/grantv1"
 	keyv1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/kms/keyv1"
-	certificatev2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/lb/certificatev2"
 	certificatev3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/lb/certificatev3"
 	ipgroupv3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/lb/ipgroupv3"
-	l7policyv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/lb/l7policyv2"
-	l7rulev2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/lb/l7rulev2"
-	listenerv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/lb/listenerv2"
 	listenerv3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/lb/listenerv3"
-	loadbalancerv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/lb/loadbalancerv2"
 	loadbalancerv3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/lb/loadbalancerv3"
-	memberv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/lb/memberv2"
 	memberv3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/lb/memberv3"
-	monitorv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/lb/monitorv2"
 	monitorv3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/lb/monitorv3"
 	policyv3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/lb/policyv3"
-	poolv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/lb/poolv2"
 	poolv3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/lb/poolv3"
 	rulev3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/lb/rulev3"
 	securitypolicyv3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/lb/securitypolicyv3"
-	whitelistv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/lb/whitelistv2"
 	groupv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/logtank/groupv2"
 	topicv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/logtank/topicv2"
 	transferv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/logtank/transferv2"
@@ -224,25 +215,16 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		imagev2ims.Setup,
 		grantv1.Setup,
 		keyv1.Setup,
-		certificatev2.Setup,
 		certificatev3.Setup,
 		ipgroupv3.Setup,
-		l7policyv2.Setup,
-		l7rulev2.Setup,
-		listenerv2.Setup,
 		listenerv3.Setup,
-		loadbalancerv2.Setup,
 		loadbalancerv3.Setup,
-		memberv2.Setup,
 		memberv3.Setup,
-		monitorv2.Setup,
 		monitorv3.Setup,
 		policyv3.Setup,
-		poolv2.Setup,
 		poolv3.Setup,
 		rulev3.Setup,
 		securitypolicyv3.Setup,
-		whitelistv2.Setup,
 		groupv2.Setup,
 		topicv2.Setup,
 		transferv2.Setup,

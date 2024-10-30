@@ -21,17 +21,44 @@ type MemberV3InitParameters struct {
 	// Specifies the backend server name. The value is a string of 0 to 255 characters.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/lb/v1alpha1.PoolV3
 	PoolID *string `json:"poolId,omitempty" tf:"pool_id,omitempty"`
 
+	// Reference to a PoolV3 in lb to populate poolId.
+	// +kubebuilder:validation:Optional
+	PoolIDRef *v1.Reference `json:"poolIdRef,omitempty" tf:"-"`
+
+	// Selector for a PoolV3 in lb to populate poolId.
+	// +kubebuilder:validation:Optional
+	PoolIDSelector *v1.Selector `json:"poolIdSelector,omitempty" tf:"-"`
+
 	// Specifies the project ID.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/identity/v1alpha1.ProjectV3
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
+
+	// Reference to a ProjectV3 in identity to populate projectId.
+	// +kubebuilder:validation:Optional
+	ProjectIDRef *v1.Reference `json:"projectIdRef,omitempty" tf:"-"`
+
+	// Selector for a ProjectV3 in identity to populate projectId.
+	// +kubebuilder:validation:Optional
+	ProjectIDSelector *v1.Selector `json:"projectIdSelector,omitempty" tf:"-"`
 
 	// Specifies the port used by the backend server to receive requests. The value should be a
 	// valid port.
 	ProtocolPort *float64 `json:"protocolPort,omitempty" tf:"protocol_port,omitempty"`
 
 	// , for example, 192.168.3.11.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.SubnetV1
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
+
+	// Reference to a SubnetV1 in vpc to populate subnetId.
+	// +kubebuilder:validation:Optional
+	SubnetIDRef *v1.Reference `json:"subnetIdRef,omitempty" tf:"-"`
+
+	// Selector for a SubnetV1 in vpc to populate subnetId.
+	// +kubebuilder:validation:Optional
+	SubnetIDSelector *v1.Selector `json:"subnetIdSelector,omitempty" tf:"-"`
 
 	// Specifies the weight of the backend server.
 	Weight *float64 `json:"weight,omitempty" tf:"weight,omitempty"`
@@ -82,12 +109,30 @@ type MemberV3Parameters struct {
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/lb/v1alpha1.PoolV3
 	// +kubebuilder:validation:Optional
 	PoolID *string `json:"poolId,omitempty" tf:"pool_id,omitempty"`
 
+	// Reference to a PoolV3 in lb to populate poolId.
+	// +kubebuilder:validation:Optional
+	PoolIDRef *v1.Reference `json:"poolIdRef,omitempty" tf:"-"`
+
+	// Selector for a PoolV3 in lb to populate poolId.
+	// +kubebuilder:validation:Optional
+	PoolIDSelector *v1.Selector `json:"poolIdSelector,omitempty" tf:"-"`
+
 	// Specifies the project ID.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/identity/v1alpha1.ProjectV3
 	// +kubebuilder:validation:Optional
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
+
+	// Reference to a ProjectV3 in identity to populate projectId.
+	// +kubebuilder:validation:Optional
+	ProjectIDRef *v1.Reference `json:"projectIdRef,omitempty" tf:"-"`
+
+	// Selector for a ProjectV3 in identity to populate projectId.
+	// +kubebuilder:validation:Optional
+	ProjectIDSelector *v1.Selector `json:"projectIdSelector,omitempty" tf:"-"`
 
 	// Specifies the port used by the backend server to receive requests. The value should be a
 	// valid port.
@@ -95,8 +140,17 @@ type MemberV3Parameters struct {
 	ProtocolPort *float64 `json:"protocolPort,omitempty" tf:"protocol_port,omitempty"`
 
 	// , for example, 192.168.3.11.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.SubnetV1
 	// +kubebuilder:validation:Optional
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
+
+	// Reference to a SubnetV1 in vpc to populate subnetId.
+	// +kubebuilder:validation:Optional
+	SubnetIDRef *v1.Reference `json:"subnetIdRef,omitempty" tf:"-"`
+
+	// Selector for a SubnetV1 in vpc to populate subnetId.
+	// +kubebuilder:validation:Optional
+	SubnetIDSelector *v1.Selector `json:"subnetIdSelector,omitempty" tf:"-"`
 
 	// Specifies the weight of the backend server.
 	// +kubebuilder:validation:Optional
@@ -140,7 +194,6 @@ type MemberV3 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.address) || (has(self.initProvider) && has(self.initProvider.address))",message="spec.forProvider.address is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.poolId) || (has(self.initProvider) && has(self.initProvider.poolId))",message="spec.forProvider.poolId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.protocolPort) || (has(self.initProvider) && has(self.initProvider.protocolPort))",message="spec.forProvider.protocolPort is a required parameter"
 	Spec   MemberV3Spec   `json:"spec"`
 	Status MemberV3Status `json:"status,omitempty"`

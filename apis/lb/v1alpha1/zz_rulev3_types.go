@@ -57,12 +57,30 @@ type RuleV3InitParameters struct {
 	Conditions []ConditionsInitParameters `json:"conditions,omitempty" tf:"conditions,omitempty"`
 
 	// ID of the policy.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/lb/v1alpha1.PolicyV3
 	PolicyID *string `json:"policyId,omitempty" tf:"policy_id,omitempty"`
+
+	// Reference to a PolicyV3 in lb to populate policyId.
+	// +kubebuilder:validation:Optional
+	PolicyIDRef *v1.Reference `json:"policyIdRef,omitempty" tf:"-"`
+
+	// Selector for a PolicyV3 in lb to populate policyId.
+	// +kubebuilder:validation:Optional
+	PolicyIDSelector *v1.Selector `json:"policyIdSelector,omitempty" tf:"-"`
 
 	// Required for admins. The UUID of the tenant who owns
 	// the Policy. Only administrative users can specify a tenant UUID other than
 	// their own. Changing this creates a new Policy.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/identity/v1alpha1.ProjectV3
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
+
+	// Reference to a ProjectV3 in identity to populate projectId.
+	// +kubebuilder:validation:Optional
+	ProjectIDRef *v1.Reference `json:"projectIdRef,omitempty" tf:"-"`
+
+	// Selector for a ProjectV3 in identity to populate projectId.
+	// +kubebuilder:validation:Optional
+	ProjectIDSelector *v1.Selector `json:"projectIdSelector,omitempty" tf:"-"`
 
 	// Specifies the match content. The value can be one of the following: HOST_NAME, PATH.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
@@ -118,14 +136,32 @@ type RuleV3Parameters struct {
 	Conditions []ConditionsParameters `json:"conditions,omitempty" tf:"conditions,omitempty"`
 
 	// ID of the policy.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/lb/v1alpha1.PolicyV3
 	// +kubebuilder:validation:Optional
 	PolicyID *string `json:"policyId,omitempty" tf:"policy_id,omitempty"`
+
+	// Reference to a PolicyV3 in lb to populate policyId.
+	// +kubebuilder:validation:Optional
+	PolicyIDRef *v1.Reference `json:"policyIdRef,omitempty" tf:"-"`
+
+	// Selector for a PolicyV3 in lb to populate policyId.
+	// +kubebuilder:validation:Optional
+	PolicyIDSelector *v1.Selector `json:"policyIdSelector,omitempty" tf:"-"`
 
 	// Required for admins. The UUID of the tenant who owns
 	// the Policy. Only administrative users can specify a tenant UUID other than
 	// their own. Changing this creates a new Policy.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/identity/v1alpha1.ProjectV3
 	// +kubebuilder:validation:Optional
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
+
+	// Reference to a ProjectV3 in identity to populate projectId.
+	// +kubebuilder:validation:Optional
+	ProjectIDRef *v1.Reference `json:"projectIdRef,omitempty" tf:"-"`
+
+	// Selector for a ProjectV3 in identity to populate projectId.
+	// +kubebuilder:validation:Optional
+	ProjectIDSelector *v1.Selector `json:"projectIdSelector,omitempty" tf:"-"`
 
 	// Specifies the match content. The value can be one of the following: HOST_NAME, PATH.
 	// +kubebuilder:validation:Optional
@@ -174,7 +210,6 @@ type RuleV3 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.compareType) || (has(self.initProvider) && has(self.initProvider.compareType))",message="spec.forProvider.compareType is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.policyId) || (has(self.initProvider) && has(self.initProvider.policyId))",message="spec.forProvider.policyId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.type) || (has(self.initProvider) && has(self.initProvider.type))",message="spec.forProvider.type is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.value) || (has(self.initProvider) && has(self.initProvider.value))",message="spec.forProvider.value is a required parameter"
 	Spec   RuleV3Spec   `json:"spec"`

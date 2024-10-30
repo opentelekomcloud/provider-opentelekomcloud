@@ -8,7 +8,9 @@ metadata:
   name: listener-1
 spec:
   forProvider:
-    loadbalancerId: ${var.loadbalancer_id}
+    loadbalancerIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     protocol: HTTP
     protocolPort: 8080
     tags:

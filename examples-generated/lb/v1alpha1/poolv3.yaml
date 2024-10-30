@@ -9,7 +9,9 @@ metadata:
 spec:
   forProvider:
     lbAlgorithm: ROUND_ROBIN
-    loadbalancerId: ${opentelekomcloud_lb_loadbalancer_v3.lb.id}
+    loadbalancerIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: lb
     name: pool_1
     protocol: TCP
     sessionPersistence:
@@ -31,6 +33,8 @@ spec:
     availabilityZones:
     - ${var.availability_zone}
     name: loadbalancer_1
-    networkIds:
-    - ${var.network_id}
-    routerId: ${var.router_id}
+    networkIdsRefs:
+    - name: example
+    routerIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example

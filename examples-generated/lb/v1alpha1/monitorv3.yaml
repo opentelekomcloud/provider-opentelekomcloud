@@ -12,7 +12,9 @@ spec:
     maxRetries: 5
     maxRetriesDown: 1
     monitorPort: 8080
-    poolId: ${opentelekomcloud_lb_pool_v3.pool.id}
+    poolIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: pool
     timeout: 30
     type: HTTP
 
@@ -31,9 +33,11 @@ spec:
     availabilityZones:
     - ${var.availability_zone}
     name: loadbalancer_1
-    networkIds:
-    - ${data.opentelekomcloud_vpc_subnet_v1.shared_subnet.network_id}
-    routerId: ${data.opentelekomcloud_vpc_subnet_v1.shared_subnet.vpc_id}
+    networkIdsRefs:
+    - name: opentelekomcloud_vpc_subnet_v1
+    routerIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: opentelekomcloud_vpc_subnet_v1
 
 ---
 
@@ -48,5 +52,7 @@ metadata:
 spec:
   forProvider:
     lbAlgorithm: ROUND_ROBIN
-    loadbalancerId: ${opentelekomcloud_lb_loadbalancer_v3.lb.id}
+    loadbalancerIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: lb
     protocol: HTTP

@@ -451,6 +451,25 @@ spec:
                           type: object
                       type: object
                     type: array
+                  osSchedulerHints:
+                    description: Schedules ECSs, for example, by configuring an ECS
+                      group. The os_scheduler_hints object structure is documented
+                      below. Changing this creates a new server.
+                    items:
+                      properties:
+                        dedicatedHostId:
+                          description: Specifies the dedicated host ID. A Dedicated
+                            Host ID takes effect only when tenancy is set to dedicated.
+                          type: string
+                        group:
+                          description: Specifies the ECS group ID in UUID format.
+                          type: string
+                        tenancy:
+                          description: 'Creates ECSs on a dedicated or shared host.
+                            Available options are: dedicated  or shared.'
+                          type: string
+                      type: object
+                    type: array
                   passwordSecretRef:
                     description: |-
                       The administrative password to assign to the server.
@@ -1049,6 +1068,25 @@ spec:
                           type: object
                       type: object
                     type: array
+                  osSchedulerHints:
+                    description: Schedules ECSs, for example, by configuring an ECS
+                      group. The os_scheduler_hints object structure is documented
+                      below. Changing this creates a new server.
+                    items:
+                      properties:
+                        dedicatedHostId:
+                          description: Specifies the dedicated host ID. A Dedicated
+                            Host ID takes effect only when tenancy is set to dedicated.
+                          type: string
+                        group:
+                          description: Specifies the ECS group ID in UUID format.
+                          type: string
+                        tenancy:
+                          description: 'Creates ECSs on a dedicated or shared host.
+                            Available options are: dedicated  or shared.'
+                          type: string
+                      type: object
+                    type: array
                   passwordSecretRef:
                     description: |-
                       The administrative password to assign to the server.
@@ -1538,6 +1576,25 @@ spec:
                           type: string
                       type: object
                     type: array
+                  osSchedulerHints:
+                    description: Schedules ECSs, for example, by configuring an ECS
+                      group. The os_scheduler_hints object structure is documented
+                      below. Changing this creates a new server.
+                    items:
+                      properties:
+                        dedicatedHostId:
+                          description: Specifies the dedicated host ID. A Dedicated
+                            Host ID takes effect only when tenancy is set to dedicated.
+                          type: string
+                        group:
+                          description: Specifies the ECS group ID in UUID format.
+                          type: string
+                        tenancy:
+                          description: 'Creates ECSs on a dedicated or shared host.
+                            Available options are: dedicated  or shared.'
+                          type: string
+                      type: object
+                    type: array
                   securityGroups:
                     description: |-
                       An array of one or more security group IDs
@@ -1548,7 +1605,7 @@ spec:
                     type: array
                     x-kubernetes-list-type: set
                   systemDiskId:
-                    description: The ID of the system disk.
+                    description: (String) The ID of the system disk.
                     type: string
                   systemDiskKmsId:
                     description: |-

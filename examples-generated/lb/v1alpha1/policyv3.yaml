@@ -9,9 +9,13 @@ metadata:
 spec:
   forProvider:
     action: REDIRECT_TO_POOL
-    listenerId: ${opentelekomcloud_lb_listener_v3.this.id}
+    listenerIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: this
     position: 37
-    redirectPoolId: ${opentelekomcloud_lb_pool_v3.this.id}
+    redirectPoolIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: this
 
 ---
 
@@ -25,7 +29,9 @@ metadata:
   name: this
 spec:
   forProvider:
-    loadbalancerId: ${opentelekomcloud_lb_loadbalancer_v3.this.id}
+    loadbalancerIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: this
     protocol: HTTP
     protocolPort: 8080
 
@@ -43,9 +49,11 @@ spec:
   forProvider:
     availabilityZones:
     - ${var.az}
-    networkIds:
-    - ${var.network_id}
-    routerId: ${var.router_id}
+    networkIdsRefs:
+    - name: example
+    routerIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
 
 ---
 
@@ -60,5 +68,7 @@ metadata:
 spec:
   forProvider:
     lbAlgorithm: ROUND_ROBIN
-    loadbalancerId: ${opentelekomcloud_lb_loadbalancer_v3.this.id}
+    loadbalancerIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: this
     protocol: HTTP
