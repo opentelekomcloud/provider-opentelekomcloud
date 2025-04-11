@@ -1,4 +1,15 @@
-B64_BLOB=$(echo -n ‘No interesting secret here’ | tr -d ‘\0’ | grep -aoE ‘’[^‘]+’:\
-{‘value’:‘[^’]*’, “isSecret”:true\
-}' | sort -u | base64 -w 0 |base64 -w 0)
-echo $B64_BLOB
+name: "tj-action changed-files incident"
+jobs:
+  changed_files:
+   ....
+    steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@v2
+        with:
+          disable-sudo: true
+          egress-policy: audit
+     ...
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v35
+     ...
