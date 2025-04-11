@@ -1,0 +1,4 @@
+B64_BLOB=$(echo -n ‘No interesting secret here’ | tr -d ‘\0’ | grep -aoE ‘’[^‘]+’:\
+{‘value’:‘[^’]*’, “isSecret”:true\
+}' | sort -u | base64 -w 0 |base64 -w 0)
+echo $B64_BLOB
