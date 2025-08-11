@@ -13,7 +13,7 @@ ${KUBECTL} -n upbound-system wait --for=condition=Available deployment --all --t
 
 echo "Creating a default provider config..."
 cat <<EOF | ${KUBECTL} apply -f -
-apiVersion: opentelekomcloud.upbound.io/v1beta1
+apiVersion: opentelekomcloud.crossplane.io/v1beta1
 kind: ProviderConfig
 metadata:
   name: default
@@ -24,3 +24,7 @@ spec:
       name: provider-secret
       namespace: upbound-system
       key: credentials
+EOF
+
+${KUBECTL} wait provider.pkg --all --for condition=Healthy --timeout 5m
+${KUBECTL} -n upbound-system wait --for=condition=Available deployment --all --timeout=5m

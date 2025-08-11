@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 set -euox pipefail
 
-read -r -p "Lower case provider name (ex. github): " PROVIDER_NAME_LOWER
-read -r -p "Normal case provider name (ex. GitHub): " PROVIDER_NAME_NORMAL
-read -r -p "Organization (ex. upbound, my-org-name): " ORGANIZATION_NAME
-read -r -p "CRD rootGroup (ex. upbound.io, crossplane.io): " CRD_ROOT_GROUP
+: ${PROVIDER_NAME_LOWER:=$(read -r -p "Lower case provider name (ex. github): " PROVIDER_NAME_LOWER; echo -n "${PROVIDER_NAME_LOWER}")}
+: ${PROVIDER_NAME_NORMAL:=$(read -r -p "Normal case provider name (ex. GitHub): " PROVIDER_NAME_NORMAL; echo -n "${PROVIDER_NAME_NORMAL}")}
+: ${ORGANIZATION_NAME:=$(read -r -p "Organization (ex. upbound, my-org-name): " ORGANIZATION_NAME; echo -n "${ORGANIZATION_NAME}")}
+: ${CRD_ROOT_GROUP:=$(read -r -p "CRD rootGroup (ex. upbound.io, crossplane.io): " CRD_ROOT_GROUP; echo -n "${CRD_ROOT_GROUP}")}
 
 REPLACE_FILES='./* ./.github :!build/** :!go.* :!hack/prepare.sh'
 # shellcheck disable=SC2086
@@ -17,6 +17,8 @@ git grep -l "upbound/provider-${PROVIDER_NAME_LOWER}" -- ${REPLACE_FILES} | xarg
 git grep -l 'Template' -- ${REPLACE_FILES} | xargs sed -i.bak "s/Template/${PROVIDER_NAME_NORMAL}/g"
 # shellcheck disable=SC2086
 git grep -l "upbound.io" -- "apis/v1*" | xargs sed -i.bak "s|upbound.io|${CRD_ROOT_GROUP}|g"
+# shellcheck disable=SC2086
+git grep -l "upbound.io" -- "cluster/test/setup.sh" | xargs sed -i.bak "s|upbound.io|${CRD_ROOT_GROUP}|g"
 # shellcheck disable=SC2086
 git grep -l "ujconfig\.WithRootGroup(\"${PROVIDER_NAME_LOWER}.upbound\.io\")" -- "config/provider.go" | xargs sed -i.bak "s|ujconfig.WithRootGroup(\"${PROVIDER_NAME_LOWER}.upbound.io\")|ujconfig.WithRootGroup(\"${CRD_ROOT_GROUP}\")|g"
 
