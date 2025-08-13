@@ -747,6 +747,7 @@ resources:
                   "name": "${var.app_name}"
                 }
               references:
+                app_codes: var.app_code
                 gateway_id: var.gateway_id
                 name: var.app_name
         argumentDocs:
@@ -1727,6 +1728,7 @@ resources:
                 instance_config.flavor: var.flavor
                 instance_config.image: var.image_id
                 instance_config.key_name: var.keyname
+                instance_config.security_groups: opentelekomcloud_compute_secgroup_v2.secgroup_1.id
               dependencies:
                 opentelekomcloud_compute_secgroup_v2.secgroup_1: |-
                     {
@@ -2503,6 +2505,7 @@ resources:
                   ]
                 }
               references:
+                resource.exclude_volumes: opentelekomcloud_ecs_instance_v1.instance_1.data_disks.1.id
                 resource.id: opentelekomcloud_ecs_instance_v1.instance.id
             - name: vault
               manifest: |-
@@ -2529,6 +2532,7 @@ resources:
                 }
               references:
                 resource.id: opentelekomcloud_ecs_instance_v1.instance.id
+                resource.include_volumes: opentelekomcloud_ecs_instance_v1.instance_1.data_disks.1.id
             - name: vault
               manifest: |-
                 {
@@ -3372,6 +3376,7 @@ resources:
                   ]
                 }
               references:
+                alarm_actions.notification_list: var.smn_topic_id
                 metric.dimensions.value: var.server_id
             - name: alarmrule_1
               manifest: |-
@@ -3405,6 +3410,8 @@ resources:
                     }
                   ]
                 }
+              references:
+                alarm_actions.notification_list: var.smn_topic_id
         argumentDocs:
             alarm: ': An alarm is generated;'
             alarm_action_enabled: |-
@@ -5230,6 +5237,7 @@ resources:
                   "vpc_id": "${var.vpc_id}"
                 }
               references:
+                available_zones: data.opentelekomcloud_dcs_az_v1.az_1.id
                 product_id: data.opentelekomcloud_dcs_product_v1.product_1.id
                 security_group_id: opentelekomcloud_networking_secgroup_v2.secgroup_1.id
                 subnet_id: var.network_id
@@ -5274,6 +5282,7 @@ resources:
                   ]
                 }
               references:
+                available_zones: data.opentelekomcloud_dcs_az_v1.az_1.id
                 product_id: data.opentelekomcloud_dcs_product_v1.product_1.id
                 subnet_id: data.opentelekomcloud_vpc_subnet_v1.shared_subnet.network_id
                 vpc_id: data.opentelekomcloud_vpc_subnet_v1.shared_subnet.vpc_id
@@ -5472,6 +5481,7 @@ resources:
                   ]
                 }
               references:
+                availability_zones: data.opentelekomcloud_compute_availability_zones_v2.zones.names[0]
                 subnet_id: data.opentelekomcloud_vpc_subnet_v1.shared_subnet.network_id
                 vpc_id: data.opentelekomcloud_vpc_subnet_v1.shared_subnet.vpc_id
         argumentDocs:
@@ -6265,6 +6275,7 @@ resources:
                   "vpc_id": "${var.vpc_id}"
                 }
               references:
+                available_zones: data.opentelekomcloud_dms_az_v1.az_1.id
                 flavor_id: data.opentelekomcloud_dms_flavor_v2.test.flavor_id
                 network_id: var.subnet_id
                 password: var.access_password
@@ -6418,6 +6429,7 @@ resources:
                 }
               references:
                 access_user: var.access_user
+                available_zones: data.opentelekomcloud_dms_az_v1.az_1.id
                 engine_version: data.opentelekomcloud_dms_product_v1.product_1.version
                 partition_num: data.opentelekomcloud_dms_product_v1.product_1.partition_num
                 password: var.password
@@ -6527,6 +6539,7 @@ resources:
                 }
               references:
                 access_user: var.access_user
+                available_zones: data.opentelekomcloud_dms_az_v1.az_1.id
                 engine_version: data.opentelekomcloud_dms_product_v1.product_1.version
                 partition_num: data.opentelekomcloud_dms_product_v1.product_1.partition_num
                 password: var.password
@@ -6566,8 +6579,10 @@ resources:
                   "vpc_id": "${var.vpc_id}"
                 }
               references:
+                available_zones: data.opentelekomcloud_dms_az_v1.az_1.id
                 engine_version: data.opentelekomcloud_dms_product_v1.product_1.version
                 product_id: data.opentelekomcloud_dms_product_v1.product_1.id
+                publicip_id: opentelekomcloud_networking_floatingip_v2.fip_1.id
                 security_group_id: resource.opentelekomcloud_networking_secgroup_v2.secgroup_1.id
                 storage_space: data.opentelekomcloud_dms_product_v1.product_1.storage
                 storage_spec_code: data.opentelekomcloud_dms_product_v1.product_1.storage_spec_code
@@ -6743,6 +6758,8 @@ resources:
                     }
                   ]
                 }
+              references:
+                lifecycle.ignore_changes: destination_task.0.access_key
         argumentDocs:
             create: '- Default is 30 minutes.'
             created_at: '- Indicates the creation time of the smart connect task.'
@@ -7538,6 +7555,8 @@ resources:
                   ],
                   "vpc_id": "8eed4fc7-e5e5-44a2-b5f2-23b3e5d46235"
                 }
+              references:
+                security_groups: opentelekomcloud_compute_secgroup_v2.secgroup_1.id
               dependencies:
                 opentelekomcloud_compute_secgroup_v2.secgroup_1: |-
                     {
@@ -7712,6 +7731,7 @@ resources:
                 name: var.host_name
                 nics.ip_address: var.private_ip
                 nics.network_id: var.vpc_subnetwork_id
+                security_groups: data.opentelekomcloud_networking_secgroup_v2.default.id
                 system_disk_kms_id: var.key_disk_encryption
                 system_disk_size: var.disk_size
                 system_disk_type: var.disk_type
@@ -7838,6 +7858,7 @@ resources:
                 gateway_id: var.gateway_id
                 gateway_ip: var.gateway_ip
                 name: var.name
+                peer_subnets: var.peer_subnet
             - name: policy
               manifest: |-
                 {
@@ -7875,6 +7896,7 @@ resources:
                 gateway_id: var.gateway_id
                 gateway_ip: var.gateway_ip
                 name: var.name
+                peer_subnets: var.peer_subnet
         argumentDocs:
             create: '- Default is 10 minutes.'
             created_at: '- The create time.'
@@ -8057,6 +8079,7 @@ resources:
                 connect_subnet: opentelekomcloud_vpc_subnet_v1.subnet.id
                 eip1.id: opentelekomcloud_vpc_eip_v1.eip_1.id
                 eip2.id: opentelekomcloud_vpc_eip_v1.eip_2.id
+                local_subnets: opentelekomcloud_vpc_subnet_v1.subnet.cidr
                 name: var.name
                 vpc_id: opentelekomcloud_vpc_v1.vpc.id
             - name: gw_1
@@ -8092,6 +8115,7 @@ resources:
                 }
               references:
                 connect_subnet: opentelekomcloud_vpc_subnet_v1.subnet.id
+                local_subnets: opentelekomcloud_vpc_subnet_v1.subnet.cidr
                 name: var.name
                 vpc_id: opentelekomcloud_vpc_v1.vpc.id
             - name: gw_1
@@ -8715,6 +8739,8 @@ resources:
                     }
                   ]
                 }
+              references:
+                lifecycle.ignore_changes: app
         argumentDocs:
             "-1": and means the number of instances is unlimited.
             "0": means this function is disabled.
@@ -8977,6 +9003,8 @@ resources:
                     "${opentelekomcloud_fw_rule_v2.rule_2.id}"
                   ]
                 }
+              references:
+                rules: opentelekomcloud_fw_rule_v2.rule_1.id
               dependencies:
                 opentelekomcloud_fw_rule_v2.rule_1: |-
                     {
@@ -9148,6 +9176,8 @@ resources:
                     }
                   ]
                 }
+              references:
+                lifecycle.ignore_changes: password
         argumentDocs:
             alias: '- Indicates the alias of the instance.'
             availability_zone_mode: |-
@@ -9372,6 +9402,7 @@ resources:
                 }
               references:
                 group: opentelekomcloud_identity_group_v3.group_1.id
+                users: opentelekomcloud_identity_user_v3.user_1.id
               dependencies:
                 opentelekomcloud_identity_group_v3.group_1: |-
                     {
@@ -9917,6 +9948,7 @@ resources:
                   "user": "${opentelekomcloud_identity_user_v3.user_1.id}"
                 }
               references:
+                groups: opentelekomcloud_identity_group_v3.group_1.id
                 user: opentelekomcloud_identity_user_v3.user_1.id
               dependencies:
                 opentelekomcloud_identity_group_v3.group_1: |-
@@ -9975,6 +10007,8 @@ resources:
                     }
                   ]
                 }
+              references:
+                lifecycle.ignore_changes: password
         argumentDocs:
             access_type: '- (Optional, String) Specifies the access type of the user. Available values are:'
             country_code: '- (Optional, String) Specifies the country code. This parameter must be used together with phone.'
@@ -11044,6 +11078,8 @@ resources:
                   }
                 }
               references:
+                availability_zones: var.az
+                network_ids: var.network_id
                 router_id: var.router_id
             - name: lb_1
               manifest: |-
@@ -11057,6 +11093,8 @@ resources:
                   "subnet_id": "${opentelekomcloud_vpc_subnet_v1.this.subnet_id}"
                 }
               references:
+                availability_zones: var.az
+                network_ids: opentelekomcloud_vpc_subnet_v1.this.network_id
                 subnet_id: opentelekomcloud_vpc_subnet_v1.this.subnet_id
               dependencies:
                 opentelekomcloud_vpc_subnet_v1.this: |-
@@ -11096,6 +11134,8 @@ resources:
                   "subnet_id": "${var.subnet_id}"
                 }
               references:
+                availability_zones: var.az
+                network_ids: var.network_id
                 subnet_id: var.subnet_id
             - name: loadbalancer_1
               manifest: |-
@@ -11115,6 +11155,7 @@ resources:
                   "router_id": "${data.opentelekomcloud_vpc_subnet_v1.shared_subnet.vpc_id}"
                 }
               references:
+                network_ids: data.opentelekomcloud_vpc_subnet_v1.shared_subnet.network_id
                 public_ip.id: opentelekomcloud_networking_floatingip_v2.fip_1.id
                 router_id: data.opentelekomcloud_vpc_subnet_v1.shared_subnet.vpc_id
               dependencies:
@@ -11137,6 +11178,7 @@ resources:
                   "router_id": "${opentelekomcloud_vpc_subnet_v1.this.vpc_id}"
                 }
               references:
+                network_ids: opentelekomcloud_vpc_subnet_v1.this.network_id
                 public_ip.id: opentelekomcloud_vpc_eip_v1.fip_1.id
                 router_id: opentelekomcloud_vpc_subnet_v1.this.vpc_id
               dependencies:
@@ -11181,6 +11223,7 @@ resources:
                   }
                 }
               references:
+                network_ids: data.opentelekomcloud_vpc_subnet_v1.shared_subnet.network_id
                 router_id: data.opentelekomcloud_vpc_subnet_v1.shared_subnet.vpc_id
               dependencies:
                 opentelekomcloud_vpc_bandwidth_associate_v2.associate: |-
@@ -12064,6 +12107,7 @@ resources:
                 }
               references:
                 log_group_id: opentelekomcloud_logtank_group_v2.testacc_group.id
+                log_stream_ids: opentelekomcloud_logtank_topic_v2.testacc_topic.id
                 obs_bucket_name: opentelekomcloud_obs_bucket.bucket.bucket
               dependencies:
                 opentelekomcloud_logtank_group_v2.testacc_group: |-
@@ -12770,6 +12814,7 @@ resources:
                 }
               references:
                 port_id: data.opentelekomcloud_networking_port_v2.system_port.id
+                security_group_ids: data.opentelekomcloud_networking_secgroup_v2.secgroup.id
         argumentDocs:
             all_security_group_ids: |-
                 - The collection of Security Group IDs on the port
@@ -13253,6 +13298,7 @@ resources:
                   "vip_id": "${opentelekomcloud_networking_vip_v2.vip_1.id}"
                 }
               references:
+                port_ids: opentelekomcloud_networking_port_v2.port_1.id
                 vip_id: opentelekomcloud_networking_vip_v2.vip_1.id
               dependencies:
                 opentelekomcloud_compute_instance_v2.instance_1: |-
@@ -13338,6 +13384,7 @@ resources:
                   "vip_id": "${opentelekomcloud_networking_vip_v2.vip_1.id}"
                 }
               references:
+                port_ids: opentelekomcloud_networking_port_v2.port_1.id
                 vip_id: opentelekomcloud_networking_vip_v2.vip_1.id
               dependencies:
                 opentelekomcloud_compute_instance_v2.instance_1: |-
@@ -13805,6 +13852,8 @@ resources:
                     "${var.domain_3}"
                   ]
                 }
+              references:
+                user_domain_names: var.domain_1
         argumentDocs:
             acl: |-
                 - (Optional) Specifies the ACL policy for a bucket. The predefined common policies are as follows:
@@ -14451,6 +14500,7 @@ resources:
                   "vpc_id": "${var.vpc_id}"
                 }
               references:
+                availability_zone: var.availability_zone
                 security_group_id: opentelekomcloud_networking_secgroup_v2.secgroup.id
                 subnet_id: var.subnet_id
                 vpc_id: var.vpc_id
@@ -14499,6 +14549,7 @@ resources:
                   "vpc_id": "${var.vpc_id}"
                 }
               references:
+                availability_zone: var.availability_zone_1
                 security_group_id: opentelekomcloud_networking_secgroup_v2.secgroup.id
                 subnet_id: var.subnet_id
                 vpc_id: var.vpc_id
@@ -14550,6 +14601,8 @@ resources:
                   "vpc_id": "${var.vpc_id}"
                 }
               references:
+                availability_zone: var.availability_zone_1
+                public_ips: opentelekomcloud_compute_floatingip_v2.ip.address
                 security_group_id: opentelekomcloud_networking_secgroup_v2.secgroup.id
                 subnet_id: var.subnet_id
                 vpc_id: var.vpc_id
@@ -14594,6 +14647,7 @@ resources:
                   "vpc_id": "${var.vpc_id}"
                 }
               references:
+                availability_zone: var.availability_zone
                 security_group_id: opentelekomcloud_networking_secgroup_v2.secgroup.id
                 subnet_id: var.subnet_id
                 volume.disk_encryption_id: opentelekomcloud_kms_key_v1.key.id
@@ -14640,6 +14694,7 @@ resources:
                   "vpc_id": "${var.vpc_id}"
                 }
               references:
+                availability_zone: var.availability_zone
                 security_group_id: opentelekomcloud_networking_secgroup_v2.sg.id
                 subnet_id: var.subnet_id
                 vpc_id: var.vpc_id
@@ -16201,6 +16256,8 @@ resources:
                   "start_time": "12:00",
                   "status": "ON"
                 }
+              references:
+                resources: var.volume_id
         argumentDocs:
             frequency: |-
                 - (Optional) Specifies the backup interval. The value is in the range of 1 to 14 days.
@@ -16313,6 +16370,7 @@ resources:
                 }
               references:
                 bandwidth: opentelekomcloud_vpc_bandwidth_v2.band20m.id
+                floating_ips: opentelekomcloud_networking_floatingip_v2.ip1.id
               dependencies:
                 opentelekomcloud_networking_floatingip_v2.ip1: '{}'
                 opentelekomcloud_networking_floatingip_v2.ip2: '{}'
@@ -16654,6 +16712,7 @@ resources:
                 }
               references:
                 route.nexthop: opentelekomcloud_vpc_peering_connection_v2.peering.id
+                subnets: opentelekomcloud_vpc_subnet_v1.subnet_1-1.id
                 vpc_id: opentelekomcloud_vpc_v1.vpc_1.id
               dependencies:
                 opentelekomcloud_vpc_peering_connection_v2.peering: |-
@@ -17022,6 +17081,7 @@ resources:
               references:
                 port_id: opentelekomcloud_lb_loadbalancer_v2.lb_1.vip_port_id
                 vpc_id: var.vpc_id
+                whitelist: var.domain_id_1
               dependencies:
                 opentelekomcloud_lb_loadbalancer_v2.lb_1: |-
                     {
@@ -18050,6 +18110,7 @@ resources:
                   "vpc_id": "${data.opentelekomcloud_vpc_subnet_v1.shared_subnet.vpc_id}"
                 }
               references:
+                security_group: data.opentelekomcloud_networking_secgroup_v2.default_secgroup.id
                 subnet_id: data.opentelekomcloud_vpc_subnet_v1.shared_subnet.network_id
                 vpc_id: data.opentelekomcloud_vpc_subnet_v1.shared_subnet.vpc_id
         argumentDocs:

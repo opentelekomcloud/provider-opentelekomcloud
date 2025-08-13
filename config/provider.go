@@ -8,6 +8,8 @@ import (
 	// Note(turkenh): we are importing this to embed provider schema document
 	_ "embed"
 
+	ujconfig "github.com/crossplane/upjet/pkg/config"
+
 	"github.com/opentelekomcloud/provider-opentelekomcloud/config/blockstorage"
 	"github.com/opentelekomcloud/provider-opentelekomcloud/config/cce"
 	"github.com/opentelekomcloud/provider-opentelekomcloud/config/compute"
@@ -32,8 +34,6 @@ import (
 	"github.com/opentelekomcloud/provider-opentelekomcloud/config/vpcep"
 	"github.com/opentelekomcloud/provider-opentelekomcloud/config/vpnaas"
 	"github.com/opentelekomcloud/provider-opentelekomcloud/config/wafd"
-
-	ujconfig "github.com/crossplane/upjet/pkg/config"
 )
 
 const (
