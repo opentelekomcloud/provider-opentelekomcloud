@@ -11,8 +11,8 @@ on:
 env:
   # Common versions
   GO_VERSION: '1.24.1'
-  GOLANGCI_VERSION: 'v1.54.0'
-  DOCKER_BUILDX_VERSION: 'v0.8.2'
+  GOLANGCI_VERSION: 'v2.3.1'
+  DOCKER_BUILDX_VERSION: 'v0.26.1'
 
   # Common users. We can't run a step 'if secrets.XXX != ""' but we can run a
   # step 'if env.XXX != ""', so we copy these to succinctly test whether
