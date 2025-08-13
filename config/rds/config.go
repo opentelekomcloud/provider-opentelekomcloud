@@ -3,6 +3,7 @@ package rds
 import (
 	"github.com/crossplane/upjet/pkg/config"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
+
 	"github.com/opentelekomcloud/provider-opentelekomcloud/config/common"
 )
 
