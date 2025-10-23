@@ -7,10 +7,28 @@
 package v1alpha1
 
 // Hub marks this type as a conversion hub.
+func (tr *ConsumerGroupV2) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *DedicatedInstanceV2) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *InstanceV1) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *InstanceV2) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *ReassignPartitionsV2) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *SmartConnectTaskActionV2) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *SmartConnectTaskV2) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *SmartConnectV2) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *TopicV1) Hub() {}

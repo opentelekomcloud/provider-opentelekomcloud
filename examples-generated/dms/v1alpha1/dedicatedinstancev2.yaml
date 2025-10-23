@@ -1,0 +1,27 @@
+apiVersion: dms.opentelekomcloud.crossplane.io/v1alpha1
+kind: DedicatedInstanceV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dms/v1alpha1/dedicatedinstancev2
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    accessUser: user
+    availableZones:
+    - ${data.opentelekomcloud_dms_az_v1.az_1.id}
+    brokerNum: 3
+    engineVersion: "2.7"
+    flavorId: ${data.opentelekomcloud_dms_flavor_v2.test.flavor_id}
+    name: kafka_test
+    networkId: ${var.subnet_id}
+    passwordSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system
+    securityGroupId: ${var.security_group_id}
+    sslEnable: true
+    storageSpace: 600
+    storageSpecCode: ${data.opentelekomcloud_dms_flavor_v2.test.flavors[0].ios[0].storage_spec_code}
+    vpcId: ${var.vpc_id}

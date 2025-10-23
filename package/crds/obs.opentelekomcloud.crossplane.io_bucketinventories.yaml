@@ -119,6 +119,14 @@ spec:
                     description: Indicates whether the rule is enabled. If this parameter
                       is set to true, the inventory is generated.
                     type: boolean
+                  optionalFields:
+                    description: |-
+                      Extra metadata fields that can be added to an inventory. If this parameter is configured,
+                      fields specified in this parameter are contained in the inventory.
+                      Possible values:
+                    items:
+                      type: string
+                    type: array
                 type: object
               initProvider:
                 description: |-
@@ -179,6 +187,14 @@ spec:
                     description: Indicates whether the rule is enabled. If this parameter
                       is set to true, the inventory is generated.
                     type: boolean
+                  optionalFields:
+                    description: |-
+                      Extra metadata fields that can be added to an inventory. If this parameter is configured,
+                      fields specified in this parameter are contained in the inventory.
+                      Possible values:
+                    items:
+                      type: string
+                    type: array
                 type: object
               managementPolicies:
                 default:
@@ -425,6 +441,14 @@ spec:
                     description: Indicates whether the rule is enabled. If this parameter
                       is set to true, the inventory is generated.
                     type: boolean
+                  optionalFields:
+                    description: |-
+                      Extra metadata fields that can be added to an inventory. If this parameter is configured,
+                      fields specified in this parameter are contained in the inventory.
+                      Possible values:
+                    items:
+                      type: string
+                    type: array
                   region:
                     description: Specifies the bucket region.
                     type: string

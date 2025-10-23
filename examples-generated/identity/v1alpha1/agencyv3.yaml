@@ -17,3 +17,8 @@ spec:
     - project: eu-de
       roles:
       - KMS Administrator
+      - CCE ReadOnlyAccess
+    - allProjects: true
+      roles:
+      - CES Administrator
+      - ER ReadOnlyAccess

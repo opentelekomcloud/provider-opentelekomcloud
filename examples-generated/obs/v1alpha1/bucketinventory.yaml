@@ -18,6 +18,10 @@ spec:
     frequency: Weekly
     includedObjectVersions: Current
     isEnabled: true
+    optionalFields:
+    - Size
+    - LastModifiedDate
+    - ReplicationStatus
 
 ---
 

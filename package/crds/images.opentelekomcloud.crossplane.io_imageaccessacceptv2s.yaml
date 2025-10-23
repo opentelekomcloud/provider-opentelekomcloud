@@ -74,10 +74,10 @@ spec:
               forProvider:
                 properties:
                   imageId:
-                    description: The proposed image ID.
+                    description: Specifies the ID of the image.
                     type: string
                   memberId:
-                    description: The member ID, e.g. the target project ID.
+                    description: Specifies the IDs of the target projects.
                     type: string
                   status:
                     description: The membership proposal status. Can either be accepted,
@@ -98,10 +98,10 @@ spec:
                   autoscaler.
                 properties:
                   imageId:
-                    description: The proposed image ID.
+                    description: Specifies the ID of the image.
                     type: string
                   memberId:
-                    description: The member ID, e.g. the target project ID.
+                    description: Specifies the IDs of the target projects.
                     type: string
                   status:
                     description: The membership proposal status. Can either be accepted,
@@ -300,10 +300,10 @@ spec:
                   id:
                     type: string
                   imageId:
-                    description: The proposed image ID.
+                    description: Specifies the ID of the image.
                     type: string
                   memberId:
-                    description: The member ID, e.g. the target project ID.
+                    description: Specifies the IDs of the target projects.
                     type: string
                   schema:
                     description: Specifies the sharing schema.

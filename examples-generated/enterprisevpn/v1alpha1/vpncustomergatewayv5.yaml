@@ -1,0 +1,12 @@
+apiVersion: enterprisevpn.opentelekomcloud.crossplane.io/v1alpha1
+kind: VPNCustomerGatewayV5
+metadata:
+  annotations:
+    meta.upbound.io/example-id: enterprisevpn/v1alpha1/vpncustomergatewayv5
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    idValue: ${var.id_value}
+    name: ${var.name}

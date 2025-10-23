@@ -1,0 +1,22 @@
+apiVersion: lts.opentelekomcloud.crossplane.io/v1alpha1
+kind: HostAccessV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lts/v1alpha1/hostaccessv3
+  labels:
+    testing.upbound.io/example-name: acc
+  name: acc
+spec:
+  forProvider:
+    accessConfig:
+    - blackPaths:
+      - /var/log/*/a.log
+      paths:
+      - /var/log/*
+      singleLogFormat:
+      - mode: system
+    hostGroupIds:
+    - ${var.host_group_id}
+    logGroupId: ${var.group_id}
+    logStreamId: ${var.stream_id}
+    name: access-demo

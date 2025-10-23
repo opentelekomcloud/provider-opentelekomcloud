@@ -19,8 +19,9 @@ type KeyV1InitParameters struct {
 	// that the key state Pending Deletion will be cancelled.
 	AllowCancelDeletion *bool `json:"allowCancelDeletion,omitempty" tf:"allow_cancel_deletion,omitempty"`
 
-	// Specifies whether the key is enabled. Defaults to true.
-	// Changing this updates the state of existing key.
+	// Specifies whether the KMS key is enabled.
+	// The default value is true.
+	// This parameter is not supported when creating an external import key for the first time.
 	IsEnabled *bool `json:"isEnabled,omitempty" tf:"is_enabled,omitempty"`
 
 	// The alias in which to create the key. It is required when
@@ -30,6 +31,11 @@ type KeyV1InitParameters struct {
 	// The description of the key as viewed in OpenTelekomCloud console.
 	// Changing this updates the description of key.
 	KeyDescription *string `json:"keyDescription,omitempty" tf:"key_description,omitempty"`
+
+	// Specifies the source of the KMS key.
+	// Changing this parameter will create a new resource.
+	// The default value is kms. The valid values are as follows:
+	Origin *string `json:"origin,omitempty" tf:"origin,omitempty"`
 
 	// Duration in days after which the key is deleted
 	// after destruction of the resource, must be between 7 and 1096 days. Defaults to 7.
@@ -74,8 +80,9 @@ type KeyV1Observation struct {
 	// The globally unique identifier for the key.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// Specifies whether the key is enabled. Defaults to true.
-	// Changing this updates the state of existing key.
+	// Specifies whether the KMS key is enabled.
+	// The default value is true.
+	// This parameter is not supported when creating an external import key for the first time.
 	IsEnabled *bool `json:"isEnabled,omitempty" tf:"is_enabled,omitempty"`
 
 	// The alias in which to create the key. It is required when
@@ -86,7 +93,13 @@ type KeyV1Observation struct {
 	// Changing this updates the description of key.
 	KeyDescription *string `json:"keyDescription,omitempty" tf:"key_description,omitempty"`
 
-	// Origin of a key. The default value is kms.
+	// The current status of the KMS key.
+	// The valid values are as follows:
+	KeyState *string `json:"keyState,omitempty" tf:"key_state,omitempty"`
+
+	// Specifies the source of the KMS key.
+	// Changing this parameter will create a new resource.
+	// The default value is kms. The valid values are as follows:
 	Origin *string `json:"origin,omitempty" tf:"origin,omitempty"`
 
 	// Duration in days after which the key is deleted
@@ -123,8 +136,9 @@ type KeyV1Parameters struct {
 	// +kubebuilder:validation:Optional
 	AllowCancelDeletion *bool `json:"allowCancelDeletion,omitempty" tf:"allow_cancel_deletion,omitempty"`
 
-	// Specifies whether the key is enabled. Defaults to true.
-	// Changing this updates the state of existing key.
+	// Specifies whether the KMS key is enabled.
+	// The default value is true.
+	// This parameter is not supported when creating an external import key for the first time.
 	// +kubebuilder:validation:Optional
 	IsEnabled *bool `json:"isEnabled,omitempty" tf:"is_enabled,omitempty"`
 
@@ -137,6 +151,12 @@ type KeyV1Parameters struct {
 	// Changing this updates the description of key.
 	// +kubebuilder:validation:Optional
 	KeyDescription *string `json:"keyDescription,omitempty" tf:"key_description,omitempty"`
+
+	// Specifies the source of the KMS key.
+	// Changing this parameter will create a new resource.
+	// The default value is kms. The valid values are as follows:
+	// +kubebuilder:validation:Optional
+	Origin *string `json:"origin,omitempty" tf:"origin,omitempty"`
 
 	// Duration in days after which the key is deleted
 	// after destruction of the resource, must be between 7 and 1096 days. Defaults to 7.

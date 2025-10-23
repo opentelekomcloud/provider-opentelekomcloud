@@ -90,6 +90,10 @@ type CertificateUsersParameters struct {
 
 type ClusterV3InitParameters struct {
 
+	// Specifies the trustlist of network CIDRs that are allowed to access cluster APIs. Specified when creating a CCE cluster.
+	// Changing this parameter will create a new cluster resource.
+	APIAccessTrustlist []*string `json:"apiAccessTrustlist,omitempty" tf:"api_access_trustlist,omitempty"`
+
 	// Cluster annotation, key/value pair format. Changing this parameter will create a new cluster resource.
 	// +mapType=granular
 	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
@@ -101,8 +105,7 @@ type ClusterV3InitParameters struct {
 	// Deprecated, use authenticating_proxy instead.
 	AuthenticatingProxyCA *string `json:"authenticatingProxyCa,omitempty" tf:"authenticating_proxy_ca,omitempty"`
 
-	// Authentication mode of the cluster, possible values are rbac and authenticating_proxy.
-	// Defaults to rbac. Changing this parameter will create a new cluster resource.
+	// Cluster authentication mode.
 	AuthenticationMode *string `json:"authenticationMode,omitempty" tf:"authentication_mode,omitempty"`
 
 	// Charging mode of the cluster, which is 0 (on demand). Changing this parameter will create a new cluster resource.
@@ -111,7 +114,7 @@ type ClusterV3InitParameters struct {
 	// Cluster Type, possible values are VirtualMachine and BareMetal. Changing this parameter will create a new cluster resource.
 	ClusterType *string `json:"clusterType,omitempty" tf:"cluster_type,omitempty"`
 
-	// For the cluster version, possible values are v1.27, v1.25, v1.23, v1.21.
+	// For the cluster version, possible values are v1.29, v1.28, v1.27, v1.25.
 	// If this parameter is not set, the cluster of the latest version is created by default.
 	// Changing this parameter will create a new cluster resource. OTC-API
 	ClusterVersion *string `json:"clusterVersion,omitempty" tf:"cluster_version,omitempty"`
@@ -220,6 +223,9 @@ type ClusterV3InitParameters struct {
 	// +kubebuilder:validation:Optional
 	HighwaySubnetIDSelector *v1.Selector `json:"highwaySubnetIdSelector,omitempty" tf:"-"`
 
+	// Specifies whether the cluster supports IPv6 addresses. This field is supported in clusters of v1.25 and later versions. Default: false. If ipv6_enable is true, subnet should have ipv6 enabled and kube_proxy_mode value can only be ipvs.
+	IPv6Enable *bool `json:"ipv6Enable,omitempty" tf:"ipv6_enable,omitempty"`
+
 	// Skip all cluster addons operations.
 	IgnoreAddons *bool `json:"ignoreAddons,omitempty" tf:"ignore_addons,omitempty"`
 
@@ -240,7 +246,13 @@ type ClusterV3InitParameters struct {
 	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
+	// Specifies the advanced configuration of master nodes.
+	// The object structure is documented below.
+	// This parameter and multi_az are alternative. Changing this parameter will create a new cluster resource.
+	Masters []MastersInitParameters `json:"masters,omitempty" tf:"masters,omitempty"`
+
 	// Enable multiple AZs for the cluster, only when using HA flavors. Changing this parameter will create a new cluster resource.
+	// This parameter and masters are alternative.
 	MultiAz *bool `json:"multiAz,omitempty" tf:"multi_az,omitempty"`
 
 	// Cluster name. Changing this parameter will create a new cluster resource.
@@ -270,6 +282,9 @@ type ClusterV3InitParameters struct {
 	// +kubebuilder:validation:Optional
 	SubnetIDSelector *v1.Selector `json:"subnetIdSelector,omitempty" tf:"-"`
 
+	// Cluster timezone in string format. Changing this parameter will create a new cluster resource.
+	Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
+
 	// The ID of the VPC used to create the node. Changing this parameter will create a new cluster resource.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.VpcV1
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
@@ -285,6 +300,10 @@ type ClusterV3InitParameters struct {
 
 type ClusterV3Observation struct {
 
+	// Specifies the trustlist of network CIDRs that are allowed to access cluster APIs. Specified when creating a CCE cluster.
+	// Changing this parameter will create a new cluster resource.
+	APIAccessTrustlist []*string `json:"apiAccessTrustlist,omitempty" tf:"api_access_trustlist,omitempty"`
+
 	// Cluster annotation, key/value pair format. Changing this parameter will create a new cluster resource.
 	// +mapType=granular
 	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
@@ -296,8 +315,7 @@ type ClusterV3Observation struct {
 	// Deprecated, use authenticating_proxy instead.
 	AuthenticatingProxyCA *string `json:"authenticatingProxyCa,omitempty" tf:"authenticating_proxy_ca,omitempty"`
 
-	// Authentication mode of the cluster, possible values are rbac and authenticating_proxy.
-	// Defaults to rbac. Changing this parameter will create a new cluster resource.
+	// Cluster authentication mode.
 	AuthenticationMode *string `json:"authenticationMode,omitempty" tf:"authentication_mode,omitempty"`
 
 	// Charging mode of the cluster, which is 0 (on demand). Changing this parameter will create a new cluster resource.
@@ -310,7 +328,7 @@ type ClusterV3Observation struct {
 	// Cluster Type, possible values are VirtualMachine and BareMetal. Changing this parameter will create a new cluster resource.
 	ClusterType *string `json:"clusterType,omitempty" tf:"cluster_type,omitempty"`
 
-	// For the cluster version, possible values are v1.27, v1.25, v1.23, v1.21.
+	// For the cluster version, possible values are v1.29, v1.28, v1.27, v1.25.
 	// If this parameter is not set, the cluster of the latest version is created by default.
 	// Changing this parameter will create a new cluster resource. OTC-API
 	ClusterVersion *string `json:"clusterVersion,omitempty" tf:"cluster_version,omitempty"`
@@ -388,6 +406,9 @@ type ClusterV3Observation struct {
 	// ID of the cluster resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// Specifies whether the cluster supports IPv6 addresses. This field is supported in clusters of v1.25 and later versions. Default: false. If ipv6_enable is true, subnet should have ipv6 enabled and kube_proxy_mode value can only be ipvs.
+	IPv6Enable *bool `json:"ipv6Enable,omitempty" tf:"ipv6_enable,omitempty"`
+
 	// Skip all cluster addons operations.
 	IgnoreAddons *bool `json:"ignoreAddons,omitempty" tf:"ignore_addons,omitempty"`
 
@@ -415,7 +436,13 @@ type ClusterV3Observation struct {
 	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
+	// Specifies the advanced configuration of master nodes.
+	// The object structure is documented below.
+	// This parameter and multi_az are alternative. Changing this parameter will create a new cluster resource.
+	Masters []MastersObservation `json:"masters,omitempty" tf:"masters,omitempty"`
+
 	// Enable multiple AZs for the cluster, only when using HA flavors. Changing this parameter will create a new cluster resource.
+	// This parameter and masters are alternative.
 	MultiAz *bool `json:"multiAz,omitempty" tf:"multi_az,omitempty"`
 
 	// Cluster name. Changing this parameter will create a new cluster resource.
@@ -444,11 +471,19 @@ type ClusterV3Observation struct {
 	// The Network ID of the subnet used to create the node. Changing this parameter will create a new cluster resource.
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 
+	// Cluster timezone in string format. Changing this parameter will create a new cluster resource.
+	Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
+
 	// The ID of the VPC used to create the node. Changing this parameter will create a new cluster resource.
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
 }
 
 type ClusterV3Parameters struct {
+
+	// Specifies the trustlist of network CIDRs that are allowed to access cluster APIs. Specified when creating a CCE cluster.
+	// Changing this parameter will create a new cluster resource.
+	// +kubebuilder:validation:Optional
+	APIAccessTrustlist []*string `json:"apiAccessTrustlist,omitempty" tf:"api_access_trustlist,omitempty"`
 
 	// Cluster annotation, key/value pair format. Changing this parameter will create a new cluster resource.
 	// +kubebuilder:validation:Optional
@@ -464,8 +499,7 @@ type ClusterV3Parameters struct {
 	// +kubebuilder:validation:Optional
 	AuthenticatingProxyCA *string `json:"authenticatingProxyCa,omitempty" tf:"authenticating_proxy_ca,omitempty"`
 
-	// Authentication mode of the cluster, possible values are rbac and authenticating_proxy.
-	// Defaults to rbac. Changing this parameter will create a new cluster resource.
+	// Cluster authentication mode.
 	// +kubebuilder:validation:Optional
 	AuthenticationMode *string `json:"authenticationMode,omitempty" tf:"authentication_mode,omitempty"`
 
@@ -477,7 +511,7 @@ type ClusterV3Parameters struct {
 	// +kubebuilder:validation:Optional
 	ClusterType *string `json:"clusterType,omitempty" tf:"cluster_type,omitempty"`
 
-	// For the cluster version, possible values are v1.27, v1.25, v1.23, v1.21.
+	// For the cluster version, possible values are v1.29, v1.28, v1.27, v1.25.
 	// If this parameter is not set, the cluster of the latest version is created by default.
 	// Changing this parameter will create a new cluster resource. OTC-API
 	// +kubebuilder:validation:Optional
@@ -605,6 +639,10 @@ type ClusterV3Parameters struct {
 	// +kubebuilder:validation:Optional
 	HighwaySubnetIDSelector *v1.Selector `json:"highwaySubnetIdSelector,omitempty" tf:"-"`
 
+	// Specifies whether the cluster supports IPv6 addresses. This field is supported in clusters of v1.25 and later versions. Default: false. If ipv6_enable is true, subnet should have ipv6 enabled and kube_proxy_mode value can only be ipvs.
+	// +kubebuilder:validation:Optional
+	IPv6Enable *bool `json:"ipv6Enable,omitempty" tf:"ipv6_enable,omitempty"`
+
 	// Skip all cluster addons operations.
 	// +kubebuilder:validation:Optional
 	IgnoreAddons *bool `json:"ignoreAddons,omitempty" tf:"ignore_addons,omitempty"`
@@ -631,7 +669,14 @@ type ClusterV3Parameters struct {
 	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
+	// Specifies the advanced configuration of master nodes.
+	// The object structure is documented below.
+	// This parameter and multi_az are alternative. Changing this parameter will create a new cluster resource.
+	// +kubebuilder:validation:Optional
+	Masters []MastersParameters `json:"masters,omitempty" tf:"masters,omitempty"`
+
 	// Enable multiple AZs for the cluster, only when using HA flavors. Changing this parameter will create a new cluster resource.
+	// This parameter and masters are alternative.
 	// +kubebuilder:validation:Optional
 	MultiAz *bool `json:"multiAz,omitempty" tf:"multi_az,omitempty"`
 
@@ -667,6 +712,10 @@ type ClusterV3Parameters struct {
 	// +kubebuilder:validation:Optional
 	SubnetIDSelector *v1.Selector `json:"subnetIdSelector,omitempty" tf:"-"`
 
+	// Cluster timezone in string format. Changing this parameter will create a new cluster resource.
+	// +kubebuilder:validation:Optional
+	Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
+
 	// The ID of the VPC used to create the node. Changing this parameter will create a new cluster resource.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.VpcV1
 	// +kubebuilder:validation:Optional
@@ -679,6 +728,28 @@ type ClusterV3Parameters struct {
 	// Selector for a VpcV1 in vpc to populate vpcId.
 	// +kubebuilder:validation:Optional
 	VPCIDSelector *v1.Selector `json:"vpcIdSelector,omitempty" tf:"-"`
+}
+
+type MastersInitParameters struct {
+
+	// Specifies the availability zone of the master node.
+	// Changing this parameter will create a new cluster resource.
+	AvailabilityZone *string `json:"availabilityZone,omitempty" tf:"availability_zone,omitempty"`
+}
+
+type MastersObservation struct {
+
+	// Specifies the availability zone of the master node.
+	// Changing this parameter will create a new cluster resource.
+	AvailabilityZone *string `json:"availabilityZone,omitempty" tf:"availability_zone,omitempty"`
+}
+
+type MastersParameters struct {
+
+	// Specifies the availability zone of the master node.
+	// Changing this parameter will create a new cluster resource.
+	// +kubebuilder:validation:Optional
+	AvailabilityZone *string `json:"availabilityZone,omitempty" tf:"availability_zone,omitempty"`
 }
 
 // ClusterV3Spec defines the desired state of ClusterV3

@@ -15,10 +15,10 @@ import (
 
 type ImageAccessAcceptV2InitParameters struct {
 
-	// The proposed image ID.
+	// Specifies the ID of the image.
 	ImageID *string `json:"imageId,omitempty" tf:"image_id,omitempty"`
 
-	// The member ID, e.g. the target project ID.
+	// Specifies the IDs of the target projects.
 	MemberID *string `json:"memberId,omitempty" tf:"member_id,omitempty"`
 
 	// The membership proposal status. Can either be accepted, rejected or pending.
@@ -32,10 +32,10 @@ type ImageAccessAcceptV2Observation struct {
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// The proposed image ID.
+	// Specifies the ID of the image.
 	ImageID *string `json:"imageId,omitempty" tf:"image_id,omitempty"`
 
-	// The member ID, e.g. the target project ID.
+	// Specifies the IDs of the target projects.
 	MemberID *string `json:"memberId,omitempty" tf:"member_id,omitempty"`
 
 	// Specifies the sharing schema.
@@ -50,11 +50,11 @@ type ImageAccessAcceptV2Observation struct {
 
 type ImageAccessAcceptV2Parameters struct {
 
-	// The proposed image ID.
+	// Specifies the ID of the image.
 	// +kubebuilder:validation:Optional
 	ImageID *string `json:"imageId,omitempty" tf:"image_id,omitempty"`
 
-	// The member ID, e.g. the target project ID.
+	// Specifies the IDs of the target projects.
 	// +kubebuilder:validation:Optional
 	MemberID *string `json:"memberId,omitempty" tf:"member_id,omitempty"`
 

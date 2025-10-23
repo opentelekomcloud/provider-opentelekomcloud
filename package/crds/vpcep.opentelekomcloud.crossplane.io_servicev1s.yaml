@@ -76,6 +76,9 @@ spec:
                   approvalEnabled:
                     description: Specifies whether connection approval is required.
                     type: boolean
+                  description:
+                    description: Specifies the description of the VPC endpoint service.
+                    type: string
                   name:
                     description: |-
                       Specifies the name of the VPC endpoint service.
@@ -160,6 +163,9 @@ spec:
                   approvalEnabled:
                     description: Specifies whether connection approval is required.
                     type: boolean
+                  description:
+                    description: Specifies the description of the VPC endpoint service.
+                    type: string
                   name:
                     description: |-
                       Specifies the name of the VPC endpoint service.
@@ -420,6 +426,37 @@ spec:
                   approvalEnabled:
                     description: Specifies whether connection approval is required.
                     type: boolean
+                  connections:
+                    description: An array of VPC endpoints connect to the VPC endpoint
+                      service. Structure is documented below.
+                    items:
+                      properties:
+                        createdAt:
+                          type: string
+                        description:
+                          description: Specifies the description of the VPC endpoint
+                            service.
+                          type: string
+                        domainId:
+                          description: The user's domain ID.
+                          type: string
+                        endpointId:
+                          description: The unique ID of the VPC endpoint.
+                          type: string
+                        packetId:
+                          description: The packet ID of the VPC endpoint.
+                          type: number
+                        status:
+                          description: The status of the VPC endpoint service. The
+                            value can be available or failed.
+                          type: string
+                        updatedAt:
+                          type: string
+                      type: object
+                    type: array
+                  description:
+                    description: Specifies the description of the VPC endpoint service.
+                    type: string
                   id:
                     description: ID of VPC endpoint service
                     type: string
@@ -463,6 +500,10 @@ spec:
                     description: |-
                       Specifies the type of the VPC endpoint service.
                       Only your private services can be configured into interface VPC endpoint services.
+                    type: string
+                  status:
+                    description: The status of the VPC endpoint service. The value
+                      can be available or failed.
                     type: string
                   tags:
                     additionalProperties:

@@ -92,6 +92,13 @@ spec:
                             Primary/standby DB instances of Microsoft SQL Server do not
                             support disabling the automated backup policy.
                           type: number
+                        period:
+                          description: |-
+                            Specifies the backup cycle configuration. Data will be automatically backed up on the selected days every week.
+                            This parameter is mandatory except that the automated backup policy is disabled.
+                            Value range: The value is digits separated by commas (,), indicating the day of the week and starting from Monday.
+                            For example, the value 1,2,3,4 indicates that the backup period is Monday, Tuesday, Wednesday, and Thursday.
+                          type: string
                         startTime:
                           description: |-
                             Specifies the backup time window. Automated backups will be
@@ -225,11 +232,7 @@ spec:
                             SQLServer. Changing this parameter will create a new resource.'
                           type: string
                         version:
-                          description: |-
-                            Specifies the database version. MySQL databases support MySQL 5.6
-                            and above. PostgreSQL databases support PostgreSQL 9.5 and above. Microsoft SQL Server
-                            databases support 2014 SE, 2016 SE, and above.
-                            Changing this parameter will create a new resource.
+                          description: Specifies the database version.
                           type: string
                       type: object
                     type: array
@@ -237,7 +240,7 @@ spec:
                     description: |-
                       Specifies the specification code.
                       Use data source opentelekomcloud_rds_flavors_v3 to get a list of available flavor names.
-                      Examples could be rds.pg.c2.medium or   rds.pg.c2.medium.ha for HA clusters.
+                      Examples could be rds.pg.n1.large.4 or rds.pg.x1.8xlarge.4.ha for HA clusters.
                     type: string
                   haReplicationMode:
                     description: |-
@@ -256,7 +259,7 @@ spec:
                       must be unique for the same tenant. The value must be 4 to 64
                       characters in length and start with a letter. It is case-sensitive
                       and can contain only letters, digits, hyphens (-), and underscores
-                      (_).  Changing this parameter will create a new resource.
+                      (_).
                     type: string
                   paramGroupId:
                     description: Specifies the parameter group ID.
@@ -345,6 +348,9 @@ spec:
                       overrides values from configuration template (parameter group).
                     type: object
                     x-kubernetes-map-type: granular
+                  privateIp:
+                    description: Specifies the private IP address of a DB instance.
+                    type: string
                   publicIps:
                     description: |-
                       Specifies floating IP to be assigned to the instance.
@@ -433,6 +439,7 @@ spec:
                     description: |-
                       Specifies whether to restore database to an instance described in current resource.
                       Structure is documented below.
+                      Please use alternative parameter restore_point.
                     items:
                       properties:
                         backupId:
@@ -456,8 +463,8 @@ spec:
                     type: array
                   restorePoint:
                     description: |-
-                      Specifies the restoration information. By selecting this option a new RDS
-                      instance will be created from separate instance backup. Structure is documented below.
+                      Specifies the restoration information. By selecting this option you can either
+                      create a new RDS instance or restore backup from existing one. Structure is documented below.
                     items:
                       properties:
                         backupId:
@@ -575,6 +582,13 @@ spec:
                     description: Tags key/value pairs to associate with the instance.
                     type: object
                     x-kubernetes-map-type: granular
+                  timeZone:
+                    description: |-
+                      Specifies the UTC time zone. Changing this parameter will create a new resource.
+                      If this parameter is not specified, the time zone of each engine uses UTC by default.
+                      If this parameter is specified, the value range is from UTC-12:00 to UTC+12:00 on the hour.
+                      For example, the parameter can be UTC+08:00 rather than UTC+08:30.
+                    type: string
                   volume:
                     description: Specifies the volume information. Structure is documented
                       below.
@@ -720,6 +734,13 @@ spec:
                             Primary/standby DB instances of Microsoft SQL Server do not
                             support disabling the automated backup policy.
                           type: number
+                        period:
+                          description: |-
+                            Specifies the backup cycle configuration. Data will be automatically backed up on the selected days every week.
+                            This parameter is mandatory except that the automated backup policy is disabled.
+                            Value range: The value is digits separated by commas (,), indicating the day of the week and starting from Monday.
+                            For example, the value 1,2,3,4 indicates that the backup period is Monday, Tuesday, Wednesday, and Thursday.
+                          type: string
                         startTime:
                           description: |-
                             Specifies the backup time window. Automated backups will be
@@ -853,11 +874,7 @@ spec:
                             SQLServer. Changing this parameter will create a new resource.'
                           type: string
                         version:
-                          description: |-
-                            Specifies the database version. MySQL databases support MySQL 5.6
-                            and above. PostgreSQL databases support PostgreSQL 9.5 and above. Microsoft SQL Server
-                            databases support 2014 SE, 2016 SE, and above.
-                            Changing this parameter will create a new resource.
+                          description: Specifies the database version.
                           type: string
                       required:
                       - passwordSecretRef
@@ -867,7 +884,7 @@ spec:
                     description: |-
                       Specifies the specification code.
                       Use data source opentelekomcloud_rds_flavors_v3 to get a list of available flavor names.
-                      Examples could be rds.pg.c2.medium or   rds.pg.c2.medium.ha for HA clusters.
+                      Examples could be rds.pg.n1.large.4 or rds.pg.x1.8xlarge.4.ha for HA clusters.
                     type: string
                   haReplicationMode:
                     description: |-
@@ -886,7 +903,7 @@ spec:
                       must be unique for the same tenant. The value must be 4 to 64
                       characters in length and start with a letter. It is case-sensitive
                       and can contain only letters, digits, hyphens (-), and underscores
-                      (_).  Changing this parameter will create a new resource.
+                      (_).
                     type: string
                   paramGroupId:
                     description: Specifies the parameter group ID.
@@ -975,6 +992,9 @@ spec:
                       overrides values from configuration template (parameter group).
                     type: object
                     x-kubernetes-map-type: granular
+                  privateIp:
+                    description: Specifies the private IP address of a DB instance.
+                    type: string
                   publicIps:
                     description: |-
                       Specifies floating IP to be assigned to the instance.
@@ -1063,6 +1083,7 @@ spec:
                     description: |-
                       Specifies whether to restore database to an instance described in current resource.
                       Structure is documented below.
+                      Please use alternative parameter restore_point.
                     items:
                       properties:
                         backupId:
@@ -1086,8 +1107,8 @@ spec:
                     type: array
                   restorePoint:
                     description: |-
-                      Specifies the restoration information. By selecting this option a new RDS
-                      instance will be created from separate instance backup. Structure is documented below.
+                      Specifies the restoration information. By selecting this option you can either
+                      create a new RDS instance or restore backup from existing one. Structure is documented below.
                     items:
                       properties:
                         backupId:
@@ -1205,6 +1226,13 @@ spec:
                     description: Tags key/value pairs to associate with the instance.
                     type: object
                     x-kubernetes-map-type: granular
+                  timeZone:
+                    description: |-
+                      Specifies the UTC time zone. Changing this parameter will create a new resource.
+                      If this parameter is not specified, the time zone of each engine uses UTC by default.
+                      If this parameter is specified, the value range is from UTC-12:00 to UTC+12:00 on the hour.
+                      For example, the parameter can be UTC+08:00 rather than UTC+08:30.
+                    type: string
                   volume:
                     description: Specifies the volume information. Structure is documented
                       below.
@@ -1539,6 +1567,13 @@ spec:
                             Primary/standby DB instances of Microsoft SQL Server do not
                             support disabling the automated backup policy.
                           type: number
+                        period:
+                          description: |-
+                            Specifies the backup cycle configuration. Data will be automatically backed up on the selected days every week.
+                            This parameter is mandatory except that the automated backup policy is disabled.
+                            Value range: The value is digits separated by commas (,), indicating the day of the week and starting from Monday.
+                            For example, the value 1,2,3,4 indicates that the backup period is Monday, Tuesday, Wednesday, and Thursday.
+                          type: string
                         startTime:
                           description: |-
                             Specifies the backup time window. Automated backups will be
@@ -1579,11 +1614,7 @@ spec:
                           description: Indicates the default user name of database.
                           type: string
                         version:
-                          description: |-
-                            Specifies the database version. MySQL databases support MySQL 5.6
-                            and above. PostgreSQL databases support PostgreSQL 9.5 and above. Microsoft SQL Server
-                            databases support 2014 SE, 2016 SE, and above.
-                            Changing this parameter will create a new resource.
+                          description: Specifies the database version.
                           type: string
                       type: object
                     type: array
@@ -1591,7 +1622,7 @@ spec:
                     description: |-
                       Specifies the specification code.
                       Use data source opentelekomcloud_rds_flavors_v3 to get a list of available flavor names.
-                      Examples could be rds.pg.c2.medium or   rds.pg.c2.medium.ha for HA clusters.
+                      Examples could be rds.pg.n1.large.4 or rds.pg.x1.8xlarge.4.ha for HA clusters.
                     type: string
                   haReplicationMode:
                     description: |-
@@ -1613,7 +1644,7 @@ spec:
                       must be unique for the same tenant. The value must be 4 to 64
                       characters in length and start with a letter. It is case-sensitive
                       and can contain only letters, digits, hyphens (-), and underscores
-                      (_).  Changing this parameter will create a new resource.
+                      (_).
                     type: string
                   nodes:
                     description: Indicates the instance nodes information. Structure
@@ -1650,6 +1681,9 @@ spec:
                       overrides values from configuration template (parameter group).
                     type: object
                     x-kubernetes-map-type: granular
+                  privateIp:
+                    description: Specifies the private IP address of a DB instance.
+                    type: string
                   privateIps:
                     description: |-
                       Indicates the private IP address list. It is a blank string until an
@@ -1668,6 +1702,7 @@ spec:
                     description: |-
                       Specifies whether to restore database to an instance described in current resource.
                       Structure is documented below.
+                      Please use alternative parameter restore_point.
                     items:
                       properties:
                         backupId:
@@ -1691,8 +1726,8 @@ spec:
                     type: array
                   restorePoint:
                     description: |-
-                      Specifies the restoration information. By selecting this option a new RDS
-                      instance will be created from separate instance backup. Structure is documented below.
+                      Specifies the restoration information. By selecting this option you can either
+                      create a new RDS instance or restore backup from existing one. Structure is documented below.
                     items:
                       properties:
                         backupId:
@@ -1741,6 +1776,13 @@ spec:
                     description: Tags key/value pairs to associate with the instance.
                     type: object
                     x-kubernetes-map-type: granular
+                  timeZone:
+                    description: |-
+                      Specifies the UTC time zone. Changing this parameter will create a new resource.
+                      If this parameter is not specified, the time zone of each engine uses UTC by default.
+                      If this parameter is specified, the value range is from UTC-12:00 to UTC+12:00 on the hour.
+                      For example, the parameter can be UTC+08:00 rather than UTC+08:30.
+                    type: string
                   volume:
                     description: Specifies the volume information. Structure is documented
                       below.

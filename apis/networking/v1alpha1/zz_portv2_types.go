@@ -156,10 +156,6 @@ type PortV2InitParameters struct {
 	// The fixed_ip block supports:
 	FixedIP []FixedIPInitParameters `json:"fixedIp,omitempty" tf:"fixed_ip,omitempty"`
 
-	// Specify a specific MAC address for the port. Changing
-	// this creates a new port.
-	MacAddress *string `json:"macAddress,omitempty" tf:"mac_address,omitempty"`
-
 	// A unique name for the port. Changing this
 	// updates the name of an existing port.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -208,10 +204,6 @@ type PortV2InitParameters struct {
 	// +kubebuilder:validation:Optional
 	SecurityGroupIdsSelector *v1.Selector `json:"securityGroupIdsSelector,omitempty" tf:"-"`
 
-	// The owner of the Port. Required if admin wants
-	// to create a port for another tenant. Changing this creates a new port.
-	TenantID *string `json:"tenantId,omitempty" tf:"tenant_id,omitempty"`
-
 	// Map of additional options.
 	// +mapType=granular
 	ValueSpecs map[string]*string `json:"valueSpecs,omitempty" tf:"value_specs,omitempty"`
@@ -250,8 +242,7 @@ type PortV2Observation struct {
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// Specify a specific MAC address for the port. Changing
-	// this creates a new port.
+	// Specifies the port MAC address.
 	MacAddress *string `json:"macAddress,omitempty" tf:"mac_address,omitempty"`
 
 	// A unique name for the port. Changing this
@@ -283,10 +274,6 @@ type PortV2Observation struct {
 	// to how they are configured with the Compute Instance).
 	// +listType=set
 	SecurityGroupIds []*string `json:"securityGroupIds,omitempty" tf:"security_group_ids,omitempty"`
-
-	// The owner of the Port. Required if admin wants
-	// to create a port for another tenant. Changing this creates a new port.
-	TenantID *string `json:"tenantId,omitempty" tf:"tenant_id,omitempty"`
 
 	// Map of additional options.
 	// +mapType=granular
@@ -328,11 +315,6 @@ type PortV2Parameters struct {
 	// +kubebuilder:validation:Optional
 	FixedIP []FixedIPParameters `json:"fixedIp,omitempty" tf:"fixed_ip,omitempty"`
 
-	// Specify a specific MAC address for the port. Changing
-	// this creates a new port.
-	// +kubebuilder:validation:Optional
-	MacAddress *string `json:"macAddress,omitempty" tf:"mac_address,omitempty"`
-
 	// A unique name for the port. Changing this
 	// updates the name of an existing port.
 	// +kubebuilder:validation:Optional
@@ -386,11 +368,6 @@ type PortV2Parameters struct {
 	// Selector for a list of SecgroupV2 in networking to populate securityGroupIds.
 	// +kubebuilder:validation:Optional
 	SecurityGroupIdsSelector *v1.Selector `json:"securityGroupIdsSelector,omitempty" tf:"-"`
-
-	// The owner of the Port. Required if admin wants
-	// to create a port for another tenant. Changing this creates a new port.
-	// +kubebuilder:validation:Optional
-	TenantID *string `json:"tenantId,omitempty" tf:"tenant_id,omitempty"`
 
 	// Map of additional options.
 	// +kubebuilder:validation:Optional

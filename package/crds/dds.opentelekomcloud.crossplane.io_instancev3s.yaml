@@ -150,6 +150,18 @@ spec:
                           type: string
                       type: object
                     type: array
+                  maintainBegin:
+                    description: |-
+                      Specifies maintenance window start time. The value must be a valid value in the "HH:MM" format.
+                      The current time is the UTC time. The value cannot be the same as the maintenance end time.
+                      Gap between maintain_begin and maintain_end must be at least 1h.
+                    type: string
+                  maintainEnd:
+                    description: |-
+                      Specifies maintenance window end time. The value must be a valid value in the "HH:MM" format.
+                      The current time is the UTC time. The value cannot be the same as the maintenance start time.
+                      Gap between maintain_begin and maintain_end must be at least 1h.
+                    type: string
                   mode:
                     description: Specifies the mode of the database instance.
                     type: string
@@ -521,6 +533,18 @@ spec:
                           type: string
                       type: object
                     type: array
+                  maintainBegin:
+                    description: |-
+                      Specifies maintenance window start time. The value must be a valid value in the "HH:MM" format.
+                      The current time is the UTC time. The value cannot be the same as the maintenance end time.
+                      Gap between maintain_begin and maintain_end must be at least 1h.
+                    type: string
+                  maintainEnd:
+                    description: |-
+                      Specifies maintenance window end time. The value must be a valid value in the "HH:MM" format.
+                      The current time is the UTC time. The value cannot be the same as the maintenance start time.
+                      Gap between maintain_begin and maintain_end must be at least 1h.
+                    type: string
                   mode:
                     description: Specifies the mode of the database instance.
                     type: string
@@ -1085,6 +1109,18 @@ spec:
                     type: array
                   id:
                     description: Indicates the node ID.
+                    type: string
+                  maintainBegin:
+                    description: |-
+                      Specifies maintenance window start time. The value must be a valid value in the "HH:MM" format.
+                      The current time is the UTC time. The value cannot be the same as the maintenance end time.
+                      Gap between maintain_begin and maintain_end must be at least 1h.
+                    type: string
+                  maintainEnd:
+                    description: |-
+                      Specifies maintenance window end time. The value must be a valid value in the "HH:MM" format.
+                      The current time is the UTC time. The value cannot be the same as the maintenance start time.
+                      Gap between maintain_begin and maintain_end must be at least 1h.
                     type: string
                   mode:
                     description: Specifies the mode of the database instance.

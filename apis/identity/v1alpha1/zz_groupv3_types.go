@@ -21,7 +21,7 @@ type GroupV3InitParameters struct {
 	// The domain this group belongs to.
 	DomainID *string `json:"domainId,omitempty" tf:"domain_id,omitempty"`
 
-	// The name of the group.The length is less than or equal to 64 bytes.
+	// The name of the group. The length is less than or equal to 64 bytes.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
@@ -35,9 +35,10 @@ type GroupV3Observation struct {
 	// The domain this group belongs to.
 	DomainID *string `json:"domainId,omitempty" tf:"domain_id,omitempty"`
 
+	// The resource ID
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// The name of the group.The length is less than or equal to 64 bytes.
+	// The name of the group. The length is less than or equal to 64 bytes.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
@@ -53,7 +54,7 @@ type GroupV3Parameters struct {
 	// +kubebuilder:validation:Optional
 	DomainID *string `json:"domainId,omitempty" tf:"domain_id,omitempty"`
 
-	// The name of the group.The length is less than or equal to 64 bytes.
+	// The name of the group. The length is less than or equal to 64 bytes.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 

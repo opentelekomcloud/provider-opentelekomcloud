@@ -1,0 +1,26 @@
+apiVersion: rds.opentelekomcloud.crossplane.io/v1alpha1
+kind: PublicIPAssociateV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: rds/v1alpha1/publicipassociatev3
+  labels:
+    testing.upbound.io/example-name: public_ip
+  name: public-ip
+spec:
+  forProvider:
+    instanceId: ${var.instance_id}
+    publicIp: ${opentelekomcloud_compute_floatingip_v2.eip_2.address}
+    publicIpId: ${opentelekomcloud_compute_floatingip_v2.eip_2.id}
+
+---
+
+apiVersion: compute.opentelekomcloud.crossplane.io/v1alpha1
+kind: FloatingipV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: rds/v1alpha1/publicipassociatev3
+  labels:
+    testing.upbound.io/example-name: eip_1
+  name: eip-1
+spec:
+  forProvider: {}

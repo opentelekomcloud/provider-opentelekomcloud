@@ -1,0 +1,26 @@
+apiVersion: lts.opentelekomcloud.crossplane.io/v1alpha1
+kind: TransferV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lts/v1alpha1/transferv2
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    logGroupId: ${var.lts_group_id}
+    logStreams:
+    - logStreamId: ${var.lts_stream_id}
+    logTransferInfo:
+    - logStorageFormat: RAW
+      logTransferDetail:
+      - obsBucketName: ${var.obs_buket}
+        obsDirPrefixName: dir_prefix_
+        obsPeriod: 3
+        obsPeriodUnit: hour
+        obsPrefixName: prefix_
+        obsTimeZone: UTC
+        obsTimeZoneId: Etc/GMT
+      logTransferMode: cycle
+      logTransferStatus: ENABLE
+      logTransferType: OBS

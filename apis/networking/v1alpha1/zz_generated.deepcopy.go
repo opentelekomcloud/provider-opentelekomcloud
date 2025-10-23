@@ -1540,11 +1540,6 @@ func (in *PortV2InitParameters) DeepCopyInto(out *PortV2InitParameters) {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
-	if in.MacAddress != nil {
-		in, out := &in.MacAddress, &out.MacAddress
-		*out = new(string)
-		**out = **in
-	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)
@@ -1602,11 +1597,6 @@ func (in *PortV2InitParameters) DeepCopyInto(out *PortV2InitParameters) {
 		in, out := &in.SecurityGroupIdsSelector, &out.SecurityGroupIdsSelector
 		*out = new(v1.Selector)
 		(*in).DeepCopyInto(*out)
-	}
-	if in.TenantID != nil {
-		in, out := &in.TenantID, &out.TenantID
-		*out = new(string)
-		**out = **in
 	}
 	if in.ValueSpecs != nil {
 		in, out := &in.ValueSpecs, &out.ValueSpecs
@@ -1764,11 +1754,6 @@ func (in *PortV2Observation) DeepCopyInto(out *PortV2Observation) {
 			}
 		}
 	}
-	if in.TenantID != nil {
-		in, out := &in.TenantID, &out.TenantID
-		*out = new(string)
-		**out = **in
-	}
 	if in.ValueSpecs != nil {
 		in, out := &in.ValueSpecs, &out.ValueSpecs
 		*out = make(map[string]*string, len(*in))
@@ -1836,11 +1821,6 @@ func (in *PortV2Parameters) DeepCopyInto(out *PortV2Parameters) {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
-	if in.MacAddress != nil {
-		in, out := &in.MacAddress, &out.MacAddress
-		*out = new(string)
-		**out = **in
-	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)
@@ -1898,11 +1878,6 @@ func (in *PortV2Parameters) DeepCopyInto(out *PortV2Parameters) {
 		in, out := &in.SecurityGroupIdsSelector, &out.SecurityGroupIdsSelector
 		*out = new(v1.Selector)
 		(*in).DeepCopyInto(*out)
-	}
-	if in.TenantID != nil {
-		in, out := &in.TenantID, &out.TenantID
-		*out = new(string)
-		**out = **in
 	}
 	if in.ValueSpecs != nil {
 		in, out := &in.ValueSpecs, &out.ValueSpecs

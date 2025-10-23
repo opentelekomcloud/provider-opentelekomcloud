@@ -22,6 +22,12 @@ type BackupStrategyInitParameters struct {
 	// support disabling the automated backup policy.
 	KeepDays *float64 `json:"keepDays,omitempty" tf:"keep_days,omitempty"`
 
+	// Specifies the backup cycle configuration. Data will be automatically backed up on the selected days every week.
+	// This parameter is mandatory except that the automated backup policy is disabled.
+	// Value range: The value is digits separated by commas (,), indicating the day of the week and starting from Monday.
+	// For example, the value 1,2,3,4 indicates that the backup period is Monday, Tuesday, Wednesday, and Thursday.
+	Period *string `json:"period,omitempty" tf:"period,omitempty"`
+
 	// Specifies the backup time window. Automated backups will be
 	// triggered during the backup time window. It must be a valid value in the "hh:mm-HH:MM"
 	// format. The current time is in the UTC format. The HH value must
@@ -39,6 +45,12 @@ type BackupStrategyObservation struct {
 	// Primary/standby DB instances of Microsoft SQL Server do not
 	// support disabling the automated backup policy.
 	KeepDays *float64 `json:"keepDays,omitempty" tf:"keep_days,omitempty"`
+
+	// Specifies the backup cycle configuration. Data will be automatically backed up on the selected days every week.
+	// This parameter is mandatory except that the automated backup policy is disabled.
+	// Value range: The value is digits separated by commas (,), indicating the day of the week and starting from Monday.
+	// For example, the value 1,2,3,4 indicates that the backup period is Monday, Tuesday, Wednesday, and Thursday.
+	Period *string `json:"period,omitempty" tf:"period,omitempty"`
 
 	// Specifies the backup time window. Automated backups will be
 	// triggered during the backup time window. It must be a valid value in the "hh:mm-HH:MM"
@@ -58,6 +70,13 @@ type BackupStrategyParameters struct {
 	// support disabling the automated backup policy.
 	// +kubebuilder:validation:Optional
 	KeepDays *float64 `json:"keepDays,omitempty" tf:"keep_days,omitempty"`
+
+	// Specifies the backup cycle configuration. Data will be automatically backed up on the selected days every week.
+	// This parameter is mandatory except that the automated backup policy is disabled.
+	// Value range: The value is digits separated by commas (,), indicating the day of the week and starting from Monday.
+	// For example, the value 1,2,3,4 indicates that the backup period is Monday, Tuesday, Wednesday, and Thursday.
+	// +kubebuilder:validation:Optional
+	Period *string `json:"period,omitempty" tf:"period,omitempty"`
 
 	// Specifies the backup time window. Automated backups will be
 	// triggered during the backup time window. It must be a valid value in the "hh:mm-HH:MM"
@@ -93,10 +112,7 @@ type DBInitParameters struct {
 	// Specifies the DB engine. Value: MySQL, PostgreSQL, SQLServer. Changing this parameter will create a new resource.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
-	// Specifies the database version. MySQL databases support MySQL 5.6
-	// and above. PostgreSQL databases support PostgreSQL 9.5 and above. Microsoft SQL Server
-	// databases support 2014 SE, 2016 SE, and above.
-	// Changing this parameter will create a new resource.
+	// Specifies the database version.
 	Version *string `json:"version,omitempty" tf:"version,omitempty"`
 }
 
@@ -119,10 +135,7 @@ type DBObservation struct {
 	// Indicates the default user name of database.
 	UserName *string `json:"userName,omitempty" tf:"user_name,omitempty"`
 
-	// Specifies the database version. MySQL databases support MySQL 5.6
-	// and above. PostgreSQL databases support PostgreSQL 9.5 and above. Microsoft SQL Server
-	// databases support 2014 SE, 2016 SE, and above.
-	// Changing this parameter will create a new resource.
+	// Specifies the database version.
 	Version *string `json:"version,omitempty" tf:"version,omitempty"`
 }
 
@@ -153,10 +166,7 @@ type DBParameters struct {
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
-	// Specifies the database version. MySQL databases support MySQL 5.6
-	// and above. PostgreSQL databases support PostgreSQL 9.5 and above. Microsoft SQL Server
-	// databases support 2014 SE, 2016 SE, and above.
-	// Changing this parameter will create a new resource.
+	// Specifies the database version.
 	// +kubebuilder:validation:Optional
 	Version *string `json:"version,omitempty" tf:"version,omitempty"`
 }
@@ -182,7 +192,7 @@ type InstanceV3InitParameters struct {
 
 	// Specifies the specification code.
 	// Use data source opentelekomcloud_rds_flavors_v3 to get a list of available flavor names.
-	// Examples could be rds.pg.c2.medium or   rds.pg.c2.medium.ha for HA clusters.
+	// Examples could be rds.pg.n1.large.4 or rds.pg.x1.8xlarge.4.ha for HA clusters.
 	Flavor *string `json:"flavor,omitempty" tf:"flavor,omitempty"`
 
 	// Specifies the replication mode for the standby DB instance. For MySQL, the value
@@ -198,7 +208,7 @@ type InstanceV3InitParameters struct {
 	// must be unique for the same tenant. The value must be 4 to 64
 	// characters in length and start with a letter. It is case-sensitive
 	// and can contain only letters, digits, hyphens (-), and underscores
-	// (_).  Changing this parameter will create a new resource.
+	// (_).
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Specifies the parameter group ID.
@@ -218,6 +228,9 @@ type InstanceV3InitParameters struct {
 	// +mapType=granular
 	Parameters map[string]*string `json:"parameters,omitempty" tf:"parameters,omitempty"`
 
+	// Specifies the private IP address of a DB instance.
+	PrivateIP *string `json:"privateIp,omitempty" tf:"private_ip,omitempty"`
+
 	// Specifies floating IP to be assigned to the instance.
 	// This should be a list with single element only.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.EIPV1
@@ -236,10 +249,11 @@ type InstanceV3InitParameters struct {
 
 	// Specifies whether to restore database to an instance described in current resource.
 	// Structure is documented below.
+	// Please use alternative parameter restore_point.
 	RestoreFromBackup []RestoreFromBackupInitParameters `json:"restoreFromBackup,omitempty" tf:"restore_from_backup,omitempty"`
 
-	// Specifies the restoration information. By selecting this option a new RDS
-	// instance will be created from separate instance backup. Structure is documented below.
+	// Specifies the restoration information. By selecting this option you can either
+	// create a new RDS instance or restore backup from existing one. Structure is documented below.
 	RestorePoint []RestorePointInitParameters `json:"restorePoint,omitempty" tf:"restore_point,omitempty"`
 
 	// Specifies whether SSL should be enabled for MySql instances.
@@ -273,6 +287,12 @@ type InstanceV3InitParameters struct {
 	// Tags key/value pairs to associate with the instance.
 	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
+
+	// Specifies the UTC time zone. Changing this parameter will create a new resource.
+	// If this parameter is not specified, the time zone of each engine uses UTC by default.
+	// If this parameter is specified, the value range is from UTC-12:00 to UTC+12:00 on the hour.
+	// For example, the parameter can be UTC+08:00 rather than UTC+08:30.
+	TimeZone *string `json:"timeZone,omitempty" tf:"time_zone,omitempty"`
 
 	// Specifies the VPC ID. Changing this parameter will create a new resource.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.VpcV1
@@ -312,7 +332,7 @@ type InstanceV3Observation struct {
 
 	// Specifies the specification code.
 	// Use data source opentelekomcloud_rds_flavors_v3 to get a list of available flavor names.
-	// Examples could be rds.pg.c2.medium or   rds.pg.c2.medium.ha for HA clusters.
+	// Examples could be rds.pg.n1.large.4 or rds.pg.x1.8xlarge.4.ha for HA clusters.
 	Flavor *string `json:"flavor,omitempty" tf:"flavor,omitempty"`
 
 	// Specifies the replication mode for the standby DB instance. For MySQL, the value
@@ -331,7 +351,7 @@ type InstanceV3Observation struct {
 	// must be unique for the same tenant. The value must be 4 to 64
 	// characters in length and start with a letter. It is case-sensitive
 	// and can contain only letters, digits, hyphens (-), and underscores
-	// (_).  Changing this parameter will create a new resource.
+	// (_).
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Indicates the instance nodes information. Structure is documented below.
@@ -345,6 +365,9 @@ type InstanceV3Observation struct {
 	// +mapType=granular
 	Parameters map[string]*string `json:"parameters,omitempty" tf:"parameters,omitempty"`
 
+	// Specifies the private IP address of a DB instance.
+	PrivateIP *string `json:"privateIp,omitempty" tf:"private_ip,omitempty"`
+
 	// Indicates the private IP address list. It is a blank string until an
 	// ECS is created.
 	PrivateIps []*string `json:"privateIps,omitempty" tf:"private_ips,omitempty"`
@@ -355,10 +378,11 @@ type InstanceV3Observation struct {
 
 	// Specifies whether to restore database to an instance described in current resource.
 	// Structure is documented below.
+	// Please use alternative parameter restore_point.
 	RestoreFromBackup []RestoreFromBackupObservation `json:"restoreFromBackup,omitempty" tf:"restore_from_backup,omitempty"`
 
-	// Specifies the restoration information. By selecting this option a new RDS
-	// instance will be created from separate instance backup. Structure is documented below.
+	// Specifies the restoration information. By selecting this option you can either
+	// create a new RDS instance or restore backup from existing one. Structure is documented below.
 	RestorePoint []RestorePointObservation `json:"restorePoint,omitempty" tf:"restore_point,omitempty"`
 
 	// Indicates the backup ID in cases when instance was restored by using
@@ -383,6 +407,12 @@ type InstanceV3Observation struct {
 	// Tags key/value pairs to associate with the instance.
 	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
+
+	// Specifies the UTC time zone. Changing this parameter will create a new resource.
+	// If this parameter is not specified, the time zone of each engine uses UTC by default.
+	// If this parameter is specified, the value range is from UTC-12:00 to UTC+12:00 on the hour.
+	// For example, the parameter can be UTC+08:00 rather than UTC+08:30.
+	TimeZone *string `json:"timeZone,omitempty" tf:"time_zone,omitempty"`
 
 	// Specifies the VPC ID. Changing this parameter will create a new resource.
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
@@ -415,7 +445,7 @@ type InstanceV3Parameters struct {
 
 	// Specifies the specification code.
 	// Use data source opentelekomcloud_rds_flavors_v3 to get a list of available flavor names.
-	// Examples could be rds.pg.c2.medium or   rds.pg.c2.medium.ha for HA clusters.
+	// Examples could be rds.pg.n1.large.4 or rds.pg.x1.8xlarge.4.ha for HA clusters.
 	// +kubebuilder:validation:Optional
 	Flavor *string `json:"flavor,omitempty" tf:"flavor,omitempty"`
 
@@ -434,7 +464,7 @@ type InstanceV3Parameters struct {
 	// must be unique for the same tenant. The value must be 4 to 64
 	// characters in length and start with a letter. It is case-sensitive
 	// and can contain only letters, digits, hyphens (-), and underscores
-	// (_).  Changing this parameter will create a new resource.
+	// (_).
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -457,6 +487,10 @@ type InstanceV3Parameters struct {
 	// +mapType=granular
 	Parameters map[string]*string `json:"parameters,omitempty" tf:"parameters,omitempty"`
 
+	// Specifies the private IP address of a DB instance.
+	// +kubebuilder:validation:Optional
+	PrivateIP *string `json:"privateIp,omitempty" tf:"private_ip,omitempty"`
+
 	// Specifies floating IP to be assigned to the instance.
 	// This should be a list with single element only.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.EIPV1
@@ -476,11 +510,12 @@ type InstanceV3Parameters struct {
 
 	// Specifies whether to restore database to an instance described in current resource.
 	// Structure is documented below.
+	// Please use alternative parameter restore_point.
 	// +kubebuilder:validation:Optional
 	RestoreFromBackup []RestoreFromBackupParameters `json:"restoreFromBackup,omitempty" tf:"restore_from_backup,omitempty"`
 
-	// Specifies the restoration information. By selecting this option a new RDS
-	// instance will be created from separate instance backup. Structure is documented below.
+	// Specifies the restoration information. By selecting this option you can either
+	// create a new RDS instance or restore backup from existing one. Structure is documented below.
 	// +kubebuilder:validation:Optional
 	RestorePoint []RestorePointParameters `json:"restorePoint,omitempty" tf:"restore_point,omitempty"`
 
@@ -520,6 +555,13 @@ type InstanceV3Parameters struct {
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
+
+	// Specifies the UTC time zone. Changing this parameter will create a new resource.
+	// If this parameter is not specified, the time zone of each engine uses UTC by default.
+	// If this parameter is specified, the value range is from UTC-12:00 to UTC+12:00 on the hour.
+	// For example, the parameter can be UTC+08:00 rather than UTC+08:30.
+	// +kubebuilder:validation:Optional
+	TimeZone *string `json:"timeZone,omitempty" tf:"time_zone,omitempty"`
 
 	// Specifies the VPC ID. Changing this parameter will create a new resource.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.VpcV1

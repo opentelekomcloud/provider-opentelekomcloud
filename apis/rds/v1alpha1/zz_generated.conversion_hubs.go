@@ -13,7 +13,13 @@ func (tr *BackupV3) Hub() {}
 func (tr *InstanceV3) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *MaintenanceV3) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *ParametergroupV3) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *PublicIPAssociateV3) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *ReadReplicaV3) Hub() {}

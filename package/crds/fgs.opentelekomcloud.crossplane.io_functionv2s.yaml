@@ -102,17 +102,44 @@ spec:
                   concurrencyNum:
                     description: |-
                       Specifies the number of concurrent requests of the function.
-                      The valid value ranges from 1 to 1,000, the default value is 1.
+                      The valid value is range from 1 to 1,000, the default value is 1.
                     type: number
                   customImage:
                     description: |-
-                      Specifies the custom image configuration for creating function.
+                      Specifies the custom image configuration of the function.
                       The custom_image structure is documented below.
+                      Required if the parameter code_type is Custom-Image-Swr.
                     items:
                       properties:
+                        args:
+                          description: |-
+                            Specifies the command line arguments used to start the SWR image.
+                            If multiple arguments are separated by commas (,). e.g. -args,value.
+                            If this parameter is not specified, the CMD in the image configuration will be used by default.
+                          type: string
+                        command:
+                          description: |-
+                            Specifies the startup commands of the SWR image.
+                            Multiple commands are separated by commas (,). e.g. /bin/sh.
+                            If this parameter is not specified, the entrypoint or CMD in the image configuration will be used by default.
+                          type: string
                         url:
                           description: Specifies the URL of SWR image, the URL must
                             start with swr..
+                          type: string
+                        userGroupId:
+                          description: The resource ID, consist of urn and current
+                            version, the format is <urn>:<version>.
+                          type: string
+                        userId:
+                          description: The resource ID, consist of urn and current
+                            version, the format is <urn>:<version>.
+                          type: string
+                        workingDir:
+                          description: |-
+                            Specifies the working directory of the SWR image.
+                            If not specified, the default value is /.
+                            Currently, the folder path can only be set to / and it cannot be created or modified.
                           type: string
                       type: object
                     type: array
@@ -125,6 +152,28 @@ spec:
                   description:
                     description: Specifies the description of the function.
                     type: string
+                  dnsList:
+                    description: |-
+                      Specifies the private DNS configuration of the function network.
+                      Private DNS list is associated to the function by a string in the following format:
+                      [{\"id\":\"ff8080828a07ffea018a17184aa310f5\","domain_name":"functiondebug.example1.com."}]
+                    type: string
+                  enableAuthInHeader:
+                    description: |-
+                      Specifies whether the authentication in the request header is enabled.
+                      Defaults to false.
+                    type: boolean
+                  enableClassIsolation:
+                    description: Specifies whether to enable class isolation.
+                    type: boolean
+                  enableDynamicMemory:
+                    description: Specifies whether to enable dynamic memory allocation.
+                    type: boolean
+                  enableLtsLog:
+                    description: |-
+                      Specifies whether to enable the LTS logging feature.
+                      The valid values are as follows:
+                    type: boolean
                   encryptedUserDataSecretRef:
                     description: |-
                       Specifies the key/value information defined to be encrypted for the
@@ -144,6 +193,16 @@ spec:
                     - name
                     - namespace
                     type: object
+                  enterpriseProjectId:
+                    description: |-
+                      Specifies the ID of the enterprise project to which the
+                      function belongs.
+                    type: string
+                  ephemeralStorage:
+                    description: |-
+                      Specifies the size of the function ephemeral storage.
+                      The valid values are as follows:
+                    type: number
                   funcCode:
                     description: |-
                       Specifies the function code.
@@ -186,6 +245,12 @@ spec:
                   handler:
                     description: Specifies the entry point of the function.
                     type: string
+                  heartbeatHandler:
+                    description: |-
+                      Specifies the heartbeat handler of the function.
+                      The rule is xx.xx, such as com.huawei.demo.TriggerTests.heartBeat, it must contain periods (.).
+                      The heartbeat function entry must be in the same file as the function execution entry.
+                    type: string
                   initializerHandler:
                     description: Specifies the initializer of the function.
                     type: string
@@ -206,6 +271,14 @@ spec:
                   logTopicName:
                     description: Specifies the name of the LTS stream.
                     type: string
+                  ltsCustomTag:
+                    additionalProperties:
+                      type: string
+                    description: |-
+                      Specifies the custom tags configuration that used to filter the LTS logs.
+                      This parameter is available only when enable_lts_log is set to true.
+                    type: object
+                    x-kubernetes-map-type: granular
                   maxInstanceNum:
                     description: |-
                       Specifies the maximum number of instances of the function.
@@ -230,9 +303,52 @@ spec:
                       Specifies the name of the function.
                       Changing this will create a new resource.
                     type: string
+                  networkController:
+                    description: |-
+                      Specifies the network configuration of the function.
+                      The network_controller structure is documented below.
+                    items:
+                      properties:
+                        disablePublicNetwork:
+                          description: Specifies whether to disable the public network
+                            access.
+                          type: boolean
+                        triggerAccessVpcs:
+                          description: |-
+                            Specifies the configuration of the VPCs that can trigger the function.
+                            The trigger_access_vpcs structure is documented below.
+                          items:
+                            properties:
+                              vpcId:
+                                description: Specifies the ID of VPC.
+                                type: string
+                              vpcName:
+                                description: Specifies the name of the VPC that can
+                                  trigger the function.
+                                type: string
+                            type: object
+                          type: array
+                      type: object
+                    type: array
                   networkId:
                     description: Specifies the network ID of subnet.
                     type: string
+                  peeringCidr:
+                    description: |-
+                      Specifies the VPC cidr blocks used in the function code to detect whether it
+                      conflicts with the VPC cidr blocks used by the service.
+                      The cidr blocks are separated by semicolons and cannot exceed 5.
+                    type: string
+                  preStopHandler:
+                    description: |-
+                      Specifies the pre-stop handler of a function. The value must contain a period (.)
+                      in the format of xx.xx. For example, for Node.js function myfunction.pre_stop_handler, the file name is myfunction.js,
+                      and the initialization function is pre_stop_handler.
+                    type: string
+                  preStopTimeout:
+                    description: 'Specifies the maximum duration the function can
+                      be initialized. Value range: 1s-90s.'
+                    type: number
                   reservedInstances:
                     description: |-
                       Specifies the reserved instance policies of the function.
@@ -295,6 +411,14 @@ spec:
                           type: array
                       type: object
                     type: array
+                  restoreHookHandler:
+                    description: Specifies the entry point of the function.
+                    type: string
+                  restoreHookTimeout:
+                    description: |-
+                      Specifies the timeout interval of the function, in seconds.
+                      The value ranges from 3 to 900.
+                    type: number
                   runtime:
                     description: |-
                       Specifies the environment for executing the function.
@@ -336,10 +460,11 @@ spec:
                                 type: string
                             type: object
                           type: array
+                        description:
+                          description: Specifies the description of the function.
+                          type: string
                         name:
-                          description: |-
-                            Specifies the version name.
-                            The version name.
+                          description: Specifies the version name.
                           type: string
                       type: object
                     type: array
@@ -389,17 +514,44 @@ spec:
                   concurrencyNum:
                     description: |-
                       Specifies the number of concurrent requests of the function.
-                      The valid value ranges from 1 to 1,000, the default value is 1.
+                      The valid value is range from 1 to 1,000, the default value is 1.
                     type: number
                   customImage:
                     description: |-
-                      Specifies the custom image configuration for creating function.
+                      Specifies the custom image configuration of the function.
                       The custom_image structure is documented below.
+                      Required if the parameter code_type is Custom-Image-Swr.
                     items:
                       properties:
+                        args:
+                          description: |-
+                            Specifies the command line arguments used to start the SWR image.
+                            If multiple arguments are separated by commas (,). e.g. -args,value.
+                            If this parameter is not specified, the CMD in the image configuration will be used by default.
+                          type: string
+                        command:
+                          description: |-
+                            Specifies the startup commands of the SWR image.
+                            Multiple commands are separated by commas (,). e.g. /bin/sh.
+                            If this parameter is not specified, the entrypoint or CMD in the image configuration will be used by default.
+                          type: string
                         url:
                           description: Specifies the URL of SWR image, the URL must
                             start with swr..
+                          type: string
+                        userGroupId:
+                          description: The resource ID, consist of urn and current
+                            version, the format is <urn>:<version>.
+                          type: string
+                        userId:
+                          description: The resource ID, consist of urn and current
+                            version, the format is <urn>:<version>.
+                          type: string
+                        workingDir:
+                          description: |-
+                            Specifies the working directory of the SWR image.
+                            If not specified, the default value is /.
+                            Currently, the folder path can only be set to / and it cannot be created or modified.
                           type: string
                       type: object
                     type: array
@@ -412,6 +564,28 @@ spec:
                   description:
                     description: Specifies the description of the function.
                     type: string
+                  dnsList:
+                    description: |-
+                      Specifies the private DNS configuration of the function network.
+                      Private DNS list is associated to the function by a string in the following format:
+                      [{\"id\":\"ff8080828a07ffea018a17184aa310f5\","domain_name":"functiondebug.example1.com."}]
+                    type: string
+                  enableAuthInHeader:
+                    description: |-
+                      Specifies whether the authentication in the request header is enabled.
+                      Defaults to false.
+                    type: boolean
+                  enableClassIsolation:
+                    description: Specifies whether to enable class isolation.
+                    type: boolean
+                  enableDynamicMemory:
+                    description: Specifies whether to enable dynamic memory allocation.
+                    type: boolean
+                  enableLtsLog:
+                    description: |-
+                      Specifies whether to enable the LTS logging feature.
+                      The valid values are as follows:
+                    type: boolean
                   encryptedUserDataSecretRef:
                     description: |-
                       Specifies the key/value information defined to be encrypted for the
@@ -431,6 +605,16 @@ spec:
                     - name
                     - namespace
                     type: object
+                  enterpriseProjectId:
+                    description: |-
+                      Specifies the ID of the enterprise project to which the
+                      function belongs.
+                    type: string
+                  ephemeralStorage:
+                    description: |-
+                      Specifies the size of the function ephemeral storage.
+                      The valid values are as follows:
+                    type: number
                   funcCode:
                     description: |-
                       Specifies the function code.
@@ -473,6 +657,12 @@ spec:
                   handler:
                     description: Specifies the entry point of the function.
                     type: string
+                  heartbeatHandler:
+                    description: |-
+                      Specifies the heartbeat handler of the function.
+                      The rule is xx.xx, such as com.huawei.demo.TriggerTests.heartBeat, it must contain periods (.).
+                      The heartbeat function entry must be in the same file as the function execution entry.
+                    type: string
                   initializerHandler:
                     description: Specifies the initializer of the function.
                     type: string
@@ -493,6 +683,14 @@ spec:
                   logTopicName:
                     description: Specifies the name of the LTS stream.
                     type: string
+                  ltsCustomTag:
+                    additionalProperties:
+                      type: string
+                    description: |-
+                      Specifies the custom tags configuration that used to filter the LTS logs.
+                      This parameter is available only when enable_lts_log is set to true.
+                    type: object
+                    x-kubernetes-map-type: granular
                   maxInstanceNum:
                     description: |-
                       Specifies the maximum number of instances of the function.
@@ -517,9 +715,52 @@ spec:
                       Specifies the name of the function.
                       Changing this will create a new resource.
                     type: string
+                  networkController:
+                    description: |-
+                      Specifies the network configuration of the function.
+                      The network_controller structure is documented below.
+                    items:
+                      properties:
+                        disablePublicNetwork:
+                          description: Specifies whether to disable the public network
+                            access.
+                          type: boolean
+                        triggerAccessVpcs:
+                          description: |-
+                            Specifies the configuration of the VPCs that can trigger the function.
+                            The trigger_access_vpcs structure is documented below.
+                          items:
+                            properties:
+                              vpcId:
+                                description: Specifies the ID of VPC.
+                                type: string
+                              vpcName:
+                                description: Specifies the name of the VPC that can
+                                  trigger the function.
+                                type: string
+                            type: object
+                          type: array
+                      type: object
+                    type: array
                   networkId:
                     description: Specifies the network ID of subnet.
                     type: string
+                  peeringCidr:
+                    description: |-
+                      Specifies the VPC cidr blocks used in the function code to detect whether it
+                      conflicts with the VPC cidr blocks used by the service.
+                      The cidr blocks are separated by semicolons and cannot exceed 5.
+                    type: string
+                  preStopHandler:
+                    description: |-
+                      Specifies the pre-stop handler of a function. The value must contain a period (.)
+                      in the format of xx.xx. For example, for Node.js function myfunction.pre_stop_handler, the file name is myfunction.js,
+                      and the initialization function is pre_stop_handler.
+                    type: string
+                  preStopTimeout:
+                    description: 'Specifies the maximum duration the function can
+                      be initialized. Value range: 1s-90s.'
+                    type: number
                   reservedInstances:
                     description: |-
                       Specifies the reserved instance policies of the function.
@@ -582,6 +823,14 @@ spec:
                           type: array
                       type: object
                     type: array
+                  restoreHookHandler:
+                    description: Specifies the entry point of the function.
+                    type: string
+                  restoreHookTimeout:
+                    description: |-
+                      Specifies the timeout interval of the function, in seconds.
+                      The value ranges from 3 to 900.
+                    type: number
                   runtime:
                     description: |-
                       Specifies the environment for executing the function.
@@ -623,10 +872,11 @@ spec:
                                 type: string
                             type: object
                           type: array
+                        description:
+                          description: Specifies the description of the function.
+                          type: string
                         name:
-                          description: |-
-                            Specifies the version name.
-                            The version name.
+                          description: Specifies the version name.
                           type: string
                       type: object
                     type: array
@@ -828,6 +1078,12 @@ spec:
                       Specifies the agency. This parameter is mandatory if the function needs to access other
                       cloud services.
                     type: string
+                  allowEphemeralStorage:
+                    description: Indicates whether ephemeral storage can be configured.
+                    type: boolean
+                  apigRouteEnable:
+                    description: Whether to configure gateway routing rules.
+                    type: boolean
                   app:
                     description: Specifies the group to which the function belongs.
                     type: string
@@ -852,17 +1108,44 @@ spec:
                   concurrencyNum:
                     description: |-
                       Specifies the number of concurrent requests of the function.
-                      The valid value ranges from 1 to 1,000, the default value is 1.
+                      The valid value is range from 1 to 1,000, the default value is 1.
                     type: number
                   customImage:
                     description: |-
-                      Specifies the custom image configuration for creating function.
+                      Specifies the custom image configuration of the function.
                       The custom_image structure is documented below.
+                      Required if the parameter code_type is Custom-Image-Swr.
                     items:
                       properties:
+                        args:
+                          description: |-
+                            Specifies the command line arguments used to start the SWR image.
+                            If multiple arguments are separated by commas (,). e.g. -args,value.
+                            If this parameter is not specified, the CMD in the image configuration will be used by default.
+                          type: string
+                        command:
+                          description: |-
+                            Specifies the startup commands of the SWR image.
+                            Multiple commands are separated by commas (,). e.g. /bin/sh.
+                            If this parameter is not specified, the entrypoint or CMD in the image configuration will be used by default.
+                          type: string
                         url:
                           description: Specifies the URL of SWR image, the URL must
                             start with swr..
+                          type: string
+                        userGroupId:
+                          description: The resource ID, consist of urn and current
+                            version, the format is <urn>:<version>.
+                          type: string
+                        userId:
+                          description: The resource ID, consist of urn and current
+                            version, the format is <urn>:<version>.
+                          type: string
+                        workingDir:
+                          description: |-
+                            Specifies the working directory of the SWR image.
+                            If not specified, the default value is /.
+                            Currently, the folder path can only be set to / and it cannot be created or modified.
                           type: string
                       type: object
                     type: array
@@ -876,7 +1159,39 @@ spec:
                     description: Specifies the description of the function.
                     type: string
                   dnsList:
-                    description: The private DNS configuration of the function network.
+                    description: |-
+                      Specifies the private DNS configuration of the function network.
+                      Private DNS list is associated to the function by a string in the following format:
+                      [{\"id\":\"ff8080828a07ffea018a17184aa310f5\","domain_name":"functiondebug.example1.com."}]
+                    type: string
+                  enableAuthInHeader:
+                    description: |-
+                      Specifies whether the authentication in the request header is enabled.
+                      Defaults to false.
+                    type: boolean
+                  enableClassIsolation:
+                    description: Specifies whether to enable class isolation.
+                    type: boolean
+                  enableDynamicMemory:
+                    description: Specifies whether to enable dynamic memory allocation.
+                    type: boolean
+                  enableLtsLog:
+                    description: |-
+                      Specifies whether to enable the LTS logging feature.
+                      The valid values are as follows:
+                    type: boolean
+                  enterpriseProjectId:
+                    description: |-
+                      Specifies the ID of the enterprise project to which the
+                      function belongs.
+                    type: string
+                  ephemeralStorage:
+                    description: |-
+                      Specifies the size of the function ephemeral storage.
+                      The valid values are as follows:
+                    type: number
+                  extendConfig:
+                    description: The extended configuration.
                     type: string
                   funcCode:
                     description: |-
@@ -922,6 +1237,12 @@ spec:
                   handler:
                     description: Specifies the entry point of the function.
                     type: string
+                  heartbeatHandler:
+                    description: |-
+                      Specifies the heartbeat handler of the function.
+                      The rule is xx.xx, such as com.huawei.demo.TriggerTests.heartBeat, it must contain periods (.).
+                      The heartbeat function entry must be in the same file as the function execution entry.
+                    type: string
                   id:
                     description: The resource ID, consist of urn and current version,
                       the format is <urn>:<version>.
@@ -934,6 +1255,11 @@ spec:
                       Specifies the maximum duration the function can be initialized. Value range:
                       1s to 300s.
                     type: number
+                  isStatefulFunction:
+                    description: |-
+                      Specifies whether the function is a stateful function.
+                      Defaults to false.
+                    type: boolean
                   logGroupId:
                     description: Specifies the ID of the LTS log group.
                     type: string
@@ -946,6 +1272,14 @@ spec:
                   logTopicName:
                     description: Specifies the name of the LTS stream.
                     type: string
+                  ltsCustomTag:
+                    additionalProperties:
+                      type: string
+                    description: |-
+                      Specifies the custom tags configuration that used to filter the LTS logs.
+                      This parameter is available only when enable_lts_log is set to true.
+                    type: object
+                    x-kubernetes-map-type: granular
                   maxInstanceNum:
                     description: |-
                       Specifies the maximum number of instances of the function.
@@ -970,9 +1304,52 @@ spec:
                       Specifies the name of the function.
                       Changing this will create a new resource.
                     type: string
+                  networkController:
+                    description: |-
+                      Specifies the network configuration of the function.
+                      The network_controller structure is documented below.
+                    items:
+                      properties:
+                        disablePublicNetwork:
+                          description: Specifies whether to disable the public network
+                            access.
+                          type: boolean
+                        triggerAccessVpcs:
+                          description: |-
+                            Specifies the configuration of the VPCs that can trigger the function.
+                            The trigger_access_vpcs structure is documented below.
+                          items:
+                            properties:
+                              vpcId:
+                                description: Specifies the ID of VPC.
+                                type: string
+                              vpcName:
+                                description: Specifies the name of the VPC that can
+                                  trigger the function.
+                                type: string
+                            type: object
+                          type: array
+                      type: object
+                    type: array
                   networkId:
                     description: Specifies the network ID of subnet.
                     type: string
+                  peeringCidr:
+                    description: |-
+                      Specifies the VPC cidr blocks used in the function code to detect whether it
+                      conflicts with the VPC cidr blocks used by the service.
+                      The cidr blocks are separated by semicolons and cannot exceed 5.
+                    type: string
+                  preStopHandler:
+                    description: |-
+                      Specifies the pre-stop handler of a function. The value must contain a period (.)
+                      in the format of xx.xx. For example, for Node.js function myfunction.pre_stop_handler, the file name is myfunction.js,
+                      and the initialization function is pre_stop_handler.
+                    type: string
+                  preStopTimeout:
+                    description: 'Specifies the maximum duration the function can
+                      be initialized. Value range: 1s-90s.'
+                    type: number
                   region:
                     description: The region in which function graph resource is created.
                     type: string
@@ -1038,6 +1415,14 @@ spec:
                           type: array
                       type: object
                     type: array
+                  restoreHookHandler:
+                    description: Specifies the entry point of the function.
+                    type: string
+                  restoreHookTimeout:
+                    description: |-
+                      Specifies the timeout interval of the function, in seconds.
+                      The value ranges from 3 to 900.
+                    type: number
                   runtime:
                     description: |-
                       Specifies the environment for executing the function.
@@ -1085,10 +1470,11 @@ spec:
                                 type: string
                             type: object
                           type: array
+                        description:
+                          description: Specifies the description of the function.
+                          type: string
                         name:
-                          description: |-
-                            Specifies the version name.
-                            The version name.
+                          description: Specifies the version name.
                           type: string
                       type: object
                     type: array

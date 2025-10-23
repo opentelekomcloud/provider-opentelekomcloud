@@ -1,0 +1,18 @@
+apiVersion: vpc.opentelekomcloud.crossplane.io/v1alpha1
+kind: SecgroupRuleV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/secgrouprulev3
+  labels:
+    testing.upbound.io/example-name: rule_1
+  name: rule-1
+spec:
+  forProvider:
+    action: allow
+    description: some basic security rule
+    direction: ingress
+    multiPort: "8080"
+    priority: 1
+    protocol: tcp
+    remoteIpPrefix: 10.10.0.0/16
+    securityGroupId: ${var.security_group_id}

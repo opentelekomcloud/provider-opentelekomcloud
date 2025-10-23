@@ -78,17 +78,8 @@ spec:
                       Specifies a list of self-built Microsoft SQL Server databases that are partially backed up.
                       (Only Microsoft SQL Server support partial backups.)
                     items:
-                      properties:
-                        name:
-                          description: The name of the backup.
-                          type: string
-                      type: object
+                      type: string
                     type: array
-                  description:
-                    description: |-
-                      Specifies the backup description.
-                      It contains a maximum of 256 characters and cannot contain the following special characters: >!<"&'=
-                    type: string
                   instanceId:
                     description: The ID of the RDS instance to which the backup belongs.
                     type: string
@@ -168,14 +159,6 @@ spec:
                     type: object
                   name:
                     description: The name of the backup.
-                    type: string
-                  type:
-                    description: |-
-                      Indicates the backup type. Value:
-                      - auto: automated full backup
-                      - manual: manual full backup
-                      - fragment: differential full backup
-                      - incremental: automated incremental backup
                     type: string
                 type: object
               initProvider:
@@ -196,17 +179,8 @@ spec:
                       Specifies a list of self-built Microsoft SQL Server databases that are partially backed up.
                       (Only Microsoft SQL Server support partial backups.)
                     items:
-                      properties:
-                        name:
-                          description: The name of the backup.
-                          type: string
-                      type: object
+                      type: string
                     type: array
-                  description:
-                    description: |-
-                      Specifies the backup description.
-                      It contains a maximum of 256 characters and cannot contain the following special characters: >!<"&'=
-                    type: string
                   instanceId:
                     description: The ID of the RDS instance to which the backup belongs.
                     type: string
@@ -286,14 +260,6 @@ spec:
                     type: object
                   name:
                     description: The name of the backup.
-                    type: string
-                  type:
-                    description: |-
-                      Indicates the backup type. Value:
-                      - auto: automated full backup
-                      - manual: manual full backup
-                      - fragment: differential full backup
-                      - incremental: automated incremental backup
                     type: string
                 type: object
               managementPolicies:
@@ -486,17 +452,8 @@ spec:
                       Specifies a list of self-built Microsoft SQL Server databases that are partially backed up.
                       (Only Microsoft SQL Server support partial backups.)
                     items:
-                      properties:
-                        name:
-                          description: The name of the backup.
-                          type: string
-                      type: object
+                      type: string
                     type: array
-                  description:
-                    description: |-
-                      Specifies the backup description.
-                      It contains a maximum of 256 characters and cannot contain the following special characters: >!<"&'=
-                    type: string
                   id:
                     description: The ID of the backup.
                     type: string
@@ -510,7 +467,7 @@ spec:
                     type: number
                   status:
                     description: |-
-                      Indicates the backup status. Value:
+                      Indicates the backup status. Values:
                       - BUILDING: Backup in progress
                       - COMPLETED: Backup completed
                       - FAILED: Backup failed
@@ -518,7 +475,7 @@ spec:
                     type: string
                   type:
                     description: |-
-                      Indicates the backup type. Value:
+                      Indicates the backup type. Values:
                       - auto: automated full backup
                       - manual: manual full backup
                       - fragment: differential full backup

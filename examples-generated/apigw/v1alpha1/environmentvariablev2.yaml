@@ -1,0 +1,15 @@
+apiVersion: apigw.opentelekomcloud.crossplane.io/v1alpha1
+kind: EnvironmentVariableV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: apigw/v1alpha1/environmentvariablev2
+  labels:
+    testing.upbound.io/example-name: var
+  name: var
+spec:
+  forProvider:
+    environmentId: ${var.environment_id}
+    gatewayId: ${var.gateway_id}
+    groupId: ${var.group_id}
+    name: ${var.variable_name}
+    value: ${var.variable_value}

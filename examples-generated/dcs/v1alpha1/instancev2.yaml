@@ -9,50 +9,30 @@ metadata:
 spec:
   forProvider:
     availabilityZones:
-    - eu-de-01
-    backupPolicy:
-    - backupAt:
-      - 1
-      - 2
-      - 4
-      - 6
-      backupType: manual
-      beginAt: 00:00-01:00
-      periodType: weekly
-      saveDays: 1
-    capacity: 2
+    - ${data.opentelekomcloud_compute_availability_zones_v2.zones.names[0]}
+    capacity: 0.125
+    enableWhitelist: true
     engine: Redis
-    engineVersion: "3.0"
-    flavor: dcs.master_standby
-    name: test_dcs_instance
+    engineVersion: "5.0"
+    flavor: redis.single.xu1.tiny.128
+    name: test_dcs_instance_5.0
     passwordSecretRef:
       key: example-key
       name: example-secret
       namespace: upbound-system
-    securityGroupIdSelector:
-      matchLabels:
-        testing.upbound.io/example-name: secgroup_1
     subnetIdSelector:
       matchLabels:
-        testing.upbound.io/example-name: example
-    tags:
-      environment: basic
-      managed_by: terraform
+        testing.upbound.io/example-name: opentelekomcloud_vpc_subnet_v1
     vpcIdSelector:
       matchLabels:
-        testing.upbound.io/example-name: example
-
----
-
-apiVersion: networking.opentelekomcloud.crossplane.io/v1alpha1
-kind: SecgroupV2
-metadata:
-  annotations:
-    meta.upbound.io/example-id: dcs/v1alpha1/instancev2
-  labels:
-    testing.upbound.io/example-name: secgroup_1
-  name: secgroup-1
-spec:
-  forProvider:
-    description: secgroup_1
-    name: secgroup_1
+        testing.upbound.io/example-name: opentelekomcloud_vpc_subnet_v1
+    whitelist:
+    - groupName: test-group-name
+      ipList:
+      - 10.10.10.1
+      - 10.10.10.2
+    - groupName: test-group-name-2
+      ipList:
+      - 10.10.10.11
+      - 10.10.10.3
+      - 10.10.10.4

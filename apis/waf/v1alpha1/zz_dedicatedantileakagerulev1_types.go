@@ -15,6 +15,10 @@ import (
 
 type DedicatedAntiLeakageRuleV1InitParameters struct {
 
+	// Protective action of the Anti Leakage rule.
+	// Values:
+	Action *string `json:"action,omitempty" tf:"action,omitempty"`
+
 	// Sensitive information type in the information leakage prevention rule.
 	// Values:
 	Category *string `json:"category,omitempty" tf:"category,omitempty"`
@@ -34,6 +38,10 @@ type DedicatedAntiLeakageRuleV1InitParameters struct {
 }
 
 type DedicatedAntiLeakageRuleV1Observation struct {
+
+	// Protective action of the Anti Leakage rule.
+	// Values:
+	Action *string `json:"action,omitempty" tf:"action,omitempty"`
 
 	// Sensitive information type in the information leakage prevention rule.
 	// Values:
@@ -63,6 +71,11 @@ type DedicatedAntiLeakageRuleV1Observation struct {
 }
 
 type DedicatedAntiLeakageRuleV1Parameters struct {
+
+	// Protective action of the Anti Leakage rule.
+	// Values:
+	// +kubebuilder:validation:Optional
+	Action *string `json:"action,omitempty" tf:"action,omitempty"`
 
 	// Sensitive information type in the information leakage prevention rule.
 	// Values:
@@ -123,6 +136,7 @@ type DedicatedAntiLeakageRuleV1Status struct {
 type DedicatedAntiLeakageRuleV1 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.action) || (has(self.initProvider) && has(self.initProvider.action))",message="spec.forProvider.action is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.category) || (has(self.initProvider) && has(self.initProvider.category))",message="spec.forProvider.category is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.contents) || (has(self.initProvider) && has(self.initProvider.contents))",message="spec.forProvider.contents is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.policyId) || (has(self.initProvider) && has(self.initProvider.policyId))",message="spec.forProvider.policyId is a required parameter"

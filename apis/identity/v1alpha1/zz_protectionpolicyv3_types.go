@@ -17,6 +17,16 @@ type ProtectionPolicyV3InitParameters struct {
 
 	// = false
 	EnableOperationProtectionPolicy *bool `json:"enableOperationProtectionPolicy,omitempty" tf:"enable_operation_protection_policy,omitempty"`
+
+	// Specifies the attributes IAM users can modify.
+	// The object structure is documented below.
+	SelfManagement []SelfManagementInitParameters `json:"selfManagement,omitempty" tf:"self_management,omitempty"`
+
+	// Specifies the email address used for verification. An example value is example@email.com.
+	VerificationEmail *string `json:"verificationEmail,omitempty" tf:"verification_email,omitempty"`
+
+	// Specifies the mobile number used for verification.
+	VerificationMobile *string `json:"verificationMobile,omitempty" tf:"verification_mobile,omitempty"`
 }
 
 type ProtectionPolicyV3Observation struct {
@@ -26,6 +36,19 @@ type ProtectionPolicyV3Observation struct {
 
 	// The ID of account protection policy, which is the same as the domain ID.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// Specifies the attributes IAM users can modify.
+	// The object structure is documented below.
+	SelfManagement []SelfManagementObservation `json:"selfManagement,omitempty" tf:"self_management,omitempty"`
+
+	// Indicates whether the IAM users perform verification by themselves.
+	SelfVerification *bool `json:"selfVerification,omitempty" tf:"self_verification,omitempty"`
+
+	// Specifies the email address used for verification. An example value is example@email.com.
+	VerificationEmail *string `json:"verificationEmail,omitempty" tf:"verification_email,omitempty"`
+
+	// Specifies the mobile number used for verification.
+	VerificationMobile *string `json:"verificationMobile,omitempty" tf:"verification_mobile,omitempty"`
 }
 
 type ProtectionPolicyV3Parameters struct {
@@ -33,6 +56,68 @@ type ProtectionPolicyV3Parameters struct {
 	// = false
 	// +kubebuilder:validation:Optional
 	EnableOperationProtectionPolicy *bool `json:"enableOperationProtectionPolicy,omitempty" tf:"enable_operation_protection_policy,omitempty"`
+
+	// Specifies the attributes IAM users can modify.
+	// The object structure is documented below.
+	// +kubebuilder:validation:Optional
+	SelfManagement []SelfManagementParameters `json:"selfManagement,omitempty" tf:"self_management,omitempty"`
+
+	// Specifies the email address used for verification. An example value is example@email.com.
+	// +kubebuilder:validation:Optional
+	VerificationEmail *string `json:"verificationEmail,omitempty" tf:"verification_email,omitempty"`
+
+	// Specifies the mobile number used for verification.
+	// +kubebuilder:validation:Optional
+	VerificationMobile *string `json:"verificationMobile,omitempty" tf:"verification_mobile,omitempty"`
+}
+
+type SelfManagementInitParameters struct {
+
+	// Specifies whether to allow IAM users to manage access keys by themselves.
+	AccessKey *bool `json:"accessKey,omitempty" tf:"access_key,omitempty"`
+
+	// Specifies whether to allow IAM users to change their email addresses.
+	Email *bool `json:"email,omitempty" tf:"email,omitempty"`
+
+	// Specifies whether to allow IAM users to change their mobile numbers.
+	Mobile *bool `json:"mobile,omitempty" tf:"mobile,omitempty"`
+
+	// Specifies whether to allow IAM users to change their passwords.
+	Password *bool `json:"password,omitempty" tf:"password,omitempty"`
+}
+
+type SelfManagementObservation struct {
+
+	// Specifies whether to allow IAM users to manage access keys by themselves.
+	AccessKey *bool `json:"accessKey,omitempty" tf:"access_key,omitempty"`
+
+	// Specifies whether to allow IAM users to change their email addresses.
+	Email *bool `json:"email,omitempty" tf:"email,omitempty"`
+
+	// Specifies whether to allow IAM users to change their mobile numbers.
+	Mobile *bool `json:"mobile,omitempty" tf:"mobile,omitempty"`
+
+	// Specifies whether to allow IAM users to change their passwords.
+	Password *bool `json:"password,omitempty" tf:"password,omitempty"`
+}
+
+type SelfManagementParameters struct {
+
+	// Specifies whether to allow IAM users to manage access keys by themselves.
+	// +kubebuilder:validation:Optional
+	AccessKey *bool `json:"accessKey,omitempty" tf:"access_key,omitempty"`
+
+	// Specifies whether to allow IAM users to change their email addresses.
+	// +kubebuilder:validation:Optional
+	Email *bool `json:"email,omitempty" tf:"email,omitempty"`
+
+	// Specifies whether to allow IAM users to change their mobile numbers.
+	// +kubebuilder:validation:Optional
+	Mobile *bool `json:"mobile,omitempty" tf:"mobile,omitempty"`
+
+	// Specifies whether to allow IAM users to change their passwords.
+	// +kubebuilder:validation:Optional
+	Password *bool `json:"password,omitempty" tf:"password,omitempty"`
 }
 
 // ProtectionPolicyV3Spec defines the desired state of ProtectionPolicyV3

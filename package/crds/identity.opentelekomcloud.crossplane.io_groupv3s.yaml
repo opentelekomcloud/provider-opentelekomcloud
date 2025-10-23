@@ -80,7 +80,7 @@ spec:
                     description: The domain this group belongs to.
                     type: string
                   name:
-                    description: The name of the group.The length is less than or
+                    description: The name of the group. The length is less than or
                       equal to 64 bytes.
                     type: string
                   region:
@@ -106,7 +106,7 @@ spec:
                     description: The domain this group belongs to.
                     type: string
                   name:
-                    description: The name of the group.The length is less than or
+                    description: The name of the group. The length is less than or
                       equal to 64 bytes.
                     type: string
                   region:
@@ -296,9 +296,10 @@ spec:
                     description: The domain this group belongs to.
                     type: string
                   id:
+                    description: The resource ID
                     type: string
                   name:
-                    description: The name of the group.The length is less than or
+                    description: The name of the group. The length is less than or
                       equal to 64 bytes.
                     type: string
                   region:

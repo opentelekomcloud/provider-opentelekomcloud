@@ -1,0 +1,11 @@
+apiVersion: rts.opentelekomcloud.crossplane.io/v1alpha1
+kind: SoftwareConfigV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: rts/v1alpha1/softwareconfigv1
+  labels:
+    testing.upbound.io/example-name: myconfig
+  name: myconfig
+spec:
+  forProvider:
+    name: ${var.config_name}

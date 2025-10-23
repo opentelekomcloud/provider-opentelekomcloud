@@ -10,7 +10,7 @@ spec:
   forProvider:
     datastore:
     - type: mysql
-      version: "5.6"
+      version: "8.0"
     description: some description here
     name: pg_1
     values:

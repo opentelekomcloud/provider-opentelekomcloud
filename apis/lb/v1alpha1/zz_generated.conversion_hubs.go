@@ -19,6 +19,9 @@ func (tr *ListenerV3) Hub() {}
 func (tr *LoadbalancerV3) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *LtsLogV3) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *MemberV3) Hub() {}
 
 // Hub marks this type as a conversion hub.

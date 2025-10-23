@@ -10,4 +10,7 @@ package v1alpha1
 func (tr *GrantV1) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *KeyMaterialV1) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *KeyV1) Hub() {}

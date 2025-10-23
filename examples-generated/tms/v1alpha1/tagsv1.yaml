@@ -1,0 +1,13 @@
+apiVersion: tms.opentelekomcloud.crossplane.io/v1alpha1
+kind: TagsV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: tms/v1alpha1/tagsv1
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    tags:
+    - key: foo
+      value: bar

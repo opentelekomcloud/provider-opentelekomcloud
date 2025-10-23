@@ -8,6 +8,7 @@ metadata:
   name: rule-1
 spec:
   forProvider:
+    action: block
     category: sensitive
     contents:
     - id_card

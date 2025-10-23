@@ -80,8 +80,9 @@ spec:
                     type: boolean
                   isEnabled:
                     description: |-
-                      Specifies whether the key is enabled. Defaults to true.
-                      Changing this updates the state of existing key.
+                      Specifies whether the KMS key is enabled.
+                      The default value is true.
+                      This parameter is not supported when creating an external import key for the first time.
                     type: boolean
                   keyAlias:
                     description: |-
@@ -92,6 +93,12 @@ spec:
                     description: |-
                       The description of the key as viewed in OpenTelekomCloud console.
                       Changing this updates the description of key.
+                    type: string
+                  origin:
+                    description: |-
+                      Specifies the source of the KMS key.
+                      Changing this parameter will create a new resource.
+                      The default value is kms. The valid values are as follows:
                     type: string
                   pendingDays:
                     description: |-
@@ -140,8 +147,9 @@ spec:
                     type: boolean
                   isEnabled:
                     description: |-
-                      Specifies whether the key is enabled. Defaults to true.
-                      Changing this updates the state of existing key.
+                      Specifies whether the KMS key is enabled.
+                      The default value is true.
+                      This parameter is not supported when creating an external import key for the first time.
                     type: boolean
                   keyAlias:
                     description: |-
@@ -152,6 +160,12 @@ spec:
                     description: |-
                       The description of the key as viewed in OpenTelekomCloud console.
                       Changing this updates the description of key.
+                    type: string
+                  origin:
+                    description: |-
+                      Specifies the source of the KMS key.
+                      Changing this parameter will create a new resource.
+                      The default value is kms. The valid values are as follows:
                     type: string
                   pendingDays:
                     description: |-
@@ -381,8 +395,9 @@ spec:
                     type: string
                   isEnabled:
                     description: |-
-                      Specifies whether the key is enabled. Defaults to true.
-                      Changing this updates the state of existing key.
+                      Specifies whether the KMS key is enabled.
+                      The default value is true.
+                      This parameter is not supported when creating an external import key for the first time.
                     type: boolean
                   keyAlias:
                     description: |-
@@ -394,8 +409,16 @@ spec:
                       The description of the key as viewed in OpenTelekomCloud console.
                       Changing this updates the description of key.
                     type: string
+                  keyState:
+                    description: |-
+                      The current status of the KMS key.
+                      The valid values are as follows:
+                    type: string
                   origin:
-                    description: Origin of a key. The default value is kms.
+                    description: |-
+                      Specifies the source of the KMS key.
+                      Changing this parameter will create a new resource.
+                      The default value is kms. The valid values are as follows:
                     type: string
                   pendingDays:
                     description: |-

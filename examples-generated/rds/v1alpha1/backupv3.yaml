@@ -8,25 +8,7 @@ metadata:
   name: test
 spec:
   forProvider:
-    description: manual
     instanceIdSelector:
       matchLabels:
         testing.upbound.io/example-name: instance
     name: rds-backup-test-01
-
----
-
-apiVersion: rds.opentelekomcloud.crossplane.io/v1alpha1
-kind: InstanceV3
-metadata:
-  annotations:
-    meta.upbound.io/example-id: rds/v1alpha1/backupv3
-  labels:
-    testing.upbound.io/example-name: instance
-  name: instance
-spec:
-  forProvider:
-    datastore: percona
-    engine: mysql
-    flavor_ref: rds.mysql.s1.large
-    name: test-instance

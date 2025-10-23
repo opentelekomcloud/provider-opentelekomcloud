@@ -1,0 +1,2432 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.16.5
+  name: apiv2s.apigw.opentelekomcloud.crossplane.io
+spec:
+  group: apigw.opentelekomcloud.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - opentelekomcloud
+    kind: APIV2
+    listKind: APIV2List
+    plural: apiv2s
+    singular: apiv2
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: APIV2 is the Schema for the APIV2s API. Manages a APIGW API resource
+          within OpenTelekomCloud.
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: APIV2Spec defines the desired state of APIV2
+            properties:
+              deletionPolicy:
+                default: Delete
+                description: |-
+                  DeletionPolicy specifies what will happen to the underlying external
+                  when this managed resource is deleted - either "Delete" or "Orphan" the
+                  external resource.
+                  This field is planned to be deprecated in favor of the ManagementPolicies
+                  field in a future release. Currently, both could be set independently and
+                  non-default values would be honored if the feature flag is enabled.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                enum:
+                - Orphan
+                - Delete
+                type: string
+              forProvider:
+                properties:
+                  authorizerId:
+                    description: |-
+                      Specifies the ID of the authorizer to which the API request used.
+                      It is Required when security_authentication_type is AUTHORIZER.
+                    type: string
+                  backendParams:
+                    description: |-
+                      Specifies the configurations of the backend parameters.
+                      The object structure is documented below.
+                    items:
+                      properties:
+                        description:
+                          description: |-
+                            Specifies the description of the constant or system parameter.
+                            The description contains a maximum of 255 characters and the angle brackets (< and >) are not allowed.
+                          type: string
+                        location:
+                          description: |-
+                            Specifies the location of the backend parameter.
+                            The valid values are PATH, QUERY and HEADER.
+                          type: string
+                        name:
+                          description: |-
+                            Specifies the backend parameter name, which contain of 1 to 32 characters and start with a
+                            letter. Only letters, digits, hyphens (-), underscores (_) and periods (.) are allowed. The parameter name is not
+                            case-sensitive. It cannot start with x-apig- or x-sdk- and cannot be x-stage. If the location is specified as
+                            HEADER, the name cannot contain underscores.
+                          type: string
+                        systemParamType:
+                          description: |-
+                            Specifies the type of the system parameter.
+                            The valid values are frontend, backend and internal, defaults to internal.
+                          type: string
+                        type:
+                          description: |-
+                            Specifies the backend parameter type.
+                            The valid values are REQUEST, CONSTANT and SYSTEM.
+                          type: string
+                        value:
+                          description: Specifies the request parameter name corresponding
+                            to the back-end request parameter.
+                          type: string
+                      type: object
+                    type: array
+                  bodyDescription:
+                    description: |-
+                      Specifies the description of the API request body, which can be an example
+                      request body, media type or parameters.
+                      The request body does not exceed 20,480 characters.
+                    type: string
+                  cors:
+                    description: Specifies whether CORS is supported, defaults to
+                      false.
+                    type: boolean
+                  description:
+                    description: |-
+                      Specifies the API description.
+                      The description contains a maximum of 255 characters and the angle brackets (< and >) are not allowed.
+                    type: string
+                  failureResponse:
+                    description: |-
+                      Specifies the example response for a failure request.
+                      The response contains a maximum of 20,480 characters.
+                    type: string
+                  funcGraph:
+                    description: |-
+                      Specifies the function graph backend details.
+                      The object structure is documented below.
+                      Changing this will create a new API resource.
+                    items:
+                      properties:
+                        authorizerId:
+                          description: Specifies the ID of the backend custom authorization.
+                          type: string
+                        description:
+                          description: |-
+                            Specifies the description of the constant or system parameter.
+                            The description contains a maximum of 255 characters and the angle brackets (< and >) are not allowed.
+                          type: string
+                        functionUrn:
+                          description: Specifies the URN of the FunctionGraph function.
+                          type: string
+                        invocationType:
+                          description: |-
+                            Specifies the invocation type.
+                            The valid values are async and sync, defaults to sync.
+                          type: string
+                        networkType:
+                          description: |-
+                            Function network architecture.
+                            The valid values are VPC and NON-VPC, defaults to NON-VPC.
+                          type: string
+                        timeout:
+                          description: |-
+                            Specifies the timeout for API requests to backend service.
+                            The valid value is range form 1 to 600,000, defaults to 5,000.
+                          type: number
+                        version:
+                          description: Specifies the function version.
+                          type: string
+                      type: object
+                    type: array
+                  funcGraphPolicy:
+                    description: |-
+                      Specifies the Mock policy backends.
+                      The maximum blocks of the policy is 5.
+                      The object structure is documented below.
+                    items:
+                      properties:
+                        authorizerId:
+                          description: Specifies the ID of the backend custom authorization.
+                          type: string
+                        backendParams:
+                          description: |-
+                            Specifies the configuration list of the backend parameters.
+                            The maximum of request parameters is 50.
+                            The object structure is documented above.
+                          items:
+                            properties:
+                              description:
+                                description: |-
+                                  Specifies the description of the request parameter.
+                                  The description contains a maximum of 255 characters and the angle brackets (< and >) are not allowed.
+                                type: string
+                              location:
+                                description: |-
+                                  Specifies the location of the request parameter.
+                                  The valid values are PATH, QUERY and HEADER, defaults to PATH.
+                                type: string
+                              name:
+                                description: |-
+                                  Specifies the request parameter name.
+                                  The valid length is limited from can contain 1 to 32, only letters, digits, hyphens (-), underscores (_) and
+                                  periods (.) are allowed.
+                                  If Location is specified as HEADER and security_authentication_type is specified as APP, the parameter name
+                                  cannot be Authorization (case-insensitive) and cannot contain underscores.
+                                type: string
+                              systemParamType:
+                                description: |-
+                                  Specifies the type of the system parameter.
+                                  The valid values are frontend, backend and internal, defaults to internal.
+                                type: string
+                              type:
+                                description: |-
+                                  Specifies the API type.
+                                  The valid values are Public and Private.
+                                type: string
+                              value:
+                                description: |-
+                                  Specifies the value of the backend policy.
+                                  For a condition with the input parameter source:
+                                type: string
+                            type: object
+                          type: array
+                        conditions:
+                          description: |-
+                            Specifies an array of one or more policy conditions.
+                            Up to five conditions can be set.
+                            The object structure is documented below.
+                          items:
+                            properties:
+                              origin:
+                                description: |-
+                                  Specifies the backend policy type.
+                                  The valid values are param, source, defaults to source.
+                                type: string
+                              paramName:
+                                description: |-
+                                  Specifies the request parameter name.
+                                  This parameter is required if the policy type is param. The valid values are user_age and X-TEST-ENUM.
+                                type: string
+                              type:
+                                description: |-
+                                  Specifies the API type.
+                                  The valid values are Public and Private.
+                                type: string
+                              value:
+                                description: |-
+                                  Specifies the value of the backend policy.
+                                  For a condition with the input parameter source:
+                                type: string
+                            type: object
+                          type: array
+                        effectiveMode:
+                          description: |-
+                            Specifies the effective mode of the backend policy.
+                            The valid values are ALL and ANY, defaults to ANY.
+                          type: string
+                        functionUrn:
+                          description: Specifies the URN of the FunctionGraph function.
+                          type: string
+                        invocationType:
+                          description: |-
+                            Specifies the invocation type.
+                            The valid values are async and sync, defaults to sync.
+                          type: string
+                        name:
+                          description: |-
+                            Specifies the backend policy name.
+                            The valid length is limited from can contain 3 to 64, only letters, digits and underscores (_) are allowed.
+                          type: string
+                        networkType:
+                          description: |-
+                            Function network architecture.
+                            The valid values are VPC and NON-VPC, defaults to NON-VPC.
+                          type: string
+                        timeout:
+                          description: |-
+                            Specifies the timeout for API requests to backend service, the unit is ms.
+                            The valid value ranges from 1 to 600,000, defaults to 5,000.
+                          type: number
+                        version:
+                          description: Specifies the version of the FunctionGraph
+                            function.
+                          type: string
+                      type: object
+                    type: array
+                  gatewayId:
+                    description: |-
+                      Specifies an ID of the APIG dedicated instance to which the API belongs
+                      to. Changing this will create a new API resource.
+                    type: string
+                  groupId:
+                    description: Specifies an ID of the APIG group to which the API
+                      belongs to.
+                    type: string
+                  http:
+                    description: |-
+                      Specifies the web backend details.
+                      The object structure is documented below. Changing this will create a new API resource.
+                    items:
+                      properties:
+                        authorizerId:
+                          description: Specifies the ID of the backend custom authorization.
+                          type: string
+                        description:
+                          description: |-
+                            Specifies the description of the constant or system parameter.
+                            The description contains a maximum of 255 characters and the angle brackets (< and >) are not allowed.
+                          type: string
+                        requestMethod:
+                          description: |-
+                            Specifies the backend request method of the API.
+                            The valid values are GET, POST, PUT, DELETE, HEAD, PATCH, OPTIONS and ANY.
+                          type: string
+                        requestProtocol:
+                          description: |-
+                            Specifies the backend request protocol.
+                            The valid values are HTTP and HTTPS, defaults to HTTPS.
+                          type: string
+                        requestUri:
+                          description: |-
+                            Specifies the backend request address, which can contain a maximum of 512 characters and
+                            must comply with URI specifications.
+                          type: string
+                        retryCount:
+                          description: |-
+                            Specifies the number of retry attempts to request the backend service.
+                            The valid value ranges from -1 to 10, defaults to -1.
+                            -1 indicates that idempotent APIs will retry once and non-idempotent APIs will not retry.
+                            POST and PATCH are not-idempotent.
+                            GET, HEAD, PUT, OPTIONS and DELETE are idempotent.
+                          type: number
+                        sslEnable:
+                          description: Specifies whether to enable two-way authentication,
+                            defaults to false.
+                          type: boolean
+                        timeout:
+                          description: |-
+                            Specifies the timeout for API requests to backend service, the unit is ms.
+                            The valid value ranges from 1 to 600,000, defaults to 5,000.
+                          type: number
+                        urlDomain:
+                          description: |-
+                            Backend service address.
+                            A backend service address consists of a domain name or IP address and a port number,
+                            with not more than 255 characters. It must be in the format Host name:Port number,
+                            for example, apig.example.com:7443. If the port number is not specified, the default HTTPS port 443 or the default HTTP port 80 is used.
+                          type: string
+                        version:
+                          description: Specifies the function version.
+                          type: string
+                        vpcChannelId:
+                          description: |-
+                            Specifies the VPC channel ID. This parameter and url_domain are
+                            alternative.
+                          type: string
+                        vpcChannelProxyHost:
+                          description: |-
+                            Specifies the proxy host header.
+                            The host header can be customized for requests to be forwarded to cloud servers through the VPC channel.
+                            By default, the original host header of the request is used.
+                          type: string
+                      type: object
+                    type: array
+                  httpPolicy:
+                    description: |-
+                      Specifies the example response for a failed request.
+                      The maximum blocks of the policy is 5.
+                      The object structure is documented below.
+                    items:
+                      properties:
+                        authorizerId:
+                          description: Specifies the ID of the backend custom authorization.
+                          type: string
+                        backendParams:
+                          description: |-
+                            Specifies an array of one or more backend parameters. The maximum of request
+                            parameters is 50. The object structure is documented above.
+                          items:
+                            properties:
+                              description:
+                                description: |-
+                                  Specifies the description of the request parameter.
+                                  The description contains a maximum of 255 characters and the angle brackets (< and >) are not allowed.
+                                type: string
+                              location:
+                                description: |-
+                                  Specifies the location of the request parameter.
+                                  The valid values are PATH, QUERY and HEADER, defaults to PATH.
+                                type: string
+                              name:
+                                description: |-
+                                  Specifies the request parameter name.
+                                  The valid length is limited from can contain 1 to 32, only letters, digits, hyphens (-), underscores (_) and
+                                  periods (.) are allowed.
+                                  If Location is specified as HEADER and security_authentication_type is specified as APP, the parameter name
+                                  cannot be Authorization (case-insensitive) and cannot contain underscores.
+                                type: string
+                              systemParamType:
+                                description: |-
+                                  Specifies the type of the system parameter.
+                                  The valid values are frontend, backend and internal, defaults to internal.
+                                type: string
+                              type:
+                                description: |-
+                                  Specifies the API type.
+                                  The valid values are Public and Private.
+                                type: string
+                              value:
+                                description: |-
+                                  Specifies the value of the backend policy.
+                                  For a condition with the input parameter source:
+                                type: string
+                            type: object
+                          type: array
+                        conditions:
+                          description: |-
+                            Specifies an array of one or more policy conditions.
+                            Up to five conditions can be set.
+                            The object structure is documented below.
+                          items:
+                            properties:
+                              origin:
+                                description: |-
+                                  Specifies the backend policy type.
+                                  The valid values are param, source, defaults to source.
+                                type: string
+                              paramName:
+                                description: |-
+                                  Specifies the request parameter name.
+                                  This parameter is required if the policy type is param. The valid values are user_age and X-TEST-ENUM.
+                                type: string
+                              type:
+                                description: |-
+                                  Specifies the API type.
+                                  The valid values are Public and Private.
+                                type: string
+                              value:
+                                description: |-
+                                  Specifies the value of the backend policy.
+                                  For a condition with the input parameter source:
+                                type: string
+                            type: object
+                          type: array
+                        effectiveMode:
+                          description: |-
+                            Specifies the effective mode of the backend policy. The valid values are ALL
+                            and ANY, defaults to ANY.
+                          type: string
+                        name:
+                          description: |-
+                            Specifies the backend policy name.
+                            The valid length is limited from can contain 3 to 64, only letters, digits and underscores (_) are allowed.
+                          type: string
+                        requestMethod:
+                          description: |-
+                            Specifies the backend request method of the API.
+                            The valid values are GET, POST, PUT, DELETE, HEAD, PATCH, OPTIONS and ANY.
+                          type: string
+                        requestProtocol:
+                          description: |-
+                            Specifies the backend request protocol. The valid values are HTTP and
+                            HTTPS, defaults to HTTPS.
+                          type: string
+                        requestUri:
+                          description: |-
+                            Specifies the backend request address, which can contain a maximum of 512 characters and
+                            must comply with URI specifications.
+                          type: string
+                        retryCount:
+                          description: |-
+                            Specifies the number of retry attempts to request the backend service.
+                            The valid value ranges from -1 to 10, defaults to -1.
+                            -1 indicates that idempotent APIs will retry once and non-idempotent APIs will not retry.
+                            POST and PATCH are not-idempotent.
+                            GET, HEAD, PUT, OPTIONS and DELETE are idempotent.
+                          type: number
+                        timeout:
+                          description: |-
+                            Specifies the timeout, in ms, which allowed for APIGW to request the backend service. The
+                            valid value is range from 1 to 600,000, defaults to 5,000.
+                          type: number
+                        urlDomain:
+                          description: |-
+                            Specifies the backend service address.
+                            The value which consists of a domain name or IP address, and a port number, with not more than 255 characters.
+                            The backend service address must be in the format "{host name}:{Port number}", for example, apig.example.com:7443.
+                            If the port number is not specified, the default HTTPS port 443, or the default HTTP port 80 is used.
+                            The backend service address can contain environment variables, each starting with a letter and consisting of 3 to
+                            32 characters. Only letters, digits, hyphens (-), and underscores (_) are allowed.
+                          type: string
+                        vpcChannelId:
+                          description: |-
+                            Specifies the VPC channel ID.
+                            This parameter and url_domain are alternative.
+                          type: string
+                        vpcChannelProxyHost:
+                          description: |-
+                            Specifies the proxy host header.
+                            The host header can be customized for requests to be forwarded to cloud servers through the VPC channel.
+                            By default, the original host header of the request is used.
+                          type: string
+                      type: object
+                    type: array
+                  matchMode:
+                    description: |-
+                      Specifies the route matching mode.
+                      The valid values are EXACT and PREFIX, defaults to EXACT.
+                    type: string
+                  mock:
+                    description: |-
+                      Specifies the mock backend details.
+                      The object structure is documented below.
+                      Changing this will create a new API resource.
+                    items:
+                      properties:
+                        authorizerId:
+                          description: Specifies the ID of the backend custom authorization.
+                          type: string
+                        description:
+                          description: |-
+                            Specifies the description of the constant or system parameter.
+                            The description contains a maximum of 255 characters and the angle brackets (< and >) are not allowed.
+                          type: string
+                        response:
+                          description: |-
+                            Specifies the response of the backend policy.
+                            The description contains a maximum of 2,048 characters and the angle brackets (< and >) are not allowed.
+                          type: string
+                        version:
+                          description: Specifies the mock version. It cannot exceed
+                            64 characters.
+                          type: string
+                      type: object
+                    type: array
+                  mockPolicy:
+                    description: |-
+                      Specifies the Mock policy backends.
+                      The maximum blocks of the policy is 5.
+                      The object structure is documented below.
+                      The mock policy backends.
+                    items:
+                      properties:
+                        authorizerId:
+                          description: Specifies the ID of the backend custom authorization.
+                          type: string
+                        backendParams:
+                          description: |-
+                            Specifies an array of one or more backend parameters.
+                            The maximum of request parameters is 50.
+                            The object structure is documented above.
+                          items:
+                            properties:
+                              description:
+                                description: |-
+                                  Specifies the description of the request parameter.
+                                  The description contains a maximum of 255 characters and the angle brackets (< and >) are not allowed.
+                                type: string
+                              location:
+                                description: |-
+                                  Specifies the location of the request parameter.
+                                  The valid values are PATH, QUERY and HEADER, defaults to PATH.
+                                type: string
+                              name:
+                                description: |-
+                                  Specifies the request parameter name.
+                                  The valid length is limited from can contain 1 to 32, only letters, digits, hyphens (-), underscores (_) and
+                                  periods (.) are allowed.
+                                  If Location is specified as HEADER and security_authentication_type is specified as APP, the parameter name
+                                  cannot be Authorization (case-insensitive) and cannot contain underscores.
+                                type: string
+                              systemParamType:
+                                description: |-
+                                  Specifies the type of the system parameter.
+                                  The valid values are frontend, backend and internal, defaults to internal.
+                                type: string
+                              type:
+                                description: |-
+                                  Specifies the API type.
+                                  The valid values are Public and Private.
+                                type: string
+                              value:
+                                description: |-
+                                  Specifies the value of the backend policy.
+                                  For a condition with the input parameter source:
+                                type: string
+                            type: object
+                          type: array
+                        conditions:
+                          description: |-
+                            Specifies an array of one or more policy conditions.
+                            Up to five conditions can be set.
+                            The object structure is documented below.
+                          items:
+                            properties:
+                              origin:
+                                description: |-
+                                  Specifies the backend policy type.
+                                  The valid values are param, source, defaults to source.
+                                type: string
+                              paramName:
+                                description: |-
+                                  Specifies the request parameter name.
+                                  This parameter is required if the policy type is param. The valid values are user_age and X-TEST-ENUM.
+                                type: string
+                              type:
+                                description: |-
+                                  Specifies the API type.
+                                  The valid values are Public and Private.
+                                type: string
+                              value:
+                                description: |-
+                                  Specifies the value of the backend policy.
+                                  For a condition with the input parameter source:
+                                type: string
+                            type: object
+                          type: array
+                        effectiveMode:
+                          description: |-
+                            Specifies the effective mode of the backend policy.
+                            The valid values are ALL and ANY, defaults to ANY.
+                          type: string
+                        name:
+                          description: |-
+                            Specifies the backend policy name.
+                            The valid length is limited from can contain 3 to 64, only letters, digits and underscores (_) are allowed.
+                          type: string
+                        response:
+                          description: |-
+                            Specifies the response of the backend policy.
+                            The description contains a maximum of 2,048 characters and the angle brackets (< and >) are not allowed.
+                          type: string
+                      type: object
+                    type: array
+                  name:
+                    description: |-
+                      Specifies the API name.
+                      The valid length is limited from can contain 3 to 255, only Chinese and English letters, digits and
+                      following special characters are allowed: -_./（()）:：、.
+                      The name must start with a digit, Chinese or English letter.
+                    type: string
+                  region:
+                    description: |-
+                      Specifies the region where the API is located.
+                      If omitted, the provider-level region will be used. Changing this will create a new API resource.
+                    type: string
+                  requestMethod:
+                    description: |-
+                      Specifies the request method of the API.
+                      The valid values are GET, POST, PUT, DELETE, HEAD, PATCH, OPTIONS and ANY.
+                    type: string
+                  requestParams:
+                    description: |-
+                      Specifies the configurations of the front-end parameters.
+                      The object structure is documented below.
+                    items:
+                      properties:
+                        default:
+                          description: |-
+                            Specifies the default value of the request parameter.
+                            The value contains a maximum of 255 characters and the angle brackets (< and >) are not allowed.
+                          type: string
+                        description:
+                          description: |-
+                            Specifies the description of the request parameter.
+                            The description contains a maximum of 255 characters and the angle brackets (< and >) are not allowed.
+                          type: string
+                        enumeration:
+                          description: |-
+                            Specifies the enumerated value(s).
+                            Use commas to separate multiple enumeration values, such as VALUE_A,VALUE_B.
+                          type: string
+                        location:
+                          description: |-
+                            Specifies the location of the request parameter.
+                            The valid values are PATH, QUERY and HEADER, defaults to PATH.
+                          type: string
+                        maximum:
+                          description: Specifies the maximum value or size of the
+                            request parameter.
+                          type: number
+                        minimum:
+                          description: Specifies the minimum value or size of the
+                            request parameter.
+                          type: number
+                        name:
+                          description: |-
+                            Specifies the request parameter name.
+                            The valid length is limited from can contain 1 to 32, only letters, digits, hyphens (-), underscores (_) and
+                            periods (.) are allowed.
+                            If Location is specified as HEADER and security_authentication_type is specified as APP, the parameter name
+                            cannot be Authorization (case-insensitive) and cannot contain underscores.
+                          type: string
+                        passthrough:
+                          description: Specifies whether to transparently transfer
+                            the parameter.
+                          type: boolean
+                        required:
+                          description: Specifies whether the request parameter is
+                            required.
+                          type: boolean
+                        sample:
+                          description: |-
+                            Specifies the example value of the request parameter.
+                            The example contains a maximum of 255 characters and the angle brackets (< and >) are not allowed.
+                          type: string
+                        type:
+                          description: |-
+                            Specifies the request parameter type.
+                            The valid values are STRING and NUMBER, defaults to STRING.
+                          type: string
+                        validityCheck:
+                          type: boolean
+                      type: object
+                    type: array
+                  requestProtocol:
+                    description: |-
+                      Specifies the request protocol of the API.
+                      The valid values are HTTP, HTTPS and BOTH.
+                    type: string
+                  requestUri:
+                    description: |-
+                      Specifies the request address, which can contain a maximum of 512 characters,
+                      the request parameters enclosed with brackets ({}).
+                    type: string
+                  responseId:
+                    description: Specifies the APIG group response ID.
+                    type: string
+                  securityAuthenticationEnabled:
+                    description: |-
+                      Specifies whether the authentication of the application code is enabled.
+                      The application code must located in the header when security_authentication_enabled is true.
+                    type: boolean
+                  securityAuthenticationType:
+                    description: |-
+                      Specifies the security authentication mode of the API request.
+                      The valid values are NONE, APP, IAM and AUTHORIZER, defaults to NONE.
+                    type: string
+                  successResponse:
+                    description: |-
+                      Specifies the example response for a successful request.
+                      The response contains a maximum of 20,480 characters.
+                    type: string
+                  tags:
+                    description: |-
+                      Tags. Use letters, digits, and special characters (-*#%.:_) and start with a letter.
+                      By default, 10 tags are supported. To increase the quota, contact technical support to modify the API_TAG_NUM_LIMIT configuration.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  type:
+                    description: |-
+                      Specifies the API type.
+                      The valid values are Public and Private.
+                    type: string
+                  version:
+                    description: Specifies the API version.
+                    type: string
+                type: object
+              initProvider:
+                description: |-
+                  THIS IS A BETA FIELD. It will be honored
+                  unless the Management Policies feature flag is disabled.
+                  InitProvider holds the same fields as ForProvider, with the exception
+                  of Identifier and other resource reference fields. The fields that are
+                  in InitProvider are merged into ForProvider when the resource is created.
+                  The same fields are also added to the terraform ignore_changes hook, to
+                  avoid updating them after creation. This is useful for fields that are
+                  required on creation, but we do not desire to update them after creation,
+                  for example because of an external controller is managing them, like an
+                  autoscaler.
+                properties:
+                  authorizerId:
+                    description: |-
+                      Specifies the ID of the authorizer to which the API request used.
+                      It is Required when security_authentication_type is AUTHORIZER.
+                    type: string
+                  backendParams:
+                    description: |-
+                      Specifies the configurations of the backend parameters.
+                      The object structure is documented below.
+                    items:
+                      properties:
+                        description:
+                          description: |-
+                            Specifies the description of the constant or system parameter.
+                            The description contains a maximum of 255 characters and the angle brackets (< and >) are not allowed.
+                          type: string
+                        location:
+                          description: |-
+                            Specifies the location of the backend parameter.
+                            The valid values are PATH, QUERY and HEADER.
+                          type: string
+                        name:
+                          description: |-
+                            Specifies the backend parameter name, which contain of 1 to 32 characters and start with a
+                            letter. Only letters, digits, hyphens (-), underscores (_) and periods (.) are allowed. The parameter name is not
+                            case-sensitive. It cannot start with x-apig- or x-sdk- and cannot be x-stage. If the location is specified as
+                            HEADER, the name cannot contain underscores.
+                          type: string
+                        systemParamType:
+                          description: |-
+                            Specifies the type of the system parameter.
+                            The valid values are frontend, backend and internal, defaults to internal.
+                          type: string
+                        type:
+                          description: |-
+                            Specifies the backend parameter type.
+                            The valid values are REQUEST, CONSTANT and SYSTEM.
+                          type: string
+                        value:
+                          description: Specifies the request parameter name corresponding
+                            to the back-end request parameter.
+                          type: string
+                      type: object
+                    type: array
+                  bodyDescription:
+                    description: |-
+                      Specifies the description of the API request body, which can be an example
+                      request body, media type or parameters.
+                      The request body does not exceed 20,480 characters.
+                    type: string
+                  cors:
+                    description: Specifies whether CORS is supported, defaults to
+                      false.
+                    type: boolean
+                  description:
+                    description: |-
+                      Specifies the API description.
+                      The description contains a maximum of 255 characters and the angle brackets (< and >) are not allowed.
+                    type: string
+                  failureResponse:
+                    description: |-
+                      Specifies the example response for a failure request.
+                      The response contains a maximum of 20,480 characters.
+                    type: string
+                  funcGraph:
+                    description: |-
+                      Specifies the function graph backend details.
+                      The object structure is documented below.
+                      Changing this will create a new API resource.
+                    items:
+                      properties:
+                        authorizerId:
+                          description: Specifies the ID of the backend custom authorization.
+                          type: string
+                        description:
+                          description: |-
+                            Specifies the description of the constant or system parameter.
+                            The description contains a maximum of 255 characters and the angle brackets (< and >) are not allowed.
+                          type: string
+                        functionUrn:
+                          description: Specifies the URN of the FunctionGraph function.
+                          type: string
+                        invocationType:
+                          description: |-
+                            Specifies the invocation type.
+                            The valid values are async and sync, defaults to sync.
+                          type: string
+                        networkType:
+                          description: |-
+                            Function network architecture.
+                            The valid values are VPC and NON-VPC, defaults to NON-VPC.
+                          type: string
+                        timeout:
+                          description: |-
+                            Specifies the timeout for API requests to backend service.
+                            The valid value is range form 1 to 600,000, defaults to 5,000.
+                          type: number
+                        version:
+                          description: Specifies the function version.
+                          type: string
+                      type: object
+                    type: array
+                  funcGraphPolicy:
+                    description: |-
+                      Specifies the Mock policy backends.
+                      The maximum blocks of the policy is 5.
+                      The object structure is documented below.
+                    items:
+                      properties:
+                        authorizerId:
+                          description: Specifies the ID of the backend custom authorization.
+                          type: string
+                        backendParams:
+                          description: |-
+                            Specifies the configuration list of the backend parameters.
+                            The maximum of request parameters is 50.
+                            The object structure is documented above.
+                          items:
+                            properties:
+                              description:
+                                description: |-
+                                  Specifies the description of the request parameter.
+                                  The description contains a maximum of 255 characters and the angle brackets (< and >) are not allowed.
+                                type: string
+                              location:
+                                description: |-
+                                  Specifies the location of the request parameter.
+                                  The valid values are PATH, QUERY and HEADER, defaults to PATH.
+                                type: string
+                              name:
+                                description: |-
+                                  Specifies the request parameter name.
+                                  The valid length is limited from can contain 1 to 32, only letters, digits, hyphens (-), underscores (_) and
+                                  periods (.) are allowed.
+                                  If Location is specified as HEADER and security_authentication_type is specified as APP, the parameter name
+                                  cannot be Authorization (case-insensitive) and cannot contain underscores.
+                                type: string
+                              systemParamType:
+                                description: |-
+                                  Specifies the type of the system parameter.
+                                  The valid values are frontend, backend and internal, defaults to internal.
+                                type: string
+                              type:
+                                description: |-
+                                  Specifies the API type.
+                                  The valid values are Public and Private.
+                                type: string
+                              value:
+                                description: |-
+                                  Specifies the value of the backend policy.
+                                  For a condition with the input parameter source:
+                                type: string
+                            type: object
+                          type: array
+                        conditions:
+                          description: |-
+                            Specifies an array of one or more policy conditions.
+                            Up to five conditions can be set.
+                            The object structure is documented below.
+                          items:
+                            properties:
+                              origin:
+                                description: |-
+                                  Specifies the backend policy type.
+                                  The valid values are param, source, defaults to source.
+                                type: string
+                              paramName:
+                                description: |-
+                                  Specifies the request parameter name.
+                                  This parameter is required if the policy type is param. The valid values are user_age and X-TEST-ENUM.
+                                type: string
+                              type:
+                                description: |-
+                                  Specifies the API type.
+                                  The valid values are Public and Private.
+                                type: string
+                              value:
+                                description: |-
+                                  Specifies the value of the backend policy.
+                                  For a condition with the input parameter source:
+                                type: string
+                            type: object
+                          type: array
+                        effectiveMode:
+                          description: |-
+                            Specifies the effective mode of the backend policy.
+                            The valid values are ALL and ANY, defaults to ANY.
+                          type: string
+                        functionUrn:
+                          description: Specifies the URN of the FunctionGraph function.
+                          type: string
+                        invocationType:
+                          description: |-
+                            Specifies the invocation type.
+                            The valid values are async and sync, defaults to sync.
+                          type: string
+                        name:
+                          description: |-
+                            Specifies the backend policy name.
+                            The valid length is limited from can contain 3 to 64, only letters, digits and underscores (_) are allowed.
+                          type: string
+                        networkType:
+                          description: |-
+                            Function network architecture.
+                            The valid values are VPC and NON-VPC, defaults to NON-VPC.
+                          type: string
+                        timeout:
+                          description: |-
+                            Specifies the timeout for API requests to backend service, the unit is ms.
+                            The valid value ranges from 1 to 600,000, defaults to 5,000.
+                          type: number
+                        version:
+                          description: Specifies the version of the FunctionGraph
+                            function.
+                          type: string
+                      type: object
+                    type: array
+                  gatewayId:
+                    description: |-
+                      Specifies an ID of the APIG dedicated instance to which the API belongs
+                      to. Changing this will create a new API resource.
+                    type: string
+                  groupId:
+                    description: Specifies an ID of the APIG group to which the API
+                      belongs to.
+                    type: string
+                  http:
+                    description: |-
+                      Specifies the web backend details.
+                      The object structure is documented below. Changing this will create a new API resource.
+                    items:
+                      properties:
+                        authorizerId:
+                          description: Specifies the ID of the backend custom authorization.
+                          type: string
+                        description:
+                          description: |-
+                            Specifies the description of the constant or system parameter.
+                            The description contains a maximum of 255 characters and the angle brackets (< and >) are not allowed.
+                          type: string
+                        requestMethod:
+                          description: |-
+                            Specifies the backend request method of the API.
+                            The valid values are GET, POST, PUT, DELETE, HEAD, PATCH, OPTIONS and ANY.
+                          type: string
+                        requestProtocol:
+                          description: |-
+                            Specifies the backend request protocol.
+                            The valid values are HTTP and HTTPS, defaults to HTTPS.
+                          type: string
+                        requestUri:
+                          description: |-
+                            Specifies the backend request address, which can contain a maximum of 512 characters and
+                            must comply with URI specifications.
+                          type: string
+                        retryCount:
+                          description: |-
+                            Specifies the number of retry attempts to request the backend service.
+                            The valid value ranges from -1 to 10, defaults to -1.
+                            -1 indicates that idempotent APIs will retry once and non-idempotent APIs will not retry.
+                            POST and PATCH are not-idempotent.
+                            GET, HEAD, PUT, OPTIONS and DELETE are idempotent.
+                          type: number
+                        sslEnable:
+                          description: Specifies whether to enable two-way authentication,
+                            defaults to false.
+                          type: boolean
+                        timeout:
+                          description: |-
+                            Specifies the timeout for API requests to backend service, the unit is ms.
+                            The valid value ranges from 1 to 600,000, defaults to 5,000.
+                          type: number
+                        urlDomain:
+                          description: |-
+                            Backend service address.
+                            A backend service address consists of a domain name or IP address and a port number,
+                            with not more than 255 characters. It must be in the format Host name:Port number,
+                            for example, apig.example.com:7443. If the port number is not specified, the default HTTPS port 443 or the default HTTP port 80 is used.
+                          type: string
+                        version:
+                          description: Specifies the function version.
+                          type: string
+                        vpcChannelId:
+                          description: |-
+                            Specifies the VPC channel ID. This parameter and url_domain are
+                            alternative.
+                          type: string
+                        vpcChannelProxyHost:
+                          description: |-
+                            Specifies the proxy host header.
+                            The host header can be customized for requests to be forwarded to cloud servers through the VPC channel.
+                            By default, the original host header of the request is used.
+                          type: string
+                      type: object
+                    type: array
+                  httpPolicy:
+                    description: |-
+                      Specifies the example response for a failed request.
+                      The maximum blocks of the policy is 5.
+                      The object structure is documented below.
+                    items:
+                      properties:
+                        authorizerId:
+                          description: Specifies the ID of the backend custom authorization.
+                          type: string
+                        backendParams:
+                          description: |-
+                            Specifies an array of one or more backend parameters. The maximum of request
+                            parameters is 50. The object structure is documented above.
+                          items:
+                            properties:
+                              description:
+                                description: |-
+                                  Specifies the description of the request parameter.
+                                  The description contains a maximum of 255 characters and the angle brackets (< and >) are not allowed.
+                                type: string
+                              location:
+                                description: |-
+                                  Specifies the location of the request parameter.
+                                  The valid values are PATH, QUERY and HEADER, defaults to PATH.
+                                type: string
+                              name:
+                                description: |-
+                                  Specifies the request parameter name.
+                                  The valid length is limited from can contain 1 to 32, only letters, digits, hyphens (-), underscores (_) and
+                                  periods (.) are allowed.
+                                  If Location is specified as HEADER and security_authentication_type is specified as APP, the parameter name
+                                  cannot be Authorization (case-insensitive) and cannot contain underscores.
+                                type: string
+                              systemParamType:
+                                description: |-
+                                  Specifies the type of the system parameter.
+                                  The valid values are frontend, backend and internal, defaults to internal.
+                                type: string
+                              type:
+                                description: |-
+                                  Specifies the API type.
+                                  The valid values are Public and Private.
+                                type: string
+                              value:
+                                description: |-
+                                  Specifies the value of the backend policy.
+                                  For a condition with the input parameter source:
+                                type: string
+                            type: object
+                          type: array
+                        conditions:
+                          description: |-
+                            Specifies an array of one or more policy conditions.
+                            Up to five conditions can be set.
+                            The object structure is documented below.
+                          items:
+                            properties:
+                              origin:
+                                description: |-
+                                  Specifies the backend policy type.
+                                  The valid values are param, source, defaults to source.
+                                type: string
+                              paramName:
+                                description: |-
+                                  Specifies the request parameter name.
+                                  This parameter is required if the policy type is param. The valid values are user_age and X-TEST-ENUM.
+                                type: string
+                              type:
+                                description: |-
+                                  Specifies the API type.
+                                  The valid values are Public and Private.
+                                type: string
+                              value:
+                                description: |-
+                                  Specifies the value of the backend policy.
+                                  For a condition with the input parameter source:
+                                type: string
+                            type: object
+                          type: array
+                        effectiveMode:
+                          description: |-
+                            Specifies the effective mode of the backend policy. The valid values are ALL
+                            and ANY, defaults to ANY.
+                          type: string
+                        name:
+                          description: |-
+                            Specifies the backend policy name.
+                            The valid length is limited from can contain 3 to 64, only letters, digits and underscores (_) are allowed.
+                          type: string
+                        requestMethod:
+                          description: |-
+                            Specifies the backend request method of the API.
+                            The valid values are GET, POST, PUT, DELETE, HEAD, PATCH, OPTIONS and ANY.
+                          type: string
+                        requestProtocol:
+                          description: |-
+                            Specifies the backend request protocol. The valid values are HTTP and
+                            HTTPS, defaults to HTTPS.
+                          type: string
+                        requestUri:
+                          description: |-
+                            Specifies the backend request address, which can contain a maximum of 512 characters and
+                            must comply with URI specifications.
+                          type: string
+                        retryCount:
+                          description: |-
+                            Specifies the number of retry attempts to request the backend service.
+                            The valid value ranges from -1 to 10, defaults to -1.
+                            -1 indicates that idempotent APIs will retry once and non-idempotent APIs will not retry.
+                            POST and PATCH are not-idempotent.
+                            GET, HEAD, PUT, OPTIONS and DELETE are idempotent.
+                          type: number
+                        timeout:
+                          description: |-
+                            Specifies the timeout, in ms, which allowed for APIGW to request the backend service. The
+                            valid value is range from 1 to 600,000, defaults to 5,000.
+                          type: number
+                        urlDomain:
+                          description: |-
+                            Specifies the backend service address.
+                            The value which consists of a domain name or IP address, and a port number, with not more than 255 characters.
+                            The backend service address must be in the format "{host name}:{Port number}", for example, apig.example.com:7443.
+                            If the port number is not specified, the default HTTPS port 443, or the default HTTP port 80 is used.
+                            The backend service address can contain environment variables, each starting with a letter and consisting of 3 to
+                            32 characters. Only letters, digits, hyphens (-), and underscores (_) are allowed.
+                          type: string
+                        vpcChannelId:
+                          description: |-
+                            Specifies the VPC channel ID.
+                            This parameter and url_domain are alternative.
+                          type: string
+                        vpcChannelProxyHost:
+                          description: |-
+                            Specifies the proxy host header.
+                            The host header can be customized for requests to be forwarded to cloud servers through the VPC channel.
+                            By default, the original host header of the request is used.
+                          type: string
+                      type: object
+                    type: array
+                  matchMode:
+                    description: |-
+                      Specifies the route matching mode.
+                      The valid values are EXACT and PREFIX, defaults to EXACT.
+                    type: string
+                  mock:
+                    description: |-
+                      Specifies the mock backend details.
+                      The object structure is documented below.
+                      Changing this will create a new API resource.
+                    items:
+                      properties:
+                        authorizerId:
+                          description: Specifies the ID of the backend custom authorization.
+                          type: string
+                        description:
+                          description: |-
+                            Specifies the description of the constant or system parameter.
+                            The description contains a maximum of 255 characters and the angle brackets (< and >) are not allowed.
+                          type: string
+                        response:
+                          description: |-
+                            Specifies the response of the backend policy.
+                            The description contains a maximum of 2,048 characters and the angle brackets (< and >) are not allowed.
+                          type: string
+                        version:
+                          description: Specifies the mock version. It cannot exceed
+                            64 characters.
+                          type: string
+                      type: object
+                    type: array
+                  mockPolicy:
+                    description: |-
+                      Specifies the Mock policy backends.
+                      The maximum blocks of the policy is 5.
+                      The object structure is documented below.
+                      The mock policy backends.
+                    items:
+                      properties:
+                        authorizerId:
+                          description: Specifies the ID of the backend custom authorization.
+                          type: string
+                        backendParams:
+                          description: |-
+                            Specifies an array of one or more backend parameters.
+                            The maximum of request parameters is 50.
+                            The object structure is documented above.
+                          items:
+                            properties:
+                              description:
+                                description: |-
+                                  Specifies the description of the request parameter.
+                                  The description contains a maximum of 255 characters and the angle brackets (< and >) are not allowed.
+                                type: string
+                              location:
+                                description: |-
+                                  Specifies the location of the request parameter.
+                                  The valid values are PATH, QUERY and HEADER, defaults to PATH.
+                                type: string
+                              name:
+                                description: |-
+                                  Specifies the request parameter name.
+                                  The valid length is limited from can contain 1 to 32, only letters, digits, hyphens (-), underscores (_) and
+                                  periods (.) are allowed.
+                                  If Location is specified as HEADER and security_authentication_type is specified as APP, the parameter name
+                                  cannot be Authorization (case-insensitive) and cannot contain underscores.
+                                type: string
+                              systemParamType:
+                                description: |-
+                                  Specifies the type of the system parameter.
+                                  The valid values are frontend, backend and internal, defaults to internal.
+                                type: string
+                              type:
+                                description: |-
+                                  Specifies the API type.
+                                  The valid values are Public and Private.
+                                type: string
+                              value:
+                                description: |-
+                                  Specifies the value of the backend policy.
+                                  For a condition with the input parameter source:
+                                type: string
+                            type: object
+                          type: array
+                        conditions:
+                          description: |-
+                            Specifies an array of one or more policy conditions.
+                            Up to five conditions can be set.
+                            The object structure is documented below.
+                          items:
+                            properties:
+                              origin:
+                                description: |-
+                                  Specifies the backend policy type.
+                                  The valid values are param, source, defaults to source.
+                                type: string
+                              paramName:
+                                description: |-
+                                  Specifies the request parameter name.
+                                  This parameter is required if the policy type is param. The valid values are user_age and X-TEST-ENUM.
+                                type: string
+                              type:
+                                description: |-
+                                  Specifies the API type.
+                                  The valid values are Public and Private.
+                                type: string
+                              value:
+                                description: |-
+                                  Specifies the value of the backend policy.
+                                  For a condition with the input parameter source:
+                                type: string
+                            type: object
+                          type: array
+                        effectiveMode:
+                          description: |-
+                            Specifies the effective mode of the backend policy.
+                            The valid values are ALL and ANY, defaults to ANY.
+                          type: string
+                        name:
+                          description: |-
+                            Specifies the backend policy name.
+                            The valid length is limited from can contain 3 to 64, only letters, digits and underscores (_) are allowed.
+                          type: string
+                        response:
+                          description: |-
+                            Specifies the response of the backend policy.
+                            The description contains a maximum of 2,048 characters and the angle brackets (< and >) are not allowed.
+                          type: string
+                      type: object
+                    type: array
+                  name:
+                    description: |-
+                      Specifies the API name.
+                      The valid length is limited from can contain 3 to 255, only Chinese and English letters, digits and
+                      following special characters are allowed: -_./（()）:：、.
+                      The name must start with a digit, Chinese or English letter.
+                    type: string
+                  region:
+                    description: |-
+                      Specifies the region where the API is located.
+                      If omitted, the provider-level region will be used. Changing this will create a new API resource.
+                    type: string
+                  requestMethod:
+                    description: |-
+                      Specifies the request method of the API.
+                      The valid values are GET, POST, PUT, DELETE, HEAD, PATCH, OPTIONS and ANY.
+                    type: string
+                  requestParams:
+                    description: |-
+                      Specifies the configurations of the front-end parameters.
+                      The object structure is documented below.
+                    items:
+                      properties:
+                        default:
+                          description: |-
+                            Specifies the default value of the request parameter.
+                            The value contains a maximum of 255 characters and the angle brackets (< and >) are not allowed.
+                          type: string
+                        description:
+                          description: |-
+                            Specifies the description of the request parameter.
+                            The description contains a maximum of 255 characters and the angle brackets (< and >) are not allowed.
+                          type: string
+                        enumeration:
+                          description: |-
+                            Specifies the enumerated value(s).
+                            Use commas to separate multiple enumeration values, such as VALUE_A,VALUE_B.
+                          type: string
+                        location:
+                          description: |-
+                            Specifies the location of the request parameter.
+                            The valid values are PATH, QUERY and HEADER, defaults to PATH.
+                          type: string
+                        maximum:
+                          description: Specifies the maximum value or size of the
+                            request parameter.
+                          type: number
+                        minimum:
+                          description: Specifies the minimum value or size of the
+                            request parameter.
+                          type: number
+                        name:
+                          description: |-
+                            Specifies the request parameter name.
+                            The valid length is limited from can contain 1 to 32, only letters, digits, hyphens (-), underscores (_) and
+                            periods (.) are allowed.
+                            If Location is specified as HEADER and security_authentication_type is specified as APP, the parameter name
+                            cannot be Authorization (case-insensitive) and cannot contain underscores.
+                          type: string
+                        passthrough:
+                          description: Specifies whether to transparently transfer
+                            the parameter.
+                          type: boolean
+                        required:
+                          description: Specifies whether the request parameter is
+                            required.
+                          type: boolean
+                        sample:
+                          description: |-
+                            Specifies the example value of the request parameter.
+                            The example contains a maximum of 255 characters and the angle brackets (< and >) are not allowed.
+                          type: string
+                        type:
+                          description: |-
+                            Specifies the request parameter type.
+                            The valid values are STRING and NUMBER, defaults to STRING.
+                          type: string
+                        validityCheck:
+                          type: boolean
+                      type: object
+                    type: array
+                  requestProtocol:
+                    description: |-
+                      Specifies the request protocol of the API.
+                      The valid values are HTTP, HTTPS and BOTH.
+                    type: string
+                  requestUri:
+                    description: |-
+                      Specifies the request address, which can contain a maximum of 512 characters,
+                      the request parameters enclosed with brackets ({}).
+                    type: string
+                  responseId:
+                    description: Specifies the APIG group response ID.
+                    type: string
+                  securityAuthenticationEnabled:
+                    description: |-
+                      Specifies whether the authentication of the application code is enabled.
+                      The application code must located in the header when security_authentication_enabled is true.
+                    type: boolean
+                  securityAuthenticationType:
+                    description: |-
+                      Specifies the security authentication mode of the API request.
+                      The valid values are NONE, APP, IAM and AUTHORIZER, defaults to NONE.
+                    type: string
+                  successResponse:
+                    description: |-
+                      Specifies the example response for a successful request.
+                      The response contains a maximum of 20,480 characters.
+                    type: string
+                  tags:
+                    description: |-
+                      Tags. Use letters, digits, and special characters (-*#%.:_) and start with a letter.
+                      By default, 10 tags are supported. To increase the quota, contact technical support to modify the API_TAG_NUM_LIMIT configuration.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  type:
+                    description: |-
+                      Specifies the API type.
+                      The valid values are Public and Private.
+                    type: string
+                  version:
+                    description: Specifies the API version.
+                    type: string
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: |-
+                  THIS IS A BETA FIELD. It is on by default but can be opted out
+                  through a Crossplane feature flag.
+                  ManagementPolicies specify the array of actions Crossplane is allowed to
+                  take on the managed and external resources.
+                  This field is planned to replace the DeletionPolicy field in a future
+                  release. Currently, both could be set independently and non-default
+                  values would be honored if the feature flag is enabled. If both are
+                  custom, the DeletionPolicy field will be ignored.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md
+                items:
+                  description: |-
+                    A ManagementAction represents an action that the Crossplane controllers
+                    can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
+              providerConfigRef:
+                default:
+                  name: default
+                description: |-
+                  ProviderConfigReference specifies how the provider that will be used to
+                  create, observe, update, and delete this managed resource should be
+                  configured.
+                properties:
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                  policy:
+                    description: Policies for referencing.
+                    properties:
+                      resolution:
+                        default: Required
+                        description: |-
+                          Resolution specifies whether resolution of this reference is required.
+                          The default is 'Required', which means the reconcile will fail if the
+                          reference cannot be resolved. 'Optional' means this reference will be
+                          a no-op if it cannot be resolved.
+                        enum:
+                        - Required
+                        - Optional
+                        type: string
+                      resolve:
+                        description: |-
+                          Resolve specifies when this reference should be resolved. The default
+                          is 'IfNotPresent', which will attempt to resolve the reference only when
+                          the corresponding field is not present. Use 'Always' to resolve the
+                          reference on every reconcile.
+                        enum:
+                        - Always
+                        - IfNotPresent
+                        type: string
+                    type: object
+                required:
+                - name
+                type: object
+              publishConnectionDetailsTo:
+                description: |-
+                  PublishConnectionDetailsTo specifies the connection secret config which
+                  contains a name, metadata and a reference to secret store config to
+                  which any connection details for this managed resource should be written.
+                  Connection details frequently include the endpoint, username,
+                  and password required to connect to the managed resource.
+                properties:
+                  configRef:
+                    default:
+                      name: default
+                    description: |-
+                      SecretStoreConfigRef specifies which secret store config should be used
+                      for this ConnectionSecret.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  metadata:
+                    description: Metadata is the metadata for connection secret.
+                    properties:
+                      annotations:
+                        additionalProperties:
+                          type: string
+                        description: |-
+                          Annotations are the annotations to be added to connection secret.
+                          - For Kubernetes secrets, this will be used as "metadata.annotations".
+                          - It is up to Secret Store implementation for others store types.
+                        type: object
+                      labels:
+                        additionalProperties:
+                          type: string
+                        description: |-
+                          Labels are the labels/tags to be added to connection secret.
+                          - For Kubernetes secrets, this will be used as "metadata.labels".
+                          - It is up to Secret Store implementation for others store types.
+                        type: object
+                      type:
+                        description: |-
+                          Type is the SecretType for the connection secret.
+                          - Only valid for Kubernetes Secret Stores.
+                        type: string
+                    type: object
+                  name:
+                    description: Name is the name of the connection secret.
+                    type: string
+                required:
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: |-
+                  WriteConnectionSecretToReference specifies the namespace and name of a
+                  Secret to which any connection details for this managed resource should
+                  be written. Connection details frequently include the endpoint, username,
+                  and password required to connect to the managed resource.
+                  This field is planned to be replaced in a future release in favor of
+                  PublishConnectionDetailsTo. Currently, both could be set independently
+                  and connection details would be published to both without affecting
+                  each other.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                  namespace:
+                    description: Namespace of the secret.
+                    type: string
+                required:
+                - name
+                - namespace
+                type: object
+            required:
+            - forProvider
+            type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.gatewayId is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.gatewayId)
+                || (has(self.initProvider) && has(self.initProvider.gatewayId))'
+            - message: spec.forProvider.groupId is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.groupId)
+                || (has(self.initProvider) && has(self.initProvider.groupId))'
+            - message: spec.forProvider.name is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
+                || (has(self.initProvider) && has(self.initProvider.name))'
+            - message: spec.forProvider.requestMethod is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.requestMethod)
+                || (has(self.initProvider) && has(self.initProvider.requestMethod))'
+            - message: spec.forProvider.requestProtocol is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.requestProtocol)
+                || (has(self.initProvider) && has(self.initProvider.requestProtocol))'
+            - message: spec.forProvider.requestUri is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.requestUri)
+                || (has(self.initProvider) && has(self.initProvider.requestUri))'
+            - message: spec.forProvider.type is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.type)
+                || (has(self.initProvider) && has(self.initProvider.type))'
+          status:
+            description: APIV2Status defines the observed state of APIV2.
+            properties:
+              atProvider:
+                properties:
+                  authorizerId:
+                    description: |-
+                      Specifies the ID of the authorizer to which the API request used.
+                      It is Required when security_authentication_type is AUTHORIZER.
+                    type: string
+                  backendParams:
+                    description: |-
+                      Specifies the configurations of the backend parameters.
+                      The object structure is documented below.
+                    items:
+                      properties:
+                        description:
+                          description: |-
+                            Specifies the description of the constant or system parameter.
+                            The description contains a maximum of 255 characters and the angle brackets (< and >) are not allowed.
+                          type: string
+                        location:
+                          description: |-
+                            Specifies the location of the backend parameter.
+                            The valid values are PATH, QUERY and HEADER.
+                          type: string
+                        name:
+                          description: |-
+                            Specifies the backend parameter name, which contain of 1 to 32 characters and start with a
+                            letter. Only letters, digits, hyphens (-), underscores (_) and periods (.) are allowed. The parameter name is not
+                            case-sensitive. It cannot start with x-apig- or x-sdk- and cannot be x-stage. If the location is specified as
+                            HEADER, the name cannot contain underscores.
+                          type: string
+                        systemParamType:
+                          description: |-
+                            Specifies the type of the system parameter.
+                            The valid values are frontend, backend and internal, defaults to internal.
+                          type: string
+                        type:
+                          description: |-
+                            Specifies the backend parameter type.
+                            The valid values are REQUEST, CONSTANT and SYSTEM.
+                          type: string
+                        value:
+                          description: Specifies the request parameter name corresponding
+                            to the back-end request parameter.
+                          type: string
+                      type: object
+                    type: array
+                  bodyDescription:
+                    description: |-
+                      Specifies the description of the API request body, which can be an example
+                      request body, media type or parameters.
+                      The request body does not exceed 20,480 characters.
+                    type: string
+                  cors:
+                    description: Specifies whether CORS is supported, defaults to
+                      false.
+                    type: boolean
+                  description:
+                    description: |-
+                      Specifies the API description.
+                      The description contains a maximum of 255 characters and the angle brackets (< and >) are not allowed.
+                    type: string
+                  failureResponse:
+                    description: |-
+                      Specifies the example response for a failure request.
+                      The response contains a maximum of 20,480 characters.
+                    type: string
+                  funcGraph:
+                    description: |-
+                      Specifies the function graph backend details.
+                      The object structure is documented below.
+                      Changing this will create a new API resource.
+                    items:
+                      properties:
+                        authorizerId:
+                          description: Specifies the ID of the backend custom authorization.
+                          type: string
+                        description:
+                          description: |-
+                            Specifies the description of the constant or system parameter.
+                            The description contains a maximum of 255 characters and the angle brackets (< and >) are not allowed.
+                          type: string
+                        functionUrn:
+                          description: Specifies the URN of the FunctionGraph function.
+                          type: string
+                        invocationType:
+                          description: |-
+                            Specifies the invocation type.
+                            The valid values are async and sync, defaults to sync.
+                          type: string
+                        networkType:
+                          description: |-
+                            Function network architecture.
+                            The valid values are VPC and NON-VPC, defaults to NON-VPC.
+                          type: string
+                        timeout:
+                          description: |-
+                            Specifies the timeout for API requests to backend service.
+                            The valid value is range form 1 to 600,000, defaults to 5,000.
+                          type: number
+                        version:
+                          description: Specifies the function version.
+                          type: string
+                      type: object
+                    type: array
+                  funcGraphPolicy:
+                    description: |-
+                      Specifies the Mock policy backends.
+                      The maximum blocks of the policy is 5.
+                      The object structure is documented below.
+                    items:
+                      properties:
+                        authorizerId:
+                          description: Specifies the ID of the backend custom authorization.
+                          type: string
+                        backendParams:
+                          description: |-
+                            Specifies the configuration list of the backend parameters.
+                            The maximum of request parameters is 50.
+                            The object structure is documented above.
+                          items:
+                            properties:
+                              description:
+                                description: |-
+                                  Specifies the description of the request parameter.
+                                  The description contains a maximum of 255 characters and the angle brackets (< and >) are not allowed.
+                                type: string
+                              location:
+                                description: |-
+                                  Specifies the location of the request parameter.
+                                  The valid values are PATH, QUERY and HEADER, defaults to PATH.
+                                type: string
+                              name:
+                                description: |-
+                                  Specifies the request parameter name.
+                                  The valid length is limited from can contain 1 to 32, only letters, digits, hyphens (-), underscores (_) and
+                                  periods (.) are allowed.
+                                  If Location is specified as HEADER and security_authentication_type is specified as APP, the parameter name
+                                  cannot be Authorization (case-insensitive) and cannot contain underscores.
+                                type: string
+                              systemParamType:
+                                description: |-
+                                  Specifies the type of the system parameter.
+                                  The valid values are frontend, backend and internal, defaults to internal.
+                                type: string
+                              type:
+                                description: |-
+                                  Specifies the API type.
+                                  The valid values are Public and Private.
+                                type: string
+                              value:
+                                description: |-
+                                  Specifies the value of the backend policy.
+                                  For a condition with the input parameter source:
+                                type: string
+                            type: object
+                          type: array
+                        conditions:
+                          description: |-
+                            Specifies an array of one or more policy conditions.
+                            Up to five conditions can be set.
+                            The object structure is documented below.
+                          items:
+                            properties:
+                              origin:
+                                description: |-
+                                  Specifies the backend policy type.
+                                  The valid values are param, source, defaults to source.
+                                type: string
+                              paramName:
+                                description: |-
+                                  Specifies the request parameter name.
+                                  This parameter is required if the policy type is param. The valid values are user_age and X-TEST-ENUM.
+                                type: string
+                              type:
+                                description: |-
+                                  Specifies the API type.
+                                  The valid values are Public and Private.
+                                type: string
+                              value:
+                                description: |-
+                                  Specifies the value of the backend policy.
+                                  For a condition with the input parameter source:
+                                type: string
+                            type: object
+                          type: array
+                        effectiveMode:
+                          description: |-
+                            Specifies the effective mode of the backend policy.
+                            The valid values are ALL and ANY, defaults to ANY.
+                          type: string
+                        functionUrn:
+                          description: Specifies the URN of the FunctionGraph function.
+                          type: string
+                        invocationType:
+                          description: |-
+                            Specifies the invocation type.
+                            The valid values are async and sync, defaults to sync.
+                          type: string
+                        name:
+                          description: |-
+                            Specifies the backend policy name.
+                            The valid length is limited from can contain 3 to 64, only letters, digits and underscores (_) are allowed.
+                          type: string
+                        networkType:
+                          description: |-
+                            Function network architecture.
+                            The valid values are VPC and NON-VPC, defaults to NON-VPC.
+                          type: string
+                        timeout:
+                          description: |-
+                            Specifies the timeout for API requests to backend service, the unit is ms.
+                            The valid value ranges from 1 to 600,000, defaults to 5,000.
+                          type: number
+                        version:
+                          description: Specifies the version of the FunctionGraph
+                            function.
+                          type: string
+                      type: object
+                    type: array
+                  gatewayId:
+                    description: |-
+                      Specifies an ID of the APIG dedicated instance to which the API belongs
+                      to. Changing this will create a new API resource.
+                    type: string
+                  groupId:
+                    description: Specifies an ID of the APIG group to which the API
+                      belongs to.
+                    type: string
+                  http:
+                    description: |-
+                      Specifies the web backend details.
+                      The object structure is documented below. Changing this will create a new API resource.
+                    items:
+                      properties:
+                        authorizerId:
+                          description: Specifies the ID of the backend custom authorization.
+                          type: string
+                        description:
+                          description: |-
+                            Specifies the description of the constant or system parameter.
+                            The description contains a maximum of 255 characters and the angle brackets (< and >) are not allowed.
+                          type: string
+                        requestMethod:
+                          description: |-
+                            Specifies the backend request method of the API.
+                            The valid values are GET, POST, PUT, DELETE, HEAD, PATCH, OPTIONS and ANY.
+                          type: string
+                        requestProtocol:
+                          description: |-
+                            Specifies the backend request protocol.
+                            The valid values are HTTP and HTTPS, defaults to HTTPS.
+                          type: string
+                        requestUri:
+                          description: |-
+                            Specifies the backend request address, which can contain a maximum of 512 characters and
+                            must comply with URI specifications.
+                          type: string
+                        retryCount:
+                          description: |-
+                            Specifies the number of retry attempts to request the backend service.
+                            The valid value ranges from -1 to 10, defaults to -1.
+                            -1 indicates that idempotent APIs will retry once and non-idempotent APIs will not retry.
+                            POST and PATCH are not-idempotent.
+                            GET, HEAD, PUT, OPTIONS and DELETE are idempotent.
+                          type: number
+                        sslEnable:
+                          description: Specifies whether to enable two-way authentication,
+                            defaults to false.
+                          type: boolean
+                        timeout:
+                          description: |-
+                            Specifies the timeout for API requests to backend service, the unit is ms.
+                            The valid value ranges from 1 to 600,000, defaults to 5,000.
+                          type: number
+                        urlDomain:
+                          description: |-
+                            Backend service address.
+                            A backend service address consists of a domain name or IP address and a port number,
+                            with not more than 255 characters. It must be in the format Host name:Port number,
+                            for example, apig.example.com:7443. If the port number is not specified, the default HTTPS port 443 or the default HTTP port 80 is used.
+                          type: string
+                        version:
+                          description: Specifies the function version.
+                          type: string
+                        vpcChannelId:
+                          description: |-
+                            Specifies the VPC channel ID. This parameter and url_domain are
+                            alternative.
+                          type: string
+                        vpcChannelProxyHost:
+                          description: |-
+                            Specifies the proxy host header.
+                            The host header can be customized for requests to be forwarded to cloud servers through the VPC channel.
+                            By default, the original host header of the request is used.
+                          type: string
+                      type: object
+                    type: array
+                  httpPolicy:
+                    description: |-
+                      Specifies the example response for a failed request.
+                      The maximum blocks of the policy is 5.
+                      The object structure is documented below.
+                    items:
+                      properties:
+                        authorizerId:
+                          description: Specifies the ID of the backend custom authorization.
+                          type: string
+                        backendParams:
+                          description: |-
+                            Specifies an array of one or more backend parameters. The maximum of request
+                            parameters is 50. The object structure is documented above.
+                          items:
+                            properties:
+                              description:
+                                description: |-
+                                  Specifies the description of the request parameter.
+                                  The description contains a maximum of 255 characters and the angle brackets (< and >) are not allowed.
+                                type: string
+                              location:
+                                description: |-
+                                  Specifies the location of the request parameter.
+                                  The valid values are PATH, QUERY and HEADER, defaults to PATH.
+                                type: string
+                              name:
+                                description: |-
+                                  Specifies the request parameter name.
+                                  The valid length is limited from can contain 1 to 32, only letters, digits, hyphens (-), underscores (_) and
+                                  periods (.) are allowed.
+                                  If Location is specified as HEADER and security_authentication_type is specified as APP, the parameter name
+                                  cannot be Authorization (case-insensitive) and cannot contain underscores.
+                                type: string
+                              systemParamType:
+                                description: |-
+                                  Specifies the type of the system parameter.
+                                  The valid values are frontend, backend and internal, defaults to internal.
+                                type: string
+                              type:
+                                description: |-
+                                  Specifies the API type.
+                                  The valid values are Public and Private.
+                                type: string
+                              value:
+                                description: |-
+                                  Specifies the value of the backend policy.
+                                  For a condition with the input parameter source:
+                                type: string
+                            type: object
+                          type: array
+                        conditions:
+                          description: |-
+                            Specifies an array of one or more policy conditions.
+                            Up to five conditions can be set.
+                            The object structure is documented below.
+                          items:
+                            properties:
+                              origin:
+                                description: |-
+                                  Specifies the backend policy type.
+                                  The valid values are param, source, defaults to source.
+                                type: string
+                              paramName:
+                                description: |-
+                                  Specifies the request parameter name.
+                                  This parameter is required if the policy type is param. The valid values are user_age and X-TEST-ENUM.
+                                type: string
+                              type:
+                                description: |-
+                                  Specifies the API type.
+                                  The valid values are Public and Private.
+                                type: string
+                              value:
+                                description: |-
+                                  Specifies the value of the backend policy.
+                                  For a condition with the input parameter source:
+                                type: string
+                            type: object
+                          type: array
+                        effectiveMode:
+                          description: |-
+                            Specifies the effective mode of the backend policy. The valid values are ALL
+                            and ANY, defaults to ANY.
+                          type: string
+                        name:
+                          description: |-
+                            Specifies the backend policy name.
+                            The valid length is limited from can contain 3 to 64, only letters, digits and underscores (_) are allowed.
+                          type: string
+                        requestMethod:
+                          description: |-
+                            Specifies the backend request method of the API.
+                            The valid values are GET, POST, PUT, DELETE, HEAD, PATCH, OPTIONS and ANY.
+                          type: string
+                        requestProtocol:
+                          description: |-
+                            Specifies the backend request protocol. The valid values are HTTP and
+                            HTTPS, defaults to HTTPS.
+                          type: string
+                        requestUri:
+                          description: |-
+                            Specifies the backend request address, which can contain a maximum of 512 characters and
+                            must comply with URI specifications.
+                          type: string
+                        retryCount:
+                          description: |-
+                            Specifies the number of retry attempts to request the backend service.
+                            The valid value ranges from -1 to 10, defaults to -1.
+                            -1 indicates that idempotent APIs will retry once and non-idempotent APIs will not retry.
+                            POST and PATCH are not-idempotent.
+                            GET, HEAD, PUT, OPTIONS and DELETE are idempotent.
+                          type: number
+                        timeout:
+                          description: |-
+                            Specifies the timeout, in ms, which allowed for APIGW to request the backend service. The
+                            valid value is range from 1 to 600,000, defaults to 5,000.
+                          type: number
+                        urlDomain:
+                          description: |-
+                            Specifies the backend service address.
+                            The value which consists of a domain name or IP address, and a port number, with not more than 255 characters.
+                            The backend service address must be in the format "{host name}:{Port number}", for example, apig.example.com:7443.
+                            If the port number is not specified, the default HTTPS port 443, or the default HTTP port 80 is used.
+                            The backend service address can contain environment variables, each starting with a letter and consisting of 3 to
+                            32 characters. Only letters, digits, hyphens (-), and underscores (_) are allowed.
+                          type: string
+                        vpcChannelId:
+                          description: |-
+                            Specifies the VPC channel ID.
+                            This parameter and url_domain are alternative.
+                          type: string
+                        vpcChannelProxyHost:
+                          description: |-
+                            Specifies the proxy host header.
+                            The host header can be customized for requests to be forwarded to cloud servers through the VPC channel.
+                            By default, the original host header of the request is used.
+                          type: string
+                      type: object
+                    type: array
+                  id:
+                    description: The ID of the API.
+                    type: string
+                  matchMode:
+                    description: |-
+                      Specifies the route matching mode.
+                      The valid values are EXACT and PREFIX, defaults to EXACT.
+                    type: string
+                  mock:
+                    description: |-
+                      Specifies the mock backend details.
+                      The object structure is documented below.
+                      Changing this will create a new API resource.
+                    items:
+                      properties:
+                        authorizerId:
+                          description: Specifies the ID of the backend custom authorization.
+                          type: string
+                        description:
+                          description: |-
+                            Specifies the description of the constant or system parameter.
+                            The description contains a maximum of 255 characters and the angle brackets (< and >) are not allowed.
+                          type: string
+                        response:
+                          description: |-
+                            Specifies the response of the backend policy.
+                            The description contains a maximum of 2,048 characters and the angle brackets (< and >) are not allowed.
+                          type: string
+                        version:
+                          description: Specifies the mock version. It cannot exceed
+                            64 characters.
+                          type: string
+                      type: object
+                    type: array
+                  mockPolicy:
+                    description: |-
+                      Specifies the Mock policy backends.
+                      The maximum blocks of the policy is 5.
+                      The object structure is documented below.
+                      The mock policy backends.
+                    items:
+                      properties:
+                        authorizerId:
+                          description: Specifies the ID of the backend custom authorization.
+                          type: string
+                        backendParams:
+                          description: |-
+                            Specifies an array of one or more backend parameters.
+                            The maximum of request parameters is 50.
+                            The object structure is documented above.
+                          items:
+                            properties:
+                              description:
+                                description: |-
+                                  Specifies the description of the request parameter.
+                                  The description contains a maximum of 255 characters and the angle brackets (< and >) are not allowed.
+                                type: string
+                              location:
+                                description: |-
+                                  Specifies the location of the request parameter.
+                                  The valid values are PATH, QUERY and HEADER, defaults to PATH.
+                                type: string
+                              name:
+                                description: |-
+                                  Specifies the request parameter name.
+                                  The valid length is limited from can contain 1 to 32, only letters, digits, hyphens (-), underscores (_) and
+                                  periods (.) are allowed.
+                                  If Location is specified as HEADER and security_authentication_type is specified as APP, the parameter name
+                                  cannot be Authorization (case-insensitive) and cannot contain underscores.
+                                type: string
+                              systemParamType:
+                                description: |-
+                                  Specifies the type of the system parameter.
+                                  The valid values are frontend, backend and internal, defaults to internal.
+                                type: string
+                              type:
+                                description: |-
+                                  Specifies the API type.
+                                  The valid values are Public and Private.
+                                type: string
+                              value:
+                                description: |-
+                                  Specifies the value of the backend policy.
+                                  For a condition with the input parameter source:
+                                type: string
+                            type: object
+                          type: array
+                        conditions:
+                          description: |-
+                            Specifies an array of one or more policy conditions.
+                            Up to five conditions can be set.
+                            The object structure is documented below.
+                          items:
+                            properties:
+                              origin:
+                                description: |-
+                                  Specifies the backend policy type.
+                                  The valid values are param, source, defaults to source.
+                                type: string
+                              paramName:
+                                description: |-
+                                  Specifies the request parameter name.
+                                  This parameter is required if the policy type is param. The valid values are user_age and X-TEST-ENUM.
+                                type: string
+                              type:
+                                description: |-
+                                  Specifies the API type.
+                                  The valid values are Public and Private.
+                                type: string
+                              value:
+                                description: |-
+                                  Specifies the value of the backend policy.
+                                  For a condition with the input parameter source:
+                                type: string
+                            type: object
+                          type: array
+                        effectiveMode:
+                          description: |-
+                            Specifies the effective mode of the backend policy.
+                            The valid values are ALL and ANY, defaults to ANY.
+                          type: string
+                        name:
+                          description: |-
+                            Specifies the backend policy name.
+                            The valid length is limited from can contain 3 to 64, only letters, digits and underscores (_) are allowed.
+                          type: string
+                        response:
+                          description: |-
+                            Specifies the response of the backend policy.
+                            The description contains a maximum of 2,048 characters and the angle brackets (< and >) are not allowed.
+                          type: string
+                      type: object
+                    type: array
+                  name:
+                    description: |-
+                      Specifies the API name.
+                      The valid length is limited from can contain 3 to 255, only Chinese and English letters, digits and
+                      following special characters are allowed: -_./（()）:：、.
+                      The name must start with a digit, Chinese or English letter.
+                    type: string
+                  region:
+                    description: |-
+                      Specifies the region where the API is located.
+                      If omitted, the provider-level region will be used. Changing this will create a new API resource.
+                    type: string
+                  registeredAt:
+                    description: Time when the API is registered.
+                    type: string
+                  requestMethod:
+                    description: |-
+                      Specifies the request method of the API.
+                      The valid values are GET, POST, PUT, DELETE, HEAD, PATCH, OPTIONS and ANY.
+                    type: string
+                  requestParams:
+                    description: |-
+                      Specifies the configurations of the front-end parameters.
+                      The object structure is documented below.
+                    items:
+                      properties:
+                        default:
+                          description: |-
+                            Specifies the default value of the request parameter.
+                            The value contains a maximum of 255 characters and the angle brackets (< and >) are not allowed.
+                          type: string
+                        description:
+                          description: |-
+                            Specifies the description of the request parameter.
+                            The description contains a maximum of 255 characters and the angle brackets (< and >) are not allowed.
+                          type: string
+                        enumeration:
+                          description: |-
+                            Specifies the enumerated value(s).
+                            Use commas to separate multiple enumeration values, such as VALUE_A,VALUE_B.
+                          type: string
+                        location:
+                          description: |-
+                            Specifies the location of the request parameter.
+                            The valid values are PATH, QUERY and HEADER, defaults to PATH.
+                          type: string
+                        maximum:
+                          description: Specifies the maximum value or size of the
+                            request parameter.
+                          type: number
+                        minimum:
+                          description: Specifies the minimum value or size of the
+                            request parameter.
+                          type: number
+                        name:
+                          description: |-
+                            Specifies the request parameter name.
+                            The valid length is limited from can contain 1 to 32, only letters, digits, hyphens (-), underscores (_) and
+                            periods (.) are allowed.
+                            If Location is specified as HEADER and security_authentication_type is specified as APP, the parameter name
+                            cannot be Authorization (case-insensitive) and cannot contain underscores.
+                          type: string
+                        passthrough:
+                          description: Specifies whether to transparently transfer
+                            the parameter.
+                          type: boolean
+                        required:
+                          description: Specifies whether the request parameter is
+                            required.
+                          type: boolean
+                        sample:
+                          description: |-
+                            Specifies the example value of the request parameter.
+                            The example contains a maximum of 255 characters and the angle brackets (< and >) are not allowed.
+                          type: string
+                        type:
+                          description: |-
+                            Specifies the request parameter type.
+                            The valid values are STRING and NUMBER, defaults to STRING.
+                          type: string
+                        validityCheck:
+                          type: boolean
+                      type: object
+                    type: array
+                  requestProtocol:
+                    description: |-
+                      Specifies the request protocol of the API.
+                      The valid values are HTTP, HTTPS and BOTH.
+                    type: string
+                  requestUri:
+                    description: |-
+                      Specifies the request address, which can contain a maximum of 512 characters,
+                      the request parameters enclosed with brackets ({}).
+                    type: string
+                  responseId:
+                    description: Specifies the APIG group response ID.
+                    type: string
+                  securityAuthenticationEnabled:
+                    description: |-
+                      Specifies whether the authentication of the application code is enabled.
+                      The application code must located in the header when security_authentication_enabled is true.
+                    type: boolean
+                  securityAuthenticationType:
+                    description: |-
+                      Specifies the security authentication mode of the API request.
+                      The valid values are NONE, APP, IAM and AUTHORIZER, defaults to NONE.
+                    type: string
+                  successResponse:
+                    description: |-
+                      Specifies the example response for a successful request.
+                      The response contains a maximum of 20,480 characters.
+                    type: string
+                  tags:
+                    description: |-
+                      Tags. Use letters, digits, and special characters (-*#%.:_) and start with a letter.
+                      By default, 10 tags are supported. To increase the quota, contact technical support to modify the API_TAG_NUM_LIMIT configuration.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  type:
+                    description: |-
+                      Specifies the API type.
+                      The valid values are Public and Private.
+                    type: string
+                  updatedAt:
+                    description: Time when the API was last modified.
+                    type: string
+                  version:
+                    description: Specifies the API version.
+                    type: string
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        LastTransitionTime is the last time this condition transitioned from one
+                        status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        A Message containing details about this condition's last transition from
+                        one status to another, if any.
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        ObservedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      type: integer
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: |-
+                        Type of this condition. At most one of each condition type may apply to
+                        a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+              observedGeneration:
+                description: |-
+                  ObservedGeneration is the latest metadata.generation
+                  which resulted in either a ready state, or stalled due to error
+                  it can not recover from without human intervention.
+                format: int64
+                type: integer
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

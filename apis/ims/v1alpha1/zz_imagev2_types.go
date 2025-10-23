@@ -22,6 +22,9 @@ type ImageV2InitParameters struct {
 	// A description of the image. Changing this creates a new image.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	// Specifies the boot mode. The value can be bios or uefi.
+	HwFirmwareType *string `json:"hwFirmwareType,omitempty" tf:"hw_firmware_type,omitempty"`
+
 	// The URL of the external image file in the OBS bucket.
 	// This parameter is mandatory when you create a private image from an external file
 	// uploaded to an OBS bucket. The format is OBS bucket name:Image file name.
@@ -92,6 +95,9 @@ type ImageV2Observation struct {
 
 	// The URL for uploading and downloading the image file.
 	File *string `json:"file,omitempty" tf:"file,omitempty"`
+
+	// Specifies the boot mode. The value can be bios or uefi.
+	HwFirmwareType *string `json:"hwFirmwareType,omitempty" tf:"hw_firmware_type,omitempty"`
 
 	// A unique ID assigned by IMS.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -165,6 +171,10 @@ type ImageV2Parameters struct {
 	// A description of the image. Changing this creates a new image.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// Specifies the boot mode. The value can be bios or uefi.
+	// +kubebuilder:validation:Optional
+	HwFirmwareType *string `json:"hwFirmwareType,omitempty" tf:"hw_firmware_type,omitempty"`
 
 	// The URL of the external image file in the OBS bucket.
 	// This parameter is mandatory when you create a private image from an external file

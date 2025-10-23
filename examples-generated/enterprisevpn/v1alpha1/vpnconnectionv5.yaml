@@ -1,0 +1,18 @@
+apiVersion: enterprisevpn.opentelekomcloud.crossplane.io/v1alpha1
+kind: VPNConnectionV5
+metadata:
+  annotations:
+    meta.upbound.io/example-id: enterprisevpn/v1alpha1/vpnconnectionv5
+  labels:
+    testing.upbound.io/example-name: conn
+  name: conn
+spec:
+  forProvider:
+    customerGatewayId: ${var.customer_gateway_id}
+    gatewayId: ${var.gateway_id}
+    gatewayIp: ${var.gateway_ip}
+    name: ${var.name}
+    peerSubnets:
+    - ${var.peer_subnet}
+    psk: Test@123
+    vpnType: static

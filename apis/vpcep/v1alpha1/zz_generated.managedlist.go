@@ -8,6 +8,15 @@ package v1alpha1
 
 import resource "github.com/crossplane/crossplane-runtime/pkg/resource"
 
+// GetItems of this ApprovalV1List.
+func (l *ApprovalV1List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this EndpointV1List.
 func (l *EndpointV1List) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))

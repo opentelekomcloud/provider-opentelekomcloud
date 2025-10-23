@@ -1,0 +1,715 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.16.5
+  name: servicemeshv1s.asm.opentelekomcloud.crossplane.io
+spec:
+  group: asm.opentelekomcloud.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - opentelekomcloud
+    kind: ServiceMeshV1
+    listKind: ServiceMeshV1List
+    plural: servicemeshv1s
+    singular: servicemeshv1
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: ServiceMeshV1 is the Schema for the ServiceMeshV1s API. Manages
+          an ASM Service Mesh v1 resource within OpenTelekomCloud.
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: ServiceMeshV1Spec defines the desired state of ServiceMeshV1
+            properties:
+              deletionPolicy:
+                default: Delete
+                description: |-
+                  DeletionPolicy specifies what will happen to the underlying external
+                  when this managed resource is deleted - either "Delete" or "Orphan" the
+                  external resource.
+                  This field is planned to be deprecated in favor of the ManagementPolicies
+                  field in a future release. Currently, both could be set independently and
+                  non-default values would be honored if the feature flag is enabled.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                enum:
+                - Orphan
+                - Delete
+                type: string
+              forProvider:
+                properties:
+                  clusters:
+                    description: Specifies the cluster information in the service
+                      mesh. The clusters structure is documented below.
+                    items:
+                      properties:
+                        clusterId:
+                          description: Specifies the CCE Cluster ID.
+                          type: string
+                        injectionNamespaces:
+                          description: Specifies the name of namespaces where sidecars
+                            are to be injected.
+                          items:
+                            type: string
+                          type: array
+                        installationNodes:
+                          description: Specifies the node ID of nodes where service
+                            mesh components are to be installed.
+                          items:
+                            type: string
+                          type: array
+                      type: object
+                    type: array
+                  ipv6Enable:
+                    description: Specifies whether the service mesh supports IPv6.
+                    type: boolean
+                  name:
+                    description: Specifies the service mesh name. The name must be
+                      4 to 64 characters long, start with a lowercase letter and not
+                      end with a hyphen (-). Only lowercase letters, digits, and hyphens
+                      (-) are allowed.
+                    type: string
+                  proxyConfig:
+                    description: Specifies the data plane configuration of the service
+                      mesh. The proxy_config structure is documented below.
+                    items:
+                      properties:
+                        excludeInboundPorts:
+                          description: Specifies the ports that will be excluded for
+                            inbound traffic redirection. Use commas (,) to separate
+                            the ports.
+                          type: string
+                        excludeIpRanges:
+                          description: Specifies the IP address ranges that will be
+                            excluded for outbound traffic redirection. Use commas
+                            (,) to separate the IP address ranges.
+                          type: string
+                        excludeOutboundPorts:
+                          description: Specifies the ports that will be excluded for
+                            outbound traffic redirection. Use commas (,) to separate
+                            the ports.
+                          type: string
+                        includeInboundPorts:
+                          description: Specifies the Ports that will be included for
+                            inbound traffic redirection. Use commas (,) to separate
+                            the ports.
+                          type: string
+                        includeIpRanges:
+                          description: Specifies the IP address ranges that will be
+                            included for outbound traffic redirection. Use commas
+                            (,) to separate the IP address ranges.
+                          type: string
+                        includeOutboundPorts:
+                          description: Specifies the ports that will be included for
+                            outbound traffic redirection. Use commas (,) to separate
+                            the ports.
+                          type: string
+                      type: object
+                    type: array
+                  telemetryConfigTracing:
+                    description: Specifies the observability/tracing configuration,
+                      which is used to report traces in the service mesh. The telemetry_config_tracing
+                      structure is documented below.
+                    items:
+                      properties:
+                        defaultProviders:
+                          description: Specifies the name of the default provider
+                            that tracing reports data to, which must match the name
+                            field in extension_providers or use the preset provider
+                            apm-otel of ASM. If apm-otel is used, ensure that APM
+                            2.0 is supported in the current region and the service
+                            mesh version is later than 1.18.
+                          items:
+                            type: string
+                          type: array
+                        extensionProviders:
+                          description: 'Specifies the user-defined provider. Currently,
+                            Zipkin is supported. If you configure the Zipkin provider,
+                            ensure that the service mesh version is 1.15 or later.
+                            The structure is documented below:'
+                          items:
+                            properties:
+                              name:
+                                description: Specifies the service mesh name. The
+                                  name must be 4 to 64 characters long, start with
+                                  a lowercase letter and not end with a hyphen (-).
+                                  Only lowercase letters, digits, and hyphens (-)
+                                  are allowed.
+                                type: string
+                              zipkinServiceAddr:
+                                description: Specifies the service address of Zipkin.
+                                type: string
+                              zipkinServicePort:
+                                description: Specifies the service port of Zipkin.
+                                type: number
+                            type: object
+                          type: array
+                        randomSamplingPercentage:
+                          description: Specifies the tracing sampling rate.
+                          type: number
+                      type: object
+                    type: array
+                  type:
+                    description: 'Specifies the service mesh type. Supported value:
+                      InCluster (service mesh with an in-cluster control plane). The
+                      value is InCluster for the service mesh of the Basic edition.'
+                    type: string
+                  version:
+                    description: Specifies the service mesh version.
+                    type: string
+                type: object
+              initProvider:
+                description: |-
+                  THIS IS A BETA FIELD. It will be honored
+                  unless the Management Policies feature flag is disabled.
+                  InitProvider holds the same fields as ForProvider, with the exception
+                  of Identifier and other resource reference fields. The fields that are
+                  in InitProvider are merged into ForProvider when the resource is created.
+                  The same fields are also added to the terraform ignore_changes hook, to
+                  avoid updating them after creation. This is useful for fields that are
+                  required on creation, but we do not desire to update them after creation,
+                  for example because of an external controller is managing them, like an
+                  autoscaler.
+                properties:
+                  clusters:
+                    description: Specifies the cluster information in the service
+                      mesh. The clusters structure is documented below.
+                    items:
+                      properties:
+                        clusterId:
+                          description: Specifies the CCE Cluster ID.
+                          type: string
+                        injectionNamespaces:
+                          description: Specifies the name of namespaces where sidecars
+                            are to be injected.
+                          items:
+                            type: string
+                          type: array
+                        installationNodes:
+                          description: Specifies the node ID of nodes where service
+                            mesh components are to be installed.
+                          items:
+                            type: string
+                          type: array
+                      type: object
+                    type: array
+                  ipv6Enable:
+                    description: Specifies whether the service mesh supports IPv6.
+                    type: boolean
+                  name:
+                    description: Specifies the service mesh name. The name must be
+                      4 to 64 characters long, start with a lowercase letter and not
+                      end with a hyphen (-). Only lowercase letters, digits, and hyphens
+                      (-) are allowed.
+                    type: string
+                  proxyConfig:
+                    description: Specifies the data plane configuration of the service
+                      mesh. The proxy_config structure is documented below.
+                    items:
+                      properties:
+                        excludeInboundPorts:
+                          description: Specifies the ports that will be excluded for
+                            inbound traffic redirection. Use commas (,) to separate
+                            the ports.
+                          type: string
+                        excludeIpRanges:
+                          description: Specifies the IP address ranges that will be
+                            excluded for outbound traffic redirection. Use commas
+                            (,) to separate the IP address ranges.
+                          type: string
+                        excludeOutboundPorts:
+                          description: Specifies the ports that will be excluded for
+                            outbound traffic redirection. Use commas (,) to separate
+                            the ports.
+                          type: string
+                        includeInboundPorts:
+                          description: Specifies the Ports that will be included for
+                            inbound traffic redirection. Use commas (,) to separate
+                            the ports.
+                          type: string
+                        includeIpRanges:
+                          description: Specifies the IP address ranges that will be
+                            included for outbound traffic redirection. Use commas
+                            (,) to separate the IP address ranges.
+                          type: string
+                        includeOutboundPorts:
+                          description: Specifies the ports that will be included for
+                            outbound traffic redirection. Use commas (,) to separate
+                            the ports.
+                          type: string
+                      type: object
+                    type: array
+                  telemetryConfigTracing:
+                    description: Specifies the observability/tracing configuration,
+                      which is used to report traces in the service mesh. The telemetry_config_tracing
+                      structure is documented below.
+                    items:
+                      properties:
+                        defaultProviders:
+                          description: Specifies the name of the default provider
+                            that tracing reports data to, which must match the name
+                            field in extension_providers or use the preset provider
+                            apm-otel of ASM. If apm-otel is used, ensure that APM
+                            2.0 is supported in the current region and the service
+                            mesh version is later than 1.18.
+                          items:
+                            type: string
+                          type: array
+                        extensionProviders:
+                          description: 'Specifies the user-defined provider. Currently,
+                            Zipkin is supported. If you configure the Zipkin provider,
+                            ensure that the service mesh version is 1.15 or later.
+                            The structure is documented below:'
+                          items:
+                            properties:
+                              name:
+                                description: Specifies the service mesh name. The
+                                  name must be 4 to 64 characters long, start with
+                                  a lowercase letter and not end with a hyphen (-).
+                                  Only lowercase letters, digits, and hyphens (-)
+                                  are allowed.
+                                type: string
+                              zipkinServiceAddr:
+                                description: Specifies the service address of Zipkin.
+                                type: string
+                              zipkinServicePort:
+                                description: Specifies the service port of Zipkin.
+                                type: number
+                            type: object
+                          type: array
+                        randomSamplingPercentage:
+                          description: Specifies the tracing sampling rate.
+                          type: number
+                      type: object
+                    type: array
+                  type:
+                    description: 'Specifies the service mesh type. Supported value:
+                      InCluster (service mesh with an in-cluster control plane). The
+                      value is InCluster for the service mesh of the Basic edition.'
+                    type: string
+                  version:
+                    description: Specifies the service mesh version.
+                    type: string
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: |-
+                  THIS IS A BETA FIELD. It is on by default but can be opted out
+                  through a Crossplane feature flag.
+                  ManagementPolicies specify the array of actions Crossplane is allowed to
+                  take on the managed and external resources.
+                  This field is planned to replace the DeletionPolicy field in a future
+                  release. Currently, both could be set independently and non-default
+                  values would be honored if the feature flag is enabled. If both are
+                  custom, the DeletionPolicy field will be ignored.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md
+                items:
+                  description: |-
+                    A ManagementAction represents an action that the Crossplane controllers
+                    can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
+              providerConfigRef:
+                default:
+                  name: default
+                description: |-
+                  ProviderConfigReference specifies how the provider that will be used to
+                  create, observe, update, and delete this managed resource should be
+                  configured.
+                properties:
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                  policy:
+                    description: Policies for referencing.
+                    properties:
+                      resolution:
+                        default: Required
+                        description: |-
+                          Resolution specifies whether resolution of this reference is required.
+                          The default is 'Required', which means the reconcile will fail if the
+                          reference cannot be resolved. 'Optional' means this reference will be
+                          a no-op if it cannot be resolved.
+                        enum:
+                        - Required
+                        - Optional
+                        type: string
+                      resolve:
+                        description: |-
+                          Resolve specifies when this reference should be resolved. The default
+                          is 'IfNotPresent', which will attempt to resolve the reference only when
+                          the corresponding field is not present. Use 'Always' to resolve the
+                          reference on every reconcile.
+                        enum:
+                        - Always
+                        - IfNotPresent
+                        type: string
+                    type: object
+                required:
+                - name
+                type: object
+              publishConnectionDetailsTo:
+                description: |-
+                  PublishConnectionDetailsTo specifies the connection secret config which
+                  contains a name, metadata and a reference to secret store config to
+                  which any connection details for this managed resource should be written.
+                  Connection details frequently include the endpoint, username,
+                  and password required to connect to the managed resource.
+                properties:
+                  configRef:
+                    default:
+                      name: default
+                    description: |-
+                      SecretStoreConfigRef specifies which secret store config should be used
+                      for this ConnectionSecret.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  metadata:
+                    description: Metadata is the metadata for connection secret.
+                    properties:
+                      annotations:
+                        additionalProperties:
+                          type: string
+                        description: |-
+                          Annotations are the annotations to be added to connection secret.
+                          - For Kubernetes secrets, this will be used as "metadata.annotations".
+                          - It is up to Secret Store implementation for others store types.
+                        type: object
+                      labels:
+                        additionalProperties:
+                          type: string
+                        description: |-
+                          Labels are the labels/tags to be added to connection secret.
+                          - For Kubernetes secrets, this will be used as "metadata.labels".
+                          - It is up to Secret Store implementation for others store types.
+                        type: object
+                      type:
+                        description: |-
+                          Type is the SecretType for the connection secret.
+                          - Only valid for Kubernetes Secret Stores.
+                        type: string
+                    type: object
+                  name:
+                    description: Name is the name of the connection secret.
+                    type: string
+                required:
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: |-
+                  WriteConnectionSecretToReference specifies the namespace and name of a
+                  Secret to which any connection details for this managed resource should
+                  be written. Connection details frequently include the endpoint, username,
+                  and password required to connect to the managed resource.
+                  This field is planned to be replaced in a future release in favor of
+                  PublishConnectionDetailsTo. Currently, both could be set independently
+                  and connection details would be published to both without affecting
+                  each other.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                  namespace:
+                    description: Namespace of the secret.
+                    type: string
+                required:
+                - name
+                - namespace
+                type: object
+            required:
+            - forProvider
+            type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.clusters is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.clusters)
+                || (has(self.initProvider) && has(self.initProvider.clusters))'
+            - message: spec.forProvider.name is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
+                || (has(self.initProvider) && has(self.initProvider.name))'
+            - message: spec.forProvider.type is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.type)
+                || (has(self.initProvider) && has(self.initProvider.type))'
+            - message: spec.forProvider.version is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.version)
+                || (has(self.initProvider) && has(self.initProvider.version))'
+          status:
+            description: ServiceMeshV1Status defines the observed state of ServiceMeshV1.
+            properties:
+              atProvider:
+                properties:
+                  clusterIds:
+                    description: Indicates the cluster id of CCE clusters associated
+                      with service mesh.
+                    items:
+                      type: string
+                    type: array
+                  clusters:
+                    description: Specifies the cluster information in the service
+                      mesh. The clusters structure is documented below.
+                    items:
+                      properties:
+                        clusterId:
+                          description: Specifies the CCE Cluster ID.
+                          type: string
+                        injectionNamespaces:
+                          description: Specifies the name of namespaces where sidecars
+                            are to be injected.
+                          items:
+                            type: string
+                          type: array
+                        installationNodes:
+                          description: Specifies the node ID of nodes where service
+                            mesh components are to be installed.
+                          items:
+                            type: string
+                          type: array
+                      type: object
+                    type: array
+                  creationTimestamp:
+                    description: Indicates the time when the service mesh was created..
+                    type: string
+                  id:
+                    description: Service Mesh ID.
+                    type: string
+                  ipv6Enable:
+                    description: Specifies whether the service mesh supports IPv6.
+                    type: boolean
+                  name:
+                    description: Specifies the service mesh name. The name must be
+                      4 to 64 characters long, start with a lowercase letter and not
+                      end with a hyphen (-). Only lowercase letters, digits, and hyphens
+                      (-) are allowed.
+                    type: string
+                  proxyConfig:
+                    description: Specifies the data plane configuration of the service
+                      mesh. The proxy_config structure is documented below.
+                    items:
+                      properties:
+                        excludeInboundPorts:
+                          description: Specifies the ports that will be excluded for
+                            inbound traffic redirection. Use commas (,) to separate
+                            the ports.
+                          type: string
+                        excludeIpRanges:
+                          description: Specifies the IP address ranges that will be
+                            excluded for outbound traffic redirection. Use commas
+                            (,) to separate the IP address ranges.
+                          type: string
+                        excludeOutboundPorts:
+                          description: Specifies the ports that will be excluded for
+                            outbound traffic redirection. Use commas (,) to separate
+                            the ports.
+                          type: string
+                        includeInboundPorts:
+                          description: Specifies the Ports that will be included for
+                            inbound traffic redirection. Use commas (,) to separate
+                            the ports.
+                          type: string
+                        includeIpRanges:
+                          description: Specifies the IP address ranges that will be
+                            included for outbound traffic redirection. Use commas
+                            (,) to separate the IP address ranges.
+                          type: string
+                        includeOutboundPorts:
+                          description: Specifies the ports that will be included for
+                            outbound traffic redirection. Use commas (,) to separate
+                            the ports.
+                          type: string
+                      type: object
+                    type: array
+                  status:
+                    description: 'Indicates the service mesh status. The value can
+                      be: Running, Creating, CreateFailed, Deleting, DeleteFailed,
+                      Upgrading, UpgradeFailed, RollingBack, RollbackFailed.'
+                    type: string
+                  telemetryConfigTracing:
+                    description: Specifies the observability/tracing configuration,
+                      which is used to report traces in the service mesh. The telemetry_config_tracing
+                      structure is documented below.
+                    items:
+                      properties:
+                        defaultProviders:
+                          description: Specifies the name of the default provider
+                            that tracing reports data to, which must match the name
+                            field in extension_providers or use the preset provider
+                            apm-otel of ASM. If apm-otel is used, ensure that APM
+                            2.0 is supported in the current region and the service
+                            mesh version is later than 1.18.
+                          items:
+                            type: string
+                          type: array
+                        extensionProviders:
+                          description: 'Specifies the user-defined provider. Currently,
+                            Zipkin is supported. If you configure the Zipkin provider,
+                            ensure that the service mesh version is 1.15 or later.
+                            The structure is documented below:'
+                          items:
+                            properties:
+                              name:
+                                description: Specifies the service mesh name. The
+                                  name must be 4 to 64 characters long, start with
+                                  a lowercase letter and not end with a hyphen (-).
+                                  Only lowercase letters, digits, and hyphens (-)
+                                  are allowed.
+                                type: string
+                              zipkinServiceAddr:
+                                description: Specifies the service address of Zipkin.
+                                type: string
+                              zipkinServicePort:
+                                description: Specifies the service port of Zipkin.
+                                type: number
+                            type: object
+                          type: array
+                        randomSamplingPercentage:
+                          description: Specifies the tracing sampling rate.
+                          type: number
+                      type: object
+                    type: array
+                  type:
+                    description: 'Specifies the service mesh type. Supported value:
+                      InCluster (service mesh with an in-cluster control plane). The
+                      value is InCluster for the service mesh of the Basic edition.'
+                    type: string
+                  version:
+                    description: Specifies the service mesh version.
+                    type: string
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        LastTransitionTime is the last time this condition transitioned from one
+                        status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        A Message containing details about this condition's last transition from
+                        one status to another, if any.
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        ObservedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      type: integer
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: |-
+                        Type of this condition. At most one of each condition type may apply to
+                        a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+              observedGeneration:
+                description: |-
+                  ObservedGeneration is the latest metadata.generation
+                  which resulted in either a ready state, or stalled due to error
+                  it can not recover from without human intervention.
+                format: int64
+                type: integer
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

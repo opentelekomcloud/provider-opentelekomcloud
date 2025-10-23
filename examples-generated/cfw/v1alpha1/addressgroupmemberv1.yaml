@@ -1,0 +1,12 @@
+apiVersion: cfw.opentelekomcloud.crossplane.io/v1alpha1
+kind: AddressGroupMemberV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cfw/v1alpha1/addressgroupmemberv1
+  labels:
+    testing.upbound.io/example-name: group_1
+  name: group-1
+spec:
+  forProvider:
+    address: 1.1.1.1
+    setId: ${var.set_id}

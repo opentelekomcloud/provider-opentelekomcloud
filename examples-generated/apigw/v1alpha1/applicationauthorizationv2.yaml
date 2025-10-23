@@ -1,0 +1,14 @@
+apiVersion: apigw.opentelekomcloud.crossplane.io/v1alpha1
+kind: ApplicationAuthorizationV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: apigw/v1alpha1/applicationauthorizationv2
+  labels:
+    testing.upbound.io/example-name: auth
+  name: auth
+spec:
+  forProvider:
+    apiIds: ${var.published_api_ids}
+    applicationId: ${var.application_id}
+    envId: ${var.published_env_id}
+    gatewayId: ${var.gateway_id}

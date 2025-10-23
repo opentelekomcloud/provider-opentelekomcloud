@@ -11,3 +11,6 @@ spec:
     agency: ${var.agency}
     bucket: ${var.bucket}
     destinationBucket: ${var.destination_bucket}
+    rule:
+    - deleteData: false
+      historyEnabled: false

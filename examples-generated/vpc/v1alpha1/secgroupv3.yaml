@@ -1,0 +1,12 @@
+apiVersion: vpc.opentelekomcloud.crossplane.io/v1alpha1
+kind: SecgroupV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/secgroupv3
+  labels:
+    testing.upbound.io/example-name: secgroup_1
+  name: secgroup-1
+spec:
+  forProvider:
+    description: My VPC security group
+    name: secgroup_1

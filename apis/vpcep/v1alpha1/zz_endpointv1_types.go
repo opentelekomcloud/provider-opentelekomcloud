@@ -15,12 +15,18 @@ import (
 
 type EndpointV1InitParameters struct {
 
+	// Specifies the description of the VPC endpoint. The value can contain
+	// characters such as letters and digits, but cannot contain less than signs (<) and great than signs (>).
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
 	// Specifies whether to create a private domain name. The default value is false.
 	EnableDNS *bool `json:"enableDns,omitempty" tf:"enable_dns,omitempty"`
 
 	// Specifies whether to enable access control.
 	// This parameter is available only if you create a VPC endpoint for connecting to an interface VPC endpoint service.
 	EnableWhitelist *bool `json:"enableWhitelist,omitempty" tf:"enable_whitelist,omitempty"`
+
+	PolicyStatement *string `json:"policyStatement,omitempty" tf:"policy_statement,omitempty"`
 
 	// Specifies the IP address for accessing the associated VPC endpoint service.
 	PortIP *string `json:"portIp,omitempty" tf:"port_ip,omitempty"`
@@ -37,7 +43,7 @@ type EndpointV1InitParameters struct {
 	// This parameter is mandatory only if you create a VPC endpoint for connecting to an interface VPC endpoint service.
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 
-	// Lists the resource tags.
+	// The key/value pairs to associate with the VPC endpoint.
 	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
@@ -58,6 +64,10 @@ type EndpointV1Observation struct {
 	// +listType=set
 	DNSNames []*string `json:"dnsNames,omitempty" tf:"dns_names,omitempty"`
 
+	// Specifies the description of the VPC endpoint. The value can contain
+	// characters such as letters and digits, but cannot contain less than signs (<) and great than signs (>).
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
 	// Specifies whether to create a private domain name. The default value is false.
 	EnableDNS *bool `json:"enableDns,omitempty" tf:"enable_dns,omitempty"`
 
@@ -70,6 +80,8 @@ type EndpointV1Observation struct {
 
 	// Specifies the packet ID of the VPC endpoint.
 	MarkerID *float64 `json:"markerId,omitempty" tf:"marker_id,omitempty"`
+
+	PolicyStatement *string `json:"policyStatement,omitempty" tf:"policy_statement,omitempty"`
 
 	// Specifies the IP address for accessing the associated VPC endpoint service.
 	PortIP *string `json:"portIp,omitempty" tf:"port_ip,omitempty"`
@@ -90,12 +102,16 @@ type EndpointV1Observation struct {
 	// Specifies the type of the VPC endpoint service that is associated with the VPC endpoint.
 	ServiceType *string `json:"serviceType,omitempty" tf:"service_type,omitempty"`
 
+	// The status of the VPC endpoint. The value can be pendingAcceptance, creating, accepted,
+	// rejected, failed, deleting.
+	Status *string `json:"status,omitempty" tf:"status,omitempty"`
+
 	// The value must be the ID of the subnet (OpenStack network) created in the VPC specified
 	// by vpc_id and in the format of the UUID.
 	// This parameter is mandatory only if you create a VPC endpoint for connecting to an interface VPC endpoint service.
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 
-	// Lists the resource tags.
+	// The key/value pairs to associate with the VPC endpoint.
 	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
@@ -111,6 +127,11 @@ type EndpointV1Observation struct {
 
 type EndpointV1Parameters struct {
 
+	// Specifies the description of the VPC endpoint. The value can contain
+	// characters such as letters and digits, but cannot contain less than signs (<) and great than signs (>).
+	// +kubebuilder:validation:Optional
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
 	// Specifies whether to create a private domain name. The default value is false.
 	// +kubebuilder:validation:Optional
 	EnableDNS *bool `json:"enableDns,omitempty" tf:"enable_dns,omitempty"`
@@ -119,6 +140,9 @@ type EndpointV1Parameters struct {
 	// This parameter is available only if you create a VPC endpoint for connecting to an interface VPC endpoint service.
 	// +kubebuilder:validation:Optional
 	EnableWhitelist *bool `json:"enableWhitelist,omitempty" tf:"enable_whitelist,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	PolicyStatement *string `json:"policyStatement,omitempty" tf:"policy_statement,omitempty"`
 
 	// Specifies the IP address for accessing the associated VPC endpoint service.
 	// +kubebuilder:validation:Optional
@@ -139,7 +163,7 @@ type EndpointV1Parameters struct {
 	// +kubebuilder:validation:Optional
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 
-	// Lists the resource tags.
+	// The key/value pairs to associate with the VPC endpoint.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`

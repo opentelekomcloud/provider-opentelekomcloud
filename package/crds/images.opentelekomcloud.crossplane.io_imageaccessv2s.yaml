@@ -81,12 +81,6 @@ spec:
                       The member ID, e.g. the target project ID. Optional
                       for admin accounts. Defaults to the current scope project ID.
                     type: string
-                  status:
-                    description: |-
-                      The member proposal status. Optional if admin wants to force the member
-                      proposal acceptance. Can either be accepted, rejected or pending. Defaults to
-                      pending. Forbidden for non-admin users.
-                    type: string
                 type: object
               initProvider:
                 description: |-
@@ -108,12 +102,6 @@ spec:
                     description: |-
                       The member ID, e.g. the target project ID. Optional
                       for admin accounts. Defaults to the current scope project ID.
-                    type: string
-                  status:
-                    description: |-
-                      The member proposal status. Optional if admin wants to force the member
-                      proposal acceptance. Can either be accepted, rejected or pending. Defaults to
-                      pending. Forbidden for non-admin users.
                     type: string
                 type: object
               managementPolicies:
@@ -315,10 +303,8 @@ spec:
                     description: Specifies the sharing schema.
                     type: string
                   status:
-                    description: |-
-                      The member proposal status. Optional if admin wants to force the member
-                      proposal acceptance. Can either be accepted, rejected or pending. Defaults to
-                      pending. Forbidden for non-admin users.
+                    description: Specifies the image sharing status. After creation
+                      is pending.
                     type: string
                   updateAt:
                     type: string

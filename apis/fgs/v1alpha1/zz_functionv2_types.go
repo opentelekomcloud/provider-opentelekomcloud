@@ -106,21 +106,89 @@ type CronConfigsParameters struct {
 
 type CustomImageInitParameters struct {
 
+	// Specifies the command line arguments used to start the SWR image.
+	// If multiple arguments are separated by commas (,). e.g. -args,value.
+	// If this parameter is not specified, the CMD in the image configuration will be used by default.
+	Args *string `json:"args,omitempty" tf:"args,omitempty"`
+
+	// Specifies the startup commands of the SWR image.
+	// Multiple commands are separated by commas (,). e.g. /bin/sh.
+	// If this parameter is not specified, the entrypoint or CMD in the image configuration will be used by default.
+	Command *string `json:"command,omitempty" tf:"command,omitempty"`
+
 	// Specifies the URL of SWR image, the URL must start with swr..
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+
+	// The resource ID, consist of urn and current version, the format is <urn>:<version>.
+	UserGroupID *string `json:"userGroupId,omitempty" tf:"user_group_id,omitempty"`
+
+	// The resource ID, consist of urn and current version, the format is <urn>:<version>.
+	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
+
+	// Specifies the working directory of the SWR image.
+	// If not specified, the default value is /.
+	// Currently, the folder path can only be set to / and it cannot be created or modified.
+	WorkingDir *string `json:"workingDir,omitempty" tf:"working_dir,omitempty"`
 }
 
 type CustomImageObservation struct {
 
+	// Specifies the command line arguments used to start the SWR image.
+	// If multiple arguments are separated by commas (,). e.g. -args,value.
+	// If this parameter is not specified, the CMD in the image configuration will be used by default.
+	Args *string `json:"args,omitempty" tf:"args,omitempty"`
+
+	// Specifies the startup commands of the SWR image.
+	// Multiple commands are separated by commas (,). e.g. /bin/sh.
+	// If this parameter is not specified, the entrypoint or CMD in the image configuration will be used by default.
+	Command *string `json:"command,omitempty" tf:"command,omitempty"`
+
 	// Specifies the URL of SWR image, the URL must start with swr..
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+
+	// The resource ID, consist of urn and current version, the format is <urn>:<version>.
+	UserGroupID *string `json:"userGroupId,omitempty" tf:"user_group_id,omitempty"`
+
+	// The resource ID, consist of urn and current version, the format is <urn>:<version>.
+	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
+
+	// Specifies the working directory of the SWR image.
+	// If not specified, the default value is /.
+	// Currently, the folder path can only be set to / and it cannot be created or modified.
+	WorkingDir *string `json:"workingDir,omitempty" tf:"working_dir,omitempty"`
 }
 
 type CustomImageParameters struct {
 
+	// Specifies the command line arguments used to start the SWR image.
+	// If multiple arguments are separated by commas (,). e.g. -args,value.
+	// If this parameter is not specified, the CMD in the image configuration will be used by default.
+	// +kubebuilder:validation:Optional
+	Args *string `json:"args,omitempty" tf:"args,omitempty"`
+
+	// Specifies the startup commands of the SWR image.
+	// Multiple commands are separated by commas (,). e.g. /bin/sh.
+	// If this parameter is not specified, the entrypoint or CMD in the image configuration will be used by default.
+	// +kubebuilder:validation:Optional
+	Command *string `json:"command,omitempty" tf:"command,omitempty"`
+
 	// Specifies the URL of SWR image, the URL must start with swr..
 	// +kubebuilder:validation:Optional
 	URL *string `json:"url" tf:"url,omitempty"`
+
+	// The resource ID, consist of urn and current version, the format is <urn>:<version>.
+	// +kubebuilder:validation:Optional
+	UserGroupID *string `json:"userGroupId,omitempty" tf:"user_group_id,omitempty"`
+
+	// The resource ID, consist of urn and current version, the format is <urn>:<version>.
+	// +kubebuilder:validation:Optional
+	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
+
+	// Specifies the working directory of the SWR image.
+	// If not specified, the default value is /.
+	// Currently, the folder path can only be set to / and it cannot be created or modified.
+	// +kubebuilder:validation:Optional
+	WorkingDir *string `json:"workingDir,omitempty" tf:"working_dir,omitempty"`
 }
 
 type FuncMountsInitParameters struct {
@@ -197,12 +265,18 @@ type FunctionV2InitParameters struct {
 	CodeURL *string `json:"codeUrl,omitempty" tf:"code_url,omitempty"`
 
 	// Specifies the number of concurrent requests of the function.
-	// The valid value ranges from 1 to 1,000, the default value is 1.
+	// The valid value is range from 1 to 1,000, the default value is 1.
 	ConcurrencyNum *float64 `json:"concurrencyNum,omitempty" tf:"concurrency_num,omitempty"`
 
-	// Specifies the custom image configuration for creating function.
+	// Specifies the custom image configuration of the function.
 	// The custom_image structure is documented below.
+	// Required if the parameter code_type is Custom-Image-Swr.
 	CustomImage []CustomImageInitParameters `json:"customImage,omitempty" tf:"custom_image,omitempty"`
+
+	// Specifies the private DNS configuration of the function network.
+	// Private DNS list is associated to the function by a string in the following format:
+	// [{\"id\":\"ff8080828a07ffea018a17184aa310f5\","domain_name":"functiondebug.example1.com."}]
+	DNSList *string `json:"dnsList,omitempty" tf:"dns_list,omitempty"`
 
 	// Specifies the ID list of the dependencies.
 	// +listType=set
@@ -211,9 +285,31 @@ type FunctionV2InitParameters struct {
 	// Specifies the description of the function.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	// Specifies whether the authentication in the request header is enabled.
+	// Defaults to false.
+	EnableAuthInHeader *bool `json:"enableAuthInHeader,omitempty" tf:"enable_auth_in_header,omitempty"`
+
+	// Specifies whether to enable class isolation.
+	EnableClassIsolation *bool `json:"enableClassIsolation,omitempty" tf:"enable_class_isolation,omitempty"`
+
+	// Specifies whether to enable dynamic memory allocation.
+	EnableDynamicMemory *bool `json:"enableDynamicMemory,omitempty" tf:"enable_dynamic_memory,omitempty"`
+
+	// Specifies whether to enable the LTS logging feature.
+	// The valid values are as follows:
+	EnableLtsLog *bool `json:"enableLtsLog,omitempty" tf:"enable_lts_log,omitempty"`
+
 	// Specifies the key/value information defined to be encrypted for the
 	// function.
 	EncryptedUserDataSecretRef *v1.SecretKeySelector `json:"encryptedUserDataSecretRef,omitempty" tf:"-"`
+
+	// Specifies the ID of the enterprise project to which the
+	// function belongs.
+	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
+
+	// Specifies the size of the function ephemeral storage.
+	// The valid values are as follows:
+	EphemeralStorage *float64 `json:"ephemeralStorage,omitempty" tf:"ephemeral_storage,omitempty"`
 
 	// Specifies the function code.
 	// The code value can be encoded using Base64 or just with the text code.
@@ -236,6 +332,11 @@ type FunctionV2InitParameters struct {
 	// Specifies the entry point of the function.
 	Handler *string `json:"handler,omitempty" tf:"handler,omitempty"`
 
+	// Specifies the heartbeat handler of the function.
+	// The rule is xx.xx, such as com.huawei.demo.TriggerTests.heartBeat, it must contain periods (.).
+	// The heartbeat function entry must be in the same file as the function execution entry.
+	HeartbeatHandler *string `json:"heartbeatHandler,omitempty" tf:"heartbeat_handler,omitempty"`
+
 	// Specifies the initializer of the function.
 	InitializerHandler *string `json:"initializerHandler,omitempty" tf:"initializer_handler,omitempty"`
 
@@ -254,6 +355,11 @@ type FunctionV2InitParameters struct {
 
 	// Specifies the name of the LTS stream.
 	LogTopicName *string `json:"logTopicName,omitempty" tf:"log_topic_name,omitempty"`
+
+	// Specifies the custom tags configuration that used to filter the LTS logs.
+	// This parameter is available only when enable_lts_log is set to true.
+	// +mapType=granular
+	LtsCustomTag map[string]*string `json:"ltsCustomTag,omitempty" tf:"lts_custom_tag,omitempty"`
 
 	// Specifies the maximum number of instances of the function.
 	// The valid value ranges from -1 to 1,000, defaults to 400.
@@ -274,12 +380,36 @@ type FunctionV2InitParameters struct {
 	// Changing this will create a new resource.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// Specifies the network configuration of the function.
+	// The network_controller structure is documented below.
+	NetworkController []NetworkControllerInitParameters `json:"networkController,omitempty" tf:"network_controller,omitempty"`
+
 	// Specifies the network ID of subnet.
 	NetworkID *string `json:"networkId,omitempty" tf:"network_id,omitempty"`
+
+	// Specifies the VPC cidr blocks used in the function code to detect whether it
+	// conflicts with the VPC cidr blocks used by the service.
+	// The cidr blocks are separated by semicolons and cannot exceed 5.
+	PeeringCidr *string `json:"peeringCidr,omitempty" tf:"peering_cidr,omitempty"`
+
+	// Specifies the pre-stop handler of a function. The value must contain a period (.)
+	// in the format of xx.xx. For example, for Node.js function myfunction.pre_stop_handler, the file name is myfunction.js,
+	// and the initialization function is pre_stop_handler.
+	PreStopHandler *string `json:"preStopHandler,omitempty" tf:"pre_stop_handler,omitempty"`
+
+	// Specifies the maximum duration the function can be initialized. Value range: 1s-90s.
+	PreStopTimeout *float64 `json:"preStopTimeout,omitempty" tf:"pre_stop_timeout,omitempty"`
 
 	// Specifies the reserved instance policies of the function.
 	// The reserved_instances structure is documented below.
 	ReservedInstances []ReservedInstancesInitParameters `json:"reservedInstances,omitempty" tf:"reserved_instances,omitempty"`
+
+	// Specifies the entry point of the function.
+	RestoreHookHandler *string `json:"restoreHookHandler,omitempty" tf:"restore_hook_handler,omitempty"`
+
+	// Specifies the timeout interval of the function, in seconds.
+	// The value ranges from 3 to 900.
+	RestoreHookTimeout *float64 `json:"restoreHookTimeout,omitempty" tf:"restore_hook_timeout,omitempty"`
 
 	// Specifies the environment for executing the function.
 	// The valid values are as follows:
@@ -310,6 +440,12 @@ type FunctionV2Observation struct {
 	// cloud services.
 	Agency *string `json:"agency,omitempty" tf:"agency,omitempty"`
 
+	// Indicates whether ephemeral storage can be configured.
+	AllowEphemeralStorage *bool `json:"allowEphemeralStorage,omitempty" tf:"allow_ephemeral_storage,omitempty"`
+
+	// Whether to configure gateway routing rules.
+	ApigRouteEnable *bool `json:"apigRouteEnable,omitempty" tf:"apig_route_enable,omitempty"`
+
 	// Specifies the group to which the function belongs.
 	App *string `json:"app,omitempty" tf:"app,omitempty"`
 
@@ -329,14 +465,17 @@ type FunctionV2Observation struct {
 	CodeURL *string `json:"codeUrl,omitempty" tf:"code_url,omitempty"`
 
 	// Specifies the number of concurrent requests of the function.
-	// The valid value ranges from 1 to 1,000, the default value is 1.
+	// The valid value is range from 1 to 1,000, the default value is 1.
 	ConcurrencyNum *float64 `json:"concurrencyNum,omitempty" tf:"concurrency_num,omitempty"`
 
-	// Specifies the custom image configuration for creating function.
+	// Specifies the custom image configuration of the function.
 	// The custom_image structure is documented below.
+	// Required if the parameter code_type is Custom-Image-Swr.
 	CustomImage []CustomImageObservation `json:"customImage,omitempty" tf:"custom_image,omitempty"`
 
-	// The private DNS configuration of the function network.
+	// Specifies the private DNS configuration of the function network.
+	// Private DNS list is associated to the function by a string in the following format:
+	// [{\"id\":\"ff8080828a07ffea018a17184aa310f5\","domain_name":"functiondebug.example1.com."}]
 	DNSList *string `json:"dnsList,omitempty" tf:"dns_list,omitempty"`
 
 	// Specifies the ID list of the dependencies.
@@ -345,6 +484,31 @@ type FunctionV2Observation struct {
 
 	// Specifies the description of the function.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// Specifies whether the authentication in the request header is enabled.
+	// Defaults to false.
+	EnableAuthInHeader *bool `json:"enableAuthInHeader,omitempty" tf:"enable_auth_in_header,omitempty"`
+
+	// Specifies whether to enable class isolation.
+	EnableClassIsolation *bool `json:"enableClassIsolation,omitempty" tf:"enable_class_isolation,omitempty"`
+
+	// Specifies whether to enable dynamic memory allocation.
+	EnableDynamicMemory *bool `json:"enableDynamicMemory,omitempty" tf:"enable_dynamic_memory,omitempty"`
+
+	// Specifies whether to enable the LTS logging feature.
+	// The valid values are as follows:
+	EnableLtsLog *bool `json:"enableLtsLog,omitempty" tf:"enable_lts_log,omitempty"`
+
+	// Specifies the ID of the enterprise project to which the
+	// function belongs.
+	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
+
+	// Specifies the size of the function ephemeral storage.
+	// The valid values are as follows:
+	EphemeralStorage *float64 `json:"ephemeralStorage,omitempty" tf:"ephemeral_storage,omitempty"`
+
+	// The extended configuration.
+	ExtendConfig *string `json:"extendConfig,omitempty" tf:"extend_config,omitempty"`
 
 	// Specifies the function code.
 	// The code value can be encoded using Base64 or just with the text code.
@@ -369,6 +533,11 @@ type FunctionV2Observation struct {
 	// Specifies the entry point of the function.
 	Handler *string `json:"handler,omitempty" tf:"handler,omitempty"`
 
+	// Specifies the heartbeat handler of the function.
+	// The rule is xx.xx, such as com.huawei.demo.TriggerTests.heartBeat, it must contain periods (.).
+	// The heartbeat function entry must be in the same file as the function execution entry.
+	HeartbeatHandler *string `json:"heartbeatHandler,omitempty" tf:"heartbeat_handler,omitempty"`
+
 	// The resource ID, consist of urn and current version, the format is <urn>:<version>.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
@@ -378,6 +547,10 @@ type FunctionV2Observation struct {
 	// Specifies the maximum duration the function can be initialized. Value range:
 	// 1s to 300s.
 	InitializerTimeout *float64 `json:"initializerTimeout,omitempty" tf:"initializer_timeout,omitempty"`
+
+	// Specifies whether the function is a stateful function.
+	// Defaults to false.
+	IsStatefulFunction *bool `json:"isStatefulFunction,omitempty" tf:"is_stateful_function,omitempty"`
 
 	// Specifies the ID of the LTS log group.
 	LogGroupID *string `json:"logGroupId,omitempty" tf:"log_group_id,omitempty"`
@@ -390,6 +563,11 @@ type FunctionV2Observation struct {
 
 	// Specifies the name of the LTS stream.
 	LogTopicName *string `json:"logTopicName,omitempty" tf:"log_topic_name,omitempty"`
+
+	// Specifies the custom tags configuration that used to filter the LTS logs.
+	// This parameter is available only when enable_lts_log is set to true.
+	// +mapType=granular
+	LtsCustomTag map[string]*string `json:"ltsCustomTag,omitempty" tf:"lts_custom_tag,omitempty"`
 
 	// Specifies the maximum number of instances of the function.
 	// The valid value ranges from -1 to 1,000, defaults to 400.
@@ -410,8 +588,25 @@ type FunctionV2Observation struct {
 	// Changing this will create a new resource.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// Specifies the network configuration of the function.
+	// The network_controller structure is documented below.
+	NetworkController []NetworkControllerObservation `json:"networkController,omitempty" tf:"network_controller,omitempty"`
+
 	// Specifies the network ID of subnet.
 	NetworkID *string `json:"networkId,omitempty" tf:"network_id,omitempty"`
+
+	// Specifies the VPC cidr blocks used in the function code to detect whether it
+	// conflicts with the VPC cidr blocks used by the service.
+	// The cidr blocks are separated by semicolons and cannot exceed 5.
+	PeeringCidr *string `json:"peeringCidr,omitempty" tf:"peering_cidr,omitempty"`
+
+	// Specifies the pre-stop handler of a function. The value must contain a period (.)
+	// in the format of xx.xx. For example, for Node.js function myfunction.pre_stop_handler, the file name is myfunction.js,
+	// and the initialization function is pre_stop_handler.
+	PreStopHandler *string `json:"preStopHandler,omitempty" tf:"pre_stop_handler,omitempty"`
+
+	// Specifies the maximum duration the function can be initialized. Value range: 1s-90s.
+	PreStopTimeout *float64 `json:"preStopTimeout,omitempty" tf:"pre_stop_timeout,omitempty"`
 
 	// The region in which function graph resource is created.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
@@ -419,6 +614,13 @@ type FunctionV2Observation struct {
 	// Specifies the reserved instance policies of the function.
 	// The reserved_instances structure is documented below.
 	ReservedInstances []ReservedInstancesObservation `json:"reservedInstances,omitempty" tf:"reserved_instances,omitempty"`
+
+	// Specifies the entry point of the function.
+	RestoreHookHandler *string `json:"restoreHookHandler,omitempty" tf:"restore_hook_handler,omitempty"`
+
+	// Specifies the timeout interval of the function, in seconds.
+	// The value ranges from 3 to 900.
+	RestoreHookTimeout *float64 `json:"restoreHookTimeout,omitempty" tf:"restore_hook_timeout,omitempty"`
 
 	// Specifies the environment for executing the function.
 	// The valid values are as follows:
@@ -480,14 +682,21 @@ type FunctionV2Parameters struct {
 	CodeURL *string `json:"codeUrl,omitempty" tf:"code_url,omitempty"`
 
 	// Specifies the number of concurrent requests of the function.
-	// The valid value ranges from 1 to 1,000, the default value is 1.
+	// The valid value is range from 1 to 1,000, the default value is 1.
 	// +kubebuilder:validation:Optional
 	ConcurrencyNum *float64 `json:"concurrencyNum,omitempty" tf:"concurrency_num,omitempty"`
 
-	// Specifies the custom image configuration for creating function.
+	// Specifies the custom image configuration of the function.
 	// The custom_image structure is documented below.
+	// Required if the parameter code_type is Custom-Image-Swr.
 	// +kubebuilder:validation:Optional
 	CustomImage []CustomImageParameters `json:"customImage,omitempty" tf:"custom_image,omitempty"`
+
+	// Specifies the private DNS configuration of the function network.
+	// Private DNS list is associated to the function by a string in the following format:
+	// [{\"id\":\"ff8080828a07ffea018a17184aa310f5\","domain_name":"functiondebug.example1.com."}]
+	// +kubebuilder:validation:Optional
+	DNSList *string `json:"dnsList,omitempty" tf:"dns_list,omitempty"`
 
 	// Specifies the ID list of the dependencies.
 	// +kubebuilder:validation:Optional
@@ -498,10 +707,38 @@ type FunctionV2Parameters struct {
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	// Specifies whether the authentication in the request header is enabled.
+	// Defaults to false.
+	// +kubebuilder:validation:Optional
+	EnableAuthInHeader *bool `json:"enableAuthInHeader,omitempty" tf:"enable_auth_in_header,omitempty"`
+
+	// Specifies whether to enable class isolation.
+	// +kubebuilder:validation:Optional
+	EnableClassIsolation *bool `json:"enableClassIsolation,omitempty" tf:"enable_class_isolation,omitempty"`
+
+	// Specifies whether to enable dynamic memory allocation.
+	// +kubebuilder:validation:Optional
+	EnableDynamicMemory *bool `json:"enableDynamicMemory,omitempty" tf:"enable_dynamic_memory,omitempty"`
+
+	// Specifies whether to enable the LTS logging feature.
+	// The valid values are as follows:
+	// +kubebuilder:validation:Optional
+	EnableLtsLog *bool `json:"enableLtsLog,omitempty" tf:"enable_lts_log,omitempty"`
+
 	// Specifies the key/value information defined to be encrypted for the
 	// function.
 	// +kubebuilder:validation:Optional
 	EncryptedUserDataSecretRef *v1.SecretKeySelector `json:"encryptedUserDataSecretRef,omitempty" tf:"-"`
+
+	// Specifies the ID of the enterprise project to which the
+	// function belongs.
+	// +kubebuilder:validation:Optional
+	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
+
+	// Specifies the size of the function ephemeral storage.
+	// The valid values are as follows:
+	// +kubebuilder:validation:Optional
+	EphemeralStorage *float64 `json:"ephemeralStorage,omitempty" tf:"ephemeral_storage,omitempty"`
 
 	// Specifies the function code.
 	// The code value can be encoded using Base64 or just with the text code.
@@ -529,6 +766,12 @@ type FunctionV2Parameters struct {
 	// +kubebuilder:validation:Optional
 	Handler *string `json:"handler,omitempty" tf:"handler,omitempty"`
 
+	// Specifies the heartbeat handler of the function.
+	// The rule is xx.xx, such as com.huawei.demo.TriggerTests.heartBeat, it must contain periods (.).
+	// The heartbeat function entry must be in the same file as the function execution entry.
+	// +kubebuilder:validation:Optional
+	HeartbeatHandler *string `json:"heartbeatHandler,omitempty" tf:"heartbeat_handler,omitempty"`
+
 	// Specifies the initializer of the function.
 	// +kubebuilder:validation:Optional
 	InitializerHandler *string `json:"initializerHandler,omitempty" tf:"initializer_handler,omitempty"`
@@ -554,6 +797,12 @@ type FunctionV2Parameters struct {
 	// +kubebuilder:validation:Optional
 	LogTopicName *string `json:"logTopicName,omitempty" tf:"log_topic_name,omitempty"`
 
+	// Specifies the custom tags configuration that used to filter the LTS logs.
+	// This parameter is available only when enable_lts_log is set to true.
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	LtsCustomTag map[string]*string `json:"ltsCustomTag,omitempty" tf:"lts_custom_tag,omitempty"`
+
 	// Specifies the maximum number of instances of the function.
 	// The valid value ranges from -1 to 1,000, defaults to 400.
 	// +kubebuilder:validation:Optional
@@ -578,14 +827,44 @@ type FunctionV2Parameters struct {
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// Specifies the network configuration of the function.
+	// The network_controller structure is documented below.
+	// +kubebuilder:validation:Optional
+	NetworkController []NetworkControllerParameters `json:"networkController,omitempty" tf:"network_controller,omitempty"`
+
 	// Specifies the network ID of subnet.
 	// +kubebuilder:validation:Optional
 	NetworkID *string `json:"networkId,omitempty" tf:"network_id,omitempty"`
+
+	// Specifies the VPC cidr blocks used in the function code to detect whether it
+	// conflicts with the VPC cidr blocks used by the service.
+	// The cidr blocks are separated by semicolons and cannot exceed 5.
+	// +kubebuilder:validation:Optional
+	PeeringCidr *string `json:"peeringCidr,omitempty" tf:"peering_cidr,omitempty"`
+
+	// Specifies the pre-stop handler of a function. The value must contain a period (.)
+	// in the format of xx.xx. For example, for Node.js function myfunction.pre_stop_handler, the file name is myfunction.js,
+	// and the initialization function is pre_stop_handler.
+	// +kubebuilder:validation:Optional
+	PreStopHandler *string `json:"preStopHandler,omitempty" tf:"pre_stop_handler,omitempty"`
+
+	// Specifies the maximum duration the function can be initialized. Value range: 1s-90s.
+	// +kubebuilder:validation:Optional
+	PreStopTimeout *float64 `json:"preStopTimeout,omitempty" tf:"pre_stop_timeout,omitempty"`
 
 	// Specifies the reserved instance policies of the function.
 	// The reserved_instances structure is documented below.
 	// +kubebuilder:validation:Optional
 	ReservedInstances []ReservedInstancesParameters `json:"reservedInstances,omitempty" tf:"reserved_instances,omitempty"`
+
+	// Specifies the entry point of the function.
+	// +kubebuilder:validation:Optional
+	RestoreHookHandler *string `json:"restoreHookHandler,omitempty" tf:"restore_hook_handler,omitempty"`
+
+	// Specifies the timeout interval of the function, in seconds.
+	// The value ranges from 3 to 900.
+	// +kubebuilder:validation:Optional
+	RestoreHookTimeout *float64 `json:"restoreHookTimeout,omitempty" tf:"restore_hook_timeout,omitempty"`
 
 	// Specifies the environment for executing the function.
 	// The valid values are as follows:
@@ -614,6 +893,38 @@ type FunctionV2Parameters struct {
 	// The versions structure is documented below.
 	// +kubebuilder:validation:Optional
 	Versions []VersionsParameters `json:"versions,omitempty" tf:"versions,omitempty"`
+}
+
+type NetworkControllerInitParameters struct {
+
+	// Specifies whether to disable the public network access.
+	DisablePublicNetwork *bool `json:"disablePublicNetwork,omitempty" tf:"disable_public_network,omitempty"`
+
+	// Specifies the configuration of the VPCs that can trigger the function.
+	// The trigger_access_vpcs structure is documented below.
+	TriggerAccessVpcs []TriggerAccessVpcsInitParameters `json:"triggerAccessVpcs,omitempty" tf:"trigger_access_vpcs,omitempty"`
+}
+
+type NetworkControllerObservation struct {
+
+	// Specifies whether to disable the public network access.
+	DisablePublicNetwork *bool `json:"disablePublicNetwork,omitempty" tf:"disable_public_network,omitempty"`
+
+	// Specifies the configuration of the VPCs that can trigger the function.
+	// The trigger_access_vpcs structure is documented below.
+	TriggerAccessVpcs []TriggerAccessVpcsObservation `json:"triggerAccessVpcs,omitempty" tf:"trigger_access_vpcs,omitempty"`
+}
+
+type NetworkControllerParameters struct {
+
+	// Specifies whether to disable the public network access.
+	// +kubebuilder:validation:Optional
+	DisablePublicNetwork *bool `json:"disablePublicNetwork,omitempty" tf:"disable_public_network,omitempty"`
+
+	// Specifies the configuration of the VPCs that can trigger the function.
+	// The trigger_access_vpcs structure is documented below.
+	// +kubebuilder:validation:Optional
+	TriggerAccessVpcs []TriggerAccessVpcsParameters `json:"triggerAccessVpcs,omitempty" tf:"trigger_access_vpcs,omitempty"`
 }
 
 type ReservedInstancesInitParameters struct {
@@ -712,14 +1023,45 @@ type TacticsConfigParameters struct {
 	CronConfigs []CronConfigsParameters `json:"cronConfigs,omitempty" tf:"cron_configs,omitempty"`
 }
 
+type TriggerAccessVpcsInitParameters struct {
+
+	// Specifies the ID of VPC.
+	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
+
+	// Specifies the name of the VPC that can trigger the function.
+	VPCName *string `json:"vpcName,omitempty" tf:"vpc_name,omitempty"`
+}
+
+type TriggerAccessVpcsObservation struct {
+
+	// Specifies the ID of VPC.
+	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
+
+	// Specifies the name of the VPC that can trigger the function.
+	VPCName *string `json:"vpcName,omitempty" tf:"vpc_name,omitempty"`
+}
+
+type TriggerAccessVpcsParameters struct {
+
+	// Specifies the ID of VPC.
+	// +kubebuilder:validation:Optional
+	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
+
+	// Specifies the name of the VPC that can trigger the function.
+	// +kubebuilder:validation:Optional
+	VPCName *string `json:"vpcName,omitempty" tf:"vpc_name,omitempty"`
+}
+
 type VersionsInitParameters struct {
 
 	// Specifies the aliases management for specified version.
 	// The aliases structure is documented below.
 	Aliases []AliasesInitParameters `json:"aliases,omitempty" tf:"aliases,omitempty"`
 
+	// Specifies the description of the function.
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
 	// Specifies the version name.
-	// The version name.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
@@ -729,8 +1071,10 @@ type VersionsObservation struct {
 	// The aliases structure is documented below.
 	Aliases []AliasesObservation `json:"aliases,omitempty" tf:"aliases,omitempty"`
 
+	// Specifies the description of the function.
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
 	// Specifies the version name.
-	// The version name.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
@@ -741,8 +1085,11 @@ type VersionsParameters struct {
 	// +kubebuilder:validation:Optional
 	Aliases []AliasesParameters `json:"aliases,omitempty" tf:"aliases,omitempty"`
 
+	// Specifies the description of the function.
+	// +kubebuilder:validation:Optional
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
 	// Specifies the version name.
-	// The version name.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 }

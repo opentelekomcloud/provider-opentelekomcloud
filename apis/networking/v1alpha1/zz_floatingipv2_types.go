@@ -49,6 +49,7 @@ type FloatingipV2Observation struct {
 	// the port has multiple fixed IPs.
 	FixedIP *string `json:"fixedIp,omitempty" tf:"fixed_ip,omitempty"`
 
+	// The floating IP id.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// The name of the pool from which to obtain the floating

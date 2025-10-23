@@ -1,0 +1,19 @@
+apiVersion: er.opentelekomcloud.crossplane.io/v1alpha1
+kind: VPCAttachmentV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: er/v1alpha1/vpcattachmentv3
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    autoCreateVpcRoutes: true
+    description: VPC attachment created by terraform
+    instanceId: ${var.instance_id}
+    name: ${var.attachment_name}
+    subnetId: ${var.subnet_id}
+    tags:
+      foo: bar
+      key: value
+    vpcId: ${var.vpc_id}

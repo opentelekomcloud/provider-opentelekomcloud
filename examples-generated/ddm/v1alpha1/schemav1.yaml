@@ -1,0 +1,26 @@
+apiVersion: ddm.opentelekomcloud.crossplane.io/v1alpha1
+kind: SchemaV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ddm/v1alpha1/schemav1
+  labels:
+    testing.upbound.io/example-name: schema_1
+  name: schema-1
+spec:
+  forProvider:
+    instanceId: b4cd6aeb0b7445d3bf271457c6941544in09
+    name: ddm_schema
+    purgeRdsOnDelete: true
+    rds:
+    - adminPasswordSecretRef:
+        key: example-key
+        name: example-secret
+        namespace: upbound-system
+      adminUsernameSecretRef:
+        key: example-key
+        name: example-secret
+        namespace: upbound-system
+      id: 55d93e249b77461b81f990fa805db3f3in01
+    shardMode: cluster
+    shardNumber: 8
+    shardUnit: 8

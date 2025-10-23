@@ -102,7 +102,12 @@ type AgencyV3Parameters struct {
 
 type ProjectRoleInitParameters struct {
 
+	// Whether roles are applied to all projects.
+	// Either project or all_projects must be provided to specify single project_role element.
+	AllProjects *bool `json:"allProjects,omitempty" tf:"all_projects,omitempty"`
+
 	// The name of project
+	// Either project or all_projects must be provided to specify single project_role element.
 	Project *string `json:"project,omitempty" tf:"project,omitempty"`
 
 	// An array of role names
@@ -112,7 +117,12 @@ type ProjectRoleInitParameters struct {
 
 type ProjectRoleObservation struct {
 
+	// Whether roles are applied to all projects.
+	// Either project or all_projects must be provided to specify single project_role element.
+	AllProjects *bool `json:"allProjects,omitempty" tf:"all_projects,omitempty"`
+
 	// The name of project
+	// Either project or all_projects must be provided to specify single project_role element.
 	Project *string `json:"project,omitempty" tf:"project,omitempty"`
 
 	// An array of role names
@@ -122,9 +132,15 @@ type ProjectRoleObservation struct {
 
 type ProjectRoleParameters struct {
 
-	// The name of project
+	// Whether roles are applied to all projects.
+	// Either project or all_projects must be provided to specify single project_role element.
 	// +kubebuilder:validation:Optional
-	Project *string `json:"project" tf:"project,omitempty"`
+	AllProjects *bool `json:"allProjects,omitempty" tf:"all_projects,omitempty"`
+
+	// The name of project
+	// Either project or all_projects must be provided to specify single project_role element.
+	// +kubebuilder:validation:Optional
+	Project *string `json:"project,omitempty" tf:"project,omitempty"`
 
 	// An array of role names
 	// +kubebuilder:validation:Optional

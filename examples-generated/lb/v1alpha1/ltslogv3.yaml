@@ -1,0 +1,13 @@
+apiVersion: lb.opentelekomcloud.crossplane.io/v1alpha1
+kind: LtsLogV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lb/v1alpha1/ltslogv3
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    loadbalancerId: ${var.loadbalancer_id}
+    logGroupId: ${var.group_id}
+    logStreamId: ${var.stream_id}

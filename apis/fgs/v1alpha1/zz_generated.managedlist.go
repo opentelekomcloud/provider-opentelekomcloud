@@ -17,6 +17,15 @@ func (l *AsyncInvokeConfigV2List) GetItems() []resource.Managed {
 	return items
 }
 
+// GetItems of this DependencyVersionV2List.
+func (l *DependencyVersionV2List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this EventV2List.
 func (l *EventV2List) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))

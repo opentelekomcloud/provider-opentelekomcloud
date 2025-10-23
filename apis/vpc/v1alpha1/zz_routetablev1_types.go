@@ -28,7 +28,7 @@ type RouteInitParameters struct {
 	Nexthop *string `json:"nexthop,omitempty" tf:"nexthop,omitempty"`
 
 	// Specifies the route type. Currently, the value can be:
-	// ecs, eni, vip, nat, peering, vpn, dc and cc.
+	// ecs, eni, vip, nat, peering, vpn, dc, egw, er, subeni and local
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
@@ -47,7 +47,7 @@ type RouteObservation struct {
 	Nexthop *string `json:"nexthop,omitempty" tf:"nexthop,omitempty"`
 
 	// Specifies the route type. Currently, the value can be:
-	// ecs, eni, vip, nat, peering, vpn, dc and cc.
+	// ecs, eni, vip, nat, peering, vpn, dc, egw, er, subeni and local
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
@@ -69,7 +69,7 @@ type RouteParameters struct {
 	Nexthop *string `json:"nexthop" tf:"nexthop,omitempty"`
 
 	// Specifies the route type. Currently, the value can be:
-	// ecs, eni, vip, nat, peering, vpn, dc and cc.
+	// ecs, eni, vip, nat, peering, vpn, dc, egw, er, subeni and local
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type" tf:"type,omitempty"`
 }

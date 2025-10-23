@@ -1,0 +1,684 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.16.5
+  name: clusterv1s.dws.opentelekomcloud.crossplane.io
+spec:
+  group: dws.opentelekomcloud.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - opentelekomcloud
+    kind: ClusterV1
+    listKind: ClusterV1List
+    plural: clusterv1s
+    singular: clusterv1
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: ClusterV1 is the Schema for the ClusterV1s API. Manages a DWS
+          Cluster resource within OpenTelekomCloud.
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: ClusterV1Spec defines the desired state of ClusterV1
+            properties:
+              deletionPolicy:
+                default: Delete
+                description: |-
+                  DeletionPolicy specifies what will happen to the underlying external
+                  when this managed resource is deleted - either "Delete" or "Orphan" the
+                  external resource.
+                  This field is planned to be deprecated in favor of the ManagementPolicies
+                  field in a future release. Currently, both could be set independently and
+                  non-default values would be honored if the feature flag is enabled.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                enum:
+                - Orphan
+                - Delete
+                type: string
+              forProvider:
+                properties:
+                  availabilityZone:
+                    description: AZ in a cluster.
+                    type: string
+                  endpoints:
+                    description: View the private network connection information about
+                      the cluster. Structure is documented below.
+                    items:
+                      type: object
+                    type: array
+                  keepLastManualSnapshot:
+                    description: The number of latest manual snapshots that need to
+                      be retained for a cluster.
+                    type: number
+                  name:
+                    description: |-
+                      Cluster name, which must be unique and contains 4 to 64 characters, which
+                      consist of letters, digits, hyphens(-), or underscores(_) only and must start with a letter.
+                    type: string
+                  networkId:
+                    description: Network ID, which is used for configuring cluster
+                      network.
+                    type: string
+                  nodeType:
+                    description: Node type.
+                    type: string
+                  numberOfCn:
+                    description: |-
+                      Specifies the number of CN. If you use a large-scale cluster, deploy
+                      multiple CNs.
+                    type: number
+                  numberOfNode:
+                    description: |-
+                      Number of nodes in a cluster. The value ranges from 3 to 32. When expanding,
+                      add at least 3 nodes.
+                    type: number
+                  port:
+                    description: Service port of a cluster (8000 to 10000). The default
+                      value is 8000.
+                    type: number
+                  publicEndpoints:
+                    description: |-
+                      Public network connection information about the cluster. If the value is not specified, the
+                      public network connection information is not used by default Structure is documented below.
+                    items:
+                      type: object
+                    type: array
+                  publicIp:
+                    description: A nested object resource Structure is documented
+                      below.
+                    items:
+                      properties:
+                        eipId:
+                          description: EIP ID.
+                          type: string
+                        publicBindType:
+                          description: |-
+                            Binding type of an EIP. The value can be either of the following:
+                            auto_assign not_use bind_existing The default value is not_use.
+                          type: string
+                      type: object
+                    type: array
+                  securityGroupId:
+                    description: |-
+                      ID of a security group. The ID is used for configuring cluster
+                      network.
+                    type: string
+                  userName:
+                    description: |-
+                      Administrator username for logging in to a data warehouse cluster The
+                      administrator username must:  Consist of lowercase letters, digits, or underscores. Start with a lowercase letter or
+                      an underscore. Contain 1 to 63 characters. Cannot be a keyword of the DWS database.
+                    type: string
+                  userPwdSecretRef:
+                    description: |-
+                      Administrator password for logging in to a data warehouse cluster A password
+                      must conform to the following rules:  Contains 8 to 32 characters. Cannot be the same as the username or the username
+                      written in reverse order. Contains three types of the following:
+                      Lowercase letters Uppercase letters Digits Special characters
+                      ~!@#%^&*()-_=+|[{}];:,<.>/?
+                    properties:
+                      key:
+                        description: The key to select.
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                      namespace:
+                        description: Namespace of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    - namespace
+                    type: object
+                  vpcId:
+                    description: VPC ID, which is used for configuring cluster network.
+                    type: string
+                type: object
+              initProvider:
+                description: |-
+                  THIS IS A BETA FIELD. It will be honored
+                  unless the Management Policies feature flag is disabled.
+                  InitProvider holds the same fields as ForProvider, with the exception
+                  of Identifier and other resource reference fields. The fields that are
+                  in InitProvider are merged into ForProvider when the resource is created.
+                  The same fields are also added to the terraform ignore_changes hook, to
+                  avoid updating them after creation. This is useful for fields that are
+                  required on creation, but we do not desire to update them after creation,
+                  for example because of an external controller is managing them, like an
+                  autoscaler.
+                properties:
+                  availabilityZone:
+                    description: AZ in a cluster.
+                    type: string
+                  endpoints:
+                    description: View the private network connection information about
+                      the cluster. Structure is documented below.
+                    items:
+                      type: object
+                    type: array
+                  keepLastManualSnapshot:
+                    description: The number of latest manual snapshots that need to
+                      be retained for a cluster.
+                    type: number
+                  name:
+                    description: |-
+                      Cluster name, which must be unique and contains 4 to 64 characters, which
+                      consist of letters, digits, hyphens(-), or underscores(_) only and must start with a letter.
+                    type: string
+                  networkId:
+                    description: Network ID, which is used for configuring cluster
+                      network.
+                    type: string
+                  nodeType:
+                    description: Node type.
+                    type: string
+                  numberOfCn:
+                    description: |-
+                      Specifies the number of CN. If you use a large-scale cluster, deploy
+                      multiple CNs.
+                    type: number
+                  numberOfNode:
+                    description: |-
+                      Number of nodes in a cluster. The value ranges from 3 to 32. When expanding,
+                      add at least 3 nodes.
+                    type: number
+                  port:
+                    description: Service port of a cluster (8000 to 10000). The default
+                      value is 8000.
+                    type: number
+                  publicEndpoints:
+                    description: |-
+                      Public network connection information about the cluster. If the value is not specified, the
+                      public network connection information is not used by default Structure is documented below.
+                    items:
+                      type: object
+                    type: array
+                  publicIp:
+                    description: A nested object resource Structure is documented
+                      below.
+                    items:
+                      properties:
+                        eipId:
+                          description: EIP ID.
+                          type: string
+                        publicBindType:
+                          description: |-
+                            Binding type of an EIP. The value can be either of the following:
+                            auto_assign not_use bind_existing The default value is not_use.
+                          type: string
+                      type: object
+                    type: array
+                  securityGroupId:
+                    description: |-
+                      ID of a security group. The ID is used for configuring cluster
+                      network.
+                    type: string
+                  userName:
+                    description: |-
+                      Administrator username for logging in to a data warehouse cluster The
+                      administrator username must:  Consist of lowercase letters, digits, or underscores. Start with a lowercase letter or
+                      an underscore. Contain 1 to 63 characters. Cannot be a keyword of the DWS database.
+                    type: string
+                  userPwdSecretRef:
+                    description: |-
+                      Administrator password for logging in to a data warehouse cluster A password
+                      must conform to the following rules:  Contains 8 to 32 characters. Cannot be the same as the username or the username
+                      written in reverse order. Contains three types of the following:
+                      Lowercase letters Uppercase letters Digits Special characters
+                      ~!@#%^&*()-_=+|[{}];:,<.>/?
+                    properties:
+                      key:
+                        description: The key to select.
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                      namespace:
+                        description: Namespace of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    - namespace
+                    type: object
+                  vpcId:
+                    description: VPC ID, which is used for configuring cluster network.
+                    type: string
+                required:
+                - userPwdSecretRef
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: |-
+                  THIS IS A BETA FIELD. It is on by default but can be opted out
+                  through a Crossplane feature flag.
+                  ManagementPolicies specify the array of actions Crossplane is allowed to
+                  take on the managed and external resources.
+                  This field is planned to replace the DeletionPolicy field in a future
+                  release. Currently, both could be set independently and non-default
+                  values would be honored if the feature flag is enabled. If both are
+                  custom, the DeletionPolicy field will be ignored.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md
+                items:
+                  description: |-
+                    A ManagementAction represents an action that the Crossplane controllers
+                    can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
+              providerConfigRef:
+                default:
+                  name: default
+                description: |-
+                  ProviderConfigReference specifies how the provider that will be used to
+                  create, observe, update, and delete this managed resource should be
+                  configured.
+                properties:
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                  policy:
+                    description: Policies for referencing.
+                    properties:
+                      resolution:
+                        default: Required
+                        description: |-
+                          Resolution specifies whether resolution of this reference is required.
+                          The default is 'Required', which means the reconcile will fail if the
+                          reference cannot be resolved. 'Optional' means this reference will be
+                          a no-op if it cannot be resolved.
+                        enum:
+                        - Required
+                        - Optional
+                        type: string
+                      resolve:
+                        description: |-
+                          Resolve specifies when this reference should be resolved. The default
+                          is 'IfNotPresent', which will attempt to resolve the reference only when
+                          the corresponding field is not present. Use 'Always' to resolve the
+                          reference on every reconcile.
+                        enum:
+                        - Always
+                        - IfNotPresent
+                        type: string
+                    type: object
+                required:
+                - name
+                type: object
+              publishConnectionDetailsTo:
+                description: |-
+                  PublishConnectionDetailsTo specifies the connection secret config which
+                  contains a name, metadata and a reference to secret store config to
+                  which any connection details for this managed resource should be written.
+                  Connection details frequently include the endpoint, username,
+                  and password required to connect to the managed resource.
+                properties:
+                  configRef:
+                    default:
+                      name: default
+                    description: |-
+                      SecretStoreConfigRef specifies which secret store config should be used
+                      for this ConnectionSecret.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  metadata:
+                    description: Metadata is the metadata for connection secret.
+                    properties:
+                      annotations:
+                        additionalProperties:
+                          type: string
+                        description: |-
+                          Annotations are the annotations to be added to connection secret.
+                          - For Kubernetes secrets, this will be used as "metadata.annotations".
+                          - It is up to Secret Store implementation for others store types.
+                        type: object
+                      labels:
+                        additionalProperties:
+                          type: string
+                        description: |-
+                          Labels are the labels/tags to be added to connection secret.
+                          - For Kubernetes secrets, this will be used as "metadata.labels".
+                          - It is up to Secret Store implementation for others store types.
+                        type: object
+                      type:
+                        description: |-
+                          Type is the SecretType for the connection secret.
+                          - Only valid for Kubernetes Secret Stores.
+                        type: string
+                    type: object
+                  name:
+                    description: Name is the name of the connection secret.
+                    type: string
+                required:
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: |-
+                  WriteConnectionSecretToReference specifies the namespace and name of a
+                  Secret to which any connection details for this managed resource should
+                  be written. Connection details frequently include the endpoint, username,
+                  and password required to connect to the managed resource.
+                  This field is planned to be replaced in a future release in favor of
+                  PublishConnectionDetailsTo. Currently, both could be set independently
+                  and connection details would be published to both without affecting
+                  each other.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                  namespace:
+                    description: Namespace of the secret.
+                    type: string
+                required:
+                - name
+                - namespace
+                type: object
+            required:
+            - forProvider
+            type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.name is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
+                || (has(self.initProvider) && has(self.initProvider.name))'
+            - message: spec.forProvider.networkId is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.networkId)
+                || (has(self.initProvider) && has(self.initProvider.networkId))'
+            - message: spec.forProvider.nodeType is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.nodeType)
+                || (has(self.initProvider) && has(self.initProvider.nodeType))'
+            - message: spec.forProvider.numberOfNode is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.numberOfNode)
+                || (has(self.initProvider) && has(self.initProvider.numberOfNode))'
+            - message: spec.forProvider.securityGroupId is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.securityGroupId)
+                || (has(self.initProvider) && has(self.initProvider.securityGroupId))'
+            - message: spec.forProvider.userName is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.userName)
+                || (has(self.initProvider) && has(self.initProvider.userName))'
+            - message: spec.forProvider.userPwdSecretRef is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.userPwdSecretRef)'
+            - message: spec.forProvider.vpcId is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.vpcId)
+                || (has(self.initProvider) && has(self.initProvider.vpcId))'
+          status:
+            description: ClusterV1Status defines the observed state of ClusterV1.
+            properties:
+              atProvider:
+                properties:
+                  availabilityZone:
+                    description: AZ in a cluster.
+                    type: string
+                  created:
+                    description: Cluster creation time. The format is ISO8601:YYYY-MM-DDThh:mm:ssZ
+                    type: string
+                  endpoints:
+                    description: View the private network connection information about
+                      the cluster. Structure is documented below.
+                    items:
+                      properties:
+                        connectInfo:
+                          description: Private network connection information.
+                          type: string
+                        jdbcUrl:
+                          description: |-
+                            JDBC URL. The following is the default format:
+                            jdbc:postgresql://< connect_info>/<YOUR_DATABASE_NAME>
+                          type: string
+                      type: object
+                    type: array
+                  id:
+                    description: Cluster ID
+                    type: string
+                  keepLastManualSnapshot:
+                    description: The number of latest manual snapshots that need to
+                      be retained for a cluster.
+                    type: number
+                  name:
+                    description: |-
+                      Cluster name, which must be unique and contains 4 to 64 characters, which
+                      consist of letters, digits, hyphens(-), or underscores(_) only and must start with a letter.
+                    type: string
+                  networkId:
+                    description: Network ID, which is used for configuring cluster
+                      network.
+                    type: string
+                  nodeType:
+                    description: Node type.
+                    type: string
+                  numberOfCn:
+                    description: |-
+                      Specifies the number of CN. If you use a large-scale cluster, deploy
+                      multiple CNs.
+                    type: number
+                  numberOfNode:
+                    description: |-
+                      Number of nodes in a cluster. The value ranges from 3 to 32. When expanding,
+                      add at least 3 nodes.
+                    type: number
+                  port:
+                    description: Service port of a cluster (8000 to 10000). The default
+                      value is 8000.
+                    type: number
+                  privateIp:
+                    description: List of private network IP address.
+                    items:
+                      type: string
+                    type: array
+                  publicEndpoints:
+                    description: |-
+                      Public network connection information about the cluster. If the value is not specified, the
+                      public network connection information is not used by default Structure is documented below.
+                    items:
+                      properties:
+                        jdbcUrl:
+                          description: |-
+                            JDBC URL. The following is the default format:
+                            jdbc:postgresql://< public_connect_info>/<YOUR_DATABASE_NAME>
+                          type: string
+                        publicConnectInfo:
+                          description: Public network connection information.
+                          type: string
+                      type: object
+                    type: array
+                  publicIp:
+                    description: A nested object resource Structure is documented
+                      below.
+                    items:
+                      properties:
+                        eipId:
+                          description: EIP ID.
+                          type: string
+                        publicBindType:
+                          description: |-
+                            Binding type of an EIP. The value can be either of the following:
+                            auto_assign not_use bind_existing The default value is not_use.
+                          type: string
+                      type: object
+                    type: array
+                  recentEvent:
+                    description: The recent event number.
+                    type: number
+                  securityGroupId:
+                    description: |-
+                      ID of a security group. The ID is used for configuring cluster
+                      network.
+                    type: string
+                  status:
+                    description: 'Cluster status, which can be one of the following:  CREATING
+                      AVAILABLE UNAVAILABLE CREATION FAILED.'
+                    type: string
+                  subStatus:
+                    description: |-
+                      Sub-status of clusters in the AVAILABLE state. The value can be one of the following:  NORMAL READONLY
+                      REDISTRIBUTING REDISTRIBUTION-FAILURE UNBALANCED UNBALANCED | READONLY DEGRADED DEGRADED | READONLY DEGRADED |
+                      UNBALANCED UNBALANCED | REDISTRIBUTING UNBALANCED | REDISTRIBUTION-FAILURE READONLY | REDISTRIBUTION-FAILURE
+                      UNBALANCED | READONLY | REDISTRIBUTION-FAILURE DEGRADED | REDISTRIBUTION-FAILURE DEGRADED | UNBALANCED |
+                      REDISTRIBUTION-FAILURE DEGRADED | UNBALANCED | READONLY | REDISTRIBUTION-FAILURE DEGRADED | UNBALANCED | READONLY
+                    type: string
+                  taskStatus:
+                    description: |-
+                      Cluster management task. The value can be one of the following:
+                      RESTORING SNAPSHOTTING GROWING REBOOTING SETTING_CONFIGURATION CONFIGURING_EXT_DATASOURCE DELETING_EXT_DATASOURCE
+                      REBOOT_FAILURE RESIZE_FAILURE
+                    type: string
+                  updated:
+                    description: Last modification time of a cluster. The format is
+                      ISO8601:YYYY-MM-DDThh:mm:ssZ
+                    type: string
+                  userName:
+                    description: |-
+                      Administrator username for logging in to a data warehouse cluster The
+                      administrator username must:  Consist of lowercase letters, digits, or underscores. Start with a lowercase letter or
+                      an underscore. Contain 1 to 63 characters. Cannot be a keyword of the DWS database.
+                    type: string
+                  version:
+                    description: Data warehouse version.
+                    type: string
+                  vpcId:
+                    description: VPC ID, which is used for configuring cluster network.
+                    type: string
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        LastTransitionTime is the last time this condition transitioned from one
+                        status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        A Message containing details about this condition's last transition from
+                        one status to another, if any.
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        ObservedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      type: integer
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: |-
+                        Type of this condition. At most one of each condition type may apply to
+                        a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+              observedGeneration:
+                description: |-
+                  ObservedGeneration is the latest metadata.generation
+                  which resulted in either a ready state, or stalled due to error
+                  it can not recover from without human intervention.
+                format: int64
+                type: integer
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

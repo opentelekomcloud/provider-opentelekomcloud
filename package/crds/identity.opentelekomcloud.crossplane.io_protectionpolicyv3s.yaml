@@ -76,6 +76,37 @@ spec:
                   enableOperationProtectionPolicy:
                     description: = false
                     type: boolean
+                  selfManagement:
+                    description: |-
+                      Specifies the attributes IAM users can modify.
+                      The object structure is documented below.
+                    items:
+                      properties:
+                        accessKey:
+                          description: Specifies whether to allow IAM users to manage
+                            access keys by themselves.
+                          type: boolean
+                        email:
+                          description: Specifies whether to allow IAM users to change
+                            their email addresses.
+                          type: boolean
+                        mobile:
+                          description: Specifies whether to allow IAM users to change
+                            their mobile numbers.
+                          type: boolean
+                        password:
+                          description: Specifies whether to allow IAM users to change
+                            their passwords.
+                          type: boolean
+                      type: object
+                    type: array
+                  verificationEmail:
+                    description: Specifies the email address used for verification.
+                      An example value is example@email.com.
+                    type: string
+                  verificationMobile:
+                    description: Specifies the mobile number used for verification.
+                    type: string
                 type: object
               initProvider:
                 description: |-
@@ -93,6 +124,37 @@ spec:
                   enableOperationProtectionPolicy:
                     description: = false
                     type: boolean
+                  selfManagement:
+                    description: |-
+                      Specifies the attributes IAM users can modify.
+                      The object structure is documented below.
+                    items:
+                      properties:
+                        accessKey:
+                          description: Specifies whether to allow IAM users to manage
+                            access keys by themselves.
+                          type: boolean
+                        email:
+                          description: Specifies whether to allow IAM users to change
+                            their email addresses.
+                          type: boolean
+                        mobile:
+                          description: Specifies whether to allow IAM users to change
+                            their mobile numbers.
+                          type: boolean
+                        password:
+                          description: Specifies whether to allow IAM users to change
+                            their passwords.
+                          type: boolean
+                      type: object
+                    type: array
+                  verificationEmail:
+                    description: Specifies the email address used for verification.
+                      An example value is example@email.com.
+                    type: string
+                  verificationMobile:
+                    description: Specifies the mobile number used for verification.
+                    type: string
                 type: object
               managementPolicies:
                 default:
@@ -272,6 +334,41 @@ spec:
                   id:
                     description: The ID of account protection policy, which is the
                       same as the domain ID.
+                    type: string
+                  selfManagement:
+                    description: |-
+                      Specifies the attributes IAM users can modify.
+                      The object structure is documented below.
+                    items:
+                      properties:
+                        accessKey:
+                          description: Specifies whether to allow IAM users to manage
+                            access keys by themselves.
+                          type: boolean
+                        email:
+                          description: Specifies whether to allow IAM users to change
+                            their email addresses.
+                          type: boolean
+                        mobile:
+                          description: Specifies whether to allow IAM users to change
+                            their mobile numbers.
+                          type: boolean
+                        password:
+                          description: Specifies whether to allow IAM users to change
+                            their passwords.
+                          type: boolean
+                      type: object
+                    type: array
+                  selfVerification:
+                    description: Indicates whether the IAM users perform verification
+                      by themselves.
+                    type: boolean
+                  verificationEmail:
+                    description: Specifies the email address used for verification.
+                      An example value is example@email.com.
+                    type: string
+                  verificationMobile:
+                    description: Specifies the mobile number used for verification.
                     type: string
                 type: object
               conditions:

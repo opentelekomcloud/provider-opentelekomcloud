@@ -1,0 +1,23 @@
+apiVersion: rms.opentelekomcloud.crossplane.io/v1alpha1
+kind: PolicyAssignmentV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: rms/v1alpha1/policyassignmentv1
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    description: An ECS is noncompliant if its flavor is not in the specified flavor
+      list (filter by resource ID).
+    name: ${var.policy_assignment_name}
+    parameters:
+      listOfAllowedFlavors: '["${var.compliant_flavor}"]'
+    policyDefinitionId: ${try(data.opentelekomcloud_rms_policy_definitions_v1.test.definitions[0].id,
+      "")}
+    policyFilter:
+    - region: ${var.region_name}
+      resourceId: ${var.ecs_instance_id}
+      resourceProvider: ecs
+      resourceType: cloudservers
+    status: Enabled

@@ -82,7 +82,7 @@ spec:
                     description: The name of the topic to be created.
                     type: string
                   projectName:
-                    description: The project name for the topic.
+                    description: The name of the topic to be created.
                     type: string
                   tags:
                     additionalProperties:
@@ -113,7 +113,7 @@ spec:
                     description: The name of the topic to be created.
                     type: string
                   projectName:
-                    description: The project name for the topic.
+                    description: The name of the topic to be created.
                     type: string
                   tags:
                     additionalProperties:
@@ -313,7 +313,7 @@ spec:
                     description: The name of the topic to be created.
                     type: string
                   projectName:
-                    description: The project name for the topic.
+                    description: The name of the topic to be created.
                     type: string
                   pushPolicy:
                     description: |-

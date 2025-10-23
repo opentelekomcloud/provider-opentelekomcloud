@@ -23,9 +23,13 @@ type TurboShareV1InitParameters struct {
 	// Changing this will create a new resource.
 	CryptKeyID *string `json:"cryptKeyId,omitempty" tf:"crypt_key_id,omitempty"`
 
-	// Specifies whether the file system is enhanced or not. Changing this will
-	// create a new resource with type StandardEnhanced/PerformanceEnhanced.
 	Enhanced *bool `json:"enhanced,omitempty" tf:"enhanced,omitempty"`
+
+	// Specifies the extension type. This parameter is mandatory when you are creating an SFS Turbo 250 MB/s/TiB, 125 MB/s/TiB, 40 MB/s/TiB, 20 MB/s/TiB, or Enhanced file system. Accepted values:
+	ExpandType *string `json:"expandType,omitempty" tf:"expand_type,omitempty"`
+
+	// Specifies the file system bandwidth. This parameter is mandatory when you are creating an SFS Turbo 250 MB/s/TiB, 125 MB/s/TiB, 40 MB/s/TiB, 20 MB/s/TiB file system. Accepted values: 20M (for a 20 MB/s/TiB file system), 40M (for a 40 MB/s/TiB file system), 125M (for a 125 MB/s/TiB file system), and 250M (for a 250 MB/s/TiB file system).
+	HpcBw *string `json:"hpcBw,omitempty" tf:"hpc_bw,omitempty"`
 
 	// Specifies the name of an SFS Turbo file system. The value contains 4 to 64
 	// characters and must start with a letter. Changing this will create a new resource.
@@ -47,7 +51,7 @@ type TurboShareV1InitParameters struct {
 	ShareType *string `json:"shareType,omitempty" tf:"share_type,omitempty"`
 
 	// Specifies the capacity of a common file system, in GB. The value ranges
-	// from 500 to 32768.
+	// from 500 to 32768.For an SFS Turbo Enhanced file system, if expand_type is set to bandwidth in the metadata field, the capacity ranges from 10240 to 327680, in GiB. If expand_type is set to hpc and hpc_bw is set to 20M (20MB/s/TiB), 40M (40MB/s/TiB:), 125M (125MB/s/TiB), or 250M (250MB/s/TiB), the capacity ranges from 3686 to 1048576, in GiB. The capacity must be a multiple of 1.2 TiB. The value must be rounded down after being converted to GiB. For example, 3.6TiB->3686GiB, 4.8TiB->4915GiB, 8.4TiB->8601GiB.
 	Size *float64 `json:"size,omitempty" tf:"size,omitempty"`
 
 	// Specifies the network ID of the subnet. Changing this will create a new resource.
@@ -70,15 +74,16 @@ type TurboShareV1Observation struct {
 	// Changing this will create a new resource.
 	CryptKeyID *string `json:"cryptKeyId,omitempty" tf:"crypt_key_id,omitempty"`
 
-	// Specifies whether the file system is enhanced or not. Changing this will
-	// create a new resource with type StandardEnhanced/PerformanceEnhanced.
 	Enhanced *bool `json:"enhanced,omitempty" tf:"enhanced,omitempty"`
 
-	// Specifies the extension type
+	// Specifies the extension type. This parameter is mandatory when you are creating an SFS Turbo 250 MB/s/TiB, 125 MB/s/TiB, 40 MB/s/TiB, 20 MB/s/TiB, or Enhanced file system. Accepted values:
 	ExpandType *string `json:"expandType,omitempty" tf:"expand_type,omitempty"`
 
 	// The mount point of the SFS Turbo file system.
 	ExportLocation *string `json:"exportLocation,omitempty" tf:"export_location,omitempty"`
+
+	// Specifies the file system bandwidth. This parameter is mandatory when you are creating an SFS Turbo 250 MB/s/TiB, 125 MB/s/TiB, 40 MB/s/TiB, 20 MB/s/TiB file system. Accepted values: 20M (for a 20 MB/s/TiB file system), 40M (for a 40 MB/s/TiB file system), 125M (for a 125 MB/s/TiB file system), and 250M (for a 250 MB/s/TiB file system).
+	HpcBw *string `json:"hpcBw,omitempty" tf:"hpc_bw,omitempty"`
 
 	// The UUID of the SFS Turbo file system.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -103,7 +108,7 @@ type TurboShareV1Observation struct {
 	ShareType *string `json:"shareType,omitempty" tf:"share_type,omitempty"`
 
 	// Specifies the capacity of a common file system, in GB. The value ranges
-	// from 500 to 32768.
+	// from 500 to 32768.For an SFS Turbo Enhanced file system, if expand_type is set to bandwidth in the metadata field, the capacity ranges from 10240 to 327680, in GiB. If expand_type is set to hpc and hpc_bw is set to 20M (20MB/s/TiB), 40M (40MB/s/TiB:), 125M (125MB/s/TiB), or 250M (250MB/s/TiB), the capacity ranges from 3686 to 1048576, in GiB. The capacity must be a multiple of 1.2 TiB. The value must be rounded down after being converted to GiB. For example, 3.6TiB->3686GiB, 4.8TiB->4915GiB, 8.4TiB->8601GiB.
 	Size *float64 `json:"size,omitempty" tf:"size,omitempty"`
 
 	// Specifies the network ID of the subnet. Changing this will create a new resource.
@@ -128,10 +133,16 @@ type TurboShareV1Parameters struct {
 	// +kubebuilder:validation:Optional
 	CryptKeyID *string `json:"cryptKeyId,omitempty" tf:"crypt_key_id,omitempty"`
 
-	// Specifies whether the file system is enhanced or not. Changing this will
-	// create a new resource with type StandardEnhanced/PerformanceEnhanced.
 	// +kubebuilder:validation:Optional
 	Enhanced *bool `json:"enhanced,omitempty" tf:"enhanced,omitempty"`
+
+	// Specifies the extension type. This parameter is mandatory when you are creating an SFS Turbo 250 MB/s/TiB, 125 MB/s/TiB, 40 MB/s/TiB, 20 MB/s/TiB, or Enhanced file system. Accepted values:
+	// +kubebuilder:validation:Optional
+	ExpandType *string `json:"expandType,omitempty" tf:"expand_type,omitempty"`
+
+	// Specifies the file system bandwidth. This parameter is mandatory when you are creating an SFS Turbo 250 MB/s/TiB, 125 MB/s/TiB, 40 MB/s/TiB, 20 MB/s/TiB file system. Accepted values: 20M (for a 20 MB/s/TiB file system), 40M (for a 40 MB/s/TiB file system), 125M (for a 125 MB/s/TiB file system), and 250M (for a 250 MB/s/TiB file system).
+	// +kubebuilder:validation:Optional
+	HpcBw *string `json:"hpcBw,omitempty" tf:"hpc_bw,omitempty"`
 
 	// Specifies the name of an SFS Turbo file system. The value contains 4 to 64
 	// characters and must start with a letter. Changing this will create a new resource.
@@ -158,7 +169,7 @@ type TurboShareV1Parameters struct {
 	ShareType *string `json:"shareType,omitempty" tf:"share_type,omitempty"`
 
 	// Specifies the capacity of a common file system, in GB. The value ranges
-	// from 500 to 32768.
+	// from 500 to 32768.For an SFS Turbo Enhanced file system, if expand_type is set to bandwidth in the metadata field, the capacity ranges from 10240 to 327680, in GiB. If expand_type is set to hpc and hpc_bw is set to 20M (20MB/s/TiB), 40M (40MB/s/TiB:), 125M (125MB/s/TiB), or 250M (250MB/s/TiB), the capacity ranges from 3686 to 1048576, in GiB. The capacity must be a multiple of 1.2 TiB. The value must be rounded down after being converted to GiB. For example, 3.6TiB->3686GiB, 4.8TiB->4915GiB, 8.4TiB->8601GiB.
 	// +kubebuilder:validation:Optional
 	Size *float64 `json:"size,omitempty" tf:"size,omitempty"`
 

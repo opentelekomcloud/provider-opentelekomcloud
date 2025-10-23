@@ -1,0 +1,14 @@
+apiVersion: cts.opentelekomcloud.crossplane.io/v1alpha1
+kind: TrackerV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cts/v1alpha1/trackerv3
+  labels:
+    testing.upbound.io/example-name: tracker_v3
+  name: tracker-v3
+spec:
+  forProvider:
+    bucketName: ${var.bucket_name}
+    filePrefixName: prefix
+    isLtsEnabled: true
+    status: enabled

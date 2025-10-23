@@ -1,0 +1,31 @@
+apiVersion: lts.opentelekomcloud.crossplane.io/v1alpha1
+kind: KeywordsAlarmRuleV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lts/v1alpha1/keywordsalarmrulev2
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    description: created by terraform
+    frequency:
+    - type: HOURLY
+    keywordsRequests:
+    - condition: '>'
+      keyword: key_words
+      logGroupId: ${var.log_group_id}
+      logStreamId: ${var.log_stream_id}
+      number: 100
+      searchTimeRange: 5
+      searchTimeRangeUnit: minute
+    name: name
+    notificationFrequency: 5
+    notificationRule:
+    - language: en-us
+      timezone: xx/xx
+      topics:
+      - name: ${var.topic_name}
+        topicUrn: ${var.topic_urn}
+      userName: test
+    severity: CRITICAL

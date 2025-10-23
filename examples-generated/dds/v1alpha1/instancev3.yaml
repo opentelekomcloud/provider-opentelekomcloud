@@ -19,6 +19,8 @@ spec:
       specCode: dds.mongodb.s2.medium.4.repset
       storage: ULTRAHIGH
       type: replica
+    maintainBegin: "02:00"
+    maintainEnd: "03:00"
     mode: ReplicaSet
     name: dds-instance
     passwordSecretRef:

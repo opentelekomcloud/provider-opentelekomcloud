@@ -232,6 +232,7 @@ spec:
                             Currently, the value can be SSD (ultra-I/O disk type),
                             SAS (high I/O disk type), or SATA (common I/O disk type)
                             OTC-API
+                            -> NOTE: Common I/O (SATA) will reach end of life, end of 2025.
                           type: string
                       type: object
                     type: array
@@ -812,6 +813,7 @@ spec:
                             Currently, the value can be SSD (ultra-I/O disk type),
                             SAS (high I/O disk type), or SATA (common I/O disk type)
                             OTC-API
+                            -> NOTE: Common I/O (SATA) will reach end of life, end of 2025.
                           type: string
                       type: object
                     type: array
@@ -1466,6 +1468,7 @@ spec:
                             Currently, the value can be SSD (ultra-I/O disk type),
                             SAS (high I/O disk type), or SATA (common I/O disk type)
                             OTC-API
+                            -> NOTE: Common I/O (SATA) will reach end of life, end of 2025.
                           type: string
                       type: object
                     type: array

@@ -1,0 +1,17 @@
+apiVersion: cbr.opentelekomcloud.crossplane.io/v1alpha1
+kind: VaultV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cbr/v1alpha1/vaultv3
+  labels:
+    testing.upbound.io/example-name: vault
+  name: vault
+spec:
+  forProvider:
+    billing:
+    - chargingMode: post_paid
+      objectType: disk
+      protectType: backup
+      size: 100
+    description: CBR vault for terraform provider test
+    name: cbr-vault-test
