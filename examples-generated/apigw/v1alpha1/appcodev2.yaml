@@ -1,0 +1,12 @@
+apiVersion: apigw.opentelekomcloud.crossplane.io/v1alpha1
+kind: AppcodeV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: apigw/v1alpha1/appcodev2
+  labels:
+    testing.upbound.io/example-name: code
+  name: code
+spec:
+  forProvider:
+    applicationId: ${var.application_id}
+    gatewayId: ${var.gateway_id}

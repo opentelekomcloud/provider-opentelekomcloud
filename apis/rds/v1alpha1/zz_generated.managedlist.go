@@ -26,8 +26,26 @@ func (l *InstanceV3List) GetItems() []resource.Managed {
 	return items
 }
 
+// GetItems of this MaintenanceV3List.
+func (l *MaintenanceV3List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this ParametergroupV3List.
 func (l *ParametergroupV3List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this PublicIPAssociateV3List.
+func (l *PublicIPAssociateV3List) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]

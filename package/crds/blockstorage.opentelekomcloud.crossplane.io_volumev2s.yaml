@@ -143,12 +143,7 @@ spec:
                     type: object
                     x-kubernetes-map-type: granular
                   volumeType:
-                    description: 'Currently, the value can be SSD (ultra-high I/O
-                      disk type), SAS (high I/O disk type), SATA (common I/O disk
-                      type), co-p1 (Exclusive HPC/ SAP HANA: high I/O, performance
-                      optimized), or uh-l1 (Exclusive HPC/ SAP HANA: ultra-high-I/O,
-                      latency optimized). Read Note for uh-l1 and co-p1: OTC-API.
-                      Changing this creates a new volume.'
+                    description: Currently, the value can be
                     type: string
                 type: object
               initProvider:
@@ -234,12 +229,7 @@ spec:
                     type: object
                     x-kubernetes-map-type: granular
                   volumeType:
-                    description: 'Currently, the value can be SSD (ultra-high I/O
-                      disk type), SAS (high I/O disk type), SATA (common I/O disk
-                      type), co-p1 (Exclusive HPC/ SAP HANA: high I/O, performance
-                      optimized), or uh-l1 (Exclusive HPC/ SAP HANA: ultra-high-I/O,
-                      latency optimized). Read Note for uh-l1 and co-p1: OTC-API.
-                      Changing this creates a new volume.'
+                    description: Currently, the value can be
                     type: string
                 type: object
               managementPolicies:
@@ -505,12 +495,7 @@ spec:
                     type: object
                     x-kubernetes-map-type: granular
                   volumeType:
-                    description: 'Currently, the value can be SSD (ultra-high I/O
-                      disk type), SAS (high I/O disk type), SATA (common I/O disk
-                      type), co-p1 (Exclusive HPC/ SAP HANA: high I/O, performance
-                      optimized), or uh-l1 (Exclusive HPC/ SAP HANA: ultra-high-I/O,
-                      latency optimized). Read Note for uh-l1 and co-p1: OTC-API.
-                      Changing this creates a new volume.'
+                    description: Currently, the value can be
                     type: string
                   wwn:
                     description: Specifies the unique identifier used for mounting

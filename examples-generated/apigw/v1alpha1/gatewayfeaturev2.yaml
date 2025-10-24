@@ -1,0 +1,17 @@
+apiVersion: apigw.opentelekomcloud.crossplane.io/v1alpha1
+kind: GatewayFeatureV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: apigw/v1alpha1/gatewayfeaturev2
+  labels:
+    testing.upbound.io/example-name: feat
+  name: feat
+spec:
+  forProvider:
+    config: |-
+      ${jsonencode({
+          api_limits = 300
+        })}
+    enabled: true
+    gatewayId: ${var.gateway_id}
+    name: ratelimit

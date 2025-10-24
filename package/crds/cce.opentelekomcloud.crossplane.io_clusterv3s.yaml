@@ -80,6 +80,13 @@ spec:
                       this parameter will create a new cluster resource.
                     type: object
                     x-kubernetes-map-type: granular
+                  apiAccessTrustlist:
+                    description: |-
+                      Specifies the trustlist of network CIDRs that are allowed to access cluster APIs. Specified when creating a CCE cluster.
+                      Changing this parameter will create a new cluster resource.
+                    items:
+                      type: string
+                    type: array
                   authenticatingProxy:
                     description: Authenticating proxy configuration. Required if authentication_mode
                       is set to authenticating_proxy.
@@ -107,9 +114,7 @@ spec:
                       Deprecated, use authenticating_proxy instead.
                     type: string
                   authenticationMode:
-                    description: |-
-                      Authentication mode of the cluster, possible values are rbac and authenticating_proxy.
-                      Defaults to rbac. Changing this parameter will create a new cluster resource.
+                    description: Cluster authentication mode.
                     type: string
                   billingMode:
                     description: Charging mode of the cluster, which is 0 (on demand).
@@ -122,7 +127,7 @@ spec:
                     type: string
                   clusterVersion:
                     description: |-
-                      For the cluster version, possible values are v1.27, v1.25, v1.23, v1.21.
+                      For the cluster version, possible values are v1.29, v1.28, v1.27, v1.25.
                       If this parameter is not set, the cluster of the latest version is created by default.
                       Changing this parameter will create a new cluster resource. OTC-API
                     type: string
@@ -515,6 +520,12 @@ spec:
                   ignoreCertificateUsersData:
                     description: Skip sensitive user data.
                     type: boolean
+                  ipv6Enable:
+                    description: 'Specifies whether the cluster supports IPv6 addresses.
+                      This field is supported in clusters of v1.25 and later versions.
+                      Default: false. If ipv6_enable is true, subnet should have ipv6
+                      enabled and kube_proxy_mode value can only be ipvs.'
+                    type: boolean
                   kubeProxyMode:
                     description: 'Service forwarding mode. Two modes are available:'
                     type: string
@@ -530,10 +541,24 @@ spec:
                       parameter will create a new cluster resource.
                     type: object
                     x-kubernetes-map-type: granular
+                  masters:
+                    description: |-
+                      Specifies the advanced configuration of master nodes.
+                      The object structure is documented below.
+                      This parameter and multi_az are alternative. Changing this parameter will create a new cluster resource.
+                    items:
+                      properties:
+                        availabilityZone:
+                          description: |-
+                            Specifies the availability zone of the master node.
+                            Changing this parameter will create a new cluster resource.
+                          type: string
+                      type: object
+                    type: array
                   multiAz:
-                    description: Enable multiple AZs for the cluster, only when using
-                      HA flavors. Changing this parameter will create a new cluster
-                      resource.
+                    description: |-
+                      Enable multiple AZs for the cluster, only when using HA flavors. Changing this parameter will create a new cluster resource.
+                      This parameter and masters are alternative.
                     type: boolean
                   name:
                     description: Cluster name. Changing this parameter will create
@@ -630,6 +655,10 @@ spec:
                             type: string
                         type: object
                     type: object
+                  timezone:
+                    description: Cluster timezone in string format. Changing this
+                      parameter will create a new cluster resource.
+                    type: string
                   vpcId:
                     description: The ID of the VPC used to create the node. Changing
                       this parameter will create a new cluster resource.
@@ -729,6 +758,13 @@ spec:
                       this parameter will create a new cluster resource.
                     type: object
                     x-kubernetes-map-type: granular
+                  apiAccessTrustlist:
+                    description: |-
+                      Specifies the trustlist of network CIDRs that are allowed to access cluster APIs. Specified when creating a CCE cluster.
+                      Changing this parameter will create a new cluster resource.
+                    items:
+                      type: string
+                    type: array
                   authenticatingProxy:
                     description: Authenticating proxy configuration. Required if authentication_mode
                       is set to authenticating_proxy.
@@ -756,9 +792,7 @@ spec:
                       Deprecated, use authenticating_proxy instead.
                     type: string
                   authenticationMode:
-                    description: |-
-                      Authentication mode of the cluster, possible values are rbac and authenticating_proxy.
-                      Defaults to rbac. Changing this parameter will create a new cluster resource.
+                    description: Cluster authentication mode.
                     type: string
                   billingMode:
                     description: Charging mode of the cluster, which is 0 (on demand).
@@ -771,7 +805,7 @@ spec:
                     type: string
                   clusterVersion:
                     description: |-
-                      For the cluster version, possible values are v1.27, v1.25, v1.23, v1.21.
+                      For the cluster version, possible values are v1.29, v1.28, v1.27, v1.25.
                       If this parameter is not set, the cluster of the latest version is created by default.
                       Changing this parameter will create a new cluster resource. OTC-API
                     type: string
@@ -1164,6 +1198,12 @@ spec:
                   ignoreCertificateUsersData:
                     description: Skip sensitive user data.
                     type: boolean
+                  ipv6Enable:
+                    description: 'Specifies whether the cluster supports IPv6 addresses.
+                      This field is supported in clusters of v1.25 and later versions.
+                      Default: false. If ipv6_enable is true, subnet should have ipv6
+                      enabled and kube_proxy_mode value can only be ipvs.'
+                    type: boolean
                   kubeProxyMode:
                     description: 'Service forwarding mode. Two modes are available:'
                     type: string
@@ -1179,10 +1219,24 @@ spec:
                       parameter will create a new cluster resource.
                     type: object
                     x-kubernetes-map-type: granular
+                  masters:
+                    description: |-
+                      Specifies the advanced configuration of master nodes.
+                      The object structure is documented below.
+                      This parameter and multi_az are alternative. Changing this parameter will create a new cluster resource.
+                    items:
+                      properties:
+                        availabilityZone:
+                          description: |-
+                            Specifies the availability zone of the master node.
+                            Changing this parameter will create a new cluster resource.
+                          type: string
+                      type: object
+                    type: array
                   multiAz:
-                    description: Enable multiple AZs for the cluster, only when using
-                      HA flavors. Changing this parameter will create a new cluster
-                      resource.
+                    description: |-
+                      Enable multiple AZs for the cluster, only when using HA flavors. Changing this parameter will create a new cluster resource.
+                      This parameter and masters are alternative.
                     type: boolean
                   name:
                     description: Cluster name. Changing this parameter will create
@@ -1279,6 +1333,10 @@ spec:
                             type: string
                         type: object
                     type: object
+                  timezone:
+                    description: Cluster timezone in string format. Changing this
+                      parameter will create a new cluster resource.
+                    type: string
                   vpcId:
                     description: The ID of the VPC used to create the node. Changing
                       this parameter will create a new cluster resource.
@@ -1554,6 +1612,13 @@ spec:
                       this parameter will create a new cluster resource.
                     type: object
                     x-kubernetes-map-type: granular
+                  apiAccessTrustlist:
+                    description: |-
+                      Specifies the trustlist of network CIDRs that are allowed to access cluster APIs. Specified when creating a CCE cluster.
+                      Changing this parameter will create a new cluster resource.
+                    items:
+                      type: string
+                    type: array
                   authenticatingProxy:
                     description: Authenticating proxy configuration. Required if authentication_mode
                       is set to authenticating_proxy.
@@ -1581,9 +1646,7 @@ spec:
                       Deprecated, use authenticating_proxy instead.
                     type: string
                   authenticationMode:
-                    description: |-
-                      Authentication mode of the cluster, possible values are rbac and authenticating_proxy.
-                      Defaults to rbac. Changing this parameter will create a new cluster resource.
+                    description: Cluster authentication mode.
                     type: string
                   billingMode:
                     description: Charging mode of the cluster, which is 0 (on demand).
@@ -1622,7 +1685,7 @@ spec:
                     type: string
                   clusterVersion:
                     description: |-
-                      For the cluster version, possible values are v1.27, v1.25, v1.23, v1.21.
+                      For the cluster version, possible values are v1.29, v1.28, v1.27, v1.25.
                       If this parameter is not set, the cluster of the latest version is created by default.
                       Changing this parameter will create a new cluster resource. OTC-API
                     type: string
@@ -1739,6 +1802,12 @@ spec:
                   internal:
                     description: The internal network address.
                     type: string
+                  ipv6Enable:
+                    description: 'Specifies whether the cluster supports IPv6 addresses.
+                      This field is supported in clusters of v1.25 and later versions.
+                      Default: false. If ipv6_enable is true, subnet should have ipv6
+                      enabled and kube_proxy_mode value can only be ipvs.'
+                    type: boolean
                   kubeProxyMode:
                     description: 'Service forwarding mode. Two modes are available:'
                     type: string
@@ -1754,10 +1823,24 @@ spec:
                       parameter will create a new cluster resource.
                     type: object
                     x-kubernetes-map-type: granular
+                  masters:
+                    description: |-
+                      Specifies the advanced configuration of master nodes.
+                      The object structure is documented below.
+                      This parameter and multi_az are alternative. Changing this parameter will create a new cluster resource.
+                    items:
+                      properties:
+                        availabilityZone:
+                          description: |-
+                            Specifies the availability zone of the master node.
+                            Changing this parameter will create a new cluster resource.
+                          type: string
+                      type: object
+                    type: array
                   multiAz:
-                    description: Enable multiple AZs for the cluster, only when using
-                      HA flavors. Changing this parameter will create a new cluster
-                      resource.
+                    description: |-
+                      Enable multiple AZs for the cluster, only when using HA flavors. Changing this parameter will create a new cluster resource.
+                      This parameter and masters are alternative.
                     type: boolean
                   name:
                     description: Cluster name. Changing this parameter will create
@@ -1790,6 +1873,10 @@ spec:
                   subnetId:
                     description: The Network ID of the subnet used to create the node.
                       Changing this parameter will create a new cluster resource.
+                    type: string
+                  timezone:
+                    description: Cluster timezone in string format. Changing this
+                      parameter will create a new cluster resource.
                     type: string
                   vpcId:
                     description: The ID of the VPC used to create the node. Changing

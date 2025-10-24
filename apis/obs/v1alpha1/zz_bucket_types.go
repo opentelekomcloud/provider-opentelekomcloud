@@ -13,6 +13,28 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
+type AbortIncompleteMultipartUploadInitParameters struct {
+
+	// Default protection period, in days.
+	// The value is from 1 to 36500.
+	Days *float64 `json:"days,omitempty" tf:"days,omitempty"`
+}
+
+type AbortIncompleteMultipartUploadObservation struct {
+
+	// Default protection period, in days.
+	// The value is from 1 to 36500.
+	Days *float64 `json:"days,omitempty" tf:"days,omitempty"`
+}
+
+type AbortIncompleteMultipartUploadParameters struct {
+
+	// Default protection period, in days.
+	// The value is from 1 to 36500.
+	// +kubebuilder:validation:Optional
+	Days *float64 `json:"days" tf:"days,omitempty"`
+}
+
 type BucketInitParameters struct {
 
 	// Specifies the ACL policy for a bucket. The predefined common policies are as follows:
@@ -377,8 +399,7 @@ type FilterRuleInitParameters struct {
 	// Unique identifier for lifecycle rules. The Rule Name contains a maximum of 255 characters.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// Specifies keywords of object names so that objects can be filtered based on the prefixes or suffixes.
-	// The value contains a maximum of 1024 characters.
+	// The tag value. Can be blank, maximum 255 characters. Cannot contain: =*<>,|?!;
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
@@ -387,8 +408,7 @@ type FilterRuleObservation struct {
 	// Unique identifier for lifecycle rules. The Rule Name contains a maximum of 255 characters.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// Specifies keywords of object names so that objects can be filtered based on the prefixes or suffixes.
-	// The value contains a maximum of 1024 characters.
+	// The tag value. Can be blank, maximum 255 characters. Cannot contain: =*<>,|?!;
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
@@ -398,13 +418,16 @@ type FilterRuleParameters struct {
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// Specifies keywords of object names so that objects can be filtered based on the prefixes or suffixes.
-	// The value contains a maximum of 1024 characters.
+	// The tag value. Can be blank, maximum 255 characters. Cannot contain: =*<>,|?!;
 	// +kubebuilder:validation:Optional
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type LifecycleRuleInitParameters struct {
+
+	// Specifies a period when the not merged parts (fragments) in an
+	// incomplete upload are automatically deleted. (documented below).
+	AbortIncompleteMultipartUpload []AbortIncompleteMultipartUploadInitParameters `json:"abortIncompleteMultipartUpload,omitempty" tf:"abort_incomplete_multipart_upload,omitempty"`
 
 	// Specifies lifecycle rule status.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
@@ -430,12 +453,19 @@ type LifecycleRuleInitParameters struct {
 	// special characters: :*?"<>|.
 	Prefix *string `json:"prefix,omitempty" tf:"prefix,omitempty"`
 
+	// A list of tags to filter objects. Maximum 10 tags per rule with unique keys (documented below).
+	Tag []TagInitParameters `json:"tag,omitempty" tf:"tag,omitempty"`
+
 	// Specifies a period when objects that have been last updated are automatically
 	// transitioned to WARM or COLD storage class (documented below).
 	Transition []TransitionInitParameters `json:"transition,omitempty" tf:"transition,omitempty"`
 }
 
 type LifecycleRuleObservation struct {
+
+	// Specifies a period when the not merged parts (fragments) in an
+	// incomplete upload are automatically deleted. (documented below).
+	AbortIncompleteMultipartUpload []AbortIncompleteMultipartUploadObservation `json:"abortIncompleteMultipartUpload,omitempty" tf:"abort_incomplete_multipart_upload,omitempty"`
 
 	// Specifies lifecycle rule status.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
@@ -461,12 +491,20 @@ type LifecycleRuleObservation struct {
 	// special characters: :*?"<>|.
 	Prefix *string `json:"prefix,omitempty" tf:"prefix,omitempty"`
 
+	// A list of tags to filter objects. Maximum 10 tags per rule with unique keys (documented below).
+	Tag []TagObservation `json:"tag,omitempty" tf:"tag,omitempty"`
+
 	// Specifies a period when objects that have been last updated are automatically
 	// transitioned to WARM or COLD storage class (documented below).
 	Transition []TransitionObservation `json:"transition,omitempty" tf:"transition,omitempty"`
 }
 
 type LifecycleRuleParameters struct {
+
+	// Specifies a period when the not merged parts (fragments) in an
+	// incomplete upload are automatically deleted. (documented below).
+	// +kubebuilder:validation:Optional
+	AbortIncompleteMultipartUpload []AbortIncompleteMultipartUploadParameters `json:"abortIncompleteMultipartUpload,omitempty" tf:"abort_incomplete_multipart_upload,omitempty"`
 
 	// Specifies lifecycle rule status.
 	// +kubebuilder:validation:Optional
@@ -498,6 +536,10 @@ type LifecycleRuleParameters struct {
 	// +kubebuilder:validation:Optional
 	Prefix *string `json:"prefix,omitempty" tf:"prefix,omitempty"`
 
+	// A list of tags to filter objects. Maximum 10 tags per rule with unique keys (documented below).
+	// +kubebuilder:validation:Optional
+	Tag []TagParameters `json:"tag,omitempty" tf:"tag,omitempty"`
+
 	// Specifies a period when objects that have been last updated are automatically
 	// transitioned to WARM or COLD storage class (documented below).
 	// +kubebuilder:validation:Optional
@@ -505,6 +547,9 @@ type LifecycleRuleParameters struct {
 }
 
 type LoggingInitParameters struct {
+
+	// Specifies the IAM agency of OBS cloud service.
+	Agency *string `json:"agency,omitempty" tf:"agency,omitempty"`
 
 	// The name of the bucket that will receive the log objects.
 	// The acl policy of the target bucket should be log-delivery-write.
@@ -516,6 +561,9 @@ type LoggingInitParameters struct {
 
 type LoggingObservation struct {
 
+	// Specifies the IAM agency of OBS cloud service.
+	Agency *string `json:"agency,omitempty" tf:"agency,omitempty"`
+
 	// The name of the bucket that will receive the log objects.
 	// The acl policy of the target bucket should be log-delivery-write.
 	TargetBucket *string `json:"targetBucket,omitempty" tf:"target_bucket,omitempty"`
@@ -525,6 +573,10 @@ type LoggingObservation struct {
 }
 
 type LoggingParameters struct {
+
+	// Specifies the IAM agency of OBS cloud service.
+	// +kubebuilder:validation:Optional
+	Agency *string `json:"agency,omitempty" tf:"agency,omitempty"`
 
 	// The name of the bucket that will receive the log objects.
 	// The acl policy of the target bucket should be log-delivery-write.
@@ -600,6 +652,9 @@ type ServerSideEncryptionInitParameters struct {
 
 	// The ID of KMS key used for the encryption.
 	KMSKeyID *string `json:"kmsKeyId,omitempty" tf:"kms_key_id,omitempty"`
+
+	// The ID of the project where the KMS master key belongs.
+	KMSProjectID *string `json:"kmsProjectId,omitempty" tf:"kms_project_id,omitempty"`
 }
 
 type ServerSideEncryptionObservation struct {
@@ -609,6 +664,9 @@ type ServerSideEncryptionObservation struct {
 
 	// The ID of KMS key used for the encryption.
 	KMSKeyID *string `json:"kmsKeyId,omitempty" tf:"kms_key_id,omitempty"`
+
+	// The ID of the project where the KMS master key belongs.
+	KMSProjectID *string `json:"kmsProjectId,omitempty" tf:"kms_project_id,omitempty"`
 }
 
 type ServerSideEncryptionParameters struct {
@@ -620,6 +678,39 @@ type ServerSideEncryptionParameters struct {
 	// The ID of KMS key used for the encryption.
 	// +kubebuilder:validation:Optional
 	KMSKeyID *string `json:"kmsKeyId" tf:"kms_key_id,omitempty"`
+
+	// The ID of the project where the KMS master key belongs.
+	// +kubebuilder:validation:Optional
+	KMSProjectID *string `json:"kmsProjectId,omitempty" tf:"kms_project_id,omitempty"`
+}
+
+type TagInitParameters struct {
+
+	// The tag key. Must be unique within the rule, cannot be blank, maximum 128 characters. Cannot contain: =*<>,|/?!;
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// The tag value. Can be blank, maximum 255 characters. Cannot contain: =*<>,|?!;
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+}
+
+type TagObservation struct {
+
+	// The tag key. Must be unique within the rule, cannot be blank, maximum 128 characters. Cannot contain: =*<>,|/?!;
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// The tag value. Can be blank, maximum 255 characters. Cannot contain: =*<>,|?!;
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+}
+
+type TagParameters struct {
+
+	// The tag key. Must be unique within the rule, cannot be blank, maximum 128 characters. Cannot contain: =*<>,|/?!;
+	// +kubebuilder:validation:Optional
+	Key *string `json:"key" tf:"key,omitempty"`
+
+	// The tag value. Can be blank, maximum 255 characters. Cannot contain: =*<>,|?!;
+	// +kubebuilder:validation:Optional
+	Value *string `json:"value" tf:"value,omitempty"`
 }
 
 type TransitionInitParameters struct {

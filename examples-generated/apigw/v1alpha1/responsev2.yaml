@@ -1,0 +1,17 @@
+apiVersion: apigw.opentelekomcloud.crossplane.io/v1alpha1
+kind: ResponseV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: apigw/v1alpha1/responsev2
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    gatewayId: ${var.gateway_id}
+    groupId: ${var.group_id}
+    name: ${var.response_name}
+    rule:
+    - body: '{"code":"$context.authorizer.frontend.code","message":"$context.authorizer.frontend.message"}'
+      errorType: AUTHORIZER_FAILURE
+      statusCode: 401

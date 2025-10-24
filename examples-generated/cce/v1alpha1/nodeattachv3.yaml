@@ -1,0 +1,49 @@
+apiVersion: cce.opentelekomcloud.crossplane.io/v1alpha1
+kind: NodeAttachV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cce/v1alpha1/nodeattachv3
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    clusterId: ${var.cluster_id}
+    keyPair: ${var.keypair_name}
+    os: EulerOS 2.5
+    serverId: ${opentelekomcloud_ecs_instance_v1.instance_1.id}
+    tags:
+      foo: bar
+      key: value
+
+---
+
+apiVersion: ecs.opentelekomcloud.crossplane.io/v1alpha1
+kind: InstanceV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cce/v1alpha1/nodeattachv3
+  labels:
+    testing.upbound.io/example-name: instance_1
+  name: instance-1
+spec:
+  forProvider:
+    availabilityZone: eu-de-01
+    dataDisks:
+    - size: 60
+      type: SSD
+    deleteDisksOnTermination: true
+    flavor: ${var.flavor_id}
+    imageId: ${var.image_id}
+    name: ${var.server_name}
+    nics:
+    - networkIdSelector:
+        matchLabels:
+          testing.upbound.io/example-name: opentelekomcloud_vpc_subnet_v1
+    passwordSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: opentelekomcloud_vpc_subnet_v1

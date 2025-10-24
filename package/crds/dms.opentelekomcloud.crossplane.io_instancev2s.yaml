@@ -109,7 +109,7 @@ spec:
                   engineVersion:
                     description: |-
                       Indicates the version of a message engine.
-                      Options: 1.1.0, 2.3.0, 2.7.
+                      Options: 2.3.0, 2.7.
                     type: string
                   maintainBegin:
                     description: |-
@@ -248,7 +248,7 @@ spec:
                   engineVersion:
                     description: |-
                       Indicates the version of a message engine.
-                      Options: 1.1.0, 2.3.0, 2.7.
+                      Options: 2.3.0, 2.7.
                     type: string
                   maintainBegin:
                     description: |-
@@ -595,7 +595,7 @@ spec:
                   engineVersion:
                     description: |-
                       Indicates the version of a message engine.
-                      Options: 1.1.0, 2.3.0, 2.7.
+                      Options: 2.3.0, 2.7.
                     type: string
                   id:
                     type: string

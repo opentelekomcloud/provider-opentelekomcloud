@@ -100,8 +100,15 @@ spec:
                       grant permissions to agency on project. The structure is documented below.
                     items:
                       properties:
+                        allProjects:
+                          description: |-
+                            Whether roles are applied to all projects.
+                            Either project or all_projects must be provided to specify single project_role element.
+                          type: boolean
                         project:
-                          description: The name of project
+                          description: |-
+                            The name of project
+                            Either project or all_projects must be provided to specify single project_role element.
                           type: string
                         roles:
                           description: An array of role names
@@ -152,8 +159,15 @@ spec:
                       grant permissions to agency on project. The structure is documented below.
                     items:
                       properties:
+                        allProjects:
+                          description: |-
+                            Whether roles are applied to all projects.
+                            Either project or all_projects must be provided to specify single project_role element.
+                          type: boolean
                         project:
-                          description: The name of project
+                          description: |-
+                            The name of project
+                            Either project or all_projects must be provided to specify single project_role element.
                           type: string
                         roles:
                           description: An array of role names
@@ -386,8 +400,15 @@ spec:
                       grant permissions to agency on project. The structure is documented below.
                     items:
                       properties:
+                        allProjects:
+                          description: |-
+                            Whether roles are applied to all projects.
+                            Either project or all_projects must be provided to specify single project_role element.
+                          type: boolean
                         project:
-                          description: The name of project
+                          description: |-
+                            The name of project
+                            Either project or all_projects must be provided to specify single project_role element.
                           type: string
                         roles:
                           description: An array of role names

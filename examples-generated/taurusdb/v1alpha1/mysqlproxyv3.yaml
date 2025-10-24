@@ -1,0 +1,13 @@
+apiVersion: taurusdb.opentelekomcloud.crossplane.io/v1alpha1
+kind: MySQLProxyV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: taurusdb/v1alpha1/mysqlproxyv3
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    flavor: gaussdb.proxy.xlarge.x86.2
+    instanceId: ${var.instance_id}
+    nodeNum: 3

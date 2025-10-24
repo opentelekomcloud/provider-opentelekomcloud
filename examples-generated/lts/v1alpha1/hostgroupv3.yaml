@@ -1,0 +1,16 @@
+apiVersion: lts.opentelekomcloud.crossplane.io/v1alpha1
+kind: HostGroupV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lts/v1alpha1/hostgroupv3
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    hostIds: ${var.host_ids}
+    name: ${var.group_name}
+    tags:
+      foo: bar
+      key: value
+    type: linux

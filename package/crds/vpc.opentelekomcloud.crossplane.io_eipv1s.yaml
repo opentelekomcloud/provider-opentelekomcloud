@@ -440,6 +440,7 @@ spec:
                       type: object
                     type: array
                   id:
+                    description: The VPC EIP id.
                     type: string
                   publicip:
                     description: The elastic IP address object.

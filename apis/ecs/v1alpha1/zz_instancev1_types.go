@@ -36,7 +36,7 @@ type DataDisksInitParameters struct {
 	// Changing this creates a new server.
 	SnapshotID *string `json:"snapshotId,omitempty" tf:"snapshot_id,omitempty"`
 
-	// The data disk type of the server. For HANA, HL1, and HL2 ECSs use co-p1 and uh-l1 disks.
+	// The data disk type of the server.
 	// Changing this creates a new server. Options are limited depending on AZ. Available options are:
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
@@ -56,7 +56,7 @@ type DataDisksObservation struct {
 	// Changing this creates a new server.
 	SnapshotID *string `json:"snapshotId,omitempty" tf:"snapshot_id,omitempty"`
 
-	// The data disk type of the server. For HANA, HL1, and HL2 ECSs use co-p1 and uh-l1 disks.
+	// The data disk type of the server.
 	// Changing this creates a new server. Options are limited depending on AZ. Available options are:
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
@@ -87,7 +87,7 @@ type DataDisksParameters struct {
 	// +kubebuilder:validation:Optional
 	SnapshotID *string `json:"snapshotId,omitempty" tf:"snapshot_id,omitempty"`
 
-	// The data disk type of the server. For HANA, HL1, and HL2 ECSs use co-p1 and uh-l1 disks.
+	// The data disk type of the server.
 	// Changing this creates a new server. Options are limited depending on AZ. Available options are:
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type" tf:"type,omitempty"`
@@ -99,7 +99,6 @@ type InstanceV1InitParameters struct {
 	AutoRecovery *bool `json:"autoRecovery,omitempty" tf:"auto_recovery,omitempty"`
 
 	// The availability zone in which to create the server.
-	// Changing this creates a new server.
 	AvailabilityZone *string `json:"availabilityZone,omitempty" tf:"availability_zone,omitempty"`
 
 	// References to SecgroupV2 in compute to populate securityGroups.
@@ -138,6 +137,9 @@ type InstanceV1InitParameters struct {
 	// Selector for a KeypairV2 in compute to populate keyName.
 	// +kubebuilder:validation:Optional
 	KeyNameSelector *v1.Selector `json:"keyNameSelector,omitempty" tf:"-"`
+
+	// Metadata key/value pairs to associate with the instance.
+	Metadata []MetadataInitParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
 	// A unique name for the instance.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -180,8 +182,8 @@ type InstanceV1InitParameters struct {
 	// Changing this creates a new server.
 	SystemDiskSize *float64 `json:"systemDiskSize,omitempty" tf:"system_disk_size,omitempty"`
 
-	// The system disk type of the server. For HANA, HL1, and HL2 ECSs use co-p1 and uh-l1 disks.
-	// Changing this creates a new server. Options are limited depending on AZ. Available options are:
+	// The system disk type of the server.
+	// Changing this creates a new server. Options are limited depending on AZ. Default: SSD. Available options are:
 	SystemDiskType *string `json:"systemDiskType,omitempty" tf:"system_disk_type,omitempty"`
 
 	// Tags key/value pairs to associate with the instance.
@@ -211,7 +213,6 @@ type InstanceV1Observation struct {
 	AutoRecovery *bool `json:"autoRecovery,omitempty" tf:"auto_recovery,omitempty"`
 
 	// The availability zone in which to create the server.
-	// Changing this creates a new server.
 	AvailabilityZone *string `json:"availabilityZone,omitempty" tf:"availability_zone,omitempty"`
 
 	// An array of one or more data disks to attach to the
@@ -235,6 +236,9 @@ type InstanceV1Observation struct {
 	// pair must already be created and associated with the tenant's account.
 	// Changing this creates a new server.
 	KeyName *string `json:"keyName,omitempty" tf:"key_name,omitempty"`
+
+	// Metadata key/value pairs to associate with the instance.
+	Metadata []MetadataObservation `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
 	// A unique name for the instance.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -264,8 +268,8 @@ type InstanceV1Observation struct {
 	// Changing this creates a new server.
 	SystemDiskSize *float64 `json:"systemDiskSize,omitempty" tf:"system_disk_size,omitempty"`
 
-	// The system disk type of the server. For HANA, HL1, and HL2 ECSs use co-p1 and uh-l1 disks.
-	// Changing this creates a new server. Options are limited depending on AZ. Available options are:
+	// The system disk type of the server.
+	// Changing this creates a new server. Options are limited depending on AZ. Default: SSD. Available options are:
 	SystemDiskType *string `json:"systemDiskType,omitempty" tf:"system_disk_type,omitempty"`
 
 	// Tags key/value pairs to associate with the instance.
@@ -289,7 +293,6 @@ type InstanceV1Parameters struct {
 	AutoRecovery *bool `json:"autoRecovery,omitempty" tf:"auto_recovery,omitempty"`
 
 	// The availability zone in which to create the server.
-	// Changing this creates a new server.
 	// +kubebuilder:validation:Optional
 	AvailabilityZone *string `json:"availabilityZone,omitempty" tf:"availability_zone,omitempty"`
 
@@ -334,6 +337,10 @@ type InstanceV1Parameters struct {
 	// Selector for a KeypairV2 in compute to populate keyName.
 	// +kubebuilder:validation:Optional
 	KeyNameSelector *v1.Selector `json:"keyNameSelector,omitempty" tf:"-"`
+
+	// Metadata key/value pairs to associate with the instance.
+	// +kubebuilder:validation:Optional
+	Metadata []MetadataParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
 	// A unique name for the instance.
 	// +kubebuilder:validation:Optional
@@ -383,8 +390,8 @@ type InstanceV1Parameters struct {
 	// +kubebuilder:validation:Optional
 	SystemDiskSize *float64 `json:"systemDiskSize,omitempty" tf:"system_disk_size,omitempty"`
 
-	// The system disk type of the server. For HANA, HL1, and HL2 ECSs use co-p1 and uh-l1 disks.
-	// Changing this creates a new server. Options are limited depending on AZ. Available options are:
+	// The system disk type of the server.
+	// Changing this creates a new server. Options are limited depending on AZ. Default: SSD. Available options are:
 	// +kubebuilder:validation:Optional
 	SystemDiskType *string `json:"systemDiskType,omitempty" tf:"system_disk_type,omitempty"`
 
@@ -412,11 +419,33 @@ type InstanceV1Parameters struct {
 	VPCIDSelector *v1.Selector `json:"vpcIdSelector,omitempty" tf:"-"`
 }
 
+type MetadataInitParameters struct {
+
+	// Association to an agency
+	AgencyName *string `json:"agencyName,omitempty" tf:"agency_name,omitempty"`
+}
+
+type MetadataObservation struct {
+
+	// Association to an agency
+	AgencyName *string `json:"agencyName,omitempty" tf:"agency_name,omitempty"`
+}
+
+type MetadataParameters struct {
+
+	// Association to an agency
+	// +kubebuilder:validation:Optional
+	AgencyName *string `json:"agencyName,omitempty" tf:"agency_name,omitempty"`
+}
+
 type NicsInitParameters struct {
 
 	// Specifies a fixed IPv4 address to be used on this
 	// network. Changing this creates a new server.
 	IPAddress *string `json:"ipAddress,omitempty" tf:"ip_address,omitempty"`
+
+	// Specifies whether to support IPv6 addresses. If this parameter is set to true, the NIC supports IPv6 addresses.
+	IPv6Enable *bool `json:"ipv6Enable,omitempty" tf:"ipv6_enable,omitempty"`
 
 	// The network UUID to attach to the server. Changing this creates a new server.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.SubnetV1
@@ -438,6 +467,11 @@ type NicsObservation struct {
 	// network. Changing this creates a new server.
 	IPAddress *string `json:"ipAddress,omitempty" tf:"ip_address,omitempty"`
 
+	IPv6Address *string `json:"ipv6Address,omitempty" tf:"ipv6_address,omitempty"`
+
+	// Specifies whether to support IPv6 addresses. If this parameter is set to true, the NIC supports IPv6 addresses.
+	IPv6Enable *bool `json:"ipv6Enable,omitempty" tf:"ipv6_enable,omitempty"`
+
 	MacAddress *string `json:"macAddress,omitempty" tf:"mac_address,omitempty"`
 
 	// The network UUID to attach to the server. Changing this creates a new server.
@@ -445,7 +479,7 @@ type NicsObservation struct {
 
 	PortID *string `json:"portId,omitempty" tf:"port_id,omitempty"`
 
-	// The data disk type of the server. For HANA, HL1, and HL2 ECSs use co-p1 and uh-l1 disks.
+	// The data disk type of the server.
 	// Changing this creates a new server. Options are limited depending on AZ. Available options are:
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
@@ -456,6 +490,10 @@ type NicsParameters struct {
 	// network. Changing this creates a new server.
 	// +kubebuilder:validation:Optional
 	IPAddress *string `json:"ipAddress,omitempty" tf:"ip_address,omitempty"`
+
+	// Specifies whether to support IPv6 addresses. If this parameter is set to true, the NIC supports IPv6 addresses.
+	// +kubebuilder:validation:Optional
+	IPv6Enable *bool `json:"ipv6Enable,omitempty" tf:"ipv6_enable,omitempty"`
 
 	// The network UUID to attach to the server. Changing this creates a new server.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.SubnetV1
@@ -529,7 +567,7 @@ type VolumesAttachedObservation struct {
 	// Changing this creates a new server.
 	SnapshotID *string `json:"snapshotId,omitempty" tf:"snapshot_id,omitempty"`
 
-	// The data disk type of the server. For HANA, HL1, and HL2 ECSs use co-p1 and uh-l1 disks.
+	// The data disk type of the server.
 	// Changing this creates a new server. Options are limited depending on AZ. Available options are:
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
@@ -573,7 +611,6 @@ type InstanceV1Status struct {
 type InstanceV1 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.availabilityZone) || (has(self.initProvider) && has(self.initProvider.availabilityZone))",message="spec.forProvider.availabilityZone is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.flavor) || (has(self.initProvider) && has(self.initProvider.flavor))",message="spec.forProvider.flavor is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.imageId) || (has(self.initProvider) && has(self.initProvider.imageId))",message="spec.forProvider.imageId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"

@@ -10,6 +10,7 @@ spec:
   forProvider:
     containerFormat: bare
     diskFormat: qcow2
+    hwFirmwareType: uefi
     imageSourceUrl: https://releases.rancher.com/os/latest/rancheros-openstack.img
     name: RancherOS
     tags:

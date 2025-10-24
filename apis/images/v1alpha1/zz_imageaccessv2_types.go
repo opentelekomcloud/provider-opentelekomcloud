@@ -21,11 +21,6 @@ type ImageAccessV2InitParameters struct {
 	// The member ID, e.g. the target project ID. Optional
 	// for admin accounts. Defaults to the current scope project ID.
 	MemberID *string `json:"memberId,omitempty" tf:"member_id,omitempty"`
-
-	// The member proposal status. Optional if admin wants to force the member
-	// proposal acceptance. Can either be accepted, rejected or pending. Defaults to
-	// pending. Forbidden for non-admin users.
-	Status *string `json:"status,omitempty" tf:"status,omitempty"`
 }
 
 type ImageAccessV2Observation struct {
@@ -45,9 +40,7 @@ type ImageAccessV2Observation struct {
 	// Specifies the sharing schema.
 	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
 
-	// The member proposal status. Optional if admin wants to force the member
-	// proposal acceptance. Can either be accepted, rejected or pending. Defaults to
-	// pending. Forbidden for non-admin users.
+	// Specifies the image sharing status. After creation is pending.
 	Status *string `json:"status,omitempty" tf:"status,omitempty"`
 
 	UpdateAt *string `json:"updateAt,omitempty" tf:"update_at,omitempty"`
@@ -63,12 +56,6 @@ type ImageAccessV2Parameters struct {
 	// for admin accounts. Defaults to the current scope project ID.
 	// +kubebuilder:validation:Optional
 	MemberID *string `json:"memberId,omitempty" tf:"member_id,omitempty"`
-
-	// The member proposal status. Optional if admin wants to force the member
-	// proposal acceptance. Can either be accepted, rejected or pending. Defaults to
-	// pending. Forbidden for non-admin users.
-	// +kubebuilder:validation:Optional
-	Status *string `json:"status,omitempty" tf:"status,omitempty"`
 }
 
 // ImageAccessV2Spec defines the desired state of ImageAccessV2

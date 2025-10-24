@@ -8,6 +8,24 @@ import (
 	// Note(turkenh): we are importing this to embed provider schema document
 	_ "embed"
 
+	"github.com/opentelekomcloud/provider-opentelekomcloud/config/apigw"
+	"github.com/opentelekomcloud/provider-opentelekomcloud/config/asm"
+	"github.com/opentelekomcloud/provider-opentelekomcloud/config/cbr"
+	"github.com/opentelekomcloud/provider-opentelekomcloud/config/css"
+	"github.com/opentelekomcloud/provider-opentelekomcloud/config/cts"
+	"github.com/opentelekomcloud/provider-opentelekomcloud/config/cwf"
+	"github.com/opentelekomcloud/provider-opentelekomcloud/config/ddm"
+	"github.com/opentelekomcloud/provider-opentelekomcloud/config/drs"
+	"github.com/opentelekomcloud/provider-opentelekomcloud/config/dws"
+	"github.com/opentelekomcloud/provider-opentelekomcloud/config/er"
+	"github.com/opentelekomcloud/provider-opentelekomcloud/config/evpn"
+	"github.com/opentelekomcloud/provider-opentelekomcloud/config/hss"
+	"github.com/opentelekomcloud/provider-opentelekomcloud/config/rms"
+	"github.com/opentelekomcloud/provider-opentelekomcloud/config/rts"
+	"github.com/opentelekomcloud/provider-opentelekomcloud/config/swr"
+	"github.com/opentelekomcloud/provider-opentelekomcloud/config/taurusdb"
+	"github.com/opentelekomcloud/provider-opentelekomcloud/config/tms"
+
 	ujconfig "github.com/crossplane/upjet/pkg/config"
 
 	"github.com/opentelekomcloud/provider-opentelekomcloud/config/blockstorage"
@@ -55,19 +73,37 @@ func GetProvider() *ujconfig.Provider {
 		ujconfig.WithFeaturesPackage("internal/features"),
 		ujconfig.WithDefaultResourceOptions(
 			ExternalNameConfigurations(),
+			ApplyGroupOverrides(),
 		))
 
 	for _, configure := range []func(provider *ujconfig.Provider){
 		// add custom config functions
+		apigw.Configure,
+		asm.Configure,
 		blockstorage.Configure,
+		cbr.Configure,
+		cwf.Configure,
+		cts.Configure,
 		cce.Configure,
+		css.Configure,
 		compute.Configure,
 		dcs.Configure,
 		dds.Configure,
+		ddm.Configure,
 		deh.Configure,
 		dis.Configure,
 		dms.Configure,
 		dns.Configure,
+		drs.Configure,
+		dws.Configure,
+		er.Configure,
+		hss.Configure,
+		rms.Configure,
+		rts.Configure,
+		swr.Configure,
+		taurusdb.Configure,
+		tms.Configure,
+		evpn.Configure,
 		fg.Configure,
 		fw.Configure,
 		identity.Configure,

@@ -55,6 +55,7 @@ type BlockDeviceInitParameters struct {
 	// Currently, the value can be SSD (ultra-I/O disk type),
 	// SAS (high I/O disk type), or SATA (common I/O disk type)
 	// OTC-API
+	// -> NOTE: Common I/O (SATA) will reach end of life, end of 2025.
 	VolumeType *string `json:"volumeType,omitempty" tf:"volume_type,omitempty"`
 }
 
@@ -91,6 +92,7 @@ type BlockDeviceObservation struct {
 	// Currently, the value can be SSD (ultra-I/O disk type),
 	// SAS (high I/O disk type), or SATA (common I/O disk type)
 	// OTC-API
+	// -> NOTE: Common I/O (SATA) will reach end of life, end of 2025.
 	VolumeType *string `json:"volumeType,omitempty" tf:"volume_type,omitempty"`
 }
 
@@ -144,6 +146,7 @@ type BlockDeviceParameters struct {
 	// Currently, the value can be SSD (ultra-I/O disk type),
 	// SAS (high I/O disk type), or SATA (common I/O disk type)
 	// OTC-API
+	// -> NOTE: Common I/O (SATA) will reach end of life, end of 2025.
 	// +kubebuilder:validation:Optional
 	VolumeType *string `json:"volumeType,omitempty" tf:"volume_type,omitempty"`
 }

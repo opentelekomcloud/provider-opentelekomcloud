@@ -1,0 +1,25 @@
+apiVersion: enterprisevpn.opentelekomcloud.crossplane.io/v1alpha1
+kind: VPNGatewayV5
+metadata:
+  annotations:
+    meta.upbound.io/example-id: enterprisevpn/v1alpha1/vpngatewayv5
+  labels:
+    testing.upbound.io/example-name: gw_1
+  name: gw-1
+spec:
+  forProvider:
+    availabilityZones:
+    - eu-de-01
+    - eu-de-02
+    connectSubnet: ${opentelekomcloud_vpc_subnet_v1.subnet.id}
+    eip1:
+    - id: ${opentelekomcloud_vpc_eip_v1.eip_1.id}
+    eip2:
+    - id: ${opentelekomcloud_vpc_eip_v1.eip_2.id}
+    localSubnets:
+    - ${opentelekomcloud_vpc_subnet_v1.subnet.cidr}
+    name: ${var.name}
+    tags:
+      foo: bar
+      key: val
+    vpcId: ${opentelekomcloud_vpc_v1.vpc.id}

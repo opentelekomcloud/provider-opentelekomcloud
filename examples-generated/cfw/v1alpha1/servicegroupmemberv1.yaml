@@ -1,0 +1,15 @@
+apiVersion: cfw.opentelekomcloud.crossplane.io/v1alpha1
+kind: ServiceGroupMemberV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cfw/v1alpha1/servicegroupmemberv1
+  labels:
+    testing.upbound.io/example-name: member_1
+  name: member-1
+spec:
+  forProvider:
+    description: Test611
+    destPort: "1"
+    protocol: 6
+    setId: ${var.set_id}
+    sourcePort: "1"

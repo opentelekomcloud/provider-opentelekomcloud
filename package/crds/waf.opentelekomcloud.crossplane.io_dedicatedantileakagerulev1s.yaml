@@ -74,6 +74,11 @@ spec:
                 type: string
               forProvider:
                 properties:
+                  action:
+                    description: |-
+                      Protective action of the Anti Leakage rule.
+                      Values:
+                    type: string
                   category:
                     description: |-
                       Sensitive information type in the information leakage prevention rule.
@@ -109,6 +114,11 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
+                  action:
+                    description: |-
+                      Protective action of the Anti Leakage rule.
+                      Values:
+                    type: string
                   category:
                     description: |-
                       Sensitive information type in the information leakage prevention rule.
@@ -299,6 +309,10 @@ spec:
             - forProvider
             type: object
             x-kubernetes-validations:
+            - message: spec.forProvider.action is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.action)
+                || (has(self.initProvider) && has(self.initProvider.action))'
             - message: spec.forProvider.category is a required parameter
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.category)
@@ -321,6 +335,11 @@ spec:
             properties:
               atProvider:
                 properties:
+                  action:
+                    description: |-
+                      Protective action of the Anti Leakage rule.
+                      Values:
+                    type: string
                   category:
                     description: |-
                       Sensitive information type in the information leakage prevention rule.

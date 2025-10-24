@@ -1,0 +1,22 @@
+apiVersion: cbr.opentelekomcloud.crossplane.io/v1alpha1
+kind: PolicyV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cbr/v1alpha1/policyv3
+  labels:
+    testing.upbound.io/example-name: policy
+  name: policy
+spec:
+  forProvider:
+    enabled: "false"
+    name: some-policy
+    operationDefinition:
+    - dayBackups: 1
+      maxBackups: 10
+      monthBackups: 4
+      timezone: UTC+03:00
+      weekBackups: 2
+      yearBackups: 3
+    operationType: backup
+    triggerPattern:
+    - FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR,SA,SU;BYHOUR=14;BYMINUTE=00

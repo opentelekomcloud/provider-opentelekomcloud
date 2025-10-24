@@ -214,11 +214,6 @@ spec:
                           type: object
                       type: object
                     type: array
-                  macAddress:
-                    description: |-
-                      Specify a specific MAC address for the port. Changing
-                      this creates a new port.
-                    type: string
                   name:
                     description: |-
                       A unique name for the port. Changing this
@@ -411,11 +406,6 @@ spec:
                             type: string
                         type: object
                     type: object
-                  tenantId:
-                    description: |-
-                      The owner of the Port. Required if admin wants
-                      to create a port for another tenant. Changing this creates a new port.
-                    type: string
                   valueSpecs:
                     additionalProperties:
                       type: string
@@ -577,11 +567,6 @@ spec:
                           type: object
                       type: object
                     type: array
-                  macAddress:
-                    description: |-
-                      Specify a specific MAC address for the port. Changing
-                      this creates a new port.
-                    type: string
                   name:
                     description: |-
                       A unique name for the port. Changing this
@@ -774,11 +759,6 @@ spec:
                             type: string
                         type: object
                     type: object
-                  tenantId:
-                    description: |-
-                      The owner of the Port. Required if admin wants
-                      to create a port for another tenant. Changing this creates a new port.
-                    type: string
                   valueSpecs:
                     additionalProperties:
                       type: string
@@ -1030,9 +1010,7 @@ spec:
                   id:
                     type: string
                   macAddress:
-                    description: |-
-                      Specify a specific MAC address for the port. Changing
-                      this creates a new port.
+                    description: Specifies the port MAC address.
                     type: string
                   name:
                     description: |-
@@ -1071,11 +1049,6 @@ spec:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
-                  tenantId:
-                    description: |-
-                      The owner of the Port. Required if admin wants
-                      to create a port for another tenant. Changing this creates a new port.
-                    type: string
                   valueSpecs:
                     additionalProperties:
                       type: string

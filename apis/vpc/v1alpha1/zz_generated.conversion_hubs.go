@@ -31,6 +31,12 @@ func (tr *RouteTableV1) Hub() {}
 func (tr *RouteV2) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *SecgroupRuleV3) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *SecgroupV3) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *SubnetV1) Hub() {}
 
 // Hub marks this type as a conversion hub.

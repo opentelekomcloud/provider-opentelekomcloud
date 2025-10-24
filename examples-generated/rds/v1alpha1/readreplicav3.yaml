@@ -9,13 +9,13 @@ metadata:
 spec:
   forProvider:
     availabilityZone: ${var.az_replica}
-    flavorRef: rds.pg.c2.medium
+    flavorRef: rds.pg.n1.large.4
     name: test-replica
     replicaOfIdSelector:
       matchLabels:
         testing.upbound.io/example-name: instance
     volume:
-    - type: COMMON
+    - type: CLOUDSSD
 
 ---
 
@@ -43,8 +43,8 @@ spec:
         namespace: upbound-system
       port: "8635"
       type: PostgreSQL
-      version: "10"
-    flavor: rds.pg.c2.medium
+      version: "16"
+    flavor: rds.pg.n1.medium.4.rr
     name: test-instance
     subnetIdSelector:
       matchLabels:
@@ -53,7 +53,7 @@ spec:
       created: terraform
     volume:
     - size: 40
-      type: ULTRAHIGH
+      type: CLOUDSSD
     vpcIdSelector:
       matchLabels:
         testing.upbound.io/example-name: example

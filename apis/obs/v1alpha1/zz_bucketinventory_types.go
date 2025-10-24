@@ -40,6 +40,11 @@ type BucketInventoryInitParameters struct {
 
 	// Indicates whether the rule is enabled. If this parameter is set to true, the inventory is generated.
 	IsEnabled *bool `json:"isEnabled,omitempty" tf:"is_enabled,omitempty"`
+
+	// Extra metadata fields that can be added to an inventory. If this parameter is configured,
+	// fields specified in this parameter are contained in the inventory.
+	// Possible values:
+	OptionalFields []*string `json:"optionalFields,omitempty" tf:"optional_fields,omitempty"`
 }
 
 type BucketInventoryObservation struct {
@@ -71,6 +76,11 @@ type BucketInventoryObservation struct {
 
 	// Indicates whether the rule is enabled. If this parameter is set to true, the inventory is generated.
 	IsEnabled *bool `json:"isEnabled,omitempty" tf:"is_enabled,omitempty"`
+
+	// Extra metadata fields that can be added to an inventory. If this parameter is configured,
+	// fields specified in this parameter are contained in the inventory.
+	// Possible values:
+	OptionalFields []*string `json:"optionalFields,omitempty" tf:"optional_fields,omitempty"`
 
 	// Specifies the bucket region.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
@@ -110,6 +120,12 @@ type BucketInventoryParameters struct {
 	// Indicates whether the rule is enabled. If this parameter is set to true, the inventory is generated.
 	// +kubebuilder:validation:Optional
 	IsEnabled *bool `json:"isEnabled,omitempty" tf:"is_enabled,omitempty"`
+
+	// Extra metadata fields that can be added to an inventory. If this parameter is configured,
+	// fields specified in this parameter are contained in the inventory.
+	// Possible values:
+	// +kubebuilder:validation:Optional
+	OptionalFields []*string `json:"optionalFields,omitempty" tf:"optional_fields,omitempty"`
 }
 
 type DestinationInitParameters struct {

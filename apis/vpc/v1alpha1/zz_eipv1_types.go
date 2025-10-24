@@ -104,6 +104,7 @@ type EIPV1Observation struct {
 	// The bandwidth object.
 	Bandwidth []BandwidthObservation `json:"bandwidth,omitempty" tf:"bandwidth,omitempty"`
 
+	// The VPC EIP id.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// The elastic IP address object.

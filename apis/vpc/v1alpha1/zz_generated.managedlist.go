@@ -80,6 +80,24 @@ func (l *RouteV2List) GetItems() []resource.Managed {
 	return items
 }
 
+// GetItems of this SecgroupRuleV3List.
+func (l *SecgroupRuleV3List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this SecgroupV3List.
+func (l *SecgroupV3List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this SubnetV1List.
 func (l *SubnetV1List) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))

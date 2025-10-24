@@ -329,6 +329,7 @@ spec:
                       the port has multiple fixed IPs.
                     type: string
                   id:
+                    description: The floating IP id.
                     type: string
                   pool:
                     description: |-

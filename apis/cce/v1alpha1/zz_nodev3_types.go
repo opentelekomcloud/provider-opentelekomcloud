@@ -24,6 +24,7 @@ type NodeV3DataVolumesInitParameters struct {
 	ExtendParams map[string]*string `json:"extendParams,omitempty" tf:"extend_params,omitempty"`
 
 	// The Encryption KMS ID of the system volume. By default, it tries to get from env by OS_KMS_ID.
+	// -> NOTE: Common I/O (SATA) will reach end of life, end of 2025.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/kms/v1alpha1.KeyV1
 	KMSID *string `json:"kmsId,omitempty" tf:"kms_id,omitempty"`
 
@@ -53,6 +54,7 @@ type NodeV3DataVolumesObservation struct {
 	ExtendParams map[string]*string `json:"extendParams,omitempty" tf:"extend_params,omitempty"`
 
 	// The Encryption KMS ID of the system volume. By default, it tries to get from env by OS_KMS_ID.
+	// -> NOTE: Common I/O (SATA) will reach end of life, end of 2025.
 	KMSID *string `json:"kmsId,omitempty" tf:"kms_id,omitempty"`
 
 	// Disk size in GB.
@@ -75,6 +77,7 @@ type NodeV3DataVolumesParameters struct {
 	ExtendParams map[string]*string `json:"extendParams,omitempty" tf:"extend_params,omitempty"`
 
 	// The Encryption KMS ID of the system volume. By default, it tries to get from env by OS_KMS_ID.
+	// -> NOTE: Common I/O (SATA) will reach end of life, end of 2025.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/kms/v1alpha1.KeyV1
 	// +kubebuilder:validation:Optional
 	KMSID *string `json:"kmsId,omitempty" tf:"kms_id,omitempty"`
@@ -99,6 +102,7 @@ type NodeV3DataVolumesParameters struct {
 type NodeV3InitParameters struct {
 
 	// IAM agency name. Changing this parameter will create a new resource.
+	// -> NOTE: The IAM agency requires tms:resourceTags:list in order to properly read resource state.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/identity/v1alpha1.AgencyV3
 	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractAgencyName()
 	AgencyName *string `json:"agencyName,omitempty" tf:"agency_name,omitempty"`
@@ -259,6 +263,7 @@ type NodeV3InitParameters struct {
 type NodeV3Observation struct {
 
 	// IAM agency name. Changing this parameter will create a new resource.
+	// -> NOTE: The IAM agency requires tms:resourceTags:list in order to properly read resource state.
 	AgencyName *string `json:"agencyName,omitempty" tf:"agency_name,omitempty"`
 
 	// Node annotation, key/value pair format. Changing this parameter will create a new resource
@@ -393,6 +398,7 @@ type NodeV3Observation struct {
 type NodeV3Parameters struct {
 
 	// IAM agency name. Changing this parameter will create a new resource.
+	// -> NOTE: The IAM agency requires tms:resourceTags:list in order to properly read resource state.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/identity/v1alpha1.AgencyV3
 	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractAgencyName()
 	// +kubebuilder:validation:Optional
@@ -597,6 +603,7 @@ type NodeV3RootVolumeInitParameters struct {
 	ExtendParams map[string]*string `json:"extendParams,omitempty" tf:"extend_params,omitempty"`
 
 	// The Encryption KMS ID of the system volume. By default, it tries to get from env by OS_KMS_ID.
+	// -> NOTE: Common I/O (SATA) will reach end of life, end of 2025.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/kms/v1alpha1.KeyV1
 	KMSID *string `json:"kmsId,omitempty" tf:"kms_id,omitempty"`
 
@@ -626,6 +633,7 @@ type NodeV3RootVolumeObservation struct {
 	ExtendParams map[string]*string `json:"extendParams,omitempty" tf:"extend_params,omitempty"`
 
 	// The Encryption KMS ID of the system volume. By default, it tries to get from env by OS_KMS_ID.
+	// -> NOTE: Common I/O (SATA) will reach end of life, end of 2025.
 	KMSID *string `json:"kmsId,omitempty" tf:"kms_id,omitempty"`
 
 	// Disk size in GB.
@@ -648,6 +656,7 @@ type NodeV3RootVolumeParameters struct {
 	ExtendParams map[string]*string `json:"extendParams,omitempty" tf:"extend_params,omitempty"`
 
 	// The Encryption KMS ID of the system volume. By default, it tries to get from env by OS_KMS_ID.
+	// -> NOTE: Common I/O (SATA) will reach end of life, end of 2025.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/kms/v1alpha1.KeyV1
 	// +kubebuilder:validation:Optional
 	KMSID *string `json:"kmsId,omitempty" tf:"kms_id,omitempty"`

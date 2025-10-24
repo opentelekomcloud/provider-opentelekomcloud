@@ -10,6 +10,9 @@ package v1alpha1
 func (tr *AsyncInvokeConfigV2) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *DependencyVersionV2) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *EventV2) Hub() {}
 
 // Hub marks this type as a conversion hub.

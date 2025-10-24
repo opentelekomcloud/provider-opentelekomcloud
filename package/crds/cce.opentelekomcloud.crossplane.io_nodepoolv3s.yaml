@@ -253,8 +253,9 @@ spec:
                           type: object
                           x-kubernetes-map-type: granular
                         kmsId:
-                          description: The Encryption KMS ID of the system volume.
-                            By default, it tries to get from env by OS_KMS_ID.
+                          description: |-
+                            The Encryption KMS ID of the system volume. By default, it tries to get from env by OS_KMS_ID.
+                            -> NOTE: Common I/O (SATA) will reach end of life, end of 2025.
                           type: string
                         kmsIdRef:
                           description: Reference to a KeyV1 in kms to populate kmsId.
@@ -457,9 +458,8 @@ spec:
                     description: Node Pool Name.
                     type: string
                   os:
-                    description: |-
-                      Node OS. Changing this parameter will create a new resource.
-                      Supported OS depends on kubernetes version of the cluster.
+                    description: Node OS. Changing this parameter will create a new
+                      resource.
                     type: string
                   passwordSecretRef:
                     description: |-
@@ -512,8 +512,9 @@ spec:
                           type: object
                           x-kubernetes-map-type: granular
                         kmsId:
-                          description: The Encryption KMS ID of the system volume.
-                            By default, it tries to get from env by OS_KMS_ID.
+                          description: |-
+                            The Encryption KMS ID of the system volume. By default, it tries to get from env by OS_KMS_ID.
+                            -> NOTE: Common I/O (SATA) will reach end of life, end of 2025.
                           type: string
                         kmsIdRef:
                           description: Reference to a KeyV1 in kms to populate kmsId.
@@ -930,8 +931,9 @@ spec:
                           type: object
                           x-kubernetes-map-type: granular
                         kmsId:
-                          description: The Encryption KMS ID of the system volume.
-                            By default, it tries to get from env by OS_KMS_ID.
+                          description: |-
+                            The Encryption KMS ID of the system volume. By default, it tries to get from env by OS_KMS_ID.
+                            -> NOTE: Common I/O (SATA) will reach end of life, end of 2025.
                           type: string
                         kmsIdRef:
                           description: Reference to a KeyV1 in kms to populate kmsId.
@@ -1134,9 +1136,8 @@ spec:
                     description: Node Pool Name.
                     type: string
                   os:
-                    description: |-
-                      Node OS. Changing this parameter will create a new resource.
-                      Supported OS depends on kubernetes version of the cluster.
+                    description: Node OS. Changing this parameter will create a new
+                      resource.
                     type: string
                   passwordSecretRef:
                     description: |-
@@ -1189,8 +1190,9 @@ spec:
                           type: object
                           x-kubernetes-map-type: granular
                         kmsId:
-                          description: The Encryption KMS ID of the system volume.
-                            By default, it tries to get from env by OS_KMS_ID.
+                          description: |-
+                            The Encryption KMS ID of the system volume. By default, it tries to get from env by OS_KMS_ID.
+                            -> NOTE: Common I/O (SATA) will reach end of life, end of 2025.
                           type: string
                         kmsIdRef:
                           description: Reference to a KeyV1 in kms to populate kmsId.
@@ -1639,8 +1641,9 @@ spec:
                           type: object
                           x-kubernetes-map-type: granular
                         kmsId:
-                          description: The Encryption KMS ID of the system volume.
-                            By default, it tries to get from env by OS_KMS_ID.
+                          description: |-
+                            The Encryption KMS ID of the system volume. By default, it tries to get from env by OS_KMS_ID.
+                            -> NOTE: Common I/O (SATA) will reach end of life, end of 2025.
                           type: string
                         size:
                           description: Disk size in GB.
@@ -1698,9 +1701,8 @@ spec:
                     description: Node Pool Name.
                     type: string
                   os:
-                    description: |-
-                      Node OS. Changing this parameter will create a new resource.
-                      Supported OS depends on kubernetes version of the cluster.
+                    description: Node OS. Changing this parameter will create a new
+                      resource.
                     type: string
                   postinstall:
                     description: |-
@@ -1734,8 +1736,9 @@ spec:
                           type: object
                           x-kubernetes-map-type: granular
                         kmsId:
-                          description: The Encryption KMS ID of the system volume.
-                            By default, it tries to get from env by OS_KMS_ID.
+                          description: |-
+                            The Encryption KMS ID of the system volume. By default, it tries to get from env by OS_KMS_ID.
+                            -> NOTE: Common I/O (SATA) will reach end of life, end of 2025.
                           type: string
                         size:
                           description: Disk size in GB.

@@ -1,0 +1,14 @@
+apiVersion: taurusdb.opentelekomcloud.crossplane.io/v1alpha1
+kind: MySQLQuotaV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: taurusdb/v1alpha1/mysqlquotav3
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    enterpriseProjectId: ${var.enterprise_project_id}
+    instanceQuota: 10
+    ramQuota: 30
+    vcpusQuota: 0

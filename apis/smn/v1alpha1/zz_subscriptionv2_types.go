@@ -18,7 +18,6 @@ type SubscriptionV2InitParameters struct {
 	// Specifies the message endpoint.
 	Endpoint *string `json:"endpoint,omitempty" tf:"endpoint,omitempty"`
 
-	// The project name for the subscription.
 	ProjectName *string `json:"projectName,omitempty" tf:"project_name,omitempty"`
 
 	// Specifies protocol of the message endpoint. Currently, email,
@@ -43,7 +42,6 @@ type SubscriptionV2Observation struct {
 	// The project ID of the topic creator.
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
 
-	// The project name for the subscription.
 	ProjectName *string `json:"projectName,omitempty" tf:"project_name,omitempty"`
 
 	// Specifies protocol of the message endpoint. Currently, email,
@@ -70,7 +68,6 @@ type SubscriptionV2Parameters struct {
 	// +kubebuilder:validation:Optional
 	Endpoint *string `json:"endpoint,omitempty" tf:"endpoint,omitempty"`
 
-	// The project name for the subscription.
 	// +kubebuilder:validation:Optional
 	ProjectName *string `json:"projectName,omitempty" tf:"project_name,omitempty"`
 

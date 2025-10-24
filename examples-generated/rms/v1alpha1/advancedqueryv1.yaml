@@ -1,0 +1,12 @@
+apiVersion: rms.opentelekomcloud.crossplane.io/v1alpha1
+kind: AdvancedQueryV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: rms/v1alpha1/advancedqueryv1
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    expression: select * from table_test
+    name: advanced_query_name

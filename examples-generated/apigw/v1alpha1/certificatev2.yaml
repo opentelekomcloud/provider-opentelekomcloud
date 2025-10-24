@@ -1,0 +1,19 @@
+apiVersion: apigw.opentelekomcloud.crossplane.io/v1alpha1
+kind: CertificateV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: apigw/v1alpha1/certificatev2
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    contentSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system
+    name: ${var.certificate_name}
+    privateKeySecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system

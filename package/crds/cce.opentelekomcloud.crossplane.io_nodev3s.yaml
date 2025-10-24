@@ -74,8 +74,9 @@ spec:
               forProvider:
                 properties:
                   agencyName:
-                    description: IAM agency name. Changing this parameter will create
-                      a new resource.
+                    description: |-
+                      IAM agency name. Changing this parameter will create a new resource.
+                      -> NOTE: The IAM agency requires tms:resourceTags:list in order to properly read resource state.
                     type: string
                   agencyNameRef:
                     description: Reference to a AgencyV3 in identity to populate agencyName.
@@ -268,8 +269,9 @@ spec:
                           type: object
                           x-kubernetes-map-type: granular
                         kmsId:
-                          description: The Encryption KMS ID of the system volume.
-                            By default, it tries to get from env by OS_KMS_ID.
+                          description: |-
+                            The Encryption KMS ID of the system volume. By default, it tries to get from env by OS_KMS_ID.
+                            -> NOTE: Common I/O (SATA) will reach end of life, end of 2025.
                           type: string
                         kmsIdRef:
                           description: Reference to a KeyV1 in kms to populate kmsId.
@@ -617,8 +619,9 @@ spec:
                           type: object
                           x-kubernetes-map-type: granular
                         kmsId:
-                          description: The Encryption KMS ID of the system volume.
-                            By default, it tries to get from env by OS_KMS_ID.
+                          description: |-
+                            The Encryption KMS ID of the system volume. By default, it tries to get from env by OS_KMS_ID.
+                            -> NOTE: Common I/O (SATA) will reach end of life, end of 2025.
                           type: string
                         kmsIdRef:
                           description: Reference to a KeyV1 in kms to populate kmsId.
@@ -759,8 +762,9 @@ spec:
                   autoscaler.
                 properties:
                   agencyName:
-                    description: IAM agency name. Changing this parameter will create
-                      a new resource.
+                    description: |-
+                      IAM agency name. Changing this parameter will create a new resource.
+                      -> NOTE: The IAM agency requires tms:resourceTags:list in order to properly read resource state.
                     type: string
                   agencyNameRef:
                     description: Reference to a AgencyV3 in identity to populate agencyName.
@@ -953,8 +957,9 @@ spec:
                           type: object
                           x-kubernetes-map-type: granular
                         kmsId:
-                          description: The Encryption KMS ID of the system volume.
-                            By default, it tries to get from env by OS_KMS_ID.
+                          description: |-
+                            The Encryption KMS ID of the system volume. By default, it tries to get from env by OS_KMS_ID.
+                            -> NOTE: Common I/O (SATA) will reach end of life, end of 2025.
                           type: string
                         kmsIdRef:
                           description: Reference to a KeyV1 in kms to populate kmsId.
@@ -1302,8 +1307,9 @@ spec:
                           type: object
                           x-kubernetes-map-type: granular
                         kmsId:
-                          description: The Encryption KMS ID of the system volume.
-                            By default, it tries to get from env by OS_KMS_ID.
+                          description: |-
+                            The Encryption KMS ID of the system volume. By default, it tries to get from env by OS_KMS_ID.
+                            -> NOTE: Common I/O (SATA) will reach end of life, end of 2025.
                           type: string
                         kmsIdRef:
                           description: Reference to a KeyV1 in kms to populate kmsId.
@@ -1620,8 +1626,9 @@ spec:
               atProvider:
                 properties:
                   agencyName:
-                    description: IAM agency name. Changing this parameter will create
-                      a new resource.
+                    description: |-
+                      IAM agency name. Changing this parameter will create a new resource.
+                      -> NOTE: The IAM agency requires tms:resourceTags:list in order to properly read resource state.
                     type: string
                   annotations:
                     additionalProperties:
@@ -1666,8 +1673,9 @@ spec:
                           type: object
                           x-kubernetes-map-type: granular
                         kmsId:
-                          description: The Encryption KMS ID of the system volume.
-                            By default, it tries to get from env by OS_KMS_ID.
+                          description: |-
+                            The Encryption KMS ID of the system volume. By default, it tries to get from env by OS_KMS_ID.
+                            -> NOTE: Common I/O (SATA) will reach end of life, end of 2025.
                           type: string
                         size:
                           description: Disk size in GB.
@@ -1795,8 +1803,9 @@ spec:
                           type: object
                           x-kubernetes-map-type: granular
                         kmsId:
-                          description: The Encryption KMS ID of the system volume.
-                            By default, it tries to get from env by OS_KMS_ID.
+                          description: |-
+                            The Encryption KMS ID of the system volume. By default, it tries to get from env by OS_KMS_ID.
+                            -> NOTE: Common I/O (SATA) will reach end of life, end of 2025.
                           type: string
                         size:
                           description: Disk size in GB.

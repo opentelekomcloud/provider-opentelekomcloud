@@ -83,7 +83,7 @@ type VolumeV2InitParameters struct {
 	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
-	// Currently, the value can be SSD (ultra-high I/O disk type), SAS (high I/O disk type), SATA (common I/O disk type), co-p1 (Exclusive HPC/ SAP HANA: high I/O, performance optimized), or uh-l1 (Exclusive HPC/ SAP HANA: ultra-high-I/O, latency optimized). Read Note for uh-l1 and co-p1: OTC-API. Changing this creates a new volume.
+	// Currently, the value can be
 	VolumeType *string `json:"volumeType,omitempty" tf:"volume_type,omitempty"`
 }
 
@@ -149,7 +149,7 @@ type VolumeV2Observation struct {
 	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
-	// Currently, the value can be SSD (ultra-high I/O disk type), SAS (high I/O disk type), SATA (common I/O disk type), co-p1 (Exclusive HPC/ SAP HANA: high I/O, performance optimized), or uh-l1 (Exclusive HPC/ SAP HANA: ultra-high-I/O, latency optimized). Read Note for uh-l1 and co-p1: OTC-API. Changing this creates a new volume.
+	// Currently, the value can be
 	VolumeType *string `json:"volumeType,omitempty" tf:"volume_type,omitempty"`
 
 	// Specifies the unique identifier used for mounting the EVS disk.
@@ -226,7 +226,7 @@ type VolumeV2Parameters struct {
 	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
-	// Currently, the value can be SSD (ultra-high I/O disk type), SAS (high I/O disk type), SATA (common I/O disk type), co-p1 (Exclusive HPC/ SAP HANA: high I/O, performance optimized), or uh-l1 (Exclusive HPC/ SAP HANA: ultra-high-I/O, latency optimized). Read Note for uh-l1 and co-p1: OTC-API. Changing this creates a new volume.
+	// Currently, the value can be
 	// +kubebuilder:validation:Optional
 	VolumeType *string `json:"volumeType,omitempty" tf:"volume_type,omitempty"`
 }

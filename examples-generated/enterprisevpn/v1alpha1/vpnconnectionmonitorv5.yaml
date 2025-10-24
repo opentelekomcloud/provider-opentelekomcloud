@@ -1,0 +1,11 @@
+apiVersion: enterprisevpn.opentelekomcloud.crossplane.io/v1alpha1
+kind: VPNConnectionMonitorV5
+metadata:
+  annotations:
+    meta.upbound.io/example-id: enterprisevpn/v1alpha1/vpnconnectionmonitorv5
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    connectionId: ${var.connection_id}

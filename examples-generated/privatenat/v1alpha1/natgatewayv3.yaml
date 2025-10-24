@@ -1,0 +1,15 @@
+apiVersion: privatenat.opentelekomcloud.crossplane.io/v1alpha1
+kind: NATGatewayV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: privatenat/v1alpha1/natgatewayv3
+  labels:
+    testing.upbound.io/example-name: gateway_1
+  name: gateway-1
+spec:
+  forProvider:
+    description: created
+    downlinkVpcs:
+    - virsubnetId: ${var.network_id}
+    name: test-acc-nat-gateway
+    spec: Small

@@ -77,8 +77,7 @@ type VolumeV3InitParameters struct {
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// The type of volume to create.
-	// Currently, the value can be SSD, SAS, SATA, co-p1, or uh-l1.
-	// Changing this creates a new volume.
+	// Currently, the value can be:
 	VolumeType *string `json:"volumeType,omitempty" tf:"volume_type,omitempty"`
 }
 
@@ -138,8 +137,7 @@ type VolumeV3Observation struct {
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// The type of volume to create.
-	// Currently, the value can be SSD, SAS, SATA, co-p1, or uh-l1.
-	// Changing this creates a new volume.
+	// Currently, the value can be:
 	VolumeType *string `json:"volumeType,omitempty" tf:"volume_type,omitempty"`
 
 	// Specifies the unique identifier used for mounting the EVS disk.
@@ -208,8 +206,7 @@ type VolumeV3Parameters struct {
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// The type of volume to create.
-	// Currently, the value can be SSD, SAS, SATA, co-p1, or uh-l1.
-	// Changing this creates a new volume.
+	// Currently, the value can be:
 	// +kubebuilder:validation:Optional
 	VolumeType *string `json:"volumeType,omitempty" tf:"volume_type,omitempty"`
 }

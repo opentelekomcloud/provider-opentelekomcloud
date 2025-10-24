@@ -127,7 +127,7 @@ type InstanceV2InitParameters struct {
 
 	// Specifies the username used for accessing a DCS instance.
 	// The username starts with a letter, consists of 1 to 64 characters, and supports only letters, digits, and
-	// hyphens (-). Changing this creates a new instance.
+	// hyphens (-). Changing this creates a new instance. If the cache engine is Redis, leave this parameter empty.
 	AccessUser *string `json:"accessUser,omitempty" tf:"access_user,omitempty"`
 
 	// The code of the AZ where the cache node resides.
@@ -161,7 +161,7 @@ type InstanceV2InitParameters struct {
 	Engine *string `json:"engine,omitempty" tf:"engine,omitempty"`
 
 	// Specifies the version of a cache engine.
-	// It is mandatory when the engine is Redis, the value can be 3.0, 4.0, 5.0 or 6.0.
+	// It is mandatory when the engine is Redis, the value can be 4.0, 5.0, 6.0 or 7.0.
 	// Changing this creates a new instance.
 	EngineVersion *string `json:"engineVersion,omitempty" tf:"engine_version,omitempty"`
 
@@ -227,7 +227,7 @@ type InstanceV2InitParameters struct {
 	// +kubebuilder:validation:Optional
 	SecurityGroupIDSelector *v1.Selector `json:"securityGroupIdSelector,omitempty" tf:"-"`
 
-	// The ID of subnet which the instance belongs to.
+	// The ID of subnet (Network ID) which the instance belongs to.
 	// Changing this creates a new instance resource.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.SubnetV1
 	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractNetworkID()
@@ -263,7 +263,7 @@ type InstanceV2InitParameters struct {
 	VPCIDSelector *v1.Selector `json:"vpcIdSelector,omitempty" tf:"-"`
 
 	// Specifies the IP addresses which can access the instance.
-	// This parameter is valid for Redis 4.0 and 5.0 versions. The structure is described below.
+	// This parameter is valid for Redis 4.0 and 5.0 versions. The structure is described below. Required if enable_whitelist is used.
 	Whitelist []WhitelistInitParameters `json:"whitelist,omitempty" tf:"whitelist,omitempty"`
 }
 
@@ -271,7 +271,7 @@ type InstanceV2Observation struct {
 
 	// Specifies the username used for accessing a DCS instance.
 	// The username starts with a letter, consists of 1 to 64 characters, and supports only letters, digits, and
-	// hyphens (-). Changing this creates a new instance.
+	// hyphens (-). Changing this creates a new instance. If the cache engine is Redis, leave this parameter empty.
 	AccessUser *string `json:"accessUser,omitempty" tf:"access_user,omitempty"`
 
 	// The code of the AZ where the cache node resides.
@@ -321,7 +321,7 @@ type InstanceV2Observation struct {
 	Engine *string `json:"engine,omitempty" tf:"engine,omitempty"`
 
 	// Specifies the version of a cache engine.
-	// It is mandatory when the engine is Redis, the value can be 3.0, 4.0, 5.0 or 6.0.
+	// It is mandatory when the engine is Redis, the value can be 4.0, 5.0, 6.0 or 7.0.
 	// Changing this creates a new instance.
 	EngineVersion *string `json:"engineVersion,omitempty" tf:"engine_version,omitempty"`
 
@@ -408,7 +408,7 @@ type InstanceV2Observation struct {
 	// Indicates the subnet segment.
 	SubnetCidr *string `json:"subnetCidr,omitempty" tf:"subnet_cidr,omitempty"`
 
-	// The ID of subnet which the instance belongs to.
+	// The ID of subnet (Network ID) which the instance belongs to.
 	// Changing this creates a new instance resource.
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 
@@ -445,7 +445,7 @@ type InstanceV2Observation struct {
 	VPCName *string `json:"vpcName,omitempty" tf:"vpc_name,omitempty"`
 
 	// Specifies the IP addresses which can access the instance.
-	// This parameter is valid for Redis 4.0 and 5.0 versions. The structure is described below.
+	// This parameter is valid for Redis 4.0 and 5.0 versions. The structure is described below. Required if enable_whitelist is used.
 	Whitelist []WhitelistObservation `json:"whitelist,omitempty" tf:"whitelist,omitempty"`
 }
 
@@ -453,7 +453,7 @@ type InstanceV2Parameters struct {
 
 	// Specifies the username used for accessing a DCS instance.
 	// The username starts with a letter, consists of 1 to 64 characters, and supports only letters, digits, and
-	// hyphens (-). Changing this creates a new instance.
+	// hyphens (-). Changing this creates a new instance. If the cache engine is Redis, leave this parameter empty.
 	// +kubebuilder:validation:Optional
 	AccessUser *string `json:"accessUser,omitempty" tf:"access_user,omitempty"`
 
@@ -495,7 +495,7 @@ type InstanceV2Parameters struct {
 	Engine *string `json:"engine,omitempty" tf:"engine,omitempty"`
 
 	// Specifies the version of a cache engine.
-	// It is mandatory when the engine is Redis, the value can be 3.0, 4.0, 5.0 or 6.0.
+	// It is mandatory when the engine is Redis, the value can be 4.0, 5.0, 6.0 or 7.0.
 	// Changing this creates a new instance.
 	// +kubebuilder:validation:Optional
 	EngineVersion *string `json:"engineVersion,omitempty" tf:"engine_version,omitempty"`
@@ -574,7 +574,7 @@ type InstanceV2Parameters struct {
 	// +kubebuilder:validation:Optional
 	SecurityGroupIDSelector *v1.Selector `json:"securityGroupIdSelector,omitempty" tf:"-"`
 
-	// The ID of subnet which the instance belongs to.
+	// The ID of subnet (Network ID) which the instance belongs to.
 	// Changing this creates a new instance resource.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.SubnetV1
 	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractNetworkID()
@@ -614,7 +614,7 @@ type InstanceV2Parameters struct {
 	VPCIDSelector *v1.Selector `json:"vpcIdSelector,omitempty" tf:"-"`
 
 	// Specifies the IP addresses which can access the instance.
-	// This parameter is valid for Redis 4.0 and 5.0 versions. The structure is described below.
+	// This parameter is valid for Redis 4.0 and 5.0 versions. The structure is described below. Required if enable_whitelist is used.
 	// +kubebuilder:validation:Optional
 	Whitelist []WhitelistParameters `json:"whitelist,omitempty" tf:"whitelist,omitempty"`
 }

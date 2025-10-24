@@ -77,7 +77,7 @@ spec:
                     description: |-
                       Specifies the username used for accessing a DCS instance.
                       The username starts with a letter, consists of 1 to 64 characters, and supports only letters, digits, and
-                      hyphens (-). Changing this creates a new instance.
+                      hyphens (-). Changing this creates a new instance. If the cache engine is Redis, leave this parameter empty.
                     type: string
                   availabilityZones:
                     description: |-
@@ -151,7 +151,7 @@ spec:
                   engineVersion:
                     description: |-
                       Specifies the version of a cache engine.
-                      It is mandatory when the engine is Redis, the value can be 3.0, 4.0, 5.0 or 6.0.
+                      It is mandatory when the engine is Redis, the value can be 4.0, 5.0, 6.0 or 7.0.
                       Changing this creates a new instance.
                     type: string
                   flavor:
@@ -327,7 +327,7 @@ spec:
                     type: boolean
                   subnetId:
                     description: |-
-                      The ID of subnet which the instance belongs to.
+                      The ID of subnet (Network ID) which the instance belongs to.
                       Changing this creates a new instance resource.
                     type: string
                   subnetIdRef:
@@ -497,7 +497,7 @@ spec:
                   whitelist:
                     description: |-
                       Specifies the IP addresses which can access the instance.
-                      This parameter is valid for Redis 4.0 and 5.0 versions. The structure is described below.
+                      This parameter is valid for Redis 4.0 and 5.0 versions. The structure is described below. Required if enable_whitelist is used.
                     items:
                       properties:
                         groupName:
@@ -530,7 +530,7 @@ spec:
                     description: |-
                       Specifies the username used for accessing a DCS instance.
                       The username starts with a letter, consists of 1 to 64 characters, and supports only letters, digits, and
-                      hyphens (-). Changing this creates a new instance.
+                      hyphens (-). Changing this creates a new instance. If the cache engine is Redis, leave this parameter empty.
                     type: string
                   availabilityZones:
                     description: |-
@@ -604,7 +604,7 @@ spec:
                   engineVersion:
                     description: |-
                       Specifies the version of a cache engine.
-                      It is mandatory when the engine is Redis, the value can be 3.0, 4.0, 5.0 or 6.0.
+                      It is mandatory when the engine is Redis, the value can be 4.0, 5.0, 6.0 or 7.0.
                       Changing this creates a new instance.
                     type: string
                   flavor:
@@ -780,7 +780,7 @@ spec:
                     type: boolean
                   subnetId:
                     description: |-
-                      The ID of subnet which the instance belongs to.
+                      The ID of subnet (Network ID) which the instance belongs to.
                       Changing this creates a new instance resource.
                     type: string
                   subnetIdRef:
@@ -950,7 +950,7 @@ spec:
                   whitelist:
                     description: |-
                       Specifies the IP addresses which can access the instance.
-                      This parameter is valid for Redis 4.0 and 5.0 versions. The structure is described below.
+                      This parameter is valid for Redis 4.0 and 5.0 versions. The structure is described below. Required if enable_whitelist is used.
                     items:
                       properties:
                         groupName:
@@ -1163,7 +1163,7 @@ spec:
                     description: |-
                       Specifies the username used for accessing a DCS instance.
                       The username starts with a letter, consists of 1 to 64 characters, and supports only letters, digits, and
-                      hyphens (-). Changing this creates a new instance.
+                      hyphens (-). Changing this creates a new instance. If the cache engine is Redis, leave this parameter empty.
                     type: string
                   availabilityZones:
                     description: |-
@@ -1293,7 +1293,7 @@ spec:
                   engineVersion:
                     description: |-
                       Specifies the version of a cache engine.
-                      It is mandatory when the engine is Redis, the value can be 3.0, 4.0, 5.0 or 6.0.
+                      It is mandatory when the engine is Redis, the value can be 4.0, 5.0, 6.0 or 7.0.
                       Changing this creates a new instance.
                     type: string
                   flavor:
@@ -1413,7 +1413,7 @@ spec:
                     type: string
                   subnetId:
                     description: |-
-                      The ID of subnet which the instance belongs to.
+                      The ID of subnet (Network ID) which the instance belongs to.
                       Changing this creates a new instance resource.
                     type: string
                   subnetName:
@@ -1456,7 +1456,7 @@ spec:
                   whitelist:
                     description: |-
                       Specifies the IP addresses which can access the instance.
-                      This parameter is valid for Redis 4.0 and 5.0 versions. The structure is described below.
+                      This parameter is valid for Redis 4.0 and 5.0 versions. The structure is described below. Required if enable_whitelist is used.
                     items:
                       properties:
                         groupName:

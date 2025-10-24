@@ -55,10 +55,40 @@ type PortParameters struct {
 	ServerPort *float64 `json:"serverPort" tf:"server_port,omitempty"`
 }
 
+type ServiceV1ConnectionsInitParameters struct {
+}
+
+type ServiceV1ConnectionsObservation struct {
+	CreatedAt *string `json:"createdAt,omitempty" tf:"created_at,omitempty"`
+
+	// Specifies the description of the VPC endpoint service.
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// The user's domain ID.
+	DomainID *string `json:"domainId,omitempty" tf:"domain_id,omitempty"`
+
+	// The unique ID of the VPC endpoint.
+	EndpointID *string `json:"endpointId,omitempty" tf:"endpoint_id,omitempty"`
+
+	// The packet ID of the VPC endpoint.
+	PacketID *float64 `json:"packetId,omitempty" tf:"packet_id,omitempty"`
+
+	// The status of the VPC endpoint service. The value can be available or failed.
+	Status *string `json:"status,omitempty" tf:"status,omitempty"`
+
+	UpdatedAt *string `json:"updatedAt,omitempty" tf:"updated_at,omitempty"`
+}
+
+type ServiceV1ConnectionsParameters struct {
+}
+
 type ServiceV1InitParameters struct {
 
 	// Specifies whether connection approval is required.
 	ApprovalEnabled *bool `json:"approvalEnabled,omitempty" tf:"approval_enabled,omitempty"`
+
+	// Specifies the description of the VPC endpoint service.
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// Specifies the name of the VPC endpoint service.
 	// The value contains a maximum of 16 characters, including letters, digits, underscores (_), and hyphens (-).
@@ -106,6 +136,12 @@ type ServiceV1Observation struct {
 	// Specifies whether connection approval is required.
 	ApprovalEnabled *bool `json:"approvalEnabled,omitempty" tf:"approval_enabled,omitempty"`
 
+	// An array of VPC endpoints connect to the VPC endpoint service. Structure is documented below.
+	Connections []ServiceV1ConnectionsObservation `json:"connections,omitempty" tf:"connections,omitempty"`
+
+	// Specifies the description of the VPC endpoint service.
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
 	// ID of VPC endpoint service
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
@@ -129,6 +165,9 @@ type ServiceV1Observation struct {
 	// Specifies the type of the VPC endpoint service.
 	// Only your private services can be configured into interface VPC endpoint services.
 	ServiceType *string `json:"serviceType,omitempty" tf:"service_type,omitempty"`
+
+	// The status of the VPC endpoint service. The value can be available or failed.
+	Status *string `json:"status,omitempty" tf:"status,omitempty"`
 
 	// Specifies whether the client IP address and port number or marker_id information is
 	// transmitted to the server.
@@ -155,6 +194,10 @@ type ServiceV1Parameters struct {
 	// Specifies whether connection approval is required.
 	// +kubebuilder:validation:Optional
 	ApprovalEnabled *bool `json:"approvalEnabled,omitempty" tf:"approval_enabled,omitempty"`
+
+	// Specifies the description of the VPC endpoint service.
+	// +kubebuilder:validation:Optional
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// Specifies the name of the VPC endpoint service.
 	// The value contains a maximum of 16 characters, including letters, digits, underscores (_), and hyphens (-).

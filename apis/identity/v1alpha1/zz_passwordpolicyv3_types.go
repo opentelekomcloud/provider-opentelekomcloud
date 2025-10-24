@@ -27,6 +27,9 @@ type PasswordPolicyV3InitParameters struct {
 	// = 1
 	NumberOfRecentPasswordsDisallowed *float64 `json:"numberOfRecentPasswordsDisallowed,omitempty" tf:"number_of_recent_passwords_disallowed,omitempty"`
 
+	// = 2
+	PasswordCharCombination *float64 `json:"passwordCharCombination,omitempty" tf:"password_char_combination,omitempty"`
+
 	// = true
 	PasswordNotUsernameOrInvert *bool `json:"passwordNotUsernameOrInvert,omitempty" tf:"password_not_username_or_invert,omitempty"`
 
@@ -54,6 +57,9 @@ type PasswordPolicyV3Observation struct {
 	// = 1
 	NumberOfRecentPasswordsDisallowed *float64 `json:"numberOfRecentPasswordsDisallowed,omitempty" tf:"number_of_recent_passwords_disallowed,omitempty"`
 
+	// = 2
+	PasswordCharCombination *float64 `json:"passwordCharCombination,omitempty" tf:"password_char_combination,omitempty"`
+
 	// = true
 	PasswordNotUsernameOrInvert *bool `json:"passwordNotUsernameOrInvert,omitempty" tf:"password_not_username_or_invert,omitempty"`
 
@@ -80,6 +86,10 @@ type PasswordPolicyV3Parameters struct {
 	// = 1
 	// +kubebuilder:validation:Optional
 	NumberOfRecentPasswordsDisallowed *float64 `json:"numberOfRecentPasswordsDisallowed,omitempty" tf:"number_of_recent_passwords_disallowed,omitempty"`
+
+	// = 2
+	// +kubebuilder:validation:Optional
+	PasswordCharCombination *float64 `json:"passwordCharCombination,omitempty" tf:"password_char_combination,omitempty"`
 
 	// = true
 	// +kubebuilder:validation:Optional

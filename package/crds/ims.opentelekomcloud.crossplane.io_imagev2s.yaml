@@ -82,6 +82,10 @@ spec:
                     description: A description of the image. Changing this creates
                       a new image.
                     type: string
+                  hwFirmwareType:
+                    description: Specifies the boot mode. The value can be bios or
+                      uefi.
+                    type: string
                   imageUrl:
                     description: |-
                       The URL of the external image file in the OBS bucket.
@@ -167,6 +171,10 @@ spec:
                   description:
                     description: A description of the image. Changing this creates
                       a new image.
+                    type: string
+                  hwFirmwareType:
+                    description: Specifies the boot mode. The value can be bios or
+                      uefi.
                     type: string
                   imageUrl:
                     description: |-
@@ -428,6 +436,10 @@ spec:
                     type: string
                   file:
                     description: The URL for uploading and downloading the image file.
+                    type: string
+                  hwFirmwareType:
+                    description: Specifies the boot mode. The value can be bios or
+                      uefi.
                     type: string
                   id:
                     description: A unique ID assigned by IMS.

@@ -23,6 +23,9 @@ type ImageV2InitParameters struct {
 	// ami, ari, aki, vhd, vmdk, raw, qcow2, vdi, iso.
 	DiskFormat *string `json:"diskFormat,omitempty" tf:"disk_format,omitempty"`
 
+	// Specifies the boot mode. The value can be bios or uefi.
+	HwFirmwareType *string `json:"hwFirmwareType,omitempty" tf:"hw_firmware_type,omitempty"`
+
 	// This is the directory where the images will
 	// be downloaded. Images will be stored with a filename corresponding to
 	// the url's md5 hash. Defaults to "$HOME/
@@ -87,6 +90,9 @@ type ImageV2Observation struct {
 	// endpoint that represent the location of the image
 	// or the path to retrieve it.
 	File *string `json:"file,omitempty" tf:"file,omitempty"`
+
+	// Specifies the boot mode. The value can be bios or uefi.
+	HwFirmwareType *string `json:"hwFirmwareType,omitempty" tf:"hw_firmware_type,omitempty"`
 
 	// A unique ID assigned by Glance.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -163,6 +169,10 @@ type ImageV2Parameters struct {
 	// ami, ari, aki, vhd, vmdk, raw, qcow2, vdi, iso.
 	// +kubebuilder:validation:Optional
 	DiskFormat *string `json:"diskFormat,omitempty" tf:"disk_format,omitempty"`
+
+	// Specifies the boot mode. The value can be bios or uefi.
+	// +kubebuilder:validation:Optional
+	HwFirmwareType *string `json:"hwFirmwareType,omitempty" tf:"hw_firmware_type,omitempty"`
 
 	// This is the directory where the images will
 	// be downloaded. Images will be stored with a filename corresponding to

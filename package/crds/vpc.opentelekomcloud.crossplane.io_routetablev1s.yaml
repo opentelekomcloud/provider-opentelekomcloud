@@ -111,7 +111,7 @@ spec:
                         type:
                           description: |-
                             Specifies the route type. Currently, the value can be:
-                            ecs, eni, vip, nat, peering, vpn, dc and cc.
+                            ecs, eni, vip, nat, peering, vpn, dc, egw, er, subeni and local
                           type: string
                       type: object
                     type: array
@@ -253,7 +253,7 @@ spec:
                         type:
                           description: |-
                             Specifies the route type. Currently, the value can be:
-                            ecs, eni, vip, nat, peering, vpn, dc and cc.
+                            ecs, eni, vip, nat, peering, vpn, dc, egw, er, subeni and local
                           type: string
                       type: object
                     type: array
@@ -566,7 +566,7 @@ spec:
                         type:
                           description: |-
                             Specifies the route type. Currently, the value can be:
-                            ecs, eni, vip, nat, peering, vpn, dc and cc.
+                            ecs, eni, vip, nat, peering, vpn, dc, egw, er, subeni and local
                           type: string
                       type: object
                     type: array

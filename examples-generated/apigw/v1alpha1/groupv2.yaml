@@ -1,0 +1,18 @@
+apiVersion: apigw.opentelekomcloud.crossplane.io/v1alpha1
+kind: GroupV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: apigw/v1alpha1/groupv2
+  labels:
+    testing.upbound.io/example-name: group
+  name: group
+spec:
+  forProvider:
+    description: test description
+    environment:
+    - environmentId: ${var.env_id}
+      variable:
+      - name: test-name
+        value: test-value
+    instanceId: ${var.gateway_id}
+    name: group-name

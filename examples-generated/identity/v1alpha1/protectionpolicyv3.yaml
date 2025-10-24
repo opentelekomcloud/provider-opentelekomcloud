@@ -8,4 +8,9 @@ metadata:
   name: policy-1
 spec:
   forProvider:
-    enableOperationProtectionPolicy: false
+    enableOperationProtectionPolicy: true
+    selfManagement:
+    - accessKey: true
+      email: false
+      mobile: false
+      password: true

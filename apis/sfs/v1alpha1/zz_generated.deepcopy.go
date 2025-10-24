@@ -762,6 +762,16 @@ func (in *TurboShareV1InitParameters) DeepCopyInto(out *TurboShareV1InitParamete
 		*out = new(bool)
 		**out = **in
 	}
+	if in.ExpandType != nil {
+		in, out := &in.ExpandType, &out.ExpandType
+		*out = new(string)
+		**out = **in
+	}
+	if in.HpcBw != nil {
+		in, out := &in.HpcBw, &out.HpcBw
+		*out = new(string)
+		**out = **in
+	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)
@@ -879,6 +889,11 @@ func (in *TurboShareV1Observation) DeepCopyInto(out *TurboShareV1Observation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.HpcBw != nil {
+		in, out := &in.HpcBw, &out.HpcBw
+		*out = new(string)
+		**out = **in
+	}
 	if in.ID != nil {
 		in, out := &in.ID, &out.ID
 		*out = new(string)
@@ -957,6 +972,16 @@ func (in *TurboShareV1Parameters) DeepCopyInto(out *TurboShareV1Parameters) {
 	if in.Enhanced != nil {
 		in, out := &in.Enhanced, &out.Enhanced
 		*out = new(bool)
+		**out = **in
+	}
+	if in.ExpandType != nil {
+		in, out := &in.ExpandType, &out.ExpandType
+		*out = new(string)
+		**out = **in
+	}
+	if in.HpcBw != nil {
+		in, out := &in.HpcBw, &out.HpcBw
+		*out = new(string)
 		**out = **in
 	}
 	if in.Name != nil {

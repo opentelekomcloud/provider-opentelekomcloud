@@ -13,7 +13,7 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
-type DataVolumesInitParameters struct {
+type NodePoolV3DataVolumesInitParameters struct {
 
 	// Disk expansion parameters.
 	// Please use alternative parameter extend_params.
@@ -24,6 +24,7 @@ type DataVolumesInitParameters struct {
 	ExtendParams map[string]*string `json:"extendParams,omitempty" tf:"extend_params,omitempty"`
 
 	// The Encryption KMS ID of the system volume. By default, it tries to get from env by OS_KMS_ID.
+	// -> NOTE: Common I/O (SATA) will reach end of life, end of 2025.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/kms/v1alpha1.KeyV1
 	KMSID *string `json:"kmsId,omitempty" tf:"kms_id,omitempty"`
 
@@ -42,7 +43,7 @@ type DataVolumesInitParameters struct {
 	Volumetype *string `json:"volumetype,omitempty" tf:"volumetype,omitempty"`
 }
 
-type DataVolumesObservation struct {
+type NodePoolV3DataVolumesObservation struct {
 
 	// Disk expansion parameters.
 	// Please use alternative parameter extend_params.
@@ -53,6 +54,7 @@ type DataVolumesObservation struct {
 	ExtendParams map[string]*string `json:"extendParams,omitempty" tf:"extend_params,omitempty"`
 
 	// The Encryption KMS ID of the system volume. By default, it tries to get from env by OS_KMS_ID.
+	// -> NOTE: Common I/O (SATA) will reach end of life, end of 2025.
 	KMSID *string `json:"kmsId,omitempty" tf:"kms_id,omitempty"`
 
 	// Disk size in GB.
@@ -62,7 +64,7 @@ type DataVolumesObservation struct {
 	Volumetype *string `json:"volumetype,omitempty" tf:"volumetype,omitempty"`
 }
 
-type DataVolumesParameters struct {
+type NodePoolV3DataVolumesParameters struct {
 
 	// Disk expansion parameters.
 	// Please use alternative parameter extend_params.
@@ -75,6 +77,7 @@ type DataVolumesParameters struct {
 	ExtendParams map[string]*string `json:"extendParams,omitempty" tf:"extend_params,omitempty"`
 
 	// The Encryption KMS ID of the system volume. By default, it tries to get from env by OS_KMS_ID.
+	// -> NOTE: Common I/O (SATA) will reach end of life, end of 2025.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/kms/v1alpha1.KeyV1
 	// +kubebuilder:validation:Optional
 	KMSID *string `json:"kmsId,omitempty" tf:"kms_id,omitempty"`
@@ -129,7 +132,7 @@ type NodePoolV3InitParameters struct {
 	ClusterIDSelector *v1.Selector `json:"clusterIdSelector,omitempty" tf:"-"`
 
 	// Represents the data disk to be created. Changing this parameter will create a new resource.
-	DataVolumes []DataVolumesInitParameters `json:"dataVolumes,omitempty" tf:"data_volumes,omitempty"`
+	DataVolumes []NodePoolV3DataVolumesInitParameters `json:"dataVolumes,omitempty" tf:"data_volumes,omitempty"`
 
 	// Available disk space of a single Docker container on the node using the device mapper.
 	// Changing this parameter will create a new node pool.
@@ -176,7 +179,6 @@ type NodePoolV3InitParameters struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Node OS. Changing this parameter will create a new resource.
-	// Supported OS depends on kubernetes version of the cluster.
 	Os *string `json:"os,omitempty" tf:"os,omitempty"`
 
 	// Key pair name when logging in to select the key pair mode.
@@ -195,7 +197,7 @@ type NodePoolV3InitParameters struct {
 	Priority *float64 `json:"priority,omitempty" tf:"priority,omitempty"`
 
 	// It corresponds to the system disk related configuration. Changing this parameter will create a new resource.
-	RootVolume []RootVolumeInitParameters `json:"rootVolume,omitempty" tf:"root_volume,omitempty"`
+	RootVolume []NodePoolV3RootVolumeInitParameters `json:"rootVolume,omitempty" tf:"root_volume,omitempty"`
 
 	// Container runtime. Changing this parameter will create a new resource.
 	// Use with high-caution, may trigger resource recreation. Options are:
@@ -236,7 +238,7 @@ type NodePoolV3InitParameters struct {
 	SubnetIDSelector *v1.Selector `json:"subnetIdSelector,omitempty" tf:"-"`
 
 	// Taints to created nodes to configure anti-affinity.
-	Taints []TaintsInitParameters `json:"taints,omitempty" tf:"taints,omitempty"`
+	Taints []NodePoolV3TaintsInitParameters `json:"taints,omitempty" tf:"taints,omitempty"`
 
 	// Tag of a VM, key/value pair format. Changing this parameter will create a new resource.
 	// +mapType=granular
@@ -257,7 +259,7 @@ type NodePoolV3Observation struct {
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
 
 	// Represents the data disk to be created. Changing this parameter will create a new resource.
-	DataVolumes []DataVolumesObservation `json:"dataVolumes,omitempty" tf:"data_volumes,omitempty"`
+	DataVolumes []NodePoolV3DataVolumesObservation `json:"dataVolumes,omitempty" tf:"data_volumes,omitempty"`
 
 	// Available disk space of a single Docker container on the node using the device mapper.
 	// Changing this parameter will create a new node pool.
@@ -298,7 +300,6 @@ type NodePoolV3Observation struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Node OS. Changing this parameter will create a new resource.
-	// Supported OS depends on kubernetes version of the cluster.
 	Os *string `json:"os,omitempty" tf:"os,omitempty"`
 
 	// Script required after installation. The input value can be a Base64 encoded string or not.
@@ -313,7 +314,7 @@ type NodePoolV3Observation struct {
 	Priority *float64 `json:"priority,omitempty" tf:"priority,omitempty"`
 
 	// It corresponds to the system disk related configuration. Changing this parameter will create a new resource.
-	RootVolume []RootVolumeObservation `json:"rootVolume,omitempty" tf:"root_volume,omitempty"`
+	RootVolume []NodePoolV3RootVolumeObservation `json:"rootVolume,omitempty" tf:"root_volume,omitempty"`
 
 	// Container runtime. Changing this parameter will create a new resource.
 	// Use with high-caution, may trigger resource recreation. Options are:
@@ -347,7 +348,7 @@ type NodePoolV3Observation struct {
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 
 	// Taints to created nodes to configure anti-affinity.
-	Taints []TaintsObservation `json:"taints,omitempty" tf:"taints,omitempty"`
+	Taints []NodePoolV3TaintsObservation `json:"taints,omitempty" tf:"taints,omitempty"`
 
 	// Tag of a VM, key/value pair format. Changing this parameter will create a new resource.
 	// +mapType=granular
@@ -391,7 +392,7 @@ type NodePoolV3Parameters struct {
 
 	// Represents the data disk to be created. Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
-	DataVolumes []DataVolumesParameters `json:"dataVolumes,omitempty" tf:"data_volumes,omitempty"`
+	DataVolumes []NodePoolV3DataVolumesParameters `json:"dataVolumes,omitempty" tf:"data_volumes,omitempty"`
 
 	// Available disk space of a single Docker container on the node using the device mapper.
 	// Changing this parameter will create a new node pool.
@@ -448,7 +449,6 @@ type NodePoolV3Parameters struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Node OS. Changing this parameter will create a new resource.
-	// Supported OS depends on kubernetes version of the cluster.
 	// +kubebuilder:validation:Optional
 	Os *string `json:"os,omitempty" tf:"os,omitempty"`
 
@@ -473,7 +473,7 @@ type NodePoolV3Parameters struct {
 
 	// It corresponds to the system disk related configuration. Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
-	RootVolume []RootVolumeParameters `json:"rootVolume,omitempty" tf:"root_volume,omitempty"`
+	RootVolume []NodePoolV3RootVolumeParameters `json:"rootVolume,omitempty" tf:"root_volume,omitempty"`
 
 	// Container runtime. Changing this parameter will create a new resource.
 	// Use with high-caution, may trigger resource recreation. Options are:
@@ -522,7 +522,7 @@ type NodePoolV3Parameters struct {
 
 	// Taints to created nodes to configure anti-affinity.
 	// +kubebuilder:validation:Optional
-	Taints []TaintsParameters `json:"taints,omitempty" tf:"taints,omitempty"`
+	Taints []NodePoolV3TaintsParameters `json:"taints,omitempty" tf:"taints,omitempty"`
 
 	// Tag of a VM, key/value pair format. Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
@@ -530,7 +530,7 @@ type NodePoolV3Parameters struct {
 	UserTags map[string]*string `json:"userTags,omitempty" tf:"user_tags,omitempty"`
 }
 
-type RootVolumeInitParameters struct {
+type NodePoolV3RootVolumeInitParameters struct {
 
 	// Disk expansion parameters.
 	// Please use alternative parameter extend_params.
@@ -541,6 +541,7 @@ type RootVolumeInitParameters struct {
 	ExtendParams map[string]*string `json:"extendParams,omitempty" tf:"extend_params,omitempty"`
 
 	// The Encryption KMS ID of the system volume. By default, it tries to get from env by OS_KMS_ID.
+	// -> NOTE: Common I/O (SATA) will reach end of life, end of 2025.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/kms/v1alpha1.KeyV1
 	KMSID *string `json:"kmsId,omitempty" tf:"kms_id,omitempty"`
 
@@ -559,7 +560,7 @@ type RootVolumeInitParameters struct {
 	Volumetype *string `json:"volumetype,omitempty" tf:"volumetype,omitempty"`
 }
 
-type RootVolumeObservation struct {
+type NodePoolV3RootVolumeObservation struct {
 
 	// Disk expansion parameters.
 	// Please use alternative parameter extend_params.
@@ -570,6 +571,7 @@ type RootVolumeObservation struct {
 	ExtendParams map[string]*string `json:"extendParams,omitempty" tf:"extend_params,omitempty"`
 
 	// The Encryption KMS ID of the system volume. By default, it tries to get from env by OS_KMS_ID.
+	// -> NOTE: Common I/O (SATA) will reach end of life, end of 2025.
 	KMSID *string `json:"kmsId,omitempty" tf:"kms_id,omitempty"`
 
 	// Disk size in GB.
@@ -579,7 +581,7 @@ type RootVolumeObservation struct {
 	Volumetype *string `json:"volumetype,omitempty" tf:"volumetype,omitempty"`
 }
 
-type RootVolumeParameters struct {
+type NodePoolV3RootVolumeParameters struct {
 
 	// Disk expansion parameters.
 	// Please use alternative parameter extend_params.
@@ -592,6 +594,7 @@ type RootVolumeParameters struct {
 	ExtendParams map[string]*string `json:"extendParams,omitempty" tf:"extend_params,omitempty"`
 
 	// The Encryption KMS ID of the system volume. By default, it tries to get from env by OS_KMS_ID.
+	// -> NOTE: Common I/O (SATA) will reach end of life, end of 2025.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/kms/v1alpha1.KeyV1
 	// +kubebuilder:validation:Optional
 	KMSID *string `json:"kmsId,omitempty" tf:"kms_id,omitempty"`
@@ -613,7 +616,7 @@ type RootVolumeParameters struct {
 	Volumetype *string `json:"volumetype" tf:"volumetype,omitempty"`
 }
 
-type TaintsInitParameters struct {
+type NodePoolV3TaintsInitParameters struct {
 
 	// Available options are NoSchedule, PreferNoSchedule, and NoExecute.
 	Effect *string `json:"effect,omitempty" tf:"effect,omitempty"`
@@ -625,7 +628,7 @@ type TaintsInitParameters struct {
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
-type TaintsObservation struct {
+type NodePoolV3TaintsObservation struct {
 
 	// Available options are NoSchedule, PreferNoSchedule, and NoExecute.
 	Effect *string `json:"effect,omitempty" tf:"effect,omitempty"`
@@ -637,7 +640,7 @@ type TaintsObservation struct {
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
-type TaintsParameters struct {
+type NodePoolV3TaintsParameters struct {
 
 	// Available options are NoSchedule, PreferNoSchedule, and NoExecute.
 	// +kubebuilder:validation:Optional

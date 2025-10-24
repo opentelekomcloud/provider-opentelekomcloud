@@ -8,6 +8,24 @@ package v1alpha1
 
 import resource "github.com/crossplane/crossplane-runtime/pkg/resource"
 
+// GetItems of this ConsumerGroupV2List.
+func (l *ConsumerGroupV2List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this DedicatedInstanceV2List.
+func (l *DedicatedInstanceV2List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this InstanceV1List.
 func (l *InstanceV1List) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
@@ -19,6 +37,42 @@ func (l *InstanceV1List) GetItems() []resource.Managed {
 
 // GetItems of this InstanceV2List.
 func (l *InstanceV2List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this ReassignPartitionsV2List.
+func (l *ReassignPartitionsV2List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this SmartConnectTaskActionV2List.
+func (l *SmartConnectTaskActionV2List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this SmartConnectTaskV2List.
+func (l *SmartConnectTaskV2List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this SmartConnectV2List.
+func (l *SmartConnectV2List) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]

@@ -144,9 +144,8 @@ spec:
                                   The Rule Name contains a maximum of 255 characters.
                                 type: string
                               value:
-                                description: |-
-                                  Specifies keywords of object names so that objects can be filtered based on the prefixes or suffixes.
-                                  The value contains a maximum of 1024 characters.
+                                description: 'The tag value. Can be blank, maximum
+                                  255 characters. Cannot contain: =*<>,|?!;'
                                 type: string
                             type: object
                           type: array
@@ -172,6 +171,19 @@ spec:
                       below).
                     items:
                       properties:
+                        abortIncompleteMultipartUpload:
+                          description: |-
+                            Specifies a period when the not merged parts (fragments) in an
+                            incomplete upload are automatically deleted. (documented below).
+                          items:
+                            properties:
+                              days:
+                                description: |-
+                                  Default protection period, in days.
+                                  The value is from 1 to 36500.
+                                type: number
+                            type: object
+                          type: array
                         enabled:
                           description: Specifies lifecycle rule status.
                           type: boolean
@@ -230,6 +242,22 @@ spec:
                             or end with a slash (/), cannot have consecutive slashes (/), and cannot contain the following
                             special characters: :*?"<>|.
                           type: string
+                        tag:
+                          description: A list of tags to filter objects. Maximum 10
+                            tags per rule with unique keys (documented below).
+                          items:
+                            properties:
+                              key:
+                                description: 'The tag key. Must be unique within the
+                                  rule, cannot be blank, maximum 128 characters. Cannot
+                                  contain: =*<>,|/?!;'
+                                type: string
+                              value:
+                                description: 'The tag value. Can be blank, maximum
+                                  255 characters. Cannot contain: =*<>,|?!;'
+                                type: string
+                            type: object
+                          type: array
                         transition:
                           description: |-
                             Specifies a period when objects that have been last updated are automatically
@@ -254,6 +282,9 @@ spec:
                     description: A settings of bucket logging (documented below).
                     items:
                       properties:
+                        agency:
+                          description: Specifies the IAM agency of OBS cloud service.
+                          type: string
                         targetBucket:
                           description: |-
                             The name of the bucket that will receive the log objects.
@@ -282,6 +313,10 @@ spec:
                           type: string
                         kmsKeyId:
                           description: The ID of KMS key used for the encryption.
+                          type: string
+                        kmsProjectId:
+                          description: The ID of the project where the KMS master
+                            key belongs.
                           type: string
                       type: object
                     type: array
@@ -444,9 +479,8 @@ spec:
                                   The Rule Name contains a maximum of 255 characters.
                                 type: string
                               value:
-                                description: |-
-                                  Specifies keywords of object names so that objects can be filtered based on the prefixes or suffixes.
-                                  The value contains a maximum of 1024 characters.
+                                description: 'The tag value. Can be blank, maximum
+                                  255 characters. Cannot contain: =*<>,|?!;'
                                 type: string
                             type: object
                           type: array
@@ -472,6 +506,19 @@ spec:
                       below).
                     items:
                       properties:
+                        abortIncompleteMultipartUpload:
+                          description: |-
+                            Specifies a period when the not merged parts (fragments) in an
+                            incomplete upload are automatically deleted. (documented below).
+                          items:
+                            properties:
+                              days:
+                                description: |-
+                                  Default protection period, in days.
+                                  The value is from 1 to 36500.
+                                type: number
+                            type: object
+                          type: array
                         enabled:
                           description: Specifies lifecycle rule status.
                           type: boolean
@@ -530,6 +577,22 @@ spec:
                             or end with a slash (/), cannot have consecutive slashes (/), and cannot contain the following
                             special characters: :*?"<>|.
                           type: string
+                        tag:
+                          description: A list of tags to filter objects. Maximum 10
+                            tags per rule with unique keys (documented below).
+                          items:
+                            properties:
+                              key:
+                                description: 'The tag key. Must be unique within the
+                                  rule, cannot be blank, maximum 128 characters. Cannot
+                                  contain: =*<>,|/?!;'
+                                type: string
+                              value:
+                                description: 'The tag value. Can be blank, maximum
+                                  255 characters. Cannot contain: =*<>,|?!;'
+                                type: string
+                            type: object
+                          type: array
                         transition:
                           description: |-
                             Specifies a period when objects that have been last updated are automatically
@@ -554,6 +617,9 @@ spec:
                     description: A settings of bucket logging (documented below).
                     items:
                       properties:
+                        agency:
+                          description: Specifies the IAM agency of OBS cloud service.
+                          type: string
                         targetBucket:
                           description: |-
                             The name of the bucket that will receive the log objects.
@@ -582,6 +648,10 @@ spec:
                           type: string
                         kmsKeyId:
                           description: The ID of KMS key used for the encryption.
+                          type: string
+                        kmsProjectId:
+                          description: The ID of the project where the KMS master
+                            key belongs.
                           type: string
                       type: object
                     type: array
@@ -914,9 +984,8 @@ spec:
                                   The Rule Name contains a maximum of 255 characters.
                                 type: string
                               value:
-                                description: |-
-                                  Specifies keywords of object names so that objects can be filtered based on the prefixes or suffixes.
-                                  The value contains a maximum of 1024 characters.
+                                description: 'The tag value. Can be blank, maximum
+                                  255 characters. Cannot contain: =*<>,|?!;'
                                 type: string
                             type: object
                           type: array
@@ -946,6 +1015,19 @@ spec:
                       below).
                     items:
                       properties:
+                        abortIncompleteMultipartUpload:
+                          description: |-
+                            Specifies a period when the not merged parts (fragments) in an
+                            incomplete upload are automatically deleted. (documented below).
+                          items:
+                            properties:
+                              days:
+                                description: |-
+                                  Default protection period, in days.
+                                  The value is from 1 to 36500.
+                                type: number
+                            type: object
+                          type: array
                         enabled:
                           description: Specifies lifecycle rule status.
                           type: boolean
@@ -1004,6 +1086,22 @@ spec:
                             or end with a slash (/), cannot have consecutive slashes (/), and cannot contain the following
                             special characters: :*?"<>|.
                           type: string
+                        tag:
+                          description: A list of tags to filter objects. Maximum 10
+                            tags per rule with unique keys (documented below).
+                          items:
+                            properties:
+                              key:
+                                description: 'The tag key. Must be unique within the
+                                  rule, cannot be blank, maximum 128 characters. Cannot
+                                  contain: =*<>,|/?!;'
+                                type: string
+                              value:
+                                description: 'The tag value. Can be blank, maximum
+                                  255 characters. Cannot contain: =*<>,|?!;'
+                                type: string
+                            type: object
+                          type: array
                         transition:
                           description: |-
                             Specifies a period when objects that have been last updated are automatically
@@ -1028,6 +1126,9 @@ spec:
                     description: A settings of bucket logging (documented below).
                     items:
                       properties:
+                        agency:
+                          description: Specifies the IAM agency of OBS cloud service.
+                          type: string
                         targetBucket:
                           description: |-
                             The name of the bucket that will receive the log objects.
@@ -1056,6 +1157,10 @@ spec:
                           type: string
                         kmsKeyId:
                           description: The ID of KMS key used for the encryption.
+                          type: string
+                        kmsProjectId:
+                          description: The ID of the project where the KMS master
+                            key belongs.
                           type: string
                       type: object
                     type: array

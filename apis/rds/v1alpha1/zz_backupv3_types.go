@@ -17,11 +17,7 @@ type BackupV3InitParameters struct {
 
 	// Specifies a list of self-built Microsoft SQL Server databases that are partially backed up.
 	// (Only Microsoft SQL Server support partial backups.)
-	Databases []DatabasesInitParameters `json:"databases,omitempty" tf:"databases,omitempty"`
-
-	// Specifies the backup description.
-	// It contains a maximum of 256 characters and cannot contain the following special characters: >!<"&'=
-	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+	Databases []*string `json:"databases,omitempty" tf:"databases,omitempty"`
 
 	// The ID of the RDS instance to which the backup belongs.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/rds/v1alpha1.InstanceV3
@@ -37,13 +33,6 @@ type BackupV3InitParameters struct {
 
 	// The name of the backup.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-
-	// Indicates the backup type. Value:
-	// - auto: automated full backup
-	// - manual: manual full backup
-	// - fragment: differential full backup
-	// - incremental: automated incremental backup
-	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 type BackupV3Observation struct {
@@ -57,11 +46,7 @@ type BackupV3Observation struct {
 
 	// Specifies a list of self-built Microsoft SQL Server databases that are partially backed up.
 	// (Only Microsoft SQL Server support partial backups.)
-	Databases []DatabasesObservation `json:"databases,omitempty" tf:"databases,omitempty"`
-
-	// Specifies the backup description.
-	// It contains a maximum of 256 characters and cannot contain the following special characters: >!<"&'=
-	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+	Databases []*string `json:"databases,omitempty" tf:"databases,omitempty"`
 
 	// The ID of the backup.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -74,14 +59,14 @@ type BackupV3Observation struct {
 
 	Size *float64 `json:"size,omitempty" tf:"size,omitempty"`
 
-	// Indicates the backup status. Value:
+	// Indicates the backup status. Values:
 	// - BUILDING: Backup in progress
 	// - COMPLETED: Backup completed
 	// - FAILED: Backup failed
 	// - DELETING: Backup being deleted
 	Status *string `json:"status,omitempty" tf:"status,omitempty"`
 
-	// Indicates the backup type. Value:
+	// Indicates the backup type. Values:
 	// - auto: automated full backup
 	// - manual: manual full backup
 	// - fragment: differential full backup
@@ -94,12 +79,7 @@ type BackupV3Parameters struct {
 	// Specifies a list of self-built Microsoft SQL Server databases that are partially backed up.
 	// (Only Microsoft SQL Server support partial backups.)
 	// +kubebuilder:validation:Optional
-	Databases []DatabasesParameters `json:"databases,omitempty" tf:"databases,omitempty"`
-
-	// Specifies the backup description.
-	// It contains a maximum of 256 characters and cannot contain the following special characters: >!<"&'=
-	// +kubebuilder:validation:Optional
-	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+	Databases []*string `json:"databases,omitempty" tf:"databases,omitempty"`
 
 	// The ID of the RDS instance to which the backup belongs.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/rds/v1alpha1.InstanceV3
@@ -117,33 +97,6 @@ type BackupV3Parameters struct {
 	// The name of the backup.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-
-	// Indicates the backup type. Value:
-	// - auto: automated full backup
-	// - manual: manual full backup
-	// - fragment: differential full backup
-	// - incremental: automated incremental backup
-	// +kubebuilder:validation:Optional
-	Type *string `json:"type,omitempty" tf:"type,omitempty"`
-}
-
-type DatabasesInitParameters struct {
-
-	// The name of the backup.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-}
-
-type DatabasesObservation struct {
-
-	// The name of the backup.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-}
-
-type DatabasesParameters struct {
-
-	// The name of the backup.
-	// +kubebuilder:validation:Optional
-	Name *string `json:"name" tf:"name,omitempty"`
 }
 
 // BackupV3Spec defines the desired state of BackupV3

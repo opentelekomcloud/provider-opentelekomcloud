@@ -20,12 +20,18 @@ spec:
       name: example-secret
       namespace: upbound-system
     productId: ${data.opentelekomcloud_dms_product_v1.product_1.id}
-    securityGroupId: ${opentelekomcloud_networking_secgroup_v2.secgroup_1.id}
+    securityGroupIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: secgroup_1
     specification: ${data.opentelekomcloud_dms_product_v1.product_1.bandwidth}
     storageSpace: ${data.opentelekomcloud_dms_product_v1.product_1.storage}
     storageSpecCode: ${data.opentelekomcloud_dms_product_v1.product_1.storage_spec_code}
-    subnetId: ${var.subnet_id}
-    vpcId: ${var.vpc_id}
+    subnetIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
 
 ---
 

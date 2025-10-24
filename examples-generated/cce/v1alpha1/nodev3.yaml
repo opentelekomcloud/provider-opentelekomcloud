@@ -18,7 +18,7 @@ spec:
         testing.upbound.io/example-name: example
     dataVolumes:
     - size: 100
-      volumetype: SATA
+      volumetype: SAS
     - extendParams:
         useType: docker
       size: 100
@@ -31,5 +31,5 @@ spec:
     os: EulerOS 2.9
     rootVolume:
     - size: 40
-      volumetype: SATA
+      volumetype: SAS
     runtime: containerd

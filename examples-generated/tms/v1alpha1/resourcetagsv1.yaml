@@ -1,0 +1,20 @@
+apiVersion: tms.opentelekomcloud.crossplane.io/v1alpha1
+kind: ResourceTagsV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: tms/v1alpha1/resourcetagsv1
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    dynamic:
+      resources:
+      - content:
+        - resource_id: ${resources.value["id"]}
+          resource_type: ${resources.value["type"]}
+        for_each: ${var.resources_configuration}
+    projectId: ${var.resources_project_id}
+    tags:
+      foo: bar
+      owner: terraform

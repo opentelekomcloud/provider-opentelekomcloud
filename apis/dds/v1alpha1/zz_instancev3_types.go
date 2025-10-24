@@ -191,6 +191,16 @@ type InstanceV3InitParameters struct {
 	// Changing this creates a new instance.
 	Flavor []FlavorInitParameters `json:"flavor,omitempty" tf:"flavor,omitempty"`
 
+	// Specifies maintenance window start time. The value must be a valid value in the "HH:MM" format.
+	// The current time is the UTC time. The value cannot be the same as the maintenance end time.
+	// Gap between maintain_begin and maintain_end must be at least 1h.
+	MaintainBegin *string `json:"maintainBegin,omitempty" tf:"maintain_begin,omitempty"`
+
+	// Specifies maintenance window end time. The value must be a valid value in the "HH:MM" format.
+	// The current time is the UTC time. The value cannot be the same as the maintenance start time.
+	// Gap between maintain_begin and maintain_end must be at least 1h.
+	MaintainEnd *string `json:"maintainEnd,omitempty" tf:"maintain_end,omitempty"`
+
 	// Specifies the mode of the database instance.
 	Mode *string `json:"mode,omitempty" tf:"mode,omitempty"`
 
@@ -284,6 +294,16 @@ type InstanceV3Observation struct {
 	// Indicates the node ID.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// Specifies maintenance window start time. The value must be a valid value in the "HH:MM" format.
+	// The current time is the UTC time. The value cannot be the same as the maintenance end time.
+	// Gap between maintain_begin and maintain_end must be at least 1h.
+	MaintainBegin *string `json:"maintainBegin,omitempty" tf:"maintain_begin,omitempty"`
+
+	// Specifies maintenance window end time. The value must be a valid value in the "HH:MM" format.
+	// The current time is the UTC time. The value cannot be the same as the maintenance start time.
+	// Gap between maintain_begin and maintain_end must be at least 1h.
+	MaintainEnd *string `json:"maintainEnd,omitempty" tf:"maintain_end,omitempty"`
+
 	// Specifies the mode of the database instance.
 	Mode *string `json:"mode,omitempty" tf:"mode,omitempty"`
 
@@ -356,6 +376,18 @@ type InstanceV3Parameters struct {
 	// Changing this creates a new instance.
 	// +kubebuilder:validation:Optional
 	Flavor []FlavorParameters `json:"flavor,omitempty" tf:"flavor,omitempty"`
+
+	// Specifies maintenance window start time. The value must be a valid value in the "HH:MM" format.
+	// The current time is the UTC time. The value cannot be the same as the maintenance end time.
+	// Gap between maintain_begin and maintain_end must be at least 1h.
+	// +kubebuilder:validation:Optional
+	MaintainBegin *string `json:"maintainBegin,omitempty" tf:"maintain_begin,omitempty"`
+
+	// Specifies maintenance window end time. The value must be a valid value in the "HH:MM" format.
+	// The current time is the UTC time. The value cannot be the same as the maintenance start time.
+	// Gap between maintain_begin and maintain_end must be at least 1h.
+	// +kubebuilder:validation:Optional
+	MaintainEnd *string `json:"maintainEnd,omitempty" tf:"maintain_end,omitempty"`
 
 	// Specifies the mode of the database instance.
 	// +kubebuilder:validation:Optional

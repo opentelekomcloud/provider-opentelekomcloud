@@ -1,0 +1,13 @@
+apiVersion: apigw.opentelekomcloud.crossplane.io/v1alpha1
+kind: SignatureAssociateV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: apigw/v1alpha1/signatureassociatev2
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    instance_id: ${var.gateway_id}
+    publishIds: ${var.api_publish_ids}
+    signatureId: ${var.signature_id}

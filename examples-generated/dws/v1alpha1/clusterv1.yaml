@@ -1,0 +1,25 @@
+apiVersion: dws.opentelekomcloud.crossplane.io/v1alpha1
+kind: ClusterV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dws/v1alpha1/clusterv1
+  labels:
+    testing.upbound.io/example-name: cluster_1
+  name: cluster-1
+spec:
+  forProvider:
+    availabilityZone: ${var.availability_zone}
+    name: my_dws_cluster
+    networkId: ${var.network_id}
+    nodeType: dws.m3.xlarge
+    numberOfNode: 3
+    port: 8899
+    publicIp:
+    - publicBindType: auto_assign
+    securityGroupId: ${var.security_group_id}
+    userName: dbadmin
+    userPwdSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system
+    vpcId: ${var.vpc_id}

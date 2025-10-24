@@ -1,0 +1,13 @@
+apiVersion: er.opentelekomcloud.crossplane.io/v1alpha1
+kind: StaticRouteV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: er/v1alpha1/staticroutev3
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    attachmentId: ${var.source_vpc_attachment_id}
+    destination: ${var.destination_vpc_cidr}
+    routeTableId: ${var.route_table_id}

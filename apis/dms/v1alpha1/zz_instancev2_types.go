@@ -41,7 +41,7 @@ type InstanceV2InitParameters struct {
 	Engine *string `json:"engine,omitempty" tf:"engine,omitempty"`
 
 	// Indicates the version of a message engine.
-	// Options: 1.1.0, 2.3.0, 2.7.
+	// Options: 2.3.0, 2.7.
 	EngineVersion *string `json:"engineVersion,omitempty" tf:"engine_version,omitempty"`
 
 	// Indicates the time at which a maintenance time window starts.
@@ -139,7 +139,7 @@ type InstanceV2Observation struct {
 	Engine *string `json:"engine,omitempty" tf:"engine,omitempty"`
 
 	// Indicates the version of a message engine.
-	// Options: 1.1.0, 2.3.0, 2.7.
+	// Options: 2.3.0, 2.7.
 	EngineVersion *string `json:"engineVersion,omitempty" tf:"engine_version,omitempty"`
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -287,7 +287,7 @@ type InstanceV2Parameters struct {
 	Engine *string `json:"engine,omitempty" tf:"engine,omitempty"`
 
 	// Indicates the version of a message engine.
-	// Options: 1.1.0, 2.3.0, 2.7.
+	// Options: 2.3.0, 2.7.
 	// +kubebuilder:validation:Optional
 	EngineVersion *string `json:"engineVersion,omitempty" tf:"engine_version,omitempty"`
 

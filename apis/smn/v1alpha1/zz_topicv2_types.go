@@ -22,7 +22,7 @@ type TopicV2InitParameters struct {
 	// The name of the topic to be created.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// The project name for the topic.
+	// The name of the topic to be created.
 	ProjectName *string `json:"projectName,omitempty" tf:"project_name,omitempty"`
 
 	// Tags key/value pairs to associate with the instance.
@@ -44,7 +44,7 @@ type TopicV2Observation struct {
 	// The name of the topic to be created.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// The project name for the topic.
+	// The name of the topic to be created.
 	ProjectName *string `json:"projectName,omitempty" tf:"project_name,omitempty"`
 
 	// Message pushing policy. 0 indicates that the message
@@ -74,7 +74,7 @@ type TopicV2Parameters struct {
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// The project name for the topic.
+	// The name of the topic to be created.
 	// +kubebuilder:validation:Optional
 	ProjectName *string `json:"projectName,omitempty" tf:"project_name,omitempty"`
 

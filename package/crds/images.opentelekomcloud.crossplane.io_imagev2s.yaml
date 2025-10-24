@@ -83,6 +83,10 @@ spec:
                       The disk format. Must be one of
                       ami, ari, aki, vhd, vmdk, raw, qcow2, vdi, iso.
                     type: string
+                  hwFirmwareType:
+                    description: Specifies the boot mode. The value can be bios or
+                      uefi.
+                    type: string
                   imageCachePath:
                     description: |-
                       This is the directory where the images will
@@ -159,6 +163,10 @@ spec:
                     description: |-
                       The disk format. Must be one of
                       ami, ari, aki, vhd, vmdk, raw, qcow2, vdi, iso.
+                    type: string
+                  hwFirmwareType:
+                    description: Specifies the boot mode. The value can be bios or
+                      uefi.
                     type: string
                   imageCachePath:
                     description: |-
@@ -420,6 +428,10 @@ spec:
                       the trailing path after the glance
                       endpoint that represent the location of the image
                       or the path to retrieve it.
+                    type: string
+                  hwFirmwareType:
+                    description: Specifies the boot mode. The value can be bios or
+                      uefi.
                     type: string
                   id:
                     description: A unique ID assigned by Glance.

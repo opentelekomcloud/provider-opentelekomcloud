@@ -1,0 +1,61 @@
+apiVersion: css.opentelekomcloud.crossplane.io/v1alpha1
+kind: SnapshotConfigurationV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: css/v1alpha1/snapshotconfigurationv1
+  labels:
+    testing.upbound.io/example-name: config
+  name: config
+spec:
+  forProvider:
+    clusterId: ${opentelekomcloud_css_cluster_v1.cluster.id}
+    configuration:
+    - agency: css_obs_agency
+      basePath: css/snapshot
+      bucket: my-tf-test-bucket
+    creationPolicy:
+    - deleteAuto: true
+      enable: true
+      keepday: 2
+      period: 00:00 GMT+03:00
+      prefix: snapshot
+
+---
+
+apiVersion: css.opentelekomcloud.crossplane.io/v1alpha1
+kind: ClusterV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: css/v1alpha1/snapshotconfigurationv1
+  labels:
+    testing.upbound.io/example-name: cluster
+  name: cluster
+spec:
+  forProvider:
+    expectNodeNum: 1
+    name: terraform_test_cluster
+    nodeConfig:
+    - availabilityZone: ${var.availability_zone}
+      flavor: css.medium.8
+      networkInfo:
+      - networkId: ${var.network_id}
+        securityGroupId: ${data.opentelekomcloud_networking_secgroup_v2.secgroup.id}
+        vpcId: ${var.vpc_id}
+      volume:
+      - size: 40
+        volumeType: COMMON
+
+---
+
+apiVersion: obs.opentelekomcloud.crossplane.io/v1alpha1
+kind: Bucket
+metadata:
+  annotations:
+    meta.upbound.io/example-id: css/v1alpha1/snapshotconfigurationv1
+  labels:
+    testing.upbound.io/example-name: bucket
+  name: bucket
+spec:
+  forProvider:
+    bucket: tf-snap-testing
+    forceDestroy: true

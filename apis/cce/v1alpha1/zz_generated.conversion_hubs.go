@@ -13,6 +13,9 @@ func (tr *AddonV3) Hub() {}
 func (tr *ClusterV3) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *NodeAttachV3) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *NodePoolV3) Hub() {}
 
 // Hub marks this type as a conversion hub.
