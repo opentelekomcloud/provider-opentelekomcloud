@@ -12,7 +12,7 @@ env:
   # Common versions
   GO_VERSION: '1.24.1'
   GOLANGCI_VERSION: 'v2.3.1'
-  DOCKER_BUILDX_VERSION: 'v0.26.1'
+  DOCKER_BUILDX_VERSION: 'v0.28.0'
 
   # Common users. We can't run a step 'if secrets.XXX != ""' but we can run a
   # step 'if env.XXX != ""', so we copy these to succinctly test whether
@@ -239,7 +239,7 @@ jobs:
       - name: Deploying locally built provider package
         run: make local-deploy
 
-  publish-artifacts:
+  publish-provider:
     runs-on: ubuntu-24.04
     needs:
       - detect-noop
@@ -323,7 +323,7 @@ jobs:
   eco_check:
     name: eco/check
     if: always()
-    needs: [detect-noop, report-breaking-changes, lint, check-diff, unit-tests, local-deploy, publish-artifacts]
+    needs: [detect-noop, report-breaking-changes, lint, check-diff, unit-tests, local-deploy, publish-provider]
     runs-on: ubuntu-latest
     steps:
       - name: Decide whether the needed jobs succeeded or failed
