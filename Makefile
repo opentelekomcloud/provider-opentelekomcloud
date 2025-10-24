@@ -64,17 +64,17 @@ CRDDIFF_VERSION = v0.12.1
 # ====================================================================================
 # Setup Images
 
-REGISTRY_ORGS ?= ghcr.io/crossplane-contrib
+REGISTRY_ORGS ?= xpkg.upbound.io/opentelekomcloud
 IMAGES = $(PROJECT_NAME)
 -include build/makelib/imagelight.mk
 
 # ====================================================================================
 # Setup XPKG
 
-XPKG_REG_ORGS ?= ghcr.io/crossplane-contrib
+XPKG_REG_ORGS ?= xpkg.upbound.io/opentelekomcloud
 # NOTE(hasheddan): skip promoting on xpkg.crossplane.io as channel tags are
 # inferred.
-XPKG_REG_ORGS_NO_PROMOTE ?= ghcr.io/crossplane-contrib
+XPKG_REG_ORGS_NO_PROMOTE ?= xpkg.upbound.io/opentelekomcloud
 XPKGS = $(PROJECT_NAME)
 -include build/makelib/xpkg.mk
 
@@ -94,7 +94,7 @@ fallthrough: submodules
 
 # NOTE(hasheddan): we force image building to happen prior to xpkg build so that
 # we ensure image is present in daemon.
-xpkg.build.upjet-provider-template: do.build.images
+xpkg.build.provider-opentelekomcloud: do.build.images
 
 # NOTE(hasheddan): we ensure up is installed prior to running platform-specific
 # build steps in parallel to avoid encountering an installation race condition.
