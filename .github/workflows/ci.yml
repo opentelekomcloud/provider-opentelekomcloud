@@ -240,7 +240,6 @@ jobs:
         run: make local-deploy
 
   publish-provider:
-    runs-on: ubuntu-24.04
     needs:
       - detect-noop
       - report-breaking-changes
