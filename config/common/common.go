@@ -68,48 +68,58 @@ func ExtractNetworkID() xpref.ExtractValueFn {
 	}
 }
 
-// ExtractEipAddress extracts the value of `spec.forProvider.address`
-// from a Terraformed resource. If mr is not a Terraformed
-// resource, returns an empty string.
+// ExtractEipAddress extracts the EIP address from an Observable resource's
+// observation (status.atProvider). It supports both nested
+// publicip[0].ip_address and flat ip_address/address shapes.
 func ExtractEipAddress() xpref.ExtractValueFn {
 	return func(mr xpresource.Managed) string {
-		tr, ok := mr.(resource.Terraformed)
+		tr, ok := mr.(resource.Observable)
 		if !ok {
 			return ""
 		}
-		o, err := tr.GetParameters()
+		o, err := tr.GetObservation()
 		if err != nil {
 			return ""
 		}
-		publicIPList := o["publicip"].([]any)
-		if len(publicIPList) > 0 {
-			publicIP := publicIPList[0].(map[string]any)
-			if k := publicIP["ip_address"]; k != nil {
-				return k.(string)
+		if raw, ok := o["publicip"]; ok {
+			if list, ok := raw.([]any); ok && len(list) > 0 {
+				if m, ok := list[0].(map[string]any); ok {
+					if v, ok := m["ip_address"].(string); ok && v != "" {
+						return v
+					}
+				}
 			}
+		}
+		if v, ok := o["ip_address"].(string); ok && v != "" {
+			return v
+		}
+		if v, ok := o["address"].(string); ok && v != "" {
+			return v
 		}
 
 		return ""
 	}
 }
 
-// ExtractFipAddress extracts the value of `spec.forProvider.address`
-// from a Terraformed resource. If mr is not a Terraformed
-// resource, returns an empty string.
+// ExtractFipAddress extracts the Floating IP address from an Observable
+// resource's observation (status.atProvider). It supports common shapes:
+// address, floating_ip_address, and ip_address.
 func ExtractFipAddress() xpref.ExtractValueFn {
 	return func(mr xpresource.Managed) string {
-		tr, ok := mr.(resource.Terraformed)
+		tr, ok := mr.(resource.Observable)
 		if !ok {
 			return ""
 		}
-		o, err := tr.GetParameters()
+		o, err := tr.GetObservation()
 		if err != nil {
 			return ""
 		}
-		if k := o["address"]; k != nil {
-			return k.(string)
+		if v, ok := o["address"].(string); ok && v != "" {
+			return v
 		}
-
+		if v, ok := o["ip_address"].(string); ok && v != "" {
+			return v
+		}
 		return ""
 	}
 }

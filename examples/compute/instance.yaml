@@ -1,0 +1,114 @@
+apiVersion: networking.opentelekomcloud.crossplane.io/v1alpha1
+kind: NetworkV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: networking/v1alpha1/routerinterfacev2
+  labels:
+    testing.upbound.io/example-name: sample-network
+  name: sample-network
+spec:
+  forProvider:
+    adminStateUp: "true"
+    name: crossplane_network
+
+---
+
+apiVersion: networking.opentelekomcloud.crossplane.io/v1alpha1
+kind: RouterV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: networking/v1alpha1/routerinterfacev2
+  labels:
+    testing.upbound.io/example-name: sample-router
+  name: sample-router
+spec:
+  forProvider:
+    name: crossplane_router
+
+---
+
+apiVersion: networking.opentelekomcloud.crossplane.io/v1alpha1
+kind: SubnetV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: networking/v1alpha1/routerinterfacev2
+  labels:
+    testing.upbound.io/example-name: sample-subnet
+  name: sample-subnet
+spec:
+  forProvider:
+    name: crossplane_subnet
+    cidr: 192.168.199.0/24
+    ipVersion: 4
+    networkIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sample-network
+
+---
+
+apiVersion: networking.opentelekomcloud.crossplane.io/v1alpha1
+kind: RouterInterfaceV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: networking/v1alpha1/routerinterfacev2
+  labels:
+    testing.upbound.io/example-name: router_interface
+  name: router-interface
+spec:
+  forProvider:
+    routerIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sample-router
+    subnetIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sample-subnet
+
+---
+
+apiVersion: compute.opentelekomcloud.crossplane.io/v1alpha1
+kind: FloatingipAssociateV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: compute/v1alpha1/floatingipassociatev2
+  labels:
+    testing.upbound.io/example-name: fip_1
+  name: fip-1
+spec:
+  forProvider:
+    floatingIpSelector:
+      matchLabels:
+        testing.upbound.io/example-name: fip_1
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: instance_1
+---
+
+apiVersion: compute.opentelekomcloud.crossplane.io/v1alpha1
+kind: InstanceV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: compute/v1alpha1/floatingipassociatev2
+  labels:
+    testing.upbound.io/example-name: instance_1
+  name: instance-1
+spec:
+  forProvider:
+    flavorId: s2.large.2
+    imageId: 765aeae4-7c4a-4bc7-93ff-ad1daa9c2fda
+    name: instance_1
+    network:
+      - name: crossplane_network
+
+---
+
+apiVersion: networking.opentelekomcloud.crossplane.io/v1alpha1
+kind: FloatingipV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: compute/v1alpha1/floatingipassociatev2
+  labels:
+    testing.upbound.io/example-name: fip_1
+  name: fip-1
+spec:
+  forProvider:
+    pool: admin_external_net
