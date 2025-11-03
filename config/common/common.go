@@ -103,7 +103,7 @@ func ExtractEipAddress() xpref.ExtractValueFn {
 
 // ExtractFipAddress extracts the Floating IP address from an Observable
 // resource's observation (status.atProvider). It supports common shapes:
-// address, floating_ip_address, and ip_address.
+// address and ip_address.
 func ExtractFipAddress() xpref.ExtractValueFn {
 	return func(mr xpresource.Managed) string {
 		tr, ok := mr.(resource.Observable)
