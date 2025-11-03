@@ -47,6 +47,31 @@ const (
 	ObsBucketExtractor = SelfPackagePath + ".ExtractObsBucket()"
 )
 
+// getStringFromMap safely returns a non-empty string value for a key.
+func getStringFromMap(o map[string]any, key string) string {
+	if v, ok := o[key].(string); ok && v != "" {
+		return v
+	}
+	return ""
+}
+
+// firstPublicIP tries to read publicip[0].ip_address from an observation map.
+func firstPublicIP(o map[string]any) (string, bool) {
+	raw, ok := o["publicip"].([]any)
+	if !ok || len(raw) == 0 {
+		return "", false
+	}
+	m, ok := raw[0].(map[string]any)
+	if !ok {
+		return "", false
+	}
+	v, ok := m["ip_address"].(string)
+	if !ok || v == "" {
+		return "", false
+	}
+	return v, true
+}
+
 // ExtractNetworkID extracts the value of `spec.forProvider.network_id`
 // from an Observable resource. If mr is not an Observable
 // resource, returns an empty string.
@@ -81,26 +106,16 @@ func ExtractEipAddress() xpref.ExtractValueFn {
 		if err != nil {
 			return ""
 		}
-		getString := func(key string) string {
-			if v, ok := o[key].(string); ok && v != "" {
-				return v
-			}
-			return ""
-		}
-		if raw, ok := o["publicip"].([]any); ok && len(raw) > 0 {
-			if m, ok := raw[0].(map[string]any); ok {
-				if v, ok := m["ip_address"].(string); ok && v != "" {
-					return v
-				}
-			}
-		}
-		if v := getString("ip_address"); v != "" {
-			return v
-		}
-		if v := getString("address"); v != "" {
-			return v
-		}
 
+		if v, ok := firstPublicIP(o); ok {
+			return v
+		}
+		if v := getStringFromMap(o, "ip_address"); v != "" {
+			return v
+		}
+		if v := getStringFromMap(o, "address"); v != "" {
+			return v
+		}
 		return ""
 	}
 }
