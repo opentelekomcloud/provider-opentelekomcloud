@@ -81,19 +81,23 @@ func ExtractEipAddress() xpref.ExtractValueFn {
 		if err != nil {
 			return ""
 		}
-		if raw, ok := o["publicip"]; ok {
-			if list, ok := raw.([]any); ok && len(list) > 0 {
-				if m, ok := list[0].(map[string]any); ok {
-					if v, ok := m["ip_address"].(string); ok && v != "" {
-						return v
-					}
+		getString := func(key string) string {
+			if v, ok := o[key].(string); ok && v != "" {
+				return v
+			}
+			return ""
+		}
+		if raw, ok := o["publicip"].([]any); ok && len(raw) > 0 {
+			if m, ok := raw[0].(map[string]any); ok {
+				if v, ok := m["ip_address"].(string); ok && v != "" {
+					return v
 				}
 			}
 		}
-		if v, ok := o["ip_address"].(string); ok && v != "" {
+		if v := getString("ip_address"); v != "" {
 			return v
 		}
-		if v, ok := o["address"].(string); ok && v != "" {
+		if v := getString("address"); v != "" {
 			return v
 		}
 
