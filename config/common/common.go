@@ -47,6 +47,31 @@ const (
 	ObsBucketExtractor = SelfPackagePath + ".ExtractObsBucket()"
 )
 
+// getStringFromMap safely returns a non-empty string value for a key.
+func getStringFromMap(o map[string]any, key string) string {
+	if v, ok := o[key].(string); ok && v != "" {
+		return v
+	}
+	return ""
+}
+
+// firstPublicIP tries to read publicip[0].ip_address from an observation map.
+func firstPublicIP(o map[string]any) (string, bool) {
+	raw, ok := o["publicip"].([]any)
+	if !ok || len(raw) == 0 {
+		return "", false
+	}
+	m, ok := raw[0].(map[string]any)
+	if !ok {
+		return "", false
+	}
+	v, ok := m["ip_address"].(string)
+	if !ok || v == "" {
+		return "", false
+	}
+	return v, true
+}
+
 // ExtractNetworkID extracts the value of `spec.forProvider.network_id`
 // from an Observable resource. If mr is not an Observable
 // resource, returns an empty string.
@@ -68,48 +93,52 @@ func ExtractNetworkID() xpref.ExtractValueFn {
 	}
 }
 
-// ExtractEipAddress extracts the value of `spec.forProvider.address`
-// from a Terraformed resource. If mr is not a Terraformed
-// resource, returns an empty string.
+// ExtractEipAddress extracts the EIP address from an Observable resource's
+// observation (status.atProvider). It supports both nested
+// publicip[0].ip_address and flat ip_address/address shapes.
 func ExtractEipAddress() xpref.ExtractValueFn {
 	return func(mr xpresource.Managed) string {
-		tr, ok := mr.(resource.Terraformed)
+		tr, ok := mr.(resource.Observable)
 		if !ok {
 			return ""
 		}
-		o, err := tr.GetParameters()
+		o, err := tr.GetObservation()
 		if err != nil {
 			return ""
 		}
-		publicIPList := o["publicip"].([]any)
-		if len(publicIPList) > 0 {
-			publicIP := publicIPList[0].(map[string]any)
-			if k := publicIP["ip_address"]; k != nil {
-				return k.(string)
-			}
-		}
 
+		if v, ok := firstPublicIP(o); ok {
+			return v
+		}
+		if v := getStringFromMap(o, "ip_address"); v != "" {
+			return v
+		}
+		if v := getStringFromMap(o, "address"); v != "" {
+			return v
+		}
 		return ""
 	}
 }
 
-// ExtractFipAddress extracts the value of `spec.forProvider.address`
-// from a Terraformed resource. If mr is not a Terraformed
-// resource, returns an empty string.
+// ExtractFipAddress extracts the Floating IP address from an Observable
+// resource's observation (status.atProvider). It supports common shapes:
+// address and ip_address.
 func ExtractFipAddress() xpref.ExtractValueFn {
 	return func(mr xpresource.Managed) string {
-		tr, ok := mr.(resource.Terraformed)
+		tr, ok := mr.(resource.Observable)
 		if !ok {
 			return ""
 		}
-		o, err := tr.GetParameters()
+		o, err := tr.GetObservation()
 		if err != nil {
 			return ""
 		}
-		if k := o["address"]; k != nil {
-			return k.(string)
+		if v, ok := o["address"].(string); ok && v != "" {
+			return v
 		}
-
+		if v, ok := o["ip_address"].(string); ok && v != "" {
+			return v
+		}
 		return ""
 	}
 }
