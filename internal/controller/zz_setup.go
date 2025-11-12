@@ -110,6 +110,7 @@ import (
 	firewallgroupv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/fw/firewallgroupv2"
 	policyv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/fw/policyv2"
 	rulev2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/fw/rulev2"
+	instancev3gemini "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/gemini/instancev3"
 	hostgroupv5 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/hss/hostgroupv5"
 	hostprotectionv5 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/hss/hostprotectionv5"
 	agencyv3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/identity/agencyv3"
@@ -363,6 +364,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		firewallgroupv2.Setup,
 		policyv2.Setup,
 		rulev2.Setup,
+		instancev3gemini.Setup,
 		hostgroupv5.Setup,
 		hostprotectionv5.Setup,
 		agencyv3.Setup,

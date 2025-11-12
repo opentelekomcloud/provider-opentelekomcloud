@@ -34,6 +34,7 @@ import (
 	v1alpha1evs "github.com/opentelekomcloud/provider-opentelekomcloud/apis/evs/v1alpha1"
 	v1alpha1fgs "github.com/opentelekomcloud/provider-opentelekomcloud/apis/fgs/v1alpha1"
 	v1alpha1fw "github.com/opentelekomcloud/provider-opentelekomcloud/apis/fw/v1alpha1"
+	v1alpha1gemini "github.com/opentelekomcloud/provider-opentelekomcloud/apis/gemini/v1alpha1"
 	v1alpha1hss "github.com/opentelekomcloud/provider-opentelekomcloud/apis/hss/v1alpha1"
 	v1alpha1identity "github.com/opentelekomcloud/provider-opentelekomcloud/apis/identity/v1alpha1"
 	v1alpha1images "github.com/opentelekomcloud/provider-opentelekomcloud/apis/images/v1alpha1"
@@ -90,6 +91,7 @@ func init() {
 		v1alpha1evs.SchemeBuilder.AddToScheme,
 		v1alpha1fgs.SchemeBuilder.AddToScheme,
 		v1alpha1fw.SchemeBuilder.AddToScheme,
+		v1alpha1gemini.SchemeBuilder.AddToScheme,
 		v1alpha1hss.SchemeBuilder.AddToScheme,
 		v1alpha1identity.SchemeBuilder.AddToScheme,
 		v1alpha1images.SchemeBuilder.AddToScheme,
