@@ -148,6 +148,9 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"opentelekomcloud_fw_policy_v2":         config.IdentifierFromProvider,
 	"opentelekomcloud_fw_rule_v2":           config.IdentifierFromProvider,
 
+	// GEMINIDB
+	"opentelekomcloud_gemini_instance_v3": config.IdentifierFromProvider,
+
 	// HSS
 	"opentelekomcloud_hss_host_group_v5":      config.IdentifierFromProvider,
 	"opentelekomcloud_hss_host_protection_v5": config.IdentifierFromProvider,
