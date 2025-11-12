@@ -131,6 +131,33 @@ spec:
                       If this parameter is not set, the cluster of the latest version is created by default.
                       Changing this parameter will create a new cluster resource. OTC-API
                     type: string
+                  componentConfigurations:
+                    description: |-
+                      Specifies the kubernetes component configurations.
+                      For details, see documentation.
+                      The object structure is documented below.
+                    items:
+                      properties:
+                        configurations:
+                          description: |-
+                            Specifies object of the component configurations.
+                            The object structure is documented below.
+                          items:
+                            properties:
+                              name:
+                                description: Cluster name. Changing this parameter
+                                  will create a new cluster resource.
+                                type: string
+                              value:
+                                description: Specifies value of the component.
+                                type: string
+                            type: object
+                          type: array
+                        name:
+                          description: Specifies the component name.
+                          type: string
+                      type: object
+                    type: array
                   containerNetworkCidr:
                     description: Container network segment. Changing this parameter
                       will create a new cluster resource.
@@ -138,6 +165,12 @@ spec:
                   containerNetworkType:
                     description: Container network type.
                     type: string
+                  customSan:
+                    description: Specifies the custom san to add to certificate (array
+                      of string).
+                    items:
+                      type: string
+                    type: array
                   deleteAllNetwork:
                     description: |-
                       Specified whether to delete all associated network resources when deleting the CCE
@@ -655,6 +688,9 @@ spec:
                             type: string
                         type: object
                     type: object
+                  supportIstio:
+                    description: Whether Istio is supported in the cluster.
+                    type: boolean
                   timezone:
                     description: Cluster timezone in string format. Changing this
                       parameter will create a new cluster resource.
@@ -809,6 +845,33 @@ spec:
                       If this parameter is not set, the cluster of the latest version is created by default.
                       Changing this parameter will create a new cluster resource. OTC-API
                     type: string
+                  componentConfigurations:
+                    description: |-
+                      Specifies the kubernetes component configurations.
+                      For details, see documentation.
+                      The object structure is documented below.
+                    items:
+                      properties:
+                        configurations:
+                          description: |-
+                            Specifies object of the component configurations.
+                            The object structure is documented below.
+                          items:
+                            properties:
+                              name:
+                                description: Cluster name. Changing this parameter
+                                  will create a new cluster resource.
+                                type: string
+                              value:
+                                description: Specifies value of the component.
+                                type: string
+                            type: object
+                          type: array
+                        name:
+                          description: Specifies the component name.
+                          type: string
+                      type: object
+                    type: array
                   containerNetworkCidr:
                     description: Container network segment. Changing this parameter
                       will create a new cluster resource.
@@ -816,6 +879,12 @@ spec:
                   containerNetworkType:
                     description: Container network type.
                     type: string
+                  customSan:
+                    description: Specifies the custom san to add to certificate (array
+                      of string).
+                    items:
+                      type: string
+                    type: array
                   deleteAllNetwork:
                     description: |-
                       Specified whether to delete all associated network resources when deleting the CCE
@@ -1333,6 +1402,9 @@ spec:
                             type: string
                         type: object
                     type: object
+                  supportIstio:
+                    description: Whether Istio is supported in the cluster.
+                    type: boolean
                   timezone:
                     description: Cluster timezone in string format. Changing this
                       parameter will create a new cluster resource.
@@ -1689,6 +1761,33 @@ spec:
                       If this parameter is not set, the cluster of the latest version is created by default.
                       Changing this parameter will create a new cluster resource. OTC-API
                     type: string
+                  componentConfigurations:
+                    description: |-
+                      Specifies the kubernetes component configurations.
+                      For details, see documentation.
+                      The object structure is documented below.
+                    items:
+                      properties:
+                        configurations:
+                          description: |-
+                            Specifies object of the component configurations.
+                            The object structure is documented below.
+                          items:
+                            properties:
+                              name:
+                                description: Cluster name. Changing this parameter
+                                  will create a new cluster resource.
+                                type: string
+                              value:
+                                description: Specifies value of the component.
+                                type: string
+                            type: object
+                          type: array
+                        name:
+                          description: Specifies the component name.
+                          type: string
+                      type: object
+                    type: array
                   containerNetworkCidr:
                     description: Container network segment. Changing this parameter
                       will create a new cluster resource.
@@ -1696,6 +1795,12 @@ spec:
                   containerNetworkType:
                     description: Container network type.
                     type: string
+                  customSan:
+                    description: Specifies the custom san to add to certificate (array
+                      of string).
+                    items:
+                      type: string
+                    type: array
                   deleteAllNetwork:
                     description: |-
                       Specified whether to delete all associated network resources when deleting the CCE
@@ -1874,6 +1979,9 @@ spec:
                     description: The Network ID of the subnet used to create the node.
                       Changing this parameter will create a new cluster resource.
                     type: string
+                  supportIstio:
+                    description: Whether Istio is supported in the cluster.
+                    type: boolean
                   timezone:
                     description: Cluster timezone in string format. Changing this
                       parameter will create a new cluster resource.

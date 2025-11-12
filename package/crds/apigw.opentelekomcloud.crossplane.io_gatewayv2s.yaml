@@ -133,6 +133,13 @@ spec:
                   subnetId:
                     description: Specifies network ID.
                     type: string
+                  tags:
+                    additionalProperties:
+                      type: string
+                    description: Specifies the key/value pairs to associate with the
+                      dedicated instance.
+                    type: object
+                    x-kubernetes-map-type: granular
                   vpcId:
                     description: Specifies VPC ID.
                     type: string
@@ -210,6 +217,13 @@ spec:
                   subnetId:
                     description: Specifies network ID.
                     type: string
+                  tags:
+                    additionalProperties:
+                      type: string
+                    description: Specifies the key/value pairs to associate with the
+                      dedicated instance.
+                    type: object
+                    x-kubernetes-map-type: granular
                   vpcId:
                     description: Specifies VPC ID.
                     type: string
@@ -503,6 +517,13 @@ spec:
                     items:
                       type: string
                     type: array
+                  tags:
+                    additionalProperties:
+                      type: string
+                    description: Specifies the key/value pairs to associate with the
+                      dedicated instance.
+                    type: object
+                    x-kubernetes-map-type: granular
                   vpcId:
                     description: Specifies VPC ID.
                     type: string

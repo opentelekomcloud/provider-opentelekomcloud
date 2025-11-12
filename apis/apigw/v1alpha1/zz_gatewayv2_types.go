@@ -64,6 +64,10 @@ type GatewayV2InitParameters struct {
 	// Specifies network ID.
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 
+	// Specifies the key/value pairs to associate with the dedicated instance.
+	// +mapType=granular
+	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
+
 	// Specifies VPC ID.
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
 }
@@ -146,6 +150,10 @@ type GatewayV2Observation struct {
 	// Supported features.
 	SupportedFeatures []*string `json:"supportedFeatures,omitempty" tf:"supported_features,omitempty"`
 
+	// Specifies the key/value pairs to associate with the dedicated instance.
+	// +mapType=granular
+	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
+
 	// Specifies VPC ID.
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
 
@@ -219,6 +227,11 @@ type GatewayV2Parameters struct {
 	// Specifies network ID.
 	// +kubebuilder:validation:Optional
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
+
+	// Specifies the key/value pairs to associate with the dedicated instance.
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// Specifies VPC ID.
 	// +kubebuilder:validation:Optional

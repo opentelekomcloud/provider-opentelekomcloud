@@ -4590,6 +4590,22 @@ func (in *GatewayV2InitParameters) DeepCopyInto(out *GatewayV2InitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.Tags != nil {
+		in, out := &in.Tags, &out.Tags
+		*out = make(map[string]*string, len(*in))
+		for key, val := range *in {
+			var outVal *string
+			if val == nil {
+				(*out)[key] = nil
+			} else {
+				inVal := (*in)[key]
+				in, out := &inVal, &outVal
+				*out = new(string)
+				**out = **in
+			}
+			(*out)[key] = outVal
+		}
+	}
 	if in.VPCID != nil {
 		in, out := &in.VPCID, &out.VPCID
 		*out = new(string)
@@ -4770,6 +4786,22 @@ func (in *GatewayV2Observation) DeepCopyInto(out *GatewayV2Observation) {
 			}
 		}
 	}
+	if in.Tags != nil {
+		in, out := &in.Tags, &out.Tags
+		*out = make(map[string]*string, len(*in))
+		for key, val := range *in {
+			var outVal *string
+			if val == nil {
+				(*out)[key] = nil
+			} else {
+				inVal := (*in)[key]
+				in, out := &inVal, &outVal
+				*out = new(string)
+				**out = **in
+			}
+			(*out)[key] = outVal
+		}
+	}
 	if in.VPCID != nil {
 		in, out := &in.VPCID, &out.VPCID
 		*out = new(string)
@@ -4870,6 +4902,22 @@ func (in *GatewayV2Parameters) DeepCopyInto(out *GatewayV2Parameters) {
 		in, out := &in.SubnetID, &out.SubnetID
 		*out = new(string)
 		**out = **in
+	}
+	if in.Tags != nil {
+		in, out := &in.Tags, &out.Tags
+		*out = make(map[string]*string, len(*in))
+		for key, val := range *in {
+			var outVal *string
+			if val == nil {
+				(*out)[key] = nil
+			} else {
+				inVal := (*in)[key]
+				in, out := &inVal, &outVal
+				*out = new(string)
+				**out = **in
+			}
+			(*out)[key] = outVal
+		}
 	}
 	if in.VPCID != nil {
 		in, out := &in.VPCID, &out.VPCID
