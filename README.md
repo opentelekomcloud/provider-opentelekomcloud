@@ -3,8 +3,6 @@
 
 `provider-opentelekomcloud` is a [Crossplane](https://crossplane.io/) provider that is built using [Upjet](https://github.com/crossplane/upjet) code generation tools and exposes XRM-conformant managed resources for the opentelekomcloud API.
 
-## 🚨 **Note: This project is still under development and is not recommended for use in production environments.** 🚨
-
 ## Getting Started
 
 ### Install provider-opentelekomcloud
