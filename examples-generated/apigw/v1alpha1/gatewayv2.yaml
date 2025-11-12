@@ -20,4 +20,6 @@ spec:
     securityGroupId: ${var.default_secgroup.id}
     specId: BASIC
     subnetId: ${var.network_id}
+    tags:
+      foo: bar
     vpcId: ${var.vpc_id}

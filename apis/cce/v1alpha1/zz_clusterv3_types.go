@@ -119,11 +119,19 @@ type ClusterV3InitParameters struct {
 	// Changing this parameter will create a new cluster resource. OTC-API
 	ClusterVersion *string `json:"clusterVersion,omitempty" tf:"cluster_version,omitempty"`
 
+	// Specifies the kubernetes component configurations.
+	// For details, see documentation.
+	// The object structure is documented below.
+	ComponentConfigurations []ComponentConfigurationsInitParameters `json:"componentConfigurations,omitempty" tf:"component_configurations,omitempty"`
+
 	// Container network segment. Changing this parameter will create a new cluster resource.
 	ContainerNetworkCidr *string `json:"containerNetworkCidr,omitempty" tf:"container_network_cidr,omitempty"`
 
 	// Container network type.
 	ContainerNetworkType *string `json:"containerNetworkType,omitempty" tf:"container_network_type,omitempty"`
+
+	// Specifies the custom san to add to certificate (array of string).
+	CustomSan []*string `json:"customSan,omitempty" tf:"custom_san,omitempty"`
 
 	// Specified whether to delete all associated network resources when deleting the CCE
 	// cluster. valid values are true, try and false. Default is false.
@@ -282,6 +290,9 @@ type ClusterV3InitParameters struct {
 	// +kubebuilder:validation:Optional
 	SubnetIDSelector *v1.Selector `json:"subnetIdSelector,omitempty" tf:"-"`
 
+	// Whether Istio is supported in the cluster.
+	SupportIstio *bool `json:"supportIstio,omitempty" tf:"support_istio,omitempty"`
+
 	// Cluster timezone in string format. Changing this parameter will create a new cluster resource.
 	Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
 
@@ -333,11 +344,19 @@ type ClusterV3Observation struct {
 	// Changing this parameter will create a new cluster resource. OTC-API
 	ClusterVersion *string `json:"clusterVersion,omitempty" tf:"cluster_version,omitempty"`
 
+	// Specifies the kubernetes component configurations.
+	// For details, see documentation.
+	// The object structure is documented below.
+	ComponentConfigurations []ComponentConfigurationsObservation `json:"componentConfigurations,omitempty" tf:"component_configurations,omitempty"`
+
 	// Container network segment. Changing this parameter will create a new cluster resource.
 	ContainerNetworkCidr *string `json:"containerNetworkCidr,omitempty" tf:"container_network_cidr,omitempty"`
 
 	// Container network type.
 	ContainerNetworkType *string `json:"containerNetworkType,omitempty" tf:"container_network_type,omitempty"`
+
+	// Specifies the custom san to add to certificate (array of string).
+	CustomSan []*string `json:"customSan,omitempty" tf:"custom_san,omitempty"`
 
 	// Specified whether to delete all associated network resources when deleting the CCE
 	// cluster. valid values are true, try and false. Default is false.
@@ -471,6 +490,9 @@ type ClusterV3Observation struct {
 	// The Network ID of the subnet used to create the node. Changing this parameter will create a new cluster resource.
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 
+	// Whether Istio is supported in the cluster.
+	SupportIstio *bool `json:"supportIstio,omitempty" tf:"support_istio,omitempty"`
+
 	// Cluster timezone in string format. Changing this parameter will create a new cluster resource.
 	Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
 
@@ -517,6 +539,12 @@ type ClusterV3Parameters struct {
 	// +kubebuilder:validation:Optional
 	ClusterVersion *string `json:"clusterVersion,omitempty" tf:"cluster_version,omitempty"`
 
+	// Specifies the kubernetes component configurations.
+	// For details, see documentation.
+	// The object structure is documented below.
+	// +kubebuilder:validation:Optional
+	ComponentConfigurations []ComponentConfigurationsParameters `json:"componentConfigurations,omitempty" tf:"component_configurations,omitempty"`
+
 	// Container network segment. Changing this parameter will create a new cluster resource.
 	// +kubebuilder:validation:Optional
 	ContainerNetworkCidr *string `json:"containerNetworkCidr,omitempty" tf:"container_network_cidr,omitempty"`
@@ -524,6 +552,10 @@ type ClusterV3Parameters struct {
 	// Container network type.
 	// +kubebuilder:validation:Optional
 	ContainerNetworkType *string `json:"containerNetworkType,omitempty" tf:"container_network_type,omitempty"`
+
+	// Specifies the custom san to add to certificate (array of string).
+	// +kubebuilder:validation:Optional
+	CustomSan []*string `json:"customSan,omitempty" tf:"custom_san,omitempty"`
 
 	// Specified whether to delete all associated network resources when deleting the CCE
 	// cluster. valid values are true, try and false. Default is false.
@@ -712,6 +744,10 @@ type ClusterV3Parameters struct {
 	// +kubebuilder:validation:Optional
 	SubnetIDSelector *v1.Selector `json:"subnetIdSelector,omitempty" tf:"-"`
 
+	// Whether Istio is supported in the cluster.
+	// +kubebuilder:validation:Optional
+	SupportIstio *bool `json:"supportIstio,omitempty" tf:"support_istio,omitempty"`
+
 	// Cluster timezone in string format. Changing this parameter will create a new cluster resource.
 	// +kubebuilder:validation:Optional
 	Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
@@ -728,6 +764,67 @@ type ClusterV3Parameters struct {
 	// Selector for a VpcV1 in vpc to populate vpcId.
 	// +kubebuilder:validation:Optional
 	VPCIDSelector *v1.Selector `json:"vpcIdSelector,omitempty" tf:"-"`
+}
+
+type ComponentConfigurationsInitParameters struct {
+
+	// Specifies object of the component configurations.
+	// The object structure is documented below.
+	Configurations []ConfigurationsInitParameters `json:"configurations,omitempty" tf:"configurations,omitempty"`
+
+	// Specifies the component name.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type ComponentConfigurationsObservation struct {
+
+	// Specifies object of the component configurations.
+	// The object structure is documented below.
+	Configurations []ConfigurationsObservation `json:"configurations,omitempty" tf:"configurations,omitempty"`
+
+	// Specifies the component name.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type ComponentConfigurationsParameters struct {
+
+	// Specifies object of the component configurations.
+	// The object structure is documented below.
+	// +kubebuilder:validation:Optional
+	Configurations []ConfigurationsParameters `json:"configurations,omitempty" tf:"configurations,omitempty"`
+
+	// Specifies the component name.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name" tf:"name,omitempty"`
+}
+
+type ConfigurationsInitParameters struct {
+
+	// Cluster name. Changing this parameter will create a new cluster resource.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// Specifies value of the component.
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+}
+
+type ConfigurationsObservation struct {
+
+	// Cluster name. Changing this parameter will create a new cluster resource.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// Specifies value of the component.
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+}
+
+type ConfigurationsParameters struct {
+
+	// Cluster name. Changing this parameter will create a new cluster resource.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name" tf:"name,omitempty"`
+
+	// Specifies value of the component.
+	// +kubebuilder:validation:Optional
+	Value *string `json:"value" tf:"value,omitempty"`
 }
 
 type MastersInitParameters struct {
