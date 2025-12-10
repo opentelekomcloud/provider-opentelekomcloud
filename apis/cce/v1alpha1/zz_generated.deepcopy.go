@@ -5593,6 +5593,11 @@ func (in *ValuesInitParameters) DeepCopyInto(out *ValuesInitParameters) {
 			(*out)[key] = outVal
 		}
 	}
+	if in.BasicJSON != nil {
+		in, out := &in.BasicJSON, &out.BasicJSON
+		*out = new(string)
+		**out = **in
+	}
 	if in.Custom != nil {
 		in, out := &in.Custom, &out.Custom
 		*out = make(map[string]*string, len(*in))
@@ -5609,8 +5614,18 @@ func (in *ValuesInitParameters) DeepCopyInto(out *ValuesInitParameters) {
 			(*out)[key] = outVal
 		}
 	}
+	if in.CustomJSON != nil {
+		in, out := &in.CustomJSON, &out.CustomJSON
+		*out = new(string)
+		**out = **in
+	}
 	if in.Flavor != nil {
 		in, out := &in.Flavor, &out.Flavor
+		*out = new(string)
+		**out = **in
+	}
+	if in.FlavorJSON != nil {
+		in, out := &in.FlavorJSON, &out.FlavorJSON
 		*out = new(string)
 		**out = **in
 	}
@@ -5645,6 +5660,11 @@ func (in *ValuesObservation) DeepCopyInto(out *ValuesObservation) {
 			(*out)[key] = outVal
 		}
 	}
+	if in.BasicJSON != nil {
+		in, out := &in.BasicJSON, &out.BasicJSON
+		*out = new(string)
+		**out = **in
+	}
 	if in.Custom != nil {
 		in, out := &in.Custom, &out.Custom
 		*out = make(map[string]*string, len(*in))
@@ -5661,8 +5681,18 @@ func (in *ValuesObservation) DeepCopyInto(out *ValuesObservation) {
 			(*out)[key] = outVal
 		}
 	}
+	if in.CustomJSON != nil {
+		in, out := &in.CustomJSON, &out.CustomJSON
+		*out = new(string)
+		**out = **in
+	}
 	if in.Flavor != nil {
 		in, out := &in.Flavor, &out.Flavor
+		*out = new(string)
+		**out = **in
+	}
+	if in.FlavorJSON != nil {
+		in, out := &in.FlavorJSON, &out.FlavorJSON
 		*out = new(string)
 		**out = **in
 	}
@@ -5697,6 +5727,11 @@ func (in *ValuesParameters) DeepCopyInto(out *ValuesParameters) {
 			(*out)[key] = outVal
 		}
 	}
+	if in.BasicJSON != nil {
+		in, out := &in.BasicJSON, &out.BasicJSON
+		*out = new(string)
+		**out = **in
+	}
 	if in.Custom != nil {
 		in, out := &in.Custom, &out.Custom
 		*out = make(map[string]*string, len(*in))
@@ -5713,8 +5748,18 @@ func (in *ValuesParameters) DeepCopyInto(out *ValuesParameters) {
 			(*out)[key] = outVal
 		}
 	}
+	if in.CustomJSON != nil {
+		in, out := &in.CustomJSON, &out.CustomJSON
+		*out = new(string)
+		**out = **in
+	}
 	if in.Flavor != nil {
 		in, out := &in.Flavor, &out.Flavor
+		*out = new(string)
+		**out = **in
+	}
+	if in.FlavorJSON != nil {
+		in, out := &in.FlavorJSON, &out.FlavorJSON
 		*out = new(string)
 		**out = **in
 	}

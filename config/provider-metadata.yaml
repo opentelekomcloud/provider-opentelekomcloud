@@ -2063,6 +2063,9 @@ resources:
                 - (Optional) The expected number of instances. The default
                 value is the minimum number of instances. The value ranges from the minimum number of
                 instances to the maximum number of instances.
+            enable: |-
+                - (Optional) It specifies whether to enable or disable the AS group. Supported values: true, false.
+                Default value: true.
             health_periodic_audit_grace_period: |-
                 - (Optional) The grace period for instance health check.
                 The unit is second and value range is 0-86400. The default value is 600. The health check grace
@@ -3079,12 +3082,57 @@ resources:
                       "subnet_id": "${var.network_id}",
                       "vpc_id": "${var.vpc_id}"
                     }
+            - name: ms
+              manifest: |-
+                {
+                  "cluster_id": "${opentelekomcloud_cce_cluster_v3.cluster_1.id}",
+                  "template_name": "${data.opentelekomcloud_cce_addon_template_v3.ms.addon_name}",
+                  "template_version": "${data.opentelekomcloud_cce_addon_template_v3.ms.addon_version}",
+                  "values": [
+                    {
+                      "basic": {
+                        "image_version": "${data.opentelekomcloud_cce_addon_template_v3.ms.image_version}",
+                        "swr_addr": "${data.opentelekomcloud_cce_addon_template_v3.ms.swr_addr}",
+                        "swr_user": "${data.opentelekomcloud_cce_addon_template_v3.ms.swr_user}"
+                      },
+                      "custom_json": "${jsonencode({\n      tolerations = [\n        {\n          key      = \"somedomain/somekey\"\n          operator = \"Equal\"\n          value    = \"test\"\n          effect   = \"NoSchedule\"\n        }\n      ],\n      node_match_expressions = [\n        {\n          key      = \"somedomain/somekey\"\n          operator = \"In\"\n          values = [\n            \"test\"\n          ]\n        }\n      ],\n      cluster_id = opentelekomcloud_cce_cluster_v3.cluster_1.id\n      tenant_id  = data.opentelekomcloud_identity_project_v3.project.id\n      logLevel   = 3\n    })}"
+                    }
+                  ]
+                }
+              references:
+                cluster_id: opentelekomcloud_cce_cluster_v3.cluster_1.id
+                template_name: data.opentelekomcloud_cce_addon_template_v3.ms.addon_name
+                template_version: data.opentelekomcloud_cce_addon_template_v3.ms.addon_version
+              dependencies:
+                opentelekomcloud_cce_cluster_v3.cluster_1: |-
+                    {
+                      "cluster_type": "VirtualMachine",
+                      "cluster_version": "v1.29",
+                      "container_network_type": "overlay_l2",
+                      "flavor_id": "cce.s1.medium",
+                      "kubernetes_svc_ip_range": "10.247.0.0/16",
+                      "name": "my_cluster",
+                      "no_addons": true,
+                      "subnet_id": "${var.network_id}",
+                      "vpc_id": "${var.vpc_id}"
+                    }
         argumentDocs:
-            basic: '- (Required, Map) Basic add-on information.'
+            basic: |-
+                - (Optional, Map) Specifies the key/value pairs vary depending on the add-on.
+                Only supports non-nested structure and only supports string type elements.
+                This is an alternative to basic_json, but it is not recommended.
+            basic_json: '- (Optional, String) Specifies the json string vary depending on the add-on.'
             cluster_id: '- (Required, String, ForceNew) ID of cluster to install the add-on on.'
-            custom: '- (Required, Map) Custom parameters of the add-on.'
+            custom: |-
+                - (Optional, Map) Specifies the key/value pairs vary depending on the add-on.
+                Only supports non-nested structure and only supports string type elements.
+                This is an alternative to custom_json, but it is not recommended.
+            custom_json: '- (Optional, String) Specifies the json string vary depending on the add-on.'
             description: '- Installed add-on description'
-            flavor: '- (Optional, String) Specifies the json string vary depending on the add-on.'
+            flavor: |-
+                - (Optional, String) Specifies the json string vary depending on the add-on.
+                This is an alternative to flavor_json, left for backward compatibility.
+            flavor_json: '- (Optional, String) Specifies the json string vary depending on the add-on.'
             name: '- Installed add-on name.'
             template_name: '- (Required, String, ForceNew) Name of the add-on template to be installed, for example, coredns.'
             template_version: '- (Required, String, ForceNew) Version number of the add-on to be installed or upgraded, for example, v1.0.0.'
@@ -5621,8 +5669,22 @@ resources:
                         "default"
                       ]
                     }
+            - name: va_force
+              manifest: |-
+                {
+                  "force_detach": true,
+                  "instance_id": "${opentelekomcloud_compute_instance_v2.instance_1.id}",
+                  "volume_id": "${opentelekomcloud_blockstorage_volume_v2.volume_1.id}"
+                }
+              references:
+                instance_id: opentelekomcloud_compute_instance_v2.instance_1.id
+                volume_id: opentelekomcloud_blockstorage_volume_v2.volume_1.id
         argumentDocs:
             device: '- (Optional) The device of the volume attachment (ex: /dev/vdc).'
+            force_detach: |-
+                - (Optional) Indicates whether to force detach the disk when deleting the attachment resource.
+                If set to true, the provider will call the force detach API, ensuring the disk is detached even
+                if the normal detach operation fails. Defaults to false.
             instance_id: '- (Required) The ID of the Instance to attach the Volume to.'
             volume_id: '- (Required) The ID of the Volume to attach to an Instance.'
         importStatements: []
@@ -11659,6 +11721,60 @@ resources:
                 Cassandra DB instance, the minimum storage space is 100 GB, and the maximum storage space is related to the instance
                 performance specifications.
             vpc_id: '- (Required, String, ForceNew) Specifies the VPC ID. Changing this parameter will create a new resource.'
+        importStatements: []
+    opentelekomcloud_gemini_template_v3:
+        subCategory: GeminiDB
+        description: Manages a GeminiDB Parameter Template resource within OpenTelekomCloud.
+        name: opentelekomcloud_gemini_template_v3
+        title: opentelekomcloud_gemini_template_v3
+        examples:
+            - name: template
+              manifest: |-
+                {
+                  "description": "Custom Cassandra configuration",
+                  "engine_version": "3.11",
+                  "instance_type": "cassandra",
+                  "name": "cassandra_template",
+                  "parameters": [
+                    {
+                      "name": "write_request_timeout_in_ms",
+                      "value": "7000"
+                    },
+                    {
+                      "name": "read_request_timeout_in_ms",
+                      "value": "8000"
+                    },
+                    {
+                      "name": "slow_query_log_timeout_in_ms",
+                      "value": "15000"
+                    }
+                  ]
+                }
+        argumentDocs:
+            created_at: '- The creation time in the yyyy-MM-ddTHH:mm:ssZ format.'
+            data_type: '- The data type of the parameter.'
+            description: |-
+                - (Optional, String) Specifies the parameter template description. It can contain a
+                maximum of 256 characters. The following special characters are not allowed: >!<"&'=
+            engine_version: |-
+                - (Required, String, ForceNew) Specifies the database version. Currently, only 3.11
+                is supported for GeminiDB Cassandra. Changing this creates a new resource.
+            id: '- The resource ID (parameter template ID).'
+            instance_type: |-
+                - (Required, String, ForceNew) Specifies the database type. Currently, only cassandra
+                is supported. Changing this creates a new resource.
+            name: |-
+                - (Required, String) Specifies the parameter template name. The template name can include
+                1 to 64 characters and can contain only uppercase letters, lowercase letters, digits, hyphens (-),
+                underscores (_), and periods (.). Changing this creates a new resource.
+            need_restart: '- Indicates whether the instance needs to be restarted after the parameter is modified.'
+            parameters: '- (Required, Set) Specifies the parameter values. The structure is documented below.'
+            parameters.name: '- (Required, String) Specifies the parameter name.'
+            parameters.value: '- (Required, String) Specifies the parameter value.'
+            readonly: '- Indicates whether the parameter is read-only.'
+            region: '- The region in which the parameter template is created.'
+            updated_at: '- The update time in the yyyy-MM-ddTHH:mm:ssZ format.'
+            value_range: '- The value range of the parameter.'
         importStatements: []
     opentelekomcloud_hss_host_group_v5:
         subCategory: Host Security Service (HSS)
@@ -17958,6 +18074,26 @@ resources:
                 - manual: manual full backup
                 - fragment: differential full backup
                 - incremental: automated incremental backup
+        importStatements: []
+    opentelekomcloud_rds_instance_minor_version_upgrade_v3:
+        subCategory: Relational Database Service (RDS)
+        description: Manages an RDS instance minor version upgrade resource within OpenTelekomCloud.
+        name: opentelekomcloud_rds_instance_minor_version_upgrade_v3
+        title: opentelekomcloud_rds_instance_minor_version_upgrade_v3
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "instance_id": "${var.instance_id}"
+                }
+              references:
+                instance_id: var.instance_id
+        argumentDocs:
+            delay: |-
+                - (Optional, ForceNew, Bool) Specifies whether the upgrade is delayed to the maintenance window.
+                Defaults to false.
+            id: '- The resource ID, which is the instance ID.'
+            instance_id: '- (Required, ForceNew, String) Specifies the ID of the RDS instance to upgrade.'
         importStatements: []
     opentelekomcloud_rds_instance_v1:
         subCategory: Relational Database Service (RDS)

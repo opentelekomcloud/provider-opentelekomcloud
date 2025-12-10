@@ -2586,6 +2586,11 @@ func (in *VolumeAttachV2InitParameters) DeepCopyInto(out *VolumeAttachV2InitPara
 		*out = new(string)
 		**out = **in
 	}
+	if in.ForceDetach != nil {
+		in, out := &in.ForceDetach, &out.ForceDetach
+		*out = new(bool)
+		**out = **in
+	}
 	if in.InstanceID != nil {
 		in, out := &in.InstanceID, &out.InstanceID
 		*out = new(string)
@@ -2673,6 +2678,11 @@ func (in *VolumeAttachV2Observation) DeepCopyInto(out *VolumeAttachV2Observation
 		*out = new(string)
 		**out = **in
 	}
+	if in.ForceDetach != nil {
+		in, out := &in.ForceDetach, &out.ForceDetach
+		*out = new(bool)
+		**out = **in
+	}
 	if in.ID != nil {
 		in, out := &in.ID, &out.ID
 		*out = new(string)
@@ -2711,6 +2721,11 @@ func (in *VolumeAttachV2Parameters) DeepCopyInto(out *VolumeAttachV2Parameters) 
 	if in.Device != nil {
 		in, out := &in.Device, &out.Device
 		*out = new(string)
+		**out = **in
+	}
+	if in.ForceDetach != nil {
+		in, out := &in.ForceDetach, &out.ForceDetach
+		*out = new(bool)
 		**out = **in
 	}
 	if in.InstanceID != nil {

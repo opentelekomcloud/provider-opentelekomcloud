@@ -165,16 +165,35 @@ spec:
                         basic:
                           additionalProperties:
                             type: string
-                          description: Basic add-on information.
+                          description: |-
+                            Specifies the key/value pairs vary depending on the add-on.
+                            Only supports non-nested structure and only supports string type elements.
+                            This is an alternative to basic_json, but it is not recommended.
                           type: object
                           x-kubernetes-map-type: granular
+                        basicJson:
+                          description: Specifies the json string vary depending on
+                            the add-on.
+                          type: string
                         custom:
                           additionalProperties:
                             type: string
-                          description: Custom parameters of the add-on.
+                          description: |-
+                            Specifies the key/value pairs vary depending on the add-on.
+                            Only supports non-nested structure and only supports string type elements.
+                            This is an alternative to custom_json, but it is not recommended.
                           type: object
                           x-kubernetes-map-type: granular
+                        customJson:
+                          description: Specifies the json string vary depending on
+                            the add-on.
+                          type: string
                         flavor:
+                          description: |-
+                            Specifies the json string vary depending on the add-on.
+                            This is an alternative to flavor_json, left for backward compatibility.
+                          type: string
+                        flavorJson:
                           description: Specifies the json string vary depending on
                             the add-on.
                           type: string
@@ -286,16 +305,35 @@ spec:
                         basic:
                           additionalProperties:
                             type: string
-                          description: Basic add-on information.
+                          description: |-
+                            Specifies the key/value pairs vary depending on the add-on.
+                            Only supports non-nested structure and only supports string type elements.
+                            This is an alternative to basic_json, but it is not recommended.
                           type: object
                           x-kubernetes-map-type: granular
+                        basicJson:
+                          description: Specifies the json string vary depending on
+                            the add-on.
+                          type: string
                         custom:
                           additionalProperties:
                             type: string
-                          description: Custom parameters of the add-on.
+                          description: |-
+                            Specifies the key/value pairs vary depending on the add-on.
+                            Only supports non-nested structure and only supports string type elements.
+                            This is an alternative to custom_json, but it is not recommended.
                           type: object
                           x-kubernetes-map-type: granular
+                        customJson:
+                          description: Specifies the json string vary depending on
+                            the add-on.
+                          type: string
                         flavor:
+                          description: |-
+                            Specifies the json string vary depending on the add-on.
+                            This is an alternative to flavor_json, left for backward compatibility.
+                          type: string
+                        flavorJson:
                           description: Specifies the json string vary depending on
                             the add-on.
                           type: string
@@ -513,16 +551,35 @@ spec:
                         basic:
                           additionalProperties:
                             type: string
-                          description: Basic add-on information.
+                          description: |-
+                            Specifies the key/value pairs vary depending on the add-on.
+                            Only supports non-nested structure and only supports string type elements.
+                            This is an alternative to basic_json, but it is not recommended.
                           type: object
                           x-kubernetes-map-type: granular
+                        basicJson:
+                          description: Specifies the json string vary depending on
+                            the add-on.
+                          type: string
                         custom:
                           additionalProperties:
                             type: string
-                          description: Custom parameters of the add-on.
+                          description: |-
+                            Specifies the key/value pairs vary depending on the add-on.
+                            Only supports non-nested structure and only supports string type elements.
+                            This is an alternative to custom_json, but it is not recommended.
                           type: object
                           x-kubernetes-map-type: granular
+                        customJson:
+                          description: Specifies the json string vary depending on
+                            the add-on.
+                          type: string
                         flavor:
+                          description: |-
+                            Specifies the json string vary depending on the add-on.
+                            This is an alternative to flavor_json, left for backward compatibility.
+                          type: string
+                        flavorJson:
                           description: Specifies the json string vary depending on
                             the add-on.
                           type: string
