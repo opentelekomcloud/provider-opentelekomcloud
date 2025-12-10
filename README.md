@@ -143,6 +143,11 @@ Run the code-generation pipeline:
 go run cmd/generator/main.go "$PWD"
 ```
 
+Apply generated CRDS
+```yaml
+kubectl apply -f package/crds
+```
+
 Run against a Kubernetes cluster:
 
 ```console

@@ -76,6 +76,12 @@ spec:
                   device:
                     description: 'The device of the volume attachment (ex: /dev/vdc).'
                     type: string
+                  forceDetach:
+                    description: |-
+                      Indicates whether to force detach the disk when deleting the attachment resource.
+                      If set to true, the provider will call the force detach API, ensuring the disk is detached even
+                      if the normal detach operation fails. Defaults to false.
+                    type: boolean
                   instanceId:
                     description: The ID of the Instance to attach the Volume to.
                     type: string
@@ -253,6 +259,12 @@ spec:
                   device:
                     description: 'The device of the volume attachment (ex: /dev/vdc).'
                     type: string
+                  forceDetach:
+                    description: |-
+                      Indicates whether to force detach the disk when deleting the attachment resource.
+                      If set to true, the provider will call the force detach API, ensuring the disk is detached even
+                      if the normal detach operation fails. Defaults to false.
+                    type: boolean
                   instanceId:
                     description: The ID of the Instance to attach the Volume to.
                     type: string
@@ -589,6 +601,12 @@ spec:
                   device:
                     description: 'The device of the volume attachment (ex: /dev/vdc).'
                     type: string
+                  forceDetach:
+                    description: |-
+                      Indicates whether to force detach the disk when deleting the attachment resource.
+                      If set to true, the provider will call the force detach API, ensuring the disk is detached even
+                      if the normal detach operation fails. Defaults to false.
+                    type: boolean
                   id:
                     type: string
                   instanceId:

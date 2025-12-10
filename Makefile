@@ -12,10 +12,10 @@ TERRAFORM_VERSION_VALID := $(shell [ "$(TERRAFORM_VERSION)" = "`printf "$(TERRAF
 
 export TERRAFORM_PROVIDER_SOURCE ?= opentelekomcloud/opentelekomcloud
 export TERRAFORM_PROVIDER_REPO ?= https://github.com/opentelekomcloud/terraform-provider-opentelekomcloud
-export TERRAFORM_PROVIDER_VERSION ?= 1.36.52
+export TERRAFORM_PROVIDER_VERSION ?= 1.36.54
 export TERRAFORM_PROVIDER_DOWNLOAD_NAME ?= terraform-provider-opentelekomcloud
 export TERRAFORM_PROVIDER_DOWNLOAD_URL_PREFIX ?= https://github.com/opentelekomcloud/$(TERRAFORM_PROVIDER_DOWNLOAD_NAME)/releases/download/v$(TERRAFORM_PROVIDER_VERSION)
-export TERRAFORM_NATIVE_PROVIDER_BINARY ?= terraform-provider-opentelekomcloud_v1.36.52
+export TERRAFORM_NATIVE_PROVIDER_BINARY ?= terraform-provider-opentelekomcloud_v1.36.54
 export TERRAFORM_DOCS_PATH ?= docs/resources
 
 

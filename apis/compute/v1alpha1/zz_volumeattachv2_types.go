@@ -18,6 +18,11 @@ type VolumeAttachV2InitParameters struct {
 	// The device of the volume attachment (ex: /dev/vdc).
 	Device *string `json:"device,omitempty" tf:"device,omitempty"`
 
+	// Indicates whether to force detach the disk when deleting the attachment resource.
+	// If set to true, the provider will call the force detach API, ensuring the disk is detached even
+	// if the normal detach operation fails. Defaults to false.
+	ForceDetach *bool `json:"forceDetach,omitempty" tf:"force_detach,omitempty"`
+
 	// The ID of the Instance to attach the Volume to.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/compute/v1alpha1.InstanceV2
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
@@ -50,6 +55,11 @@ type VolumeAttachV2Observation struct {
 	// The device of the volume attachment (ex: /dev/vdc).
 	Device *string `json:"device,omitempty" tf:"device,omitempty"`
 
+	// Indicates whether to force detach the disk when deleting the attachment resource.
+	// If set to true, the provider will call the force detach API, ensuring the disk is detached even
+	// if the normal detach operation fails. Defaults to false.
+	ForceDetach *bool `json:"forceDetach,omitempty" tf:"force_detach,omitempty"`
+
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// The ID of the Instance to attach the Volume to.
@@ -66,6 +76,12 @@ type VolumeAttachV2Parameters struct {
 	// The device of the volume attachment (ex: /dev/vdc).
 	// +kubebuilder:validation:Optional
 	Device *string `json:"device,omitempty" tf:"device,omitempty"`
+
+	// Indicates whether to force detach the disk when deleting the attachment resource.
+	// If set to true, the provider will call the force detach API, ensuring the disk is detached even
+	// if the normal detach operation fails. Defaults to false.
+	// +kubebuilder:validation:Optional
+	ForceDetach *bool `json:"forceDetach,omitempty" tf:"force_detach,omitempty"`
 
 	// The ID of the Instance to attach the Volume to.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/compute/v1alpha1.InstanceV2
