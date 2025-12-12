@@ -2,6 +2,7 @@ package swr
 
 import (
 	"github.com/crossplane/upjet/pkg/config"
+
 	"github.com/opentelekomcloud/provider-opentelekomcloud/config/common"
 )
 
