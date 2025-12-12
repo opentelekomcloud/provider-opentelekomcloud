@@ -12,7 +12,9 @@ spec:
     description: Test repository
     isPublic: false
     name: repository_1
-    organization: organization_1
+    organizationSelector:
+      matchLabels:
+        testing.upbound.io/example-name: org_1
 
 ---
 
