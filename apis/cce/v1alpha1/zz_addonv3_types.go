@@ -96,6 +96,9 @@ type ValuesInitParameters struct {
 	// +mapType=granular
 	Basic map[string]*string `json:"basic,omitempty" tf:"basic,omitempty"`
 
+	// Specifies the json string vary depending on the add-on.
+	BasicJSON *string `json:"basicJson,omitempty" tf:"basic_json,omitempty"`
+
 	// Specifies the key/value pairs vary depending on the add-on.
 	// Only supports non-nested structure and only supports string type elements.
 	// This is an alternative to custom_json, but it is not recommended.
@@ -103,8 +106,14 @@ type ValuesInitParameters struct {
 	Custom map[string]*string `json:"custom,omitempty" tf:"custom,omitempty"`
 
 	// Specifies the json string vary depending on the add-on.
+	CustomJSON *string `json:"customJson,omitempty" tf:"custom_json,omitempty"`
+
+	// Specifies the json string vary depending on the add-on.
 	// This is an alternative to flavor_json, left for backward compatibility.
 	Flavor *string `json:"flavor,omitempty" tf:"flavor,omitempty"`
+
+	// Specifies the json string vary depending on the add-on.
+	FlavorJSON *string `json:"flavorJson,omitempty" tf:"flavor_json,omitempty"`
 }
 
 type ValuesObservation struct {
@@ -115,6 +124,9 @@ type ValuesObservation struct {
 	// +mapType=granular
 	Basic map[string]*string `json:"basic,omitempty" tf:"basic,omitempty"`
 
+	// Specifies the json string vary depending on the add-on.
+	BasicJSON *string `json:"basicJson,omitempty" tf:"basic_json,omitempty"`
+
 	// Specifies the key/value pairs vary depending on the add-on.
 	// Only supports non-nested structure and only supports string type elements.
 	// This is an alternative to custom_json, but it is not recommended.
@@ -122,8 +134,14 @@ type ValuesObservation struct {
 	Custom map[string]*string `json:"custom,omitempty" tf:"custom,omitempty"`
 
 	// Specifies the json string vary depending on the add-on.
+	CustomJSON *string `json:"customJson,omitempty" tf:"custom_json,omitempty"`
+
+	// Specifies the json string vary depending on the add-on.
 	// This is an alternative to flavor_json, left for backward compatibility.
 	Flavor *string `json:"flavor,omitempty" tf:"flavor,omitempty"`
+
+	// Specifies the json string vary depending on the add-on.
+	FlavorJSON *string `json:"flavorJson,omitempty" tf:"flavor_json,omitempty"`
 }
 
 type ValuesParameters struct {
@@ -133,19 +151,31 @@ type ValuesParameters struct {
 	// This is an alternative to basic_json, but it is not recommended.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
-	Basic map[string]*string `json:"basic" tf:"basic,omitempty"`
+	Basic map[string]*string `json:"basic,omitempty" tf:"basic,omitempty"`
+
+	// Specifies the json string vary depending on the add-on.
+	// +kubebuilder:validation:Optional
+	BasicJSON *string `json:"basicJson,omitempty" tf:"basic_json,omitempty"`
 
 	// Specifies the key/value pairs vary depending on the add-on.
 	// Only supports non-nested structure and only supports string type elements.
 	// This is an alternative to custom_json, but it is not recommended.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
-	Custom map[string]*string `json:"custom" tf:"custom,omitempty"`
+	Custom map[string]*string `json:"custom,omitempty" tf:"custom,omitempty"`
+
+	// Specifies the json string vary depending on the add-on.
+	// +kubebuilder:validation:Optional
+	CustomJSON *string `json:"customJson,omitempty" tf:"custom_json,omitempty"`
 
 	// Specifies the json string vary depending on the add-on.
 	// This is an alternative to flavor_json, left for backward compatibility.
 	// +kubebuilder:validation:Optional
 	Flavor *string `json:"flavor,omitempty" tf:"flavor,omitempty"`
+
+	// Specifies the json string vary depending on the add-on.
+	// +kubebuilder:validation:Optional
+	FlavorJSON *string `json:"flavorJson,omitempty" tf:"flavor_json,omitempty"`
 }
 
 // AddonV3Spec defines the desired state of AddonV3
