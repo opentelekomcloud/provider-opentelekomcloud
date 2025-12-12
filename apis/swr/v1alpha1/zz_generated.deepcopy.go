@@ -9,6 +9,7 @@
 package v1alpha1
 
 import (
+	"github.com/crossplane/crossplane-runtime/apis/common/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 )
 
@@ -62,6 +63,16 @@ func (in *DomainV2InitParameters) DeepCopyInto(out *DomainV2InitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrganizationRef != nil {
+		in, out := &in.OrganizationRef, &out.OrganizationRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.OrganizationSelector != nil {
+		in, out := &in.OrganizationSelector, &out.OrganizationSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Permission != nil {
 		in, out := &in.Permission, &out.Permission
 		*out = new(string)
@@ -71,6 +82,16 @@ func (in *DomainV2InitParameters) DeepCopyInto(out *DomainV2InitParameters) {
 		in, out := &in.Repository, &out.Repository
 		*out = new(string)
 		**out = **in
+	}
+	if in.RepositoryRef != nil {
+		in, out := &in.RepositoryRef, &out.RepositoryRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.RepositorySelector != nil {
+		in, out := &in.RepositorySelector, &out.RepositorySelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -214,6 +235,16 @@ func (in *DomainV2Parameters) DeepCopyInto(out *DomainV2Parameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrganizationRef != nil {
+		in, out := &in.OrganizationRef, &out.OrganizationRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.OrganizationSelector != nil {
+		in, out := &in.OrganizationSelector, &out.OrganizationSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Permission != nil {
 		in, out := &in.Permission, &out.Permission
 		*out = new(string)
@@ -223,6 +254,16 @@ func (in *DomainV2Parameters) DeepCopyInto(out *DomainV2Parameters) {
 		in, out := &in.Repository, &out.Repository
 		*out = new(string)
 		**out = **in
+	}
+	if in.RepositoryRef != nil {
+		in, out := &in.RepositoryRef, &out.RepositoryRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.RepositorySelector != nil {
+		in, out := &in.RepositorySelector, &out.RepositorySelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -311,15 +352,45 @@ func (in *OrganizationPermissionsV2InitParameters) DeepCopyInto(out *Organizatio
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrganizationRef != nil {
+		in, out := &in.OrganizationRef, &out.OrganizationRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.OrganizationSelector != nil {
+		in, out := &in.OrganizationSelector, &out.OrganizationSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.UserID != nil {
 		in, out := &in.UserID, &out.UserID
 		*out = new(string)
 		**out = **in
 	}
+	if in.UserIDRef != nil {
+		in, out := &in.UserIDRef, &out.UserIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.UserIDSelector != nil {
+		in, out := &in.UserIDSelector, &out.UserIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Username != nil {
 		in, out := &in.Username, &out.Username
 		*out = new(string)
 		**out = **in
+	}
+	if in.UsernameRef != nil {
+		in, out := &in.UsernameRef, &out.UsernameRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.UsernameSelector != nil {
+		in, out := &in.UsernameSelector, &out.UsernameSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -418,15 +489,45 @@ func (in *OrganizationPermissionsV2Parameters) DeepCopyInto(out *OrganizationPer
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrganizationRef != nil {
+		in, out := &in.OrganizationRef, &out.OrganizationRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.OrganizationSelector != nil {
+		in, out := &in.OrganizationSelector, &out.OrganizationSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.UserID != nil {
 		in, out := &in.UserID, &out.UserID
 		*out = new(string)
 		**out = **in
 	}
+	if in.UserIDRef != nil {
+		in, out := &in.UserIDRef, &out.UserIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.UserIDSelector != nil {
+		in, out := &in.UserIDSelector, &out.UserIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Username != nil {
 		in, out := &in.Username, &out.Username
 		*out = new(string)
 		**out = **in
+	}
+	if in.UsernameRef != nil {
+		in, out := &in.UsernameRef, &out.UsernameRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.UsernameSelector != nil {
+		in, out := &in.UsernameSelector, &out.UsernameSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -704,6 +805,16 @@ func (in *RepositoryV2InitParameters) DeepCopyInto(out *RepositoryV2InitParamete
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrganizationRef != nil {
+		in, out := &in.OrganizationRef, &out.OrganizationRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.OrganizationSelector != nil {
+		in, out := &in.OrganizationSelector, &out.OrganizationSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 }
 
 // DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new RepositoryV2InitParameters.
@@ -845,6 +956,16 @@ func (in *RepositoryV2Parameters) DeepCopyInto(out *RepositoryV2Parameters) {
 		in, out := &in.Organization, &out.Organization
 		*out = new(string)
 		**out = **in
+	}
+	if in.OrganizationRef != nil {
+		in, out := &in.OrganizationRef, &out.OrganizationRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.OrganizationSelector != nil {
+		in, out := &in.OrganizationSelector, &out.OrganizationSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 

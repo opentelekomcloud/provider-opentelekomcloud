@@ -45,6 +45,10 @@ const (
 	// ObsBucketExtractor is the golang path to ExtractObsBucket function
 	// in this package.
 	ObsBucketExtractor = SelfPackagePath + ".ExtractObsBucket()"
+
+	// UsernameExtractor is the golang path to ExtractUsername function
+	// in this package.
+	UsernameExtractor = SelfPackagePath + ".ExtractUsername()"
 )
 
 // getStringFromMap safely returns a non-empty string value for a key.
@@ -260,6 +264,24 @@ func ExtractObsBucket() xpref.ExtractValueFn {
 			return ""
 		}
 		if k := o["bucket"]; k != nil {
+			return k.(string)
+		}
+
+		return ""
+	}
+}
+
+func ExtractUsername() xpref.ExtractValueFn {
+	return func(mr xpresource.Managed) string {
+		tr, ok := mr.(resource.Terraformed)
+		if !ok {
+			return ""
+		}
+		o, err := tr.GetParameters()
+		if err != nil {
+			return ""
+		}
+		if k := o["name"]; k != nil {
 			return k.(string)
 		}
 

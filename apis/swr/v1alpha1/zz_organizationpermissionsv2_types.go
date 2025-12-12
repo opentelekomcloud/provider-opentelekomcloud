@@ -20,13 +20,41 @@ type OrganizationPermissionsV2InitParameters struct {
 	Auth *float64 `json:"auth,omitempty" tf:"auth,omitempty"`
 
 	// The name of the organization (namespace) to be accessed.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/swr/v1alpha1.OrganizationV2
 	Organization *string `json:"organization,omitempty" tf:"organization,omitempty"`
 
+	// Reference to a OrganizationV2 in swr to populate organization.
+	// +kubebuilder:validation:Optional
+	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+
+	// Selector for a OrganizationV2 in swr to populate organization.
+	// +kubebuilder:validation:Optional
+	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+
 	// The ID of the existing Open Telekom Cloud user.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/identity/v1alpha1.UserV3
 	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
 
+	// Reference to a UserV3 in identity to populate userId.
+	// +kubebuilder:validation:Optional
+	UserIDRef *v1.Reference `json:"userIdRef,omitempty" tf:"-"`
+
+	// Selector for a UserV3 in identity to populate userId.
+	// +kubebuilder:validation:Optional
+	UserIDSelector *v1.Selector `json:"userIdSelector,omitempty" tf:"-"`
+
 	// The username of the existing Open Telekom Cloud user.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/identity/v1alpha1.UserV3
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractUsername()
 	Username *string `json:"username,omitempty" tf:"username,omitempty"`
+
+	// Reference to a UserV3 in identity to populate username.
+	// +kubebuilder:validation:Optional
+	UsernameRef *v1.Reference `json:"usernameRef,omitempty" tf:"-"`
+
+	// Selector for a UserV3 in identity to populate username.
+	// +kubebuilder:validation:Optional
+	UsernameSelector *v1.Selector `json:"usernameSelector,omitempty" tf:"-"`
 }
 
 type OrganizationPermissionsV2Observation struct {
@@ -55,16 +83,44 @@ type OrganizationPermissionsV2Parameters struct {
 	Auth *float64 `json:"auth,omitempty" tf:"auth,omitempty"`
 
 	// The name of the organization (namespace) to be accessed.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/swr/v1alpha1.OrganizationV2
 	// +kubebuilder:validation:Optional
 	Organization *string `json:"organization,omitempty" tf:"organization,omitempty"`
 
+	// Reference to a OrganizationV2 in swr to populate organization.
+	// +kubebuilder:validation:Optional
+	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+
+	// Selector for a OrganizationV2 in swr to populate organization.
+	// +kubebuilder:validation:Optional
+	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+
 	// The ID of the existing Open Telekom Cloud user.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/identity/v1alpha1.UserV3
 	// +kubebuilder:validation:Optional
 	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
 
+	// Reference to a UserV3 in identity to populate userId.
+	// +kubebuilder:validation:Optional
+	UserIDRef *v1.Reference `json:"userIdRef,omitempty" tf:"-"`
+
+	// Selector for a UserV3 in identity to populate userId.
+	// +kubebuilder:validation:Optional
+	UserIDSelector *v1.Selector `json:"userIdSelector,omitempty" tf:"-"`
+
 	// The username of the existing Open Telekom Cloud user.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/identity/v1alpha1.UserV3
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractUsername()
 	// +kubebuilder:validation:Optional
 	Username *string `json:"username,omitempty" tf:"username,omitempty"`
+
+	// Reference to a UserV3 in identity to populate username.
+	// +kubebuilder:validation:Optional
+	UsernameRef *v1.Reference `json:"usernameRef,omitempty" tf:"-"`
+
+	// Selector for a UserV3 in identity to populate username.
+	// +kubebuilder:validation:Optional
+	UsernameSelector *v1.Selector `json:"usernameSelector,omitempty" tf:"-"`
 }
 
 // OrganizationPermissionsV2Spec defines the desired state of OrganizationPermissionsV2
@@ -104,9 +160,6 @@ type OrganizationPermissionsV2 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.auth) || (has(self.initProvider) && has(self.initProvider.auth))",message="spec.forProvider.auth is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.organization) || (has(self.initProvider) && has(self.initProvider.organization))",message="spec.forProvider.organization is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.userId) || (has(self.initProvider) && has(self.initProvider.userId))",message="spec.forProvider.userId is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.username) || (has(self.initProvider) && has(self.initProvider.username))",message="spec.forProvider.username is a required parameter"
 	Spec   OrganizationPermissionsV2Spec   `json:"spec"`
 	Status OrganizationPermissionsV2Status `json:"status,omitempty"`
 }

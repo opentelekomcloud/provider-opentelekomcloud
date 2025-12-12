@@ -34,7 +34,16 @@ type RepositoryV2InitParameters struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// The name of the repository organization.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/swr/v1alpha1.OrganizationV2
 	Organization *string `json:"organization,omitempty" tf:"organization,omitempty"`
+
+	// Reference to a OrganizationV2 in swr to populate organization.
+	// +kubebuilder:validation:Optional
+	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+
+	// Selector for a OrganizationV2 in swr to populate organization.
+	// +kubebuilder:validation:Optional
+	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
 }
 
 type RepositoryV2Observation struct {
@@ -103,8 +112,17 @@ type RepositoryV2Parameters struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// The name of the repository organization.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/swr/v1alpha1.OrganizationV2
 	// +kubebuilder:validation:Optional
 	Organization *string `json:"organization,omitempty" tf:"organization,omitempty"`
+
+	// Reference to a OrganizationV2 in swr to populate organization.
+	// +kubebuilder:validation:Optional
+	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+
+	// Selector for a OrganizationV2 in swr to populate organization.
+	// +kubebuilder:validation:Optional
+	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
 }
 
 // RepositoryV2Spec defines the desired state of RepositoryV2
@@ -145,7 +163,6 @@ type RepositoryV2 struct {
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.isPublic) || (has(self.initProvider) && has(self.initProvider.isPublic))",message="spec.forProvider.isPublic is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.organization) || (has(self.initProvider) && has(self.initProvider.organization))",message="spec.forProvider.organization is a required parameter"
 	Spec   RepositoryV2Spec   `json:"spec"`
 	Status RepositoryV2Status `json:"status,omitempty"`
 }

@@ -27,13 +27,31 @@ type DomainV2InitParameters struct {
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// The name of the repository organization.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/swr/v1alpha1.OrganizationV2
 	Organization *string `json:"organization,omitempty" tf:"organization,omitempty"`
+
+	// Reference to a OrganizationV2 in swr to populate organization.
+	// +kubebuilder:validation:Optional
+	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+
+	// Selector for a OrganizationV2 in swr to populate organization.
+	// +kubebuilder:validation:Optional
+	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
 	// Permission to be granted. Currently, only the read permission is supported.
 	Permission *string `json:"permission,omitempty" tf:"permission,omitempty"`
 
 	// The name of the repository.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/swr/v1alpha1.RepositoryV2
 	Repository *string `json:"repository,omitempty" tf:"repository,omitempty"`
+
+	// Reference to a RepositoryV2 in swr to populate repository.
+	// +kubebuilder:validation:Optional
+	RepositoryRef *v1.Reference `json:"repositoryRef,omitempty" tf:"-"`
+
+	// Selector for a RepositoryV2 in swr to populate repository.
+	// +kubebuilder:validation:Optional
+	RepositorySelector *v1.Selector `json:"repositorySelector,omitempty" tf:"-"`
 }
 
 type DomainV2Observation struct {
@@ -93,16 +111,34 @@ type DomainV2Parameters struct {
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// The name of the repository organization.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/swr/v1alpha1.OrganizationV2
 	// +kubebuilder:validation:Optional
 	Organization *string `json:"organization,omitempty" tf:"organization,omitempty"`
+
+	// Reference to a OrganizationV2 in swr to populate organization.
+	// +kubebuilder:validation:Optional
+	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+
+	// Selector for a OrganizationV2 in swr to populate organization.
+	// +kubebuilder:validation:Optional
+	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
 	// Permission to be granted. Currently, only the read permission is supported.
 	// +kubebuilder:validation:Optional
 	Permission *string `json:"permission,omitempty" tf:"permission,omitempty"`
 
 	// The name of the repository.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/swr/v1alpha1.RepositoryV2
 	// +kubebuilder:validation:Optional
 	Repository *string `json:"repository,omitempty" tf:"repository,omitempty"`
+
+	// Reference to a RepositoryV2 in swr to populate repository.
+	// +kubebuilder:validation:Optional
+	RepositoryRef *v1.Reference `json:"repositoryRef,omitempty" tf:"-"`
+
+	// Selector for a RepositoryV2 in swr to populate repository.
+	// +kubebuilder:validation:Optional
+	RepositorySelector *v1.Selector `json:"repositorySelector,omitempty" tf:"-"`
 }
 
 // DomainV2Spec defines the desired state of DomainV2
@@ -143,9 +179,7 @@ type DomainV2 struct {
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.accessDomain) || (has(self.initProvider) && has(self.initProvider.accessDomain))",message="spec.forProvider.accessDomain is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.deadline) || (has(self.initProvider) && has(self.initProvider.deadline))",message="spec.forProvider.deadline is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.organization) || (has(self.initProvider) && has(self.initProvider.organization))",message="spec.forProvider.organization is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.permission) || (has(self.initProvider) && has(self.initProvider.permission))",message="spec.forProvider.permission is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.repository) || (has(self.initProvider) && has(self.initProvider.repository))",message="spec.forProvider.repository is a required parameter"
 	Spec   DomainV2Spec   `json:"spec"`
 	Status DomainV2Status `json:"status,omitempty"`
 }
