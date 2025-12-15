@@ -9,9 +9,15 @@ metadata:
 spec:
   forProvider:
     auth: 3
-    organization: organization_1
-    userId: ${var.user_id}
-    username: ${var.username}
+    organizationSelector:
+      matchLabels:
+        testing.upbound.io/example-name: org_1
+    userIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    usernameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
 
 ---
 

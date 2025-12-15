@@ -1,0 +1,33 @@
+apiVersion: swr.opentelekomcloud.crossplane.io/v1alpha1
+kind: OrganizationPermissionsV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: swr/v1alpha1/organizationpermissionsv2
+  labels:
+    testing.upbound.io/example-name: user_1
+  name: user-1
+spec:
+  forProvider:
+    organizationSelector:
+      matchLabels:
+        testing.upbound.io/example-name: test-org-1
+    usernameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: swr_op
+    userIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: swr_op
+    auth: 3
+
+---
+apiVersion: identity.opentelekomcloud.crossplane.io/v1alpha1
+kind: UserV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: identity/v1alpha1/userv3
+  labels:
+    testing.upbound.io/example-name: swr_op
+  name: swr-op
+spec:
+  forProvider:
+    name: swr_op
