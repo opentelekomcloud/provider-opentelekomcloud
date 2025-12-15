@@ -1,0 +1,102 @@
+apiVersion: chainsaw.kyverno.io/v1alpha1
+kind: Test
+metadata:
+  name: swr.organizationv2
+spec:
+  timeouts:
+    apply: 15s
+    assert: 2m
+    cleanup: 2m
+  steps:
+    - try:
+        - apply:
+            file: ../organizationsv2.yaml
+        - assert:
+            resource:
+              apiVersion: swr.opentelekomcloud.crossplane.io/v1alpha1
+              kind: OrganizationV2
+              metadata:
+                name: test-org-1
+              status:
+                (conditions[?type == 'Ready']):
+                  - status: "True"
+                (conditions[?type == 'Synced']):
+                  - status: "True"
+
+---
+apiVersion: chainsaw.kyverno.io/v1alpha1
+kind: Test
+metadata:
+  name: swr.repositoryv2
+spec:
+  timeouts:
+    apply: 15s
+    assert: 2m
+    cleanup: 2m
+  steps:
+    - try:
+        - apply:
+            file: ../repositoryv2.yaml
+        - assert:
+            resource:
+              apiVersion: swr.opentelekomcloud.crossplane.io/v1alpha1
+              kind: RepositoryV2
+              metadata:
+                name: test-repo-1
+              status:
+                (conditions[?type == 'Ready']):
+                  - status: "True"
+                (conditions[?type == 'Synced']):
+                  - status: "True"
+
+---
+apiVersion: chainsaw.kyverno.io/v1alpha1
+kind: Test
+metadata:
+  name: swr.domainv2
+spec:
+  timeouts:
+    apply: 15s
+    assert: 5m #domainv2 depends on 2 other resources, needs some extra time
+    cleanup: 2m
+  steps:
+    - try:
+        - apply:
+            file: ../domainv2.yaml
+        - assert:
+            resource:
+              apiVersion: swr.opentelekomcloud.crossplane.io/v1alpha1
+              kind: DomainV2
+              metadata:
+                name: domain-1
+              status:
+                (conditions[?type == 'Ready']):
+                  - status: "True"
+                (conditions[?type == 'Synced']):
+                  - status: "True"
+
+---
+apiVersion: chainsaw.kyverno.io/v1alpha1
+kind: Test
+metadata:
+  name: swr.organizationpermissionsv2
+spec:
+  timeouts:
+    apply: 15s
+    assert: 2m
+    cleanup: 2m
+  steps:
+    - try:
+        - apply:
+            file: ../organizationpermissionsv2.yaml
+        - assert:
+            resource:
+              apiVersion: swr.opentelekomcloud.crossplane.io/v1alpha1
+              kind: OrganizationPermissionsV2
+              metadata:
+                name: user-1
+              status:
+                (conditions[?type == 'Ready']):
+                  - status: "True"
+                (conditions[?type == 'Synced']):
+                  - status: "True"
