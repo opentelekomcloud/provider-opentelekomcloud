@@ -7,7 +7,7 @@ package controller
 import (
 	ctrl "sigs.k8s.io/controller-runtime"
 
-	"github.com/crossplane/upjet/pkg/controller"
+	"github.com/crossplane/upjet/v2/pkg/controller"
 
 	aclpolicyassociatev2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/apigw/aclpolicyassociatev2"
 	aclpolicyv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/apigw/aclpolicyv2"

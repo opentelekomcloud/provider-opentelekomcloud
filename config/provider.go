@@ -26,7 +26,7 @@ import (
 	"github.com/opentelekomcloud/provider-opentelekomcloud/config/taurusdb"
 	"github.com/opentelekomcloud/provider-opentelekomcloud/config/tms"
 
-	ujconfig "github.com/crossplane/upjet/pkg/config"
+	ujconfig "github.com/crossplane/upjet/v2/pkg/config"
 
 	"github.com/opentelekomcloud/provider-opentelekomcloud/config/blockstorage"
 	"github.com/opentelekomcloud/provider-opentelekomcloud/config/cce"

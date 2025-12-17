@@ -1,6 +1,6 @@
 package config
 
-import "github.com/crossplane/upjet/pkg/config"
+import "github.com/crossplane/upjet/v2/pkg/config"
 
 // GroupOverrides maps TF resource names to the desired ShortGroup.
 var GroupOverrides = map[string]string{

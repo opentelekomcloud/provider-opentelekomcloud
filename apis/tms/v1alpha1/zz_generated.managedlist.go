@@ -6,7 +6,7 @@
 
 package v1alpha1
 
-import resource "github.com/crossplane/crossplane-runtime/pkg/resource"
+import resource "github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 
 // GetItems of this ResourceTagsV1List.
 func (l *ResourceTagsV1List) GetItems() []resource.Managed {
