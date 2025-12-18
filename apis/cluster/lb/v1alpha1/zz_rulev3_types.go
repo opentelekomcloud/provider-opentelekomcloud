@@ -57,7 +57,7 @@ type RuleV3InitParameters struct {
 	Conditions []ConditionsInitParameters `json:"conditions,omitempty" tf:"conditions,omitempty"`
 
 	// ID of the policy.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/lb/v1alpha1.PolicyV3
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/lb/v1alpha1.PolicyV3
 	PolicyID *string `json:"policyId,omitempty" tf:"policy_id,omitempty"`
 
 	// Reference to a PolicyV3 in lb to populate policyId.
@@ -71,7 +71,7 @@ type RuleV3InitParameters struct {
 	// Required for admins. The UUID of the tenant who owns
 	// the Policy. Only administrative users can specify a tenant UUID other than
 	// their own. Changing this creates a new Policy.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/identity/v1alpha1.ProjectV3
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/identity/v1alpha1.ProjectV3
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
 
 	// Reference to a ProjectV3 in identity to populate projectId.
@@ -136,7 +136,7 @@ type RuleV3Parameters struct {
 	Conditions []ConditionsParameters `json:"conditions,omitempty" tf:"conditions,omitempty"`
 
 	// ID of the policy.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/lb/v1alpha1.PolicyV3
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/lb/v1alpha1.PolicyV3
 	// +kubebuilder:validation:Optional
 	PolicyID *string `json:"policyId,omitempty" tf:"policy_id,omitempty"`
 
@@ -151,7 +151,7 @@ type RuleV3Parameters struct {
 	// Required for admins. The UUID of the tenant who owns
 	// the Policy. Only administrative users can specify a tenant UUID other than
 	// their own. Changing this creates a new Policy.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/identity/v1alpha1.ProjectV3
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/identity/v1alpha1.ProjectV3
 	// +kubebuilder:validation:Optional
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
 

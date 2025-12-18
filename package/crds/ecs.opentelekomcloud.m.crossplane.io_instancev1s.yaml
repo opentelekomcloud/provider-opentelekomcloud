@@ -1,0 +1,1701 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.18.0
+  name: instancev1s.ecs.opentelekomcloud.m.crossplane.io
+spec:
+  group: ecs.opentelekomcloud.m.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - opentelekomcloud
+    kind: InstanceV1
+    listKind: InstanceV1List
+    plural: instancev1s
+    singular: instancev1
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: InstanceV1 is the Schema for the InstanceV1s API. Manages a ECS
+          Instance resource within OpenTelekomCloud.
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: InstanceV1Spec defines the desired state of InstanceV1
+            properties:
+              forProvider:
+                properties:
+                  autoRecovery:
+                    description: Whether configure automatic recovery of an instance.
+                    type: boolean
+                  availabilityZone:
+                    description: The availability zone in which to create the server.
+                    type: string
+                  computeSecurityGroupIdRefs:
+                    description: References to SecgroupV2 in compute to populate securityGroups.
+                    items:
+                      description: A NamespacedReference to a named object.
+                      properties:
+                        name:
+                          description: Name of the referenced object.
+                          type: string
+                        namespace:
+                          description: Namespace of the referenced object
+                          type: string
+                        policy:
+                          description: Policies for referencing.
+                          properties:
+                            resolution:
+                              default: Required
+                              description: |-
+                                Resolution specifies whether resolution of this reference is required.
+                                The default is 'Required', which means the reconcile will fail if the
+                                reference cannot be resolved. 'Optional' means this reference will be
+                                a no-op if it cannot be resolved.
+                              enum:
+                              - Required
+                              - Optional
+                              type: string
+                            resolve:
+                              description: |-
+                                Resolve specifies when this reference should be resolved. The default
+                                is 'IfNotPresent', which will attempt to resolve the reference only when
+                                the corresponding field is not present. Use 'Always' to resolve the
+                                reference on every reconcile.
+                              enum:
+                              - Always
+                              - IfNotPresent
+                              type: string
+                          type: object
+                      required:
+                      - name
+                      type: object
+                    type: array
+                  computeSecurityGroupIdSelector:
+                    description: Selector for a list of SecgroupV2 in compute to populate
+                      securityGroups.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      namespace:
+                        description: Namespace for the selector
+                        type: string
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
+                  dataDisks:
+                    description: |-
+                      An array of one or more data disks to attach to the
+                      instance. The data_disks object structure is documented below. Changing this
+                      creates a new server.
+                    items:
+                      properties:
+                        kmsId:
+                          description: |-
+                            The Encryption KMS ID of the data disk. Changing this
+                            creates a new server.
+                          type: string
+                        kmsIdRef:
+                          description: Reference to a KeyV1 in kms to populate kmsId.
+                          properties:
+                            name:
+                              description: Name of the referenced object.
+                              type: string
+                            namespace:
+                              description: Namespace of the referenced object
+                              type: string
+                            policy:
+                              description: Policies for referencing.
+                              properties:
+                                resolution:
+                                  default: Required
+                                  description: |-
+                                    Resolution specifies whether resolution of this reference is required.
+                                    The default is 'Required', which means the reconcile will fail if the
+                                    reference cannot be resolved. 'Optional' means this reference will be
+                                    a no-op if it cannot be resolved.
+                                  enum:
+                                  - Required
+                                  - Optional
+                                  type: string
+                                resolve:
+                                  description: |-
+                                    Resolve specifies when this reference should be resolved. The default
+                                    is 'IfNotPresent', which will attempt to resolve the reference only when
+                                    the corresponding field is not present. Use 'Always' to resolve the
+                                    reference on every reconcile.
+                                  enum:
+                                  - Always
+                                  - IfNotPresent
+                                  type: string
+                              type: object
+                          required:
+                          - name
+                          type: object
+                        kmsIdSelector:
+                          description: Selector for a KeyV1 in kms to populate kmsId.
+                          properties:
+                            matchControllerRef:
+                              description: |-
+                                MatchControllerRef ensures an object with the same controller reference
+                                as the selecting object is selected.
+                              type: boolean
+                            matchLabels:
+                              additionalProperties:
+                                type: string
+                              description: MatchLabels ensures an object with matching
+                                labels is selected.
+                              type: object
+                            namespace:
+                              description: Namespace for the selector
+                              type: string
+                            policy:
+                              description: Policies for selection.
+                              properties:
+                                resolution:
+                                  default: Required
+                                  description: |-
+                                    Resolution specifies whether resolution of this reference is required.
+                                    The default is 'Required', which means the reconcile will fail if the
+                                    reference cannot be resolved. 'Optional' means this reference will be
+                                    a no-op if it cannot be resolved.
+                                  enum:
+                                  - Required
+                                  - Optional
+                                  type: string
+                                resolve:
+                                  description: |-
+                                    Resolve specifies when this reference should be resolved. The default
+                                    is 'IfNotPresent', which will attempt to resolve the reference only when
+                                    the corresponding field is not present. Use 'Always' to resolve the
+                                    reference on every reconcile.
+                                  enum:
+                                  - Always
+                                  - IfNotPresent
+                                  type: string
+                              type: object
+                          type: object
+                        size:
+                          description: |-
+                            The size of the data disk in GB. The value range is 10 to 32768.
+                            Changing this creates a new server.
+                          type: number
+                        snapshotId:
+                          description: |-
+                            Specifies the snapshot ID or ID of the original data disk contained in the full-ECS image.
+                            Changing this creates a new server.
+                          type: string
+                        type:
+                          description: |-
+                            The data disk type of the server.
+                            Changing this creates a new server. Options are limited depending on AZ. Available options are:
+                          type: string
+                      type: object
+                    type: array
+                  deleteDisksOnTermination:
+                    description: |-
+                      Delete the data disks upon termination of the instance.
+                      Defaults to false. Changing this creates a new server.
+                    type: boolean
+                  flavor:
+                    description: The name of the desired flavor for the server.
+                    type: string
+                  imageId:
+                    description: The ID of the desired image for the server. Changing
+                      this creates a new server.
+                    type: string
+                  keyName:
+                    description: |-
+                      The name of a key pair to put on the server. The key
+                      pair must already be created and associated with the tenant's account.
+                      Changing this creates a new server.
+                    type: string
+                  keyNameRef:
+                    description: Reference to a KeypairV2 in compute to populate keyName.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      namespace:
+                        description: Namespace of the referenced object
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  keyNameSelector:
+                    description: Selector for a KeypairV2 in compute to populate keyName.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      namespace:
+                        description: Namespace for the selector
+                        type: string
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
+                  metadata:
+                    description: Metadata key/value pairs to associate with the instance.
+                    items:
+                      properties:
+                        agencyName:
+                          description: Association to an agency
+                          type: string
+                      type: object
+                    type: array
+                  name:
+                    description: A unique name for the instance.
+                    type: string
+                  nics:
+                    description: |-
+                      An array of one or more networks to attach to the
+                      instance. The nics object structure is documented below. Changing this
+                      creates a new server.
+                    items:
+                      properties:
+                        ipAddress:
+                          description: |-
+                            Specifies a fixed IPv4 address to be used on this
+                            network. Changing this creates a new server.
+                          type: string
+                        ipv6Enable:
+                          description: Specifies whether to support IPv6 addresses.
+                            If this parameter is set to true, the NIC supports IPv6
+                            addresses.
+                          type: boolean
+                        networkId:
+                          description: The network UUID to attach to the server. Changing
+                            this creates a new server.
+                          type: string
+                        networkIdRef:
+                          description: Reference to a SubnetV1 in vpc to populate
+                            networkId.
+                          properties:
+                            name:
+                              description: Name of the referenced object.
+                              type: string
+                            namespace:
+                              description: Namespace of the referenced object
+                              type: string
+                            policy:
+                              description: Policies for referencing.
+                              properties:
+                                resolution:
+                                  default: Required
+                                  description: |-
+                                    Resolution specifies whether resolution of this reference is required.
+                                    The default is 'Required', which means the reconcile will fail if the
+                                    reference cannot be resolved. 'Optional' means this reference will be
+                                    a no-op if it cannot be resolved.
+                                  enum:
+                                  - Required
+                                  - Optional
+                                  type: string
+                                resolve:
+                                  description: |-
+                                    Resolve specifies when this reference should be resolved. The default
+                                    is 'IfNotPresent', which will attempt to resolve the reference only when
+                                    the corresponding field is not present. Use 'Always' to resolve the
+                                    reference on every reconcile.
+                                  enum:
+                                  - Always
+                                  - IfNotPresent
+                                  type: string
+                              type: object
+                          required:
+                          - name
+                          type: object
+                        networkIdSelector:
+                          description: Selector for a SubnetV1 in vpc to populate
+                            networkId.
+                          properties:
+                            matchControllerRef:
+                              description: |-
+                                MatchControllerRef ensures an object with the same controller reference
+                                as the selecting object is selected.
+                              type: boolean
+                            matchLabels:
+                              additionalProperties:
+                                type: string
+                              description: MatchLabels ensures an object with matching
+                                labels is selected.
+                              type: object
+                            namespace:
+                              description: Namespace for the selector
+                              type: string
+                            policy:
+                              description: Policies for selection.
+                              properties:
+                                resolution:
+                                  default: Required
+                                  description: |-
+                                    Resolution specifies whether resolution of this reference is required.
+                                    The default is 'Required', which means the reconcile will fail if the
+                                    reference cannot be resolved. 'Optional' means this reference will be
+                                    a no-op if it cannot be resolved.
+                                  enum:
+                                  - Required
+                                  - Optional
+                                  type: string
+                                resolve:
+                                  description: |-
+                                    Resolve specifies when this reference should be resolved. The default
+                                    is 'IfNotPresent', which will attempt to resolve the reference only when
+                                    the corresponding field is not present. Use 'Always' to resolve the
+                                    reference on every reconcile.
+                                  enum:
+                                  - Always
+                                  - IfNotPresent
+                                  type: string
+                              type: object
+                          type: object
+                      type: object
+                    type: array
+                  osSchedulerHints:
+                    description: Schedules ECSs, for example, by configuring an ECS
+                      group. The os_scheduler_hints object structure is documented
+                      below. Changing this creates a new server.
+                    items:
+                      properties:
+                        dedicatedHostId:
+                          description: Specifies the dedicated host ID. A Dedicated
+                            Host ID takes effect only when tenancy is set to dedicated.
+                          type: string
+                        group:
+                          description: Specifies the ECS group ID in UUID format.
+                          type: string
+                        tenancy:
+                          description: 'Creates ECSs on a dedicated or shared host.
+                            Available options are: dedicated  or shared.'
+                          type: string
+                      type: object
+                    type: array
+                  passwordSecretRef:
+                    description: |-
+                      The administrative password to assign to the server.
+                      Changing this creates a new server.
+                    properties:
+                      key:
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    type: object
+                  securityGroups:
+                    description: |-
+                      An array of one or more security group IDs
+                      to associate with the server. If this parameter is left blank, the default
+                      security group is bound to the ECS by default.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  systemDiskKmsId:
+                    description: |-
+                      The Encryption KMS ID of the system disk. Changing this
+                      creates a new server.
+                    type: string
+                  systemDiskKmsIdRef:
+                    description: Reference to a KeyV1 in kms to populate systemDiskKmsId.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      namespace:
+                        description: Namespace of the referenced object
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  systemDiskKmsIdSelector:
+                    description: Selector for a KeyV1 in kms to populate systemDiskKmsId.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      namespace:
+                        description: Namespace for the selector
+                        type: string
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
+                  systemDiskSize:
+                    description: |-
+                      The system disk size in GB, The value range is 1 to 1024.
+                      Changing this creates a new server.
+                    type: number
+                  systemDiskType:
+                    description: |-
+                      The system disk type of the server.
+                      Changing this creates a new server. Options are limited depending on AZ. Default: SSD. Available options are:
+                    type: string
+                  tags:
+                    additionalProperties:
+                      type: string
+                    description: Tags key/value pairs to associate with the instance.
+                    type: object
+                    x-kubernetes-map-type: granular
+                  userData:
+                    description: |-
+                      The user data to provide when launching the instance.
+                      Changing this creates a new server.
+                    type: string
+                  vpcId:
+                    description: The ID of the desired VPC for the server. Changing
+                      this creates a new server.
+                    type: string
+                  vpcIdRef:
+                    description: Reference to a VpcV1 in vpc to populate vpcId.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      namespace:
+                        description: Namespace of the referenced object
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  vpcIdSelector:
+                    description: Selector for a VpcV1 in vpc to populate vpcId.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      namespace:
+                        description: Namespace for the selector
+                        type: string
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
+                type: object
+              initProvider:
+                description: |-
+                  THIS IS A BETA FIELD. It will be honored
+                  unless the Management Policies feature flag is disabled.
+                  InitProvider holds the same fields as ForProvider, with the exception
+                  of Identifier and other resource reference fields. The fields that are
+                  in InitProvider are merged into ForProvider when the resource is created.
+                  The same fields are also added to the terraform ignore_changes hook, to
+                  avoid updating them after creation. This is useful for fields that are
+                  required on creation, but we do not desire to update them after creation,
+                  for example because of an external controller is managing them, like an
+                  autoscaler.
+                properties:
+                  autoRecovery:
+                    description: Whether configure automatic recovery of an instance.
+                    type: boolean
+                  availabilityZone:
+                    description: The availability zone in which to create the server.
+                    type: string
+                  computeSecurityGroupIdRefs:
+                    description: References to SecgroupV2 in compute to populate securityGroups.
+                    items:
+                      description: A NamespacedReference to a named object.
+                      properties:
+                        name:
+                          description: Name of the referenced object.
+                          type: string
+                        namespace:
+                          description: Namespace of the referenced object
+                          type: string
+                        policy:
+                          description: Policies for referencing.
+                          properties:
+                            resolution:
+                              default: Required
+                              description: |-
+                                Resolution specifies whether resolution of this reference is required.
+                                The default is 'Required', which means the reconcile will fail if the
+                                reference cannot be resolved. 'Optional' means this reference will be
+                                a no-op if it cannot be resolved.
+                              enum:
+                              - Required
+                              - Optional
+                              type: string
+                            resolve:
+                              description: |-
+                                Resolve specifies when this reference should be resolved. The default
+                                is 'IfNotPresent', which will attempt to resolve the reference only when
+                                the corresponding field is not present. Use 'Always' to resolve the
+                                reference on every reconcile.
+                              enum:
+                              - Always
+                              - IfNotPresent
+                              type: string
+                          type: object
+                      required:
+                      - name
+                      type: object
+                    type: array
+                  computeSecurityGroupIdSelector:
+                    description: Selector for a list of SecgroupV2 in compute to populate
+                      securityGroups.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      namespace:
+                        description: Namespace for the selector
+                        type: string
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
+                  dataDisks:
+                    description: |-
+                      An array of one or more data disks to attach to the
+                      instance. The data_disks object structure is documented below. Changing this
+                      creates a new server.
+                    items:
+                      properties:
+                        kmsId:
+                          description: |-
+                            The Encryption KMS ID of the data disk. Changing this
+                            creates a new server.
+                          type: string
+                        kmsIdRef:
+                          description: Reference to a KeyV1 in kms to populate kmsId.
+                          properties:
+                            name:
+                              description: Name of the referenced object.
+                              type: string
+                            namespace:
+                              description: Namespace of the referenced object
+                              type: string
+                            policy:
+                              description: Policies for referencing.
+                              properties:
+                                resolution:
+                                  default: Required
+                                  description: |-
+                                    Resolution specifies whether resolution of this reference is required.
+                                    The default is 'Required', which means the reconcile will fail if the
+                                    reference cannot be resolved. 'Optional' means this reference will be
+                                    a no-op if it cannot be resolved.
+                                  enum:
+                                  - Required
+                                  - Optional
+                                  type: string
+                                resolve:
+                                  description: |-
+                                    Resolve specifies when this reference should be resolved. The default
+                                    is 'IfNotPresent', which will attempt to resolve the reference only when
+                                    the corresponding field is not present. Use 'Always' to resolve the
+                                    reference on every reconcile.
+                                  enum:
+                                  - Always
+                                  - IfNotPresent
+                                  type: string
+                              type: object
+                          required:
+                          - name
+                          type: object
+                        kmsIdSelector:
+                          description: Selector for a KeyV1 in kms to populate kmsId.
+                          properties:
+                            matchControllerRef:
+                              description: |-
+                                MatchControllerRef ensures an object with the same controller reference
+                                as the selecting object is selected.
+                              type: boolean
+                            matchLabels:
+                              additionalProperties:
+                                type: string
+                              description: MatchLabels ensures an object with matching
+                                labels is selected.
+                              type: object
+                            namespace:
+                              description: Namespace for the selector
+                              type: string
+                            policy:
+                              description: Policies for selection.
+                              properties:
+                                resolution:
+                                  default: Required
+                                  description: |-
+                                    Resolution specifies whether resolution of this reference is required.
+                                    The default is 'Required', which means the reconcile will fail if the
+                                    reference cannot be resolved. 'Optional' means this reference will be
+                                    a no-op if it cannot be resolved.
+                                  enum:
+                                  - Required
+                                  - Optional
+                                  type: string
+                                resolve:
+                                  description: |-
+                                    Resolve specifies when this reference should be resolved. The default
+                                    is 'IfNotPresent', which will attempt to resolve the reference only when
+                                    the corresponding field is not present. Use 'Always' to resolve the
+                                    reference on every reconcile.
+                                  enum:
+                                  - Always
+                                  - IfNotPresent
+                                  type: string
+                              type: object
+                          type: object
+                        size:
+                          description: |-
+                            The size of the data disk in GB. The value range is 10 to 32768.
+                            Changing this creates a new server.
+                          type: number
+                        snapshotId:
+                          description: |-
+                            Specifies the snapshot ID or ID of the original data disk contained in the full-ECS image.
+                            Changing this creates a new server.
+                          type: string
+                        type:
+                          description: |-
+                            The data disk type of the server.
+                            Changing this creates a new server. Options are limited depending on AZ. Available options are:
+                          type: string
+                      type: object
+                    type: array
+                  deleteDisksOnTermination:
+                    description: |-
+                      Delete the data disks upon termination of the instance.
+                      Defaults to false. Changing this creates a new server.
+                    type: boolean
+                  flavor:
+                    description: The name of the desired flavor for the server.
+                    type: string
+                  imageId:
+                    description: The ID of the desired image for the server. Changing
+                      this creates a new server.
+                    type: string
+                  keyName:
+                    description: |-
+                      The name of a key pair to put on the server. The key
+                      pair must already be created and associated with the tenant's account.
+                      Changing this creates a new server.
+                    type: string
+                  keyNameRef:
+                    description: Reference to a KeypairV2 in compute to populate keyName.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      namespace:
+                        description: Namespace of the referenced object
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  keyNameSelector:
+                    description: Selector for a KeypairV2 in compute to populate keyName.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      namespace:
+                        description: Namespace for the selector
+                        type: string
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
+                  metadata:
+                    description: Metadata key/value pairs to associate with the instance.
+                    items:
+                      properties:
+                        agencyName:
+                          description: Association to an agency
+                          type: string
+                      type: object
+                    type: array
+                  name:
+                    description: A unique name for the instance.
+                    type: string
+                  nics:
+                    description: |-
+                      An array of one or more networks to attach to the
+                      instance. The nics object structure is documented below. Changing this
+                      creates a new server.
+                    items:
+                      properties:
+                        ipAddress:
+                          description: |-
+                            Specifies a fixed IPv4 address to be used on this
+                            network. Changing this creates a new server.
+                          type: string
+                        ipv6Enable:
+                          description: Specifies whether to support IPv6 addresses.
+                            If this parameter is set to true, the NIC supports IPv6
+                            addresses.
+                          type: boolean
+                        networkId:
+                          description: The network UUID to attach to the server. Changing
+                            this creates a new server.
+                          type: string
+                        networkIdRef:
+                          description: Reference to a SubnetV1 in vpc to populate
+                            networkId.
+                          properties:
+                            name:
+                              description: Name of the referenced object.
+                              type: string
+                            namespace:
+                              description: Namespace of the referenced object
+                              type: string
+                            policy:
+                              description: Policies for referencing.
+                              properties:
+                                resolution:
+                                  default: Required
+                                  description: |-
+                                    Resolution specifies whether resolution of this reference is required.
+                                    The default is 'Required', which means the reconcile will fail if the
+                                    reference cannot be resolved. 'Optional' means this reference will be
+                                    a no-op if it cannot be resolved.
+                                  enum:
+                                  - Required
+                                  - Optional
+                                  type: string
+                                resolve:
+                                  description: |-
+                                    Resolve specifies when this reference should be resolved. The default
+                                    is 'IfNotPresent', which will attempt to resolve the reference only when
+                                    the corresponding field is not present. Use 'Always' to resolve the
+                                    reference on every reconcile.
+                                  enum:
+                                  - Always
+                                  - IfNotPresent
+                                  type: string
+                              type: object
+                          required:
+                          - name
+                          type: object
+                        networkIdSelector:
+                          description: Selector for a SubnetV1 in vpc to populate
+                            networkId.
+                          properties:
+                            matchControllerRef:
+                              description: |-
+                                MatchControllerRef ensures an object with the same controller reference
+                                as the selecting object is selected.
+                              type: boolean
+                            matchLabels:
+                              additionalProperties:
+                                type: string
+                              description: MatchLabels ensures an object with matching
+                                labels is selected.
+                              type: object
+                            namespace:
+                              description: Namespace for the selector
+                              type: string
+                            policy:
+                              description: Policies for selection.
+                              properties:
+                                resolution:
+                                  default: Required
+                                  description: |-
+                                    Resolution specifies whether resolution of this reference is required.
+                                    The default is 'Required', which means the reconcile will fail if the
+                                    reference cannot be resolved. 'Optional' means this reference will be
+                                    a no-op if it cannot be resolved.
+                                  enum:
+                                  - Required
+                                  - Optional
+                                  type: string
+                                resolve:
+                                  description: |-
+                                    Resolve specifies when this reference should be resolved. The default
+                                    is 'IfNotPresent', which will attempt to resolve the reference only when
+                                    the corresponding field is not present. Use 'Always' to resolve the
+                                    reference on every reconcile.
+                                  enum:
+                                  - Always
+                                  - IfNotPresent
+                                  type: string
+                              type: object
+                          type: object
+                      type: object
+                    type: array
+                  osSchedulerHints:
+                    description: Schedules ECSs, for example, by configuring an ECS
+                      group. The os_scheduler_hints object structure is documented
+                      below. Changing this creates a new server.
+                    items:
+                      properties:
+                        dedicatedHostId:
+                          description: Specifies the dedicated host ID. A Dedicated
+                            Host ID takes effect only when tenancy is set to dedicated.
+                          type: string
+                        group:
+                          description: Specifies the ECS group ID in UUID format.
+                          type: string
+                        tenancy:
+                          description: 'Creates ECSs on a dedicated or shared host.
+                            Available options are: dedicated  or shared.'
+                          type: string
+                      type: object
+                    type: array
+                  passwordSecretRef:
+                    description: |-
+                      The administrative password to assign to the server.
+                      Changing this creates a new server.
+                    properties:
+                      key:
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    type: object
+                  securityGroups:
+                    description: |-
+                      An array of one or more security group IDs
+                      to associate with the server. If this parameter is left blank, the default
+                      security group is bound to the ECS by default.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  systemDiskKmsId:
+                    description: |-
+                      The Encryption KMS ID of the system disk. Changing this
+                      creates a new server.
+                    type: string
+                  systemDiskKmsIdRef:
+                    description: Reference to a KeyV1 in kms to populate systemDiskKmsId.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      namespace:
+                        description: Namespace of the referenced object
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  systemDiskKmsIdSelector:
+                    description: Selector for a KeyV1 in kms to populate systemDiskKmsId.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      namespace:
+                        description: Namespace for the selector
+                        type: string
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
+                  systemDiskSize:
+                    description: |-
+                      The system disk size in GB, The value range is 1 to 1024.
+                      Changing this creates a new server.
+                    type: number
+                  systemDiskType:
+                    description: |-
+                      The system disk type of the server.
+                      Changing this creates a new server. Options are limited depending on AZ. Default: SSD. Available options are:
+                    type: string
+                  tags:
+                    additionalProperties:
+                      type: string
+                    description: Tags key/value pairs to associate with the instance.
+                    type: object
+                    x-kubernetes-map-type: granular
+                  userData:
+                    description: |-
+                      The user data to provide when launching the instance.
+                      Changing this creates a new server.
+                    type: string
+                  vpcId:
+                    description: The ID of the desired VPC for the server. Changing
+                      this creates a new server.
+                    type: string
+                  vpcIdRef:
+                    description: Reference to a VpcV1 in vpc to populate vpcId.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      namespace:
+                        description: Namespace of the referenced object
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  vpcIdSelector:
+                    description: Selector for a VpcV1 in vpc to populate vpcId.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      namespace:
+                        description: Namespace for the selector
+                        type: string
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: |-
+                  THIS IS A BETA FIELD. It is on by default but can be opted out
+                  through a Crossplane feature flag.
+                  ManagementPolicies specify the array of actions Crossplane is allowed to
+                  take on the managed and external resources.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md
+                items:
+                  description: |-
+                    A ManagementAction represents an action that the Crossplane controllers
+                    can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
+              providerConfigRef:
+                default:
+                  kind: ClusterProviderConfig
+                  name: default
+                description: |-
+                  ProviderConfigReference specifies how the provider that will be used to
+                  create, observe, update, and delete this managed resource should be
+                  configured.
+                properties:
+                  kind:
+                    description: Kind of the referenced object.
+                    type: string
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                required:
+                - kind
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: |-
+                  WriteConnectionSecretToReference specifies the namespace and name of a
+                  Secret to which any connection details for this managed resource should
+                  be written. Connection details frequently include the endpoint, username,
+                  and password required to connect to the managed resource.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                required:
+                - name
+                type: object
+            required:
+            - forProvider
+            type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.flavor is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.flavor)
+                || (has(self.initProvider) && has(self.initProvider.flavor))'
+            - message: spec.forProvider.imageId is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.imageId)
+                || (has(self.initProvider) && has(self.initProvider.imageId))'
+            - message: spec.forProvider.name is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
+                || (has(self.initProvider) && has(self.initProvider.name))'
+            - message: spec.forProvider.nics is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.nics)
+                || (has(self.initProvider) && has(self.initProvider.nics))'
+          status:
+            description: InstanceV1Status defines the observed state of InstanceV1.
+            properties:
+              atProvider:
+                properties:
+                  autoRecovery:
+                    description: Whether configure automatic recovery of an instance.
+                    type: boolean
+                  availabilityZone:
+                    description: The availability zone in which to create the server.
+                    type: string
+                  dataDisks:
+                    description: |-
+                      An array of one or more data disks to attach to the
+                      instance. The data_disks object structure is documented below. Changing this
+                      creates a new server.
+                    items:
+                      properties:
+                        id:
+                          type: string
+                        kmsId:
+                          description: |-
+                            The Encryption KMS ID of the data disk. Changing this
+                            creates a new server.
+                          type: string
+                        size:
+                          description: |-
+                            The size of the data disk in GB. The value range is 10 to 32768.
+                            Changing this creates a new server.
+                          type: number
+                        snapshotId:
+                          description: |-
+                            Specifies the snapshot ID or ID of the original data disk contained in the full-ECS image.
+                            Changing this creates a new server.
+                          type: string
+                        type:
+                          description: |-
+                            The data disk type of the server.
+                            Changing this creates a new server. Options are limited depending on AZ. Available options are:
+                          type: string
+                      type: object
+                    type: array
+                  deleteDisksOnTermination:
+                    description: |-
+                      Delete the data disks upon termination of the instance.
+                      Defaults to false. Changing this creates a new server.
+                    type: boolean
+                  flavor:
+                    description: The name of the desired flavor for the server.
+                    type: string
+                  id:
+                    type: string
+                  imageId:
+                    description: The ID of the desired image for the server. Changing
+                      this creates a new server.
+                    type: string
+                  keyName:
+                    description: |-
+                      The name of a key pair to put on the server. The key
+                      pair must already be created and associated with the tenant's account.
+                      Changing this creates a new server.
+                    type: string
+                  metadata:
+                    description: Metadata key/value pairs to associate with the instance.
+                    items:
+                      properties:
+                        agencyName:
+                          description: Association to an agency
+                          type: string
+                      type: object
+                    type: array
+                  name:
+                    description: A unique name for the instance.
+                    type: string
+                  nics:
+                    description: |-
+                      An array of one or more networks to attach to the
+                      instance. The nics object structure is documented below. Changing this
+                      creates a new server.
+                    items:
+                      properties:
+                        ipAddress:
+                          description: |-
+                            Specifies a fixed IPv4 address to be used on this
+                            network. Changing this creates a new server.
+                          type: string
+                        ipv6Address:
+                          type: string
+                        ipv6Enable:
+                          description: Specifies whether to support IPv6 addresses.
+                            If this parameter is set to true, the NIC supports IPv6
+                            addresses.
+                          type: boolean
+                        macAddress:
+                          type: string
+                        networkId:
+                          description: The network UUID to attach to the server. Changing
+                            this creates a new server.
+                          type: string
+                        portId:
+                          type: string
+                        type:
+                          description: |-
+                            The data disk type of the server.
+                            Changing this creates a new server. Options are limited depending on AZ. Available options are:
+                          type: string
+                      type: object
+                    type: array
+                  osSchedulerHints:
+                    description: Schedules ECSs, for example, by configuring an ECS
+                      group. The os_scheduler_hints object structure is documented
+                      below. Changing this creates a new server.
+                    items:
+                      properties:
+                        dedicatedHostId:
+                          description: Specifies the dedicated host ID. A Dedicated
+                            Host ID takes effect only when tenancy is set to dedicated.
+                          type: string
+                        group:
+                          description: Specifies the ECS group ID in UUID format.
+                          type: string
+                        tenancy:
+                          description: 'Creates ECSs on a dedicated or shared host.
+                            Available options are: dedicated  or shared.'
+                          type: string
+                      type: object
+                    type: array
+                  securityGroups:
+                    description: |-
+                      An array of one or more security group IDs
+                      to associate with the server. If this parameter is left blank, the default
+                      security group is bound to the ECS by default.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  systemDiskId:
+                    description: (String) The ID of the system disk.
+                    type: string
+                  systemDiskKmsId:
+                    description: |-
+                      The Encryption KMS ID of the system disk. Changing this
+                      creates a new server.
+                    type: string
+                  systemDiskSize:
+                    description: |-
+                      The system disk size in GB, The value range is 1 to 1024.
+                      Changing this creates a new server.
+                    type: number
+                  systemDiskType:
+                    description: |-
+                      The system disk type of the server.
+                      Changing this creates a new server. Options are limited depending on AZ. Default: SSD. Available options are:
+                    type: string
+                  tags:
+                    additionalProperties:
+                      type: string
+                    description: Tags key/value pairs to associate with the instance.
+                    type: object
+                    x-kubernetes-map-type: granular
+                  userData:
+                    description: |-
+                      The user data to provide when launching the instance.
+                      Changing this creates a new server.
+                    type: string
+                  volumesAttached:
+                    items:
+                      properties:
+                        id:
+                          type: string
+                        kmsId:
+                          description: |-
+                            The Encryption KMS ID of the data disk. Changing this
+                            creates a new server.
+                          type: string
+                        size:
+                          description: |-
+                            The size of the data disk in GB. The value range is 10 to 32768.
+                            Changing this creates a new server.
+                          type: number
+                        snapshotId:
+                          description: |-
+                            Specifies the snapshot ID or ID of the original data disk contained in the full-ECS image.
+                            Changing this creates a new server.
+                          type: string
+                        type:
+                          description: |-
+                            The data disk type of the server.
+                            Changing this creates a new server. Options are limited depending on AZ. Available options are:
+                          type: string
+                      type: object
+                    type: array
+                  vpcId:
+                    description: The ID of the desired VPC for the server. Changing
+                      this creates a new server.
+                    type: string
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        LastTransitionTime is the last time this condition transitioned from one
+                        status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        A Message containing details about this condition's last transition from
+                        one status to another, if any.
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        ObservedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      type: integer
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: |-
+                        Type of this condition. At most one of each condition type may apply to
+                        a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+              observedGeneration:
+                description: |-
+                  ObservedGeneration is the latest metadata.generation
+                  which resulted in either a ready state, or stalled due to error
+                  it can not recover from without human intervention.
+                format: int64
+                type: integer
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

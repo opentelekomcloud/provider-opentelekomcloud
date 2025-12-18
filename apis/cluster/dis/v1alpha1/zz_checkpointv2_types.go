@@ -17,7 +17,7 @@ type CheckpointV2InitParameters struct {
 
 	// Name of the consumer application to be created
 	// The application name contains 1 to 200 characters. Only letters, digits, hyphens (-), and underscores (_) are allowed.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/dis/v1alpha1.AppV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/dis/v1alpha1.AppV2
 	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractDisAppName()
 	AppName *string `json:"appName,omitempty" tf:"app_name,omitempty"`
 
@@ -46,7 +46,7 @@ type CheckpointV2InitParameters struct {
 
 	// Name of the stream. The stream name can contain 1 to 64 characters,
 	// including letters, digits, underscores (_), and hyphens (-).
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/dis/v1alpha1.StreamV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/dis/v1alpha1.StreamV2
 	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractDisStreamName()
 	StreamName *string `json:"streamName,omitempty" tf:"stream_name,omitempty"`
 
@@ -91,7 +91,7 @@ type CheckpointV2Parameters struct {
 
 	// Name of the consumer application to be created
 	// The application name contains 1 to 200 characters. Only letters, digits, hyphens (-), and underscores (_) are allowed.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/dis/v1alpha1.AppV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/dis/v1alpha1.AppV2
 	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractDisAppName()
 	// +kubebuilder:validation:Optional
 	AppName *string `json:"appName,omitempty" tf:"app_name,omitempty"`
@@ -125,7 +125,7 @@ type CheckpointV2Parameters struct {
 
 	// Name of the stream. The stream name can contain 1 to 64 characters,
 	// including letters, digits, underscores (_), and hyphens (-).
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/dis/v1alpha1.StreamV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/dis/v1alpha1.StreamV2
 	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractDisStreamName()
 	// +kubebuilder:validation:Optional
 	StreamName *string `json:"streamName,omitempty" tf:"stream_name,omitempty"`

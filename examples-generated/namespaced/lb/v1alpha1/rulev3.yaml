@@ -1,0 +1,98 @@
+apiVersion: lb.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: RuleV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lb/v1alpha1/rulev3
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+  namespace: upbound-system
+spec:
+  forProvider:
+    compareType: REGEX
+    policyIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: this
+    type: PATH
+    value: ^.+$
+
+---
+
+apiVersion: lb.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: ListenerV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lb/v1alpha1/rulev3
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+  namespace: upbound-system
+spec:
+  forProvider:
+    loadbalancerIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: this
+    protocol: HTTP
+    protocolPort: 8080
+
+---
+
+apiVersion: lb.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: LoadbalancerV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lb/v1alpha1/rulev3
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+  namespace: upbound-system
+spec:
+  forProvider:
+    availabilityZones:
+    - ${var.az}
+    networkIdsRefs:
+    - name: example
+    routerIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+
+---
+
+apiVersion: lb.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: PolicyV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lb/v1alpha1/rulev3
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+  namespace: upbound-system
+spec:
+  forProvider:
+    action: REDIRECT_TO_POOL
+    listenerIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: this
+    position: 37
+    redirectPoolIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: this
+
+---
+
+apiVersion: lb.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: PoolV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lb/v1alpha1/rulev3
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+  namespace: upbound-system
+spec:
+  forProvider:
+    lbAlgorithm: ROUND_ROBIN
+    loadbalancerIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: this
+    protocol: HTTP

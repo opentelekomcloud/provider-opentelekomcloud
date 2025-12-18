@@ -50,7 +50,7 @@ type SecgroupRuleV2InitParameters struct {
 	// The security group id the rule should belong
 	// to, the value needs to be an OpenTelekomCloud ID of a security group in the same
 	// tenant. Changing this creates a new security group rule.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.SecgroupV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/networking/v1alpha1.SecgroupV2
 	SecurityGroupID *string `json:"securityGroupId,omitempty" tf:"security_group_id,omitempty"`
 
 	// Reference to a SecgroupV2 in networking to populate securityGroupId.
@@ -160,7 +160,7 @@ type SecgroupRuleV2Parameters struct {
 	// The security group id the rule should belong
 	// to, the value needs to be an OpenTelekomCloud ID of a security group in the same
 	// tenant. Changing this creates a new security group rule.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.SecgroupV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/networking/v1alpha1.SecgroupV2
 	// +kubebuilder:validation:Optional
 	SecurityGroupID *string `json:"securityGroupId,omitempty" tf:"security_group_id,omitempty"`
 

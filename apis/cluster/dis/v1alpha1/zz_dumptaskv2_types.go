@@ -32,7 +32,7 @@ type DumpTaskV2InitParameters struct {
 	ObsProcessingSchema []ObsProcessingSchemaInitParameters `json:"obsProcessingSchema,omitempty" tf:"obs_processing_schema,omitempty"`
 
 	// Name of the stream.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/dis/v1alpha1.StreamV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/dis/v1alpha1.StreamV2
 	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractDisStreamName()
 	StreamName *string `json:"streamName,omitempty" tf:"stream_name,omitempty"`
 
@@ -111,7 +111,7 @@ type DumpTaskV2Parameters struct {
 	ObsProcessingSchema []ObsProcessingSchemaParameters `json:"obsProcessingSchema,omitempty" tf:"obs_processing_schema,omitempty"`
 
 	// Name of the stream.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/dis/v1alpha1.StreamV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/dis/v1alpha1.StreamV2
 	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractDisStreamName()
 	// +kubebuilder:validation:Optional
 	StreamName *string `json:"streamName,omitempty" tf:"stream_name,omitempty"`
@@ -148,7 +148,7 @@ type ObsDestinationDescriptorInitParameters struct {
 	FilePrefix *string `json:"filePrefix,omitempty" tf:"file_prefix,omitempty"`
 
 	// Name of the OBS bucket used to store data from the DIS stream.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/obs/v1alpha1.Bucket
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/obs/v1alpha1.Bucket
 	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractObsBucket()
 	ObsBucketPath *string `json:"obsBucketPath,omitempty" tf:"obs_bucket_path,omitempty"`
 
@@ -237,7 +237,7 @@ type ObsDestinationDescriptorParameters struct {
 	FilePrefix *string `json:"filePrefix,omitempty" tf:"file_prefix,omitempty"`
 
 	// Name of the OBS bucket used to store data from the DIS stream.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/obs/v1alpha1.Bucket
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/obs/v1alpha1.Bucket
 	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractObsBucket()
 	// +kubebuilder:validation:Optional
 	ObsBucketPath *string `json:"obsBucketPath,omitempty" tf:"obs_bucket_path,omitempty"`

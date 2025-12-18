@@ -28,11 +28,6 @@ func (mg *HostGroupV5) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetPublishConnectionDetailsTo of this HostGroupV5.
-func (mg *HostGroupV5) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
-	return mg.Spec.PublishConnectionDetailsTo
-}
-
 // GetWriteConnectionSecretToReference of this HostGroupV5.
 func (mg *HostGroupV5) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
@@ -56,11 +51,6 @@ func (mg *HostGroupV5) SetManagementPolicies(r xpv1.ManagementPolicies) {
 // SetProviderConfigReference of this HostGroupV5.
 func (mg *HostGroupV5) SetProviderConfigReference(r *xpv1.Reference) {
 	mg.Spec.ProviderConfigReference = r
-}
-
-// SetPublishConnectionDetailsTo of this HostGroupV5.
-func (mg *HostGroupV5) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
-	mg.Spec.PublishConnectionDetailsTo = r
 }
 
 // SetWriteConnectionSecretToReference of this HostGroupV5.
@@ -88,11 +78,6 @@ func (mg *HostProtectionV5) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetPublishConnectionDetailsTo of this HostProtectionV5.
-func (mg *HostProtectionV5) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
-	return mg.Spec.PublishConnectionDetailsTo
-}
-
 // GetWriteConnectionSecretToReference of this HostProtectionV5.
 func (mg *HostProtectionV5) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
@@ -116,11 +101,6 @@ func (mg *HostProtectionV5) SetManagementPolicies(r xpv1.ManagementPolicies) {
 // SetProviderConfigReference of this HostProtectionV5.
 func (mg *HostProtectionV5) SetProviderConfigReference(r *xpv1.Reference) {
 	mg.Spec.ProviderConfigReference = r
-}
-
-// SetPublishConnectionDetailsTo of this HostProtectionV5.
-func (mg *HostProtectionV5) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
-	mg.Spec.PublishConnectionDetailsTo = r
 }
 
 // SetWriteConnectionSecretToReference of this HostProtectionV5.

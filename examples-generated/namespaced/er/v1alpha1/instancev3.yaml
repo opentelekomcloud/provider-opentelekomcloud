@@ -1,0 +1,17 @@
+apiVersion: er.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: InstanceV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: er/v1alpha1/instancev3
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+  namespace: upbound-system
+spec:
+  forProvider:
+    asn: 64512
+    availabilityZones: ${var.availability_zones}
+    name: ${var.router_name}
+    tags:
+      foo: bar
+      key: value

@@ -28,11 +28,6 @@ func (mg *FileSystemV2) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetPublishConnectionDetailsTo of this FileSystemV2.
-func (mg *FileSystemV2) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
-	return mg.Spec.PublishConnectionDetailsTo
-}
-
 // GetWriteConnectionSecretToReference of this FileSystemV2.
 func (mg *FileSystemV2) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
@@ -56,11 +51,6 @@ func (mg *FileSystemV2) SetManagementPolicies(r xpv1.ManagementPolicies) {
 // SetProviderConfigReference of this FileSystemV2.
 func (mg *FileSystemV2) SetProviderConfigReference(r *xpv1.Reference) {
 	mg.Spec.ProviderConfigReference = r
-}
-
-// SetPublishConnectionDetailsTo of this FileSystemV2.
-func (mg *FileSystemV2) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
-	mg.Spec.PublishConnectionDetailsTo = r
 }
 
 // SetWriteConnectionSecretToReference of this FileSystemV2.
@@ -88,11 +78,6 @@ func (mg *ShareAccessRulesV2) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetPublishConnectionDetailsTo of this ShareAccessRulesV2.
-func (mg *ShareAccessRulesV2) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
-	return mg.Spec.PublishConnectionDetailsTo
-}
-
 // GetWriteConnectionSecretToReference of this ShareAccessRulesV2.
 func (mg *ShareAccessRulesV2) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
@@ -116,11 +101,6 @@ func (mg *ShareAccessRulesV2) SetManagementPolicies(r xpv1.ManagementPolicies) {
 // SetProviderConfigReference of this ShareAccessRulesV2.
 func (mg *ShareAccessRulesV2) SetProviderConfigReference(r *xpv1.Reference) {
 	mg.Spec.ProviderConfigReference = r
-}
-
-// SetPublishConnectionDetailsTo of this ShareAccessRulesV2.
-func (mg *ShareAccessRulesV2) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
-	mg.Spec.PublishConnectionDetailsTo = r
 }
 
 // SetWriteConnectionSecretToReference of this ShareAccessRulesV2.
@@ -148,11 +128,6 @@ func (mg *TurboShareV1) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetPublishConnectionDetailsTo of this TurboShareV1.
-func (mg *TurboShareV1) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
-	return mg.Spec.PublishConnectionDetailsTo
-}
-
 // GetWriteConnectionSecretToReference of this TurboShareV1.
 func (mg *TurboShareV1) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
@@ -176,11 +151,6 @@ func (mg *TurboShareV1) SetManagementPolicies(r xpv1.ManagementPolicies) {
 // SetProviderConfigReference of this TurboShareV1.
 func (mg *TurboShareV1) SetProviderConfigReference(r *xpv1.Reference) {
 	mg.Spec.ProviderConfigReference = r
-}
-
-// SetPublishConnectionDetailsTo of this TurboShareV1.
-func (mg *TurboShareV1) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
-	mg.Spec.PublishConnectionDetailsTo = r
 }
 
 // SetWriteConnectionSecretToReference of this TurboShareV1.

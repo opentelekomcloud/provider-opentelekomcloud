@@ -1,0 +1,30 @@
+apiVersion: lts.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: NotificationTemplateV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lts/v1alpha1/notificationtemplatev2
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+  namespace: upbound-system
+spec:
+  forProvider:
+    description: test
+    locale: en-us
+    name: my_template
+    source: LTS
+    templates:
+    - content: |
+        Account:${domain_name};
+        Alarm Rules:<a href="$event.annotations.alarm_rule_url">${event_name}</a>;
+        Alarm Status:$event.annotations.alarm_status;
+        Severity:<span style="color: red">${event_severity}</span>;
+        Occurred:${starts_at};
+        Type:Keywords;
+        Condition Expression:$event.annotations.condition_expression;
+        Current Value:$event.annotations.current_value;
+        Frequency:$event.annotations.frequency;
+        Log Group/Stream Name:$event.annotations.results[0].resource_id;
+        Query Time:$event.annotations.results[0].time;
+        Query URL:<a href="$event.annotations.results[0].url">details</a>;
+      subType: sms

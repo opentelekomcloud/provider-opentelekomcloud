@@ -9,7 +9,7 @@ package v1alpha1
 import (
 	"context"
 	reference "github.com/crossplane/crossplane-runtime/v2/pkg/reference"
-	v1alpha1 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/identity/v1alpha1"
+	v1alpha1 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/identity/v1alpha1"
 	common "github.com/opentelekomcloud/provider-opentelekomcloud/config/common"
 	errors "github.com/pkg/errors"
 	client "sigs.k8s.io/controller-runtime/pkg/client"
@@ -25,6 +25,7 @@ func (mg *DomainV2) ResolveReferences(ctx context.Context, c client.Reader) erro
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Organization),
 		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.ForProvider.OrganizationRef,
 		Selector:     mg.Spec.ForProvider.OrganizationSelector,
 		To: reference.To{
@@ -41,6 +42,7 @@ func (mg *DomainV2) ResolveReferences(ctx context.Context, c client.Reader) erro
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Repository),
 		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.ForProvider.RepositoryRef,
 		Selector:     mg.Spec.ForProvider.RepositorySelector,
 		To: reference.To{
@@ -57,6 +59,7 @@ func (mg *DomainV2) ResolveReferences(ctx context.Context, c client.Reader) erro
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Organization),
 		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.InitProvider.OrganizationRef,
 		Selector:     mg.Spec.InitProvider.OrganizationSelector,
 		To: reference.To{
@@ -73,6 +76,7 @@ func (mg *DomainV2) ResolveReferences(ctx context.Context, c client.Reader) erro
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Repository),
 		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.InitProvider.RepositoryRef,
 		Selector:     mg.Spec.InitProvider.RepositorySelector,
 		To: reference.To{
@@ -99,6 +103,7 @@ func (mg *OrganizationPermissionsV2) ResolveReferences(ctx context.Context, c cl
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Organization),
 		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.ForProvider.OrganizationRef,
 		Selector:     mg.Spec.ForProvider.OrganizationSelector,
 		To: reference.To{
@@ -115,6 +120,7 @@ func (mg *OrganizationPermissionsV2) ResolveReferences(ctx context.Context, c cl
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.UserID),
 		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.ForProvider.UserIDRef,
 		Selector:     mg.Spec.ForProvider.UserIDSelector,
 		To: reference.To{
@@ -131,6 +137,7 @@ func (mg *OrganizationPermissionsV2) ResolveReferences(ctx context.Context, c cl
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Username),
 		Extract:      common.ExtractUsername(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.ForProvider.UsernameRef,
 		Selector:     mg.Spec.ForProvider.UsernameSelector,
 		To: reference.To{
@@ -147,6 +154,7 @@ func (mg *OrganizationPermissionsV2) ResolveReferences(ctx context.Context, c cl
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Organization),
 		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.InitProvider.OrganizationRef,
 		Selector:     mg.Spec.InitProvider.OrganizationSelector,
 		To: reference.To{
@@ -163,6 +171,7 @@ func (mg *OrganizationPermissionsV2) ResolveReferences(ctx context.Context, c cl
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.UserID),
 		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.InitProvider.UserIDRef,
 		Selector:     mg.Spec.InitProvider.UserIDSelector,
 		To: reference.To{
@@ -179,6 +188,7 @@ func (mg *OrganizationPermissionsV2) ResolveReferences(ctx context.Context, c cl
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Username),
 		Extract:      common.ExtractUsername(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.InitProvider.UsernameRef,
 		Selector:     mg.Spec.InitProvider.UsernameSelector,
 		To: reference.To{
@@ -205,6 +215,7 @@ func (mg *RepositoryV2) ResolveReferences(ctx context.Context, c client.Reader) 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Organization),
 		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.ForProvider.OrganizationRef,
 		Selector:     mg.Spec.ForProvider.OrganizationSelector,
 		To: reference.To{
@@ -221,6 +232,7 @@ func (mg *RepositoryV2) ResolveReferences(ctx context.Context, c client.Reader) 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Organization),
 		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.InitProvider.OrganizationRef,
 		Selector:     mg.Spec.InitProvider.OrganizationSelector,
 		To: reference.To{

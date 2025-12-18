@@ -47,7 +47,7 @@ type ReadReplicaV3InitParameters struct {
 
 	// Specifies floating IP to be assigned to the instance.
 	// This should be a list with single element only.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.EIPV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.EIPV1
 	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractEipAddress()
 	// +crossplane:generate:reference:refFieldName=PublicIpsRefs
 	// +crossplane:generate:reference:selectorFieldName=PublicIpsSelector
@@ -67,7 +67,7 @@ type ReadReplicaV3InitParameters struct {
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
 	// Specifies ID of the replicated instance. Changing this parameter will create a new resource.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/rds/v1alpha1.InstanceV3
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/rds/v1alpha1.InstanceV3
 	ReplicaOfID *string `json:"replicaOfId,omitempty" tf:"replica_of_id,omitempty"`
 
 	// Reference to a InstanceV3 in rds to populate replicaOfId.
@@ -151,7 +151,7 @@ type ReadReplicaV3Parameters struct {
 
 	// Specifies floating IP to be assigned to the instance.
 	// This should be a list with single element only.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.EIPV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.EIPV1
 	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractEipAddress()
 	// +crossplane:generate:reference:refFieldName=PublicIpsRefs
 	// +crossplane:generate:reference:selectorFieldName=PublicIpsSelector
@@ -173,7 +173,7 @@ type ReadReplicaV3Parameters struct {
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
 	// Specifies ID of the replicated instance. Changing this parameter will create a new resource.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/rds/v1alpha1.InstanceV3
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/rds/v1alpha1.InstanceV3
 	// +kubebuilder:validation:Optional
 	ReplicaOfID *string `json:"replicaOfId,omitempty" tf:"replica_of_id,omitempty"`
 

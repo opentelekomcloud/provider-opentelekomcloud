@@ -28,11 +28,6 @@ func (mg *AdvancedQueryV1) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetPublishConnectionDetailsTo of this AdvancedQueryV1.
-func (mg *AdvancedQueryV1) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
-	return mg.Spec.PublishConnectionDetailsTo
-}
-
 // GetWriteConnectionSecretToReference of this AdvancedQueryV1.
 func (mg *AdvancedQueryV1) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
@@ -56,11 +51,6 @@ func (mg *AdvancedQueryV1) SetManagementPolicies(r xpv1.ManagementPolicies) {
 // SetProviderConfigReference of this AdvancedQueryV1.
 func (mg *AdvancedQueryV1) SetProviderConfigReference(r *xpv1.Reference) {
 	mg.Spec.ProviderConfigReference = r
-}
-
-// SetPublishConnectionDetailsTo of this AdvancedQueryV1.
-func (mg *AdvancedQueryV1) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
-	mg.Spec.PublishConnectionDetailsTo = r
 }
 
 // SetWriteConnectionSecretToReference of this AdvancedQueryV1.
@@ -88,11 +78,6 @@ func (mg *PolicyAssignmentEvaluateV1) GetProviderConfigReference() *xpv1.Referen
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetPublishConnectionDetailsTo of this PolicyAssignmentEvaluateV1.
-func (mg *PolicyAssignmentEvaluateV1) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
-	return mg.Spec.PublishConnectionDetailsTo
-}
-
 // GetWriteConnectionSecretToReference of this PolicyAssignmentEvaluateV1.
 func (mg *PolicyAssignmentEvaluateV1) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
@@ -116,11 +101,6 @@ func (mg *PolicyAssignmentEvaluateV1) SetManagementPolicies(r xpv1.ManagementPol
 // SetProviderConfigReference of this PolicyAssignmentEvaluateV1.
 func (mg *PolicyAssignmentEvaluateV1) SetProviderConfigReference(r *xpv1.Reference) {
 	mg.Spec.ProviderConfigReference = r
-}
-
-// SetPublishConnectionDetailsTo of this PolicyAssignmentEvaluateV1.
-func (mg *PolicyAssignmentEvaluateV1) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
-	mg.Spec.PublishConnectionDetailsTo = r
 }
 
 // SetWriteConnectionSecretToReference of this PolicyAssignmentEvaluateV1.
@@ -148,11 +128,6 @@ func (mg *PolicyAssignmentV1) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetPublishConnectionDetailsTo of this PolicyAssignmentV1.
-func (mg *PolicyAssignmentV1) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
-	return mg.Spec.PublishConnectionDetailsTo
-}
-
 // GetWriteConnectionSecretToReference of this PolicyAssignmentV1.
 func (mg *PolicyAssignmentV1) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
@@ -176,11 +151,6 @@ func (mg *PolicyAssignmentV1) SetManagementPolicies(r xpv1.ManagementPolicies) {
 // SetProviderConfigReference of this PolicyAssignmentV1.
 func (mg *PolicyAssignmentV1) SetProviderConfigReference(r *xpv1.Reference) {
 	mg.Spec.ProviderConfigReference = r
-}
-
-// SetPublishConnectionDetailsTo of this PolicyAssignmentV1.
-func (mg *PolicyAssignmentV1) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
-	mg.Spec.PublishConnectionDetailsTo = r
 }
 
 // SetWriteConnectionSecretToReference of this PolicyAssignmentV1.
@@ -208,11 +178,6 @@ func (mg *ResourceRecorderV1) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetPublishConnectionDetailsTo of this ResourceRecorderV1.
-func (mg *ResourceRecorderV1) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
-	return mg.Spec.PublishConnectionDetailsTo
-}
-
 // GetWriteConnectionSecretToReference of this ResourceRecorderV1.
 func (mg *ResourceRecorderV1) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
@@ -236,11 +201,6 @@ func (mg *ResourceRecorderV1) SetManagementPolicies(r xpv1.ManagementPolicies) {
 // SetProviderConfigReference of this ResourceRecorderV1.
 func (mg *ResourceRecorderV1) SetProviderConfigReference(r *xpv1.Reference) {
 	mg.Spec.ProviderConfigReference = r
-}
-
-// SetPublishConnectionDetailsTo of this ResourceRecorderV1.
-func (mg *ResourceRecorderV1) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
-	mg.Spec.PublishConnectionDetailsTo = r
 }
 
 // SetWriteConnectionSecretToReference of this ResourceRecorderV1.

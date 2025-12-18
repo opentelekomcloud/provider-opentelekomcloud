@@ -9,8 +9,8 @@ package v1alpha1
 import (
 	"context"
 	reference "github.com/crossplane/crossplane-runtime/v2/pkg/reference"
-	v1alpha1 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/compute/v1alpha1"
-	v1alpha11 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1"
+	v1alpha1 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/compute/v1alpha1"
+	v1alpha11 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1"
 	common "github.com/opentelekomcloud/provider-opentelekomcloud/config/common"
 	errors "github.com/pkg/errors"
 	client "sigs.k8s.io/controller-runtime/pkg/client"
@@ -26,6 +26,7 @@ func (mg *InstanceV1) ResolveReferences(ctx context.Context, c client.Reader) er
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.SecurityGroupID),
 		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.ForProvider.SecurityGroupIDRef,
 		Selector:     mg.Spec.ForProvider.SecurityGroupIDSelector,
 		To: reference.To{
@@ -42,6 +43,7 @@ func (mg *InstanceV1) ResolveReferences(ctx context.Context, c client.Reader) er
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.SubnetID),
 		Extract:      common.ExtractNetworkID(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.ForProvider.SubnetIDRef,
 		Selector:     mg.Spec.ForProvider.SubnetIDSelector,
 		To: reference.To{
@@ -58,6 +60,7 @@ func (mg *InstanceV1) ResolveReferences(ctx context.Context, c client.Reader) er
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.VPCID),
 		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.ForProvider.VPCIDRef,
 		Selector:     mg.Spec.ForProvider.VPCIDSelector,
 		To: reference.To{
@@ -74,6 +77,7 @@ func (mg *InstanceV1) ResolveReferences(ctx context.Context, c client.Reader) er
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.SecurityGroupID),
 		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.InitProvider.SecurityGroupIDRef,
 		Selector:     mg.Spec.InitProvider.SecurityGroupIDSelector,
 		To: reference.To{
@@ -90,6 +94,7 @@ func (mg *InstanceV1) ResolveReferences(ctx context.Context, c client.Reader) er
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.SubnetID),
 		Extract:      common.ExtractNetworkID(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.InitProvider.SubnetIDRef,
 		Selector:     mg.Spec.InitProvider.SubnetIDSelector,
 		To: reference.To{
@@ -106,6 +111,7 @@ func (mg *InstanceV1) ResolveReferences(ctx context.Context, c client.Reader) er
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.VPCID),
 		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.InitProvider.VPCIDRef,
 		Selector:     mg.Spec.InitProvider.VPCIDSelector,
 		To: reference.To{

@@ -23,7 +23,7 @@ type RouterInterfaceV2InitParameters struct {
 
 	// ID of the router this interface belongs to. Changing
 	// this creates a new router interface.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.RouterV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/networking/v1alpha1.RouterV2
 	RouterID *string `json:"routerId,omitempty" tf:"router_id,omitempty"`
 
 	// Reference to a RouterV2 in networking to populate routerId.
@@ -36,7 +36,7 @@ type RouterInterfaceV2InitParameters struct {
 
 	// ID of the subnet this interface connects to. Changing
 	// this creates a new router interface.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.SubnetV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/networking/v1alpha1.SubnetV2
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 
 	// Reference to a SubnetV2 in networking to populate subnetId.
@@ -78,7 +78,7 @@ type RouterInterfaceV2Parameters struct {
 
 	// ID of the router this interface belongs to. Changing
 	// this creates a new router interface.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.RouterV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/networking/v1alpha1.RouterV2
 	// +kubebuilder:validation:Optional
 	RouterID *string `json:"routerId,omitempty" tf:"router_id,omitempty"`
 
@@ -92,7 +92,7 @@ type RouterInterfaceV2Parameters struct {
 
 	// ID of the subnet this interface connects to. Changing
 	// this creates a new router interface.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.SubnetV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/networking/v1alpha1.SubnetV2
 	// +kubebuilder:validation:Optional
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 

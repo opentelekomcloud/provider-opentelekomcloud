@@ -1,0 +1,69 @@
+apiVersion: drs.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: TaskV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: drs/v1alpha1/taskv3
+  labels:
+    testing.upbound.io/example-name: migration_down
+  name: migration-down
+  namespace: upbound-system
+spec:
+  forProvider:
+    action: start
+    description: mysql-migration-up
+    destinationDb:
+    - engineType: mysql
+      instanceId: ${opentelekomcloud_rds_instance_v3.destination.id}
+      ip: ${opentelekomcloud_rds_instance_v3.destination.public_ips[0]}
+      passwordSecretRef:
+        key: example-key
+        name: example-secret
+      port: 3306
+      subnetId: ${opentelekomcloud_rds_instance_v3.destination.subnet_id}
+      user: root
+    direction: up
+    engineType: mysql
+    forceDestroy: true
+    migrationType: FULL_INCR_TRANS
+    name: mysql-migration-up
+    netType: eip
+    sourceDb:
+    - engineType: mysql
+      ip: ${opentelekomcloud_rds_instance_v3.source.public_ips[0]}
+      passwordSecretRef:
+        key: example-key
+        name: example-secret
+      port: 3306
+      user: root
+    startTime: "1640995200000"
+    tags:
+      key: mysql-migration-up
+    type: migration
+
+---
+
+apiVersion: rds.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: InstanceV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: drs/v1alpha1/taskv3
+  labels:
+    testing.upbound.io/example-name: destination
+  name: destination
+  namespace: upbound-system
+spec:
+  forProvider: {}
+
+---
+
+apiVersion: rds.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: InstanceV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: drs/v1alpha1/taskv3
+  labels:
+    testing.upbound.io/example-name: source
+  name: source
+  namespace: upbound-system
+spec:
+  forProvider: {}

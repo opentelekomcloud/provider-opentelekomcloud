@@ -20,7 +20,7 @@ type IPListInitParameters struct {
 
 	// Specifies the IP addresses in the IP address group.
 	// IPv6 is unsupported. The value cannot be an IPv6 address.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.EIPV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.EIPV1
 	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractEipAddress()
 	IP *string `json:"ip,omitempty" tf:"ip,omitempty"`
 
@@ -51,7 +51,7 @@ type IPListParameters struct {
 
 	// Specifies the IP addresses in the IP address group.
 	// IPv6 is unsupported. The value cannot be an IPv6 address.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.EIPV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.EIPV1
 	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractEipAddress()
 	// +kubebuilder:validation:Optional
 	IP *string `json:"ip,omitempty" tf:"ip,omitempty"`
@@ -78,7 +78,7 @@ type IpgroupV3InitParameters struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Specifies the project ID of the IP address group.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/identity/v1alpha1.ProjectV3
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/identity/v1alpha1.ProjectV3
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
 
 	// Reference to a ProjectV3 in identity to populate projectId.
@@ -134,7 +134,7 @@ type IpgroupV3Parameters struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Specifies the project ID of the IP address group.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/identity/v1alpha1.ProjectV3
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/identity/v1alpha1.ProjectV3
 	// +kubebuilder:validation:Optional
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
 

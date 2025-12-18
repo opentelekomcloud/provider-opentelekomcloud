@@ -1,0 +1,860 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.18.0
+  name: smartconnecttaskv2s.dms.opentelekomcloud.m.crossplane.io
+spec:
+  group: dms.opentelekomcloud.m.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - opentelekomcloud
+    kind: SmartConnectTaskV2
+    listKind: SmartConnectTaskV2List
+    plural: smartconnecttaskv2s
+    singular: smartconnecttaskv2
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: SmartConnectTaskV2 is the Schema for the SmartConnectTaskV2s
+          API. Manages an up-to-date DMS Smart Connect Task v2 resource within OpenTelekomCloud.
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: SmartConnectTaskV2Spec defines the desired state of SmartConnectTaskV2
+            properties:
+              forProvider:
+                properties:
+                  destinationTask:
+                    description: |-
+                      Specifies the destination configuration of a smart connect task.
+                      The destination_task structure is documented below.
+                      Changing this parameter will create a new resource.
+                    items:
+                      properties:
+                        accessKey:
+                          description: |-
+                            Specifies the access key used to access the OBS bucket.
+                            It's required when destination_type is OBS_SINK.
+                            Changing this parameter will create a new resource.
+                          type: string
+                        consumerStrategy:
+                          description: |-
+                            Specifies the consumer strategy of the smart connect task.
+                            Value options:
+                          type: string
+                        deliverTimeInterval:
+                          description: |-
+                            Specifies the deliver time interval of the smart connect task.
+                            It's required when destination_type is OBS_SINK.
+                            The value should be between 30 and 900. Changing this parameter will create a new resource.
+                          type: number
+                        destinationFileType:
+                          description: |-
+                            Specifies the destination file type of the smart connect task.
+                            Only TEXT is supported. Changing this parameter will create a new resource.
+                          type: string
+                        obsBucketName:
+                          description: |-
+                            Specifies the obs bucket name of the smart connect task.
+                            It's required when destination_type is OBS_SINK.
+                            Changing this parameter will create a new resource.
+                          type: string
+                        obsPath:
+                          description: |-
+                            Specifies the obs path of the smart connect task.
+                            Obs path is separated by a slash. Changing this parameter will create a new resource.
+                          type: string
+                        partitionFormat:
+                          description: |-
+                            Specifies the time directory format of the smart connect task.
+                            Value options: yyyy, yyyy/MM, yyyy/MM/dd, yyyy/MM/dd/HH, yyyy/MM/dd/HH/mm.
+                            It's required when destination_type is OBS_SINK.
+                            Changing this parameter will create a new resource.
+                          type: string
+                        recordDelimiter:
+                          description: |-
+                            Specifies the record delimiter of the smart connect task.
+                            Value options: ,, ;, |, \n.
+                            Changing this parameter will create a new resource.
+                          type: string
+                        secretKeySecretRef:
+                          description: |-
+                            Specifies the secret access key used to access the OBS bucket.
+                            It's required when destination_type is OBS_SINK.
+                            Changing this parameter will create a new resource.
+                          properties:
+                            key:
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          type: object
+                        storeKeys:
+                          description: |-
+                            Specifies whether to dump keys.
+                            Changing this parameter will create a new resource.
+                          type: boolean
+                      type: object
+                    type: array
+                  destinationType:
+                    description: |-
+                      Specifies the destination type of the smart connect task.
+                      Valid values are OBS_SINK and NONE. Changing this parameter will create a new resource.
+                    type: string
+                  instanceId:
+                    description: |-
+                      Specifies the kafka instance ID.
+                      Changing this parameter will create a new resource.
+                    type: string
+                  sourceTask:
+                    description: |-
+                      Specifies the source configuration of a smart connect task.
+                      The source_task structure is documented below.
+                      Changing this parameter will create a new resource.
+                    items:
+                      properties:
+                        compressionType:
+                          description: |-
+                            Specifies the compression algorithm to use for copying messages.
+                            Valid values are none, gzip, snappy, lz4 and zstd.
+                            Changing this parameter will create a new resource.
+                          type: string
+                        consumerStrategy:
+                          description: 'Specifies the start offset. Value options
+                            are:'
+                          type: string
+                        currentInstanceAlias:
+                          description: |-
+                            Specifies the current Kafka instance alias.
+                            Changing this parameter will create a new resource.
+                          type: string
+                        direction:
+                          description: 'Specifies the sync direction. Valid values
+                            are:'
+                          type: string
+                        passwordSecretRef:
+                          description: |-
+                            Specifies the peer Kafka user password.
+                            It's required when security_protocol is SASL_SSL. Changing this parameter will create a new resource.
+                          properties:
+                            key:
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          type: object
+                        peerInstanceAddress:
+                          description: |-
+                            Specifies the peer Kafka instance address list.
+                            Changing this parameter will create a new resource.
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
+                        peerInstanceAlias:
+                          description: |-
+                            Specifies the peer Kafka instance alias.
+                            Changing this parameter will create a new resource.
+                          type: string
+                        peerInstanceId:
+                          description: |-
+                            Specifies the peer Kafka instance ID.
+                            Changing this parameter will create a new resource.
+                          type: string
+                        provenanceHeaderEnabled:
+                          description: |-
+                            Specifies whether the message header contains the message source.
+                            Changing this parameter will create a new resource.
+                          type: boolean
+                        renameTopicEnabled:
+                          description: |-
+                            Specifies whether to rename the topic. If true, will add the
+                            alias of the source Kafka instance before the target topic name to form a new name of the target topic.
+                            Changing this parameter will create a new resource.
+                          type: boolean
+                        replicationFactor:
+                          description: |-
+                            Specifies the number of topic replicas. The value of this parameter
+                            cannot exceed the number of brokers in the peer instance. Changing this parameter will create a new resource.
+                          type: number
+                        saslMechanism:
+                          description: |-
+                            Specifies the peer Kafka authentication mode.
+                            Changing this parameter will create a new resource.
+                          type: string
+                        securityProtocol:
+                          description: 'Specifies the peer Kafka authentication. Valid
+                            values are:'
+                          type: string
+                        syncConsumerOffsetsEnabled:
+                          description: |-
+                            Specifies whether to sync the consumption progress.
+                            Changing this parameter will create a new resource.
+                          type: boolean
+                        taskNum:
+                          description: |-
+                            Specifies the number of data replication tasks.
+                            If the direction is set to two-way, the actual number of tasks will be twice the number of tasks you configure here.
+                            Changing this parameter will create a new resource.
+                          type: number
+                        topicsMapping:
+                          description: |-
+                            Specifies the topic mapping string list, which is used to customize
+                            the target topic name, e.g., topic-sc-1:topic-sc-2. Changing this parameter will create a new resource.
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
+                        userName:
+                          description: |-
+                            Specifies the peer Kafka user name.
+                            It's required when security_protocol is SASL_SSL. Changing this parameter will create a new resource.
+                          type: string
+                      type: object
+                    type: array
+                  sourceType:
+                    description: |-
+                      Specifies the source type of the smart connect task. Valid values are
+                      KAFKA_REPLICATOR_SOURCE and NONE. Changing this parameter will create a new resource.
+                    type: string
+                  startLater:
+                    description: |-
+                      Specifies whether to start a task later.
+                      Changing this parameter will create a new resource.
+                    type: boolean
+                  taskName:
+                    description: |-
+                      Specifies the smart connect task name.
+                      Changing this parameter will create a new resource.
+                    type: string
+                  topics:
+                    description: |-
+                      Specifies the topic names list of the smart connect task.
+                      Changing this parameter will create a new resource.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  topicsRegex:
+                    description: |-
+                      Specifies the regular expression of topic name for the smart connect task.
+                      Changing this parameter will create a new resource.
+                    type: string
+                type: object
+              initProvider:
+                description: |-
+                  THIS IS A BETA FIELD. It will be honored
+                  unless the Management Policies feature flag is disabled.
+                  InitProvider holds the same fields as ForProvider, with the exception
+                  of Identifier and other resource reference fields. The fields that are
+                  in InitProvider are merged into ForProvider when the resource is created.
+                  The same fields are also added to the terraform ignore_changes hook, to
+                  avoid updating them after creation. This is useful for fields that are
+                  required on creation, but we do not desire to update them after creation,
+                  for example because of an external controller is managing them, like an
+                  autoscaler.
+                properties:
+                  destinationTask:
+                    description: |-
+                      Specifies the destination configuration of a smart connect task.
+                      The destination_task structure is documented below.
+                      Changing this parameter will create a new resource.
+                    items:
+                      properties:
+                        accessKey:
+                          description: |-
+                            Specifies the access key used to access the OBS bucket.
+                            It's required when destination_type is OBS_SINK.
+                            Changing this parameter will create a new resource.
+                          type: string
+                        consumerStrategy:
+                          description: |-
+                            Specifies the consumer strategy of the smart connect task.
+                            Value options:
+                          type: string
+                        deliverTimeInterval:
+                          description: |-
+                            Specifies the deliver time interval of the smart connect task.
+                            It's required when destination_type is OBS_SINK.
+                            The value should be between 30 and 900. Changing this parameter will create a new resource.
+                          type: number
+                        destinationFileType:
+                          description: |-
+                            Specifies the destination file type of the smart connect task.
+                            Only TEXT is supported. Changing this parameter will create a new resource.
+                          type: string
+                        obsBucketName:
+                          description: |-
+                            Specifies the obs bucket name of the smart connect task.
+                            It's required when destination_type is OBS_SINK.
+                            Changing this parameter will create a new resource.
+                          type: string
+                        obsPath:
+                          description: |-
+                            Specifies the obs path of the smart connect task.
+                            Obs path is separated by a slash. Changing this parameter will create a new resource.
+                          type: string
+                        partitionFormat:
+                          description: |-
+                            Specifies the time directory format of the smart connect task.
+                            Value options: yyyy, yyyy/MM, yyyy/MM/dd, yyyy/MM/dd/HH, yyyy/MM/dd/HH/mm.
+                            It's required when destination_type is OBS_SINK.
+                            Changing this parameter will create a new resource.
+                          type: string
+                        recordDelimiter:
+                          description: |-
+                            Specifies the record delimiter of the smart connect task.
+                            Value options: ,, ;, |, \n.
+                            Changing this parameter will create a new resource.
+                          type: string
+                        secretKeySecretRef:
+                          description: |-
+                            Specifies the secret access key used to access the OBS bucket.
+                            It's required when destination_type is OBS_SINK.
+                            Changing this parameter will create a new resource.
+                          properties:
+                            key:
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          type: object
+                        storeKeys:
+                          description: |-
+                            Specifies whether to dump keys.
+                            Changing this parameter will create a new resource.
+                          type: boolean
+                      type: object
+                    type: array
+                  destinationType:
+                    description: |-
+                      Specifies the destination type of the smart connect task.
+                      Valid values are OBS_SINK and NONE. Changing this parameter will create a new resource.
+                    type: string
+                  instanceId:
+                    description: |-
+                      Specifies the kafka instance ID.
+                      Changing this parameter will create a new resource.
+                    type: string
+                  sourceTask:
+                    description: |-
+                      Specifies the source configuration of a smart connect task.
+                      The source_task structure is documented below.
+                      Changing this parameter will create a new resource.
+                    items:
+                      properties:
+                        compressionType:
+                          description: |-
+                            Specifies the compression algorithm to use for copying messages.
+                            Valid values are none, gzip, snappy, lz4 and zstd.
+                            Changing this parameter will create a new resource.
+                          type: string
+                        consumerStrategy:
+                          description: 'Specifies the start offset. Value options
+                            are:'
+                          type: string
+                        currentInstanceAlias:
+                          description: |-
+                            Specifies the current Kafka instance alias.
+                            Changing this parameter will create a new resource.
+                          type: string
+                        direction:
+                          description: 'Specifies the sync direction. Valid values
+                            are:'
+                          type: string
+                        passwordSecretRef:
+                          description: |-
+                            Specifies the peer Kafka user password.
+                            It's required when security_protocol is SASL_SSL. Changing this parameter will create a new resource.
+                          properties:
+                            key:
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          type: object
+                        peerInstanceAddress:
+                          description: |-
+                            Specifies the peer Kafka instance address list.
+                            Changing this parameter will create a new resource.
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
+                        peerInstanceAlias:
+                          description: |-
+                            Specifies the peer Kafka instance alias.
+                            Changing this parameter will create a new resource.
+                          type: string
+                        peerInstanceId:
+                          description: |-
+                            Specifies the peer Kafka instance ID.
+                            Changing this parameter will create a new resource.
+                          type: string
+                        provenanceHeaderEnabled:
+                          description: |-
+                            Specifies whether the message header contains the message source.
+                            Changing this parameter will create a new resource.
+                          type: boolean
+                        renameTopicEnabled:
+                          description: |-
+                            Specifies whether to rename the topic. If true, will add the
+                            alias of the source Kafka instance before the target topic name to form a new name of the target topic.
+                            Changing this parameter will create a new resource.
+                          type: boolean
+                        replicationFactor:
+                          description: |-
+                            Specifies the number of topic replicas. The value of this parameter
+                            cannot exceed the number of brokers in the peer instance. Changing this parameter will create a new resource.
+                          type: number
+                        saslMechanism:
+                          description: |-
+                            Specifies the peer Kafka authentication mode.
+                            Changing this parameter will create a new resource.
+                          type: string
+                        securityProtocol:
+                          description: 'Specifies the peer Kafka authentication. Valid
+                            values are:'
+                          type: string
+                        syncConsumerOffsetsEnabled:
+                          description: |-
+                            Specifies whether to sync the consumption progress.
+                            Changing this parameter will create a new resource.
+                          type: boolean
+                        taskNum:
+                          description: |-
+                            Specifies the number of data replication tasks.
+                            If the direction is set to two-way, the actual number of tasks will be twice the number of tasks you configure here.
+                            Changing this parameter will create a new resource.
+                          type: number
+                        topicsMapping:
+                          description: |-
+                            Specifies the topic mapping string list, which is used to customize
+                            the target topic name, e.g., topic-sc-1:topic-sc-2. Changing this parameter will create a new resource.
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
+                        userName:
+                          description: |-
+                            Specifies the peer Kafka user name.
+                            It's required when security_protocol is SASL_SSL. Changing this parameter will create a new resource.
+                          type: string
+                      type: object
+                    type: array
+                  sourceType:
+                    description: |-
+                      Specifies the source type of the smart connect task. Valid values are
+                      KAFKA_REPLICATOR_SOURCE and NONE. Changing this parameter will create a new resource.
+                    type: string
+                  startLater:
+                    description: |-
+                      Specifies whether to start a task later.
+                      Changing this parameter will create a new resource.
+                    type: boolean
+                  taskName:
+                    description: |-
+                      Specifies the smart connect task name.
+                      Changing this parameter will create a new resource.
+                    type: string
+                  topics:
+                    description: |-
+                      Specifies the topic names list of the smart connect task.
+                      Changing this parameter will create a new resource.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  topicsRegex:
+                    description: |-
+                      Specifies the regular expression of topic name for the smart connect task.
+                      Changing this parameter will create a new resource.
+                    type: string
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: |-
+                  THIS IS A BETA FIELD. It is on by default but can be opted out
+                  through a Crossplane feature flag.
+                  ManagementPolicies specify the array of actions Crossplane is allowed to
+                  take on the managed and external resources.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md
+                items:
+                  description: |-
+                    A ManagementAction represents an action that the Crossplane controllers
+                    can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
+              providerConfigRef:
+                default:
+                  kind: ClusterProviderConfig
+                  name: default
+                description: |-
+                  ProviderConfigReference specifies how the provider that will be used to
+                  create, observe, update, and delete this managed resource should be
+                  configured.
+                properties:
+                  kind:
+                    description: Kind of the referenced object.
+                    type: string
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                required:
+                - kind
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: |-
+                  WriteConnectionSecretToReference specifies the namespace and name of a
+                  Secret to which any connection details for this managed resource should
+                  be written. Connection details frequently include the endpoint, username,
+                  and password required to connect to the managed resource.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                required:
+                - name
+                type: object
+            required:
+            - forProvider
+            type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.instanceId is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.instanceId)
+                || (has(self.initProvider) && has(self.initProvider.instanceId))'
+            - message: spec.forProvider.taskName is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.taskName)
+                || (has(self.initProvider) && has(self.initProvider.taskName))'
+          status:
+            description: SmartConnectTaskV2Status defines the observed state of SmartConnectTaskV2.
+            properties:
+              atProvider:
+                properties:
+                  createdAt:
+                    description: Indicates the creation time of the smart connect
+                      task.
+                    type: string
+                  destinationTask:
+                    description: |-
+                      Specifies the destination configuration of a smart connect task.
+                      The destination_task structure is documented below.
+                      Changing this parameter will create a new resource.
+                    items:
+                      properties:
+                        accessKey:
+                          description: |-
+                            Specifies the access key used to access the OBS bucket.
+                            It's required when destination_type is OBS_SINK.
+                            Changing this parameter will create a new resource.
+                          type: string
+                        consumerStrategy:
+                          description: |-
+                            Specifies the consumer strategy of the smart connect task.
+                            Value options:
+                          type: string
+                        deliverTimeInterval:
+                          description: |-
+                            Specifies the deliver time interval of the smart connect task.
+                            It's required when destination_type is OBS_SINK.
+                            The value should be between 30 and 900. Changing this parameter will create a new resource.
+                          type: number
+                        destinationFileType:
+                          description: |-
+                            Specifies the destination file type of the smart connect task.
+                            Only TEXT is supported. Changing this parameter will create a new resource.
+                          type: string
+                        obsBucketName:
+                          description: |-
+                            Specifies the obs bucket name of the smart connect task.
+                            It's required when destination_type is OBS_SINK.
+                            Changing this parameter will create a new resource.
+                          type: string
+                        obsPath:
+                          description: |-
+                            Specifies the obs path of the smart connect task.
+                            Obs path is separated by a slash. Changing this parameter will create a new resource.
+                          type: string
+                        partitionFormat:
+                          description: |-
+                            Specifies the time directory format of the smart connect task.
+                            Value options: yyyy, yyyy/MM, yyyy/MM/dd, yyyy/MM/dd/HH, yyyy/MM/dd/HH/mm.
+                            It's required when destination_type is OBS_SINK.
+                            Changing this parameter will create a new resource.
+                          type: string
+                        recordDelimiter:
+                          description: |-
+                            Specifies the record delimiter of the smart connect task.
+                            Value options: ,, ;, |, \n.
+                            Changing this parameter will create a new resource.
+                          type: string
+                        storeKeys:
+                          description: |-
+                            Specifies whether to dump keys.
+                            Changing this parameter will create a new resource.
+                          type: boolean
+                      type: object
+                    type: array
+                  destinationType:
+                    description: |-
+                      Specifies the destination type of the smart connect task.
+                      Valid values are OBS_SINK and NONE. Changing this parameter will create a new resource.
+                    type: string
+                  id:
+                    description: The resource ID.
+                    type: string
+                  instanceId:
+                    description: |-
+                      Specifies the kafka instance ID.
+                      Changing this parameter will create a new resource.
+                    type: string
+                  region:
+                    description: The region in which the resource is created.
+                    type: string
+                  sourceTask:
+                    description: |-
+                      Specifies the source configuration of a smart connect task.
+                      The source_task structure is documented below.
+                      Changing this parameter will create a new resource.
+                    items:
+                      properties:
+                        compressionType:
+                          description: |-
+                            Specifies the compression algorithm to use for copying messages.
+                            Valid values are none, gzip, snappy, lz4 and zstd.
+                            Changing this parameter will create a new resource.
+                          type: string
+                        consumerStrategy:
+                          description: 'Specifies the start offset. Value options
+                            are:'
+                          type: string
+                        currentInstanceAlias:
+                          description: |-
+                            Specifies the current Kafka instance alias.
+                            Changing this parameter will create a new resource.
+                          type: string
+                        direction:
+                          description: 'Specifies the sync direction. Valid values
+                            are:'
+                          type: string
+                        peerInstanceAddress:
+                          description: |-
+                            Specifies the peer Kafka instance address list.
+                            Changing this parameter will create a new resource.
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
+                        peerInstanceAlias:
+                          description: |-
+                            Specifies the peer Kafka instance alias.
+                            Changing this parameter will create a new resource.
+                          type: string
+                        peerInstanceId:
+                          description: |-
+                            Specifies the peer Kafka instance ID.
+                            Changing this parameter will create a new resource.
+                          type: string
+                        provenanceHeaderEnabled:
+                          description: |-
+                            Specifies whether the message header contains the message source.
+                            Changing this parameter will create a new resource.
+                          type: boolean
+                        renameTopicEnabled:
+                          description: |-
+                            Specifies whether to rename the topic. If true, will add the
+                            alias of the source Kafka instance before the target topic name to form a new name of the target topic.
+                            Changing this parameter will create a new resource.
+                          type: boolean
+                        replicationFactor:
+                          description: |-
+                            Specifies the number of topic replicas. The value of this parameter
+                            cannot exceed the number of brokers in the peer instance. Changing this parameter will create a new resource.
+                          type: number
+                        saslMechanism:
+                          description: |-
+                            Specifies the peer Kafka authentication mode.
+                            Changing this parameter will create a new resource.
+                          type: string
+                        securityProtocol:
+                          description: 'Specifies the peer Kafka authentication. Valid
+                            values are:'
+                          type: string
+                        syncConsumerOffsetsEnabled:
+                          description: |-
+                            Specifies whether to sync the consumption progress.
+                            Changing this parameter will create a new resource.
+                          type: boolean
+                        taskNum:
+                          description: |-
+                            Specifies the number of data replication tasks.
+                            If the direction is set to two-way, the actual number of tasks will be twice the number of tasks you configure here.
+                            Changing this parameter will create a new resource.
+                          type: number
+                        topicsMapping:
+                          description: |-
+                            Specifies the topic mapping string list, which is used to customize
+                            the target topic name, e.g., topic-sc-1:topic-sc-2. Changing this parameter will create a new resource.
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
+                        userName:
+                          description: |-
+                            Specifies the peer Kafka user name.
+                            It's required when security_protocol is SASL_SSL. Changing this parameter will create a new resource.
+                          type: string
+                      type: object
+                    type: array
+                  sourceType:
+                    description: |-
+                      Specifies the source type of the smart connect task. Valid values are
+                      KAFKA_REPLICATOR_SOURCE and NONE. Changing this parameter will create a new resource.
+                    type: string
+                  startLater:
+                    description: |-
+                      Specifies whether to start a task later.
+                      Changing this parameter will create a new resource.
+                    type: boolean
+                  status:
+                    description: Indicates the status of the smart connect task.
+                    type: string
+                  taskName:
+                    description: |-
+                      Specifies the smart connect task name.
+                      Changing this parameter will create a new resource.
+                    type: string
+                  topics:
+                    description: |-
+                      Specifies the topic names list of the smart connect task.
+                      Changing this parameter will create a new resource.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  topicsRegex:
+                    description: |-
+                      Specifies the regular expression of topic name for the smart connect task.
+                      Changing this parameter will create a new resource.
+                    type: string
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        LastTransitionTime is the last time this condition transitioned from one
+                        status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        A Message containing details about this condition's last transition from
+                        one status to another, if any.
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        ObservedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      type: integer
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: |-
+                        Type of this condition. At most one of each condition type may apply to
+                        a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+              observedGeneration:
+                description: |-
+                  ObservedGeneration is the latest metadata.generation
+                  which resulted in either a ready state, or stalled due to error
+                  it can not recover from without human intervention.
+                format: int64
+                type: integer
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

@@ -19,7 +19,7 @@ type FloatingipAssociateV2InitParameters struct {
 	FixedIP *string `json:"fixedIp,omitempty" tf:"fixed_ip,omitempty"`
 
 	// The floating IP to associate.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.FloatingipV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/networking/v1alpha1.FloatingipV2
 	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractFipAddress()
 	FloatingIP *string `json:"floatingIp,omitempty" tf:"floating_ip,omitempty"`
 
@@ -32,7 +32,7 @@ type FloatingipAssociateV2InitParameters struct {
 	FloatingIPSelector *v1.Selector `json:"floatingIpSelector,omitempty" tf:"-"`
 
 	// The instance to associte the floating IP with.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/compute/v1alpha1.InstanceV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/compute/v1alpha1.InstanceV2
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
 
 	// Reference to a InstanceV2 in compute to populate instanceId.
@@ -69,7 +69,7 @@ type FloatingipAssociateV2Parameters struct {
 	FixedIP *string `json:"fixedIp,omitempty" tf:"fixed_ip,omitempty"`
 
 	// The floating IP to associate.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.FloatingipV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/networking/v1alpha1.FloatingipV2
 	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractFipAddress()
 	// +kubebuilder:validation:Optional
 	FloatingIP *string `json:"floatingIp,omitempty" tf:"floating_ip,omitempty"`
@@ -83,7 +83,7 @@ type FloatingipAssociateV2Parameters struct {
 	FloatingIPSelector *v1.Selector `json:"floatingIpSelector,omitempty" tf:"-"`
 
 	// The instance to associte the floating IP with.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/compute/v1alpha1.InstanceV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/compute/v1alpha1.InstanceV2
 	// +kubebuilder:validation:Optional
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
 

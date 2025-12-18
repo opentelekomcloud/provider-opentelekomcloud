@@ -9,8 +9,8 @@ package v1alpha1
 import (
 	"context"
 	reference "github.com/crossplane/crossplane-runtime/v2/pkg/reference"
-	v1alpha11 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/blockstorage/v1alpha1"
-	v1alpha1 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1"
+	v1alpha11 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/blockstorage/v1alpha1"
+	v1alpha1 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/networking/v1alpha1"
 	common "github.com/opentelekomcloud/provider-opentelekomcloud/config/common"
 	errors "github.com/pkg/errors"
 	client "sigs.k8s.io/controller-runtime/pkg/client"
@@ -26,6 +26,7 @@ func (mg *FloatingipAssociateV2) ResolveReferences(ctx context.Context, c client
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.FloatingIP),
 		Extract:      common.ExtractFipAddress(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.ForProvider.FloatingIPRef,
 		Selector:     mg.Spec.ForProvider.FloatingIPSelector,
 		To: reference.To{
@@ -42,6 +43,7 @@ func (mg *FloatingipAssociateV2) ResolveReferences(ctx context.Context, c client
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.InstanceID),
 		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.ForProvider.InstanceIDRef,
 		Selector:     mg.Spec.ForProvider.InstanceIDSelector,
 		To: reference.To{
@@ -58,6 +60,7 @@ func (mg *FloatingipAssociateV2) ResolveReferences(ctx context.Context, c client
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.FloatingIP),
 		Extract:      common.ExtractFipAddress(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.InitProvider.FloatingIPRef,
 		Selector:     mg.Spec.InitProvider.FloatingIPSelector,
 		To: reference.To{
@@ -74,6 +77,7 @@ func (mg *FloatingipAssociateV2) ResolveReferences(ctx context.Context, c client
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.InstanceID),
 		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.InitProvider.InstanceIDRef,
 		Selector:     mg.Spec.InitProvider.InstanceIDSelector,
 		To: reference.To{
@@ -102,6 +106,7 @@ func (mg *InstanceV2) ResolveReferences(ctx context.Context, c client.Reader) er
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.BlockDevice[i3].UUID),
 			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.ForProvider.BlockDevice[i3].UUIDRef,
 			Selector:     mg.Spec.ForProvider.BlockDevice[i3].UUIDSelector,
 			To: reference.To{
@@ -119,6 +124,7 @@ func (mg *InstanceV2) ResolveReferences(ctx context.Context, c client.Reader) er
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.KeyPair),
 		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.ForProvider.KeyPairRef,
 		Selector:     mg.Spec.ForProvider.KeyPairSelector,
 		To: reference.To{
@@ -136,6 +142,7 @@ func (mg *InstanceV2) ResolveReferences(ctx context.Context, c client.Reader) er
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Network[i3].UUID),
 			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.ForProvider.Network[i3].UUIDRef,
 			Selector:     mg.Spec.ForProvider.Network[i3].UUIDSelector,
 			To: reference.To{
@@ -153,6 +160,7 @@ func (mg *InstanceV2) ResolveReferences(ctx context.Context, c client.Reader) er
 	mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
 		CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.SecurityGroups),
 		Extract:       reference.ExternalName(),
+		Namespace:     mg.GetNamespace(),
 		References:    mg.Spec.ForProvider.SecurityGroupsRefs,
 		Selector:      mg.Spec.ForProvider.SecurityGroupsSelector,
 		To: reference.To{
@@ -170,6 +178,7 @@ func (mg *InstanceV2) ResolveReferences(ctx context.Context, c client.Reader) er
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.BlockDevice[i3].UUID),
 			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.InitProvider.BlockDevice[i3].UUIDRef,
 			Selector:     mg.Spec.InitProvider.BlockDevice[i3].UUIDSelector,
 			To: reference.To{
@@ -187,6 +196,7 @@ func (mg *InstanceV2) ResolveReferences(ctx context.Context, c client.Reader) er
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.KeyPair),
 		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.InitProvider.KeyPairRef,
 		Selector:     mg.Spec.InitProvider.KeyPairSelector,
 		To: reference.To{
@@ -204,6 +214,7 @@ func (mg *InstanceV2) ResolveReferences(ctx context.Context, c client.Reader) er
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Network[i3].UUID),
 			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.InitProvider.Network[i3].UUIDRef,
 			Selector:     mg.Spec.InitProvider.Network[i3].UUIDSelector,
 			To: reference.To{
@@ -221,6 +232,7 @@ func (mg *InstanceV2) ResolveReferences(ctx context.Context, c client.Reader) er
 	mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
 		CurrentValues: reference.FromPtrValues(mg.Spec.InitProvider.SecurityGroups),
 		Extract:       reference.ExternalName(),
+		Namespace:     mg.GetNamespace(),
 		References:    mg.Spec.InitProvider.SecurityGroupsRefs,
 		Selector:      mg.Spec.InitProvider.SecurityGroupsSelector,
 		To: reference.To{
@@ -247,6 +259,7 @@ func (mg *VolumeAttachV2) ResolveReferences(ctx context.Context, c client.Reader
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.InstanceID),
 		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.ForProvider.InstanceIDRef,
 		Selector:     mg.Spec.ForProvider.InstanceIDSelector,
 		To: reference.To{
@@ -263,6 +276,7 @@ func (mg *VolumeAttachV2) ResolveReferences(ctx context.Context, c client.Reader
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.VolumeID),
 		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.ForProvider.VolumeIDRef,
 		Selector:     mg.Spec.ForProvider.VolumeIDSelector,
 		To: reference.To{
@@ -279,6 +293,7 @@ func (mg *VolumeAttachV2) ResolveReferences(ctx context.Context, c client.Reader
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.InstanceID),
 		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.InitProvider.InstanceIDRef,
 		Selector:     mg.Spec.InitProvider.InstanceIDSelector,
 		To: reference.To{
@@ -295,6 +310,7 @@ func (mg *VolumeAttachV2) ResolveReferences(ctx context.Context, c client.Reader
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.VolumeID),
 		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.InitProvider.VolumeIDRef,
 		Selector:     mg.Spec.InitProvider.VolumeIDSelector,
 		To: reference.To{

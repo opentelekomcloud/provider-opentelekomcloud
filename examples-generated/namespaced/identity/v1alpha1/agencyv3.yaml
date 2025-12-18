@@ -1,0 +1,25 @@
+apiVersion: identity.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: AgencyV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: identity/v1alpha1/agencyv3
+  labels:
+    testing.upbound.io/example-name: agency
+  name: agency
+  namespace: upbound-system
+spec:
+  forProvider:
+    delegatedDomainName: '***'
+    description: test agency
+    domainRoles:
+    - Anti-DDoS Administrator
+    name: test_agency
+    projectRole:
+    - project: eu-de
+      roles:
+      - KMS Administrator
+      - CCE ReadOnlyAccess
+    - allProjects: true
+      roles:
+      - CES Administrator
+      - ER ReadOnlyAccess

@@ -49,7 +49,7 @@ type MonitorV3InitParameters struct {
 
 	// Specifies the ID of the backend server group for which the health check is configured.
 	// Changing this creates a new monitor.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/lb/v1alpha1.PoolV3
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/lb/v1alpha1.PoolV3
 	PoolID *string `json:"poolId,omitempty" tf:"pool_id,omitempty"`
 
 	// Reference to a PoolV3 in lb to populate poolId.
@@ -61,7 +61,7 @@ type MonitorV3InitParameters struct {
 	PoolIDSelector *v1.Selector `json:"poolIdSelector,omitempty" tf:"-"`
 
 	// Specifies the project ID. Changing this creates a new monitor.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/identity/v1alpha1.ProjectV3
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/identity/v1alpha1.ProjectV3
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
 
 	// Reference to a ProjectV3 in identity to populate projectId.
@@ -183,7 +183,7 @@ type MonitorV3Parameters struct {
 
 	// Specifies the ID of the backend server group for which the health check is configured.
 	// Changing this creates a new monitor.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/lb/v1alpha1.PoolV3
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/lb/v1alpha1.PoolV3
 	// +kubebuilder:validation:Optional
 	PoolID *string `json:"poolId,omitempty" tf:"pool_id,omitempty"`
 
@@ -196,7 +196,7 @@ type MonitorV3Parameters struct {
 	PoolIDSelector *v1.Selector `json:"poolIdSelector,omitempty" tf:"-"`
 
 	// Specifies the project ID. Changing this creates a new monitor.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/identity/v1alpha1.ProjectV3
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/identity/v1alpha1.ProjectV3
 	// +kubebuilder:validation:Optional
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
 

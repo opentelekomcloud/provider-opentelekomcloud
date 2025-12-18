@@ -1,0 +1,22 @@
+apiVersion: nat.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: GatewayV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: nat/v1alpha1/gatewayv2
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+  namespace: upbound-system
+spec:
+  forProvider:
+    description: NAT GW created by terraform
+    internalNetworkIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    name: tf_nat
+    routerIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    spec: "0"
+    tags:
+      muh: kuh

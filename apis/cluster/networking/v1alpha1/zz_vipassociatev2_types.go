@@ -17,7 +17,7 @@ type VipAssociateV2InitParameters struct {
 
 	// An array of one or more IDs of the ports to attach the vip to.
 	// Changing this creates a new vip associate.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.PortV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/networking/v1alpha1.PortV2
 	// +listType=set
 	PortIds []*string `json:"portIds,omitempty" tf:"port_ids,omitempty"`
 
@@ -31,7 +31,7 @@ type VipAssociateV2InitParameters struct {
 
 	// The ID of vip to attach the port to.
 	// Changing this creates a new vip associate.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.VipV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/networking/v1alpha1.VipV2
 	VipID *string `json:"vipId,omitempty" tf:"vip_id,omitempty"`
 
 	// Reference to a VipV2 in networking to populate vipId.
@@ -66,7 +66,7 @@ type VipAssociateV2Parameters struct {
 
 	// An array of one or more IDs of the ports to attach the vip to.
 	// Changing this creates a new vip associate.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.PortV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/networking/v1alpha1.PortV2
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	PortIds []*string `json:"portIds,omitempty" tf:"port_ids,omitempty"`
@@ -81,7 +81,7 @@ type VipAssociateV2Parameters struct {
 
 	// The ID of vip to attach the port to.
 	// Changing this creates a new vip associate.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.VipV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/networking/v1alpha1.VipV2
 	// +kubebuilder:validation:Optional
 	VipID *string `json:"vipId,omitempty" tf:"vip_id,omitempty"`
 

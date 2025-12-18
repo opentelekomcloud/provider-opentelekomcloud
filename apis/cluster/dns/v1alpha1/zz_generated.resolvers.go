@@ -9,7 +9,7 @@ package v1alpha1
 import (
 	"context"
 	reference "github.com/crossplane/crossplane-runtime/v2/pkg/reference"
-	v1alpha1 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1"
+	v1alpha1 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1"
 	errors "github.com/pkg/errors"
 	client "sigs.k8s.io/controller-runtime/pkg/client"
 )
@@ -24,6 +24,7 @@ func (mg *PtrrecordV2) ResolveReferences(ctx context.Context, c client.Reader) e
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.FloatingipID),
 		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.ForProvider.FloatingipIDRef,
 		Selector:     mg.Spec.ForProvider.FloatingipIDSelector,
 		To: reference.To{
@@ -40,6 +41,7 @@ func (mg *PtrrecordV2) ResolveReferences(ctx context.Context, c client.Reader) e
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.FloatingipID),
 		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.InitProvider.FloatingipIDRef,
 		Selector:     mg.Spec.InitProvider.FloatingipIDSelector,
 		To: reference.To{
@@ -66,6 +68,7 @@ func (mg *RecordsetV2) ResolveReferences(ctx context.Context, c client.Reader) e
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ZoneID),
 		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.ForProvider.ZoneIDRef,
 		Selector:     mg.Spec.ForProvider.ZoneIDSelector,
 		To: reference.To{
@@ -82,6 +85,7 @@ func (mg *RecordsetV2) ResolveReferences(ctx context.Context, c client.Reader) e
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ZoneID),
 		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.InitProvider.ZoneIDRef,
 		Selector:     mg.Spec.InitProvider.ZoneIDSelector,
 		To: reference.To{
@@ -109,6 +113,7 @@ func (mg *ZoneV2) ResolveReferences(ctx context.Context, c client.Reader) error 
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Router[i3].RouterID),
 			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.ForProvider.Router[i3].RouterIDRef,
 			Selector:     mg.Spec.ForProvider.Router[i3].RouterIDSelector,
 			To: reference.To{
@@ -127,6 +132,7 @@ func (mg *ZoneV2) ResolveReferences(ctx context.Context, c client.Reader) error 
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Router[i3].RouterID),
 			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.InitProvider.Router[i3].RouterIDRef,
 			Selector:     mg.Spec.InitProvider.Router[i3].RouterIDSelector,
 			To: reference.To{

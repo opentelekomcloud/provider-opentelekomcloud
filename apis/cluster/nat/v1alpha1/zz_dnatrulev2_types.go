@@ -21,7 +21,7 @@ type DnatRuleV2InitParameters struct {
 
 	// Specifies the ID of the floating IP address.
 	// Changing this creates a new resource.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.EIPV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.EIPV1
 	FloatingIPID *string `json:"floatingIpId,omitempty" tf:"floating_ip_id,omitempty"`
 
 	// Reference to a EIPV1 in vpc to populate floatingIpId.
@@ -38,7 +38,7 @@ type DnatRuleV2InitParameters struct {
 
 	// ID of the NAT gateway this DNAT rule belongs to.
 	// Changing this creates a new DNAT rule.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/nat/v1alpha1.GatewayV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/nat/v1alpha1.GatewayV2
 	NATGatewayID *string `json:"natGatewayId,omitempty" tf:"nat_gateway_id,omitempty"`
 
 	// Reference to a GatewayV2 in nat to populate natGatewayId.
@@ -52,7 +52,7 @@ type DnatRuleV2InitParameters struct {
 	// Specifies the port ID of an ECS or a BMS.
 	// This parameter and private_ip are alternative. Changing this creates a
 	// new DNAT rule.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.PortV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/networking/v1alpha1.PortV2
 	PortID *string `json:"portId,omitempty" tf:"port_id,omitempty"`
 
 	// Reference to a PortV2 in networking to populate portId.
@@ -128,7 +128,7 @@ type DnatRuleV2Parameters struct {
 
 	// Specifies the ID of the floating IP address.
 	// Changing this creates a new resource.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.EIPV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.EIPV1
 	// +kubebuilder:validation:Optional
 	FloatingIPID *string `json:"floatingIpId,omitempty" tf:"floating_ip_id,omitempty"`
 
@@ -147,7 +147,7 @@ type DnatRuleV2Parameters struct {
 
 	// ID of the NAT gateway this DNAT rule belongs to.
 	// Changing this creates a new DNAT rule.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/nat/v1alpha1.GatewayV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/nat/v1alpha1.GatewayV2
 	// +kubebuilder:validation:Optional
 	NATGatewayID *string `json:"natGatewayId,omitempty" tf:"nat_gateway_id,omitempty"`
 
@@ -162,7 +162,7 @@ type DnatRuleV2Parameters struct {
 	// Specifies the port ID of an ECS or a BMS.
 	// This parameter and private_ip are alternative. Changing this creates a
 	// new DNAT rule.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.PortV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/networking/v1alpha1.PortV2
 	// +kubebuilder:validation:Optional
 	PortID *string `json:"portId,omitempty" tf:"port_id,omitempty"`
 

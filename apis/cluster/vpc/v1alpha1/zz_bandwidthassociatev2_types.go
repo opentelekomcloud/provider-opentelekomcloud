@@ -24,7 +24,7 @@ type BandwidthAssociateV2InitParameters struct {
 	BackupSize *float64 `json:"backupSize,omitempty" tf:"backup_size,omitempty"`
 
 	// Specifies ID of the bandwidth to be assigned.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.BandwidthV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.BandwidthV2
 	Bandwidth *string `json:"bandwidth,omitempty" tf:"bandwidth,omitempty"`
 
 	// Reference to a BandwidthV2 in vpc to populate bandwidth.
@@ -36,7 +36,7 @@ type BandwidthAssociateV2InitParameters struct {
 	BandwidthSelector *v1.Selector `json:"bandwidthSelector,omitempty" tf:"-"`
 
 	// Specifies IDs of floating IPs to be added to the bandwidth.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.EIPV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.EIPV1
 	// +listType=set
 	FloatingIps []*string `json:"floatingIps,omitempty" tf:"floating_ips,omitempty"`
 
@@ -82,7 +82,7 @@ type BandwidthAssociateV2Parameters struct {
 	BackupSize *float64 `json:"backupSize,omitempty" tf:"backup_size,omitempty"`
 
 	// Specifies ID of the bandwidth to be assigned.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.BandwidthV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.BandwidthV2
 	// +kubebuilder:validation:Optional
 	Bandwidth *string `json:"bandwidth,omitempty" tf:"bandwidth,omitempty"`
 
@@ -95,7 +95,7 @@ type BandwidthAssociateV2Parameters struct {
 	BandwidthSelector *v1.Selector `json:"bandwidthSelector,omitempty" tf:"-"`
 
 	// Specifies IDs of floating IPs to be added to the bandwidth.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.EIPV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.EIPV1
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	FloatingIps []*string `json:"floatingIps,omitempty" tf:"floating_ips,omitempty"`

@@ -25,7 +25,7 @@ type NodePoolV3DataVolumesInitParameters struct {
 
 	// The Encryption KMS ID of the system volume. By default, it tries to get from env by OS_KMS_ID.
 	// -> NOTE: Common I/O (SATA) will reach end of life, end of 2025.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/kms/v1alpha1.KeyV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/kms/v1alpha1.KeyV1
 	KMSID *string `json:"kmsId,omitempty" tf:"kms_id,omitempty"`
 
 	// Reference to a KeyV1 in kms to populate kmsId.
@@ -78,7 +78,7 @@ type NodePoolV3DataVolumesParameters struct {
 
 	// The Encryption KMS ID of the system volume. By default, it tries to get from env by OS_KMS_ID.
 	// -> NOTE: Common I/O (SATA) will reach end of life, end of 2025.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/kms/v1alpha1.KeyV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/kms/v1alpha1.KeyV1
 	// +kubebuilder:validation:Optional
 	KMSID *string `json:"kmsId,omitempty" tf:"kms_id,omitempty"`
 
@@ -102,7 +102,7 @@ type NodePoolV3DataVolumesParameters struct {
 type NodePoolV3InitParameters struct {
 
 	// IAM agency name. Changing this parameter will create a new resource.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/identity/v1alpha1.AgencyV3
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/identity/v1alpha1.AgencyV3
 	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractAgencyName()
 	AgencyName *string `json:"agencyName,omitempty" tf:"agency_name,omitempty"`
 
@@ -120,7 +120,7 @@ type NodePoolV3InitParameters struct {
 	AvailabilityZone *string `json:"availabilityZone,omitempty" tf:"availability_zone,omitempty"`
 
 	// ID of the cluster. Changing this parameter will create a new resource.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cce/v1alpha1.ClusterV3
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/cce/v1alpha1.ClusterV3
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
 
 	// Reference to a ClusterV3 in cce to populate clusterId.
@@ -154,7 +154,7 @@ type NodePoolV3InitParameters struct {
 
 	// Key pair name when logging in to select the key pair mode.
 	// This parameter and password are alternative. Changing this parameter will create a new resource.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/compute/v1alpha1.KeypairV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/compute/v1alpha1.KeypairV2
 	KeyPair *string `json:"keyPair,omitempty" tf:"key_pair,omitempty"`
 
 	// Reference to a KeypairV2 in compute to populate keyPair.
@@ -225,7 +225,7 @@ type NodePoolV3InitParameters struct {
 	Storage *string `json:"storage,omitempty" tf:"storage,omitempty"`
 
 	// The ID of the subnet to which the NIC belongs. Changing this parameter will create a new resource.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.SubnetV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.SubnetV1
 	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractNetworkID()
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 
@@ -358,7 +358,7 @@ type NodePoolV3Observation struct {
 type NodePoolV3Parameters struct {
 
 	// IAM agency name. Changing this parameter will create a new resource.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/identity/v1alpha1.AgencyV3
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/identity/v1alpha1.AgencyV3
 	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractAgencyName()
 	// +kubebuilder:validation:Optional
 	AgencyName *string `json:"agencyName,omitempty" tf:"agency_name,omitempty"`
@@ -378,7 +378,7 @@ type NodePoolV3Parameters struct {
 	AvailabilityZone *string `json:"availabilityZone,omitempty" tf:"availability_zone,omitempty"`
 
 	// ID of the cluster. Changing this parameter will create a new resource.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cce/v1alpha1.ClusterV3
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/cce/v1alpha1.ClusterV3
 	// +kubebuilder:validation:Optional
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
 
@@ -419,7 +419,7 @@ type NodePoolV3Parameters struct {
 
 	// Key pair name when logging in to select the key pair mode.
 	// This parameter and password are alternative. Changing this parameter will create a new resource.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/compute/v1alpha1.KeypairV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/compute/v1alpha1.KeypairV2
 	// +kubebuilder:validation:Optional
 	KeyPair *string `json:"keyPair,omitempty" tf:"key_pair,omitempty"`
 
@@ -507,7 +507,7 @@ type NodePoolV3Parameters struct {
 	Storage *string `json:"storage,omitempty" tf:"storage,omitempty"`
 
 	// The ID of the subnet to which the NIC belongs. Changing this parameter will create a new resource.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.SubnetV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.SubnetV1
 	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractNetworkID()
 	// +kubebuilder:validation:Optional
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
@@ -542,7 +542,7 @@ type NodePoolV3RootVolumeInitParameters struct {
 
 	// The Encryption KMS ID of the system volume. By default, it tries to get from env by OS_KMS_ID.
 	// -> NOTE: Common I/O (SATA) will reach end of life, end of 2025.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/kms/v1alpha1.KeyV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/kms/v1alpha1.KeyV1
 	KMSID *string `json:"kmsId,omitempty" tf:"kms_id,omitempty"`
 
 	// Reference to a KeyV1 in kms to populate kmsId.
@@ -595,7 +595,7 @@ type NodePoolV3RootVolumeParameters struct {
 
 	// The Encryption KMS ID of the system volume. By default, it tries to get from env by OS_KMS_ID.
 	// -> NOTE: Common I/O (SATA) will reach end of life, end of 2025.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/kms/v1alpha1.KeyV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/kms/v1alpha1.KeyV1
 	// +kubebuilder:validation:Optional
 	KMSID *string `json:"kmsId,omitempty" tf:"kms_id,omitempty"`
 

@@ -592,7 +592,7 @@ func (in *MySQLInstanceV3InitParameters) DeepCopyInto(out *MySQLInstanceV3InitPa
 		*out = new(string)
 		**out = **in
 	}
-	out.PasswordSecretRef = in.PasswordSecretRef
+	in.PasswordSecretRef.DeepCopyInto(&out.PasswordSecretRef)
 	if in.Port != nil {
 		in, out := &in.Port, &out.Port
 		*out = new(float64)
@@ -905,7 +905,7 @@ func (in *MySQLInstanceV3Parameters) DeepCopyInto(out *MySQLInstanceV3Parameters
 		*out = new(string)
 		**out = **in
 	}
-	out.PasswordSecretRef = in.PasswordSecretRef
+	in.PasswordSecretRef.DeepCopyInto(&out.PasswordSecretRef)
 	if in.Port != nil {
 		in, out := &in.Port, &out.Port
 		*out = new(float64)

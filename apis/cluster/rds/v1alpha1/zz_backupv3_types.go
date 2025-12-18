@@ -20,7 +20,7 @@ type BackupV3InitParameters struct {
 	Databases []*string `json:"databases,omitempty" tf:"databases,omitempty"`
 
 	// The ID of the RDS instance to which the backup belongs.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/rds/v1alpha1.InstanceV3
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/rds/v1alpha1.InstanceV3
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
 
 	// Reference to a InstanceV3 in rds to populate instanceId.
@@ -82,7 +82,7 @@ type BackupV3Parameters struct {
 	Databases []*string `json:"databases,omitempty" tf:"databases,omitempty"`
 
 	// The ID of the RDS instance to which the backup belongs.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/rds/v1alpha1.InstanceV3
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/rds/v1alpha1.InstanceV3
 	// +kubebuilder:validation:Optional
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
 

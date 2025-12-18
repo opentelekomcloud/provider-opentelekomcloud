@@ -28,11 +28,6 @@ func (mg *BackupV3) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetPublishConnectionDetailsTo of this BackupV3.
-func (mg *BackupV3) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
-	return mg.Spec.PublishConnectionDetailsTo
-}
-
 // GetWriteConnectionSecretToReference of this BackupV3.
 func (mg *BackupV3) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
@@ -56,11 +51,6 @@ func (mg *BackupV3) SetManagementPolicies(r xpv1.ManagementPolicies) {
 // SetProviderConfigReference of this BackupV3.
 func (mg *BackupV3) SetProviderConfigReference(r *xpv1.Reference) {
 	mg.Spec.ProviderConfigReference = r
-}
-
-// SetPublishConnectionDetailsTo of this BackupV3.
-func (mg *BackupV3) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
-	mg.Spec.PublishConnectionDetailsTo = r
 }
 
 // SetWriteConnectionSecretToReference of this BackupV3.
@@ -88,11 +78,6 @@ func (mg *InstanceV3) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetPublishConnectionDetailsTo of this InstanceV3.
-func (mg *InstanceV3) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
-	return mg.Spec.PublishConnectionDetailsTo
-}
-
 // GetWriteConnectionSecretToReference of this InstanceV3.
 func (mg *InstanceV3) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
@@ -116,11 +101,6 @@ func (mg *InstanceV3) SetManagementPolicies(r xpv1.ManagementPolicies) {
 // SetProviderConfigReference of this InstanceV3.
 func (mg *InstanceV3) SetProviderConfigReference(r *xpv1.Reference) {
 	mg.Spec.ProviderConfigReference = r
-}
-
-// SetPublishConnectionDetailsTo of this InstanceV3.
-func (mg *InstanceV3) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
-	mg.Spec.PublishConnectionDetailsTo = r
 }
 
 // SetWriteConnectionSecretToReference of this InstanceV3.
@@ -148,11 +128,6 @@ func (mg *MaintenanceV3) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetPublishConnectionDetailsTo of this MaintenanceV3.
-func (mg *MaintenanceV3) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
-	return mg.Spec.PublishConnectionDetailsTo
-}
-
 // GetWriteConnectionSecretToReference of this MaintenanceV3.
 func (mg *MaintenanceV3) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
@@ -176,11 +151,6 @@ func (mg *MaintenanceV3) SetManagementPolicies(r xpv1.ManagementPolicies) {
 // SetProviderConfigReference of this MaintenanceV3.
 func (mg *MaintenanceV3) SetProviderConfigReference(r *xpv1.Reference) {
 	mg.Spec.ProviderConfigReference = r
-}
-
-// SetPublishConnectionDetailsTo of this MaintenanceV3.
-func (mg *MaintenanceV3) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
-	mg.Spec.PublishConnectionDetailsTo = r
 }
 
 // SetWriteConnectionSecretToReference of this MaintenanceV3.
@@ -208,11 +178,6 @@ func (mg *ParametergroupV3) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetPublishConnectionDetailsTo of this ParametergroupV3.
-func (mg *ParametergroupV3) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
-	return mg.Spec.PublishConnectionDetailsTo
-}
-
 // GetWriteConnectionSecretToReference of this ParametergroupV3.
 func (mg *ParametergroupV3) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
@@ -236,11 +201,6 @@ func (mg *ParametergroupV3) SetManagementPolicies(r xpv1.ManagementPolicies) {
 // SetProviderConfigReference of this ParametergroupV3.
 func (mg *ParametergroupV3) SetProviderConfigReference(r *xpv1.Reference) {
 	mg.Spec.ProviderConfigReference = r
-}
-
-// SetPublishConnectionDetailsTo of this ParametergroupV3.
-func (mg *ParametergroupV3) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
-	mg.Spec.PublishConnectionDetailsTo = r
 }
 
 // SetWriteConnectionSecretToReference of this ParametergroupV3.
@@ -268,11 +228,6 @@ func (mg *PublicIPAssociateV3) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetPublishConnectionDetailsTo of this PublicIPAssociateV3.
-func (mg *PublicIPAssociateV3) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
-	return mg.Spec.PublishConnectionDetailsTo
-}
-
 // GetWriteConnectionSecretToReference of this PublicIPAssociateV3.
 func (mg *PublicIPAssociateV3) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
@@ -296,11 +251,6 @@ func (mg *PublicIPAssociateV3) SetManagementPolicies(r xpv1.ManagementPolicies) 
 // SetProviderConfigReference of this PublicIPAssociateV3.
 func (mg *PublicIPAssociateV3) SetProviderConfigReference(r *xpv1.Reference) {
 	mg.Spec.ProviderConfigReference = r
-}
-
-// SetPublishConnectionDetailsTo of this PublicIPAssociateV3.
-func (mg *PublicIPAssociateV3) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
-	mg.Spec.PublishConnectionDetailsTo = r
 }
 
 // SetWriteConnectionSecretToReference of this PublicIPAssociateV3.
@@ -328,11 +278,6 @@ func (mg *ReadReplicaV3) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetPublishConnectionDetailsTo of this ReadReplicaV3.
-func (mg *ReadReplicaV3) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
-	return mg.Spec.PublishConnectionDetailsTo
-}
-
 // GetWriteConnectionSecretToReference of this ReadReplicaV3.
 func (mg *ReadReplicaV3) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
@@ -356,11 +301,6 @@ func (mg *ReadReplicaV3) SetManagementPolicies(r xpv1.ManagementPolicies) {
 // SetProviderConfigReference of this ReadReplicaV3.
 func (mg *ReadReplicaV3) SetProviderConfigReference(r *xpv1.Reference) {
 	mg.Spec.ProviderConfigReference = r
-}
-
-// SetPublishConnectionDetailsTo of this ReadReplicaV3.
-func (mg *ReadReplicaV3) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
-	mg.Spec.PublishConnectionDetailsTo = r
 }
 
 // SetWriteConnectionSecretToReference of this ReadReplicaV3.

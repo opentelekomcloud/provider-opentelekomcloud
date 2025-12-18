@@ -19,7 +19,7 @@ type PtrrecordV2InitParameters struct {
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// The ID of the FloatingIP/EIP.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.EIPV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.EIPV1
 	FloatingipID *string `json:"floatingipId,omitempty" tf:"floatingip_id,omitempty"`
 
 	// Reference to a EIPV1 in vpc to populate floatingipId.
@@ -77,7 +77,7 @@ type PtrrecordV2Parameters struct {
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// The ID of the FloatingIP/EIP.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.EIPV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.EIPV1
 	// +kubebuilder:validation:Optional
 	FloatingipID *string `json:"floatingipId,omitempty" tf:"floatingip_id,omitempty"`
 

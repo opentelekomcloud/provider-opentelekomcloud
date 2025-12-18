@@ -45,7 +45,7 @@ type RecordsetV2InitParameters struct {
 
 	// The ID of the zone in which to create the record set.
 	// Changing this creates a new DNS  record set.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/dns/v1alpha1.ZoneV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/dns/v1alpha1.ZoneV2
 	ZoneID *string `json:"zoneId,omitempty" tf:"zone_id,omitempty"`
 
 	// Reference to a ZoneV2 in dns to populate zoneId.
@@ -136,7 +136,7 @@ type RecordsetV2Parameters struct {
 
 	// The ID of the zone in which to create the record set.
 	// Changing this creates a new DNS  record set.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/dns/v1alpha1.ZoneV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/dns/v1alpha1.ZoneV2
 	// +kubebuilder:validation:Optional
 	ZoneID *string `json:"zoneId,omitempty" tf:"zone_id,omitempty"`
 

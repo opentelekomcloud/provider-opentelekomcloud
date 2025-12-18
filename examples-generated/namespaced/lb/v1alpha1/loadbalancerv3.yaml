@@ -1,0 +1,20 @@
+apiVersion: lb.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: LoadbalancerV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lb/v1alpha1/loadbalancerv3
+  labels:
+    testing.upbound.io/example-name: lb_1
+  name: lb-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    availabilityZones:
+    - ${var.az}
+    networkIdsRefs:
+    - name: example
+    routerIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    tags:
+      muh: kuh

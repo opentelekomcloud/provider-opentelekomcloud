@@ -1,0 +1,61 @@
+apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: BandwidthAssociateV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/bandwidthassociatev2
+  labels:
+    testing.upbound.io/example-name: associate
+  name: associate
+  namespace: upbound-system
+spec:
+  forProvider:
+    bandwidthSelector:
+      matchLabels:
+        testing.upbound.io/example-name: band20m
+    floatingIpsRefs:
+    - name: ip1
+    - name: ip2
+
+---
+
+apiVersion: networking.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: FloatingipV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/bandwidthassociatev2
+  labels:
+    testing.upbound.io/example-name: ip1
+  name: ip1
+  namespace: upbound-system
+spec:
+  forProvider: {}
+
+---
+
+apiVersion: networking.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: FloatingipV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/bandwidthassociatev2
+  labels:
+    testing.upbound.io/example-name: ip2
+  name: ip2
+  namespace: upbound-system
+spec:
+  forProvider: {}
+
+---
+
+apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: BandwidthV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/bandwidthassociatev2
+  labels:
+    testing.upbound.io/example-name: band20m
+  name: band20m
+  namespace: upbound-system
+spec:
+  forProvider:
+    name: bandwidth-20MBit
+    size: 20

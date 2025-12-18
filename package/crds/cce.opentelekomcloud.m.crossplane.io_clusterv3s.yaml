@@ -1,0 +1,2003 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.18.0
+  name: clusterv3s.cce.opentelekomcloud.m.crossplane.io
+spec:
+  group: cce.opentelekomcloud.m.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - opentelekomcloud
+    kind: ClusterV3
+    listKind: ClusterV3List
+    plural: clusterv3s
+    singular: clusterv3
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: ClusterV3 is the Schema for the ClusterV3s API. Manages a CCE
+          Cluster resource within OpenTelekomCloud.
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: ClusterV3Spec defines the desired state of ClusterV3
+            properties:
+              forProvider:
+                properties:
+                  annotations:
+                    additionalProperties:
+                      type: string
+                    description: Cluster annotation, key/value pair format. Changing
+                      this parameter will create a new cluster resource.
+                    type: object
+                    x-kubernetes-map-type: granular
+                  apiAccessTrustlist:
+                    description: |-
+                      Specifies the trustlist of network CIDRs that are allowed to access cluster APIs. Specified when creating a CCE cluster.
+                      Changing this parameter will create a new cluster resource.
+                    items:
+                      type: string
+                    type: array
+                  authenticatingProxy:
+                    description: Authenticating proxy configuration. Required if authentication_mode
+                      is set to authenticating_proxy.
+                    items:
+                      properties:
+                        ca:
+                          description: X509 CA certificate configured in authenticating_proxy
+                            mode. The maximum size of the certificate is 1 MB.
+                          type: string
+                        cert:
+                          description: |-
+                            Client certificate issued by the X509 CA certificate configured in authenticating_proxy mode.
+                            This certificate is used for authentication from kube-apiserver to the extended API server.
+                          type: string
+                        privateKey:
+                          description: |-
+                            Private key of the client certificate issued by the X509 CA certificate configured in authenticating_proxy mode.
+                            This key is used for authentication from kube-apiserver to the extended API server.
+                          type: string
+                      type: object
+                    type: array
+                  authenticatingProxyCa:
+                    description: |-
+                      CA root certificate provided in the authenticating_proxy mode.
+                      Deprecated, use authenticating_proxy instead.
+                    type: string
+                  authenticationMode:
+                    description: Cluster authentication mode.
+                    type: string
+                  billingMode:
+                    description: Charging mode of the cluster, which is 0 (on demand).
+                      Changing this parameter will create a new cluster resource.
+                    type: number
+                  clusterType:
+                    description: Cluster Type, possible values are VirtualMachine
+                      and BareMetal. Changing this parameter will create a new cluster
+                      resource.
+                    type: string
+                  clusterVersion:
+                    description: |-
+                      For the cluster version, possible values are v1.29, v1.28, v1.27, v1.25.
+                      If this parameter is not set, the cluster of the latest version is created by default.
+                      Changing this parameter will create a new cluster resource. OTC-API
+                    type: string
+                  componentConfigurations:
+                    description: |-
+                      Specifies the kubernetes component configurations.
+                      For details, see documentation.
+                      The object structure is documented below.
+                    items:
+                      properties:
+                        configurations:
+                          description: |-
+                            Specifies object of the component configurations.
+                            The object structure is documented below.
+                          items:
+                            properties:
+                              name:
+                                description: Cluster name. Changing this parameter
+                                  will create a new cluster resource.
+                                type: string
+                              value:
+                                description: Specifies value of the component.
+                                type: string
+                            type: object
+                          type: array
+                        name:
+                          description: Specifies the component name.
+                          type: string
+                      type: object
+                    type: array
+                  containerNetworkCidr:
+                    description: Container network segment. Changing this parameter
+                      will create a new cluster resource.
+                    type: string
+                  containerNetworkType:
+                    description: Container network type.
+                    type: string
+                  customSan:
+                    description: Specifies the custom san to add to certificate (array
+                      of string).
+                    items:
+                      type: string
+                    type: array
+                  deleteAllNetwork:
+                    description: |-
+                      Specified whether to delete all associated network resources when deleting the CCE
+                      cluster. valid values are true, try and false. Default is false.
+                    type: string
+                  deleteAllStorage:
+                    description: |-
+                      Specified whether to delete all associated storage resources when deleting the CCE
+                      cluster. valid values are true, try and false. Default is false.
+                    type: string
+                  deleteEfs:
+                    description: |-
+                      Specified whether to unbind associated SFS Turbo file systems when deleting the CCE
+                      cluster. valid values are true, try and false. Default is false.
+                    type: string
+                  deleteEni:
+                    description: |-
+                      Specified whether to delete ENI ports when deleting the CCE
+                      cluster. valid values are true, try and false. Default is false.
+                    type: string
+                  deleteEvs:
+                    description: |-
+                      Specified whether to delete associated EVS disks when deleting the CCE cluster.
+                      valid values are true, try and false. Default is false.
+                    type: string
+                  deleteNet:
+                    description: |-
+                      Specified whether to delete cluster Service/ingress-related resources, such as ELB when deleting the CCE
+                      cluster. valid values are true, try and false. Default is false.
+                    type: string
+                  deleteObs:
+                    description: |-
+                      Specified whether to delete associated OBS buckets when deleting the CCE cluster.
+                      valid values are true, try and false. Default is false.
+                    type: string
+                  deleteSfs:
+                    description: |-
+                      Specified whether to delete associated SFS file systems when deleting the CCE
+                      cluster. valid values are true, try and false. Default is false.
+                    type: string
+                  description:
+                    description: Cluster description.
+                    type: string
+                  eip:
+                    description: EIP address of the cluster.
+                    type: string
+                  eipRef:
+                    description: Reference to a EIPV1 in vpc to populate eip.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      namespace:
+                        description: Namespace of the referenced object
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  eipSelector:
+                    description: Selector for a EIPV1 in vpc to populate eip.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      namespace:
+                        description: Namespace for the selector
+                        type: string
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
+                  enableVolumeEncryption:
+                    description: System and data disks encryption of master nodes.
+                      Changing this parameter will create a new cluster resource.
+                    type: boolean
+                  eniSubnetCidr:
+                    description: Specifies the ENI network segment. Specified when
+                      creating a CCE Turbo cluster. Changing this parameter will create
+                      a new cluster resource.
+                    type: string
+                  eniSubnetCidrRef:
+                    description: Reference to a SubnetV1 in vpc to populate eniSubnetCidr.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      namespace:
+                        description: Namespace of the referenced object
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  eniSubnetCidrSelector:
+                    description: Selector for a SubnetV1 in vpc to populate eniSubnetCidr.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      namespace:
+                        description: Namespace for the selector
+                        type: string
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
+                  eniSubnetId:
+                    description: '-  Specifies the ENI subnet ID. Specified when creating
+                      a CCE Turbo cluster. Changing this parameter will create a new
+                      cluster resource.'
+                    type: string
+                  eniSubnetIdRef:
+                    description: Reference to a SubnetV1 in vpc to populate eniSubnetId.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      namespace:
+                        description: Namespace of the referenced object
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  eniSubnetIdSelector:
+                    description: Selector for a SubnetV1 in vpc to populate eniSubnetId.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      namespace:
+                        description: Namespace for the selector
+                        type: string
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
+                  extendParam:
+                    additionalProperties:
+                      type: string
+                    description: |-
+                      Extended parameter. Changing this parameter will create a new cluster resource.
+                      List of cluster extended params.
+                    type: object
+                    x-kubernetes-map-type: granular
+                  flavorId:
+                    description: Cluster specifications. Changing this parameter will
+                      create a new cluster resource.
+                    type: string
+                  highwaySubnetId:
+                    description: The ID of the high speed network used to create bare
+                      metal nodes. Changing this parameter will create a new cluster
+                      resource.
+                    type: string
+                  highwaySubnetIdRef:
+                    description: Reference to a SubnetV1 in vpc to populate highwaySubnetId.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      namespace:
+                        description: Namespace of the referenced object
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  highwaySubnetIdSelector:
+                    description: Selector for a SubnetV1 in vpc to populate highwaySubnetId.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      namespace:
+                        description: Namespace for the selector
+                        type: string
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
+                  ignoreAddons:
+                    description: Skip all cluster addons operations.
+                    type: boolean
+                  ignoreCertificateClustersData:
+                    description: Skip sensitive cluster data.
+                    type: boolean
+                  ignoreCertificateUsersData:
+                    description: Skip sensitive user data.
+                    type: boolean
+                  ipv6Enable:
+                    description: 'Specifies whether the cluster supports IPv6 addresses.
+                      This field is supported in clusters of v1.25 and later versions.
+                      Default: false. If ipv6_enable is true, subnet should have ipv6
+                      enabled and kube_proxy_mode value can only be ipvs.'
+                    type: boolean
+                  kubeProxyMode:
+                    description: 'Service forwarding mode. Two modes are available:'
+                    type: string
+                  kubernetesSvcIpRange:
+                    description: |-
+                      Service CIDR block, or the IP address range which the kubernetes
+                      clusterIp must fall within. This parameter is available only for clusters of v1.11.7 and later.
+                    type: string
+                  labels:
+                    additionalProperties:
+                      type: string
+                    description: Cluster tag, key/value pair format. Changing this
+                      parameter will create a new cluster resource.
+                    type: object
+                    x-kubernetes-map-type: granular
+                  masters:
+                    description: |-
+                      Specifies the advanced configuration of master nodes.
+                      The object structure is documented below.
+                      This parameter and multi_az are alternative. Changing this parameter will create a new cluster resource.
+                    items:
+                      properties:
+                        availabilityZone:
+                          description: |-
+                            Specifies the availability zone of the master node.
+                            Changing this parameter will create a new cluster resource.
+                          type: string
+                      type: object
+                    type: array
+                  multiAz:
+                    description: |-
+                      Enable multiple AZs for the cluster, only when using HA flavors. Changing this parameter will create a new cluster resource.
+                      This parameter and masters are alternative.
+                    type: boolean
+                  name:
+                    description: Cluster name. Changing this parameter will create
+                      a new cluster resource.
+                    type: string
+                  noAddons:
+                    description: Remove addons installed by the default after the
+                      cluster creation.
+                    type: boolean
+                  region:
+                    type: string
+                  securityGroupId:
+                    description: |-
+                      Default worker node security group ID of the cluster. If specified, the cluster will be bound to the target security group.
+                      Otherwise, the system will automatically create a default worker node security group for you.
+                      The default worker node security group needs to allow access from certain ports to ensure normal communications.
+                      Changing this parameter will create a new cluster resource.
+                    type: string
+                  subnetId:
+                    description: The Network ID of the subnet used to create the node.
+                      Changing this parameter will create a new cluster resource.
+                    type: string
+                  subnetIdRef:
+                    description: Reference to a SubnetV1 in vpc to populate subnetId.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      namespace:
+                        description: Namespace of the referenced object
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  subnetIdSelector:
+                    description: Selector for a SubnetV1 in vpc to populate subnetId.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      namespace:
+                        description: Namespace for the selector
+                        type: string
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
+                  supportIstio:
+                    description: Whether Istio is supported in the cluster.
+                    type: boolean
+                  timezone:
+                    description: Cluster timezone in string format. Changing this
+                      parameter will create a new cluster resource.
+                    type: string
+                  vpcId:
+                    description: The ID of the VPC used to create the node. Changing
+                      this parameter will create a new cluster resource.
+                    type: string
+                  vpcIdRef:
+                    description: Reference to a VpcV1 in vpc to populate vpcId.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      namespace:
+                        description: Namespace of the referenced object
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  vpcIdSelector:
+                    description: Selector for a VpcV1 in vpc to populate vpcId.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      namespace:
+                        description: Namespace for the selector
+                        type: string
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
+                type: object
+              initProvider:
+                description: |-
+                  THIS IS A BETA FIELD. It will be honored
+                  unless the Management Policies feature flag is disabled.
+                  InitProvider holds the same fields as ForProvider, with the exception
+                  of Identifier and other resource reference fields. The fields that are
+                  in InitProvider are merged into ForProvider when the resource is created.
+                  The same fields are also added to the terraform ignore_changes hook, to
+                  avoid updating them after creation. This is useful for fields that are
+                  required on creation, but we do not desire to update them after creation,
+                  for example because of an external controller is managing them, like an
+                  autoscaler.
+                properties:
+                  annotations:
+                    additionalProperties:
+                      type: string
+                    description: Cluster annotation, key/value pair format. Changing
+                      this parameter will create a new cluster resource.
+                    type: object
+                    x-kubernetes-map-type: granular
+                  apiAccessTrustlist:
+                    description: |-
+                      Specifies the trustlist of network CIDRs that are allowed to access cluster APIs. Specified when creating a CCE cluster.
+                      Changing this parameter will create a new cluster resource.
+                    items:
+                      type: string
+                    type: array
+                  authenticatingProxy:
+                    description: Authenticating proxy configuration. Required if authentication_mode
+                      is set to authenticating_proxy.
+                    items:
+                      properties:
+                        ca:
+                          description: X509 CA certificate configured in authenticating_proxy
+                            mode. The maximum size of the certificate is 1 MB.
+                          type: string
+                        cert:
+                          description: |-
+                            Client certificate issued by the X509 CA certificate configured in authenticating_proxy mode.
+                            This certificate is used for authentication from kube-apiserver to the extended API server.
+                          type: string
+                        privateKey:
+                          description: |-
+                            Private key of the client certificate issued by the X509 CA certificate configured in authenticating_proxy mode.
+                            This key is used for authentication from kube-apiserver to the extended API server.
+                          type: string
+                      type: object
+                    type: array
+                  authenticatingProxyCa:
+                    description: |-
+                      CA root certificate provided in the authenticating_proxy mode.
+                      Deprecated, use authenticating_proxy instead.
+                    type: string
+                  authenticationMode:
+                    description: Cluster authentication mode.
+                    type: string
+                  billingMode:
+                    description: Charging mode of the cluster, which is 0 (on demand).
+                      Changing this parameter will create a new cluster resource.
+                    type: number
+                  clusterType:
+                    description: Cluster Type, possible values are VirtualMachine
+                      and BareMetal. Changing this parameter will create a new cluster
+                      resource.
+                    type: string
+                  clusterVersion:
+                    description: |-
+                      For the cluster version, possible values are v1.29, v1.28, v1.27, v1.25.
+                      If this parameter is not set, the cluster of the latest version is created by default.
+                      Changing this parameter will create a new cluster resource. OTC-API
+                    type: string
+                  componentConfigurations:
+                    description: |-
+                      Specifies the kubernetes component configurations.
+                      For details, see documentation.
+                      The object structure is documented below.
+                    items:
+                      properties:
+                        configurations:
+                          description: |-
+                            Specifies object of the component configurations.
+                            The object structure is documented below.
+                          items:
+                            properties:
+                              name:
+                                description: Cluster name. Changing this parameter
+                                  will create a new cluster resource.
+                                type: string
+                              value:
+                                description: Specifies value of the component.
+                                type: string
+                            type: object
+                          type: array
+                        name:
+                          description: Specifies the component name.
+                          type: string
+                      type: object
+                    type: array
+                  containerNetworkCidr:
+                    description: Container network segment. Changing this parameter
+                      will create a new cluster resource.
+                    type: string
+                  containerNetworkType:
+                    description: Container network type.
+                    type: string
+                  customSan:
+                    description: Specifies the custom san to add to certificate (array
+                      of string).
+                    items:
+                      type: string
+                    type: array
+                  deleteAllNetwork:
+                    description: |-
+                      Specified whether to delete all associated network resources when deleting the CCE
+                      cluster. valid values are true, try and false. Default is false.
+                    type: string
+                  deleteAllStorage:
+                    description: |-
+                      Specified whether to delete all associated storage resources when deleting the CCE
+                      cluster. valid values are true, try and false. Default is false.
+                    type: string
+                  deleteEfs:
+                    description: |-
+                      Specified whether to unbind associated SFS Turbo file systems when deleting the CCE
+                      cluster. valid values are true, try and false. Default is false.
+                    type: string
+                  deleteEni:
+                    description: |-
+                      Specified whether to delete ENI ports when deleting the CCE
+                      cluster. valid values are true, try and false. Default is false.
+                    type: string
+                  deleteEvs:
+                    description: |-
+                      Specified whether to delete associated EVS disks when deleting the CCE cluster.
+                      valid values are true, try and false. Default is false.
+                    type: string
+                  deleteNet:
+                    description: |-
+                      Specified whether to delete cluster Service/ingress-related resources, such as ELB when deleting the CCE
+                      cluster. valid values are true, try and false. Default is false.
+                    type: string
+                  deleteObs:
+                    description: |-
+                      Specified whether to delete associated OBS buckets when deleting the CCE cluster.
+                      valid values are true, try and false. Default is false.
+                    type: string
+                  deleteSfs:
+                    description: |-
+                      Specified whether to delete associated SFS file systems when deleting the CCE
+                      cluster. valid values are true, try and false. Default is false.
+                    type: string
+                  description:
+                    description: Cluster description.
+                    type: string
+                  eip:
+                    description: EIP address of the cluster.
+                    type: string
+                  eipRef:
+                    description: Reference to a EIPV1 in vpc to populate eip.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      namespace:
+                        description: Namespace of the referenced object
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  eipSelector:
+                    description: Selector for a EIPV1 in vpc to populate eip.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      namespace:
+                        description: Namespace for the selector
+                        type: string
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
+                  enableVolumeEncryption:
+                    description: System and data disks encryption of master nodes.
+                      Changing this parameter will create a new cluster resource.
+                    type: boolean
+                  eniSubnetCidr:
+                    description: Specifies the ENI network segment. Specified when
+                      creating a CCE Turbo cluster. Changing this parameter will create
+                      a new cluster resource.
+                    type: string
+                  eniSubnetCidrRef:
+                    description: Reference to a SubnetV1 in vpc to populate eniSubnetCidr.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      namespace:
+                        description: Namespace of the referenced object
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  eniSubnetCidrSelector:
+                    description: Selector for a SubnetV1 in vpc to populate eniSubnetCidr.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      namespace:
+                        description: Namespace for the selector
+                        type: string
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
+                  eniSubnetId:
+                    description: '-  Specifies the ENI subnet ID. Specified when creating
+                      a CCE Turbo cluster. Changing this parameter will create a new
+                      cluster resource.'
+                    type: string
+                  eniSubnetIdRef:
+                    description: Reference to a SubnetV1 in vpc to populate eniSubnetId.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      namespace:
+                        description: Namespace of the referenced object
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  eniSubnetIdSelector:
+                    description: Selector for a SubnetV1 in vpc to populate eniSubnetId.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      namespace:
+                        description: Namespace for the selector
+                        type: string
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
+                  extendParam:
+                    additionalProperties:
+                      type: string
+                    description: |-
+                      Extended parameter. Changing this parameter will create a new cluster resource.
+                      List of cluster extended params.
+                    type: object
+                    x-kubernetes-map-type: granular
+                  flavorId:
+                    description: Cluster specifications. Changing this parameter will
+                      create a new cluster resource.
+                    type: string
+                  highwaySubnetId:
+                    description: The ID of the high speed network used to create bare
+                      metal nodes. Changing this parameter will create a new cluster
+                      resource.
+                    type: string
+                  highwaySubnetIdRef:
+                    description: Reference to a SubnetV1 in vpc to populate highwaySubnetId.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      namespace:
+                        description: Namespace of the referenced object
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  highwaySubnetIdSelector:
+                    description: Selector for a SubnetV1 in vpc to populate highwaySubnetId.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      namespace:
+                        description: Namespace for the selector
+                        type: string
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
+                  ignoreAddons:
+                    description: Skip all cluster addons operations.
+                    type: boolean
+                  ignoreCertificateClustersData:
+                    description: Skip sensitive cluster data.
+                    type: boolean
+                  ignoreCertificateUsersData:
+                    description: Skip sensitive user data.
+                    type: boolean
+                  ipv6Enable:
+                    description: 'Specifies whether the cluster supports IPv6 addresses.
+                      This field is supported in clusters of v1.25 and later versions.
+                      Default: false. If ipv6_enable is true, subnet should have ipv6
+                      enabled and kube_proxy_mode value can only be ipvs.'
+                    type: boolean
+                  kubeProxyMode:
+                    description: 'Service forwarding mode. Two modes are available:'
+                    type: string
+                  kubernetesSvcIpRange:
+                    description: |-
+                      Service CIDR block, or the IP address range which the kubernetes
+                      clusterIp must fall within. This parameter is available only for clusters of v1.11.7 and later.
+                    type: string
+                  labels:
+                    additionalProperties:
+                      type: string
+                    description: Cluster tag, key/value pair format. Changing this
+                      parameter will create a new cluster resource.
+                    type: object
+                    x-kubernetes-map-type: granular
+                  masters:
+                    description: |-
+                      Specifies the advanced configuration of master nodes.
+                      The object structure is documented below.
+                      This parameter and multi_az are alternative. Changing this parameter will create a new cluster resource.
+                    items:
+                      properties:
+                        availabilityZone:
+                          description: |-
+                            Specifies the availability zone of the master node.
+                            Changing this parameter will create a new cluster resource.
+                          type: string
+                      type: object
+                    type: array
+                  multiAz:
+                    description: |-
+                      Enable multiple AZs for the cluster, only when using HA flavors. Changing this parameter will create a new cluster resource.
+                      This parameter and masters are alternative.
+                    type: boolean
+                  name:
+                    description: Cluster name. Changing this parameter will create
+                      a new cluster resource.
+                    type: string
+                  noAddons:
+                    description: Remove addons installed by the default after the
+                      cluster creation.
+                    type: boolean
+                  region:
+                    type: string
+                  securityGroupId:
+                    description: |-
+                      Default worker node security group ID of the cluster. If specified, the cluster will be bound to the target security group.
+                      Otherwise, the system will automatically create a default worker node security group for you.
+                      The default worker node security group needs to allow access from certain ports to ensure normal communications.
+                      Changing this parameter will create a new cluster resource.
+                    type: string
+                  subnetId:
+                    description: The Network ID of the subnet used to create the node.
+                      Changing this parameter will create a new cluster resource.
+                    type: string
+                  subnetIdRef:
+                    description: Reference to a SubnetV1 in vpc to populate subnetId.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      namespace:
+                        description: Namespace of the referenced object
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  subnetIdSelector:
+                    description: Selector for a SubnetV1 in vpc to populate subnetId.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      namespace:
+                        description: Namespace for the selector
+                        type: string
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
+                  supportIstio:
+                    description: Whether Istio is supported in the cluster.
+                    type: boolean
+                  timezone:
+                    description: Cluster timezone in string format. Changing this
+                      parameter will create a new cluster resource.
+                    type: string
+                  vpcId:
+                    description: The ID of the VPC used to create the node. Changing
+                      this parameter will create a new cluster resource.
+                    type: string
+                  vpcIdRef:
+                    description: Reference to a VpcV1 in vpc to populate vpcId.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      namespace:
+                        description: Namespace of the referenced object
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  vpcIdSelector:
+                    description: Selector for a VpcV1 in vpc to populate vpcId.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      namespace:
+                        description: Namespace for the selector
+                        type: string
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: |-
+                  THIS IS A BETA FIELD. It is on by default but can be opted out
+                  through a Crossplane feature flag.
+                  ManagementPolicies specify the array of actions Crossplane is allowed to
+                  take on the managed and external resources.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md
+                items:
+                  description: |-
+                    A ManagementAction represents an action that the Crossplane controllers
+                    can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
+              providerConfigRef:
+                default:
+                  kind: ClusterProviderConfig
+                  name: default
+                description: |-
+                  ProviderConfigReference specifies how the provider that will be used to
+                  create, observe, update, and delete this managed resource should be
+                  configured.
+                properties:
+                  kind:
+                    description: Kind of the referenced object.
+                    type: string
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                required:
+                - kind
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: |-
+                  WriteConnectionSecretToReference specifies the namespace and name of a
+                  Secret to which any connection details for this managed resource should
+                  be written. Connection details frequently include the endpoint, username,
+                  and password required to connect to the managed resource.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                required:
+                - name
+                type: object
+            required:
+            - forProvider
+            type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.clusterType is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.clusterType)
+                || (has(self.initProvider) && has(self.initProvider.clusterType))'
+            - message: spec.forProvider.containerNetworkType is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.containerNetworkType)
+                || (has(self.initProvider) && has(self.initProvider.containerNetworkType))'
+            - message: spec.forProvider.flavorId is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.flavorId)
+                || (has(self.initProvider) && has(self.initProvider.flavorId))'
+            - message: spec.forProvider.name is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
+                || (has(self.initProvider) && has(self.initProvider.name))'
+          status:
+            description: ClusterV3Status defines the observed state of ClusterV3.
+            properties:
+              atProvider:
+                properties:
+                  annotations:
+                    additionalProperties:
+                      type: string
+                    description: Cluster annotation, key/value pair format. Changing
+                      this parameter will create a new cluster resource.
+                    type: object
+                    x-kubernetes-map-type: granular
+                  apiAccessTrustlist:
+                    description: |-
+                      Specifies the trustlist of network CIDRs that are allowed to access cluster APIs. Specified when creating a CCE cluster.
+                      Changing this parameter will create a new cluster resource.
+                    items:
+                      type: string
+                    type: array
+                  authenticatingProxy:
+                    description: Authenticating proxy configuration. Required if authentication_mode
+                      is set to authenticating_proxy.
+                    items:
+                      properties:
+                        ca:
+                          description: X509 CA certificate configured in authenticating_proxy
+                            mode. The maximum size of the certificate is 1 MB.
+                          type: string
+                        cert:
+                          description: |-
+                            Client certificate issued by the X509 CA certificate configured in authenticating_proxy mode.
+                            This certificate is used for authentication from kube-apiserver to the extended API server.
+                          type: string
+                        privateKey:
+                          description: |-
+                            Private key of the client certificate issued by the X509 CA certificate configured in authenticating_proxy mode.
+                            This key is used for authentication from kube-apiserver to the extended API server.
+                          type: string
+                      type: object
+                    type: array
+                  authenticatingProxyCa:
+                    description: |-
+                      CA root certificate provided in the authenticating_proxy mode.
+                      Deprecated, use authenticating_proxy instead.
+                    type: string
+                  authenticationMode:
+                    description: Cluster authentication mode.
+                    type: string
+                  billingMode:
+                    description: Charging mode of the cluster, which is 0 (on demand).
+                      Changing this parameter will create a new cluster resource.
+                    type: number
+                  certificateClusters:
+                    items:
+                      properties:
+                        certificateAuthorityData:
+                          type: string
+                        name:
+                          description: Cluster name. Changing this parameter will
+                            create a new cluster resource.
+                          type: string
+                        server:
+                          type: string
+                      type: object
+                    type: array
+                  certificateUsers:
+                    items:
+                      properties:
+                        clientCertificateData:
+                          type: string
+                        clientKeyData:
+                          type: string
+                        name:
+                          description: Cluster name. Changing this parameter will
+                            create a new cluster resource.
+                          type: string
+                      type: object
+                    type: array
+                  clusterType:
+                    description: Cluster Type, possible values are VirtualMachine
+                      and BareMetal. Changing this parameter will create a new cluster
+                      resource.
+                    type: string
+                  clusterVersion:
+                    description: |-
+                      For the cluster version, possible values are v1.29, v1.28, v1.27, v1.25.
+                      If this parameter is not set, the cluster of the latest version is created by default.
+                      Changing this parameter will create a new cluster resource. OTC-API
+                    type: string
+                  componentConfigurations:
+                    description: |-
+                      Specifies the kubernetes component configurations.
+                      For details, see documentation.
+                      The object structure is documented below.
+                    items:
+                      properties:
+                        configurations:
+                          description: |-
+                            Specifies object of the component configurations.
+                            The object structure is documented below.
+                          items:
+                            properties:
+                              name:
+                                description: Cluster name. Changing this parameter
+                                  will create a new cluster resource.
+                                type: string
+                              value:
+                                description: Specifies value of the component.
+                                type: string
+                            type: object
+                          type: array
+                        name:
+                          description: Specifies the component name.
+                          type: string
+                      type: object
+                    type: array
+                  containerNetworkCidr:
+                    description: Container network segment. Changing this parameter
+                      will create a new cluster resource.
+                    type: string
+                  containerNetworkType:
+                    description: Container network type.
+                    type: string
+                  customSan:
+                    description: Specifies the custom san to add to certificate (array
+                      of string).
+                    items:
+                      type: string
+                    type: array
+                  deleteAllNetwork:
+                    description: |-
+                      Specified whether to delete all associated network resources when deleting the CCE
+                      cluster. valid values are true, try and false. Default is false.
+                    type: string
+                  deleteAllStorage:
+                    description: |-
+                      Specified whether to delete all associated storage resources when deleting the CCE
+                      cluster. valid values are true, try and false. Default is false.
+                    type: string
+                  deleteEfs:
+                    description: |-
+                      Specified whether to unbind associated SFS Turbo file systems when deleting the CCE
+                      cluster. valid values are true, try and false. Default is false.
+                    type: string
+                  deleteEni:
+                    description: |-
+                      Specified whether to delete ENI ports when deleting the CCE
+                      cluster. valid values are true, try and false. Default is false.
+                    type: string
+                  deleteEvs:
+                    description: |-
+                      Specified whether to delete associated EVS disks when deleting the CCE cluster.
+                      valid values are true, try and false. Default is false.
+                    type: string
+                  deleteNet:
+                    description: |-
+                      Specified whether to delete cluster Service/ingress-related resources, such as ELB when deleting the CCE
+                      cluster. valid values are true, try and false. Default is false.
+                    type: string
+                  deleteObs:
+                    description: |-
+                      Specified whether to delete associated OBS buckets when deleting the CCE cluster.
+                      valid values are true, try and false. Default is false.
+                    type: string
+                  deleteSfs:
+                    description: |-
+                      Specified whether to delete associated SFS file systems when deleting the CCE
+                      cluster. valid values are true, try and false. Default is false.
+                    type: string
+                  description:
+                    description: Cluster description.
+                    type: string
+                  eip:
+                    description: EIP address of the cluster.
+                    type: string
+                  enableVolumeEncryption:
+                    description: System and data disks encryption of master nodes.
+                      Changing this parameter will create a new cluster resource.
+                    type: boolean
+                  eniSubnetCidr:
+                    description: Specifies the ENI network segment. Specified when
+                      creating a CCE Turbo cluster. Changing this parameter will create
+                      a new cluster resource.
+                    type: string
+                  eniSubnetId:
+                    description: '-  Specifies the ENI subnet ID. Specified when creating
+                      a CCE Turbo cluster. Changing this parameter will create a new
+                      cluster resource.'
+                    type: string
+                  extendParam:
+                    additionalProperties:
+                      type: string
+                    description: |-
+                      Extended parameter. Changing this parameter will create a new cluster resource.
+                      List of cluster extended params.
+                    type: object
+                    x-kubernetes-map-type: granular
+                  external:
+                    description: The external network address.
+                    type: string
+                  externalOtc:
+                    description: The endpoint of the cluster to be accessed through
+                      API Gateway.
+                    type: string
+                  flavorId:
+                    description: Cluster specifications. Changing this parameter will
+                      create a new cluster resource.
+                    type: string
+                  highwaySubnetId:
+                    description: The ID of the high speed network used to create bare
+                      metal nodes. Changing this parameter will create a new cluster
+                      resource.
+                    type: string
+                  id:
+                    description: ID of the cluster resource.
+                    type: string
+                  ignoreAddons:
+                    description: Skip all cluster addons operations.
+                    type: boolean
+                  ignoreCertificateClustersData:
+                    description: Skip sensitive cluster data.
+                    type: boolean
+                  ignoreCertificateUsersData:
+                    description: Skip sensitive user data.
+                    type: boolean
+                  installedAddons:
+                    description: List of installed addon IDs. Empty if ignore_addons
+                      is true.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  internal:
+                    description: The internal network address.
+                    type: string
+                  ipv6Enable:
+                    description: 'Specifies whether the cluster supports IPv6 addresses.
+                      This field is supported in clusters of v1.25 and later versions.
+                      Default: false. If ipv6_enable is true, subnet should have ipv6
+                      enabled and kube_proxy_mode value can only be ipvs.'
+                    type: boolean
+                  kubeProxyMode:
+                    description: 'Service forwarding mode. Two modes are available:'
+                    type: string
+                  kubernetesSvcIpRange:
+                    description: |-
+                      Service CIDR block, or the IP address range which the kubernetes
+                      clusterIp must fall within. This parameter is available only for clusters of v1.11.7 and later.
+                    type: string
+                  labels:
+                    additionalProperties:
+                      type: string
+                    description: Cluster tag, key/value pair format. Changing this
+                      parameter will create a new cluster resource.
+                    type: object
+                    x-kubernetes-map-type: granular
+                  masters:
+                    description: |-
+                      Specifies the advanced configuration of master nodes.
+                      The object structure is documented below.
+                      This parameter and multi_az are alternative. Changing this parameter will create a new cluster resource.
+                    items:
+                      properties:
+                        availabilityZone:
+                          description: |-
+                            Specifies the availability zone of the master node.
+                            Changing this parameter will create a new cluster resource.
+                          type: string
+                      type: object
+                    type: array
+                  multiAz:
+                    description: |-
+                      Enable multiple AZs for the cluster, only when using HA flavors. Changing this parameter will create a new cluster resource.
+                      This parameter and masters are alternative.
+                    type: boolean
+                  name:
+                    description: Cluster name. Changing this parameter will create
+                      a new cluster resource.
+                    type: string
+                  noAddons:
+                    description: Remove addons installed by the default after the
+                      cluster creation.
+                    type: boolean
+                  region:
+                    type: string
+                  securityGroupControl:
+                    description: ID of the autogenerated security group for the CCE
+                      master port.
+                    type: string
+                  securityGroupId:
+                    description: |-
+                      Default worker node security group ID of the cluster. If specified, the cluster will be bound to the target security group.
+                      Otherwise, the system will automatically create a default worker node security group for you.
+                      The default worker node security group needs to allow access from certain ports to ensure normal communications.
+                      Changing this parameter will create a new cluster resource.
+                    type: string
+                  securityGroupNode:
+                    description: ID of the autogenerated security group for the CCE
+                      nodes.
+                    type: string
+                  status:
+                    description: Cluster status information.
+                    type: string
+                  subnetId:
+                    description: The Network ID of the subnet used to create the node.
+                      Changing this parameter will create a new cluster resource.
+                    type: string
+                  supportIstio:
+                    description: Whether Istio is supported in the cluster.
+                    type: boolean
+                  timezone:
+                    description: Cluster timezone in string format. Changing this
+                      parameter will create a new cluster resource.
+                    type: string
+                  vpcId:
+                    description: The ID of the VPC used to create the node. Changing
+                      this parameter will create a new cluster resource.
+                    type: string
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        LastTransitionTime is the last time this condition transitioned from one
+                        status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        A Message containing details about this condition's last transition from
+                        one status to another, if any.
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        ObservedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      type: integer
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: |-
+                        Type of this condition. At most one of each condition type may apply to
+                        a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+              observedGeneration:
+                description: |-
+                  ObservedGeneration is the latest metadata.generation
+                  which resulted in either a ready state, or stalled due to error
+                  it can not recover from without human intervention.
+                format: int64
+                type: integer
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

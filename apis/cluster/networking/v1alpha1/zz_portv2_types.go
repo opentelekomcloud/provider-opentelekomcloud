@@ -80,7 +80,7 @@ type FixedIPInitParameters struct {
 
 	// Subnet in which to allocate IP address for
 	// this port.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.SubnetV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/networking/v1alpha1.SubnetV2
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 
 	// Reference to a SubnetV2 in networking to populate subnetId.
@@ -114,7 +114,7 @@ type FixedIPParameters struct {
 
 	// Subnet in which to allocate IP address for
 	// this port.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.SubnetV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/networking/v1alpha1.SubnetV2
 	// +kubebuilder:validation:Optional
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 
@@ -162,7 +162,7 @@ type PortV2InitParameters struct {
 
 	// The ID of the network to attach the port to. Changing
 	// this creates a new port.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.NetworkV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/networking/v1alpha1.NetworkV2
 	NetworkID *string `json:"networkId,omitempty" tf:"network_id,omitempty"`
 
 	// Reference to a NetworkV2 in networking to populate networkId.
@@ -192,7 +192,7 @@ type PortV2InitParameters struct {
 	// A list of security group IDs to apply to the
 	// port. The security groups must be specified by ID and not name (as opposed
 	// to how they are configured with the Compute Instance).
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.SecgroupV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/networking/v1alpha1.SecgroupV2
 	// +listType=set
 	SecurityGroupIds []*string `json:"securityGroupIds,omitempty" tf:"security_group_ids,omitempty"`
 
@@ -322,7 +322,7 @@ type PortV2Parameters struct {
 
 	// The ID of the network to attach the port to. Changing
 	// this creates a new port.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.NetworkV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/networking/v1alpha1.NetworkV2
 	// +kubebuilder:validation:Optional
 	NetworkID *string `json:"networkId,omitempty" tf:"network_id,omitempty"`
 
@@ -356,7 +356,7 @@ type PortV2Parameters struct {
 	// A list of security group IDs to apply to the
 	// port. The security groups must be specified by ID and not name (as opposed
 	// to how they are configured with the Compute Instance).
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.SecgroupV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/networking/v1alpha1.SecgroupV2
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	SecurityGroupIds []*string `json:"securityGroupIds,omitempty" tf:"security_group_ids,omitempty"`

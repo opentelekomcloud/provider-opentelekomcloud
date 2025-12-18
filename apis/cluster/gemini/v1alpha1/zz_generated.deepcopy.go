@@ -246,7 +246,7 @@ func (in *InstanceV3InitParameters) DeepCopyInto(out *InstanceV3InitParameters) 
 		*out = new(float64)
 		**out = **in
 	}
-	out.PasswordSecretRef = in.PasswordSecretRef
+	in.PasswordSecretRef.DeepCopyInto(&out.PasswordSecretRef)
 	if in.Period != nil {
 		in, out := &in.Period, &out.Period
 		*out = new(float64)
@@ -527,7 +527,7 @@ func (in *InstanceV3Parameters) DeepCopyInto(out *InstanceV3Parameters) {
 		*out = new(float64)
 		**out = **in
 	}
-	out.PasswordSecretRef = in.PasswordSecretRef
+	in.PasswordSecretRef.DeepCopyInto(&out.PasswordSecretRef)
 	if in.Period != nil {
 		in, out := &in.Period, &out.Period
 		*out = new(float64)

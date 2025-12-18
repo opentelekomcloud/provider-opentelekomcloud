@@ -1,4 +1,4 @@
-apiVersion: swr.opentelekomcloud.crossplane.io/v1alpha1
+apiVersion: swr.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: OrganizationV2
 metadata:
   annotations:
@@ -6,6 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: test-org-1
   name: test-org-1
+  namespace: sre
 spec:
   forProvider:
     name: test-org-1

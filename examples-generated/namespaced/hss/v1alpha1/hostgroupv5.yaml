@@ -1,0 +1,13 @@
+apiVersion: hss.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: HostGroupV5
+metadata:
+  annotations:
+    meta.upbound.io/example-id: hss/v1alpha1/hostgroupv5
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+  namespace: upbound-system
+spec:
+  forProvider:
+    hostIds: ${var.host_ids}
+    name: ${var.host_group_name}

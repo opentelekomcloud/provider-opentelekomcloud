@@ -28,11 +28,6 @@ func (mg *MySQLBackupV3) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetPublishConnectionDetailsTo of this MySQLBackupV3.
-func (mg *MySQLBackupV3) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
-	return mg.Spec.PublishConnectionDetailsTo
-}
-
 // GetWriteConnectionSecretToReference of this MySQLBackupV3.
 func (mg *MySQLBackupV3) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
@@ -56,11 +51,6 @@ func (mg *MySQLBackupV3) SetManagementPolicies(r xpv1.ManagementPolicies) {
 // SetProviderConfigReference of this MySQLBackupV3.
 func (mg *MySQLBackupV3) SetProviderConfigReference(r *xpv1.Reference) {
 	mg.Spec.ProviderConfigReference = r
-}
-
-// SetPublishConnectionDetailsTo of this MySQLBackupV3.
-func (mg *MySQLBackupV3) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
-	mg.Spec.PublishConnectionDetailsTo = r
 }
 
 // SetWriteConnectionSecretToReference of this MySQLBackupV3.
@@ -88,11 +78,6 @@ func (mg *MySQLInstanceV3) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetPublishConnectionDetailsTo of this MySQLInstanceV3.
-func (mg *MySQLInstanceV3) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
-	return mg.Spec.PublishConnectionDetailsTo
-}
-
 // GetWriteConnectionSecretToReference of this MySQLInstanceV3.
 func (mg *MySQLInstanceV3) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
@@ -116,11 +101,6 @@ func (mg *MySQLInstanceV3) SetManagementPolicies(r xpv1.ManagementPolicies) {
 // SetProviderConfigReference of this MySQLInstanceV3.
 func (mg *MySQLInstanceV3) SetProviderConfigReference(r *xpv1.Reference) {
 	mg.Spec.ProviderConfigReference = r
-}
-
-// SetPublishConnectionDetailsTo of this MySQLInstanceV3.
-func (mg *MySQLInstanceV3) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
-	mg.Spec.PublishConnectionDetailsTo = r
 }
 
 // SetWriteConnectionSecretToReference of this MySQLInstanceV3.
@@ -148,11 +128,6 @@ func (mg *MySQLProxyV3) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetPublishConnectionDetailsTo of this MySQLProxyV3.
-func (mg *MySQLProxyV3) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
-	return mg.Spec.PublishConnectionDetailsTo
-}
-
 // GetWriteConnectionSecretToReference of this MySQLProxyV3.
 func (mg *MySQLProxyV3) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
@@ -176,11 +151,6 @@ func (mg *MySQLProxyV3) SetManagementPolicies(r xpv1.ManagementPolicies) {
 // SetProviderConfigReference of this MySQLProxyV3.
 func (mg *MySQLProxyV3) SetProviderConfigReference(r *xpv1.Reference) {
 	mg.Spec.ProviderConfigReference = r
-}
-
-// SetPublishConnectionDetailsTo of this MySQLProxyV3.
-func (mg *MySQLProxyV3) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
-	mg.Spec.PublishConnectionDetailsTo = r
 }
 
 // SetWriteConnectionSecretToReference of this MySQLProxyV3.
@@ -208,11 +178,6 @@ func (mg *MySQLQuotaV3) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetPublishConnectionDetailsTo of this MySQLQuotaV3.
-func (mg *MySQLQuotaV3) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
-	return mg.Spec.PublishConnectionDetailsTo
-}
-
 // GetWriteConnectionSecretToReference of this MySQLQuotaV3.
 func (mg *MySQLQuotaV3) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
@@ -236,11 +201,6 @@ func (mg *MySQLQuotaV3) SetManagementPolicies(r xpv1.ManagementPolicies) {
 // SetProviderConfigReference of this MySQLQuotaV3.
 func (mg *MySQLQuotaV3) SetProviderConfigReference(r *xpv1.Reference) {
 	mg.Spec.ProviderConfigReference = r
-}
-
-// SetPublishConnectionDetailsTo of this MySQLQuotaV3.
-func (mg *MySQLQuotaV3) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
-	mg.Spec.PublishConnectionDetailsTo = r
 }
 
 // SetWriteConnectionSecretToReference of this MySQLQuotaV3.
@@ -268,11 +228,6 @@ func (mg *MySQLSQLControlRuleV3) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetPublishConnectionDetailsTo of this MySQLSQLControlRuleV3.
-func (mg *MySQLSQLControlRuleV3) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
-	return mg.Spec.PublishConnectionDetailsTo
-}
-
 // GetWriteConnectionSecretToReference of this MySQLSQLControlRuleV3.
 func (mg *MySQLSQLControlRuleV3) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
@@ -296,11 +251,6 @@ func (mg *MySQLSQLControlRuleV3) SetManagementPolicies(r xpv1.ManagementPolicies
 // SetProviderConfigReference of this MySQLSQLControlRuleV3.
 func (mg *MySQLSQLControlRuleV3) SetProviderConfigReference(r *xpv1.Reference) {
 	mg.Spec.ProviderConfigReference = r
-}
-
-// SetPublishConnectionDetailsTo of this MySQLSQLControlRuleV3.
-func (mg *MySQLSQLControlRuleV3) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
-	mg.Spec.PublishConnectionDetailsTo = r
 }
 
 // SetWriteConnectionSecretToReference of this MySQLSQLControlRuleV3.

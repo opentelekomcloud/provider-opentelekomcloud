@@ -22,7 +22,7 @@ type PoolV3InitParameters struct {
 	LBAlgorithm *string `json:"lbAlgorithm,omitempty" tf:"lb_algorithm,omitempty"`
 
 	// Specifies the ID of the listener associated with the backend server group.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/lb/v1alpha1.ListenerV3
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/lb/v1alpha1.ListenerV3
 	ListenerID *string `json:"listenerId,omitempty" tf:"listener_id,omitempty"`
 
 	// Reference to a ListenerV3 in lb to populate listenerId.
@@ -34,7 +34,7 @@ type PoolV3InitParameters struct {
 	ListenerIDSelector *v1.Selector `json:"listenerIdSelector,omitempty" tf:"-"`
 
 	// Specifies the ID of the associated load balancer.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/lb/v1alpha1.LoadbalancerV3
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/lb/v1alpha1.LoadbalancerV3
 	LoadbalancerID *string `json:"loadbalancerId,omitempty" tf:"loadbalancer_id,omitempty"`
 
 	// Reference to a LoadbalancerV3 in lb to populate loadbalancerId.
@@ -54,7 +54,7 @@ type PoolV3InitParameters struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Specifies the project ID.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/identity/v1alpha1.ProjectV3
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/identity/v1alpha1.ProjectV3
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
 
 	// Reference to a ProjectV3 in identity to populate projectId.
@@ -76,7 +76,7 @@ type PoolV3InitParameters struct {
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// Specifies the ID of the VPC where the backend server group works.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.VpcV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.VpcV1
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
 
 	// Reference to a VpcV1 in vpc to populate vpcId.
@@ -144,7 +144,7 @@ type PoolV3Parameters struct {
 	LBAlgorithm *string `json:"lbAlgorithm,omitempty" tf:"lb_algorithm,omitempty"`
 
 	// Specifies the ID of the listener associated with the backend server group.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/lb/v1alpha1.ListenerV3
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/lb/v1alpha1.ListenerV3
 	// +kubebuilder:validation:Optional
 	ListenerID *string `json:"listenerId,omitempty" tf:"listener_id,omitempty"`
 
@@ -157,7 +157,7 @@ type PoolV3Parameters struct {
 	ListenerIDSelector *v1.Selector `json:"listenerIdSelector,omitempty" tf:"-"`
 
 	// Specifies the ID of the associated load balancer.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/lb/v1alpha1.LoadbalancerV3
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/lb/v1alpha1.LoadbalancerV3
 	// +kubebuilder:validation:Optional
 	LoadbalancerID *string `json:"loadbalancerId,omitempty" tf:"loadbalancer_id,omitempty"`
 
@@ -180,7 +180,7 @@ type PoolV3Parameters struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Specifies the project ID.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/identity/v1alpha1.ProjectV3
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/identity/v1alpha1.ProjectV3
 	// +kubebuilder:validation:Optional
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
 
@@ -206,7 +206,7 @@ type PoolV3Parameters struct {
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// Specifies the ID of the VPC where the backend server group works.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.VpcV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.VpcV1
 	// +kubebuilder:validation:Optional
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
 

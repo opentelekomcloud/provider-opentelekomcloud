@@ -9,8 +9,8 @@ package v1alpha1
 import (
 	"context"
 	reference "github.com/crossplane/crossplane-runtime/v2/pkg/reference"
-	v1alpha11 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/compute/v1alpha1"
-	v1alpha1 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1"
+	v1alpha11 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/compute/v1alpha1"
+	v1alpha1 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1"
 	common "github.com/opentelekomcloud/provider-opentelekomcloud/config/common"
 	errors "github.com/pkg/errors"
 	client "sigs.k8s.io/controller-runtime/pkg/client"
@@ -26,6 +26,7 @@ func (mg *BackupV3) ResolveReferences(ctx context.Context, c client.Reader) erro
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.InstanceID),
 		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.ForProvider.InstanceIDRef,
 		Selector:     mg.Spec.ForProvider.InstanceIDSelector,
 		To: reference.To{
@@ -42,6 +43,7 @@ func (mg *BackupV3) ResolveReferences(ctx context.Context, c client.Reader) erro
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.InstanceID),
 		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.InitProvider.InstanceIDRef,
 		Selector:     mg.Spec.InitProvider.InstanceIDSelector,
 		To: reference.To{
@@ -69,6 +71,7 @@ func (mg *InstanceV3) ResolveReferences(ctx context.Context, c client.Reader) er
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ParamGroupID),
 		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.ForProvider.ParamGroupIDRef,
 		Selector:     mg.Spec.ForProvider.ParamGroupIDSelector,
 		To: reference.To{
@@ -85,6 +88,7 @@ func (mg *InstanceV3) ResolveReferences(ctx context.Context, c client.Reader) er
 	mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
 		CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.PublicIps),
 		Extract:       common.ExtractEipAddress(),
+		Namespace:     mg.GetNamespace(),
 		References:    mg.Spec.ForProvider.PublicIpsRefs,
 		Selector:      mg.Spec.ForProvider.PublicIpsSelector,
 		To: reference.To{
@@ -101,6 +105,7 @@ func (mg *InstanceV3) ResolveReferences(ctx context.Context, c client.Reader) er
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.SecurityGroupID),
 		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.ForProvider.ComputeSecurityGroupIDRefs,
 		Selector:     mg.Spec.ForProvider.ComputeSecurityGroupIDSelector,
 		To: reference.To{
@@ -117,6 +122,7 @@ func (mg *InstanceV3) ResolveReferences(ctx context.Context, c client.Reader) er
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.SubnetID),
 		Extract:      common.ExtractNetworkID(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.ForProvider.SubnetIDRef,
 		Selector:     mg.Spec.ForProvider.SubnetIDSelector,
 		To: reference.To{
@@ -133,6 +139,7 @@ func (mg *InstanceV3) ResolveReferences(ctx context.Context, c client.Reader) er
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.VPCID),
 		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.ForProvider.VPCIDRef,
 		Selector:     mg.Spec.ForProvider.VPCIDSelector,
 		To: reference.To{
@@ -149,6 +156,7 @@ func (mg *InstanceV3) ResolveReferences(ctx context.Context, c client.Reader) er
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ParamGroupID),
 		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.InitProvider.ParamGroupIDRef,
 		Selector:     mg.Spec.InitProvider.ParamGroupIDSelector,
 		To: reference.To{
@@ -165,6 +173,7 @@ func (mg *InstanceV3) ResolveReferences(ctx context.Context, c client.Reader) er
 	mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
 		CurrentValues: reference.FromPtrValues(mg.Spec.InitProvider.PublicIps),
 		Extract:       common.ExtractEipAddress(),
+		Namespace:     mg.GetNamespace(),
 		References:    mg.Spec.InitProvider.PublicIpsRefs,
 		Selector:      mg.Spec.InitProvider.PublicIpsSelector,
 		To: reference.To{
@@ -181,6 +190,7 @@ func (mg *InstanceV3) ResolveReferences(ctx context.Context, c client.Reader) er
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.SecurityGroupID),
 		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.InitProvider.ComputeSecurityGroupIDRefs,
 		Selector:     mg.Spec.InitProvider.ComputeSecurityGroupIDSelector,
 		To: reference.To{
@@ -197,6 +207,7 @@ func (mg *InstanceV3) ResolveReferences(ctx context.Context, c client.Reader) er
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.SubnetID),
 		Extract:      common.ExtractNetworkID(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.InitProvider.SubnetIDRef,
 		Selector:     mg.Spec.InitProvider.SubnetIDSelector,
 		To: reference.To{
@@ -213,6 +224,7 @@ func (mg *InstanceV3) ResolveReferences(ctx context.Context, c client.Reader) er
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.VPCID),
 		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.InitProvider.VPCIDRef,
 		Selector:     mg.Spec.InitProvider.VPCIDSelector,
 		To: reference.To{
@@ -240,6 +252,7 @@ func (mg *ReadReplicaV3) ResolveReferences(ctx context.Context, c client.Reader)
 	mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
 		CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.PublicIps),
 		Extract:       common.ExtractEipAddress(),
+		Namespace:     mg.GetNamespace(),
 		References:    mg.Spec.ForProvider.PublicIpsRefs,
 		Selector:      mg.Spec.ForProvider.PublicIpsSelector,
 		To: reference.To{
@@ -256,6 +269,7 @@ func (mg *ReadReplicaV3) ResolveReferences(ctx context.Context, c client.Reader)
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ReplicaOfID),
 		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.ForProvider.ReplicaOfIDRef,
 		Selector:     mg.Spec.ForProvider.ReplicaOfIDSelector,
 		To: reference.To{
@@ -272,6 +286,7 @@ func (mg *ReadReplicaV3) ResolveReferences(ctx context.Context, c client.Reader)
 	mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
 		CurrentValues: reference.FromPtrValues(mg.Spec.InitProvider.PublicIps),
 		Extract:       common.ExtractEipAddress(),
+		Namespace:     mg.GetNamespace(),
 		References:    mg.Spec.InitProvider.PublicIpsRefs,
 		Selector:      mg.Spec.InitProvider.PublicIpsSelector,
 		To: reference.To{
@@ -288,6 +303,7 @@ func (mg *ReadReplicaV3) ResolveReferences(ctx context.Context, c client.Reader)
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ReplicaOfID),
 		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.InitProvider.ReplicaOfIDRef,
 		Selector:     mg.Spec.InitProvider.ReplicaOfIDSelector,
 		To: reference.To{

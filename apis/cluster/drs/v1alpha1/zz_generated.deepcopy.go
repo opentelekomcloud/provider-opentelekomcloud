@@ -35,7 +35,7 @@ func (in *DestinationDBInitParameters) DeepCopyInto(out *DestinationDBInitParame
 		*out = new(string)
 		**out = **in
 	}
-	out.PasswordSecretRef = in.PasswordSecretRef
+	in.PasswordSecretRef.DeepCopyInto(&out.PasswordSecretRef)
 	if in.Port != nil {
 		in, out := &in.Port, &out.Port
 		*out = new(float64)
@@ -211,7 +211,7 @@ func (in *DestinationDBParameters) DeepCopyInto(out *DestinationDBParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	out.PasswordSecretRef = in.PasswordSecretRef
+	in.PasswordSecretRef.DeepCopyInto(&out.PasswordSecretRef)
 	if in.Port != nil {
 		in, out := &in.Port, &out.Port
 		*out = new(float64)
@@ -387,7 +387,7 @@ func (in *SourceDBInitParameters) DeepCopyInto(out *SourceDBInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	out.PasswordSecretRef = in.PasswordSecretRef
+	in.PasswordSecretRef.DeepCopyInto(&out.PasswordSecretRef)
 	if in.Port != nil {
 		in, out := &in.Port, &out.Port
 		*out = new(float64)
@@ -563,7 +563,7 @@ func (in *SourceDBParameters) DeepCopyInto(out *SourceDBParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	out.PasswordSecretRef = in.PasswordSecretRef
+	in.PasswordSecretRef.DeepCopyInto(&out.PasswordSecretRef)
 	if in.Port != nil {
 		in, out := &in.Port, &out.Port
 		*out = new(float64)

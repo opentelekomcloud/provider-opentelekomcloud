@@ -28,11 +28,6 @@ func (mg *NATDnatRuleV3) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetPublishConnectionDetailsTo of this NATDnatRuleV3.
-func (mg *NATDnatRuleV3) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
-	return mg.Spec.PublishConnectionDetailsTo
-}
-
 // GetWriteConnectionSecretToReference of this NATDnatRuleV3.
 func (mg *NATDnatRuleV3) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
@@ -56,11 +51,6 @@ func (mg *NATDnatRuleV3) SetManagementPolicies(r xpv1.ManagementPolicies) {
 // SetProviderConfigReference of this NATDnatRuleV3.
 func (mg *NATDnatRuleV3) SetProviderConfigReference(r *xpv1.Reference) {
 	mg.Spec.ProviderConfigReference = r
-}
-
-// SetPublishConnectionDetailsTo of this NATDnatRuleV3.
-func (mg *NATDnatRuleV3) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
-	mg.Spec.PublishConnectionDetailsTo = r
 }
 
 // SetWriteConnectionSecretToReference of this NATDnatRuleV3.
@@ -88,11 +78,6 @@ func (mg *NATGatewayV3) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetPublishConnectionDetailsTo of this NATGatewayV3.
-func (mg *NATGatewayV3) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
-	return mg.Spec.PublishConnectionDetailsTo
-}
-
 // GetWriteConnectionSecretToReference of this NATGatewayV3.
 func (mg *NATGatewayV3) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
@@ -116,11 +101,6 @@ func (mg *NATGatewayV3) SetManagementPolicies(r xpv1.ManagementPolicies) {
 // SetProviderConfigReference of this NATGatewayV3.
 func (mg *NATGatewayV3) SetProviderConfigReference(r *xpv1.Reference) {
 	mg.Spec.ProviderConfigReference = r
-}
-
-// SetPublishConnectionDetailsTo of this NATGatewayV3.
-func (mg *NATGatewayV3) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
-	mg.Spec.PublishConnectionDetailsTo = r
 }
 
 // SetWriteConnectionSecretToReference of this NATGatewayV3.
@@ -148,11 +128,6 @@ func (mg *NATSnatRuleV3) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetPublishConnectionDetailsTo of this NATSnatRuleV3.
-func (mg *NATSnatRuleV3) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
-	return mg.Spec.PublishConnectionDetailsTo
-}
-
 // GetWriteConnectionSecretToReference of this NATSnatRuleV3.
 func (mg *NATSnatRuleV3) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
@@ -176,11 +151,6 @@ func (mg *NATSnatRuleV3) SetManagementPolicies(r xpv1.ManagementPolicies) {
 // SetProviderConfigReference of this NATSnatRuleV3.
 func (mg *NATSnatRuleV3) SetProviderConfigReference(r *xpv1.Reference) {
 	mg.Spec.ProviderConfigReference = r
-}
-
-// SetPublishConnectionDetailsTo of this NATSnatRuleV3.
-func (mg *NATSnatRuleV3) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
-	mg.Spec.PublishConnectionDetailsTo = r
 }
 
 // SetWriteConnectionSecretToReference of this NATSnatRuleV3.
@@ -208,11 +178,6 @@ func (mg *NATTransitIPV3) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetPublishConnectionDetailsTo of this NATTransitIPV3.
-func (mg *NATTransitIPV3) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
-	return mg.Spec.PublishConnectionDetailsTo
-}
-
 // GetWriteConnectionSecretToReference of this NATTransitIPV3.
 func (mg *NATTransitIPV3) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
@@ -236,11 +201,6 @@ func (mg *NATTransitIPV3) SetManagementPolicies(r xpv1.ManagementPolicies) {
 // SetProviderConfigReference of this NATTransitIPV3.
 func (mg *NATTransitIPV3) SetProviderConfigReference(r *xpv1.Reference) {
 	mg.Spec.ProviderConfigReference = r
-}
-
-// SetPublishConnectionDetailsTo of this NATTransitIPV3.
-func (mg *NATTransitIPV3) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
-	mg.Spec.PublishConnectionDetailsTo = r
 }
 
 // SetWriteConnectionSecretToReference of this NATTransitIPV3.

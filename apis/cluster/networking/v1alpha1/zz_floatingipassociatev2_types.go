@@ -16,7 +16,7 @@ import (
 type FloatingipAssociateV2InitParameters struct {
 
 	// IP Address of an existing floating IP.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.FloatingipV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/networking/v1alpha1.FloatingipV2
 	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractFipAddress()
 	FloatingIP *string `json:"floatingIp,omitempty" tf:"floating_ip,omitempty"`
 
@@ -30,7 +30,7 @@ type FloatingipAssociateV2InitParameters struct {
 
 	// ID of an existing port with at least one IP address to
 	// associate with this floating IP.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.PortV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/networking/v1alpha1.PortV2
 	PortID *string `json:"portId,omitempty" tf:"port_id,omitempty"`
 
 	// Reference to a PortV2 in networking to populate portId.
@@ -61,7 +61,7 @@ type FloatingipAssociateV2Observation struct {
 type FloatingipAssociateV2Parameters struct {
 
 	// IP Address of an existing floating IP.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.FloatingipV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/networking/v1alpha1.FloatingipV2
 	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractFipAddress()
 	// +kubebuilder:validation:Optional
 	FloatingIP *string `json:"floatingIp,omitempty" tf:"floating_ip,omitempty"`
@@ -76,7 +76,7 @@ type FloatingipAssociateV2Parameters struct {
 
 	// ID of an existing port with at least one IP address to
 	// associate with this floating IP.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.PortV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/networking/v1alpha1.PortV2
 	// +kubebuilder:validation:Optional
 	PortID *string `json:"portId,omitempty" tf:"port_id,omitempty"`
 

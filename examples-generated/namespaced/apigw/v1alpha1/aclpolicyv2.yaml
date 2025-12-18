@@ -1,0 +1,16 @@
+apiVersion: apigw.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: ACLPolicyV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: apigw/v1alpha1/aclpolicyv2
+  labels:
+    testing.upbound.io/example-name: ip_rule
+  name: ip-rule
+  namespace: upbound-system
+spec:
+  forProvider:
+    entityType: IP
+    gatewayId: ${var.gateway_id}
+    name: ${var.policy_name}
+    type: PERMIT
+    value: ${join(",", var.ip_addresses)}

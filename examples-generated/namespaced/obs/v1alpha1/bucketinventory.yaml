@@ -1,0 +1,40 @@
+apiVersion: obs.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: BucketInventory
+metadata:
+  annotations:
+    meta.upbound.io/example-id: obs/v1alpha1/bucketinventory
+  labels:
+    testing.upbound.io/example-name: inventory
+  name: inventory
+  namespace: upbound-system
+spec:
+  forProvider:
+    bucket: my-tf-test-bucket
+    configurationId: test-id
+    destination:
+    - bucket: my-tf-test-bucket
+      format: CSV
+      prefix: test-
+    filterPrefix: test-filter-prefix
+    frequency: Weekly
+    includedObjectVersions: Current
+    isEnabled: true
+    optionalFields:
+    - Size
+    - LastModifiedDate
+    - ReplicationStatus
+
+---
+
+apiVersion: obs.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: Bucket
+metadata:
+  annotations:
+    meta.upbound.io/example-id: obs/v1alpha1/bucketinventory
+  labels:
+    testing.upbound.io/example-name: bucket
+  name: bucket
+  namespace: upbound-system
+spec:
+  forProvider:
+    bucket: my-tf-test-bucket

@@ -34,7 +34,7 @@ type RepositoryV2InitParameters struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// The name of the repository organization.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/swr/v1alpha1.OrganizationV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/swr/v1alpha1.OrganizationV2
 	Organization *string `json:"organization,omitempty" tf:"organization,omitempty"`
 
 	// Reference to a OrganizationV2 in swr to populate organization.
@@ -112,7 +112,7 @@ type RepositoryV2Parameters struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// The name of the repository organization.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/swr/v1alpha1.OrganizationV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/swr/v1alpha1.OrganizationV2
 	// +kubebuilder:validation:Optional
 	Organization *string `json:"organization,omitempty" tf:"organization,omitempty"`
 

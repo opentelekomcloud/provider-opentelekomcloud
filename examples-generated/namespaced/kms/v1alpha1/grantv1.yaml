@@ -1,0 +1,18 @@
+apiVersion: kms.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: GrantV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: kms/v1alpha1/grantv1
+  labels:
+    testing.upbound.io/example-name: grant_1
+  name: grant-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    granteePrincipal: ${var.user_id}
+    keyId: ${var.kms_id}
+    name: my_grant
+    operations:
+    - describe-key
+    - create-datakey
+    - encrypt-datakey

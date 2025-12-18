@@ -4849,7 +4849,7 @@ func (in *UserV2InitParameters) DeepCopyInto(out *UserV2InitParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	out.PasswordSecretRef = in.PasswordSecretRef
+	in.PasswordSecretRef.DeepCopyInto(&out.PasswordSecretRef)
 	if in.Username != nil {
 		in, out := &in.Username, &out.Username
 		*out = new(string)
@@ -4952,7 +4952,7 @@ func (in *UserV2Parameters) DeepCopyInto(out *UserV2Parameters) {
 		*out = new(string)
 		**out = **in
 	}
-	out.PasswordSecretRef = in.PasswordSecretRef
+	in.PasswordSecretRef.DeepCopyInto(&out.PasswordSecretRef)
 	if in.Username != nil {
 		in, out := &in.Username, &out.Username
 		*out = new(string)

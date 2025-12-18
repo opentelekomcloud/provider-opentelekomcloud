@@ -20,7 +20,7 @@ type OrganizationPermissionsV2InitParameters struct {
 	Auth *float64 `json:"auth,omitempty" tf:"auth,omitempty"`
 
 	// The name of the organization (namespace) to be accessed.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/swr/v1alpha1.OrganizationV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/swr/v1alpha1.OrganizationV2
 	Organization *string `json:"organization,omitempty" tf:"organization,omitempty"`
 
 	// Reference to a OrganizationV2 in swr to populate organization.
@@ -32,7 +32,7 @@ type OrganizationPermissionsV2InitParameters struct {
 	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
 	// The ID of the existing Open Telekom Cloud user.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/identity/v1alpha1.UserV3
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/identity/v1alpha1.UserV3
 	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
 
 	// Reference to a UserV3 in identity to populate userId.
@@ -44,7 +44,7 @@ type OrganizationPermissionsV2InitParameters struct {
 	UserIDSelector *v1.Selector `json:"userIdSelector,omitempty" tf:"-"`
 
 	// The username of the existing Open Telekom Cloud user.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/identity/v1alpha1.UserV3
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/identity/v1alpha1.UserV3
 	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractUsername()
 	Username *string `json:"username,omitempty" tf:"username,omitempty"`
 
@@ -83,7 +83,7 @@ type OrganizationPermissionsV2Parameters struct {
 	Auth *float64 `json:"auth,omitempty" tf:"auth,omitempty"`
 
 	// The name of the organization (namespace) to be accessed.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/swr/v1alpha1.OrganizationV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/swr/v1alpha1.OrganizationV2
 	// +kubebuilder:validation:Optional
 	Organization *string `json:"organization,omitempty" tf:"organization,omitempty"`
 
@@ -96,7 +96,7 @@ type OrganizationPermissionsV2Parameters struct {
 	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
 	// The ID of the existing Open Telekom Cloud user.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/identity/v1alpha1.UserV3
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/identity/v1alpha1.UserV3
 	// +kubebuilder:validation:Optional
 	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
 
@@ -109,7 +109,7 @@ type OrganizationPermissionsV2Parameters struct {
 	UserIDSelector *v1.Selector `json:"userIdSelector,omitempty" tf:"-"`
 
 	// The username of the existing Open Telekom Cloud user.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/identity/v1alpha1.UserV3
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/identity/v1alpha1.UserV3
 	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractUsername()
 	// +kubebuilder:validation:Optional
 	Username *string `json:"username,omitempty" tf:"username,omitempty"`

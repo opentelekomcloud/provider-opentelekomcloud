@@ -1,0 +1,45 @@
+apiVersion: cce.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: ClusterV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cce/v1alpha1/clusterv3
+  labels:
+    testing.upbound.io/example-name: cluster_1
+  name: cluster-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    apiAccessTrustlist:
+    - 192.168.45.0/24
+    - 10.234.128.0/20
+    authenticationMode: rbac
+    clusterType: VirtualMachine
+    containerNetworkType: overlay_l2
+    description: Create cluster
+    eipSelector:
+      matchLabels:
+        testing.upbound.io/example-name: fip_1
+    flavorId: ${var.flavor_id}
+    kubeProxyMode: ipvs
+    name: cluster
+    subnetIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    timezone: Europe/Madrid
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+
+---
+
+apiVersion: networking.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: FloatingipV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cce/v1alpha1/clusterv3
+  labels:
+    testing.upbound.io/example-name: fip_1
+  name: fip-1
+  namespace: upbound-system
+spec:
+  forProvider: {}

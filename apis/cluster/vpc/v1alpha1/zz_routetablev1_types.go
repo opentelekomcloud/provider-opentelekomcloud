@@ -98,7 +98,7 @@ type RouteTableV1InitParameters struct {
 
 	// Specifies the VPC ID for which a route table is to be added.
 	// Changing this creates a new resource.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.VpcV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.VpcV1
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
 
 	// Reference to a VpcV1 in vpc to populate vpcId.
@@ -175,7 +175,7 @@ type RouteTableV1Parameters struct {
 
 	// Specifies the VPC ID for which a route table is to be added.
 	// Changing this creates a new resource.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.VpcV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.VpcV1
 	// +kubebuilder:validation:Optional
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
 

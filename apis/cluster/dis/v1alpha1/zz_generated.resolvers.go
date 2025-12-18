@@ -9,7 +9,7 @@ package v1alpha1
 import (
 	"context"
 	reference "github.com/crossplane/crossplane-runtime/v2/pkg/reference"
-	v1alpha1 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/obs/v1alpha1"
+	v1alpha1 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/obs/v1alpha1"
 	common "github.com/opentelekomcloud/provider-opentelekomcloud/config/common"
 	errors "github.com/pkg/errors"
 	client "sigs.k8s.io/controller-runtime/pkg/client"
@@ -25,6 +25,7 @@ func (mg *CheckpointV2) ResolveReferences(ctx context.Context, c client.Reader) 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.AppName),
 		Extract:      common.ExtractDisAppName(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.ForProvider.AppNameRef,
 		Selector:     mg.Spec.ForProvider.AppNameSelector,
 		To: reference.To{
@@ -41,6 +42,7 @@ func (mg *CheckpointV2) ResolveReferences(ctx context.Context, c client.Reader) 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.StreamName),
 		Extract:      common.ExtractDisStreamName(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.ForProvider.StreamNameRef,
 		Selector:     mg.Spec.ForProvider.StreamNameSelector,
 		To: reference.To{
@@ -57,6 +59,7 @@ func (mg *CheckpointV2) ResolveReferences(ctx context.Context, c client.Reader) 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.AppName),
 		Extract:      common.ExtractDisAppName(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.InitProvider.AppNameRef,
 		Selector:     mg.Spec.InitProvider.AppNameSelector,
 		To: reference.To{
@@ -73,6 +76,7 @@ func (mg *CheckpointV2) ResolveReferences(ctx context.Context, c client.Reader) 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.StreamName),
 		Extract:      common.ExtractDisStreamName(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.InitProvider.StreamNameRef,
 		Selector:     mg.Spec.InitProvider.StreamNameSelector,
 		To: reference.To{
@@ -100,6 +104,7 @@ func (mg *DumpTaskV2) ResolveReferences(ctx context.Context, c client.Reader) er
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ObsDestinationDescriptor[i3].ObsBucketPath),
 			Extract:      common.ExtractObsBucket(),
+			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.ForProvider.ObsDestinationDescriptor[i3].ObsBucketPathRef,
 			Selector:     mg.Spec.ForProvider.ObsDestinationDescriptor[i3].ObsBucketPathSelector,
 			To: reference.To{
@@ -117,6 +122,7 @@ func (mg *DumpTaskV2) ResolveReferences(ctx context.Context, c client.Reader) er
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.StreamName),
 		Extract:      common.ExtractDisStreamName(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.ForProvider.StreamNameRef,
 		Selector:     mg.Spec.ForProvider.StreamNameSelector,
 		To: reference.To{
@@ -134,6 +140,7 @@ func (mg *DumpTaskV2) ResolveReferences(ctx context.Context, c client.Reader) er
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ObsDestinationDescriptor[i3].ObsBucketPath),
 			Extract:      common.ExtractObsBucket(),
+			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.InitProvider.ObsDestinationDescriptor[i3].ObsBucketPathRef,
 			Selector:     mg.Spec.InitProvider.ObsDestinationDescriptor[i3].ObsBucketPathSelector,
 			To: reference.To{
@@ -151,6 +158,7 @@ func (mg *DumpTaskV2) ResolveReferences(ctx context.Context, c client.Reader) er
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.StreamName),
 		Extract:      common.ExtractDisStreamName(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.InitProvider.StreamNameRef,
 		Selector:     mg.Spec.InitProvider.StreamNameSelector,
 		To: reference.To{

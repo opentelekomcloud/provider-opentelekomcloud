@@ -44,7 +44,7 @@ type LoadbalancerV3InitParameters struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Specifies the subnet Network ID.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.SubnetV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.SubnetV1
 	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractNetworkID()
 	// +listType=set
 	NetworkIds []*string `json:"networkIds,omitempty" tf:"network_ids,omitempty"`
@@ -63,7 +63,7 @@ type LoadbalancerV3InitParameters struct {
 
 	// ID of the router (or VPC) this LoadBalancer belongs to. Changing
 	// this creates a new LoadBalancer.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.VpcV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.VpcV1
 	RouterID *string `json:"routerId,omitempty" tf:"router_id,omitempty"`
 
 	// Reference to a VpcV1 in vpc to populate routerId.
@@ -75,7 +75,7 @@ type LoadbalancerV3InitParameters struct {
 	RouterIDSelector *v1.Selector `json:"routerIdSelector,omitempty" tf:"-"`
 
 	// The ID of the subnet to which the LoadBalancer belongs. Required when using vip_address.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.SubnetV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.SubnetV1
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 
 	// Reference to a SubnetV1 in vpc to populate subnetId.
@@ -198,7 +198,7 @@ type LoadbalancerV3Parameters struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Specifies the subnet Network ID.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.SubnetV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.SubnetV1
 	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractNetworkID()
 	// +kubebuilder:validation:Optional
 	// +listType=set
@@ -219,7 +219,7 @@ type LoadbalancerV3Parameters struct {
 
 	// ID of the router (or VPC) this LoadBalancer belongs to. Changing
 	// this creates a new LoadBalancer.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.VpcV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.VpcV1
 	// +kubebuilder:validation:Optional
 	RouterID *string `json:"routerId,omitempty" tf:"router_id,omitempty"`
 
@@ -232,7 +232,7 @@ type LoadbalancerV3Parameters struct {
 	RouterIDSelector *v1.Selector `json:"routerIdSelector,omitempty" tf:"-"`
 
 	// The ID of the subnet to which the LoadBalancer belongs. Required when using vip_address.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.SubnetV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.SubnetV1
 	// +kubebuilder:validation:Optional
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 
@@ -270,7 +270,7 @@ type PublicIPInitParameters struct {
 	BandwidthSize *float64 `json:"bandwidthSize,omitempty" tf:"bandwidth_size,omitempty"`
 
 	// ID of an existing elastic IP. Required when using existing EIP.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.EIPV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.EIPV1
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// Reference to a EIPV1 in vpc to populate id.
@@ -332,7 +332,7 @@ type PublicIPParameters struct {
 	BandwidthSize *float64 `json:"bandwidthSize,omitempty" tf:"bandwidth_size,omitempty"`
 
 	// ID of an existing elastic IP. Required when using existing EIP.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.EIPV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.EIPV1
 	// +kubebuilder:validation:Optional
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 

@@ -39,6 +39,7 @@ type ProviderConfigStatus struct {
 // +kubebuilder:printcolumn:name="SECRET-NAME",type="string",JSONPath=".spec.credentials.secretRef.name",priority=1
 // +kubebuilder:resource:scope=Namespaced
 // +kubebuilder:resource:scope=Namespaced,categories={crossplane,provider,opentelekomcloud}
+// +kubebuilder:storageversion
 type ProviderConfig struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
@@ -64,6 +65,7 @@ type ProviderConfigList struct {
 // +kubebuilder:printcolumn:name="RESOURCE-KIND",type="string",JSONPath=".resourceRef.kind"
 // +kubebuilder:printcolumn:name="RESOURCE-NAME",type="string",JSONPath=".resourceRef.name"
 // +kubebuilder:resource:scope=Namespaced,categories={crossplane,provider,opentelekomcloud}
+// +kubebuilder:storageversion
 type ProviderConfigUsage struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`

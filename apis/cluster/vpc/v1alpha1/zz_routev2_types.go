@@ -30,7 +30,7 @@ type RouteV2InitParameters struct {
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// Specifies the VPC for which a route is to be added. Changing this creates a new Route.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.VpcV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.VpcV1
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
 
 	// Reference to a VpcV1 in vpc to populate vpcId.
@@ -87,7 +87,7 @@ type RouteV2Parameters struct {
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// Specifies the VPC for which a route is to be added. Changing this creates a new Route.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.VpcV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.VpcV1
 	// +kubebuilder:validation:Optional
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
 

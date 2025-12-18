@@ -28,11 +28,6 @@ func (mg *VPNConnectionMonitorV5) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetPublishConnectionDetailsTo of this VPNConnectionMonitorV5.
-func (mg *VPNConnectionMonitorV5) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
-	return mg.Spec.PublishConnectionDetailsTo
-}
-
 // GetWriteConnectionSecretToReference of this VPNConnectionMonitorV5.
 func (mg *VPNConnectionMonitorV5) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
@@ -56,11 +51,6 @@ func (mg *VPNConnectionMonitorV5) SetManagementPolicies(r xpv1.ManagementPolicie
 // SetProviderConfigReference of this VPNConnectionMonitorV5.
 func (mg *VPNConnectionMonitorV5) SetProviderConfigReference(r *xpv1.Reference) {
 	mg.Spec.ProviderConfigReference = r
-}
-
-// SetPublishConnectionDetailsTo of this VPNConnectionMonitorV5.
-func (mg *VPNConnectionMonitorV5) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
-	mg.Spec.PublishConnectionDetailsTo = r
 }
 
 // SetWriteConnectionSecretToReference of this VPNConnectionMonitorV5.
@@ -88,11 +78,6 @@ func (mg *VPNConnectionV5) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetPublishConnectionDetailsTo of this VPNConnectionV5.
-func (mg *VPNConnectionV5) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
-	return mg.Spec.PublishConnectionDetailsTo
-}
-
 // GetWriteConnectionSecretToReference of this VPNConnectionV5.
 func (mg *VPNConnectionV5) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
@@ -116,11 +101,6 @@ func (mg *VPNConnectionV5) SetManagementPolicies(r xpv1.ManagementPolicies) {
 // SetProviderConfigReference of this VPNConnectionV5.
 func (mg *VPNConnectionV5) SetProviderConfigReference(r *xpv1.Reference) {
 	mg.Spec.ProviderConfigReference = r
-}
-
-// SetPublishConnectionDetailsTo of this VPNConnectionV5.
-func (mg *VPNConnectionV5) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
-	mg.Spec.PublishConnectionDetailsTo = r
 }
 
 // SetWriteConnectionSecretToReference of this VPNConnectionV5.
@@ -148,11 +128,6 @@ func (mg *VPNCustomerGatewayV5) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetPublishConnectionDetailsTo of this VPNCustomerGatewayV5.
-func (mg *VPNCustomerGatewayV5) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
-	return mg.Spec.PublishConnectionDetailsTo
-}
-
 // GetWriteConnectionSecretToReference of this VPNCustomerGatewayV5.
 func (mg *VPNCustomerGatewayV5) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
@@ -176,11 +151,6 @@ func (mg *VPNCustomerGatewayV5) SetManagementPolicies(r xpv1.ManagementPolicies)
 // SetProviderConfigReference of this VPNCustomerGatewayV5.
 func (mg *VPNCustomerGatewayV5) SetProviderConfigReference(r *xpv1.Reference) {
 	mg.Spec.ProviderConfigReference = r
-}
-
-// SetPublishConnectionDetailsTo of this VPNCustomerGatewayV5.
-func (mg *VPNCustomerGatewayV5) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
-	mg.Spec.PublishConnectionDetailsTo = r
 }
 
 // SetWriteConnectionSecretToReference of this VPNCustomerGatewayV5.
@@ -208,11 +178,6 @@ func (mg *VPNGatewayV5) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetPublishConnectionDetailsTo of this VPNGatewayV5.
-func (mg *VPNGatewayV5) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
-	return mg.Spec.PublishConnectionDetailsTo
-}
-
 // GetWriteConnectionSecretToReference of this VPNGatewayV5.
 func (mg *VPNGatewayV5) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
@@ -236,11 +201,6 @@ func (mg *VPNGatewayV5) SetManagementPolicies(r xpv1.ManagementPolicies) {
 // SetProviderConfigReference of this VPNGatewayV5.
 func (mg *VPNGatewayV5) SetProviderConfigReference(r *xpv1.Reference) {
 	mg.Spec.ProviderConfigReference = r
-}
-
-// SetPublishConnectionDetailsTo of this VPNGatewayV5.
-func (mg *VPNGatewayV5) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
-	mg.Spec.PublishConnectionDetailsTo = r
 }
 
 // SetWriteConnectionSecretToReference of this VPNGatewayV5.

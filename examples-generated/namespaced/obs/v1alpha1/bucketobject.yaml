@@ -1,0 +1,15 @@
+apiVersion: obs.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: BucketObject
+metadata:
+  annotations:
+    meta.upbound.io/example-id: obs/v1alpha1/bucketobject
+  labels:
+    testing.upbound.io/example-name: object
+  name: object
+  namespace: upbound-system
+spec:
+  forProvider:
+    bucket: your_bucket_name
+    content: some object content
+    contentType: application/xml
+    key: new_key_from_content

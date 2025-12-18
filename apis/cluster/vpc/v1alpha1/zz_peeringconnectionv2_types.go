@@ -22,7 +22,7 @@ type PeeringConnectionV2InitParameters struct {
 	PeerTenantID *string `json:"peerTenantId,omitempty" tf:"peer_tenant_id,omitempty"`
 
 	// Specifies the VPC ID of the accepter tenant. Changing this creates a new VPC peering connection.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.VpcV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.VpcV1
 	PeerVPCID *string `json:"peerVpcId,omitempty" tf:"peer_vpc_id,omitempty"`
 
 	// Reference to a VpcV1 in vpc to populate peerVpcId.
@@ -36,7 +36,7 @@ type PeeringConnectionV2InitParameters struct {
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
 	// Specifies the ID of a VPC involved in a VPC peering connection. Changing this creates a new VPC peering connection.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.VpcV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.VpcV1
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
 
 	// Reference to a VpcV1 in vpc to populate vpcId.
@@ -82,7 +82,7 @@ type PeeringConnectionV2Parameters struct {
 	PeerTenantID *string `json:"peerTenantId,omitempty" tf:"peer_tenant_id,omitempty"`
 
 	// Specifies the VPC ID of the accepter tenant. Changing this creates a new VPC peering connection.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.VpcV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.VpcV1
 	// +kubebuilder:validation:Optional
 	PeerVPCID *string `json:"peerVpcId,omitempty" tf:"peer_vpc_id,omitempty"`
 
@@ -98,7 +98,7 @@ type PeeringConnectionV2Parameters struct {
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
 	// Specifies the ID of a VPC involved in a VPC peering connection. Changing this creates a new VPC peering connection.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.VpcV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.VpcV1
 	// +kubebuilder:validation:Optional
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
 

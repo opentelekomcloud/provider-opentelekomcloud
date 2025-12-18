@@ -1,0 +1,15 @@
+apiVersion: cfw.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: IpsProtectionV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cfw/v1alpha1/ipsprotectionv1
+  labels:
+    testing.upbound.io/example-name: protect_1
+  name: protect-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    featureStatus: 1
+    ipsType: 2
+    mode: 0
+    objectId: ${var.object_id}

@@ -37,7 +37,7 @@ type BlockDeviceInitParameters struct {
 
 	// The UUID of the image, volume, or snapshot. Changing
 	// this creates a new server.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/blockstorage/v1alpha1.VolumeV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/blockstorage/v1alpha1.VolumeV2
 	UUID *string `json:"uuid,omitempty" tf:"uuid,omitempty"`
 
 	// Reference to a VolumeV2 in blockstorage to populate uuid.
@@ -126,7 +126,7 @@ type BlockDeviceParameters struct {
 
 	// The UUID of the image, volume, or snapshot. Changing
 	// this creates a new server.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/blockstorage/v1alpha1.VolumeV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/blockstorage/v1alpha1.VolumeV2
 	// +kubebuilder:validation:Optional
 	UUID *string `json:"uuid,omitempty" tf:"uuid,omitempty"`
 
@@ -200,7 +200,7 @@ type InstanceV2InitParameters struct {
 
 	// The name of a key pair to put on the server. The key pair must already be created and
 	// associated with the tenant's account. Changing this creates a new server.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/compute/v1alpha1.KeypairV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/compute/v1alpha1.KeypairV2
 	KeyPair *string `json:"keyPair,omitempty" tf:"key_pair,omitempty"`
 
 	// Reference to a KeypairV2 in compute to populate keyPair.
@@ -238,7 +238,7 @@ type InstanceV2InitParameters struct {
 
 	// An array of one or more security group names to associate with the server. Changing
 	// this results in adding/removing security groups from the existing server.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/compute/v1alpha1.SecgroupV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/compute/v1alpha1.SecgroupV2
 	// +listType=set
 	SecurityGroups []*string `json:"securityGroups,omitempty" tf:"security_groups,omitempty"`
 
@@ -415,7 +415,7 @@ type InstanceV2Parameters struct {
 
 	// The name of a key pair to put on the server. The key pair must already be created and
 	// associated with the tenant's account. Changing this creates a new server.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/compute/v1alpha1.KeypairV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/compute/v1alpha1.KeypairV2
 	// +kubebuilder:validation:Optional
 	KeyPair *string `json:"keyPair,omitempty" tf:"key_pair,omitempty"`
 
@@ -461,7 +461,7 @@ type InstanceV2Parameters struct {
 
 	// An array of one or more security group names to associate with the server. Changing
 	// this results in adding/removing security groups from the existing server.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/compute/v1alpha1.SecgroupV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/compute/v1alpha1.SecgroupV2
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	SecurityGroups []*string `json:"securityGroups,omitempty" tf:"security_groups,omitempty"`
@@ -513,7 +513,7 @@ type NetworkInitParameters struct {
 
 	// The network UUID to attach to the server. Changing this
 	// creates a new server.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.NetworkV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/networking/v1alpha1.NetworkV2
 	UUID *string `json:"uuid,omitempty" tf:"uuid,omitempty"`
 
 	// Reference to a NetworkV2 in networking to populate uuid.
@@ -583,7 +583,7 @@ type NetworkParameters struct {
 
 	// The network UUID to attach to the server. Changing this
 	// creates a new server.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.NetworkV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/networking/v1alpha1.NetworkV2
 	// +kubebuilder:validation:Optional
 	UUID *string `json:"uuid,omitempty" tf:"uuid,omitempty"`
 

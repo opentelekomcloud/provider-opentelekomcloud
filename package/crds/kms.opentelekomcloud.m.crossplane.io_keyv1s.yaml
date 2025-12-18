@@ -1,0 +1,393 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.18.0
+  name: keyv1s.kms.opentelekomcloud.m.crossplane.io
+spec:
+  group: kms.opentelekomcloud.m.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - opentelekomcloud
+    kind: KeyV1
+    listKind: KeyV1List
+    plural: keyv1s
+    singular: keyv1
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: KeyV1 is the Schema for the KeyV1s API. Manages a KMS Key resource
+          within OpenTelekomCloud.
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: KeyV1Spec defines the desired state of KeyV1
+            properties:
+              forProvider:
+                properties:
+                  allowCancelDeletion:
+                    description: |-
+                      Specifies whether the key is enabled from Pending Deletion state. The value true indicates
+                      that the key state Pending Deletion will be cancelled.
+                    type: boolean
+                  isEnabled:
+                    description: |-
+                      Specifies whether the KMS key is enabled.
+                      The default value is true.
+                      This parameter is not supported when creating an external import key for the first time.
+                    type: boolean
+                  keyAlias:
+                    description: |-
+                      The alias in which to create the key. It is required when
+                      we create a new key. Changing this updates the alias of key.
+                    type: string
+                  keyDescription:
+                    description: |-
+                      The description of the key as viewed in OpenTelekomCloud console.
+                      Changing this updates the description of key.
+                    type: string
+                  origin:
+                    description: |-
+                      Specifies the source of the KMS key.
+                      Changing this parameter will create a new resource.
+                      The default value is kms. The valid values are as follows:
+                    type: string
+                  pendingDays:
+                    description: |-
+                      Duration in days after which the key is deleted
+                      after destruction of the resource, must be between 7 and 1096 days. Defaults to 7.
+                      It only is used when delete a key.
+                    type: string
+                  realm:
+                    description: Region where a key resides. Changing this creates
+                      a new key.
+                    type: string
+                  rotationEnabled:
+                    description: Specifies whether the key is enabled for rotation.
+                    type: boolean
+                  rotationInterval:
+                    description: |-
+                      Rotation interval. The value is an integer ranging from 30 to 365.
+                      Set the interval based on how often a CMK is used.
+                      If it is frequently used, set a short interval; otherwise, set a long one.
+                    type: number
+                  tags:
+                    additionalProperties:
+                      type: string
+                    description: Tags key/value pairs to associate with the AutoScaling
+                      Group.
+                    type: object
+                    x-kubernetes-map-type: granular
+                type: object
+              initProvider:
+                description: |-
+                  THIS IS A BETA FIELD. It will be honored
+                  unless the Management Policies feature flag is disabled.
+                  InitProvider holds the same fields as ForProvider, with the exception
+                  of Identifier and other resource reference fields. The fields that are
+                  in InitProvider are merged into ForProvider when the resource is created.
+                  The same fields are also added to the terraform ignore_changes hook, to
+                  avoid updating them after creation. This is useful for fields that are
+                  required on creation, but we do not desire to update them after creation,
+                  for example because of an external controller is managing them, like an
+                  autoscaler.
+                properties:
+                  allowCancelDeletion:
+                    description: |-
+                      Specifies whether the key is enabled from Pending Deletion state. The value true indicates
+                      that the key state Pending Deletion will be cancelled.
+                    type: boolean
+                  isEnabled:
+                    description: |-
+                      Specifies whether the KMS key is enabled.
+                      The default value is true.
+                      This parameter is not supported when creating an external import key for the first time.
+                    type: boolean
+                  keyAlias:
+                    description: |-
+                      The alias in which to create the key. It is required when
+                      we create a new key. Changing this updates the alias of key.
+                    type: string
+                  keyDescription:
+                    description: |-
+                      The description of the key as viewed in OpenTelekomCloud console.
+                      Changing this updates the description of key.
+                    type: string
+                  origin:
+                    description: |-
+                      Specifies the source of the KMS key.
+                      Changing this parameter will create a new resource.
+                      The default value is kms. The valid values are as follows:
+                    type: string
+                  pendingDays:
+                    description: |-
+                      Duration in days after which the key is deleted
+                      after destruction of the resource, must be between 7 and 1096 days. Defaults to 7.
+                      It only is used when delete a key.
+                    type: string
+                  realm:
+                    description: Region where a key resides. Changing this creates
+                      a new key.
+                    type: string
+                  rotationEnabled:
+                    description: Specifies whether the key is enabled for rotation.
+                    type: boolean
+                  rotationInterval:
+                    description: |-
+                      Rotation interval. The value is an integer ranging from 30 to 365.
+                      Set the interval based on how often a CMK is used.
+                      If it is frequently used, set a short interval; otherwise, set a long one.
+                    type: number
+                  tags:
+                    additionalProperties:
+                      type: string
+                    description: Tags key/value pairs to associate with the AutoScaling
+                      Group.
+                    type: object
+                    x-kubernetes-map-type: granular
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: |-
+                  THIS IS A BETA FIELD. It is on by default but can be opted out
+                  through a Crossplane feature flag.
+                  ManagementPolicies specify the array of actions Crossplane is allowed to
+                  take on the managed and external resources.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md
+                items:
+                  description: |-
+                    A ManagementAction represents an action that the Crossplane controllers
+                    can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
+              providerConfigRef:
+                default:
+                  kind: ClusterProviderConfig
+                  name: default
+                description: |-
+                  ProviderConfigReference specifies how the provider that will be used to
+                  create, observe, update, and delete this managed resource should be
+                  configured.
+                properties:
+                  kind:
+                    description: Kind of the referenced object.
+                    type: string
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                required:
+                - kind
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: |-
+                  WriteConnectionSecretToReference specifies the namespace and name of a
+                  Secret to which any connection details for this managed resource should
+                  be written. Connection details frequently include the endpoint, username,
+                  and password required to connect to the managed resource.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                required:
+                - name
+                type: object
+            required:
+            - forProvider
+            type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.keyAlias is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.keyAlias)
+                || (has(self.initProvider) && has(self.initProvider.keyAlias))'
+          status:
+            description: KeyV1Status defines the observed state of KeyV1.
+            properties:
+              atProvider:
+                properties:
+                  allowCancelDeletion:
+                    description: |-
+                      Specifies whether the key is enabled from Pending Deletion state. The value true indicates
+                      that the key state Pending Deletion will be cancelled.
+                    type: boolean
+                  creationDate:
+                    description: Creation time (time stamp) of a key.
+                    type: string
+                  defaultKeyFlag:
+                    description: |-
+                      Identification of a Master Key. The value 1 indicates a Default
+                      Master Key, and the value 0 indicates a key.
+                    type: string
+                  domainId:
+                    description: ID of a user domain for the key.
+                    type: string
+                  expirationTime:
+                    description: Expiration time.
+                    type: string
+                  id:
+                    description: The globally unique identifier for the key.
+                    type: string
+                  isEnabled:
+                    description: |-
+                      Specifies whether the KMS key is enabled.
+                      The default value is true.
+                      This parameter is not supported when creating an external import key for the first time.
+                    type: boolean
+                  keyAlias:
+                    description: |-
+                      The alias in which to create the key. It is required when
+                      we create a new key. Changing this updates the alias of key.
+                    type: string
+                  keyDescription:
+                    description: |-
+                      The description of the key as viewed in OpenTelekomCloud console.
+                      Changing this updates the description of key.
+                    type: string
+                  keyState:
+                    description: |-
+                      The current status of the KMS key.
+                      The valid values are as follows:
+                    type: string
+                  origin:
+                    description: |-
+                      Specifies the source of the KMS key.
+                      Changing this parameter will create a new resource.
+                      The default value is kms. The valid values are as follows:
+                    type: string
+                  pendingDays:
+                    description: |-
+                      Duration in days after which the key is deleted
+                      after destruction of the resource, must be between 7 and 1096 days. Defaults to 7.
+                      It only is used when delete a key.
+                    type: string
+                  realm:
+                    description: Region where a key resides. Changing this creates
+                      a new key.
+                    type: string
+                  rotationEnabled:
+                    description: Specifies whether the key is enabled for rotation.
+                    type: boolean
+                  rotationInterval:
+                    description: |-
+                      Rotation interval. The value is an integer ranging from 30 to 365.
+                      Set the interval based on how often a CMK is used.
+                      If it is frequently used, set a short interval; otherwise, set a long one.
+                    type: number
+                  rotationNumber:
+                    description: Number of key rotations.
+                    type: number
+                  scheduledDeletionDate:
+                    description: Scheduled deletion time (time stamp) of a key.
+                    type: string
+                  tags:
+                    additionalProperties:
+                      type: string
+                    description: Tags key/value pairs to associate with the AutoScaling
+                      Group.
+                    type: object
+                    x-kubernetes-map-type: granular
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        LastTransitionTime is the last time this condition transitioned from one
+                        status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        A Message containing details about this condition's last transition from
+                        one status to another, if any.
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        ObservedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      type: integer
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: |-
+                        Type of this condition. At most one of each condition type may apply to
+                        a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+              observedGeneration:
+                description: |-
+                  ObservedGeneration is the latest metadata.generation
+                  which resulted in either a ready state, or stalled due to error
+                  it can not recover from without human intervention.
+                format: int64
+                type: integer
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

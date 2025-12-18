@@ -169,7 +169,7 @@ type ClusterV3InitParameters struct {
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// EIP address of the cluster.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.EIPV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.EIPV1
 	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractEipAddress()
 	EIP *string `json:"eip,omitempty" tf:"eip,omitempty"`
 
@@ -185,7 +185,7 @@ type ClusterV3InitParameters struct {
 	EnableVolumeEncryption *bool `json:"enableVolumeEncryption,omitempty" tf:"enable_volume_encryption,omitempty"`
 
 	// Specifies the ENI network segment. Specified when creating a CCE Turbo cluster. Changing this parameter will create a new cluster resource.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.SubnetV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.SubnetV1
 	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractSubnetCIDR()
 	EniSubnetCidr *string `json:"eniSubnetCidr,omitempty" tf:"eni_subnet_cidr,omitempty"`
 
@@ -198,7 +198,7 @@ type ClusterV3InitParameters struct {
 	EniSubnetCidrSelector *v1.Selector `json:"eniSubnetCidrSelector,omitempty" tf:"-"`
 
 	// -  Specifies the ENI subnet ID. Specified when creating a CCE Turbo cluster. Changing this parameter will create a new cluster resource.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.SubnetV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.SubnetV1
 	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractSubnetID()
 	EniSubnetID *string `json:"eniSubnetId,omitempty" tf:"eni_subnet_id,omitempty"`
 
@@ -219,7 +219,7 @@ type ClusterV3InitParameters struct {
 	FlavorID *string `json:"flavorId,omitempty" tf:"flavor_id,omitempty"`
 
 	// The ID of the high speed network used to create bare metal nodes. Changing this parameter will create a new cluster resource.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.SubnetV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.SubnetV1
 	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractNetworkID()
 	HighwaySubnetID *string `json:"highwaySubnetId,omitempty" tf:"highway_subnet_id,omitempty"`
 
@@ -278,7 +278,7 @@ type ClusterV3InitParameters struct {
 	SecurityGroupID *string `json:"securityGroupId,omitempty" tf:"security_group_id,omitempty"`
 
 	// The Network ID of the subnet used to create the node. Changing this parameter will create a new cluster resource.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.SubnetV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.SubnetV1
 	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractNetworkID()
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 
@@ -297,7 +297,7 @@ type ClusterV3InitParameters struct {
 	Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
 
 	// The ID of the VPC used to create the node. Changing this parameter will create a new cluster resource.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.VpcV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.VpcV1
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
 
 	// Reference to a VpcV1 in vpc to populate vpcId.
@@ -602,7 +602,7 @@ type ClusterV3Parameters struct {
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// EIP address of the cluster.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.EIPV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.EIPV1
 	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractEipAddress()
 	// +kubebuilder:validation:Optional
 	EIP *string `json:"eip,omitempty" tf:"eip,omitempty"`
@@ -620,7 +620,7 @@ type ClusterV3Parameters struct {
 	EnableVolumeEncryption *bool `json:"enableVolumeEncryption,omitempty" tf:"enable_volume_encryption,omitempty"`
 
 	// Specifies the ENI network segment. Specified when creating a CCE Turbo cluster. Changing this parameter will create a new cluster resource.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.SubnetV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.SubnetV1
 	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractSubnetCIDR()
 	// +kubebuilder:validation:Optional
 	EniSubnetCidr *string `json:"eniSubnetCidr,omitempty" tf:"eni_subnet_cidr,omitempty"`
@@ -634,7 +634,7 @@ type ClusterV3Parameters struct {
 	EniSubnetCidrSelector *v1.Selector `json:"eniSubnetCidrSelector,omitempty" tf:"-"`
 
 	// -  Specifies the ENI subnet ID. Specified when creating a CCE Turbo cluster. Changing this parameter will create a new cluster resource.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.SubnetV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.SubnetV1
 	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractSubnetID()
 	// +kubebuilder:validation:Optional
 	EniSubnetID *string `json:"eniSubnetId,omitempty" tf:"eni_subnet_id,omitempty"`
@@ -658,7 +658,7 @@ type ClusterV3Parameters struct {
 	FlavorID *string `json:"flavorId,omitempty" tf:"flavor_id,omitempty"`
 
 	// The ID of the high speed network used to create bare metal nodes. Changing this parameter will create a new cluster resource.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.SubnetV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.SubnetV1
 	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractNetworkID()
 	// +kubebuilder:validation:Optional
 	HighwaySubnetID *string `json:"highwaySubnetId,omitempty" tf:"highway_subnet_id,omitempty"`
@@ -731,7 +731,7 @@ type ClusterV3Parameters struct {
 	SecurityGroupID *string `json:"securityGroupId,omitempty" tf:"security_group_id,omitempty"`
 
 	// The Network ID of the subnet used to create the node. Changing this parameter will create a new cluster resource.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.SubnetV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.SubnetV1
 	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractNetworkID()
 	// +kubebuilder:validation:Optional
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
@@ -753,7 +753,7 @@ type ClusterV3Parameters struct {
 	Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
 
 	// The ID of the VPC used to create the node. Changing this parameter will create a new cluster resource.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.VpcV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.VpcV1
 	// +kubebuilder:validation:Optional
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
 

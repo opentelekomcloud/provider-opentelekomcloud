@@ -1,0 +1,16 @@
+apiVersion: cfw.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: FirewallV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cfw/v1alpha1/firewallv1
+  labels:
+    testing.upbound.io/example-name: firewall_1
+  name: firewall-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    chargeInfo:
+    - chargeMode: postPaid
+    flavor:
+    - version: standard
+    name: test-acc-tf-firewall

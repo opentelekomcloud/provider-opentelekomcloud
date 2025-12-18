@@ -1,0 +1,16 @@
+apiVersion: css.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: ConfigurationV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: css/v1alpha1/configurationv1
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+  namespace: upbound-system
+spec:
+  forProvider:
+    autoCreateIndex: "true"
+    clusterId: your-cluster-id
+    httpCorsAllowCredentials: "true"
+    httpCorsAllowOrigin: 122.122.122.122:9200
+    indicesQueriesCacheSize: "50"

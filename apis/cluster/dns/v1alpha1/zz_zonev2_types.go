@@ -16,7 +16,7 @@ import (
 type RouterInitParameters struct {
 
 	// The Router(VPC) ID. which VPC network will assicate with.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.VpcV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.VpcV1
 	RouterID *string `json:"routerId,omitempty" tf:"router_id,omitempty"`
 
 	// Reference to a VpcV1 in vpc to populate routerId.
@@ -43,7 +43,7 @@ type RouterObservation struct {
 type RouterParameters struct {
 
 	// The Router(VPC) ID. which VPC network will assicate with.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.VpcV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.VpcV1
 	// +kubebuilder:validation:Optional
 	RouterID *string `json:"routerId,omitempty" tf:"router_id,omitempty"`
 

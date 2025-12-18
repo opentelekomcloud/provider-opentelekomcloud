@@ -27,7 +27,7 @@ type RouterRouteV2InitParameters struct {
 
 	// ID of the router this routing entry belongs to. Changing
 	// this creates a new routing entry.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.RouterV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/networking/v1alpha1.RouterV2
 	RouterID *string `json:"routerId,omitempty" tf:"router_id,omitempty"`
 
 	// Reference to a RouterV2 in networking to populate routerId.
@@ -75,7 +75,7 @@ type RouterRouteV2Parameters struct {
 
 	// ID of the router this routing entry belongs to. Changing
 	// this creates a new routing entry.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.RouterV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/networking/v1alpha1.RouterV2
 	// +kubebuilder:validation:Optional
 	RouterID *string `json:"routerId,omitempty" tf:"router_id,omitempty"`
 

@@ -1,0 +1,19 @@
+apiVersion: cfw.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: BlacklistWhitelistRuleV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cfw/v1alpha1/blacklistwhitelistrulev1
+  labels:
+    testing.upbound.io/example-name: rule_1
+  name: rule-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    address: 1.1.1.1
+    addressType: 0
+    description: Test111161
+    direction: 0
+    listType: 5
+    objectId: ${var.object_id}
+    port: "1"
+    protocol: 6

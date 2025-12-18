@@ -20,7 +20,7 @@ type GatewayV2InitParameters struct {
 
 	// ID of the network this NAT Gateway connects to.
 	// Changing this creates a new NAT Gateway.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.SubnetV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.SubnetV1
 	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractNetworkID()
 	InternalNetworkID *string `json:"internalNetworkId,omitempty" tf:"internal_network_id,omitempty"`
 
@@ -39,7 +39,7 @@ type GatewayV2InitParameters struct {
 
 	// ID of the router (or VPC) this NAT Gateway belongs to. Changing
 	// this creates a new NAT Gateway.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.VpcV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.VpcV1
 	RouterID *string `json:"routerId,omitempty" tf:"router_id,omitempty"`
 
 	// Reference to a VpcV1 in vpc to populate routerId.
@@ -102,7 +102,7 @@ type GatewayV2Parameters struct {
 
 	// ID of the network this NAT Gateway connects to.
 	// Changing this creates a new NAT Gateway.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.SubnetV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.SubnetV1
 	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractNetworkID()
 	// +kubebuilder:validation:Optional
 	InternalNetworkID *string `json:"internalNetworkId,omitempty" tf:"internal_network_id,omitempty"`
@@ -124,7 +124,7 @@ type GatewayV2Parameters struct {
 
 	// ID of the router (or VPC) this NAT Gateway belongs to. Changing
 	// this creates a new NAT Gateway.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.VpcV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.VpcV1
 	// +kubebuilder:validation:Optional
 	RouterID *string `json:"routerId,omitempty" tf:"router_id,omitempty"`
 

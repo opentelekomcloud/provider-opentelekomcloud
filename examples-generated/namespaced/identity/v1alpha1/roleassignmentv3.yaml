@@ -1,0 +1,46 @@
+apiVersion: identity.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: RoleAssignmentV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: identity/v1alpha1/roleassignmentv3
+  labels:
+    testing.upbound.io/example-name: role_assignment_1
+  name: role-assignment-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    groupId: ${opentelekomcloud_identity_group_v3.group_1.id}
+    projectIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: project_1
+    roleId: ${data.opentelekomcloud_identity_role_v3.role_1.id}
+
+---
+
+apiVersion: identity.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: GroupV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: identity/v1alpha1/roleassignmentv3
+  labels:
+    testing.upbound.io/example-name: group_1
+  name: group-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    name: group_1
+
+---
+
+apiVersion: identity.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: ProjectV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: identity/v1alpha1/roleassignmentv3
+  labels:
+    testing.upbound.io/example-name: project_1
+  name: project-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    name: eu-de_project_1

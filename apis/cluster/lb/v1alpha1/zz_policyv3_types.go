@@ -72,7 +72,7 @@ type PolicyV3InitParameters struct {
 
 	// The Listener on which the Policy will be associated with.
 	// Changing this creates a new Policy.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/lb/v1alpha1.ListenerV3
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/lb/v1alpha1.ListenerV3
 	ListenerID *string `json:"listenerId,omitempty" tf:"listener_id,omitempty"`
 
 	// Reference to a ListenerV3 in lb to populate listenerId.
@@ -100,7 +100,7 @@ type PolicyV3InitParameters struct {
 	// Required for admins. The UUID of the tenant who owns
 	// the Policy. Only administrative users can specify a tenant UUID other than
 	// their own. Changing this creates a new Policy.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/identity/v1alpha1.ProjectV3
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/identity/v1alpha1.ProjectV3
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
 
 	// Reference to a ProjectV3 in identity to populate projectId.
@@ -113,7 +113,7 @@ type PolicyV3InitParameters struct {
 
 	// Requests matching this policy will be redirected to the listener with this ID.
 	// Only valid if action is REDIRECT_TO_LISTENER.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/lb/v1alpha1.ListenerV3
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/lb/v1alpha1.ListenerV3
 	RedirectListenerID *string `json:"redirectListenerId,omitempty" tf:"redirect_listener_id,omitempty"`
 
 	// Reference to a ListenerV3 in lb to populate redirectListenerId.
@@ -126,7 +126,7 @@ type PolicyV3InitParameters struct {
 
 	// Requests matching this policy will be redirected to the pool with this ID.
 	// Only valid if action is REDIRECT_TO_POOL.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/lb/v1alpha1.PoolV3
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/lb/v1alpha1.PoolV3
 	RedirectPoolID *string `json:"redirectPoolId,omitempty" tf:"redirect_pool_id,omitempty"`
 
 	// Reference to a PoolV3 in lb to populate redirectPoolId.
@@ -241,7 +241,7 @@ type PolicyV3Parameters struct {
 
 	// The Listener on which the Policy will be associated with.
 	// Changing this creates a new Policy.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/lb/v1alpha1.ListenerV3
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/lb/v1alpha1.ListenerV3
 	// +kubebuilder:validation:Optional
 	ListenerID *string `json:"listenerId,omitempty" tf:"listener_id,omitempty"`
 
@@ -273,7 +273,7 @@ type PolicyV3Parameters struct {
 	// Required for admins. The UUID of the tenant who owns
 	// the Policy. Only administrative users can specify a tenant UUID other than
 	// their own. Changing this creates a new Policy.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/identity/v1alpha1.ProjectV3
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/identity/v1alpha1.ProjectV3
 	// +kubebuilder:validation:Optional
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
 
@@ -287,7 +287,7 @@ type PolicyV3Parameters struct {
 
 	// Requests matching this policy will be redirected to the listener with this ID.
 	// Only valid if action is REDIRECT_TO_LISTENER.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/lb/v1alpha1.ListenerV3
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/lb/v1alpha1.ListenerV3
 	// +kubebuilder:validation:Optional
 	RedirectListenerID *string `json:"redirectListenerId,omitempty" tf:"redirect_listener_id,omitempty"`
 
@@ -301,7 +301,7 @@ type PolicyV3Parameters struct {
 
 	// Requests matching this policy will be redirected to the pool with this ID.
 	// Only valid if action is REDIRECT_TO_POOL.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/lb/v1alpha1.PoolV3
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/lb/v1alpha1.PoolV3
 	// +kubebuilder:validation:Optional
 	RedirectPoolID *string `json:"redirectPoolId,omitempty" tf:"redirect_pool_id,omitempty"`
 
@@ -336,7 +336,7 @@ type PolicyV3Parameters struct {
 type RedirectPoolsConfigInitParameters struct {
 
 	// - Specifies the ID of the backend server group.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/lb/v1alpha1.PoolV3
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/lb/v1alpha1.PoolV3
 	PoolID *string `json:"poolId,omitempty" tf:"pool_id,omitempty"`
 
 	// Reference to a PoolV3 in lb to populate poolId.
@@ -363,7 +363,7 @@ type RedirectPoolsConfigObservation struct {
 type RedirectPoolsConfigParameters struct {
 
 	// - Specifies the ID of the backend server group.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/lb/v1alpha1.PoolV3
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/lb/v1alpha1.PoolV3
 	// +kubebuilder:validation:Optional
 	PoolID *string `json:"poolId,omitempty" tf:"pool_id,omitempty"`
 

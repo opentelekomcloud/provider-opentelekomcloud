@@ -17,7 +17,7 @@ type DataDisksInitParameters struct {
 
 	// The Encryption KMS ID of the data disk. Changing this
 	// creates a new server.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/kms/v1alpha1.KeyV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/kms/v1alpha1.KeyV1
 	KMSID *string `json:"kmsId,omitempty" tf:"kms_id,omitempty"`
 
 	// Reference to a KeyV1 in kms to populate kmsId.
@@ -65,7 +65,7 @@ type DataDisksParameters struct {
 
 	// The Encryption KMS ID of the data disk. Changing this
 	// creates a new server.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/kms/v1alpha1.KeyV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/kms/v1alpha1.KeyV1
 	// +kubebuilder:validation:Optional
 	KMSID *string `json:"kmsId,omitempty" tf:"kms_id,omitempty"`
 
@@ -127,7 +127,7 @@ type InstanceV1InitParameters struct {
 	// The name of a key pair to put on the server. The key
 	// pair must already be created and associated with the tenant's account.
 	// Changing this creates a new server.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/compute/v1alpha1.KeypairV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/compute/v1alpha1.KeypairV2
 	KeyName *string `json:"keyName,omitempty" tf:"key_name,omitempty"`
 
 	// Reference to a KeypairV2 in compute to populate keyName.
@@ -159,7 +159,7 @@ type InstanceV1InitParameters struct {
 	// An array of one or more security group IDs
 	// to associate with the server. If this parameter is left blank, the default
 	// security group is bound to the ECS by default.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/compute/v1alpha1.SecgroupV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/compute/v1alpha1.SecgroupV2
 	// +crossplane:generate:reference:refFieldName=ComputeSecurityGroupIDRefs
 	// +crossplane:generate:reference:selectorFieldName=ComputeSecurityGroupIDSelector
 	// +listType=set
@@ -167,7 +167,7 @@ type InstanceV1InitParameters struct {
 
 	// The Encryption KMS ID of the system disk. Changing this
 	// creates a new server.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/kms/v1alpha1.KeyV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/kms/v1alpha1.KeyV1
 	SystemDiskKMSID *string `json:"systemDiskKmsId,omitempty" tf:"system_disk_kms_id,omitempty"`
 
 	// Reference to a KeyV1 in kms to populate systemDiskKmsId.
@@ -195,7 +195,7 @@ type InstanceV1InitParameters struct {
 	UserData *string `json:"userData,omitempty" tf:"user_data,omitempty"`
 
 	// The ID of the desired VPC for the server. Changing this creates a new server.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.VpcV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.VpcV1
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
 
 	// Reference to a VpcV1 in vpc to populate vpcId.
@@ -326,7 +326,7 @@ type InstanceV1Parameters struct {
 	// The name of a key pair to put on the server. The key
 	// pair must already be created and associated with the tenant's account.
 	// Changing this creates a new server.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/compute/v1alpha1.KeypairV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/compute/v1alpha1.KeypairV2
 	// +kubebuilder:validation:Optional
 	KeyName *string `json:"keyName,omitempty" tf:"key_name,omitempty"`
 
@@ -364,7 +364,7 @@ type InstanceV1Parameters struct {
 	// An array of one or more security group IDs
 	// to associate with the server. If this parameter is left blank, the default
 	// security group is bound to the ECS by default.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/compute/v1alpha1.SecgroupV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/compute/v1alpha1.SecgroupV2
 	// +crossplane:generate:reference:refFieldName=ComputeSecurityGroupIDRefs
 	// +crossplane:generate:reference:selectorFieldName=ComputeSecurityGroupIDSelector
 	// +kubebuilder:validation:Optional
@@ -373,7 +373,7 @@ type InstanceV1Parameters struct {
 
 	// The Encryption KMS ID of the system disk. Changing this
 	// creates a new server.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/kms/v1alpha1.KeyV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/kms/v1alpha1.KeyV1
 	// +kubebuilder:validation:Optional
 	SystemDiskKMSID *string `json:"systemDiskKmsId,omitempty" tf:"system_disk_kms_id,omitempty"`
 
@@ -406,7 +406,7 @@ type InstanceV1Parameters struct {
 	UserData *string `json:"userData,omitempty" tf:"user_data,omitempty"`
 
 	// The ID of the desired VPC for the server. Changing this creates a new server.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.VpcV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.VpcV1
 	// +kubebuilder:validation:Optional
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
 
@@ -448,7 +448,7 @@ type NicsInitParameters struct {
 	IPv6Enable *bool `json:"ipv6Enable,omitempty" tf:"ipv6_enable,omitempty"`
 
 	// The network UUID to attach to the server. Changing this creates a new server.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.SubnetV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.SubnetV1
 	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractNetworkID()
 	NetworkID *string `json:"networkId,omitempty" tf:"network_id,omitempty"`
 
@@ -496,7 +496,7 @@ type NicsParameters struct {
 	IPv6Enable *bool `json:"ipv6Enable,omitempty" tf:"ipv6_enable,omitempty"`
 
 	// The network UUID to attach to the server. Changing this creates a new server.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.SubnetV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.SubnetV1
 	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractNetworkID()
 	// +kubebuilder:validation:Optional
 	NetworkID *string `json:"networkId,omitempty" tf:"network_id,omitempty"`

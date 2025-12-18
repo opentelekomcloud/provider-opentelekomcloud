@@ -25,7 +25,7 @@ type VipV2InitParameters struct {
 
 	// The ID of the network to attach the vip to.
 	// Changing this creates a new vip.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.NetworkV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/networking/v1alpha1.NetworkV2
 	NetworkID *string `json:"networkId,omitempty" tf:"network_id,omitempty"`
 
 	// Reference to a NetworkV2 in networking to populate networkId.
@@ -38,7 +38,7 @@ type VipV2InitParameters struct {
 
 	// Subnet in which to allocate IP address for this vip.
 	// Changing this creates a new vip.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.SubnetV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/networking/v1alpha1.SubnetV2
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 
 	// Reference to a SubnetV2 in networking to populate subnetId.
@@ -95,7 +95,7 @@ type VipV2Parameters struct {
 
 	// The ID of the network to attach the vip to.
 	// Changing this creates a new vip.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.NetworkV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/networking/v1alpha1.NetworkV2
 	// +kubebuilder:validation:Optional
 	NetworkID *string `json:"networkId,omitempty" tf:"network_id,omitempty"`
 
@@ -109,7 +109,7 @@ type VipV2Parameters struct {
 
 	// Subnet in which to allocate IP address for this vip.
 	// Changing this creates a new vip.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.SubnetV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/networking/v1alpha1.SubnetV2
 	// +kubebuilder:validation:Optional
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 

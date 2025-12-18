@@ -109,7 +109,7 @@ func (in *ClusterV1InitParameters) DeepCopyInto(out *ClusterV1InitParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	out.UserPwdSecretRef = in.UserPwdSecretRef
+	in.UserPwdSecretRef.DeepCopyInto(&out.UserPwdSecretRef)
 	if in.VPCID != nil {
 		in, out := &in.VPCID, &out.VPCID
 		*out = new(string)
@@ -371,7 +371,7 @@ func (in *ClusterV1Parameters) DeepCopyInto(out *ClusterV1Parameters) {
 		*out = new(string)
 		**out = **in
 	}
-	out.UserPwdSecretRef = in.UserPwdSecretRef
+	in.UserPwdSecretRef.DeepCopyInto(&out.UserPwdSecretRef)
 	if in.VPCID != nil {
 		in, out := &in.VPCID, &out.VPCID
 		*out = new(string)

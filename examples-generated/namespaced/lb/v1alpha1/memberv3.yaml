@@ -1,0 +1,60 @@
+apiVersion: lb.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: MemberV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lb/v1alpha1/memberv3
+  labels:
+    testing.upbound.io/example-name: member
+  name: member
+  namespace: upbound-system
+spec:
+  forProvider:
+    address: ${cidrhost(var.subnet_cidr, 3)}
+    name: member-1
+    poolIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: pool
+    protocolPort: 8080
+
+---
+
+apiVersion: lb.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: LoadbalancerV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lb/v1alpha1/memberv3
+  labels:
+    testing.upbound.io/example-name: lb
+  name: lb
+  namespace: upbound-system
+spec:
+  forProvider:
+    availabilityZones:
+    - ${var.availability_zone}
+    ipTargetEnable: true
+    name: loadbalancer_1
+    networkIdsRefs:
+    - name: opentelekomcloud_vpc_subnet_v1
+    routerIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: opentelekomcloud_vpc_subnet_v1
+
+---
+
+apiVersion: lb.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: PoolV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lb/v1alpha1/memberv3
+  labels:
+    testing.upbound.io/example-name: pool
+  name: pool
+  namespace: upbound-system
+spec:
+  forProvider:
+    lbAlgorithm: ROUND_ROBIN
+    loadbalancerIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: lb
+    name: pool_1
+    protocol: TCP

@@ -21,7 +21,7 @@ type MemberV3InitParameters struct {
 	// Specifies the backend server name. The value is a string of 0 to 255 characters.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/lb/v1alpha1.PoolV3
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/lb/v1alpha1.PoolV3
 	PoolID *string `json:"poolId,omitempty" tf:"pool_id,omitempty"`
 
 	// Reference to a PoolV3 in lb to populate poolId.
@@ -33,7 +33,7 @@ type MemberV3InitParameters struct {
 	PoolIDSelector *v1.Selector `json:"poolIdSelector,omitempty" tf:"-"`
 
 	// Specifies the project ID.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/identity/v1alpha1.ProjectV3
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/identity/v1alpha1.ProjectV3
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
 
 	// Reference to a ProjectV3 in identity to populate projectId.
@@ -49,7 +49,7 @@ type MemberV3InitParameters struct {
 	ProtocolPort *float64 `json:"protocolPort,omitempty" tf:"protocol_port,omitempty"`
 
 	// , for example, 192.168.3.11.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.SubnetV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.SubnetV1
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 
 	// Reference to a SubnetV1 in vpc to populate subnetId.
@@ -109,7 +109,7 @@ type MemberV3Parameters struct {
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/lb/v1alpha1.PoolV3
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/lb/v1alpha1.PoolV3
 	// +kubebuilder:validation:Optional
 	PoolID *string `json:"poolId,omitempty" tf:"pool_id,omitempty"`
 
@@ -122,7 +122,7 @@ type MemberV3Parameters struct {
 	PoolIDSelector *v1.Selector `json:"poolIdSelector,omitempty" tf:"-"`
 
 	// Specifies the project ID.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/identity/v1alpha1.ProjectV3
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/identity/v1alpha1.ProjectV3
 	// +kubebuilder:validation:Optional
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
 
@@ -140,7 +140,7 @@ type MemberV3Parameters struct {
 	ProtocolPort *float64 `json:"protocolPort,omitempty" tf:"protocol_port,omitempty"`
 
 	// , for example, 192.168.3.11.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.SubnetV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.SubnetV1
 	// +kubebuilder:validation:Optional
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 

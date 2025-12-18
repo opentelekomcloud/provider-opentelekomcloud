@@ -27,7 +27,7 @@ type DomainV2InitParameters struct {
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// The name of the repository organization.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/swr/v1alpha1.OrganizationV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/swr/v1alpha1.OrganizationV2
 	Organization *string `json:"organization,omitempty" tf:"organization,omitempty"`
 
 	// Reference to a OrganizationV2 in swr to populate organization.
@@ -42,7 +42,7 @@ type DomainV2InitParameters struct {
 	Permission *string `json:"permission,omitempty" tf:"permission,omitempty"`
 
 	// The name of the repository.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/swr/v1alpha1.RepositoryV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/swr/v1alpha1.RepositoryV2
 	Repository *string `json:"repository,omitempty" tf:"repository,omitempty"`
 
 	// Reference to a RepositoryV2 in swr to populate repository.
@@ -111,7 +111,7 @@ type DomainV2Parameters struct {
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// The name of the repository organization.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/swr/v1alpha1.OrganizationV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/swr/v1alpha1.OrganizationV2
 	// +kubebuilder:validation:Optional
 	Organization *string `json:"organization,omitempty" tf:"organization,omitempty"`
 
@@ -128,7 +128,7 @@ type DomainV2Parameters struct {
 	Permission *string `json:"permission,omitempty" tf:"permission,omitempty"`
 
 	// The name of the repository.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/swr/v1alpha1.RepositoryV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/swr/v1alpha1.RepositoryV2
 	// +kubebuilder:validation:Optional
 	Repository *string `json:"repository,omitempty" tf:"repository,omitempty"`
 

@@ -1,0 +1,31 @@
+apiVersion: waf.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: DedicatedDataMaskingRuleV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: waf/v1alpha1/dedicateddatamaskingrulev1
+  labels:
+    testing.upbound.io/example-name: rule_1
+  name: rule-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    category: params
+    description: description
+    name: data_masking
+    policyId: ${opentelekomcloud_waf_dedicated_policy_v1.policy_1.id}
+    url: /login
+
+---
+
+apiVersion: waf.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: DedicatedPolicyV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: waf/v1alpha1/dedicateddatamaskingrulev1
+  labels:
+    testing.upbound.io/example-name: policy_1
+  name: policy-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    name: policy_dm

@@ -24,7 +24,7 @@ type FlowLogV1InitParameters struct {
 
 	// Specifies the log group ID.
 	// Changing this creates a new VPC flow log.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/logtank/v1alpha1.GroupV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/logtank/v1alpha1.GroupV2
 	LogGroupID *string `json:"logGroupId,omitempty" tf:"log_group_id,omitempty"`
 
 	// Reference to a GroupV2 in logtank to populate logGroupId.
@@ -37,7 +37,7 @@ type FlowLogV1InitParameters struct {
 
 	// Specifies the log topic ID.
 	// Changing this creates a new VPC flow log.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/logtank/v1alpha1.TopicV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/logtank/v1alpha1.TopicV2
 	LogTopicID *string `json:"logTopicId,omitempty" tf:"log_topic_id,omitempty"`
 
 	// Reference to a TopicV2 in logtank to populate logTopicId.
@@ -54,7 +54,7 @@ type FlowLogV1InitParameters struct {
 
 	// Specifies the ID of resource type.
 	// Changing this creates a new VPC flow log.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.VpcV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.VpcV1
 	ResourceID *string `json:"resourceId,omitempty" tf:"resource_id,omitempty"`
 
 	// Reference to a VpcV1 in vpc to populate resourceId.
@@ -132,7 +132,7 @@ type FlowLogV1Parameters struct {
 
 	// Specifies the log group ID.
 	// Changing this creates a new VPC flow log.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/logtank/v1alpha1.GroupV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/logtank/v1alpha1.GroupV2
 	// +kubebuilder:validation:Optional
 	LogGroupID *string `json:"logGroupId,omitempty" tf:"log_group_id,omitempty"`
 
@@ -146,7 +146,7 @@ type FlowLogV1Parameters struct {
 
 	// Specifies the log topic ID.
 	// Changing this creates a new VPC flow log.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/logtank/v1alpha1.TopicV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/logtank/v1alpha1.TopicV2
 	// +kubebuilder:validation:Optional
 	LogTopicID *string `json:"logTopicId,omitempty" tf:"log_topic_id,omitempty"`
 
@@ -165,7 +165,7 @@ type FlowLogV1Parameters struct {
 
 	// Specifies the ID of resource type.
 	// Changing this creates a new VPC flow log.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/vpc/v1alpha1.VpcV1
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.VpcV1
 	// +kubebuilder:validation:Optional
 	ResourceID *string `json:"resourceId,omitempty" tf:"resource_id,omitempty"`
 

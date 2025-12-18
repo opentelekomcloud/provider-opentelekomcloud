@@ -1,0 +1,780 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.18.0
+  name: vpngatewayv5s.enterprisevpn.opentelekomcloud.m.crossplane.io
+spec:
+  group: enterprisevpn.opentelekomcloud.m.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - opentelekomcloud
+    kind: VPNGatewayV5
+    listKind: VPNGatewayV5List
+    plural: vpngatewayv5s
+    singular: vpngatewayv5
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: VPNGatewayV5 is the Schema for the VPNGatewayV5s API. Manages
+          a Enterprise VPN Gateway Service resource within OpenTelekomCloud.
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: VPNGatewayV5Spec defines the desired state of VPNGatewayV5
+            properties:
+              forProvider:
+                properties:
+                  accessPrivateIp1:
+                    description: |-
+                      The private IP 1 in private network type VPN gateway.
+                      It is the master IP 1 in active-active HA mode, and the master IP in active-standby HA mode.
+                      Must declare the access_private_ip_2 at the same time, and can not use the same IP value.
+                      Changing this parameter will create a new resource.
+                    type: string
+                  accessPrivateIp2:
+                    description: |-
+                      The private IP 2 in private network type VPN gateway.
+                      It is the master IP 2 in active-active HA mode, and the slave IP in active-standby HA mode.
+                      Must declare the access_private_ip_1 at the same time, and can not use the same IP value.
+                      Changing this parameter will create a new resource.
+                    type: string
+                  accessSubnetId:
+                    description: |-
+                      The access subnet ID.
+                      The default value is the value of connect_subnet.
+                      Changing this parameter will create a new resource.
+                    type: string
+                  accessVpcId:
+                    description: |-
+                      The access VPC ID.
+                      The default value is the value of vpc_id.
+                      Changing this parameter will create a new resource.
+                    type: string
+                  asn:
+                    description: |-
+                      The ASN number of BGP. The value ranges from 1 to 4,294,967,295.
+                      Defaults to 64,512.
+                      Changing this parameter will create a new resource.
+                    type: number
+                  attachmentType:
+                    description: |-
+                      The attachment type. The value can be vpc and er.
+                      Defaults to vpc.
+                      Changing this parameter will create a new resource.
+                    type: string
+                  availabilityZones:
+                    description: |-
+                      The list of availability zone IDs.
+                      Changing this parameter will create a new resource.
+                    items:
+                      type: string
+                    type: array
+                  connectSubnet:
+                    description: |-
+                      The Network ID of the VPC subnet used by the VPN gateway.
+                      This parameter is mandatory when attachment_type is vpc.
+                      Changing this parameter will create a new resource.
+                    type: string
+                  deleteEip:
+                    description: |-
+                      Specifies whether to delete eips on resource deletion whennetwork_type is public.
+                      Default: false.
+                    type: boolean
+                  eip1:
+                    description: |-
+                      The master 1 IP in active-active VPN gateway or the master IP
+                      in active-standby VPN gateway. This parameter is mandatory when network_type is public or left empty.
+                      The object structure is documented below.
+                    items:
+                      properties:
+                        bandwidthName:
+                          description: |-
+                            The bandwidth name.
+                            The valid length is limited from 1 to 64, only letters, digits, hyphens (-) and underscores (_) are allowed.
+                            Changing this parameter will create a new resource.
+                          type: string
+                        bandwidthSize:
+                          description: |-
+                            Bandwidth size in Mbit/s. When the flavor is Basic, the value
+                            cannot be greater than 100. When the flavor is Professional1, the value cannot be greater than 300.
+                            When the flavor is Professional2, the value cannot be greater than 1,000.
+                            Changing this parameter will create a new resource.
+                          type: number
+                        chargeMode:
+                          description: |-
+                            The charge mode of the bandwidth. The value can be bandwidth and traffic.
+                            Changing this parameter will create a new resource.
+                          type: string
+                        id:
+                          description: |-
+                            The public IP ID.
+                            Changing this parameter will create a new resource.
+                          type: string
+                        type:
+                          description: |-
+                            The EIP type.
+                            Changing this parameter will create a new resource.
+                          type: string
+                      type: object
+                    type: array
+                  eip2:
+                    description: |-
+                      The master 2 IP in active-active VPN gateway or the slave IP
+                      in active-standby VPN gateway. This parameter is mandatory when network_type is public or left empty.
+                      The object structure is documented below.
+                    items:
+                      properties:
+                        bandwidthName:
+                          description: |-
+                            The bandwidth name.
+                            The valid length is limited from 1 to 64, only letters, digits, hyphens (-) and underscores (_) are allowed.
+                            Changing this parameter will create a new resource.
+                          type: string
+                        bandwidthSize:
+                          description: |-
+                            Bandwidth size in Mbit/s. When the flavor is Basic, the value
+                            cannot be greater than 100. When the flavor is Professional1, the value cannot be greater than 300.
+                            When the flavor is Professional2, the value cannot be greater than 1,000.
+                            Changing this parameter will create a new resource.
+                          type: number
+                        chargeMode:
+                          description: |-
+                            The charge mode of the bandwidth. The value can be bandwidth and traffic.
+                            Changing this parameter will create a new resource.
+                          type: string
+                        id:
+                          description: The ID of the VPN gateway
+                          type: string
+                        type:
+                          description: |-
+                            The EIP type.
+                            Changing this parameter will create a new resource.
+                          type: string
+                      type: object
+                    type: array
+                  erId:
+                    description: |-
+                      The enterprise router ID to attach with to VPN gateway.
+                      This parameter is mandatory when attachment_type is er.
+                      Changing this parameter will create a new resource.
+                    type: string
+                  flavor:
+                    description: |-
+                      The flavor of the VPN gateway.
+                      The value can be Basic, Professional1, Professional2. Defaults to Professional1.
+                      Changing this parameter will create a new resource.
+                    type: string
+                  haMode:
+                    description: |-
+                      The HA mode of VPN gateway. Valid values are active-active and
+                      active-standby. The default value is active-active.
+                      Changing this parameter will create a new resource.
+                    type: string
+                  localSubnets:
+                    description: |-
+                      The list of local subnets.
+                      This parameter is mandatory when attachment_type is vpc.
+                    items:
+                      type: string
+                    type: array
+                  name:
+                    description: |-
+                      The name of the VPN gateway.
+                      The valid length is limited from 1 to 64, only letters, digits, hyphens (-) and underscores (_) are allowed.
+                    type: string
+                  networkType:
+                    description: |-
+                      The network type. The value can be public and private.
+                      Defaults to public.
+                      Changing this parameter will create a new resource.
+                    type: string
+                  tags:
+                    additionalProperties:
+                      type: string
+                    description: Specifies the tags of the VPN gateway.
+                    type: object
+                    x-kubernetes-map-type: granular
+                  vpcId:
+                    description: |-
+                      The ID of the VPC to which the VPN gateway is connected.
+                      This parameter is mandatory when attachment_type is vpc.
+                      Changing this parameter will create a new resource.
+                    type: string
+                type: object
+              initProvider:
+                description: |-
+                  THIS IS A BETA FIELD. It will be honored
+                  unless the Management Policies feature flag is disabled.
+                  InitProvider holds the same fields as ForProvider, with the exception
+                  of Identifier and other resource reference fields. The fields that are
+                  in InitProvider are merged into ForProvider when the resource is created.
+                  The same fields are also added to the terraform ignore_changes hook, to
+                  avoid updating them after creation. This is useful for fields that are
+                  required on creation, but we do not desire to update them after creation,
+                  for example because of an external controller is managing them, like an
+                  autoscaler.
+                properties:
+                  accessPrivateIp1:
+                    description: |-
+                      The private IP 1 in private network type VPN gateway.
+                      It is the master IP 1 in active-active HA mode, and the master IP in active-standby HA mode.
+                      Must declare the access_private_ip_2 at the same time, and can not use the same IP value.
+                      Changing this parameter will create a new resource.
+                    type: string
+                  accessPrivateIp2:
+                    description: |-
+                      The private IP 2 in private network type VPN gateway.
+                      It is the master IP 2 in active-active HA mode, and the slave IP in active-standby HA mode.
+                      Must declare the access_private_ip_1 at the same time, and can not use the same IP value.
+                      Changing this parameter will create a new resource.
+                    type: string
+                  accessSubnetId:
+                    description: |-
+                      The access subnet ID.
+                      The default value is the value of connect_subnet.
+                      Changing this parameter will create a new resource.
+                    type: string
+                  accessVpcId:
+                    description: |-
+                      The access VPC ID.
+                      The default value is the value of vpc_id.
+                      Changing this parameter will create a new resource.
+                    type: string
+                  asn:
+                    description: |-
+                      The ASN number of BGP. The value ranges from 1 to 4,294,967,295.
+                      Defaults to 64,512.
+                      Changing this parameter will create a new resource.
+                    type: number
+                  attachmentType:
+                    description: |-
+                      The attachment type. The value can be vpc and er.
+                      Defaults to vpc.
+                      Changing this parameter will create a new resource.
+                    type: string
+                  availabilityZones:
+                    description: |-
+                      The list of availability zone IDs.
+                      Changing this parameter will create a new resource.
+                    items:
+                      type: string
+                    type: array
+                  connectSubnet:
+                    description: |-
+                      The Network ID of the VPC subnet used by the VPN gateway.
+                      This parameter is mandatory when attachment_type is vpc.
+                      Changing this parameter will create a new resource.
+                    type: string
+                  deleteEip:
+                    description: |-
+                      Specifies whether to delete eips on resource deletion whennetwork_type is public.
+                      Default: false.
+                    type: boolean
+                  eip1:
+                    description: |-
+                      The master 1 IP in active-active VPN gateway or the master IP
+                      in active-standby VPN gateway. This parameter is mandatory when network_type is public or left empty.
+                      The object structure is documented below.
+                    items:
+                      properties:
+                        bandwidthName:
+                          description: |-
+                            The bandwidth name.
+                            The valid length is limited from 1 to 64, only letters, digits, hyphens (-) and underscores (_) are allowed.
+                            Changing this parameter will create a new resource.
+                          type: string
+                        bandwidthSize:
+                          description: |-
+                            Bandwidth size in Mbit/s. When the flavor is Basic, the value
+                            cannot be greater than 100. When the flavor is Professional1, the value cannot be greater than 300.
+                            When the flavor is Professional2, the value cannot be greater than 1,000.
+                            Changing this parameter will create a new resource.
+                          type: number
+                        chargeMode:
+                          description: |-
+                            The charge mode of the bandwidth. The value can be bandwidth and traffic.
+                            Changing this parameter will create a new resource.
+                          type: string
+                        id:
+                          description: |-
+                            The public IP ID.
+                            Changing this parameter will create a new resource.
+                          type: string
+                        type:
+                          description: |-
+                            The EIP type.
+                            Changing this parameter will create a new resource.
+                          type: string
+                      type: object
+                    type: array
+                  eip2:
+                    description: |-
+                      The master 2 IP in active-active VPN gateway or the slave IP
+                      in active-standby VPN gateway. This parameter is mandatory when network_type is public or left empty.
+                      The object structure is documented below.
+                    items:
+                      properties:
+                        bandwidthName:
+                          description: |-
+                            The bandwidth name.
+                            The valid length is limited from 1 to 64, only letters, digits, hyphens (-) and underscores (_) are allowed.
+                            Changing this parameter will create a new resource.
+                          type: string
+                        bandwidthSize:
+                          description: |-
+                            Bandwidth size in Mbit/s. When the flavor is Basic, the value
+                            cannot be greater than 100. When the flavor is Professional1, the value cannot be greater than 300.
+                            When the flavor is Professional2, the value cannot be greater than 1,000.
+                            Changing this parameter will create a new resource.
+                          type: number
+                        chargeMode:
+                          description: |-
+                            The charge mode of the bandwidth. The value can be bandwidth and traffic.
+                            Changing this parameter will create a new resource.
+                          type: string
+                        id:
+                          description: The ID of the VPN gateway
+                          type: string
+                        type:
+                          description: |-
+                            The EIP type.
+                            Changing this parameter will create a new resource.
+                          type: string
+                      type: object
+                    type: array
+                  erId:
+                    description: |-
+                      The enterprise router ID to attach with to VPN gateway.
+                      This parameter is mandatory when attachment_type is er.
+                      Changing this parameter will create a new resource.
+                    type: string
+                  flavor:
+                    description: |-
+                      The flavor of the VPN gateway.
+                      The value can be Basic, Professional1, Professional2. Defaults to Professional1.
+                      Changing this parameter will create a new resource.
+                    type: string
+                  haMode:
+                    description: |-
+                      The HA mode of VPN gateway. Valid values are active-active and
+                      active-standby. The default value is active-active.
+                      Changing this parameter will create a new resource.
+                    type: string
+                  localSubnets:
+                    description: |-
+                      The list of local subnets.
+                      This parameter is mandatory when attachment_type is vpc.
+                    items:
+                      type: string
+                    type: array
+                  name:
+                    description: |-
+                      The name of the VPN gateway.
+                      The valid length is limited from 1 to 64, only letters, digits, hyphens (-) and underscores (_) are allowed.
+                    type: string
+                  networkType:
+                    description: |-
+                      The network type. The value can be public and private.
+                      Defaults to public.
+                      Changing this parameter will create a new resource.
+                    type: string
+                  tags:
+                    additionalProperties:
+                      type: string
+                    description: Specifies the tags of the VPN gateway.
+                    type: object
+                    x-kubernetes-map-type: granular
+                  vpcId:
+                    description: |-
+                      The ID of the VPC to which the VPN gateway is connected.
+                      This parameter is mandatory when attachment_type is vpc.
+                      Changing this parameter will create a new resource.
+                    type: string
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: |-
+                  THIS IS A BETA FIELD. It is on by default but can be opted out
+                  through a Crossplane feature flag.
+                  ManagementPolicies specify the array of actions Crossplane is allowed to
+                  take on the managed and external resources.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md
+                items:
+                  description: |-
+                    A ManagementAction represents an action that the Crossplane controllers
+                    can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
+              providerConfigRef:
+                default:
+                  kind: ClusterProviderConfig
+                  name: default
+                description: |-
+                  ProviderConfigReference specifies how the provider that will be used to
+                  create, observe, update, and delete this managed resource should be
+                  configured.
+                properties:
+                  kind:
+                    description: Kind of the referenced object.
+                    type: string
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                required:
+                - kind
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: |-
+                  WriteConnectionSecretToReference specifies the namespace and name of a
+                  Secret to which any connection details for this managed resource should
+                  be written. Connection details frequently include the endpoint, username,
+                  and password required to connect to the managed resource.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                required:
+                - name
+                type: object
+            required:
+            - forProvider
+            type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.availabilityZones is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.availabilityZones)
+                || (has(self.initProvider) && has(self.initProvider.availabilityZones))'
+            - message: spec.forProvider.name is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
+                || (has(self.initProvider) && has(self.initProvider.name))'
+          status:
+            description: VPNGatewayV5Status defines the observed state of VPNGatewayV5.
+            properties:
+              atProvider:
+                properties:
+                  accessPrivateIp1:
+                    description: |-
+                      The private IP 1 in private network type VPN gateway.
+                      It is the master IP 1 in active-active HA mode, and the master IP in active-standby HA mode.
+                      Must declare the access_private_ip_2 at the same time, and can not use the same IP value.
+                      Changing this parameter will create a new resource.
+                    type: string
+                  accessPrivateIp2:
+                    description: |-
+                      The private IP 2 in private network type VPN gateway.
+                      It is the master IP 2 in active-active HA mode, and the slave IP in active-standby HA mode.
+                      Must declare the access_private_ip_1 at the same time, and can not use the same IP value.
+                      Changing this parameter will create a new resource.
+                    type: string
+                  accessSubnetId:
+                    description: |-
+                      The access subnet ID.
+                      The default value is the value of connect_subnet.
+                      Changing this parameter will create a new resource.
+                    type: string
+                  accessVpcId:
+                    description: |-
+                      The access VPC ID.
+                      The default value is the value of vpc_id.
+                      Changing this parameter will create a new resource.
+                    type: string
+                  asn:
+                    description: |-
+                      The ASN number of BGP. The value ranges from 1 to 4,294,967,295.
+                      Defaults to 64,512.
+                      Changing this parameter will create a new resource.
+                    type: number
+                  attachmentType:
+                    description: |-
+                      The attachment type. The value can be vpc and er.
+                      Defaults to vpc.
+                      Changing this parameter will create a new resource.
+                    type: string
+                  availabilityZones:
+                    description: |-
+                      The list of availability zone IDs.
+                      Changing this parameter will create a new resource.
+                    items:
+                      type: string
+                    type: array
+                  connectSubnet:
+                    description: |-
+                      The Network ID of the VPC subnet used by the VPN gateway.
+                      This parameter is mandatory when attachment_type is vpc.
+                      Changing this parameter will create a new resource.
+                    type: string
+                  createdAt:
+                    description: The create time.
+                    type: string
+                  deleteEip:
+                    description: |-
+                      Specifies whether to delete eips on resource deletion whennetwork_type is public.
+                      Default: false.
+                    type: boolean
+                  eip1:
+                    description: |-
+                      The master 1 IP in active-active VPN gateway or the master IP
+                      in active-standby VPN gateway. This parameter is mandatory when network_type is public or left empty.
+                      The object structure is documented below.
+                    items:
+                      properties:
+                        bandwidthId:
+                          description: The bandwidth ID.
+                          type: string
+                        bandwidthName:
+                          description: |-
+                            The bandwidth name.
+                            The valid length is limited from 1 to 64, only letters, digits, hyphens (-) and underscores (_) are allowed.
+                            Changing this parameter will create a new resource.
+                          type: string
+                        bandwidthSize:
+                          description: |-
+                            Bandwidth size in Mbit/s. When the flavor is Basic, the value
+                            cannot be greater than 100. When the flavor is Professional1, the value cannot be greater than 300.
+                            When the flavor is Professional2, the value cannot be greater than 1,000.
+                            Changing this parameter will create a new resource.
+                          type: number
+                        chargeMode:
+                          description: |-
+                            The charge mode of the bandwidth. The value can be bandwidth and traffic.
+                            Changing this parameter will create a new resource.
+                          type: string
+                        id:
+                          description: |-
+                            The public IP ID.
+                            Changing this parameter will create a new resource.
+                          type: string
+                        ipAddress:
+                          description: The public IP address.
+                          type: string
+                        ipVersion:
+                          description: Specifies the EIP version.
+                          type: number
+                        type:
+                          description: |-
+                            The EIP type.
+                            Changing this parameter will create a new resource.
+                          type: string
+                      type: object
+                    type: array
+                  eip2:
+                    description: |-
+                      The master 2 IP in active-active VPN gateway or the slave IP
+                      in active-standby VPN gateway. This parameter is mandatory when network_type is public or left empty.
+                      The object structure is documented below.
+                    items:
+                      properties:
+                        bandwidthId:
+                          description: The bandwidth ID.
+                          type: string
+                        bandwidthName:
+                          description: |-
+                            The bandwidth name.
+                            The valid length is limited from 1 to 64, only letters, digits, hyphens (-) and underscores (_) are allowed.
+                            Changing this parameter will create a new resource.
+                          type: string
+                        bandwidthSize:
+                          description: |-
+                            Bandwidth size in Mbit/s. When the flavor is Basic, the value
+                            cannot be greater than 100. When the flavor is Professional1, the value cannot be greater than 300.
+                            When the flavor is Professional2, the value cannot be greater than 1,000.
+                            Changing this parameter will create a new resource.
+                          type: number
+                        chargeMode:
+                          description: |-
+                            The charge mode of the bandwidth. The value can be bandwidth and traffic.
+                            Changing this parameter will create a new resource.
+                          type: string
+                        id:
+                          description: The ID of the VPN gateway
+                          type: string
+                        ipAddress:
+                          description: The public IP address.
+                          type: string
+                        ipVersion:
+                          description: Specifies the EIP version.
+                          type: number
+                        type:
+                          description: |-
+                            The EIP type.
+                            Changing this parameter will create a new resource.
+                          type: string
+                      type: object
+                    type: array
+                  erAttachmentId:
+                    description: The ER attachment ID.
+                    type: string
+                  erId:
+                    description: |-
+                      The enterprise router ID to attach with to VPN gateway.
+                      This parameter is mandatory when attachment_type is er.
+                      Changing this parameter will create a new resource.
+                    type: string
+                  flavor:
+                    description: |-
+                      The flavor of the VPN gateway.
+                      The value can be Basic, Professional1, Professional2. Defaults to Professional1.
+                      Changing this parameter will create a new resource.
+                    type: string
+                  haMode:
+                    description: |-
+                      The HA mode of VPN gateway. Valid values are active-active and
+                      active-standby. The default value is active-active.
+                      Changing this parameter will create a new resource.
+                    type: string
+                  id:
+                    description: The ID of the VPN gateway
+                    type: string
+                  localSubnets:
+                    description: |-
+                      The list of local subnets.
+                      This parameter is mandatory when attachment_type is vpc.
+                    items:
+                      type: string
+                    type: array
+                  name:
+                    description: |-
+                      The name of the VPN gateway.
+                      The valid length is limited from 1 to 64, only letters, digits, hyphens (-) and underscores (_) are allowed.
+                    type: string
+                  networkType:
+                    description: |-
+                      The network type. The value can be public and private.
+                      Defaults to public.
+                      Changing this parameter will create a new resource.
+                    type: string
+                  region:
+                    description: Specifies the region in which resource is created.
+                    type: string
+                  status:
+                    description: The status of VPN gateway.
+                    type: string
+                  tags:
+                    additionalProperties:
+                      type: string
+                    description: Specifies the tags of the VPN gateway.
+                    type: object
+                    x-kubernetes-map-type: granular
+                  updatedAt:
+                    description: The update time.
+                    type: string
+                  usedConnectionGroup:
+                    description: The number of used connection groups.
+                    type: number
+                  usedConnectionNumber:
+                    description: The number of used connections.
+                    type: number
+                  vpcId:
+                    description: |-
+                      The ID of the VPC to which the VPN gateway is connected.
+                      This parameter is mandatory when attachment_type is vpc.
+                      Changing this parameter will create a new resource.
+                    type: string
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        LastTransitionTime is the last time this condition transitioned from one
+                        status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        A Message containing details about this condition's last transition from
+                        one status to another, if any.
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        ObservedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      type: integer
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: |-
+                        Type of this condition. At most one of each condition type may apply to
+                        a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+              observedGeneration:
+                description: |-
+                  ObservedGeneration is the latest metadata.generation
+                  which resulted in either a ready state, or stalled due to error
+                  it can not recover from without human intervention.
+                format: int64
+                type: integer
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

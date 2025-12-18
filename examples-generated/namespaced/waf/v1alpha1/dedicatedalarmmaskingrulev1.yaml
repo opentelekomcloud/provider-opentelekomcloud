@@ -1,0 +1,36 @@
+apiVersion: waf.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: DedicatedAlarmMaskingRuleV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: waf/v1alpha1/dedicatedalarmmaskingrulev1
+  labels:
+    testing.upbound.io/example-name: rule_1
+  name: rule-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    conditions:
+    - category: url
+      contents:
+      - /login
+      logicOperation: equal
+    description: description
+    domains:
+    - www.example.com
+    policyId: ${opentelekomcloud_waf_dedicated_policy_v1.policy_1.id}
+    rule: xss
+
+---
+
+apiVersion: waf.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: DedicatedPolicyV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: waf/v1alpha1/dedicatedalarmmaskingrulev1
+  labels:
+    testing.upbound.io/example-name: policy_1
+  name: policy-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    name: policy_am

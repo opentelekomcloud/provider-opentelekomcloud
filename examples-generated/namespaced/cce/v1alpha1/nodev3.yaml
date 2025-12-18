@@ -1,0 +1,36 @@
+apiVersion: cce.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: NodeV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cce/v1alpha1/nodev3
+  labels:
+    testing.upbound.io/example-name: node_1
+  name: node-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    agencyNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    availabilityZone: ${var.availability_zone}
+    bandwidthSize: 100
+    clusterIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    dataVolumes:
+    - size: 100
+      volumetype: SAS
+    - extendParams:
+        useType: docker
+      size: 100
+      volumetype: SSD
+    flavorId: s2.large.2
+    keyPairSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    name: node1
+    os: EulerOS 2.9
+    rootVolume:
+    - size: 40
+      volumetype: SAS
+    runtime: containerd

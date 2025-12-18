@@ -24,7 +24,7 @@ type IPGroupInitParameters struct {
 	// Specifies the ID of the IP address group associated with the listener.
 	// If ip_list in opentelekomcloud_lb_ipgroup_v3 is set to an empty array [] and type to whitelist, no IP addresses are allowed to access the listener.
 	// If ip_list in opentelekomcloud_lb_ipgroup_v3 is set to an empty array [] and type to blacklist, any IP address is allowed to access the listener.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/lb/v1alpha1.IpgroupV3
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/lb/v1alpha1.IpgroupV3
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// Reference to a IpgroupV3 in lb to populate id.
@@ -72,7 +72,7 @@ type IPGroupParameters struct {
 	// Specifies the ID of the IP address group associated with the listener.
 	// If ip_list in opentelekomcloud_lb_ipgroup_v3 is set to an empty array [] and type to whitelist, no IP addresses are allowed to access the listener.
 	// If ip_list in opentelekomcloud_lb_ipgroup_v3 is set to an empty array [] and type to blacklist, any IP address is allowed to access the listener.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/lb/v1alpha1.IpgroupV3
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/lb/v1alpha1.IpgroupV3
 	// +kubebuilder:validation:Optional
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
@@ -183,7 +183,7 @@ type ListenerV3InitParameters struct {
 
 	// Specifies the ID of the default backend server group. If there is no
 	// matched forwarding policy, requests are forwarded to the default backend server for processing.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/lb/v1alpha1.PoolV3
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/lb/v1alpha1.PoolV3
 	DefaultPoolID *string `json:"defaultPoolId,omitempty" tf:"default_pool_id,omitempty"`
 
 	// Reference to a PoolV3 in lb to populate defaultPoolId.
@@ -195,7 +195,7 @@ type ListenerV3InitParameters struct {
 	DefaultPoolIDSelector *v1.Selector `json:"defaultPoolIdSelector,omitempty" tf:"-"`
 
 	// Specifies the ID of the server certificate used by the listener.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/lb/v1alpha1.CertificateV3
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/lb/v1alpha1.CertificateV3
 	DefaultTLSContainerRef *string `json:"defaultTlsContainerRef,omitempty" tf:"default_tls_container_ref,omitempty"`
 
 	// Reference to a CertificateV3 in lb to populate defaultTlsContainerRef.
@@ -225,7 +225,7 @@ type ListenerV3InitParameters struct {
 	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitempty" tf:"keep_alive_timeout,omitempty"`
 
 	// Specifies the ID of the load balancer that the listener is added to.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/lb/v1alpha1.LoadbalancerV3
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/lb/v1alpha1.LoadbalancerV3
 	LoadbalancerID *string `json:"loadbalancerId,omitempty" tf:"loadbalancer_id,omitempty"`
 
 	// Reference to a LoadbalancerV3 in lb to populate loadbalancerId.
@@ -258,7 +258,7 @@ type ListenerV3InitParameters struct {
 	ProtocolPort *float64 `json:"protocolPort,omitempty" tf:"protocol_port,omitempty"`
 
 	// Specifies the ID of the custom security policy.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/lb/v1alpha1.SecurityPolicyV3
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/lb/v1alpha1.SecurityPolicyV3
 	SecurityPolicyID *string `json:"securityPolicyId,omitempty" tf:"security_policy_id,omitempty"`
 
 	// Reference to a SecurityPolicyV3 in lb to populate securityPolicyId.
@@ -416,7 +416,7 @@ type ListenerV3Parameters struct {
 
 	// Specifies the ID of the default backend server group. If there is no
 	// matched forwarding policy, requests are forwarded to the default backend server for processing.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/lb/v1alpha1.PoolV3
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/lb/v1alpha1.PoolV3
 	// +kubebuilder:validation:Optional
 	DefaultPoolID *string `json:"defaultPoolId,omitempty" tf:"default_pool_id,omitempty"`
 
@@ -429,7 +429,7 @@ type ListenerV3Parameters struct {
 	DefaultPoolIDSelector *v1.Selector `json:"defaultPoolIdSelector,omitempty" tf:"-"`
 
 	// Specifies the ID of the server certificate used by the listener.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/lb/v1alpha1.CertificateV3
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/lb/v1alpha1.CertificateV3
 	// +kubebuilder:validation:Optional
 	DefaultTLSContainerRef *string `json:"defaultTlsContainerRef,omitempty" tf:"default_tls_container_ref,omitempty"`
 
@@ -465,7 +465,7 @@ type ListenerV3Parameters struct {
 	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitempty" tf:"keep_alive_timeout,omitempty"`
 
 	// Specifies the ID of the load balancer that the listener is added to.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/lb/v1alpha1.LoadbalancerV3
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/lb/v1alpha1.LoadbalancerV3
 	// +kubebuilder:validation:Optional
 	LoadbalancerID *string `json:"loadbalancerId,omitempty" tf:"loadbalancer_id,omitempty"`
 
@@ -504,7 +504,7 @@ type ListenerV3Parameters struct {
 	ProtocolPort *float64 `json:"protocolPort,omitempty" tf:"protocol_port,omitempty"`
 
 	// Specifies the ID of the custom security policy.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/lb/v1alpha1.SecurityPolicyV3
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/lb/v1alpha1.SecurityPolicyV3
 	// +kubebuilder:validation:Optional
 	SecurityPolicyID *string `json:"securityPolicyId,omitempty" tf:"security_policy_id,omitempty"`
 

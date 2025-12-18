@@ -1,0 +1,31 @@
+apiVersion: waf.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: DedicatedBlacklistRuleV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: waf/v1alpha1/dedicatedblacklistrulev1
+  labels:
+    testing.upbound.io/example-name: rule_1
+  name: rule-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    action: 0
+    description: test description
+    ipAddress: 192.168.1.0/24
+    name: my_blacklist
+    policyId: ${opentelekomcloud_waf_dedicated_policy_v1.policy_1.id}
+
+---
+
+apiVersion: waf.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: DedicatedPolicyV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: waf/v1alpha1/dedicatedblacklistrulev1
+  labels:
+    testing.upbound.io/example-name: policy_1
+  name: policy-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    name: policy_black

@@ -1,0 +1,18 @@
+apiVersion: apigw.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: SignatureV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: apigw/v1alpha1/signaturev2
+  labels:
+    testing.upbound.io/example-name: hmac
+  name: hmac
+  namespace: upbound-system
+spec:
+  forProvider:
+    instance_id: ${var.gateway_id}
+    key: ${var.signature_key}
+    name: ${var.signature_name}
+    secretSecretRef:
+      key: example-key
+      name: example-secret
+    type: hmac

@@ -20,7 +20,7 @@ type PortSecgroupAssociateV2InitParameters struct {
 	Force *bool `json:"force,omitempty" tf:"force,omitempty"`
 
 	// An UUID of the port to apply security groups to.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.PortV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/networking/v1alpha1.PortV2
 	PortID *string `json:"portId,omitempty" tf:"port_id,omitempty"`
 
 	// Reference to a PortV2 in networking to populate portId.
@@ -40,7 +40,7 @@ type PortSecgroupAssociateV2InitParameters struct {
 	// A list of security group IDs to apply to
 	// the port. The security groups must be specified by ID and not name (as
 	// opposed to how they are configured with the Compute Instance).
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.SecgroupV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/networking/v1alpha1.SecgroupV2
 	// +listType=set
 	SecurityGroupIds []*string `json:"securityGroupIds,omitempty" tf:"security_group_ids,omitempty"`
 
@@ -90,7 +90,7 @@ type PortSecgroupAssociateV2Parameters struct {
 	Force *bool `json:"force,omitempty" tf:"force,omitempty"`
 
 	// An UUID of the port to apply security groups to.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.PortV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/networking/v1alpha1.PortV2
 	// +kubebuilder:validation:Optional
 	PortID *string `json:"portId,omitempty" tf:"port_id,omitempty"`
 
@@ -112,7 +112,7 @@ type PortSecgroupAssociateV2Parameters struct {
 	// A list of security group IDs to apply to
 	// the port. The security groups must be specified by ID and not name (as
 	// opposed to how they are configured with the Compute Instance).
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/networking/v1alpha1.SecgroupV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/networking/v1alpha1.SecgroupV2
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	SecurityGroupIds []*string `json:"securityGroupIds,omitempty" tf:"security_group_ids,omitempty"`

@@ -19,7 +19,7 @@ type BackupV3InitParameters struct {
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// Specifies the ID of a DDS instance.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/dds/v1alpha1.InstanceV3
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/dds/v1alpha1.InstanceV3
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
 
 	// Reference to a InstanceV3 in dds to populate instanceId.
@@ -85,7 +85,7 @@ type BackupV3Parameters struct {
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// Specifies the ID of a DDS instance.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/dds/v1alpha1.InstanceV3
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/dds/v1alpha1.InstanceV3
 	// +kubebuilder:validation:Optional
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
 

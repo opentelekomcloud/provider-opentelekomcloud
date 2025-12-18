@@ -16,7 +16,7 @@ import (
 type AddonV3InitParameters struct {
 
 	// ID of cluster to install the add-on on.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cce/v1alpha1.ClusterV3
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/cce/v1alpha1.ClusterV3
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
 
 	// Reference to a ClusterV3 in cce to populate clusterId.
@@ -63,7 +63,7 @@ type AddonV3Observation struct {
 type AddonV3Parameters struct {
 
 	// ID of cluster to install the add-on on.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cce/v1alpha1.ClusterV3
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/cce/v1alpha1.ClusterV3
 	// +kubebuilder:validation:Optional
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
 
