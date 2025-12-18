@@ -4,15 +4,19 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.18.0
-  name: clusterproviderconfigs.opentelekomcloud.crossplane.io
+  name: providerconfigs.opentelekomcloud.m.crossplane.io
 spec:
-  group: opentelekomcloud.crossplane.io
+  group: opentelekomcloud.m.crossplane.io
   names:
-    kind: ClusterProviderConfig
-    listKind: ClusterProviderConfigList
-    plural: clusterproviderconfigs
-    singular: clusterproviderconfig
-  scope: Cluster
+    categories:
+    - crossplane
+    - provider
+    - opentelekomcloud
+    kind: ProviderConfig
+    listKind: ProviderConfigList
+    plural: providerconfigs
+    singular: providerconfig
+  scope: Namespaced
   versions:
   - additionalPrinterColumns:
     - jsonPath: .metadata.creationTimestamp
@@ -25,7 +29,7 @@ spec:
     name: v1beta1
     schema:
       openAPIV3Schema:
-        description: A ClusterProviderConfig configures the Template provider.
+        description: A ProviderConfig configures a OpenTelekomCloud provider.
         properties:
           apiVersion:
             description: |-
