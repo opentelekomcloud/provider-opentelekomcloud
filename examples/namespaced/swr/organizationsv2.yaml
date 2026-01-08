@@ -6,7 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: test-org-1
   name: test-org-1
-  namespace: sre
+  namespace: test
 spec:
   forProvider:
     name: test-org-1
