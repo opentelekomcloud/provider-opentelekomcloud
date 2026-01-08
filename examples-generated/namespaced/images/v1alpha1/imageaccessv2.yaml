@@ -1,0 +1,31 @@
+apiVersion: images.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: ImageAccessV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: images/v1alpha1/imageaccessv2
+  labels:
+    testing.upbound.io/example-name: rancheros_member
+  name: rancheros-member
+  namespace: upbound-system
+spec:
+  forProvider:
+    imageId: ${opentelekomcloud_images_image_v2.rancheros.id}
+    memberId: ${var.member_id}
+
+---
+
+apiVersion: images.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: ImageV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: images/v1alpha1/imageaccessv2
+  labels:
+    testing.upbound.io/example-name: rancheros
+  name: rancheros
+  namespace: upbound-system
+spec:
+  forProvider:
+    containerFormat: bare
+    diskFormat: qcow2
+    imageSourceUrl: https://releases.rancher.com/os/latest/rancheros-openstack.img
+    name: RancherOS

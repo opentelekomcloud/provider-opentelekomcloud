@@ -1,0 +1,13 @@
+apiVersion: lts.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: GroupV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lts/v1alpha1/groupv2
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+  namespace: upbound-system
+spec:
+  forProvider:
+    groupName: log_group_1
+    ttlInDays: 30

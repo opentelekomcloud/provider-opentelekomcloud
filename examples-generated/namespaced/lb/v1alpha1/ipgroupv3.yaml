@@ -1,0 +1,26 @@
+apiVersion: lb.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: IpgroupV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lb/v1alpha1/ipgroupv3
+  labels:
+    testing.upbound.io/example-name: group_1
+  name: group-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    description: group description
+    ipList:
+    - description: one
+      ipSelector:
+        matchLabels:
+          testing.upbound.io/example-name: example
+    - description: two
+      ipSelector:
+        matchLabels:
+          testing.upbound.io/example-name: example
+    - description: three
+      ipSelector:
+        matchLabels:
+          testing.upbound.io/example-name: example
+    name: group_1

@@ -1,0 +1,20 @@
+apiVersion: er.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: FlowLogV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: er/v1alpha1/flowlogv3
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+  namespace: upbound-system
+spec:
+  forProvider:
+    description: Created by terraform
+    enabled: false
+    instanceId: ${var.instance_id}
+    logGroupId: ${var.log_group_id}
+    logStoreType: LTS
+    logStreamId: ${var.log_stream_id}
+    name: ${var.flow_log_name}
+    resourceId: ${var.resource_id}
+    resourceType: attachment

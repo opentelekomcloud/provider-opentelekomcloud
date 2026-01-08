@@ -1,0 +1,1412 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.18.0
+  name: functionv2s.fgs.opentelekomcloud.m.crossplane.io
+spec:
+  group: fgs.opentelekomcloud.m.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - opentelekomcloud
+    kind: FunctionV2
+    listKind: FunctionV2List
+    plural: functionv2s
+    singular: functionv2
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: FunctionV2 is the Schema for the FunctionV2s API. Manages an
+          FGS Function resource within OpenTelekomCloud.
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: FunctionV2Spec defines the desired state of FunctionV2
+            properties:
+              forProvider:
+                properties:
+                  agency:
+                    description: |-
+                      Specifies the agency. This parameter is mandatory if the function needs to access other
+                      cloud services.
+                    type: string
+                  app:
+                    description: Specifies the group to which the function belongs.
+                    type: string
+                  appAgency:
+                    description: |-
+                      Specifies the execution agency enables you to obtain a token or an AK/SK for
+                      accessing other cloud services.
+                    type: string
+                  codeFilename:
+                    description: |-
+                      Specifies the name of a function file.
+                      Required if the code_type is set to jar or zip.
+                    type: string
+                  codeType:
+                    description: 'Specifies the function code type, which can be:'
+                    type: string
+                  codeUrl:
+                    description: |-
+                      Specifies the code url.
+                      Required if the code_type is set to obs.
+                    type: string
+                  concurrencyNum:
+                    description: |-
+                      Specifies the number of concurrent requests of the function.
+                      The valid value is range from 1 to 1,000, the default value is 1.
+                    type: number
+                  customImage:
+                    description: |-
+                      Specifies the custom image configuration of the function.
+                      The custom_image structure is documented below.
+                      Required if the parameter code_type is Custom-Image-Swr.
+                    items:
+                      properties:
+                        args:
+                          description: |-
+                            Specifies the command line arguments used to start the SWR image.
+                            If multiple arguments are separated by commas (,). e.g. -args,value.
+                            If this parameter is not specified, the CMD in the image configuration will be used by default.
+                          type: string
+                        command:
+                          description: |-
+                            Specifies the startup commands of the SWR image.
+                            Multiple commands are separated by commas (,). e.g. /bin/sh.
+                            If this parameter is not specified, the entrypoint or CMD in the image configuration will be used by default.
+                          type: string
+                        url:
+                          description: Specifies the URL of SWR image, the URL must
+                            start with swr..
+                          type: string
+                        userGroupId:
+                          description: The resource ID, consist of urn and current
+                            version, the format is <urn>:<version>.
+                          type: string
+                        userId:
+                          description: The resource ID, consist of urn and current
+                            version, the format is <urn>:<version>.
+                          type: string
+                        workingDir:
+                          description: |-
+                            Specifies the working directory of the SWR image.
+                            If not specified, the default value is /.
+                            Currently, the folder path can only be set to / and it cannot be created or modified.
+                          type: string
+                      type: object
+                    type: array
+                  dependList:
+                    description: Specifies the ID list of the dependencies.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  description:
+                    description: Specifies the description of the function.
+                    type: string
+                  dnsList:
+                    description: |-
+                      Specifies the private DNS configuration of the function network.
+                      Private DNS list is associated to the function by a string in the following format:
+                      [{\"id\":\"ff8080828a07ffea018a17184aa310f5\","domain_name":"functiondebug.example1.com."}]
+                    type: string
+                  enableAuthInHeader:
+                    description: |-
+                      Specifies whether the authentication in the request header is enabled.
+                      Defaults to false.
+                    type: boolean
+                  enableClassIsolation:
+                    description: Specifies whether to enable class isolation.
+                    type: boolean
+                  enableDynamicMemory:
+                    description: Specifies whether to enable dynamic memory allocation.
+                    type: boolean
+                  enableLtsLog:
+                    description: |-
+                      Specifies whether to enable the LTS logging feature.
+                      The valid values are as follows:
+                    type: boolean
+                  encryptedUserDataSecretRef:
+                    description: |-
+                      Specifies the key/value information defined to be encrypted for the
+                      function.
+                    properties:
+                      key:
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    type: object
+                  enterpriseProjectId:
+                    description: |-
+                      Specifies the ID of the enterprise project to which the
+                      function belongs.
+                    type: string
+                  ephemeralStorage:
+                    description: |-
+                      Specifies the size of the function ephemeral storage.
+                      The valid values are as follows:
+                    type: number
+                  funcCode:
+                    description: |-
+                      Specifies the function code.
+                      The code value can be encoded using Base64 or just with the text code.
+                      Required if the code_type is set to inline, zip, or jar.
+                    type: string
+                  funcMounts:
+                    description: |-
+                      Specifies the file system list. The func_mounts object structure is documented
+                      below.
+                    items:
+                      properties:
+                        localMountPath:
+                          description: Specifies the function access path.
+                          type: string
+                        mountResource:
+                          description: Specifies the ID of the mounted resource (corresponding
+                            cloud service).
+                          type: string
+                        mountSharePath:
+                          description: 'Specifies the remote mount path. Example:
+                            192.168.0.12:/data.'
+                          type: string
+                        mountType:
+                          description: Specifies the mount type.
+                          type: string
+                      type: object
+                    type: array
+                  functiongraphVersion:
+                    description: |-
+                      Specifies the FunctionGraph version, default value is v2.
+                      The valid values are as follows:
+                    type: string
+                  gpuMemory:
+                    description: |-
+                      Specifies the GPU memory size allocated to the function, in MByte (MB).
+                      The valid value ranges form 1,024 to 16,384, the value must be a multiple of 1,024.
+                      If not specified, the GPU function is disabled.
+                    type: number
+                  handler:
+                    description: Specifies the entry point of the function.
+                    type: string
+                  heartbeatHandler:
+                    description: |-
+                      Specifies the heartbeat handler of the function.
+                      The rule is xx.xx, such as com.huawei.demo.TriggerTests.heartBeat, it must contain periods (.).
+                      The heartbeat function entry must be in the same file as the function execution entry.
+                    type: string
+                  initializerHandler:
+                    description: Specifies the initializer of the function.
+                    type: string
+                  initializerTimeout:
+                    description: |-
+                      Specifies the maximum duration the function can be initialized. Value range:
+                      1s to 300s.
+                    type: number
+                  logGroupId:
+                    description: Specifies the ID of the LTS log group.
+                    type: string
+                  logGroupName:
+                    description: Specifies the name of the LTS log group.
+                    type: string
+                  logTopicId:
+                    description: Specifies the ID of the LTS log stream.
+                    type: string
+                  logTopicName:
+                    description: Specifies the name of the LTS stream.
+                    type: string
+                  ltsCustomTag:
+                    additionalProperties:
+                      type: string
+                    description: |-
+                      Specifies the custom tags configuration that used to filter the LTS logs.
+                      This parameter is available only when enable_lts_log is set to true.
+                    type: object
+                    x-kubernetes-map-type: granular
+                  maxInstanceNum:
+                    description: |-
+                      Specifies the maximum number of instances of the function.
+                      The valid value ranges from -1 to 1,000, defaults to 400.
+                    type: string
+                  memorySize:
+                    description: Specifies the memory size allocated to the function,
+                      in MByte (MB).
+                    type: number
+                  mountUserGroupId:
+                    description: |-
+                      Specifies the user group ID, a non-0 integer from –1 to 65,534.
+                      Defaults to -1.
+                    type: number
+                  mountUserId:
+                    description: |-
+                      Specifies the user ID, a non-0 integer from –1 to 65,534.
+                      Defaults to -1.
+                    type: number
+                  name:
+                    description: |-
+                      Specifies the name of the function.
+                      Changing this will create a new resource.
+                    type: string
+                  networkController:
+                    description: |-
+                      Specifies the network configuration of the function.
+                      The network_controller structure is documented below.
+                    items:
+                      properties:
+                        disablePublicNetwork:
+                          description: Specifies whether to disable the public network
+                            access.
+                          type: boolean
+                        triggerAccessVpcs:
+                          description: |-
+                            Specifies the configuration of the VPCs that can trigger the function.
+                            The trigger_access_vpcs structure is documented below.
+                          items:
+                            properties:
+                              vpcId:
+                                description: Specifies the ID of VPC.
+                                type: string
+                              vpcName:
+                                description: Specifies the name of the VPC that can
+                                  trigger the function.
+                                type: string
+                            type: object
+                          type: array
+                      type: object
+                    type: array
+                  networkId:
+                    description: Specifies the network ID of subnet.
+                    type: string
+                  peeringCidr:
+                    description: |-
+                      Specifies the VPC cidr blocks used in the function code to detect whether it
+                      conflicts with the VPC cidr blocks used by the service.
+                      The cidr blocks are separated by semicolons and cannot exceed 5.
+                    type: string
+                  preStopHandler:
+                    description: |-
+                      Specifies the pre-stop handler of a function. The value must contain a period (.)
+                      in the format of xx.xx. For example, for Node.js function myfunction.pre_stop_handler, the file name is myfunction.js,
+                      and the initialization function is pre_stop_handler.
+                    type: string
+                  preStopTimeout:
+                    description: 'Specifies the maximum duration the function can
+                      be initialized. Value range: 1s-90s.'
+                    type: number
+                  reservedInstances:
+                    description: |-
+                      Specifies the reserved instance policies of the function.
+                      The reserved_instances structure is documented below.
+                    items:
+                      properties:
+                        count:
+                          description: |-
+                            Specifies the number of reserved instance.
+                            The valid value ranges from 0 to 1,000.
+                            If this parameter is set to 0, the reserved instance will not run.
+                          type: number
+                        idleMode:
+                          description: |-
+                            Specifies whether to enable the idle mode. The default value is false.
+                            If this parameter is enabled, reserved instances are initialized and the mode change needs some time to take effect.
+                            You will still be billed at the price of reserved instances for non-idle mode in this period.
+                          type: boolean
+                        qualifierName:
+                          description: Specifies the version name or alias name.
+                          type: string
+                        qualifierType:
+                          description: 'Specifies qualifier type of reserved instance.
+                            The valid values are as follows:'
+                          type: string
+                        tacticsConfig:
+                          description: |-
+                            Specifies the auto scaling policies for reserved instance.
+                            The tactics_config structure is documented below.
+                          items:
+                            properties:
+                              cronConfigs:
+                                description: |-
+                                  Specifies the list of scheduled policy configurations.
+                                  The cron_configs structure is documented below.
+                                items:
+                                  properties:
+                                    count:
+                                      description: |-
+                                        Specifies the number of reserved instance to which the policy belongs.
+                                        The valid value ranges from 0 to 1,000.
+                                      type: number
+                                    cron:
+                                      description: Specifies the cron expression.
+                                      type: string
+                                    expiredTime:
+                                      description: Specifies the expiration timestamp
+                                        of the policy. The unit is s, e.g. 1740560074.
+                                      type: number
+                                    name:
+                                      description: Specifies the version name.
+                                      type: string
+                                    startTime:
+                                      description: Specifies the effective timestamp
+                                        of policy. The unit is s, e.g. 1740560074.
+                                      type: number
+                                  type: object
+                                type: array
+                            type: object
+                          type: array
+                      type: object
+                    type: array
+                  restoreHookHandler:
+                    description: Specifies the entry point of the function.
+                    type: string
+                  restoreHookTimeout:
+                    description: |-
+                      Specifies the timeout interval of the function, in seconds.
+                      The value ranges from 3 to 900.
+                    type: number
+                  runtime:
+                    description: |-
+                      Specifies the environment for executing the function.
+                      The valid values are as follows:
+                    type: string
+                  tags:
+                    additionalProperties:
+                      type: string
+                    description: Specifies the key/value pairs to associate with the
+                      function.
+                    type: object
+                    x-kubernetes-map-type: granular
+                  timeout:
+                    description: |-
+                      Specifies the timeout interval of the function, in seconds.
+                      The value ranges from 3 to 900.
+                    type: number
+                  userData:
+                    description: Specifies the Key/Value information defined for the
+                      function.
+                    type: string
+                  versions:
+                    description: |-
+                      Specifies the versions management of the function.
+                      The versions structure is documented below.
+                    items:
+                      properties:
+                        aliases:
+                          description: |-
+                            Specifies the aliases management for specified version.
+                            The aliases structure is documented below.
+                          items:
+                            properties:
+                              description:
+                                description: Specifies the description of the function.
+                                type: string
+                              name:
+                                description: Specifies the version name.
+                                type: string
+                            type: object
+                          type: array
+                        description:
+                          description: Specifies the description of the function.
+                          type: string
+                        name:
+                          description: Specifies the version name.
+                          type: string
+                      type: object
+                    type: array
+                  vpcId:
+                    description: Specifies the ID of VPC.
+                    type: string
+                type: object
+              initProvider:
+                description: |-
+                  THIS IS A BETA FIELD. It will be honored
+                  unless the Management Policies feature flag is disabled.
+                  InitProvider holds the same fields as ForProvider, with the exception
+                  of Identifier and other resource reference fields. The fields that are
+                  in InitProvider are merged into ForProvider when the resource is created.
+                  The same fields are also added to the terraform ignore_changes hook, to
+                  avoid updating them after creation. This is useful for fields that are
+                  required on creation, but we do not desire to update them after creation,
+                  for example because of an external controller is managing them, like an
+                  autoscaler.
+                properties:
+                  agency:
+                    description: |-
+                      Specifies the agency. This parameter is mandatory if the function needs to access other
+                      cloud services.
+                    type: string
+                  app:
+                    description: Specifies the group to which the function belongs.
+                    type: string
+                  appAgency:
+                    description: |-
+                      Specifies the execution agency enables you to obtain a token or an AK/SK for
+                      accessing other cloud services.
+                    type: string
+                  codeFilename:
+                    description: |-
+                      Specifies the name of a function file.
+                      Required if the code_type is set to jar or zip.
+                    type: string
+                  codeType:
+                    description: 'Specifies the function code type, which can be:'
+                    type: string
+                  codeUrl:
+                    description: |-
+                      Specifies the code url.
+                      Required if the code_type is set to obs.
+                    type: string
+                  concurrencyNum:
+                    description: |-
+                      Specifies the number of concurrent requests of the function.
+                      The valid value is range from 1 to 1,000, the default value is 1.
+                    type: number
+                  customImage:
+                    description: |-
+                      Specifies the custom image configuration of the function.
+                      The custom_image structure is documented below.
+                      Required if the parameter code_type is Custom-Image-Swr.
+                    items:
+                      properties:
+                        args:
+                          description: |-
+                            Specifies the command line arguments used to start the SWR image.
+                            If multiple arguments are separated by commas (,). e.g. -args,value.
+                            If this parameter is not specified, the CMD in the image configuration will be used by default.
+                          type: string
+                        command:
+                          description: |-
+                            Specifies the startup commands of the SWR image.
+                            Multiple commands are separated by commas (,). e.g. /bin/sh.
+                            If this parameter is not specified, the entrypoint or CMD in the image configuration will be used by default.
+                          type: string
+                        url:
+                          description: Specifies the URL of SWR image, the URL must
+                            start with swr..
+                          type: string
+                        userGroupId:
+                          description: The resource ID, consist of urn and current
+                            version, the format is <urn>:<version>.
+                          type: string
+                        userId:
+                          description: The resource ID, consist of urn and current
+                            version, the format is <urn>:<version>.
+                          type: string
+                        workingDir:
+                          description: |-
+                            Specifies the working directory of the SWR image.
+                            If not specified, the default value is /.
+                            Currently, the folder path can only be set to / and it cannot be created or modified.
+                          type: string
+                      type: object
+                    type: array
+                  dependList:
+                    description: Specifies the ID list of the dependencies.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  description:
+                    description: Specifies the description of the function.
+                    type: string
+                  dnsList:
+                    description: |-
+                      Specifies the private DNS configuration of the function network.
+                      Private DNS list is associated to the function by a string in the following format:
+                      [{\"id\":\"ff8080828a07ffea018a17184aa310f5\","domain_name":"functiondebug.example1.com."}]
+                    type: string
+                  enableAuthInHeader:
+                    description: |-
+                      Specifies whether the authentication in the request header is enabled.
+                      Defaults to false.
+                    type: boolean
+                  enableClassIsolation:
+                    description: Specifies whether to enable class isolation.
+                    type: boolean
+                  enableDynamicMemory:
+                    description: Specifies whether to enable dynamic memory allocation.
+                    type: boolean
+                  enableLtsLog:
+                    description: |-
+                      Specifies whether to enable the LTS logging feature.
+                      The valid values are as follows:
+                    type: boolean
+                  encryptedUserDataSecretRef:
+                    description: |-
+                      Specifies the key/value information defined to be encrypted for the
+                      function.
+                    properties:
+                      key:
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    type: object
+                  enterpriseProjectId:
+                    description: |-
+                      Specifies the ID of the enterprise project to which the
+                      function belongs.
+                    type: string
+                  ephemeralStorage:
+                    description: |-
+                      Specifies the size of the function ephemeral storage.
+                      The valid values are as follows:
+                    type: number
+                  funcCode:
+                    description: |-
+                      Specifies the function code.
+                      The code value can be encoded using Base64 or just with the text code.
+                      Required if the code_type is set to inline, zip, or jar.
+                    type: string
+                  funcMounts:
+                    description: |-
+                      Specifies the file system list. The func_mounts object structure is documented
+                      below.
+                    items:
+                      properties:
+                        localMountPath:
+                          description: Specifies the function access path.
+                          type: string
+                        mountResource:
+                          description: Specifies the ID of the mounted resource (corresponding
+                            cloud service).
+                          type: string
+                        mountSharePath:
+                          description: 'Specifies the remote mount path. Example:
+                            192.168.0.12:/data.'
+                          type: string
+                        mountType:
+                          description: Specifies the mount type.
+                          type: string
+                      type: object
+                    type: array
+                  functiongraphVersion:
+                    description: |-
+                      Specifies the FunctionGraph version, default value is v2.
+                      The valid values are as follows:
+                    type: string
+                  gpuMemory:
+                    description: |-
+                      Specifies the GPU memory size allocated to the function, in MByte (MB).
+                      The valid value ranges form 1,024 to 16,384, the value must be a multiple of 1,024.
+                      If not specified, the GPU function is disabled.
+                    type: number
+                  handler:
+                    description: Specifies the entry point of the function.
+                    type: string
+                  heartbeatHandler:
+                    description: |-
+                      Specifies the heartbeat handler of the function.
+                      The rule is xx.xx, such as com.huawei.demo.TriggerTests.heartBeat, it must contain periods (.).
+                      The heartbeat function entry must be in the same file as the function execution entry.
+                    type: string
+                  initializerHandler:
+                    description: Specifies the initializer of the function.
+                    type: string
+                  initializerTimeout:
+                    description: |-
+                      Specifies the maximum duration the function can be initialized. Value range:
+                      1s to 300s.
+                    type: number
+                  logGroupId:
+                    description: Specifies the ID of the LTS log group.
+                    type: string
+                  logGroupName:
+                    description: Specifies the name of the LTS log group.
+                    type: string
+                  logTopicId:
+                    description: Specifies the ID of the LTS log stream.
+                    type: string
+                  logTopicName:
+                    description: Specifies the name of the LTS stream.
+                    type: string
+                  ltsCustomTag:
+                    additionalProperties:
+                      type: string
+                    description: |-
+                      Specifies the custom tags configuration that used to filter the LTS logs.
+                      This parameter is available only when enable_lts_log is set to true.
+                    type: object
+                    x-kubernetes-map-type: granular
+                  maxInstanceNum:
+                    description: |-
+                      Specifies the maximum number of instances of the function.
+                      The valid value ranges from -1 to 1,000, defaults to 400.
+                    type: string
+                  memorySize:
+                    description: Specifies the memory size allocated to the function,
+                      in MByte (MB).
+                    type: number
+                  mountUserGroupId:
+                    description: |-
+                      Specifies the user group ID, a non-0 integer from –1 to 65,534.
+                      Defaults to -1.
+                    type: number
+                  mountUserId:
+                    description: |-
+                      Specifies the user ID, a non-0 integer from –1 to 65,534.
+                      Defaults to -1.
+                    type: number
+                  name:
+                    description: |-
+                      Specifies the name of the function.
+                      Changing this will create a new resource.
+                    type: string
+                  networkController:
+                    description: |-
+                      Specifies the network configuration of the function.
+                      The network_controller structure is documented below.
+                    items:
+                      properties:
+                        disablePublicNetwork:
+                          description: Specifies whether to disable the public network
+                            access.
+                          type: boolean
+                        triggerAccessVpcs:
+                          description: |-
+                            Specifies the configuration of the VPCs that can trigger the function.
+                            The trigger_access_vpcs structure is documented below.
+                          items:
+                            properties:
+                              vpcId:
+                                description: Specifies the ID of VPC.
+                                type: string
+                              vpcName:
+                                description: Specifies the name of the VPC that can
+                                  trigger the function.
+                                type: string
+                            type: object
+                          type: array
+                      type: object
+                    type: array
+                  networkId:
+                    description: Specifies the network ID of subnet.
+                    type: string
+                  peeringCidr:
+                    description: |-
+                      Specifies the VPC cidr blocks used in the function code to detect whether it
+                      conflicts with the VPC cidr blocks used by the service.
+                      The cidr blocks are separated by semicolons and cannot exceed 5.
+                    type: string
+                  preStopHandler:
+                    description: |-
+                      Specifies the pre-stop handler of a function. The value must contain a period (.)
+                      in the format of xx.xx. For example, for Node.js function myfunction.pre_stop_handler, the file name is myfunction.js,
+                      and the initialization function is pre_stop_handler.
+                    type: string
+                  preStopTimeout:
+                    description: 'Specifies the maximum duration the function can
+                      be initialized. Value range: 1s-90s.'
+                    type: number
+                  reservedInstances:
+                    description: |-
+                      Specifies the reserved instance policies of the function.
+                      The reserved_instances structure is documented below.
+                    items:
+                      properties:
+                        count:
+                          description: |-
+                            Specifies the number of reserved instance.
+                            The valid value ranges from 0 to 1,000.
+                            If this parameter is set to 0, the reserved instance will not run.
+                          type: number
+                        idleMode:
+                          description: |-
+                            Specifies whether to enable the idle mode. The default value is false.
+                            If this parameter is enabled, reserved instances are initialized and the mode change needs some time to take effect.
+                            You will still be billed at the price of reserved instances for non-idle mode in this period.
+                          type: boolean
+                        qualifierName:
+                          description: Specifies the version name or alias name.
+                          type: string
+                        qualifierType:
+                          description: 'Specifies qualifier type of reserved instance.
+                            The valid values are as follows:'
+                          type: string
+                        tacticsConfig:
+                          description: |-
+                            Specifies the auto scaling policies for reserved instance.
+                            The tactics_config structure is documented below.
+                          items:
+                            properties:
+                              cronConfigs:
+                                description: |-
+                                  Specifies the list of scheduled policy configurations.
+                                  The cron_configs structure is documented below.
+                                items:
+                                  properties:
+                                    count:
+                                      description: |-
+                                        Specifies the number of reserved instance to which the policy belongs.
+                                        The valid value ranges from 0 to 1,000.
+                                      type: number
+                                    cron:
+                                      description: Specifies the cron expression.
+                                      type: string
+                                    expiredTime:
+                                      description: Specifies the expiration timestamp
+                                        of the policy. The unit is s, e.g. 1740560074.
+                                      type: number
+                                    name:
+                                      description: Specifies the version name.
+                                      type: string
+                                    startTime:
+                                      description: Specifies the effective timestamp
+                                        of policy. The unit is s, e.g. 1740560074.
+                                      type: number
+                                  type: object
+                                type: array
+                            type: object
+                          type: array
+                      type: object
+                    type: array
+                  restoreHookHandler:
+                    description: Specifies the entry point of the function.
+                    type: string
+                  restoreHookTimeout:
+                    description: |-
+                      Specifies the timeout interval of the function, in seconds.
+                      The value ranges from 3 to 900.
+                    type: number
+                  runtime:
+                    description: |-
+                      Specifies the environment for executing the function.
+                      The valid values are as follows:
+                    type: string
+                  tags:
+                    additionalProperties:
+                      type: string
+                    description: Specifies the key/value pairs to associate with the
+                      function.
+                    type: object
+                    x-kubernetes-map-type: granular
+                  timeout:
+                    description: |-
+                      Specifies the timeout interval of the function, in seconds.
+                      The value ranges from 3 to 900.
+                    type: number
+                  userData:
+                    description: Specifies the Key/Value information defined for the
+                      function.
+                    type: string
+                  versions:
+                    description: |-
+                      Specifies the versions management of the function.
+                      The versions structure is documented below.
+                    items:
+                      properties:
+                        aliases:
+                          description: |-
+                            Specifies the aliases management for specified version.
+                            The aliases structure is documented below.
+                          items:
+                            properties:
+                              description:
+                                description: Specifies the description of the function.
+                                type: string
+                              name:
+                                description: Specifies the version name.
+                                type: string
+                            type: object
+                          type: array
+                        description:
+                          description: Specifies the description of the function.
+                          type: string
+                        name:
+                          description: Specifies the version name.
+                          type: string
+                      type: object
+                    type: array
+                  vpcId:
+                    description: Specifies the ID of VPC.
+                    type: string
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: |-
+                  THIS IS A BETA FIELD. It is on by default but can be opted out
+                  through a Crossplane feature flag.
+                  ManagementPolicies specify the array of actions Crossplane is allowed to
+                  take on the managed and external resources.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md
+                items:
+                  description: |-
+                    A ManagementAction represents an action that the Crossplane controllers
+                    can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
+              providerConfigRef:
+                default:
+                  kind: ClusterProviderConfig
+                  name: default
+                description: |-
+                  ProviderConfigReference specifies how the provider that will be used to
+                  create, observe, update, and delete this managed resource should be
+                  configured.
+                properties:
+                  kind:
+                    description: Kind of the referenced object.
+                    type: string
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                required:
+                - kind
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: |-
+                  WriteConnectionSecretToReference specifies the namespace and name of a
+                  Secret to which any connection details for this managed resource should
+                  be written. Connection details frequently include the endpoint, username,
+                  and password required to connect to the managed resource.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                required:
+                - name
+                type: object
+            required:
+            - forProvider
+            type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.memorySize is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.memorySize)
+                || (has(self.initProvider) && has(self.initProvider.memorySize))'
+            - message: spec.forProvider.name is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
+                || (has(self.initProvider) && has(self.initProvider.name))'
+            - message: spec.forProvider.runtime is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.runtime)
+                || (has(self.initProvider) && has(self.initProvider.runtime))'
+            - message: spec.forProvider.timeout is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.timeout)
+                || (has(self.initProvider) && has(self.initProvider.timeout))'
+          status:
+            description: FunctionV2Status defines the observed state of FunctionV2.
+            properties:
+              atProvider:
+                properties:
+                  agency:
+                    description: |-
+                      Specifies the agency. This parameter is mandatory if the function needs to access other
+                      cloud services.
+                    type: string
+                  allowEphemeralStorage:
+                    description: Indicates whether ephemeral storage can be configured.
+                    type: boolean
+                  apigRouteEnable:
+                    description: Whether to configure gateway routing rules.
+                    type: boolean
+                  app:
+                    description: Specifies the group to which the function belongs.
+                    type: string
+                  appAgency:
+                    description: |-
+                      Specifies the execution agency enables you to obtain a token or an AK/SK for
+                      accessing other cloud services.
+                    type: string
+                  codeFilename:
+                    description: |-
+                      Specifies the name of a function file.
+                      Required if the code_type is set to jar or zip.
+                    type: string
+                  codeType:
+                    description: 'Specifies the function code type, which can be:'
+                    type: string
+                  codeUrl:
+                    description: |-
+                      Specifies the code url.
+                      Required if the code_type is set to obs.
+                    type: string
+                  concurrencyNum:
+                    description: |-
+                      Specifies the number of concurrent requests of the function.
+                      The valid value is range from 1 to 1,000, the default value is 1.
+                    type: number
+                  customImage:
+                    description: |-
+                      Specifies the custom image configuration of the function.
+                      The custom_image structure is documented below.
+                      Required if the parameter code_type is Custom-Image-Swr.
+                    items:
+                      properties:
+                        args:
+                          description: |-
+                            Specifies the command line arguments used to start the SWR image.
+                            If multiple arguments are separated by commas (,). e.g. -args,value.
+                            If this parameter is not specified, the CMD in the image configuration will be used by default.
+                          type: string
+                        command:
+                          description: |-
+                            Specifies the startup commands of the SWR image.
+                            Multiple commands are separated by commas (,). e.g. /bin/sh.
+                            If this parameter is not specified, the entrypoint or CMD in the image configuration will be used by default.
+                          type: string
+                        url:
+                          description: Specifies the URL of SWR image, the URL must
+                            start with swr..
+                          type: string
+                        userGroupId:
+                          description: The resource ID, consist of urn and current
+                            version, the format is <urn>:<version>.
+                          type: string
+                        userId:
+                          description: The resource ID, consist of urn and current
+                            version, the format is <urn>:<version>.
+                          type: string
+                        workingDir:
+                          description: |-
+                            Specifies the working directory of the SWR image.
+                            If not specified, the default value is /.
+                            Currently, the folder path can only be set to / and it cannot be created or modified.
+                          type: string
+                      type: object
+                    type: array
+                  dependList:
+                    description: Specifies the ID list of the dependencies.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  description:
+                    description: Specifies the description of the function.
+                    type: string
+                  dnsList:
+                    description: |-
+                      Specifies the private DNS configuration of the function network.
+                      Private DNS list is associated to the function by a string in the following format:
+                      [{\"id\":\"ff8080828a07ffea018a17184aa310f5\","domain_name":"functiondebug.example1.com."}]
+                    type: string
+                  enableAuthInHeader:
+                    description: |-
+                      Specifies whether the authentication in the request header is enabled.
+                      Defaults to false.
+                    type: boolean
+                  enableClassIsolation:
+                    description: Specifies whether to enable class isolation.
+                    type: boolean
+                  enableDynamicMemory:
+                    description: Specifies whether to enable dynamic memory allocation.
+                    type: boolean
+                  enableLtsLog:
+                    description: |-
+                      Specifies whether to enable the LTS logging feature.
+                      The valid values are as follows:
+                    type: boolean
+                  enterpriseProjectId:
+                    description: |-
+                      Specifies the ID of the enterprise project to which the
+                      function belongs.
+                    type: string
+                  ephemeralStorage:
+                    description: |-
+                      Specifies the size of the function ephemeral storage.
+                      The valid values are as follows:
+                    type: number
+                  extendConfig:
+                    description: The extended configuration.
+                    type: string
+                  funcCode:
+                    description: |-
+                      Specifies the function code.
+                      The code value can be encoded using Base64 or just with the text code.
+                      Required if the code_type is set to inline, zip, or jar.
+                    type: string
+                  funcMounts:
+                    description: |-
+                      Specifies the file system list. The func_mounts object structure is documented
+                      below.
+                    items:
+                      properties:
+                        localMountPath:
+                          description: Specifies the function access path.
+                          type: string
+                        mountResource:
+                          description: Specifies the ID of the mounted resource (corresponding
+                            cloud service).
+                          type: string
+                        mountSharePath:
+                          description: 'Specifies the remote mount path. Example:
+                            192.168.0.12:/data.'
+                          type: string
+                        mountType:
+                          description: Specifies the mount type.
+                          type: string
+                      type: object
+                    type: array
+                  functiongraphVersion:
+                    description: |-
+                      Specifies the FunctionGraph version, default value is v2.
+                      The valid values are as follows:
+                    type: string
+                  gpuMemory:
+                    description: |-
+                      Specifies the GPU memory size allocated to the function, in MByte (MB).
+                      The valid value ranges form 1,024 to 16,384, the value must be a multiple of 1,024.
+                      If not specified, the GPU function is disabled.
+                    type: number
+                  gpuType:
+                    type: string
+                  handler:
+                    description: Specifies the entry point of the function.
+                    type: string
+                  heartbeatHandler:
+                    description: |-
+                      Specifies the heartbeat handler of the function.
+                      The rule is xx.xx, such as com.huawei.demo.TriggerTests.heartBeat, it must contain periods (.).
+                      The heartbeat function entry must be in the same file as the function execution entry.
+                    type: string
+                  id:
+                    description: The resource ID, consist of urn and current version,
+                      the format is <urn>:<version>.
+                    type: string
+                  initializerHandler:
+                    description: Specifies the initializer of the function.
+                    type: string
+                  initializerTimeout:
+                    description: |-
+                      Specifies the maximum duration the function can be initialized. Value range:
+                      1s to 300s.
+                    type: number
+                  isStatefulFunction:
+                    description: |-
+                      Specifies whether the function is a stateful function.
+                      Defaults to false.
+                    type: boolean
+                  logGroupId:
+                    description: Specifies the ID of the LTS log group.
+                    type: string
+                  logGroupName:
+                    description: Specifies the name of the LTS log group.
+                    type: string
+                  logTopicId:
+                    description: Specifies the ID of the LTS log stream.
+                    type: string
+                  logTopicName:
+                    description: Specifies the name of the LTS stream.
+                    type: string
+                  ltsCustomTag:
+                    additionalProperties:
+                      type: string
+                    description: |-
+                      Specifies the custom tags configuration that used to filter the LTS logs.
+                      This parameter is available only when enable_lts_log is set to true.
+                    type: object
+                    x-kubernetes-map-type: granular
+                  maxInstanceNum:
+                    description: |-
+                      Specifies the maximum number of instances of the function.
+                      The valid value ranges from -1 to 1,000, defaults to 400.
+                    type: string
+                  memorySize:
+                    description: Specifies the memory size allocated to the function,
+                      in MByte (MB).
+                    type: number
+                  mountUserGroupId:
+                    description: |-
+                      Specifies the user group ID, a non-0 integer from –1 to 65,534.
+                      Defaults to -1.
+                    type: number
+                  mountUserId:
+                    description: |-
+                      Specifies the user ID, a non-0 integer from –1 to 65,534.
+                      Defaults to -1.
+                    type: number
+                  name:
+                    description: |-
+                      Specifies the name of the function.
+                      Changing this will create a new resource.
+                    type: string
+                  networkController:
+                    description: |-
+                      Specifies the network configuration of the function.
+                      The network_controller structure is documented below.
+                    items:
+                      properties:
+                        disablePublicNetwork:
+                          description: Specifies whether to disable the public network
+                            access.
+                          type: boolean
+                        triggerAccessVpcs:
+                          description: |-
+                            Specifies the configuration of the VPCs that can trigger the function.
+                            The trigger_access_vpcs structure is documented below.
+                          items:
+                            properties:
+                              vpcId:
+                                description: Specifies the ID of VPC.
+                                type: string
+                              vpcName:
+                                description: Specifies the name of the VPC that can
+                                  trigger the function.
+                                type: string
+                            type: object
+                          type: array
+                      type: object
+                    type: array
+                  networkId:
+                    description: Specifies the network ID of subnet.
+                    type: string
+                  peeringCidr:
+                    description: |-
+                      Specifies the VPC cidr blocks used in the function code to detect whether it
+                      conflicts with the VPC cidr blocks used by the service.
+                      The cidr blocks are separated by semicolons and cannot exceed 5.
+                    type: string
+                  preStopHandler:
+                    description: |-
+                      Specifies the pre-stop handler of a function. The value must contain a period (.)
+                      in the format of xx.xx. For example, for Node.js function myfunction.pre_stop_handler, the file name is myfunction.js,
+                      and the initialization function is pre_stop_handler.
+                    type: string
+                  preStopTimeout:
+                    description: 'Specifies the maximum duration the function can
+                      be initialized. Value range: 1s-90s.'
+                    type: number
+                  region:
+                    description: The region in which function graph resource is created.
+                    type: string
+                  reservedInstances:
+                    description: |-
+                      Specifies the reserved instance policies of the function.
+                      The reserved_instances structure is documented below.
+                    items:
+                      properties:
+                        count:
+                          description: |-
+                            Specifies the number of reserved instance.
+                            The valid value ranges from 0 to 1,000.
+                            If this parameter is set to 0, the reserved instance will not run.
+                          type: number
+                        idleMode:
+                          description: |-
+                            Specifies whether to enable the idle mode. The default value is false.
+                            If this parameter is enabled, reserved instances are initialized and the mode change needs some time to take effect.
+                            You will still be billed at the price of reserved instances for non-idle mode in this period.
+                          type: boolean
+                        qualifierName:
+                          description: Specifies the version name or alias name.
+                          type: string
+                        qualifierType:
+                          description: 'Specifies qualifier type of reserved instance.
+                            The valid values are as follows:'
+                          type: string
+                        tacticsConfig:
+                          description: |-
+                            Specifies the auto scaling policies for reserved instance.
+                            The tactics_config structure is documented below.
+                          items:
+                            properties:
+                              cronConfigs:
+                                description: |-
+                                  Specifies the list of scheduled policy configurations.
+                                  The cron_configs structure is documented below.
+                                items:
+                                  properties:
+                                    count:
+                                      description: |-
+                                        Specifies the number of reserved instance to which the policy belongs.
+                                        The valid value ranges from 0 to 1,000.
+                                      type: number
+                                    cron:
+                                      description: Specifies the cron expression.
+                                      type: string
+                                    expiredTime:
+                                      description: Specifies the expiration timestamp
+                                        of the policy. The unit is s, e.g. 1740560074.
+                                      type: number
+                                    name:
+                                      description: Specifies the version name.
+                                      type: string
+                                    startTime:
+                                      description: Specifies the effective timestamp
+                                        of policy. The unit is s, e.g. 1740560074.
+                                      type: number
+                                  type: object
+                                type: array
+                            type: object
+                          type: array
+                      type: object
+                    type: array
+                  restoreHookHandler:
+                    description: Specifies the entry point of the function.
+                    type: string
+                  restoreHookTimeout:
+                    description: |-
+                      Specifies the timeout interval of the function, in seconds.
+                      The value ranges from 3 to 900.
+                    type: number
+                  runtime:
+                    description: |-
+                      Specifies the environment for executing the function.
+                      The valid values are as follows:
+                    type: string
+                  tags:
+                    additionalProperties:
+                      type: string
+                    description: Specifies the key/value pairs to associate with the
+                      function.
+                    type: object
+                    x-kubernetes-map-type: granular
+                  timeout:
+                    description: |-
+                      Specifies the timeout interval of the function, in seconds.
+                      The value ranges from 3 to 900.
+                    type: number
+                  urn:
+                    description: Uniform Resource Name.
+                    type: string
+                  userData:
+                    description: Specifies the Key/Value information defined for the
+                      function.
+                    type: string
+                  version:
+                    description: The version of the function.
+                    type: string
+                  versions:
+                    description: |-
+                      Specifies the versions management of the function.
+                      The versions structure is documented below.
+                    items:
+                      properties:
+                        aliases:
+                          description: |-
+                            Specifies the aliases management for specified version.
+                            The aliases structure is documented below.
+                          items:
+                            properties:
+                              description:
+                                description: Specifies the description of the function.
+                                type: string
+                              name:
+                                description: Specifies the version name.
+                                type: string
+                            type: object
+                          type: array
+                        description:
+                          description: Specifies the description of the function.
+                          type: string
+                        name:
+                          description: Specifies the version name.
+                          type: string
+                      type: object
+                    type: array
+                  vpcId:
+                    description: Specifies the ID of VPC.
+                    type: string
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        LastTransitionTime is the last time this condition transitioned from one
+                        status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        A Message containing details about this condition's last transition from
+                        one status to another, if any.
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        ObservedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      type: integer
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: |-
+                        Type of this condition. At most one of each condition type may apply to
+                        a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+              observedGeneration:
+                description: |-
+                  ObservedGeneration is the latest metadata.generation
+                  which resulted in either a ready state, or stalled due to error
+                  it can not recover from without human intervention.
+                format: int64
+                type: integer
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

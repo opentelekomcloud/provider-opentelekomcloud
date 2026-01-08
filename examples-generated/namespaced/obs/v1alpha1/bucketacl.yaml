@@ -1,0 +1,44 @@
+apiVersion: obs.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: BucketACL
+metadata:
+  annotations:
+    meta.upbound.io/example-id: obs/v1alpha1/bucketacl
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+  namespace: upbound-system
+spec:
+  forProvider:
+    accountPermission:
+    - accessToAcl:
+      - READ_ACP
+      - WRITE_ACP
+      accessToBucket:
+      - READ
+      - WRITE
+      accountId: ${var.account1}
+    - accessToAcl:
+      - READ_ACP
+      - WRITE_ACP
+      accessToBucket:
+      - READ
+      accountId: ${var.account2}
+    bucket: ${var.bucket}
+    logDeliveryUserPermission:
+    - accessToAcl:
+      - READ_ACP
+      - WRITE_ACP
+      accessToBucket:
+      - READ
+      - WRITE
+    ownerPermission:
+    - accessToAcl:
+      - READ_ACP
+      - WRITE_ACP
+      accessToBucket:
+      - READ
+      - WRITE
+    publicPermission:
+    - accessToBucket:
+      - READ
+      - WRITE

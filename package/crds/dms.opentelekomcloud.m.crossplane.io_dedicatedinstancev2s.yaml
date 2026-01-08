@@ -1,0 +1,792 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.18.0
+  name: dedicatedinstancev2s.dms.opentelekomcloud.m.crossplane.io
+spec:
+  group: dms.opentelekomcloud.m.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - opentelekomcloud
+    kind: DedicatedInstanceV2
+    listKind: DedicatedInstanceV2List
+    plural: dedicatedinstancev2s
+    singular: dedicatedinstancev2
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: DedicatedInstanceV2 is the Schema for the DedicatedInstanceV2s
+          API. Manages an up-to-date DMS Instance v2 resource within OpenTelekomCloud.
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: DedicatedInstanceV2Spec defines the desired state of DedicatedInstanceV2
+            properties:
+              forProvider:
+                properties:
+                  accessUser:
+                    description: |-
+                      Specifies the username of SASL_SSL user. A username consists of 4
+                      to 64 characters and supports only letters, digits, and hyphens (-). Changing this creates a new instance resource.
+                    type: string
+                  archType:
+                    description: |-
+                      Specifies the CPU architecture. Valid value is X86.
+                      Changing this creates a new instance resource.
+                    type: string
+                  availableZones:
+                    description: |-
+                      Indicates the ID of an AZ. The parameter value can not be
+                      left blank or an empty array. For details, see section
+                      Querying AZ Information.
+                    items:
+                      type: string
+                    type: array
+                  brokerNum:
+                    description: Specifies the broker numbers.
+                    type: number
+                  crossVpcAccesses:
+                    description: |-
+                      Specifies the cross-VPC access information.
+                      The object structure is documented below.
+                    items:
+                      properties:
+                        advertisedIp:
+                          description: The advertised IP Address or domain name.
+                          type: string
+                      type: object
+                    type: array
+                  description:
+                    description: |-
+                      Specifies the description of the DMS Kafka instance. It is a character string
+                      containing not more than 1,024 characters.
+                    type: string
+                  diskEncryptedEnable:
+                    description: Indicates whether to enable disk encryption.
+                    type: boolean
+                  diskEncryptedKey:
+                    description: Disk encryption key. If disk encryption is not enabled,
+                      this parameter is left blank.
+                    type: string
+                  enablePublicip:
+                    description: Whether to enable public access. By default, public
+                      access is disabled.
+                    type: boolean
+                  enabledMechanisms:
+                    description: |-
+                      Specifies the authentication mechanisms to use after SASL is
+                      enabled. Value options:
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  engineVersion:
+                    description: |-
+                      Specifies the version of the Kafka engine,
+                      such as 2.3.0, 2.7 or other supported versions. Changing this creates a new instance resource.
+                    type: string
+                  flavorId:
+                    description: |-
+                      Specifies the Kafka [flavor ID](https://docs.otc.t-systems.com/distributed-message-service/api-ref/apis_v2_recommended/other_apis/querying_product_specifications_list.html#listengineproducts,
+                      e.g. c6.2u4g.cluster.
+                    type: string
+                  ipv6Enable:
+                    description: |-
+                      Specifies whether to enable IPv6. Defaults to false.
+                      Changing this creates a new instance resource.
+                    type: boolean
+                  maintainBegin:
+                    description: |-
+                      Specifies the time at which a maintenance time window starts. Format: HH:mm. The
+                      start time and end time of a maintenance time window must indicate the time segment of a supported maintenance time
+                      window. The start time must be set to 22:00, 02:00, 06:00, 10:00, 14:00, or 18:00. Parameters maintain_begin
+                      and maintain_end must be set in pairs. If parameter maintain_begin is left blank, parameter maintain_end is also
+                      blank. In this case, the system automatically allocates the default start time 02:00.
+                    type: string
+                  maintainEnd:
+                    description: |-
+                      Specifies the time at which a maintenance time window ends. Format: HH:mm. The
+                      start time and end time of a maintenance time window must indicate the time segment of a supported maintenance time
+                      window. The end time is four hours later than the start time. For example, if the start time is 22:00, the end time is
+                      02:00. Parameters maintain_begin
+                      and maintain_end must be set in pairs. If parameter maintain_end is left blank, parameter
+                      maintain_begin is also blank. In this case, the system automatically allocates the default end time 06:00.
+                    type: string
+                  name:
+                    description: |-
+                      Specifies the name of the DMS Kafka instance. An instance name starts with a letter,
+                      consists of 4 to 64 characters, and supports only letters, digits, hyphens (-) and underscores (_).
+                    type: string
+                  networkId:
+                    description: |-
+                      Specifies the ID of a subnet. Changing this creates a new instance
+                      resource.
+                    type: string
+                  newTenantIps:
+                    description: Specifies the IPv4 private IP addresses for the new
+                      brokers.
+                    items:
+                      type: string
+                    type: array
+                  passwordSecretRef:
+                    description: |-
+                      Specifies the password of SASL_SSL user. A password must meet the following
+                      complexity requirements: Must be 8 to 32 characters long. Must contain at least 2 of the following character types:
+                      lowercase letters, uppercase letters, digits, and special characters (`~!@#$%^&*()-_=+\|[{}]:'",<.>/?).
+                    properties:
+                      key:
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    type: object
+                  publicipId:
+                    description: Specifies a resource ID in UUID format.
+                    items:
+                      type: string
+                    type: array
+                  retentionPolicy:
+                    description: |-
+                      Specifies the action to be taken when the memory usage reaches the disk
+                      capacity threshold. The valid values are as follows:
+                    type: string
+                  securityGroupId:
+                    description: Specifies the ID of a security group.
+                    type: string
+                  securityProtocol:
+                    description: 'Specifies the protocol to use after SASL is enabled.
+                      Value options:'
+                    type: string
+                  sslEnable:
+                    description: |-
+                      Specifies whether the Kafka SASL_SSL is enabled.
+                      Changing this creates a new resource.
+                    type: boolean
+                  storageSpace:
+                    description: |-
+                      Specifies the message storage capacity, the unit is GB.
+                      The storage spaces corresponding to the product IDs are as follows:
+                    type: number
+                  storageSpecCode:
+                    description: |-
+                      Specifies the storage I/O specification.
+                      The valid values are as follows:
+                    type: string
+                  tags:
+                    additionalProperties:
+                      type: string
+                    description: The key/value pairs to associate with the DMS Kafka
+                      instance.
+                    type: object
+                    x-kubernetes-map-type: granular
+                  vpcId:
+                    description: Specifies the ID of a VPC. Changing this creates
+                      a new instance resource.
+                    type: string
+                type: object
+              initProvider:
+                description: |-
+                  THIS IS A BETA FIELD. It will be honored
+                  unless the Management Policies feature flag is disabled.
+                  InitProvider holds the same fields as ForProvider, with the exception
+                  of Identifier and other resource reference fields. The fields that are
+                  in InitProvider are merged into ForProvider when the resource is created.
+                  The same fields are also added to the terraform ignore_changes hook, to
+                  avoid updating them after creation. This is useful for fields that are
+                  required on creation, but we do not desire to update them after creation,
+                  for example because of an external controller is managing them, like an
+                  autoscaler.
+                properties:
+                  accessUser:
+                    description: |-
+                      Specifies the username of SASL_SSL user. A username consists of 4
+                      to 64 characters and supports only letters, digits, and hyphens (-). Changing this creates a new instance resource.
+                    type: string
+                  archType:
+                    description: |-
+                      Specifies the CPU architecture. Valid value is X86.
+                      Changing this creates a new instance resource.
+                    type: string
+                  availableZones:
+                    description: |-
+                      Indicates the ID of an AZ. The parameter value can not be
+                      left blank or an empty array. For details, see section
+                      Querying AZ Information.
+                    items:
+                      type: string
+                    type: array
+                  brokerNum:
+                    description: Specifies the broker numbers.
+                    type: number
+                  crossVpcAccesses:
+                    description: |-
+                      Specifies the cross-VPC access information.
+                      The object structure is documented below.
+                    items:
+                      properties:
+                        advertisedIp:
+                          description: The advertised IP Address or domain name.
+                          type: string
+                      type: object
+                    type: array
+                  description:
+                    description: |-
+                      Specifies the description of the DMS Kafka instance. It is a character string
+                      containing not more than 1,024 characters.
+                    type: string
+                  diskEncryptedEnable:
+                    description: Indicates whether to enable disk encryption.
+                    type: boolean
+                  diskEncryptedKey:
+                    description: Disk encryption key. If disk encryption is not enabled,
+                      this parameter is left blank.
+                    type: string
+                  enablePublicip:
+                    description: Whether to enable public access. By default, public
+                      access is disabled.
+                    type: boolean
+                  enabledMechanisms:
+                    description: |-
+                      Specifies the authentication mechanisms to use after SASL is
+                      enabled. Value options:
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  engineVersion:
+                    description: |-
+                      Specifies the version of the Kafka engine,
+                      such as 2.3.0, 2.7 or other supported versions. Changing this creates a new instance resource.
+                    type: string
+                  flavorId:
+                    description: |-
+                      Specifies the Kafka [flavor ID](https://docs.otc.t-systems.com/distributed-message-service/api-ref/apis_v2_recommended/other_apis/querying_product_specifications_list.html#listengineproducts,
+                      e.g. c6.2u4g.cluster.
+                    type: string
+                  ipv6Enable:
+                    description: |-
+                      Specifies whether to enable IPv6. Defaults to false.
+                      Changing this creates a new instance resource.
+                    type: boolean
+                  maintainBegin:
+                    description: |-
+                      Specifies the time at which a maintenance time window starts. Format: HH:mm. The
+                      start time and end time of a maintenance time window must indicate the time segment of a supported maintenance time
+                      window. The start time must be set to 22:00, 02:00, 06:00, 10:00, 14:00, or 18:00. Parameters maintain_begin
+                      and maintain_end must be set in pairs. If parameter maintain_begin is left blank, parameter maintain_end is also
+                      blank. In this case, the system automatically allocates the default start time 02:00.
+                    type: string
+                  maintainEnd:
+                    description: |-
+                      Specifies the time at which a maintenance time window ends. Format: HH:mm. The
+                      start time and end time of a maintenance time window must indicate the time segment of a supported maintenance time
+                      window. The end time is four hours later than the start time. For example, if the start time is 22:00, the end time is
+                      02:00. Parameters maintain_begin
+                      and maintain_end must be set in pairs. If parameter maintain_end is left blank, parameter
+                      maintain_begin is also blank. In this case, the system automatically allocates the default end time 06:00.
+                    type: string
+                  name:
+                    description: |-
+                      Specifies the name of the DMS Kafka instance. An instance name starts with a letter,
+                      consists of 4 to 64 characters, and supports only letters, digits, hyphens (-) and underscores (_).
+                    type: string
+                  networkId:
+                    description: |-
+                      Specifies the ID of a subnet. Changing this creates a new instance
+                      resource.
+                    type: string
+                  newTenantIps:
+                    description: Specifies the IPv4 private IP addresses for the new
+                      brokers.
+                    items:
+                      type: string
+                    type: array
+                  passwordSecretRef:
+                    description: |-
+                      Specifies the password of SASL_SSL user. A password must meet the following
+                      complexity requirements: Must be 8 to 32 characters long. Must contain at least 2 of the following character types:
+                      lowercase letters, uppercase letters, digits, and special characters (`~!@#$%^&*()-_=+\|[{}]:'",<.>/?).
+                    properties:
+                      key:
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    type: object
+                  publicipId:
+                    description: Specifies a resource ID in UUID format.
+                    items:
+                      type: string
+                    type: array
+                  retentionPolicy:
+                    description: |-
+                      Specifies the action to be taken when the memory usage reaches the disk
+                      capacity threshold. The valid values are as follows:
+                    type: string
+                  securityGroupId:
+                    description: Specifies the ID of a security group.
+                    type: string
+                  securityProtocol:
+                    description: 'Specifies the protocol to use after SASL is enabled.
+                      Value options:'
+                    type: string
+                  sslEnable:
+                    description: |-
+                      Specifies whether the Kafka SASL_SSL is enabled.
+                      Changing this creates a new resource.
+                    type: boolean
+                  storageSpace:
+                    description: |-
+                      Specifies the message storage capacity, the unit is GB.
+                      The storage spaces corresponding to the product IDs are as follows:
+                    type: number
+                  storageSpecCode:
+                    description: |-
+                      Specifies the storage I/O specification.
+                      The valid values are as follows:
+                    type: string
+                  tags:
+                    additionalProperties:
+                      type: string
+                    description: The key/value pairs to associate with the DMS Kafka
+                      instance.
+                    type: object
+                    x-kubernetes-map-type: granular
+                  vpcId:
+                    description: Specifies the ID of a VPC. Changing this creates
+                      a new instance resource.
+                    type: string
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: |-
+                  THIS IS A BETA FIELD. It is on by default but can be opted out
+                  through a Crossplane feature flag.
+                  ManagementPolicies specify the array of actions Crossplane is allowed to
+                  take on the managed and external resources.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md
+                items:
+                  description: |-
+                    A ManagementAction represents an action that the Crossplane controllers
+                    can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
+              providerConfigRef:
+                default:
+                  kind: ClusterProviderConfig
+                  name: default
+                description: |-
+                  ProviderConfigReference specifies how the provider that will be used to
+                  create, observe, update, and delete this managed resource should be
+                  configured.
+                properties:
+                  kind:
+                    description: Kind of the referenced object.
+                    type: string
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                required:
+                - kind
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: |-
+                  WriteConnectionSecretToReference specifies the namespace and name of a
+                  Secret to which any connection details for this managed resource should
+                  be written. Connection details frequently include the endpoint, username,
+                  and password required to connect to the managed resource.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                required:
+                - name
+                type: object
+            required:
+            - forProvider
+            type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.brokerNum is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.brokerNum)
+                || (has(self.initProvider) && has(self.initProvider.brokerNum))'
+            - message: spec.forProvider.engineVersion is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.engineVersion)
+                || (has(self.initProvider) && has(self.initProvider.engineVersion))'
+            - message: spec.forProvider.flavorId is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.flavorId)
+                || (has(self.initProvider) && has(self.initProvider.flavorId))'
+            - message: spec.forProvider.name is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
+                || (has(self.initProvider) && has(self.initProvider.name))'
+            - message: spec.forProvider.networkId is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.networkId)
+                || (has(self.initProvider) && has(self.initProvider.networkId))'
+            - message: spec.forProvider.securityGroupId is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.securityGroupId)
+                || (has(self.initProvider) && has(self.initProvider.securityGroupId))'
+            - message: spec.forProvider.storageSpace is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.storageSpace)
+                || (has(self.initProvider) && has(self.initProvider.storageSpace))'
+            - message: spec.forProvider.storageSpecCode is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.storageSpecCode)
+                || (has(self.initProvider) && has(self.initProvider.storageSpecCode))'
+            - message: spec.forProvider.vpcId is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.vpcId)
+                || (has(self.initProvider) && has(self.initProvider.vpcId))'
+          status:
+            description: DedicatedInstanceV2Status defines the observed state of DedicatedInstanceV2.
+            properties:
+              atProvider:
+                properties:
+                  accessUser:
+                    description: |-
+                      Specifies the username of SASL_SSL user. A username consists of 4
+                      to 64 characters and supports only letters, digits, and hyphens (-). Changing this creates a new instance resource.
+                    type: string
+                  archType:
+                    description: |-
+                      Specifies the CPU architecture. Valid value is X86.
+                      Changing this creates a new instance resource.
+                    type: string
+                  availableZones:
+                    description: |-
+                      Indicates the ID of an AZ. The parameter value can not be
+                      left blank or an empty array. For details, see section
+                      Querying AZ Information.
+                    items:
+                      type: string
+                    type: array
+                  bandwidth:
+                    type: string
+                  brokerNum:
+                    description: Specifies the broker numbers.
+                    type: number
+                  certReplaced:
+                    description: Indicates whether the certificate can be replaced.
+                    type: boolean
+                  connectAddress:
+                    description: Indicates the IP address of the DMS Kafka instance.
+                    type: string
+                  connectorNodeNum:
+                    description: Indicates the number of connector node.
+                    type: number
+                  createdAt:
+                    description: Indicates the create time.
+                    type: string
+                  crossVpcAccesses:
+                    description: |-
+                      Specifies the cross-VPC access information.
+                      The object structure is documented below.
+                    items:
+                      properties:
+                        advertisedIp:
+                          description: The advertised IP Address or domain name.
+                          type: string
+                        listenerIp:
+                          description: The listener IP address.
+                          type: string
+                        port:
+                          description: The port number.
+                          type: number
+                        portId:
+                          description: The port ID associated with the address.
+                          type: string
+                      type: object
+                    type: array
+                  description:
+                    description: |-
+                      Specifies the description of the DMS Kafka instance. It is a character string
+                      containing not more than 1,024 characters.
+                    type: string
+                  diskEncryptedEnable:
+                    description: Indicates whether to enable disk encryption.
+                    type: boolean
+                  diskEncryptedKey:
+                    description: Disk encryption key. If disk encryption is not enabled,
+                      this parameter is left blank.
+                    type: string
+                  dumping:
+                    description: Whether message dumping(smart connect) is enabled.
+                    type: boolean
+                  enablePublicip:
+                    description: Whether to enable public access. By default, public
+                      access is disabled.
+                    type: boolean
+                  enabledMechanisms:
+                    description: |-
+                      Specifies the authentication mechanisms to use after SASL is
+                      enabled. Value options:
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  engine:
+                    description: Indicates the message engine.
+                    type: string
+                  engineVersion:
+                    description: |-
+                      Specifies the version of the Kafka engine,
+                      such as 2.3.0, 2.7 or other supported versions. Changing this creates a new instance resource.
+                    type: string
+                  flavorId:
+                    description: |-
+                      Specifies the Kafka [flavor ID](https://docs.otc.t-systems.com/distributed-message-service/api-ref/apis_v2_recommended/other_apis/querying_product_specifications_list.html#listengineproducts,
+                      e.g. c6.2u4g.cluster.
+                    type: string
+                  id:
+                    description: Specifies a resource ID in UUID format.
+                    type: string
+                  ipv6Enable:
+                    description: |-
+                      Specifies whether to enable IPv6. Defaults to false.
+                      Changing this creates a new instance resource.
+                    type: boolean
+                  maintainBegin:
+                    description: |-
+                      Specifies the time at which a maintenance time window starts. Format: HH:mm. The
+                      start time and end time of a maintenance time window must indicate the time segment of a supported maintenance time
+                      window. The start time must be set to 22:00, 02:00, 06:00, 10:00, 14:00, or 18:00. Parameters maintain_begin
+                      and maintain_end must be set in pairs. If parameter maintain_begin is left blank, parameter maintain_end is also
+                      blank. In this case, the system automatically allocates the default start time 02:00.
+                    type: string
+                  maintainEnd:
+                    description: |-
+                      Specifies the time at which a maintenance time window ends. Format: HH:mm. The
+                      start time and end time of a maintenance time window must indicate the time segment of a supported maintenance time
+                      window. The end time is four hours later than the start time. For example, if the start time is 22:00, the end time is
+                      02:00. Parameters maintain_begin
+                      and maintain_end must be set in pairs. If parameter maintain_end is left blank, parameter
+                      maintain_begin is also blank. In this case, the system automatically allocates the default end time 06:00.
+                    type: string
+                  name:
+                    description: |-
+                      Specifies the name of the DMS Kafka instance. An instance name starts with a letter,
+                      consists of 4 to 64 characters, and supports only letters, digits, hyphens (-) and underscores (_).
+                    type: string
+                  networkId:
+                    description: |-
+                      Specifies the ID of a subnet. Changing this creates a new instance
+                      resource.
+                    type: string
+                  newTenantIps:
+                    description: Specifies the IPv4 private IP addresses for the new
+                      brokers.
+                    items:
+                      type: string
+                    type: array
+                  nodeNum:
+                    description: Indicates the node quantity.
+                    type: number
+                  partitionNum:
+                    description: Indicates the number of partitions in Kafka instance.
+                    type: number
+                  podConnectAddress:
+                    description: Indicates the connection address on the tenant side.
+                    type: string
+                  port:
+                    description: Indicates the port number of the DMS Kafka instance.
+                    type: number
+                  publicBandwidth:
+                    description: Indicates the public network access bandwidth.
+                    type: number
+                  publicIpAddress:
+                    description: Indicates the public IP addresses list of the instance.
+                    type: string
+                  publicipId:
+                    description: Specifies a resource ID in UUID format.
+                    items:
+                      type: string
+                    type: array
+                  region:
+                    description: The region in which DMS Kafka instance is created.
+                    type: string
+                  resourceSpecCode:
+                    description: Indicates a resource specifications identifier.
+                    type: string
+                  retentionPolicy:
+                    description: |-
+                      Specifies the action to be taken when the memory usage reaches the disk
+                      capacity threshold. The valid values are as follows:
+                    type: string
+                  securityGroupId:
+                    description: Specifies the ID of a security group.
+                    type: string
+                  securityProtocol:
+                    description: 'Specifies the protocol to use after SASL is enabled.
+                      Value options:'
+                    type: string
+                  sslEnable:
+                    description: |-
+                      Specifies whether the Kafka SASL_SSL is enabled.
+                      Changing this creates a new resource.
+                    type: boolean
+                  sslTwoWayEnable:
+                    description: Indicates whether to enable two-way authentication.
+                    type: boolean
+                  status:
+                    description: Indicates the status of the DMS Kafka instance.
+                    type: string
+                  storageResourceId:
+                    description: Indicates the storage resource ID.
+                    type: string
+                  storageSpace:
+                    description: |-
+                      Specifies the message storage capacity, the unit is GB.
+                      The storage spaces corresponding to the product IDs are as follows:
+                    type: number
+                  storageSpecCode:
+                    description: |-
+                      Specifies the storage I/O specification.
+                      The valid values are as follows:
+                    type: string
+                  storageType:
+                    description: Indicates the storage type.
+                    type: string
+                  tags:
+                    additionalProperties:
+                      type: string
+                    description: The key/value pairs to associate with the DMS Kafka
+                      instance.
+                    type: object
+                    x-kubernetes-map-type: granular
+                  type:
+                    description: Indicates the DMS Kafka instance type.
+                    type: string
+                  usedStorageSpace:
+                    description: 'Indicates the used message storage space. Unit:
+                      GB'
+                    type: number
+                  userId:
+                    description: Indicates the ID of the user who created the DMS
+                      Kafka instance
+                    type: string
+                  userName:
+                    description: Indicates the name of the user who created the DMS
+                      Kafka instance
+                    type: string
+                  vpcId:
+                    description: Specifies the ID of a VPC. Changing this creates
+                      a new instance resource.
+                    type: string
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        LastTransitionTime is the last time this condition transitioned from one
+                        status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        A Message containing details about this condition's last transition from
+                        one status to another, if any.
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        ObservedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      type: integer
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: |-
+                        Type of this condition. At most one of each condition type may apply to
+                        a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+              observedGeneration:
+                description: |-
+                  ObservedGeneration is the latest metadata.generation
+                  which resulted in either a ready state, or stalled due to error
+                  it can not recover from without human intervention.
+                format: int64
+                type: integer
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

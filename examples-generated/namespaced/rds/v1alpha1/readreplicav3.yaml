@@ -1,0 +1,60 @@
+apiVersion: rds.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: ReadReplicaV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: rds/v1alpha1/readreplicav3
+  labels:
+    testing.upbound.io/example-name: replica
+  name: replica
+  namespace: upbound-system
+spec:
+  forProvider:
+    availabilityZone: ${var.az_replica}
+    flavorRef: rds.pg.n1.large.4
+    name: test-replica
+    replicaOfIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: instance
+    volume:
+    - type: CLOUDSSD
+
+---
+
+apiVersion: rds.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: InstanceV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: rds/v1alpha1/readreplicav3
+  labels:
+    testing.upbound.io/example-name: instance
+  name: instance
+  namespace: upbound-system
+spec:
+  forProvider:
+    availabilityZone: ${var.az_main}
+    backupStrategy:
+    - keepDays: 1
+      startTime: 08:00-09:00
+    computeSecurityGroupIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    db:
+    - passwordSecretRef:
+        key: example-key
+        name: example-secret
+      port: "8635"
+      type: PostgreSQL
+      version: "16"
+    flavor: rds.pg.n1.medium.4.rr
+    name: test-instance
+    subnetIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    tag:
+      created: terraform
+    volume:
+    - size: 40
+      type: CLOUDSSD
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example

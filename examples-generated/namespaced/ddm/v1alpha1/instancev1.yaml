@@ -1,0 +1,23 @@
+apiVersion: ddm.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: InstanceV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ddm/v1alpha1/instancev1
+  labels:
+    testing.upbound.io/example-name: instance_1
+  name: instance-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    availabilityZones:
+    - eu-de-01
+    - eu-de-02
+    - eu-de-03
+    engineId: ${var.engine_id}
+    flavorId: ${var.flavor_id}
+    name: ddm-instance
+    nodeNum: 2
+    purgeRdsOnDelete: true
+    securityGroupId: ${var.security_group.id}
+    subnetId: ${var.subnet_id}
+    vpcId: ${var.vpc_id}

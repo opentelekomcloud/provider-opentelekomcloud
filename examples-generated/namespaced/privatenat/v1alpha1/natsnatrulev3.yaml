@@ -1,0 +1,16 @@
+apiVersion: privatenat.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: NATSnatRuleV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: privatenat/v1alpha1/natsnatrulev3
+  labels:
+    testing.upbound.io/example-name: rule_1
+  name: rule-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    description: created
+    gatewayId: ${var.gateway_id}
+    transitIpIds:
+    - var.transit_ip_id
+    virsubnetId: ${var.network_id}

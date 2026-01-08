@@ -1,0 +1,19 @@
+apiVersion: lb.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: SecurityPolicyV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lb/v1alpha1/securitypolicyv3
+  labels:
+    testing.upbound.io/example-name: policy_1
+  name: policy-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    ciphers:
+    - ECDHE-ECDSA-AES128-SHA
+    - ECDHE-RSA-AES128-SHA
+    description: This is security policy
+    name: elb-security-policy
+    protocols:
+    - TLSv1
+    - TLSv1.1

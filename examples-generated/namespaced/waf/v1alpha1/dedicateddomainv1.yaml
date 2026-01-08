@@ -1,0 +1,25 @@
+apiVersion: waf.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: DedicatedDomainV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: waf/v1alpha1/dedicateddomainv1
+  labels:
+    testing.upbound.io/example-name: domain_1
+  name: domain-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    domain: www.mydom.com
+    keepPolicy: false
+    proxy: true
+    server:
+    - address: 192.168.0.10
+      clientProtocol: HTTP
+      port: 8080
+      serverProtocol: HTTP
+      type: ipv4
+      vpcId: ${data.opentelekomcloud_vpc_subnet_v1.shared_subnet.vpc_id}
+    timeoutConfig:
+    - connectTimeout: 150
+      readTimeout: 200
+      sendTimeout: 100

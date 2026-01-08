@@ -1,0 +1,446 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.18.0
+  name: firewallv1s.cfw.opentelekomcloud.m.crossplane.io
+spec:
+  group: cfw.opentelekomcloud.m.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - opentelekomcloud
+    kind: FirewallV1
+    listKind: FirewallV1List
+    plural: firewallv1s
+    singular: firewallv1
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: FirewallV1 is the Schema for the FirewallV1s API. Manages a CFW
+          Firewall Instance resource within OpenTelekomCloud.
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: FirewallV1Spec defines the desired state of FirewallV1
+            properties:
+              forProvider:
+                properties:
+                  chargeInfo:
+                    description: |-
+                      Specifies the billing type, which can be yearly/monthly or pay-per-use (default setting).
+                      The charge_info structure is documented below.
+                    items:
+                      properties:
+                        chargeMode:
+                          description: Specifies the Billing mode. The value can only
+                            be postPaid (case-sensitive), indicating pay-per-use billing.
+                          type: string
+                      type: object
+                    type: array
+                  flavor:
+                    description: Specifies the Firewall specifications. The flavor
+                      structure is documented below.
+                    items:
+                      properties:
+                        version:
+                          description: Specifies the Firewall edition. Only the professional
+                            edition standard is supported.
+                          type: string
+                      type: object
+                    type: array
+                  name:
+                    description: |-
+                      Specifies the CFW firewall instance name. The CFW firewall instance name of the same
+                      type is unique in the same tenant.
+                    type: string
+                  serviceType:
+                    description: Specifies the Firewall protection type. Currently,
+                      its value can only be 0 (Internet protection).
+                    type: string
+                type: object
+              initProvider:
+                description: |-
+                  THIS IS A BETA FIELD. It will be honored
+                  unless the Management Policies feature flag is disabled.
+                  InitProvider holds the same fields as ForProvider, with the exception
+                  of Identifier and other resource reference fields. The fields that are
+                  in InitProvider are merged into ForProvider when the resource is created.
+                  The same fields are also added to the terraform ignore_changes hook, to
+                  avoid updating them after creation. This is useful for fields that are
+                  required on creation, but we do not desire to update them after creation,
+                  for example because of an external controller is managing them, like an
+                  autoscaler.
+                properties:
+                  chargeInfo:
+                    description: |-
+                      Specifies the billing type, which can be yearly/monthly or pay-per-use (default setting).
+                      The charge_info structure is documented below.
+                    items:
+                      properties:
+                        chargeMode:
+                          description: Specifies the Billing mode. The value can only
+                            be postPaid (case-sensitive), indicating pay-per-use billing.
+                          type: string
+                      type: object
+                    type: array
+                  flavor:
+                    description: Specifies the Firewall specifications. The flavor
+                      structure is documented below.
+                    items:
+                      properties:
+                        version:
+                          description: Specifies the Firewall edition. Only the professional
+                            edition standard is supported.
+                          type: string
+                      type: object
+                    type: array
+                  name:
+                    description: |-
+                      Specifies the CFW firewall instance name. The CFW firewall instance name of the same
+                      type is unique in the same tenant.
+                    type: string
+                  serviceType:
+                    description: Specifies the Firewall protection type. Currently,
+                      its value can only be 0 (Internet protection).
+                    type: string
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: |-
+                  THIS IS A BETA FIELD. It is on by default but can be opted out
+                  through a Crossplane feature flag.
+                  ManagementPolicies specify the array of actions Crossplane is allowed to
+                  take on the managed and external resources.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md
+                items:
+                  description: |-
+                    A ManagementAction represents an action that the Crossplane controllers
+                    can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
+              providerConfigRef:
+                default:
+                  kind: ClusterProviderConfig
+                  name: default
+                description: |-
+                  ProviderConfigReference specifies how the provider that will be used to
+                  create, observe, update, and delete this managed resource should be
+                  configured.
+                properties:
+                  kind:
+                    description: Kind of the referenced object.
+                    type: string
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                required:
+                - kind
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: |-
+                  WriteConnectionSecretToReference specifies the namespace and name of a
+                  Secret to which any connection details for this managed resource should
+                  be written. Connection details frequently include the endpoint, username,
+                  and password required to connect to the managed resource.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                required:
+                - name
+                type: object
+            required:
+            - forProvider
+            type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.chargeInfo is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.chargeInfo)
+                || (has(self.initProvider) && has(self.initProvider.chargeInfo))'
+            - message: spec.forProvider.flavor is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.flavor)
+                || (has(self.initProvider) && has(self.initProvider.flavor))'
+            - message: spec.forProvider.name is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
+                || (has(self.initProvider) && has(self.initProvider.name))'
+          status:
+            description: FirewallV1Status defines the observed state of FirewallV1.
+            properties:
+              atProvider:
+                properties:
+                  chargeInfo:
+                    description: |-
+                      Specifies the billing type, which can be yearly/monthly or pay-per-use (default setting).
+                      The charge_info structure is documented below.
+                    items:
+                      properties:
+                        chargeMode:
+                          description: Specifies the Billing mode. The value can only
+                            be postPaid (case-sensitive), indicating pay-per-use billing.
+                          type: string
+                      type: object
+                    type: array
+                  chargeMode:
+                    description: 'Indicates the billing mode: 0 (yearly/monthly),
+                      1 (pay-per-use).'
+                    type: number
+                  engineType:
+                    description: Indicates the engine type. Its value can only be
+                      1 (Hillstone engine).
+                    type: number
+                  enterpriseProjectId:
+                    description: Indicates the Enterprise project ID, which is the
+                      ID of a project planned based on organizations.
+                    type: string
+                  featureToggle:
+                    additionalProperties:
+                      type: boolean
+                    description: 'Provides a map of features indicating whether a
+                      feature is enabled: true (yes), false (no).'
+                    type: object
+                    x-kubernetes-map-type: granular
+                  flavor:
+                    description: Specifies the Firewall specifications. The flavor
+                      structure is documented below.
+                    items:
+                      properties:
+                        bandwidth:
+                          description: Indicates the bandwidth, in Mbits/s.
+                          type: number
+                        defaultBandwidth:
+                          description: Indicates the default firewall bandwidth, in
+                            Mbits/s.
+                          type: number
+                        defaultEipCount:
+                          description: Indicates the default number of EIPs.
+                          type: number
+                        defaultLogStorage:
+                          description: Indicates the default log storage, in bytes.
+                          type: number
+                        defaultVpcCount:
+                          description: Indicates the default number of VPCs.
+                          type: number
+                        eipCount:
+                          description: Indicates the number of EIPs.
+                          type: number
+                        logStorage:
+                          description: Indicates the log storage, in bytes.
+                          type: number
+                        version:
+                          description: Specifies the Firewall edition. Only the professional
+                            edition standard is supported.
+                          type: string
+                        versionCode:
+                          description: Indicates the firewall version. Its value can
+                            only be 1 (professional edition).
+                          type: number
+                        vpcCount:
+                          description: Indicates the number of VPCs.
+                          type: number
+                      type: object
+                    type: array
+                  haType:
+                    description: 'Indicates the Cluster type: 0 (active/standby),
+                      1 (cluster). In active/standby mode, there are four nodes. Two
+                      active nodes form a cluster, and the other two are the standby
+                      of the active nodes. In cluster mode, only two nodes are started
+                      to form a cluster..'
+                    type: number
+                  id:
+                    description: Indicates the Firewall instance ID.
+                    type: string
+                  isAvailableObs:
+                    description: 'Indicates whether OBS is supported: true (yes),
+                      false (no).'
+                    type: boolean
+                  isOldFirewallInstance:
+                    description: 'Indicates whether an engine is old: true (yes),
+                      false (no)..'
+                    type: boolean
+                  isSupportThreatTags:
+                    description: 'Indicates whether threat intelligence tags are supported:
+                      true (yes), false (no).'
+                    type: boolean
+                  name:
+                    description: |-
+                      Specifies the CFW firewall instance name. The CFW firewall instance name of the same
+                      type is unique in the same tenant.
+                    type: string
+                  protectObjects:
+                    description: Indicates the protected object list. The protect_objects
+                      structure is documented below.
+                    items:
+                      properties:
+                        objectId:
+                          description: Indicates the protected object ID. It is used
+                            to distinguish Internet border protection from VPC border
+                            protection after a CFW instance is created.
+                          type: string
+                        objectName:
+                          description: Indicates the protected object name.
+                          type: string
+                        type:
+                          description: 'Indicates the project type: 0 (north-south),
+                            1 (east-west).'
+                          type: number
+                      type: object
+                    type: array
+                  resourceId:
+                    description: Indicates the Firewall resource ID, which is the
+                      same as id.
+                    type: string
+                  resources:
+                    description: Indicates the firewall resource list. The resources
+                      structure is documented below.
+                    items:
+                      properties:
+                        cloudServiceType:
+                          description: Indicates the Service type, which is used by
+                            CBC.
+                          type: string
+                        resourceId:
+                          description: Indicates the resource ID. It can be the firewall
+                            ID, bandwidth ID, EIP ID, VPC ID, or the ID returned after
+                            CBC callback.
+                          type: string
+                        resourceSize:
+                          description: Indicates the resource quantity.
+                          type: number
+                        resourceSizeMeasureId:
+                          description: Indicates the resource unit.
+                          type: number
+                        resourceSpecCode:
+                          description: Indicates the inventory unit code.
+                          type: string
+                        resourceType:
+                          description: Indicates the resource type.
+                          type: string
+                      type: object
+                    type: array
+                  serviceType:
+                    description: Specifies the Firewall protection type. Currently,
+                      its value can only be 0 (Internet protection).
+                    type: string
+                  status:
+                    description: 'Indicates the firewall status: -1 (waiting for payment),
+                      0 (creating), 1 (deleting), 2 (running), 3 (upgrading), 4 (deleted),
+                      5 (frozen), 6 (creation failed), 7 (deletion failed), 8 (freezing
+                      failed), or 9 (being stored), 10 (storage failed), or 11 (upgrade
+                      failed).'
+                    type: number
+                  supportIpv6:
+                    description: 'Indicates whether IPv6 is supported: true (yes),
+                      false (no).'
+                    type: boolean
+                  supportUrlFiltering:
+                    description: 'Indicates whether website filtering is supported:
+                      true (yes), false (no).'
+                    type: boolean
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        LastTransitionTime is the last time this condition transitioned from one
+                        status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        A Message containing details about this condition's last transition from
+                        one status to another, if any.
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        ObservedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      type: integer
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: |-
+                        Type of this condition. At most one of each condition type may apply to
+                        a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+              observedGeneration:
+                description: |-
+                  ObservedGeneration is the latest metadata.generation
+                  which resulted in either a ready state, or stalled due to error
+                  it can not recover from without human intervention.
+                format: int64
+                type: integer
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

@@ -1,0 +1,14 @@
+apiVersion: apigw.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: APIPublishmentV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: apigw/v1alpha1/apipublishmentv2
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+  namespace: upbound-system
+spec:
+  forProvider:
+    apiId: ${var.api_id}
+    environmentId: ${var.environment_id}
+    gatewayId: ${var.gateway_id}

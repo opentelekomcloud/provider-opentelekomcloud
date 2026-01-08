@@ -1,0 +1,16 @@
+apiVersion: cfw.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: DomainNameGroupV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cfw/v1alpha1/domainnamegroupv1
+  labels:
+    testing.upbound.io/example-name: group_1
+  name: group-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    domainNames:
+    - domainName: www.testacctf.com
+    firewallId: ${var.firewall_id}
+    name: test-acc-tf-domain-group
+    objectId: ${var.object_id}

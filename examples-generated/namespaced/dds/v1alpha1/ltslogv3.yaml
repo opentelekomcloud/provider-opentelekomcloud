@@ -1,0 +1,15 @@
+apiVersion: dds.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: LtsLogV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dds/v1alpha1/ltslogv3
+  labels:
+    testing.upbound.io/example-name: log
+  name: log
+  namespace: upbound-system
+spec:
+  forProvider:
+    instanceId: ${var.instance_id}
+    logType: audit_log
+    ltsGroupId: ${var.lts_group_id}
+    ltsStreamId: ${var.lts_stream_id}

@@ -1,0 +1,14 @@
+apiVersion: cfw.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: AddressGroupV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cfw/v1alpha1/addressgroupv1
+  labels:
+    testing.upbound.io/example-name: group_1
+  name: group-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    addressType: 0
+    name: test-acc-tf-address-group
+    objectId: ${var.object_id}

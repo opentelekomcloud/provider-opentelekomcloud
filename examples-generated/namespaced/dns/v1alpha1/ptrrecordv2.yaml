@@ -1,0 +1,33 @@
+apiVersion: dns.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: PtrrecordV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dns/v1alpha1/ptrrecordv2
+  labels:
+    testing.upbound.io/example-name: ptr_1
+  name: ptr-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    description: An example PTR record
+    floatingipIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: fip_1
+    name: ptr.example.com.
+    tags:
+      foo: bar
+    ttl: 3000
+
+---
+
+apiVersion: networking.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: FloatingipV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dns/v1alpha1/ptrrecordv2
+  labels:
+    testing.upbound.io/example-name: fip_1
+  name: fip-1
+  namespace: upbound-system
+spec:
+  forProvider: {}

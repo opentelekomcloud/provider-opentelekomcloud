@@ -1,0 +1,16 @@
+apiVersion: waf.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: DedicatedReferenceTableV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: waf/v1alpha1/dedicatedreferencetablev1
+  labels:
+    testing.upbound.io/example-name: table
+  name: table
+  namespace: upbound-system
+spec:
+  forProvider:
+    conditions:
+    - /admin
+    - /manage
+    name: '%s'
+    type: url

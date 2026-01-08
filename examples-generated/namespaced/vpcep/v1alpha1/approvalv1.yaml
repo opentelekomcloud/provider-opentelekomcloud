@@ -1,0 +1,54 @@
+apiVersion: vpcep.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: ApprovalV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpcep/v1alpha1/approvalv1
+  labels:
+    testing.upbound.io/example-name: approval
+  name: approval
+  namespace: upbound-system
+spec:
+  forProvider:
+    endpoints:
+    - ${opentelekomcloud_vpcep_endpoint_v1.ep.id}
+    serviceId: ${opentelekomcloud_vpcep_service_v1.srv.id}
+
+---
+
+apiVersion: vpcep.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: EndpointV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpcep/v1alpha1/approvalv1
+  labels:
+    testing.upbound.io/example-name: ep
+  name: ep
+  namespace: upbound-system
+spec:
+  forProvider:
+    enableDns: true
+    serviceId: ${opentelekomcloud_vpcep_service_v1.srv.id}
+    subnetId: ${var.subnet_id}
+    vpcId: ${var.vpc_id}
+
+---
+
+apiVersion: vpcep.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: ServiceV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpcep/v1alpha1/approvalv1
+  labels:
+    testing.upbound.io/example-name: srv
+  name: srv
+  namespace: upbound-system
+spec:
+  forProvider:
+    approvalEnabled: true
+    name: demo-service
+    port:
+    - clientPort: 80
+      serverPort: 8080
+    portId: ${var.vm_port}
+    serverType: VM
+    vpcId: ${var.service_vpc_id}

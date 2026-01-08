@@ -1,0 +1,21 @@
+apiVersion: dis.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: StreamV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dis/v1alpha1/streamv2
+  labels:
+    testing.upbound.io/example-name: stream_1
+  name: stream-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    autoScaleMaxPartitionCount: 4
+    autoScaleMinPartitionCount: 1
+    compressionFormat: zip
+    dataType: BLOB
+    name: MyStream
+    partitionCount: 3
+    retentionPeriod: 24
+    streamType: COMMON
+    tags:
+      foo: bar

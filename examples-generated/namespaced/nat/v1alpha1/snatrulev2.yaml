@@ -1,0 +1,56 @@
+apiVersion: nat.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: SnatRuleV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: nat/v1alpha1/snatrulev2
+  labels:
+    testing.upbound.io/example-name: snat_1
+  name: snat-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    cidr: 192.168.0.0/24
+    floatingIpIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: fip_1
+    natGatewayIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: nat_1
+    sourceType: 0
+
+---
+
+apiVersion: nat.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: GatewayV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: nat/v1alpha1/snatrulev2
+  labels:
+    testing.upbound.io/example-name: nat_1
+  name: nat-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    description: test for terraform
+    internalNetworkIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    name: nat_1
+    routerIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    spec: "1"
+
+---
+
+apiVersion: networking.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: FloatingipV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: nat/v1alpha1/snatrulev2
+  labels:
+    testing.upbound.io/example-name: fip_1
+  name: fip-1
+  namespace: upbound-system
+spec:
+  forProvider: {}

@@ -1,0 +1,30 @@
+apiVersion: identity.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: MappingV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: identity/v1alpha1/mappingv3
+  labels:
+    testing.upbound.io/example-name: mapping
+  name: mapping
+  namespace: upbound-system
+spec:
+  forProvider:
+    mappingId: ACME
+    rules: |2
+        [
+          {
+            "local":[
+              {
+                "user":{"name":"{0}"}
+              },
+              {
+                "groups":"[\"admin\",\"manager\"]"
+              }
+            ],
+            "remote":[
+              {
+                "type":"uid"
+              }
+            ]
+          }
+        ]

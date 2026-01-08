@@ -1,0 +1,16 @@
+apiVersion: s3.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: Bucket
+metadata:
+  annotations:
+    meta.upbound.io/example-id: s3/v1alpha1/bucket
+  labels:
+    testing.upbound.io/example-name: bucket
+  name: bucket
+  namespace: upbound-system
+spec:
+  forProvider:
+    acl: private
+    bucket: my-tf-test-bucket
+    tags:
+      Environment: Dev
+      Name: My bucket

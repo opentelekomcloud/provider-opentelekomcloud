@@ -1,0 +1,54 @@
+apiVersion: compute.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: FloatingipAssociateV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: compute/v1alpha1/floatingipassociatev2
+  labels:
+    testing.upbound.io/example-name: fip_1
+  name: fip-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    floatingIpSelector:
+      matchLabels:
+        testing.upbound.io/example-name: fip_1
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: instance_1
+
+---
+
+apiVersion: compute.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: InstanceV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: compute/v1alpha1/floatingipassociatev2
+  labels:
+    testing.upbound.io/example-name: instance_1
+  name: instance-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    flavorId: 3
+    imageId: ad091b52-742f-469e-8f3c-fd81cadf0743
+    keyPairSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    name: instance_1
+    securityGroupsRefs:
+    - name: example
+
+---
+
+apiVersion: networking.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: FloatingipV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: compute/v1alpha1/floatingipassociatev2
+  labels:
+    testing.upbound.io/example-name: fip_1
+  name: fip-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    pool: admin_external_net

@@ -1,0 +1,42 @@
+apiVersion: lb.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: PoolV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lb/v1alpha1/poolv3
+  labels:
+    testing.upbound.io/example-name: pool
+  name: pool
+  namespace: upbound-system
+spec:
+  forProvider:
+    lbAlgorithm: ROUND_ROBIN
+    loadbalancerIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: lb
+    name: pool_1
+    protocol: TCP
+    sessionPersistence:
+    - persistenceTimeout: "30"
+      type: SOURCE_IP
+
+---
+
+apiVersion: lb.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: LoadbalancerV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lb/v1alpha1/poolv3
+  labels:
+    testing.upbound.io/example-name: lb
+  name: lb
+  namespace: upbound-system
+spec:
+  forProvider:
+    availabilityZones:
+    - ${var.availability_zone}
+    name: loadbalancer_1
+    networkIdsRefs:
+    - name: example
+    routerIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example

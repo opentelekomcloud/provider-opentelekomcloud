@@ -1,0 +1,27 @@
+apiVersion: ecs.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: InstanceV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ecs/v1alpha1/instancev1
+  labels:
+    testing.upbound.io/example-name: basic
+  name: basic
+  namespace: upbound-system
+spec:
+  forProvider:
+    availabilityZone: eu-de-01
+    flavor: s2.large.2
+    imageId: ad091b52-742f-469e-8f3c-fd81cadf0743
+    keyNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    name: server_1
+    nics:
+    - networkIdSelector:
+        matchLabels:
+          testing.upbound.io/example-name: example
+    tags:
+      muh: kuh
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example

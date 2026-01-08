@@ -1,0 +1,15 @@
+apiVersion: hss.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: HostProtectionV5
+metadata:
+  annotations:
+    meta.upbound.io/example-id: hss/v1alpha1/hostprotectionv5
+  labels:
+    testing.upbound.io/example-name: pro
+  name: pro
+  namespace: upbound-system
+spec:
+  forProvider:
+    chargingMode: on_demand
+    hostId: ${var.host_id}
+    isWaitHostAvailable: true
+    version: hss.version.premium

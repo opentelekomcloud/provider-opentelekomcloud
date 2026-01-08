@@ -1,0 +1,64 @@
+apiVersion: rts.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: StackV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: rts/v1alpha1/stackv1
+  labels:
+    testing.upbound.io/example-name: mystack
+  name: mystack
+  namespace: upbound-system
+spec:
+  forProvider:
+    disableRollback: true
+    name: ${var.name}
+    parameters:
+      image_id: ${var.image_id}
+      instance_type: ${var.instance_type}
+      network_id: ${var.network_id}
+    templateBody: |2
+        {
+          "heat_template_version": "2016-04-08",
+          "description": "Simple template to deploy",
+          "parameters": {
+              "image_id": {
+                  "type": "string",
+                  "description": "Image to be used for compute instance",
+                  "label": "Image ID"
+              },
+              "network_id": {
+                  "type": "string",
+                  "description": "The Network to be used",
+                  "label": "Network UUID"
+              },
+              "instance_type": {
+                  "type": "string",
+                  "description": "Type of instance (Flavor) to be used",
+                  "label": "Instance Type"
+              }
+          },
+          "resources": {
+              "my_instance": {
+                  "type": "OS::Nova::Server",
+                  "properties": {
+                      "image": {
+                          "get_param": "image_id"
+                      },
+                      "flavor": {
+                          "get_param": "instance_type"
+                      },
+                      "networks": [{
+                          "network": {
+                              "get_param": "network_id"
+                          }
+                      }]
+                  }
+              }
+          },
+          "outputs": {
+            "InstanceIP": {
+              "description": "Instance IP",
+              "value": { "get_attr": ["my_instance", "first_address"] }
+            }
+          }
+        }
+    timeoutMins: 60

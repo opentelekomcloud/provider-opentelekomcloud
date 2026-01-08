@@ -1,0 +1,16 @@
+apiVersion: networking.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: PortSecgroupAssociateV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: networking/v1alpha1/portsecgroupassociatev2
+  labels:
+    testing.upbound.io/example-name: port_1
+  name: port-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    portIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: opentelekomcloud_networking_port_v2
+    securityGroupIdsRefs:
+    - name: opentelekomcloud_networking_secgroup_v2

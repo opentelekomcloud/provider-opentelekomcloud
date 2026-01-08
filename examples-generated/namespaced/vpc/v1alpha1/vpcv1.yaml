@@ -1,0 +1,13 @@
+apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: VpcV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/vpcv1
+  labels:
+    testing.upbound.io/example-name: vpc_v1
+  name: vpc-v1
+  namespace: upbound-system
+spec:
+  forProvider:
+    cidr: ${var.vpc_cidr}
+    name: ${var.vpc_name}

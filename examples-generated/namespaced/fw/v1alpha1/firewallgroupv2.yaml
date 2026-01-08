@@ -1,0 +1,71 @@
+apiVersion: fw.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: FirewallGroupV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: fw/v1alpha1/firewallgroupv2
+  labels:
+    testing.upbound.io/example-name: firewall_group_1
+  name: firewall-group-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    ingressPolicyId: ${opentelekomcloud_fw_policy_v2.policy_1.id}
+    name: my-firewall-group
+
+---
+
+apiVersion: fw.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: PolicyV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: fw/v1alpha1/firewallgroupv2
+  labels:
+    testing.upbound.io/example-name: policy_1
+  name: policy-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    name: my-policy
+    rules:
+    - ${opentelekomcloud_fw_rule_v2.rule_1.id}
+    - ${opentelekomcloud_fw_rule_v2.rule_2.id}
+
+---
+
+apiVersion: fw.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: RuleV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: fw/v1alpha1/firewallgroupv2
+  labels:
+    testing.upbound.io/example-name: rule_1
+  name: rule-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    action: deny
+    description: drop TELNET traffic
+    destinationPort: "23"
+    enabled: "true"
+    name: my-rule-1
+    protocol: tcp
+
+---
+
+apiVersion: fw.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: RuleV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: fw/v1alpha1/firewallgroupv2
+  labels:
+    testing.upbound.io/example-name: rule_2
+  name: rule-2
+  namespace: upbound-system
+spec:
+  forProvider:
+    action: deny
+    description: drop NTP traffic
+    destinationPort: "123"
+    enabled: "false"
+    name: my-rule-2
+    protocol: udp

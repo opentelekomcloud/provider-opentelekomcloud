@@ -1,0 +1,19 @@
+apiVersion: rds.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: ParametergroupV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: rds/v1alpha1/parametergroupv3
+  labels:
+    testing.upbound.io/example-name: pg_1
+  name: pg-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    datastore:
+    - type: mysql
+      version: "8.0"
+    description: some description here
+    name: pg_1
+    values:
+      autocommit: "OFF"
+      max_connections: "10"

@@ -1,0 +1,16 @@
+apiVersion: cfw.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: EIPProtectionV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cfw/v1alpha1/eipprotectionv1
+  labels:
+    testing.upbound.io/example-name: protect_1
+  name: protect-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    eipId: ${var.eip_id}
+    firewallId: ${var.firewall_id}
+    objectId: ${var.object_id}
+    publicIp: ${var.ip_address}
+    status: 0

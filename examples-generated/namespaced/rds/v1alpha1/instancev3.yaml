@@ -1,0 +1,57 @@
+apiVersion: rds.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: InstanceV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: rds/v1alpha1/instancev3
+  labels:
+    testing.upbound.io/example-name: instance
+  name: instance
+  namespace: upbound-system
+spec:
+  forProvider:
+    availabilityZone:
+    - ${var.availability_zone}
+    backupStrategy:
+    - keepDays: 1
+      period: 1,2,3,4,5
+      startTime: 08:00-09:00
+    computeSecurityGroupIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: secgroup
+    db:
+    - passwordSecretRef:
+        key: example-key
+        name: example-secret
+      port: "8635"
+      type: PostgreSQL
+      version: "16"
+    flavor: rds.pg.n1.large.4
+    name: terraform_test_rds_instance
+    subnetIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    tags:
+      foo: bar
+      key: value
+    volume:
+    - size: 100
+      type: CLOUDSSD
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+
+---
+
+apiVersion: networking.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: SecgroupV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: rds/v1alpha1/instancev3
+  labels:
+    testing.upbound.io/example-name: secgroup
+  name: secgroup
+  namespace: upbound-system
+spec:
+  forProvider:
+    description: terraform security group acceptance test
+    name: terraform_test_security_group

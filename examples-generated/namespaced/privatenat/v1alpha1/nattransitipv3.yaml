@@ -1,0 +1,14 @@
+apiVersion: privatenat.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: NATTransitIPV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: privatenat/v1alpha1/nattransitipv3
+  labels:
+    testing.upbound.io/example-name: transit_ip_1
+  name: transit-ip-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    tags:
+      kuh: muh
+    virsubnetId: ${var.network_id}

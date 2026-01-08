@@ -1,0 +1,14 @@
+apiVersion: dms.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: ConsumerGroupV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dms/v1alpha1/consumergroupv2
+  labels:
+    testing.upbound.io/example-name: group_1
+  name: group-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    description: Sample consumer group
+    groupName: dms_consumer_group
+    instanceId: ${var.instance_id}

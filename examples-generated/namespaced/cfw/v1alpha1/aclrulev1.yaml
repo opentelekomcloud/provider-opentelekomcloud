@@ -1,0 +1,30 @@
+apiVersion: cfw.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: ACLRuleV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cfw/v1alpha1/aclrulev1
+  labels:
+    testing.upbound.io/example-name: rule_1
+  name: rule-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    actionType: 0
+    addressType: 0
+    destination:
+    - address: 2.2.2.2
+      type: 0
+    direction: 0
+    longConnectEnable: 0
+    name: test-acc-tf-acl-rule
+    objectId: ${var.object_id}
+    sequence:
+    - top: 1
+    service:
+    - protocol: -1
+      type: 0
+    source:
+    - address: 1.1.1.1
+      type: 0
+    status: 1
+    type: 0

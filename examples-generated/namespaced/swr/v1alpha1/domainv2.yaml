@@ -1,0 +1,56 @@
+apiVersion: swr.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: DomainV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: swr/v1alpha1/domainv2
+  labels:
+    testing.upbound.io/example-name: domain_1
+  name: domain-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    accessDomain: ${var.access_domain}
+    deadline: forever
+    organizationSelector:
+      matchLabels:
+        testing.upbound.io/example-name: org_1
+    permission: read
+    repositorySelector:
+      matchLabels:
+        testing.upbound.io/example-name: repo_1
+
+---
+
+apiVersion: swr.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: OrganizationV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: swr/v1alpha1/domainv2
+  labels:
+    testing.upbound.io/example-name: org_1
+  name: org-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    name: organization_1
+
+---
+
+apiVersion: swr.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: RepositoryV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: swr/v1alpha1/domainv2
+  labels:
+    testing.upbound.io/example-name: repo_1
+  name: repo-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    category: linux
+    description: Test repository
+    isPublic: false
+    name: repository_1
+    organizationSelector:
+      matchLabels:
+        testing.upbound.io/example-name: org_1

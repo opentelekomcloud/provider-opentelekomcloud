@@ -1,0 +1,356 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.18.0
+  name: domainnamegroupv1s.cfw.opentelekomcloud.m.crossplane.io
+spec:
+  group: cfw.opentelekomcloud.m.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - opentelekomcloud
+    kind: DomainNameGroupV1
+    listKind: DomainNameGroupV1List
+    plural: domainnamegroupv1s
+    singular: domainnamegroupv1
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: DomainNameGroupV1 is the Schema for the DomainNameGroupV1s API.
+          Manages a CFW domain name group resource within OpenTelekomCloud.
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: DomainNameGroupV1Spec defines the desired state of DomainNameGroupV1
+            properties:
+              forProvider:
+                properties:
+                  description:
+                    description: Specifies the description of the domain name group.
+                    type: string
+                  domainNames:
+                    description: Specifies the domain name information list. The domain_names
+                      structure is documented below.
+                    items:
+                      properties:
+                        description:
+                          description: Specifies the domain name description.
+                          type: string
+                        domainName:
+                          description: Specifies the domain name, for example, www.test.com.
+                          type: string
+                      type: object
+                    type: array
+                  domainSetType:
+                    description: 'Specifies the domain name group typ: 0 (application
+                      domain name group), 1 (network domain name group).'
+                    type: number
+                  firewallId:
+                    description: Specifies the Firewall ID.
+                    type: string
+                  name:
+                    description: Specifies the CFW domain name group name. The CFW
+                      domain name group name of the same type is unique in the same
+                      firewall.
+                    type: string
+                  objectId:
+                    description: Specifies the protected object ID, which is used
+                      to distinguish between Internet border protection and VPC border
+                      protection after a cloud firewall is created. If the value of
+                      type is 0, the protected object ID belongs to the Internet border.
+                      If the value of type is 1, the protected object ID belongs to
+                      the VPC border.
+                    type: string
+                type: object
+              initProvider:
+                description: |-
+                  THIS IS A BETA FIELD. It will be honored
+                  unless the Management Policies feature flag is disabled.
+                  InitProvider holds the same fields as ForProvider, with the exception
+                  of Identifier and other resource reference fields. The fields that are
+                  in InitProvider are merged into ForProvider when the resource is created.
+                  The same fields are also added to the terraform ignore_changes hook, to
+                  avoid updating them after creation. This is useful for fields that are
+                  required on creation, but we do not desire to update them after creation,
+                  for example because of an external controller is managing them, like an
+                  autoscaler.
+                properties:
+                  description:
+                    description: Specifies the description of the domain name group.
+                    type: string
+                  domainNames:
+                    description: Specifies the domain name information list. The domain_names
+                      structure is documented below.
+                    items:
+                      properties:
+                        description:
+                          description: Specifies the domain name description.
+                          type: string
+                        domainName:
+                          description: Specifies the domain name, for example, www.test.com.
+                          type: string
+                      type: object
+                    type: array
+                  domainSetType:
+                    description: 'Specifies the domain name group typ: 0 (application
+                      domain name group), 1 (network domain name group).'
+                    type: number
+                  firewallId:
+                    description: Specifies the Firewall ID.
+                    type: string
+                  name:
+                    description: Specifies the CFW domain name group name. The CFW
+                      domain name group name of the same type is unique in the same
+                      firewall.
+                    type: string
+                  objectId:
+                    description: Specifies the protected object ID, which is used
+                      to distinguish between Internet border protection and VPC border
+                      protection after a cloud firewall is created. If the value of
+                      type is 0, the protected object ID belongs to the Internet border.
+                      If the value of type is 1, the protected object ID belongs to
+                      the VPC border.
+                    type: string
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: |-
+                  THIS IS A BETA FIELD. It is on by default but can be opted out
+                  through a Crossplane feature flag.
+                  ManagementPolicies specify the array of actions Crossplane is allowed to
+                  take on the managed and external resources.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md
+                items:
+                  description: |-
+                    A ManagementAction represents an action that the Crossplane controllers
+                    can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
+              providerConfigRef:
+                default:
+                  kind: ClusterProviderConfig
+                  name: default
+                description: |-
+                  ProviderConfigReference specifies how the provider that will be used to
+                  create, observe, update, and delete this managed resource should be
+                  configured.
+                properties:
+                  kind:
+                    description: Kind of the referenced object.
+                    type: string
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                required:
+                - kind
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: |-
+                  WriteConnectionSecretToReference specifies the namespace and name of a
+                  Secret to which any connection details for this managed resource should
+                  be written. Connection details frequently include the endpoint, username,
+                  and password required to connect to the managed resource.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                required:
+                - name
+                type: object
+            required:
+            - forProvider
+            type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.domainNames is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.domainNames)
+                || (has(self.initProvider) && has(self.initProvider.domainNames))'
+            - message: spec.forProvider.firewallId is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.firewallId)
+                || (has(self.initProvider) && has(self.initProvider.firewallId))'
+            - message: spec.forProvider.name is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
+                || (has(self.initProvider) && has(self.initProvider.name))'
+            - message: spec.forProvider.objectId is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.objectId)
+                || (has(self.initProvider) && has(self.initProvider.objectId))'
+          status:
+            description: DomainNameGroupV1Status defines the observed state of DomainNameGroupV1.
+            properties:
+              atProvider:
+                properties:
+                  configStatus:
+                    description: 'Indicates the configuration status: -1 (unconfigured),
+                      0 (configuration failed), 1 (configuration succeeded), 2 (configuring),
+                      3 (normal), or 4 (abnormal).'
+                    type: number
+                  description:
+                    description: Specifies the description of the domain name group.
+                    type: string
+                  domainNames:
+                    description: Specifies the domain name information list. The domain_names
+                      structure is documented below.
+                    items:
+                      properties:
+                        description:
+                          description: Specifies the domain name description.
+                          type: string
+                        domainAddressId:
+                          description: Indicates the domain name ID.
+                          type: string
+                        domainName:
+                          description: Specifies the domain name, for example, www.test.com.
+                          type: string
+                      type: object
+                    type: array
+                  domainSetType:
+                    description: 'Specifies the domain name group typ: 0 (application
+                      domain name group), 1 (network domain name group).'
+                    type: number
+                  firewallId:
+                    description: Specifies the Firewall ID.
+                    type: string
+                  id:
+                    description: Indicates the domain name group ID.
+                    type: string
+                  name:
+                    description: Specifies the CFW domain name group name. The CFW
+                      domain name group name of the same type is unique in the same
+                      firewall.
+                    type: string
+                  objectId:
+                    description: Specifies the protected object ID, which is used
+                      to distinguish between Internet border protection and VPC border
+                      protection after a cloud firewall is created. If the value of
+                      type is 0, the protected object ID belongs to the Internet border.
+                      If the value of type is 1, the protected object ID belongs to
+                      the VPC border.
+                    type: string
+                  refCount:
+                    description: Indicates the number of times a domain name group
+                      is referenced by rules.
+                    type: number
+                  rules:
+                    description: 'Indicates the used rule ID list. The rules structure
+                      is as follows:'
+                    items:
+                      properties:
+                        id:
+                          description: Indicates the domain name group ID.
+                          type: string
+                        name:
+                          description: Specifies the CFW domain name group name. The
+                            CFW domain name group name of the same type is unique
+                            in the same firewall.
+                          type: string
+                      type: object
+                    type: array
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        LastTransitionTime is the last time this condition transitioned from one
+                        status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        A Message containing details about this condition's last transition from
+                        one status to another, if any.
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        ObservedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      type: integer
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: |-
+                        Type of this condition. At most one of each condition type may apply to
+                        a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+              observedGeneration:
+                description: |-
+                  ObservedGeneration is the latest metadata.generation
+                  which resulted in either a ready state, or stalled due to error
+                  it can not recover from without human intervention.
+                format: int64
+                type: integer
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

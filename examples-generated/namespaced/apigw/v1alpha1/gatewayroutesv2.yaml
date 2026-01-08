@@ -1,0 +1,15 @@
+apiVersion: apigw.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: GatewayRoutesV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: apigw/v1alpha1/gatewayroutesv2
+  labels:
+    testing.upbound.io/example-name: rt
+  name: rt
+  namespace: upbound-system
+spec:
+  forProvider:
+    gatewayId: ${var.gateway_id}
+    nexthops:
+    - 172.16.3.0/24
+    - 172.16.7.0/24

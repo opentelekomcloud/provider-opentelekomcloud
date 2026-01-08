@@ -17,3 +17,6 @@ metadata:
 
       If you encounter any bugs, have suggestions for improvements, or want to request new features, please
       open an [issue](https://github.com/opentelekomcloud/provider-opentelekomcloud/issues).
+spec:
+  capabilities:
+    - SafeStart

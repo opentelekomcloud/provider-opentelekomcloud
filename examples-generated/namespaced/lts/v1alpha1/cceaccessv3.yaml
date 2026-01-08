@@ -1,0 +1,31 @@
+apiVersion: lts.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: CceAccessV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lts/v1alpha1/cceaccessv3
+  labels:
+    testing.upbound.io/example-name: container_stdout
+  name: container-stdout
+  namespace: upbound-system
+spec:
+  forProvider:
+    accessConfig:
+    - pathType: container_stdout
+      singleLogFormat:
+      - mode: system
+      stdout: true
+      windows_log_info:
+      - categories:
+        - System
+        - Application
+        event_level:
+        - warning
+        - error
+        time_offset: 7
+        time_offset_unit: day
+    clusterId: ${var.cluster_id}
+    hostGroupIds:
+    - ${var.host_group_id}
+    logGroupId: ${var.log_group_id}
+    logStreamId: ${var.log_stream_id}
+    name: ${var.name}

@@ -1,0 +1,26 @@
+apiVersion: apigw.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: GatewayV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: apigw/v1alpha1/gatewayv2
+  labels:
+    testing.upbound.io/example-name: gateway
+  name: gateway
+  namespace: upbound-system
+spec:
+  forProvider:
+    availabilityZones:
+    - eu-de-01
+    - eu-de-02
+    bandwidthSize: 5
+    description: test gateway
+    ingressBandwidthChargingMode: bandwidth
+    ingressBandwidthSize: 5
+    maintainBegin: "22:00:00"
+    name: test-gateway
+    securityGroupId: ${var.default_secgroup.id}
+    specId: BASIC
+    subnetId: ${var.network_id}
+    tags:
+      foo: bar
+    vpcId: ${var.vpc_id}

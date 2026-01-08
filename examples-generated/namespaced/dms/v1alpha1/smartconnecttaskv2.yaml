@@ -1,0 +1,28 @@
+apiVersion: dms.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: SmartConnectTaskV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dms/v1alpha1/smartconnecttaskv2
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+  namespace: upbound-system
+spec:
+  forProvider:
+    destinationTask:
+    - accessKey: ${var.access_key}
+      consumerStrategy: latest
+      deliverTimeInterval: 300
+      destinationFileType: TEXT
+      obsBucketName: ${var.obs_bucket_name}
+      obsPath: ${var.obs_path}
+      partitionFormat: yyyy/MM/dd/HH/mm
+      recordDelimiter: |2+
+
+      secretKeySecretRef:
+        key: example-key
+        name: example-secret
+    destinationType: OBS_SINK
+    instanceId: ${var.instance_id}
+    taskName: ${var.task_name}
+    topics: ${var.topics}

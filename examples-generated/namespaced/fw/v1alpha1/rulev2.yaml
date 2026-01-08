@@ -1,0 +1,17 @@
+apiVersion: fw.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: RuleV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: fw/v1alpha1/rulev2
+  labels:
+    testing.upbound.io/example-name: rule_1
+  name: rule-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    action: deny
+    description: drop TELNET traffic
+    destinationPort: "23"
+    enabled: "true"
+    name: my_rule
+    protocol: tcp

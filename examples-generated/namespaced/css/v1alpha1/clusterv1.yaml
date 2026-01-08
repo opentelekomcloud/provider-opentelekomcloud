@@ -1,0 +1,23 @@
+apiVersion: css.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: ClusterV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: css/v1alpha1/clusterv1
+  labels:
+    testing.upbound.io/example-name: cluster
+  name: cluster
+  namespace: upbound-system
+spec:
+  forProvider:
+    expectNodeNum: 1
+    name: terraform_test_cluster
+    nodeConfig:
+    - availabilityZone: ${var.availability_zone}
+      flavor: css.medium.8
+      networkInfo:
+      - networkId: ${var.network_id}
+        securityGroupId: ${data.opentelekomcloud_networking_secgroup_v2.secgroup.id}
+        vpcId: ${var.vpc_id}
+      volume:
+      - size: 40
+        volumeType: COMMON

@@ -1,0 +1,28 @@
+apiVersion: s3.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: BucketPolicy
+metadata:
+  annotations:
+    meta.upbound.io/example-id: s3/v1alpha1/bucketpolicy
+  labels:
+    testing.upbound.io/example-name: b
+  name: b
+  namespace: upbound-system
+spec:
+  forProvider:
+    bucket: ${opentelekomcloud_s3_bucket.b.id}
+    policy: my-tf-test-bucket
+
+---
+
+apiVersion: s3.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: Bucket
+metadata:
+  annotations:
+    meta.upbound.io/example-id: s3/v1alpha1/bucketpolicy
+  labels:
+    testing.upbound.io/example-name: b
+  name: b
+  namespace: upbound-system
+spec:
+  forProvider:
+    bucket: my-tf-test-bucket

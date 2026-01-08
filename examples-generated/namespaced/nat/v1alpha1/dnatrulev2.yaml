@@ -1,0 +1,21 @@
+apiVersion: nat.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: DnatRuleV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: nat/v1alpha1/dnatrulev2
+  labels:
+    testing.upbound.io/example-name: dnat_1
+  name: dnat-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    externalServicePort: 242
+    floatingIpIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    internalServicePort: 993
+    natGatewayIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    privateIp: ${var.private_id}
+    protocol: tcp

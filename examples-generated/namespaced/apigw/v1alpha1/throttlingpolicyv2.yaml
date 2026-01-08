@@ -1,0 +1,21 @@
+apiVersion: apigw.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: ThrottlingPolicyV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: apigw/v1alpha1/throttlingpolicyv2
+  labels:
+    testing.upbound.io/example-name: policy
+  name: policy
+  namespace: upbound-system
+spec:
+  forProvider:
+    description: Created by tf
+    instanceId: ${opentelekomcloud_apigw_gateway_v2.gateway.id}
+    maxApiRequests: 70
+    maxAppRequests: 45
+    maxIpRequests: 45
+    maxUserRequests: 45
+    name: throttling policy
+    period: 10
+    periodUnit: MINUTE
+    type: API-shared

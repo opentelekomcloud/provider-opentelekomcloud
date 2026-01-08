@@ -1,0 +1,649 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.18.0
+  name: mysqlinstancev3s.taurusdb.opentelekomcloud.m.crossplane.io
+spec:
+  group: taurusdb.opentelekomcloud.m.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - opentelekomcloud
+    kind: MySQLInstanceV3
+    listKind: MySQLInstanceV3List
+    plural: mysqlinstancev3s
+    singular: mysqlinstancev3
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: MySQLInstanceV3 is the Schema for the MySQLInstanceV3s API. Manages
+          an TaurusDb mysql instance resource within OpenTelekomCloud.
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: MySQLInstanceV3Spec defines the desired state of MySQLInstanceV3
+            properties:
+              forProvider:
+                properties:
+                  availabilityZoneMode:
+                    description: |-
+                      Specifies the availability zone mode: "single" or "multi".
+                      Defaults to "single". Changing this parameter will create a new resource.
+                    type: string
+                  backupStrategy:
+                    description: Specifies the advanced backup policy. Structure is
+                      documented below.
+                    items:
+                      properties:
+                        keepDays:
+                          description: |-
+                            Specifies the number of days to retain the generated backup files.
+                            The value ranges from 0 to 35. If this parameter is set to 0, the automated backup policy is not set.
+                            If this parameter is not transferred, the automated backup policy is enabled by default.
+                            Backup files are stored for seven days by default.
+                          type: number
+                        startTime:
+                          description: |-
+                            Specifies the backup time window. Automated backups will be triggered during the
+                            backup time window. It must be a valid value in the "hh:mm-HH:MM" format. The current time is in the UTC format. The
+                            HH value must be 1 greater than the hh value. The values of mm and MM must be the same and must be set to 00. Example
+                            value: 08:00-09:00, 03:00-04:00.
+                          type: string
+                      type: object
+                    type: array
+                  configurationId:
+                    description: Specifies the configuration ID.
+                    type: string
+                  datastore:
+                    description: |-
+                      Specifies the database information. Structure is documented below. Changing
+                      this parameter will create a new resource.
+                    items:
+                      properties:
+                        engine:
+                          description: |-
+                            Specifies the database engine. Only "gaussdb-mysql" is supported now.
+                            Changing this parameter will create a new resource.
+                          type: string
+                        version:
+                          description: |-
+                            Specifies the database version. Only "8.0" is supported now.
+                            Changing this parameter will create a new resource.
+                          type: string
+                      type: object
+                    type: array
+                  dedicatedResourceId:
+                    description: |-
+                      Specifies the dedicated resource ID. Changing this parameter
+                      will create a new resource.
+                    type: string
+                  enterpriseProjectId:
+                    description: Specifies the enterprise project id. Required if
+                      EPS enabled.
+                    type: string
+                  flavor:
+                    description: Specifies the instance specifications.
+                    type: string
+                  masterAvailabilityZone:
+                    description: |-
+                      Specifies the availability zone where the master node
+                      resides. The parameter is required in multi availability zone mode. Changing this parameter will create a new
+                      resource.
+                    type: string
+                  name:
+                    description: |-
+                      Specifies the instance name, which can be the same as an existing instance name.
+                      The value must be 4 to 64 characters in length and start with a letter.
+                      It is case-sensitive and can contain only letters, digits, hyphens (-), and underscores (_).
+                    type: string
+                  passwordSecretRef:
+                    description: |-
+                      Specifies the database password. The value must be 8 to 32 characters in length,
+                      including uppercase and lowercase letters, digits, and special characters, such as ~!@#%^*-_=+?
+                    properties:
+                      key:
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    type: object
+                  port:
+                    description: Specifies the database port.
+                    type: number
+                  readReplicas:
+                    description: Specifies the count of read replicas. Defaults to
+                      1.
+                    type: number
+                  secondsLevelMonitoringEnabled:
+                    description: Specifies whether to enable seconds level monitoring.
+                    type: boolean
+                  secondsLevelMonitoringPeriod:
+                    description: Specifies the seconds level collection period.
+                    type: number
+                  securityGroupId:
+                    description: |-
+                      Specifies the security group ID. Required if the selected subnet doesn't
+                      enable network ACL.
+                    type: string
+                  subnetId:
+                    description: |-
+                      Specifies the network ID of a subnet. Changing this parameter will create a
+                      new resource.
+                    type: string
+                  tableNameCaseSensitivity:
+                    description: |-
+                      Whether the kernel table name is case sensitive. The value can
+                      be true (case sensitive) and false (case insensitive). Defaults to false. This parameter only works during
+                      creation.
+                    type: boolean
+                  timeZone:
+                    description: |-
+                      Specifies the time zone. Defaults to "UTC+08:00". Changing this parameter
+                      will create a new resource.
+                    type: string
+                  volumeSize:
+                    description: |-
+                      Specifies the volume size of the instance. The new storage space must be greater than
+                      the current storage and must be a multiple of 10 GB. Only valid when in prePaid mode.
+                    type: number
+                  vpcId:
+                    description: Specifies the VPC ID. Changing this parameter will
+                      create a new resource.
+                    type: string
+                type: object
+              initProvider:
+                description: |-
+                  THIS IS A BETA FIELD. It will be honored
+                  unless the Management Policies feature flag is disabled.
+                  InitProvider holds the same fields as ForProvider, with the exception
+                  of Identifier and other resource reference fields. The fields that are
+                  in InitProvider are merged into ForProvider when the resource is created.
+                  The same fields are also added to the terraform ignore_changes hook, to
+                  avoid updating them after creation. This is useful for fields that are
+                  required on creation, but we do not desire to update them after creation,
+                  for example because of an external controller is managing them, like an
+                  autoscaler.
+                properties:
+                  availabilityZoneMode:
+                    description: |-
+                      Specifies the availability zone mode: "single" or "multi".
+                      Defaults to "single". Changing this parameter will create a new resource.
+                    type: string
+                  backupStrategy:
+                    description: Specifies the advanced backup policy. Structure is
+                      documented below.
+                    items:
+                      properties:
+                        keepDays:
+                          description: |-
+                            Specifies the number of days to retain the generated backup files.
+                            The value ranges from 0 to 35. If this parameter is set to 0, the automated backup policy is not set.
+                            If this parameter is not transferred, the automated backup policy is enabled by default.
+                            Backup files are stored for seven days by default.
+                          type: number
+                        startTime:
+                          description: |-
+                            Specifies the backup time window. Automated backups will be triggered during the
+                            backup time window. It must be a valid value in the "hh:mm-HH:MM" format. The current time is in the UTC format. The
+                            HH value must be 1 greater than the hh value. The values of mm and MM must be the same and must be set to 00. Example
+                            value: 08:00-09:00, 03:00-04:00.
+                          type: string
+                      type: object
+                    type: array
+                  configurationId:
+                    description: Specifies the configuration ID.
+                    type: string
+                  datastore:
+                    description: |-
+                      Specifies the database information. Structure is documented below. Changing
+                      this parameter will create a new resource.
+                    items:
+                      properties:
+                        engine:
+                          description: |-
+                            Specifies the database engine. Only "gaussdb-mysql" is supported now.
+                            Changing this parameter will create a new resource.
+                          type: string
+                        version:
+                          description: |-
+                            Specifies the database version. Only "8.0" is supported now.
+                            Changing this parameter will create a new resource.
+                          type: string
+                      type: object
+                    type: array
+                  dedicatedResourceId:
+                    description: |-
+                      Specifies the dedicated resource ID. Changing this parameter
+                      will create a new resource.
+                    type: string
+                  enterpriseProjectId:
+                    description: Specifies the enterprise project id. Required if
+                      EPS enabled.
+                    type: string
+                  flavor:
+                    description: Specifies the instance specifications.
+                    type: string
+                  masterAvailabilityZone:
+                    description: |-
+                      Specifies the availability zone where the master node
+                      resides. The parameter is required in multi availability zone mode. Changing this parameter will create a new
+                      resource.
+                    type: string
+                  name:
+                    description: |-
+                      Specifies the instance name, which can be the same as an existing instance name.
+                      The value must be 4 to 64 characters in length and start with a letter.
+                      It is case-sensitive and can contain only letters, digits, hyphens (-), and underscores (_).
+                    type: string
+                  passwordSecretRef:
+                    description: |-
+                      Specifies the database password. The value must be 8 to 32 characters in length,
+                      including uppercase and lowercase letters, digits, and special characters, such as ~!@#%^*-_=+?
+                    properties:
+                      key:
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    type: object
+                  port:
+                    description: Specifies the database port.
+                    type: number
+                  readReplicas:
+                    description: Specifies the count of read replicas. Defaults to
+                      1.
+                    type: number
+                  secondsLevelMonitoringEnabled:
+                    description: Specifies whether to enable seconds level monitoring.
+                    type: boolean
+                  secondsLevelMonitoringPeriod:
+                    description: Specifies the seconds level collection period.
+                    type: number
+                  securityGroupId:
+                    description: |-
+                      Specifies the security group ID. Required if the selected subnet doesn't
+                      enable network ACL.
+                    type: string
+                  subnetId:
+                    description: |-
+                      Specifies the network ID of a subnet. Changing this parameter will create a
+                      new resource.
+                    type: string
+                  tableNameCaseSensitivity:
+                    description: |-
+                      Whether the kernel table name is case sensitive. The value can
+                      be true (case sensitive) and false (case insensitive). Defaults to false. This parameter only works during
+                      creation.
+                    type: boolean
+                  timeZone:
+                    description: |-
+                      Specifies the time zone. Defaults to "UTC+08:00". Changing this parameter
+                      will create a new resource.
+                    type: string
+                  volumeSize:
+                    description: |-
+                      Specifies the volume size of the instance. The new storage space must be greater than
+                      the current storage and must be a multiple of 10 GB. Only valid when in prePaid mode.
+                    type: number
+                  vpcId:
+                    description: Specifies the VPC ID. Changing this parameter will
+                      create a new resource.
+                    type: string
+                required:
+                - passwordSecretRef
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: |-
+                  THIS IS A BETA FIELD. It is on by default but can be opted out
+                  through a Crossplane feature flag.
+                  ManagementPolicies specify the array of actions Crossplane is allowed to
+                  take on the managed and external resources.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md
+                items:
+                  description: |-
+                    A ManagementAction represents an action that the Crossplane controllers
+                    can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
+              providerConfigRef:
+                default:
+                  kind: ClusterProviderConfig
+                  name: default
+                description: |-
+                  ProviderConfigReference specifies how the provider that will be used to
+                  create, observe, update, and delete this managed resource should be
+                  configured.
+                properties:
+                  kind:
+                    description: Kind of the referenced object.
+                    type: string
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                required:
+                - kind
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: |-
+                  WriteConnectionSecretToReference specifies the namespace and name of a
+                  Secret to which any connection details for this managed resource should
+                  be written. Connection details frequently include the endpoint, username,
+                  and password required to connect to the managed resource.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                required:
+                - name
+                type: object
+            required:
+            - forProvider
+            type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.flavor is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.flavor)
+                || (has(self.initProvider) && has(self.initProvider.flavor))'
+            - message: spec.forProvider.name is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
+                || (has(self.initProvider) && has(self.initProvider.name))'
+            - message: spec.forProvider.passwordSecretRef is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.passwordSecretRef)'
+            - message: spec.forProvider.subnetId is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.subnetId)
+                || (has(self.initProvider) && has(self.initProvider.subnetId))'
+            - message: spec.forProvider.vpcId is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.vpcId)
+                || (has(self.initProvider) && has(self.initProvider.vpcId))'
+          status:
+            description: MySQLInstanceV3Status defines the observed state of MySQLInstanceV3.
+            properties:
+              atProvider:
+                properties:
+                  availabilityZoneMode:
+                    description: |-
+                      Specifies the availability zone mode: "single" or "multi".
+                      Defaults to "single". Changing this parameter will create a new resource.
+                    type: string
+                  backupStrategy:
+                    description: Specifies the advanced backup policy. Structure is
+                      documented below.
+                    items:
+                      properties:
+                        keepDays:
+                          description: |-
+                            Specifies the number of days to retain the generated backup files.
+                            The value ranges from 0 to 35. If this parameter is set to 0, the automated backup policy is not set.
+                            If this parameter is not transferred, the automated backup policy is enabled by default.
+                            Backup files are stored for seven days by default.
+                          type: number
+                        startTime:
+                          description: |-
+                            Specifies the backup time window. Automated backups will be triggered during the
+                            backup time window. It must be a valid value in the "hh:mm-HH:MM" format. The current time is in the UTC format. The
+                            HH value must be 1 greater than the hh value. The values of mm and MM must be the same and must be set to 00. Example
+                            value: 08:00-09:00, 03:00-04:00.
+                          type: string
+                      type: object
+                    type: array
+                  configurationId:
+                    description: Specifies the configuration ID.
+                    type: string
+                  createdAt:
+                    description: Indicates the creation time in the yyyy-mm-ddThh:mm:ssZ
+                      format.
+                    type: string
+                  datastore:
+                    description: |-
+                      Specifies the database information. Structure is documented below. Changing
+                      this parameter will create a new resource.
+                    items:
+                      properties:
+                        engine:
+                          description: |-
+                            Specifies the database engine. Only "gaussdb-mysql" is supported now.
+                            Changing this parameter will create a new resource.
+                          type: string
+                        version:
+                          description: |-
+                            Specifies the database version. Only "8.0" is supported now.
+                            Changing this parameter will create a new resource.
+                          type: string
+                      type: object
+                    type: array
+                  dbUserName:
+                    description: Indicates the default username.
+                    type: string
+                  dedicatedResourceId:
+                    description: |-
+                      Specifies the dedicated resource ID. Changing this parameter
+                      will create a new resource.
+                    type: string
+                  enterpriseProjectId:
+                    description: Specifies the enterprise project id. Required if
+                      EPS enabled.
+                    type: string
+                  flavor:
+                    description: Specifies the instance specifications.
+                    type: string
+                  id:
+                    description: Indicates the DB instance ID.
+                    type: string
+                  masterAvailabilityZone:
+                    description: |-
+                      Specifies the availability zone where the master node
+                      resides. The parameter is required in multi availability zone mode. Changing this parameter will create a new
+                      resource.
+                    type: string
+                  mode:
+                    description: Indicates the instance mode.
+                    type: string
+                  name:
+                    description: |-
+                      Specifies the instance name, which can be the same as an existing instance name.
+                      The value must be 4 to 64 characters in length and start with a letter.
+                      It is case-sensitive and can contain only letters, digits, hyphens (-), and underscores (_).
+                    type: string
+                  nodes:
+                    description: |-
+                      Indicates the instance nodes information.
+                      The nodes structure is documented below.
+                    items:
+                      properties:
+                        availabilityZone:
+                          description: Indicates the availability zone where the node
+                            resides.
+                          type: string
+                        id:
+                          description: Indicates the node ID.
+                          type: string
+                        name:
+                          description: Indicates the node name.
+                          type: string
+                        privateReadIp:
+                          description: Indicates the private IP address of a node.
+                          type: string
+                        status:
+                          description: Indicates the node status.
+                          type: string
+                        type:
+                          description: 'Indicates the node type: master or slave.'
+                          type: string
+                      type: object
+                    type: array
+                  port:
+                    description: Specifies the database port.
+                    type: number
+                  privateDnsName:
+                    description: Indicates the private domain name.
+                    type: string
+                  privateWriteIp:
+                    description: Indicates the private IP address of the DB instance.
+                    type: string
+                  readReplicas:
+                    description: Specifies the count of read replicas. Defaults to
+                      1.
+                    type: number
+                  region:
+                    description: Indicates the DB instance region.
+                    type: string
+                  secondsLevelMonitoringEnabled:
+                    description: Specifies whether to enable seconds level monitoring.
+                    type: boolean
+                  secondsLevelMonitoringPeriod:
+                    description: Specifies the seconds level collection period.
+                    type: number
+                  securityGroupId:
+                    description: |-
+                      Specifies the security group ID. Required if the selected subnet doesn't
+                      enable network ACL.
+                    type: string
+                  status:
+                    description: Indicates the DB instance status.
+                    type: string
+                  subnetId:
+                    description: |-
+                      Specifies the network ID of a subnet. Changing this parameter will create a
+                      new resource.
+                    type: string
+                  tableNameCaseSensitivity:
+                    description: |-
+                      Whether the kernel table name is case sensitive. The value can
+                      be true (case sensitive) and false (case insensitive). Defaults to false. This parameter only works during
+                      creation.
+                    type: boolean
+                  timeZone:
+                    description: |-
+                      Specifies the time zone. Defaults to "UTC+08:00". Changing this parameter
+                      will create a new resource.
+                    type: string
+                  updatedAt:
+                    description: Indicates the Update time in the yyyy-mm-ddThh:mm:ssZ
+                      format.
+                    type: string
+                  volumeSize:
+                    description: |-
+                      Specifies the volume size of the instance. The new storage space must be greater than
+                      the current storage and must be a multiple of 10 GB. Only valid when in prePaid mode.
+                    type: number
+                  vpcId:
+                    description: Specifies the VPC ID. Changing this parameter will
+                      create a new resource.
+                    type: string
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        LastTransitionTime is the last time this condition transitioned from one
+                        status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        A Message containing details about this condition's last transition from
+                        one status to another, if any.
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        ObservedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      type: integer
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: |-
+                        Type of this condition. At most one of each condition type may apply to
+                        a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+              observedGeneration:
+                description: |-
+                  ObservedGeneration is the latest metadata.generation
+                  which resulted in either a ready state, or stalled due to error
+                  it can not recover from without human intervention.
+                format: int64
+                type: integer
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

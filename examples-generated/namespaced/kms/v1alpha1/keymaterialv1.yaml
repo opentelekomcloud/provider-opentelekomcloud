@@ -1,0 +1,14 @@
+apiVersion: kms.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: KeyMaterialV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: kms/v1alpha1/keymaterialv1
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+  namespace: upbound-system
+spec:
+  forProvider:
+    encryptedKeyMaterial: ${var.encrypted_key_material}
+    importToken: ${var.import_token}
+    keyId: ${var.key_id}

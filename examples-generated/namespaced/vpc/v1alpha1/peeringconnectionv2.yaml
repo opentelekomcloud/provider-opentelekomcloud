@@ -1,0 +1,18 @@
+apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: PeeringConnectionV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/peeringconnectionv2
+  labels:
+    testing.upbound.io/example-name: peering
+  name: peering
+  namespace: upbound-system
+spec:
+  forProvider:
+    name: ${var.peer_conn_name}
+    peerVpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
