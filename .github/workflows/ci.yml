@@ -251,6 +251,12 @@ jobs:
     if: needs.detect-noop.outputs.noop != 'true'
 
     steps:
+      - name: Squeeze out more space
+        run: |
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /usr/share/swift
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/lib/jvm
       - name: Setup QEMU
         uses: docker/setup-qemu-action@49b3bc8e6bdd4a60e6116a5414239cba5943d3cf # v3
         with:
@@ -331,7 +337,7 @@ jobs:
           df -i
           echo
           echo "===== du -sh /*/ ====="
-          du -sh /*/ || true
+          du -h -d1 / | sort -hr | head -n 20
           echo
           echo "===== Docker system df ====="
           docker system df || true
