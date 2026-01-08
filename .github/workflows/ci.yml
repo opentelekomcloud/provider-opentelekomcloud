@@ -305,6 +305,7 @@ jobs:
         run: make vendor vendor.check
 
       - name: Build Artifacts
+        timeout-minutes: 30
         run: make -j2 build.all
         env:
           # We're using docker buildx, which doesn't actually load the images it
