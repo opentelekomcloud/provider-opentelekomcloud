@@ -1,0 +1,14 @@
+apiVersion: apigw.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: ThrottlingPolicyAssociateV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: apigw/v1alpha1/throttlingpolicyassociatev2
+  labels:
+    testing.upbound.io/example-name: tpa
+  name: tpa
+  namespace: upbound-system
+spec:
+  forProvider:
+    gatewayId: ${var.gateway_id}
+    policyId: ${var.policy_id}
+    publishIds: ${var.publish_ids}

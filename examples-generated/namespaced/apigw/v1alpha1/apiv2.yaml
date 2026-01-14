@@ -1,0 +1,139 @@
+apiVersion: apigw.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: APIV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: apigw/v1alpha1/apiv2
+  labels:
+    testing.upbound.io/example-name: api
+  name: api
+  namespace: upbound-system
+spec:
+  forProvider:
+    backendParams:
+    - location: PATH
+      name: userAge
+      type: REQUEST
+      value: user_age
+    description: Created by script
+    failureResponse: Failed response
+    gatewayId: ${opentelekomcloud_apigw_gateway_v2.gateway.id}
+    groupId: ${opentelekomcloud_apigw_group_v2.group.id}
+    http:
+    - requestMethod: GET
+      requestProtocol: HTTP
+      requestUri: /getUserAge/{userAge}
+      retryCount: 1
+      timeout: 30000
+      urlDomain: opentelekomcloud.my.com
+    httpPolicy:
+    - backendParams:
+      - location: PATH
+        name: userAge
+        type: REQUEST
+        value: user_age
+      - location: HEADER
+        name: '%[2]s'
+        systemParamType: internal
+        type: SYSTEM
+        value: serverName
+      conditions:
+      - origin: param
+        paramName: user_age
+        type: EXACT
+        value: "28"
+      effectiveMode: ANY
+      name: my_policy1
+      requestMethod: GET
+      requestProtocol: HTTP
+      requestUri: /getUserAge/{userAge}
+      retryCount: 1
+      timeout: 30000
+      urlDomain: opentelekomcloud.my.com
+    matchMode: EXACT
+    name: my_api
+    requestMethod: GET
+    requestParams:
+    - location: PATH
+      maximum: 200
+      minimum: 0
+      name: user_age
+      required: true
+      type: NUMBER
+    - enumeration: ACC_TEST_A,ACC_TEST_B
+      location: HEADER
+      maximum: 20
+      minimum: 10
+      name: X-TEST-ENUM
+      passthrough: true
+      sample: ACC_TEST_XXX
+      type: STRING
+    requestProtocol: HTTP
+    requestUri: /user_info/{user_age}
+    securityAuthenticationType: APP
+    successResponse: Success response
+    type: Public
+
+---
+
+apiVersion: apigw.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: EnvironmentV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: apigw/v1alpha1/apiv2
+  labels:
+    testing.upbound.io/example-name: env
+  name: env
+  namespace: upbound-system
+spec:
+  forProvider:
+    description: test description
+    instanceId: ${opentelekomcloud_apigw_gateway_v2.gateway.id}
+    name: my_env
+
+---
+
+apiVersion: apigw.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: GatewayV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: apigw/v1alpha1/apiv2
+  labels:
+    testing.upbound.io/example-name: gateway
+  name: gateway
+  namespace: upbound-system
+spec:
+  forProvider:
+    availabilityZones:
+    - eu-de-01
+    - eu-de-02
+    description: test gateway 2
+    ingressBandwidthChargingMode: bandwidth
+    ingressBandwidthSize: 5
+    maintainBegin: "02:00:00"
+    name: my_gw
+    securityGroupId: ${var.secgroup_id}
+    specId: BASIC
+    subnetId: ${var.subnet_id}
+    vpcId: ${var.vpc_id}
+
+---
+
+apiVersion: apigw.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: GroupV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: apigw/v1alpha1/apiv2
+  labels:
+    testing.upbound.io/example-name: group
+  name: group
+  namespace: upbound-system
+spec:
+  forProvider:
+    description: test description
+    environment:
+    - environmentId: ${opentelekomcloud_apigw_environment_v2.env.id}
+      variable:
+      - name: test-name
+        value: test-value
+    instanceId: ${opentelekomcloud_apigw_gateway_v2.gateway.id}
+    name: my_group

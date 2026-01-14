@@ -1,0 +1,13 @@
+apiVersion: rts.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: SoftwareDeploymentV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: rts/v1alpha1/softwaredeploymentv1
+  labels:
+    testing.upbound.io/example-name: mydeployment
+  name: mydeployment
+  namespace: upbound-system
+spec:
+  forProvider:
+    configId: ${var.config_id}
+    serverId: ${var.server_id}

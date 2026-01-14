@@ -1,0 +1,23 @@
+apiVersion: vpcep.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: ServiceV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpcep/v1alpha1/servicev1
+  labels:
+    testing.upbound.io/example-name: service
+  name: service
+  namespace: upbound-system
+spec:
+  forProvider:
+    name: service_1
+    port:
+    - clientPort: 80
+      serverPort: 8080
+    portId: ${opentelekomcloud_lb_loadbalancer_v2.lb_1.vip_port_id}
+    serverType: LB
+    tags:
+      key: value
+    vpcId: ${var.vpc_id}
+    whitelist:
+    - ${var.domain_id_1}
+    - ${var.domain_id_2}

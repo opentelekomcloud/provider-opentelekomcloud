@@ -1,0 +1,20 @@
+apiVersion: waf.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: DedicatedPolicyV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: waf/v1alpha1/dedicatedpolicyv1
+  labels:
+    testing.upbound.io/example-name: policy_1
+  name: policy-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    fullDetection: true
+    level: 3
+    name: policy_1
+    options:
+    - cc: true
+      crawler: false
+      webAttack: false
+      webShell: true
+    protectionMode: block

@@ -1,0 +1,17 @@
+apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: RouteV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/routev2
+  labels:
+    testing.upbound.io/example-name: vpc_route
+  name: vpc-route
+  namespace: upbound-system
+spec:
+  forProvider:
+    destination: 192.168.0.0/16
+    nexthop: ${var.nexthop}
+    type: peering
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example

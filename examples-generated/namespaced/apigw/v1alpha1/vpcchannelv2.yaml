@@ -1,0 +1,20 @@
+apiVersion: apigw.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: VPCChannelV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: apigw/v1alpha1/vpcchannelv2
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+  namespace: upbound-system
+spec:
+  forProvider:
+    dynamic:
+      member:
+      - content:
+        - id: ${member.value["id"]}
+          weight: ${member.value["weight"]}
+        for_each: ${var.backend_servers}
+    gatewayId: ${var.gateway_id}
+    name: ${var.channel_name}
+    port: 8080

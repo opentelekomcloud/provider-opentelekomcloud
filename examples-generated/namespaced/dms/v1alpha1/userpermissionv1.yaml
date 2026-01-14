@@ -1,0 +1,56 @@
+apiVersion: dms.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: UserPermissionV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dms/v1alpha1/userpermissionv1
+  labels:
+    testing.upbound.io/example-name: perm_1
+  name: perm-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    instanceId: ${opentelekomcloud_dms_instance_v2.instance_1.id}
+    policies:
+    - accessPolicy: all
+      username: ${opentelekomcloud_dms_user_v2.user_1.id}
+    - accessPolicy: sub
+      username: ${opentelekomcloud_dms_user_v2.user_2.id}
+    topicName: test-topic
+
+---
+
+apiVersion: dms.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: UserV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dms/v1alpha1/userpermissionv1
+  labels:
+    testing.upbound.io/example-name: user_1
+  name: user-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    instanceId: ${instance_id}
+    passwordSecretRef:
+      key: example-key
+      name: example-secret
+    username: Test-user
+
+---
+
+apiVersion: dms.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: UserV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dms/v1alpha1/userpermissionv1
+  labels:
+    testing.upbound.io/example-name: user_2
+  name: user-2
+  namespace: upbound-system
+spec:
+  forProvider:
+    instanceId: ${instance_id}
+    passwordSecretRef:
+      key: example-key
+      name: example-secret
+    username: Test-user2

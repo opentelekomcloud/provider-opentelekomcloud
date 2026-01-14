@@ -1,0 +1,18 @@
+apiVersion: sfs.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: TurboShareV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: sfs/v1alpha1/turbosharev1
+  labels:
+    testing.upbound.io/example-name: sfs-turbo
+  name: sfs-turbo
+  namespace: upbound-system
+spec:
+  forProvider:
+    availabilityZone: ${var.az}
+    name: sfs-turbo
+    securityGroupId: ${var.sg_id}
+    shareProto: NFS
+    size: 500
+    subnetId: ${var.subnet_id}
+    vpcId: ${var.vpc_id}

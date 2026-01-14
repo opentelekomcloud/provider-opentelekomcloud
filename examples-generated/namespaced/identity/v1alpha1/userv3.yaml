@@ -1,0 +1,15 @@
+apiVersion: identity.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: UserV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: identity/v1alpha1/userv3
+  labels:
+    testing.upbound.io/example-name: user_1
+  name: user-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    name: user_1
+    passwordSecretRef:
+      key: example-key
+      name: example-secret

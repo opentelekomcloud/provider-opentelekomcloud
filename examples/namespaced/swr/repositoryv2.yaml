@@ -1,0 +1,18 @@
+apiVersion: swr.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: RepositoryV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: swr/v1alpha1/repositoryv2
+  labels:
+    testing.upbound.io/example-name: test-repo_1
+  name: test-repo-1
+  namespace: test
+spec:
+  forProvider:
+    organizationSelector:
+      matchLabels:
+        testing.upbound.io/example-name: test-org-1
+    name: test-repo-1
+    isPublic: false
+    description: "crossplane managed repositoryv2"
+    category: linux

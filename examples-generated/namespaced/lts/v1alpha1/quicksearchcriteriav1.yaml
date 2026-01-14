@@ -1,0 +1,16 @@
+apiVersion: lts.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: QuickSearchCriteriaV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lts/v1alpha1/quicksearchcriteriav1
+  labels:
+    testing.upbound.io/example-name: qsc
+  name: qsc
+  namespace: upbound-system
+spec:
+  forProvider:
+    criteria: content:test
+    logGroupId: ${var.log_group_id}
+    logStreamId: ${var.log_stream_id}
+    name: search_criteria_test
+    type: ORIGINALLOG

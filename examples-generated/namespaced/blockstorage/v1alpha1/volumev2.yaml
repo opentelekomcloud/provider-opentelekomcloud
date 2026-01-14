@@ -1,0 +1,20 @@
+apiVersion: blockstorage.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: VolumeV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: blockstorage/v1alpha1/volumev2
+  labels:
+    testing.upbound.io/example-name: volume_1
+  name: volume-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    description: first test volume
+    metadata:
+      __system__cmkid: kms_id
+      __system__encrypted: "1"
+    name: volume_1
+    size: 3
+    tags:
+      foo: bar
+      key: value

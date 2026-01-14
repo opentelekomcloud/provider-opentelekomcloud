@@ -1,0 +1,21 @@
+apiVersion: dms.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: ReassignPartitionsV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dms/v1alpha1/reassignpartitionsv2
+  labels:
+    testing.upbound.io/example-name: rp_1
+  name: rp-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    instanceId: ${var.instance_id}
+    reassignments:
+    - brokers:
+      - 0
+      - 1
+      - 2
+      replicationFactor: 3
+      topic: ${var.topic_name}
+    throttle: 1000000
+    timeEstimate: false

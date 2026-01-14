@@ -1,0 +1,19 @@
+apiVersion: taurusdb.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: MySQLInstanceV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: taurusdb/v1alpha1/mysqlinstancev3
+  labels:
+    testing.upbound.io/example-name: instance_1
+  name: instance-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    flavor: gaussdb.mysql.4xlarge.x86.4
+    name: taurusdb_instance_1
+    passwordSecretRef:
+      key: example-key
+      name: example-secret
+    securityGroupId: ${var.secgroup_id}
+    subnetId: ${var.subnet_id}
+    vpcId: ${var.vpc_id}

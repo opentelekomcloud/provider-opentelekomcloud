@@ -1,0 +1,30 @@
+apiVersion: cts.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: EventNotificationV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cts/v1alpha1/eventnotificationv3
+  labels:
+    testing.upbound.io/example-name: notification_v3
+  name: notification-v3
+  namespace: upbound-system
+spec:
+  forProvider:
+    notificationName: my_notification
+    operationType: complete
+    status: enabled
+    topicId: ${opentelekomcloud_smn_topic_v2.topic_1.id}
+
+---
+
+apiVersion: smn.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: TopicV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cts/v1alpha1/eventnotificationv3
+  labels:
+    testing.upbound.io/example-name: topic_1
+  name: topic-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    name: topic_1

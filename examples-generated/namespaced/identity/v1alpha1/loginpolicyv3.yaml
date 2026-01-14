@@ -1,0 +1,18 @@
+apiVersion: identity.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: LoginPolicyV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: identity/v1alpha1/loginpolicyv3
+  labels:
+    testing.upbound.io/example-name: policy_1
+  name: policy-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    accountValidityPeriod: 0
+    customInfoForLogin: ""
+    lockoutDuration: 15
+    loginFailedTimes: 3
+    periodWithLoginFailures: 60
+    sessionTimeout: 1395
+    showRecentLoginInfo: false

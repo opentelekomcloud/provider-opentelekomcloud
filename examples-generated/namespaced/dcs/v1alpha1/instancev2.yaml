@@ -1,0 +1,38 @@
+apiVersion: dcs.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: InstanceV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dcs/v1alpha1/instancev2
+  labels:
+    testing.upbound.io/example-name: instance_1
+  name: instance-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    availabilityZones:
+    - ${data.opentelekomcloud_compute_availability_zones_v2.zones.names[0]}
+    capacity: 0.125
+    enableWhitelist: true
+    engine: Redis
+    engineVersion: "5.0"
+    flavor: redis.single.xu1.tiny.128
+    name: test_dcs_instance_5.0
+    passwordSecretRef:
+      key: example-key
+      name: example-secret
+    subnetIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: opentelekomcloud_vpc_subnet_v1
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: opentelekomcloud_vpc_subnet_v1
+    whitelist:
+    - groupName: test-group-name
+      ipList:
+      - 10.10.10.1
+      - 10.10.10.2
+    - groupName: test-group-name-2
+      ipList:
+      - 10.10.10.11
+      - 10.10.10.3
+      - 10.10.10.4

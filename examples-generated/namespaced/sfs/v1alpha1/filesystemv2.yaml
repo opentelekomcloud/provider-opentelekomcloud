@@ -1,0 +1,17 @@
+apiVersion: sfs.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: FileSystemV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: sfs/v1alpha1/filesystemv2
+  labels:
+    testing.upbound.io/example-name: share-file
+  name: share-file
+  namespace: upbound-system
+spec:
+  forProvider:
+    description: ${var.share_description}
+    name: ${var.share_name}
+    shareProto: NFS
+    size: 50
+    tags:
+      muh: kuh

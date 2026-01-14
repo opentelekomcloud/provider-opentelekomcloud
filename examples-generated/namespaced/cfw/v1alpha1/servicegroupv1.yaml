@@ -1,0 +1,13 @@
+apiVersion: cfw.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: ServiceGroupV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cfw/v1alpha1/servicegroupv1
+  labels:
+    testing.upbound.io/example-name: group_1
+  name: group-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    name: test-acc-tf-service-group
+    objectId: ${var.object_id}

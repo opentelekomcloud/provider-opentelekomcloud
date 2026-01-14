@@ -1,0 +1,12 @@
+apiVersion: swr.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: OrganizationV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: swr/v1alpha1/organizationv2
+  labels:
+    testing.upbound.io/example-name: test-org-1
+  name: test-org-1
+  namespace: test
+spec:
+  forProvider:
+    name: test-org-1

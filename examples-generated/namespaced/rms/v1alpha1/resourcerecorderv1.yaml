@@ -1,0 +1,19 @@
+apiVersion: rms.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: ResourceRecorderV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: rms/v1alpha1/resourcerecorderv1
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+  namespace: upbound-system
+spec:
+  forProvider:
+    agencyName: rms_tracker_agency
+    obsChannel:
+    - bucket: ${var.bucket_name}
+      region: ${var.delivery_region}
+    selector:
+    - allSupported: true
+    smnChannel:
+    - topicUrn: ${var.topic_urn}

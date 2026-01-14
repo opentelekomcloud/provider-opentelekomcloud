@@ -1,0 +1,24 @@
+apiVersion: gemini.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: InstanceV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: gemini/v1alpha1/instancev3
+  labels:
+    testing.upbound.io/example-name: instance_1
+  name: instance-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    availabilityZone: ${var.availability_zone}
+    flavor: geminidb.cassandra.xlarge.8
+    name: gaussdb_cassandra_instance_1
+    passwordSecretRef:
+      key: example-key
+      name: example-secret
+    securityGroupId: ${var.secgroup_id}
+    subnetId: ${var.subnet_id}
+    tags:
+      foo: bar
+      key: value
+    volumeSize: 100
+    vpcId: ${var.vpc_id}

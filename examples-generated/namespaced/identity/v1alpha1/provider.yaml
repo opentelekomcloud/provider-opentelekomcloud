@@ -1,0 +1,32 @@
+apiVersion: identity.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: Provider
+metadata:
+  annotations:
+    meta.upbound.io/example-id: identity/v1alpha1/provider
+  labels:
+    testing.upbound.io/example-name: provider_1
+  name: provider-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    mappingRules: |-
+      ${jsonencode(
+          [
+            {
+              "local" : [
+                {
+                  "user" : {
+                    "name" : "samltestid"
+                  }
+                }
+              ],
+              "remote" : [
+                {
+                  "type" : "uid"
+                }
+              ]
+            }
+          ]
+        )}
+    name: example_com_provider_saml
+    protocol: saml

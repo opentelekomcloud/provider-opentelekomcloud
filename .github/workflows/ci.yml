@@ -10,9 +10,9 @@ on:
 
 env:
   # Common versions
-  GO_VERSION: '1.24.1'
-  GOLANGCI_VERSION: 'v2.3.1'
-  DOCKER_BUILDX_VERSION: 'v0.28.0'
+  GO_VERSION: "1.24.1"
+  GOLANGCI_VERSION: "v2.3.1"
+  DOCKER_BUILDX_VERSION: "v0.28.0"
 
   # Common users. We can't run a step 'if secrets.XXX != ""' but we can run a
   # step 'if env.XXX != ""', so we copy these to succinctly test whether
@@ -251,6 +251,12 @@ jobs:
     if: needs.detect-noop.outputs.noop != 'true'
 
     steps:
+      - name: Squeeze out more space
+        run: |
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /usr/share/swift
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/lib/jvm
       - name: Setup QEMU
         uses: docker/setup-qemu-action@49b3bc8e6bdd4a60e6116a5414239cba5943d3cf # v3
         with:
@@ -305,6 +311,7 @@ jobs:
         run: make vendor vendor.check
 
       - name: Build Artifacts
+        timeout-minutes: 30
         run: make -j2 build.all
         env:
           # We're using docker buildx, which doesn't actually load the images it
@@ -323,10 +330,19 @@ jobs:
   eco_check:
     name: eco/check
     if: always()
-    needs: [detect-noop, report-breaking-changes, lint, check-diff, unit-tests, local-deploy, publish-provider]
+    needs:
+      [
+        detect-noop,
+        report-breaking-changes,
+        lint,
+        check-diff,
+        unit-tests,
+        local-deploy,
+        publish-provider,
+      ]
     runs-on: ubuntu-latest
     steps:
       - name: Decide whether the needed jobs succeeded or failed
-        uses: re-actors/alls-green@05ac9388f0aebcb5727afa17fcccfecd6f8ec5fe  # v1.2.2
+        uses: re-actors/alls-green@05ac9388f0aebcb5727afa17fcccfecd6f8ec5fe # v1.2.2
         with:
           jobs: ${{ toJSON(needs) }}

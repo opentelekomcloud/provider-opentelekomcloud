@@ -1,0 +1,25 @@
+apiVersion: compute.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: InstanceV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: compute/v1alpha1/instancev2
+  labels:
+    testing.upbound.io/example-name: basic
+  name: basic
+  namespace: upbound-system
+spec:
+  forProvider:
+    flavorId: s2.large.4
+    imageId: ${var.image_id}
+    keyPairSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    metadata:
+      this: that
+    name: basic
+    network:
+    - name: my_network
+    securityGroupsRefs:
+    - name: example
+    tags:
+      muh: kuh

@@ -1,0 +1,43 @@
+apiVersion: vpcep.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: EndpointV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpcep/v1alpha1/endpointv1
+  labels:
+    testing.upbound.io/example-name: endpoint
+  name: endpoint
+  namespace: upbound-system
+spec:
+  forProvider:
+    enableDns: true
+    portIp: 192.168.0.12
+    serviceId: ${opentelekomcloud_vpcep_service_v1.service.id}
+    subnetId: ${data.opentelekomcloud_vpc_subnet_v1.shared_subnet.id}
+    tags:
+      fizz: buzz
+    vpcId: ${opentelekomcloud_vpcep_service_v1.service.vpc_id}
+    whitelist:
+    - 127.0.0.1
+
+---
+
+apiVersion: vpcep.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: ServiceV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpcep/v1alpha1/endpointv1
+  labels:
+    testing.upbound.io/example-name: service
+  name: service
+  namespace: upbound-system
+spec:
+  forProvider:
+    name: service_1
+    port:
+    - clientPort: 80
+      serverPort: 8080
+    portId: ${opentelekomcloud_lb_loadbalancer_v2.lb_1.vip_port_id}
+    serverType: LB
+    tags:
+      key: value
+    vpcId: ${data.opentelekomcloud_vpc_subnet_v1.shared_subnet.vpc_id}

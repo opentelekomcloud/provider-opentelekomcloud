@@ -1,0 +1,23 @@
+apiVersion: lts.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: CrossAccountAccessV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lts/v1alpha1/crossaccountaccessv2
+  labels:
+    testing.upbound.io/example-name: conn
+  name: conn
+  namespace: upbound-system
+spec:
+  forProvider:
+    agencyDomainName: ${var.agency_domain_name}
+    agencyName: ${var.agency_name}
+    agencyProjectId: ${var.agency_project_id}
+    logAgencyGroupId: ${var.agency_group_id}
+    logAgencyGroupName: ${var.agency_group_name}
+    logAgencyStreamId: ${var.agency_stream_id}
+    logAgencyStreamName: ${var.agency_stream_name}
+    logGroupId: ${var.log_group_id}
+    logGroupName: ${var.log_group_name}
+    logStreamId: ${var.log_stream_id}
+    logStreamName: ${var.log_stream_name}
+    name: ${var.name}
