@@ -327,21 +327,6 @@ jobs:
       - name: Publish Artifacts
         run: make publish BRANCH_NAME=${GITHUB_REF##*/}
 
-      - name: Debug disk usage
-        if: ${{ failure() || cancelled() }}
-        run: |
-          echo "===== df -h ====="
-          df -h
-          echo
-          echo "===== df -i ====="
-          df -i
-          echo
-          echo "===== du -sh /*/ ====="
-          du -h -d1 / | sort -hr | head -n 20
-          echo
-          echo "===== Docker system df ====="
-          docker system df || true
-
   eco_check:
     name: eco/check
     if: always()
