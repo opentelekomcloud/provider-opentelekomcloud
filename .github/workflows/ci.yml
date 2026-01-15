@@ -329,7 +329,7 @@ jobs:
 
   eco_check:
     name: eco/check
-    if: always()
+    if: needs.detect-noop.outputs.noop != 'true'
     needs:
       [
         detect-noop,
