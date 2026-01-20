@@ -42,8 +42,11 @@ jobs:
         if: steps.compare.outputs.upgrade == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
         run: |
-          EXISTS=$(gh issue list \
+          EXISTS=$(gh issue \
+            --repo $GH_REPO \
+            list \
             --state open \
             --search "chore: Regen provider with ${{ steps.latest.outputs.latest }}" \
             --json number \
@@ -54,7 +57,9 @@ jobs:
         id: create
         if: steps.compare.outputs.upgrade == 'true' && steps.issue_check.outputs.exists == '0'
         run: |
-          gh issue create \
+          gh issue \
+          --repo $GH_REPO \
+          create \
           --title "$TITLE" \
           --label "$LABELS" \
           --body "$BODY"
