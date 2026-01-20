@@ -1,0 +1,71 @@
+name: Monthly OTC terraform provider update
+on:
+  schedule:
+    - cron: 0 8 22 * *
+
+jobs:
+  create_issue:
+    name: Create issue to regenerate code
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      contents: read
+    steps:
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      - name: Get current terraform provider version
+        id: current
+        run: |
+          VERSION=$(grep 'TERRAFORM_PROVIDER_VERSION' Makefile | head -1 | cut -d'=' -f2 | tr -d ' ')
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Get latest terraform provider version
+        id: latest
+        run: |
+          LATEST=$(curl -s \
+          https://api.github.com/repos/opentelekomcloud/terraform-provider-opentelekomcloud/releases/latest \
+          | jq -r .tag_name)
+          echo "latest=$LATEST" >> $GITHUB_OUTPUT
+
+      - name: Compare versions
+        id: compare
+        run: |
+          if [ "${{ steps.current.outputs.version }}" != "${{ steps.latest.outputs.latest}}" ]; then
+            echo "upgrade=true" >> $GITHUB_OUTPUT
+          else
+            echo "upgrade=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Check for existing issue
+        id: issue_check
+        if: steps.compare.outputs.upgrade == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          EXISTS=$(gh issue list \
+            --state open \
+            --search "chore: Regen provider with ${{ steps.latest.outputs.latest }}" \
+            --json number \
+            --jq length)
+          echo "exists=$EXISTS" >> $GITHUB_OUTPUT
+
+      - name: Create issue
+        id: create
+        if: steps.compare.outputs.upgrade == 'true' && steps.issue_check.outputs.exists == '0'
+        run: |
+          gh issue create \
+          --title "$TITLE" \
+          --label "$LABELS" \
+          --body "$BODY"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          TITLE: "chore: Regen provider with ${{ steps.latest.outputs.latest }}"
+          LABELS: dependencies
+          BODY: |
+            ### ${{ steps.current.outputs.version }} ===> ${{ steps.latest.outputs.latest }}
+            - [ ] Terraform provider changelog reviewed
+            - [ ] Regeneration successful
+            - [ ] CRD diff reviewed
+            - [ ] Docs update needed
