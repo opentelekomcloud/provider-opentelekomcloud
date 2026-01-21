@@ -12,25 +12,25 @@ If you have a use case for a service that is missing or only partially implement
 
 ## Building and running the provider
 
-After cloning the repository fetch the [crossplane/build](https://github.com/crossplane/build/) submodule:
+### After cloning the repository fetch the [crossplane/build](https://github.com/crossplane/build/) submodule
 ```console
 make submodules
 ```
 
-Make your changes in the code...
+### Make your changes in the code...
 
-Run the code-generation pipeline
+### Run the code-generation pipeline
 
 ```console
 make generate
 ```
 
-Apply generated CRDS
+### Apply generated CRDS
 ```yaml
 kubectl apply -f package/crds
 ```
 
-Run against a Kubernetes cluster
+### Run against a Kubernetes cluster
 > [!NOTE]
 > For this to work you need to have crossplane core already [deployed](https://docs.crossplane.io/latest/get-started/install/) in your cluster. Crossplane will use your locally running provider as it's OpenTelekomCloud operator.
 ```console
@@ -38,15 +38,15 @@ make run
 ```
 
 
-Build binary
+### Build binary
 
 ```console
 make build
 ```
 
-Review changes
+### Review changes
 > [!NOTE]
 > Small code changes can lead to large diffs. `scripts/diff_helper.sh` can help you ignoring generated files.
 
-## Adding tests
+## Adding test cases
 [TBD](https://github.com/opentelekomcloud/provider-opentelekomcloud/issues/45)
