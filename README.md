@@ -138,61 +138,6 @@ spec:
     kind: ProviderConfig
 ```
 
-### Running provider in debug mode
-
-To enable debug mode, create the following ControllerConfig and reference it in your Provider resource:
-
-```console
-cat <<EOF | kubectl apply -f -
-apiVersion: pkg.crossplane.io/v1alpha1
-kind: ControllerConfig
-metadata:
-  name: debug-config
-spec:
-  args:
-    - --debug
----
-apiVersion: pkg.crossplane.io/v1
-kind: Provider
-metadata:
-  name: provider-opentelekomcloud
-spec:
-  package: xpkg.upbound.io/opentelekomcloud/provider-opentelekomcloud:v0.3.0
-  controllerConfigRef:
-    name: debug-config
-EOF
-```
-
-## Developing
-
-Run the code-generation pipeline:
-
-```console
-go run cmd/generator/main.go "$PWD"
-```
-
-Apply generated CRDS
-```yaml
-kubectl apply -f package/crds
-```
-
-Run against a Kubernetes cluster:
-
-```console
-make run
-```
-
-Build, push, and install:
-
-```console
-make all
-```
-
-Build binary:
-
-```console
-make build
-```
 
 ## Report a Bug
 
