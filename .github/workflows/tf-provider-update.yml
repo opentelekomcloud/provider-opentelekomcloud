@@ -2,6 +2,7 @@ name: Monthly OTC terraform provider update
 on:
   schedule:
     - cron: 0 8 22 * *
+  workflow_dispatch: {}
 
 jobs:
   create_issue:
@@ -11,6 +12,13 @@ jobs:
       issues: write
       contents: read
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          sparse-checkout: |
+            Makefile
+          sparse-checkout-cone-mode: false
+
       - name: Install jq
         run: sudo apt-get update && sudo apt-get install -y jq
 
