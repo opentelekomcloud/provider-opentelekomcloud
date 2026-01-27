@@ -3,18 +3,29 @@ set -aeuo pipefail
 
 echo "Running setup.sh"
 echo "Creating cloud credential secret..."
-${KUBECTL} -n upbound-system create secret generic provider-secret --from-literal=credentials="${UPTEST_CLOUD_CREDENTIALS}" --dry-run=client -o yaml | ${KUBECTL} apply -f -
+
+### test examples should use `test` namespace
+cat <<EOF | ${KUBECTL} apply -f -
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: test
+EOF
+
+${KUBECTL} -n test create secret generic provider-secret \
+	--from-literal=credentials="${UPTEST_CLOUD_CREDENTIALS}" \
+	--dry-run=client -o yaml | ${KUBECTL} apply -f -
 
 echo "Waiting until provider is healthy..."
 ${KUBECTL} wait provider.pkg --all --for condition=Healthy --timeout 5m
 
 echo "Waiting for all pods to come online..."
-${KUBECTL} -n upbound-system wait --for=condition=Available deployment --all --timeout=5m
+${KUBECTL} -n crossplane-system wait --for=condition=Available deployment --all --timeout=5m
 
 echo "Creating a default provider config..."
 cat <<EOF | ${KUBECTL} apply -f -
-apiVersion: opentelekomcloud.crossplane.io/v1beta1
-kind: ProviderConfig
+apiVersion: opentelekomcloud.m.crossplane.io/v1beta1
+kind: ClusterProviderConfig
 metadata:
   name: default
 spec:
@@ -22,9 +33,9 @@ spec:
     source: Secret
     secretRef:
       name: provider-secret
-      namespace: upbound-system
+      namespace: test
       key: credentials
 EOF
 
 ${KUBECTL} wait provider.pkg --all --for condition=Healthy --timeout 5m
-${KUBECTL} -n upbound-system wait --for=condition=Available deployment --all --timeout=5m
+${KUBECTL} -n crossplane-system wait --for=condition=Available deployment --all --timeout=5m
