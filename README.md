@@ -41,10 +41,6 @@ helm install crossplane --namespace crossplane-system crossplane-stable/crosspla
 After installation, verify that Crossplane is running correctly:
 
 ```console
-helm list -n crossplane-system
-```
-
-```console
 kubectl -n crossplane-system wait --for=condition=Available deployment --all --timeout=5m
 ```
 
