@@ -12,7 +12,6 @@
 Before you begin, make sure you have the following tools installed:
 - [kubectl](https://kubernetes.io/docs/reference/kubectl/kubectl/)
 - [helm](https://helm.sh/docs/intro/install/)
-- [up](https://github.com/upbound/up)
 
 Start by creating a namespace for Crossplane:
 
@@ -50,19 +49,13 @@ kubectl get all -n crossplane-system
 Install the provider by using the following command after changing the image tag to the [latest release](https://marketplace.upbound.io/providers/opentelekomcloud/provider-opentelekomcloud):
 
 ```console
-up ctp provider install opentelekomcloud/provider-opentelekomcloud:${version}
-```
-
-Alternatively, you can use declarative installation:
-
-```console
 cat <<EOF | kubectl apply -f -
 apiVersion: pkg.crossplane.io/v1
 kind: Provider
 metadata:
   name: provider-opentelekomcloud
 spec:
-  package: xpkg.upbound.io/opentelekomcloud/provider-opentelekomcloud:${version}
+  package: xpkg.upbound.io/opentelekomcloud/provider-opentelekomcloud:v0.7.0
 EOF
 ```
 
