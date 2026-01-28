@@ -63,7 +63,7 @@ EOF
 
 ### Configure provider-opentelekomcloud
 
-ProviderConfig setup with secret:
+`ClusterProviderConfig` setup with secret:
 
 ```console
 cat <<EOF | kubectl apply -f -
@@ -103,7 +103,7 @@ spec:
 EOF
 ```
 
-Start deploying ManagedResources:
+Start deploying `ManagedResources`:
 
 ```console
 apiVersion: obs.opentelekomcloud.m.crossplane.io/v1alpha1
