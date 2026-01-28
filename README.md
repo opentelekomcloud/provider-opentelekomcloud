@@ -65,10 +65,6 @@ spec:
 EOF
 ```
 
-Notice that in this example Provider resource is referencing ControllerConfig with debug disabled.
-
-You can see the API reference [here](https://marketplace.upbound.io/providers/opentelekomcloud/provider-opentelekomcloud/latest).
-
 ### Configure provider-opentelekomcloud
 
 ProviderConfig setup with secret:
