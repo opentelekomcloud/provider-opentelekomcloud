@@ -5,6 +5,12 @@
 
 ## Getting Started
 
+You will need some flavor of kubernetes to start using Crossplane. You can use [kind](https://github.com/kubernetes-sigs/kind) for testing or any managed kubernetes service.
+
+```console
+kind create cluster --name local-dev
+```
+
 ### Install provider-opentelekomcloud
 
 #### Install Crossplane
@@ -35,11 +41,7 @@ helm install crossplane --namespace crossplane-system crossplane-stable/crosspla
 After installation, verify that Crossplane is running correctly:
 
 ```console
-helm list -n crossplane-system
-```
-
-```console
-kubectl get all -n crossplane-system
+kubectl -n crossplane-system wait --for=condition=Available deployment --all --timeout=5m
 ```
 
 #### Install the Provider
@@ -59,21 +61,17 @@ spec:
 EOF
 ```
 
-Notice that in this example Provider resource is referencing ControllerConfig with debug disabled.
-
-You can see the API reference [here](https://marketplace.upbound.io/providers/opentelekomcloud/provider-opentelekomcloud/latest).
-
 ### Configure provider-opentelekomcloud
 
-ProviderConfig setup with secret:
+`ClusterProviderConfig` setup with secret:
 
 ```console
 cat <<EOF | kubectl apply -f -
 apiVersion: v1
 kind: Secret
 metadata:
-  name: provider-opentelekomcloud-creds
-  namespace: app
+  name: provider-secret
+  namespace: crossplane-system
 type: Opaque
 stringData:
   credentials: |
@@ -81,8 +79,8 @@ stringData:
       "user_name": "admin",
       "password": "t0ps3cr3t11",
       "auth_url": "https://iam.eu-de.otc.t-systems.com/v3",
-      "domain_name": "...",
-      "tenant_name": "...",
+      "domain_name": "OTCxxxxx",
+      "tenant_name": "eu-de_project",
       "swauth": "false",
       "allow_reauth": "true",
       "max_retries": "2",
@@ -92,21 +90,20 @@ stringData:
     }
 ---
 apiVersion: opentelekomcloud.m.crossplane.io/v1beta1
-kind: ProviderConfig
+kind: ClusterProviderConfig
 metadata:
-  name: namespaced-providerconf
-  namespace: app
+  name: default
 spec:
   credentials:
     source: Secret
     secretRef:
-      name: provider-opentelekomcloud-creds
+      name: provider-secret
       namespace: crossplane-system
       key: credentials
 EOF
 ```
 
-Reference the `ProviderConfig` in the MR:
+Start deploying `ManagedResources`:
 
 ```console
 apiVersion: obs.opentelekomcloud.m.crossplane.io/v1alpha1
@@ -117,7 +114,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: b
   name: b
-  namespace: app
+  namespace: default
 spec:
   forProvider:
     acl: private
@@ -126,9 +123,6 @@ spec:
       Env: Test
       foo: bar
       managed: xplane
-  providerConfigRef:
-    name: namespaced-providerconf
-    kind: ProviderConfig
 ```
 
 
