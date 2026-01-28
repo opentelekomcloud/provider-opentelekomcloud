@@ -39,7 +39,7 @@ helm list -n crossplane-system
 ```
 
 ```console
-kubectl get all -n crossplane-system
+kubectl -n crossplane-system wait --for=condition=Available deployment --all --timeout=5m
 ```
 
 #### Install the Provider
@@ -73,7 +73,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: provider-opentelekomcloud-creds
-  namespace: app
+  namespace: crossplane-system
 type: Opaque
 stringData:
   credentials: |
@@ -81,8 +81,8 @@ stringData:
       "user_name": "admin",
       "password": "t0ps3cr3t11",
       "auth_url": "https://iam.eu-de.otc.t-systems.com/v3",
-      "domain_name": "...",
-      "tenant_name": "...",
+      "domain_name": "OTCxxxxx",
+      "tenant_name": "eu-de_project",
       "swauth": "false",
       "allow_reauth": "true",
       "max_retries": "2",
@@ -92,21 +92,20 @@ stringData:
     }
 ---
 apiVersion: opentelekomcloud.m.crossplane.io/v1beta1
-kind: ProviderConfig
+kind: ClusterProviderConfig
 metadata:
-  name: namespaced-providerconf
-  namespace: app
+  name: default
 spec:
   credentials:
     source: Secret
     secretRef:
-      name: provider-opentelekomcloud-creds
+      name: provider-secret
       namespace: crossplane-system
       key: credentials
 EOF
 ```
 
-Reference the `ProviderConfig` in the MR:
+Start deploying ManagedResources:
 
 ```console
 apiVersion: obs.opentelekomcloud.m.crossplane.io/v1alpha1
@@ -117,7 +116,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: b
   name: b
-  namespace: app
+  namespace: default
 spec:
   forProvider:
     acl: private
@@ -126,9 +125,6 @@ spec:
       Env: Test
       foo: bar
       managed: xplane
-  providerConfigRef:
-    name: namespaced-providerconf
-    kind: ProviderConfig
 ```
 
 
