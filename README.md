@@ -5,6 +5,12 @@
 
 ## Getting Started
 
+You will need some flavor of kubernetes to start using Crossplane. You can use [kind](https://github.com/kubernetes-sigs/kind) for testing or any managed kubernetes service.
+
+```console
+kind create cluster --name local-dev
+```
+
 ### Install provider-opentelekomcloud
 
 #### Install Crossplane
@@ -72,7 +78,7 @@ cat <<EOF | kubectl apply -f -
 apiVersion: v1
 kind: Secret
 metadata:
-  name: provider-opentelekomcloud-creds
+  name: provider-secret
   namespace: crossplane-system
 type: Opaque
 stringData:
