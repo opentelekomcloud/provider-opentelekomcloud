@@ -15,7 +15,7 @@ spec:
     repositorySelector:
       matchLabels:
         testing.upbound.io/example-name: test-repo_1
-    accessDomain: "OTC000000000010001360XX"
+    accessDomain: ${data.swrAccessDomain}
     permission: read
     deadline: forever
     description: "crossplane managed domainv2"
