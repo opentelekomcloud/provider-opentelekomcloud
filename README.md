@@ -125,6 +125,16 @@ spec:
       managed: xplane
 ```
 
+Check the state of the managed resources:
+
+```console
+kubectl get managed
+```
+
+```console
+NAME                                                                SYNCED   READY   EXTERNAL-NAME     AGE
+bucket.obs.opentelekomcloud.m.crossplane.io/b   True     True    crossplane-test   3m22s
+```
 
 ## Report a Bug
 
