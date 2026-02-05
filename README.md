@@ -3,6 +3,10 @@
 
 `provider-opentelekomcloud` is a [Crossplane](https://crossplane.io/) provider that is built using [Upjet](https://github.com/crossplane/upjet) code generation tools and exposes XRM-conformant managed resources for the opentelekomcloud API. The provider has been upgraded to support Crossplane v2, which introduced a lot of changes and new features like namespaced [ManagedResouces](https://docs.crossplane.io/latest/managed-resources/managed-resources/). Cluster scoped MRs are now legacy APIs, thus we recommend using the modern `opentelekomcloud.m.crossplane.io` namespaced APIs instead. For more information please check [What’s New in v2?](https://docs.crossplane.io/latest/whats-new/)
 
+## Provider Ressources Overview
+
+You can find all supported ressources bundled in the Open Telekom Provider in the [Upbound Marketplace](https://marketplace.upbound.io/providers/opentelekomcloud/provider-opentelekomcloud/).
+
 ## Getting Started
 
 You will need some flavor of kubernetes to start using Crossplane. You can use [kind](https://github.com/kubernetes-sigs/kind) for testing or any managed kubernetes service.
@@ -135,6 +139,8 @@ kubectl get managed
 NAME                                                                SYNCED   READY   EXTERNAL-NAME     AGE
 bucket.obs.opentelekomcloud.m.crossplane.io/b   True     True    crossplane-test   3m22s
 ```
+
+
 
 ## Report a Bug
 
