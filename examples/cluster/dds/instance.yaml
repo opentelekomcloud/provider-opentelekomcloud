@@ -9,7 +9,7 @@ data:
 
 ---
 
-apiVersion: vpc.opentelekomcloud.crossplane.io/v1alpha1
+apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: VpcV1
 metadata:
   annotations:
@@ -25,7 +25,7 @@ spec:
       managed-by: crossplane
 ---
 
-apiVersion: vpc.opentelekomcloud.crossplane.io/v1alpha1
+apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: SubnetV1
 metadata:
   annotations:
@@ -47,7 +47,7 @@ spec:
 
 ---
 
-apiVersion: compute.opentelekomcloud.crossplane.io/v1alpha1
+apiVersion: compute.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: SecgroupV2
 metadata:
   annotations:
@@ -75,7 +75,7 @@ spec:
 
 ---
 
-apiVersion: dds.opentelekomcloud.crossplane.io/v1alpha1
+apiVersion: dds.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: InstanceV3
 metadata:
   annotations:
@@ -116,7 +116,7 @@ spec:
 
 ---
 
-apiVersion: dds.opentelekomcloud.crossplane.io/v1alpha1
+apiVersion: dds.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: BackupV3
 metadata:
   annotations:

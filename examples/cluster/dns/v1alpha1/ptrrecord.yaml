@@ -1,4 +1,4 @@
-apiVersion: vpc.opentelekomcloud.crossplane.io/v1alpha1
+apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: EIPV1
 metadata:
   annotations:
@@ -18,7 +18,7 @@ spec:
 
 ---
 
-apiVersion: dns.opentelekomcloud.crossplane.io/v1alpha1
+apiVersion: dns.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: PtrrecordV2
 metadata:
   annotations:

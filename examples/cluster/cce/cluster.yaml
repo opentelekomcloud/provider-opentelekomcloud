@@ -1,4 +1,4 @@
-apiVersion: compute.opentelekomcloud.crossplane.io/v1alpha1
+apiVersion: compute.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: KeypairV2
 metadata:
   annotations:
@@ -13,7 +13,7 @@ spec:
 
 ---
 
-apiVersion: vpc.opentelekomcloud.crossplane.io/v1alpha1
+apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: VpcV1
 metadata:
   annotations:
@@ -29,7 +29,7 @@ spec:
       managed-by: crossplane
 ---
 
-apiVersion: vpc.opentelekomcloud.crossplane.io/v1alpha1
+apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: SubnetV1
 metadata:
   annotations:
@@ -51,7 +51,7 @@ spec:
 
 ---
 
-apiVersion: cce.opentelekomcloud.crossplane.io/v1alpha1
+apiVersion: cce.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: ClusterV3
 metadata:
   annotations:
@@ -82,7 +82,7 @@ spec:
 
 ---
 
-apiVersion: cce.opentelekomcloud.crossplane.io/v1alpha1
+apiVersion: cce.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: NodeV3
 metadata:
   annotations:
@@ -117,7 +117,7 @@ spec:
 
 ---
 
-apiVersion: cce.opentelekomcloud.crossplane.io/v1alpha1
+apiVersion: cce.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: AddonV3
 metadata:
   annotations:
@@ -179,7 +179,7 @@ spec:
 
 ---
 
-apiVersion: cce.opentelekomcloud.crossplane.io/v1alpha1
+apiVersion: cce.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: NodePoolV3
 metadata:
   annotations:

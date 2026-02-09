@@ -13,7 +13,7 @@ spec:
             file: ../organizationsv2.yaml
         - assert:
             resource:
-              apiVersion: swr.opentelekomcloud.crossplane.io/v1alpha1
+              apiVersion: swr.opentelekomcloud.m.crossplane.io/v1alpha1
               kind: OrganizationV2
               metadata:
                 name: test-org-1
@@ -39,7 +39,7 @@ spec:
             file: ../repositoryv2.yaml
         - assert:
             resource:
-              apiVersion: swr.opentelekomcloud.crossplane.io/v1alpha1
+              apiVersion: swr.opentelekomcloud.m.crossplane.io/v1alpha1
               kind: RepositoryV2
               metadata:
                 name: test-repo-1
@@ -65,7 +65,7 @@ spec:
             file: ../domainv2.yaml
         - assert:
             resource:
-              apiVersion: swr.opentelekomcloud.crossplane.io/v1alpha1
+              apiVersion: swr.opentelekomcloud.m.crossplane.io/v1alpha1
               kind: DomainV2
               metadata:
                 name: domain-1
@@ -91,7 +91,7 @@ spec:
             file: ../organizationpermissionsv2.yaml
         - assert:
             resource:
-              apiVersion: swr.opentelekomcloud.crossplane.io/v1alpha1
+              apiVersion: swr.opentelekomcloud.m.crossplane.io/v1alpha1
               kind: OrganizationPermissionsV2
               metadata:
                 name: user-1
