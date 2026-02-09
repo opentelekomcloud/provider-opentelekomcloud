@@ -1,4 +1,4 @@
-apiVersion: dds.opentelekomcloud.m.crossplane.io/v1alpha1
+apiVersion: dds.opentelekomcloud.crossplane.io/v1alpha1
 kind: BackupV3
 metadata:
   annotations:

@@ -1,4 +1,4 @@
-apiVersion: swr.opentelekomcloud.m.crossplane.io/v1alpha1
+apiVersion: swr.opentelekomcloud.crossplane.io/v1alpha1
 kind: RepositoryV2
 metadata:
   annotations:

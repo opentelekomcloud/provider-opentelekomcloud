@@ -1,4 +1,4 @@
-apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
+apiVersion: vpc.opentelekomcloud.crossplane.io/v1alpha1
 kind: VpcV1
 metadata:
   annotations:
@@ -14,7 +14,7 @@ spec:
       managed-by: crossplane
 ---
 
-apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
+apiVersion: vpc.opentelekomcloud.crossplane.io/v1alpha1
 kind: SubnetV1
 metadata:
   annotations:
@@ -36,7 +36,7 @@ spec:
 
 ---
 
-apiVersion: nat.opentelekomcloud.m.crossplane.io/v1alpha1
+apiVersion: nat.opentelekomcloud.crossplane.io/v1alpha1
 kind: GatewayV2
 metadata:
   annotations:
@@ -60,7 +60,7 @@ spec:
 
 ---
 
-apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
+apiVersion: vpc.opentelekomcloud.crossplane.io/v1alpha1
 kind: EIPV1
 metadata:
   annotations:
@@ -80,7 +80,7 @@ spec:
 
 ---
 
-apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
+apiVersion: vpc.opentelekomcloud.crossplane.io/v1alpha1
 kind: EIPV1
 metadata:
   annotations:
@@ -100,7 +100,7 @@ spec:
 
 ---
 
-apiVersion: nat.opentelekomcloud.m.crossplane.io/v1alpha1
+apiVersion: nat.opentelekomcloud.crossplane.io/v1alpha1
 kind: DnatRuleV2
 metadata:
   annotations:
@@ -123,7 +123,7 @@ spec:
 
 ---
 
-apiVersion: nat.opentelekomcloud.m.crossplane.io/v1alpha1
+apiVersion: nat.opentelekomcloud.crossplane.io/v1alpha1
 kind: SnatRuleV2
 metadata:
   annotations:

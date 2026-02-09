@@ -1,4 +1,4 @@
-apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
+apiVersion: vpc.opentelekomcloud.crossplane.io/v1alpha1
 kind: VpcV1
 metadata:
   annotations:
@@ -15,7 +15,7 @@ spec:
 
 ---
 
-apiVersion: dns.opentelekomcloud.m.crossplane.io/v1alpha1
+apiVersion: dns.opentelekomcloud.crossplane.io/v1alpha1
 kind: ZoneV2
 metadata:
   annotations:
@@ -40,7 +40,7 @@ spec:
 
 ---
 
-apiVersion: dns.opentelekomcloud.m.crossplane.io/v1alpha1
+apiVersion: dns.opentelekomcloud.crossplane.io/v1alpha1
 kind: ZoneV2
 metadata:
   annotations:
@@ -60,7 +60,7 @@ spec:
 
 ---
 
-apiVersion: dns.opentelekomcloud.m.crossplane.io/v1alpha1
+apiVersion: dns.opentelekomcloud.crossplane.io/v1alpha1
 kind: RecordsetV2
 metadata:
   annotations:
@@ -82,7 +82,7 @@ spec:
 
 ---
 
-apiVersion: dns.opentelekomcloud.m.crossplane.io/v1alpha1
+apiVersion: dns.opentelekomcloud.crossplane.io/v1alpha1
 kind: RecordsetV2
 metadata:
   annotations:

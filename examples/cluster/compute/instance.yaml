@@ -1,4 +1,4 @@
-apiVersion: networking.opentelekomcloud.m.crossplane.io/v1alpha1
+apiVersion: networking.opentelekomcloud.crossplane.io/v1alpha1
 kind: NetworkV2
 metadata:
   annotations:
@@ -13,7 +13,7 @@ spec:
 
 ---
 
-apiVersion: networking.opentelekomcloud.m.crossplane.io/v1alpha1
+apiVersion: networking.opentelekomcloud.crossplane.io/v1alpha1
 kind: RouterV2
 metadata:
   annotations:
@@ -27,7 +27,7 @@ spec:
 
 ---
 
-apiVersion: networking.opentelekomcloud.m.crossplane.io/v1alpha1
+apiVersion: networking.opentelekomcloud.crossplane.io/v1alpha1
 kind: SubnetV2
 metadata:
   annotations:
@@ -46,7 +46,7 @@ spec:
 
 ---
 
-apiVersion: networking.opentelekomcloud.m.crossplane.io/v1alpha1
+apiVersion: networking.opentelekomcloud.crossplane.io/v1alpha1
 kind: RouterInterfaceV2
 metadata:
   annotations:
@@ -65,7 +65,7 @@ spec:
 
 ---
 
-apiVersion: compute.opentelekomcloud.m.crossplane.io/v1alpha1
+apiVersion: compute.opentelekomcloud.crossplane.io/v1alpha1
 kind: FloatingipAssociateV2
 metadata:
   annotations:
@@ -83,7 +83,7 @@ spec:
         testing.upbound.io/example-name: instance_1
 ---
 
-apiVersion: compute.opentelekomcloud.m.crossplane.io/v1alpha1
+apiVersion: compute.opentelekomcloud.crossplane.io/v1alpha1
 kind: InstanceV2
 metadata:
   annotations:
@@ -101,7 +101,7 @@ spec:
 
 ---
 
-apiVersion: networking.opentelekomcloud.m.crossplane.io/v1alpha1
+apiVersion: networking.opentelekomcloud.crossplane.io/v1alpha1
 kind: FloatingipV2
 metadata:
   annotations:
