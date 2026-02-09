@@ -1,0 +1,14 @@
+apiVersion: dds.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: BackupV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dds/v1alpha1/backupv3
+  labels:
+    testing.upbound.io/example-name: sample-dds-backup
+  name: sample-dds-backup
+spec:
+  forProvider:
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sample-dds-instance
+    name: crossplane-dds-backup

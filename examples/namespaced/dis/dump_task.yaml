@@ -1,0 +1,79 @@
+apiVersion: obs.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: Bucket
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dis/v1alpha1/dumptaskv2
+  labels:
+    testing.upbound.io/example-name: sample-bucket
+  name: sample-bucket
+spec:
+  forProvider:
+    acl: private
+    bucket: crossplane-dis-bucket
+    storageClass: STANDARD
+
+---
+
+apiVersion: dis.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: AppV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dis/v1alpha1/dumptaskv2
+  labels:
+    testing.upbound.io/example-name: sample-app
+  name: sample-app
+spec:
+  forProvider:
+    name: crossplane-dis-app
+
+---
+
+apiVersion: dis.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: StreamV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dis/v1alpha1/dumptaskv2
+  labels:
+    testing.upbound.io/example-name: sample-stream
+  name: sample-stream
+spec:
+  forProvider:
+    autoScaleMaxPartitionCount: 4
+    autoScaleMinPartitionCount: 1
+    compressionFormat: zip
+    dataType: BLOB
+    name: crossplane-dis-stream
+    partitionCount: 3
+    retentionPeriod: 24
+    streamType: COMMON
+    tags:
+      managed-by: crossplane
+
+---
+
+apiVersion: dis.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: DumpTaskV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dis/v1alpha1/dumptaskv2
+  labels:
+    testing.upbound.io/example-name: sample-task
+  name: sample-task
+spec:
+  forProvider:
+    destination: OBS
+    obsDestinationDescriptor:
+      - agencyName: dis_admin_agency
+        consumerStrategy: LATEST
+        deliverTimeInterval: 30
+        destinationFileType: text
+        filePrefix: _pf
+        obsBucketPathSelector:
+          matchLabels:
+            testing.upbound.io/example-name: sample-bucket
+        partitionFormat: yyyy/MM/dd/HH/mm
+        recordDelimiter: '|'
+        taskName: crossplane-dis-task
+    streamNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sample-stream

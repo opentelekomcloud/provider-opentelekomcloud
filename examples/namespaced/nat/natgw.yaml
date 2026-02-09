@@ -1,0 +1,143 @@
+apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: VpcV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/v1
+  labels:
+    testing.upbound.io/example-name: sample-instance
+  name: sample-instance
+spec:
+  forProvider:
+    cidr: "192.168.0.0/16"
+    name: crossplane-vpc
+    tags:
+      managed-by: crossplane
+---
+
+apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: SubnetV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/subnetv1
+  labels:
+    testing.upbound.io/example-name: sample-instance
+  name: sample-instance
+spec:
+  forProvider:
+    cidr: "192.168.0.0/16"
+    gatewayIp: "192.168.0.1"
+    name: crossplane-subnet
+    ntpAddresses: "10.100.0.33,10.100.0.34"
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sample-instance
+    tags:
+      managed-by: crossplane
+
+---
+
+apiVersion: nat.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: GatewayV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: nat/v1alpha1/gatewayv2
+  labels:
+    testing.upbound.io/example-name: sample-instance
+  name: sample-instance
+spec:
+  forProvider:
+    description: NAT GW created by crossplane
+    internalNetworkIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sample-instance
+    name: crossplane-nat
+    routerIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sample-instance
+    spec: "1"
+    tags:
+      managed-by: crossplane
+
+---
+
+apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: EIPV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/eipv1
+  labels:
+    testing.upbound.io/example-name: sample-eip-01
+  name: sample-eip-01
+spec:
+  forProvider:
+    bandwidth:
+      - chargeMode: traffic
+        name: crossplane-eip-01
+        shareType: PER
+        size: 8
+    publicip:
+      - type: 5_bgp
+
+---
+
+apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: EIPV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/eipv1
+  labels:
+    testing.upbound.io/example-name: sample-eip-02
+  name: sample-eip-02
+spec:
+  forProvider:
+    bandwidth:
+      - chargeMode: traffic
+        name: crossplane-eip-01
+        shareType: PER
+        size: 8
+    publicip:
+      - type: 5_bgp
+
+---
+
+apiVersion: nat.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: DnatRuleV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: nat/v1alpha1/dnatrulev2
+  labels:
+    testing.upbound.io/example-name: sample-dnat-rule
+  name: sample-dnat-rule
+spec:
+  forProvider:
+    externalServicePort: 80
+    internalServicePort: 80
+    floatingIpIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sample-eip-01
+    natGatewayIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sample-instance
+    protocol: tcp
+    privateIp: "192.168.100.10"
+
+---
+
+apiVersion: nat.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: SnatRuleV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: nat/v1alpha1/snatrulev2
+  labels:
+    testing.upbound.io/example-name: sample-snat-rule
+  name: sample-snat-rule
+spec:
+  forProvider:
+    cidr: 192.168.0.0/24
+    floatingIpIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sample-eip-02
+    natGatewayIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sample-instance
+    sourceType: 0

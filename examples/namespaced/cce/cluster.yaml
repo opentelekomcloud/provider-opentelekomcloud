@@ -1,0 +1,218 @@
+apiVersion: compute.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: KeypairV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: compute/v1alpha1/keypairv2
+  labels:
+    testing.upbound.io/example-name: sample-instance
+  name: sample-instance
+spec:
+  forProvider:
+    name: crossplane-keypair
+    publicKey: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDTUED6lEQhwmmpqypHQLqGu8xoUzvT8/uHb9c/uSTNq/qk5GN7gOeK8bs9DvPf4BIYBj5CPzhaidVDue+poqfL9su0mZ1K+eldWoGwkmjOB22kiA9vYmKDEG5u+S3S2UxsM+k09Qh8WGGMuvmCRF7KyNf8rlSJns3bsyG0vDjKuo3hdoCQi5RW950VtaAaefRXfQqgk1y8SR2xZKM0e24yICHd1C40tb5RgiNx7s45VHfVY6XMO+eESeHyDEJMr1AoJhkuiziE1feYmLIC2C02wpRXdLxqu2DbrJfqaPWe0J5mZKTXAFzpr/kdReDDp0lgJhjcralcLSZVa1JhQ1iX4n7+v0YKa6WHInnjmeN4PLz8gBanE40OpkZI/DVIWbhX/CrYi+tpZKzYc9ZGdd9UDGPNUNwIMMvat73zp/arAhh9n2nl68/iqM/Xhs8BQ8PYYSuMkhEAZksmSN3Qr6PuE3OpmoHRt+nWwtap751O3JwI8Kmt2iH+I4EOD5cx2CPNjFEOnLLSRqcnQ6CszDfDxDfEAT3wNT/4spM7xqDcvUD523b91fJb1N5NjgmxAmksOxJlrJzTUbVLwLh+RcPd/Lz8kB/NX/peZhcUFLdRbdAUIIgKuEOPBTbFm39Hgj5YVSnSQIkXp6hwO7FSh88ps+8fTPgW01IKr8MG4GhiWQ==
+
+---
+
+apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: VpcV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/v1
+  labels:
+    testing.upbound.io/example-name: sample-instance
+  name: sample-instance
+spec:
+  forProvider:
+    cidr: "192.168.0.0/16"
+    name: crossplane-vpc
+    tags:
+      managed-by: crossplane
+---
+
+apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: SubnetV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/subnetv1
+  labels:
+    testing.upbound.io/example-name: sample-instance
+  name: sample-instance
+spec:
+  forProvider:
+    cidr: "192.168.0.0/16"
+    gatewayIp: "192.168.0.1"
+    name: crossplane-subnet
+    ntpAddresses: "10.100.0.33,10.100.0.34"
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sample-instance
+    tags:
+      managed-by: crossplane
+
+---
+
+apiVersion: cce.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: ClusterV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cce/v1alpha1/clusterv3
+  labels:
+    testing.upbound.io/example-name: sample-crossplane-cluster
+  name: sample-crossplane-cluster
+spec:
+  forProvider:
+    authenticationMode: rbac
+    clusterType: VirtualMachine
+    description: crossplane
+    flavorId: cce.s1.small
+    containerNetworkType: eni
+    name: crossplane-cluster
+    subnetIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sample-instance
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sample-instance
+    eniSubnetIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sample-instance
+    eniSubnetCidrSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sample-instance
+
+---
+
+apiVersion: cce.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: NodeV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cce/v1alpha1/nodev3
+  labels:
+    testing.upbound.io/example-name: sample-instance
+  name: sample-instance
+spec:
+  forProvider:
+    availabilityZone: eu-de-01
+    bandwidthSize: 100
+    clusterIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sample-crossplane-cluster
+    dataVolumes:
+      - size: 100
+        volumetype: SATA
+      - extendParams:
+          useType: docker
+        size: 100
+        volumetype: SSD
+    flavorId: s2.large.2
+    keyPairSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sample-instance
+    name: crossplane-node-01
+    os: EulerOS 2.9
+    rootVolume:
+      - size: 40
+        volumetype: SATA
+    runtime: containerd
+
+---
+
+apiVersion: cce.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: AddonV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cce/v1alpha1/addonv3
+  labels:
+    testing.upbound.io/example-name: sample-addon
+  name: sample-addon
+spec:
+  forProvider:
+    clusterIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sample-crossplane-cluster
+    templateName: autoscaler
+    templateVersion: 1.28.22
+    values:
+      - basic:
+          cceEndpoint : https://cce.eu-de.otc.t-systems.com
+          ecsEndpoint : https://ecs.eu-de.otc.t-systems.com
+          image_version : 1.28.22
+          region : eu-de
+          swr_addr : 100.125.7.25:20202
+          swr_user : cce-addons
+        custom:
+          cluster_id : 52bd7ba4-53e1-11ef-ade8-02550a10003a
+          coresTotal : "32000"
+          expander : priority
+          logLevel : "4"
+          maxEmptyBulkDeleteFlag : "10"
+          maxNodeProvisionTime : "15"
+          maxNodesTotal : "1000"
+          memoryTotal : "128000"
+          scaleDownDelayAfterAdd : "10"
+          scaleDownDelayAfterDelete : "11"
+          scaleDownDelayAfterFailure : "3"
+          scaleDownEnabled : "true"
+          scaleDownUnneededTime : "10"
+          scaleDownUtilizationThreshold : "0.5"
+          scaleUpCpuUtilizationThreshold : "1"
+          scaleUpMemUtilizationThreshold : "1"
+          scaleUpUnscheduledPodEnabled : "true"
+          scaleUpUtilizationEnabled : "true"
+          tenant_id : 5dd3c0b24cdc4d31952c49589182a89d
+          unremovableNodeRecheckTimeout : "5"
+        flavor: |
+          {
+            "description": "Has only one instance",
+            "name": "Single",
+            "replicas": 1,
+            "resources": [
+              {
+                "limitsCpu": "1000m",
+                "limitsMem": "1000Mi",
+                "name": "autoscaler",
+                "requestsCpu": "500m",
+                "requestsMem": "500Mi"
+              }
+            ]
+          }
+
+---
+
+apiVersion: cce.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: NodePoolV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cce/v1alpha1/nodepoolv3
+  labels:
+    testing.upbound.io/example-name: sample-node-pool
+  name: sample-node-pool
+spec:
+  forProvider:
+    availabilityZone: eu-de-01
+    clusterIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sample-crossplane-cluster
+    dataVolumes:
+      - size: 100
+        volumetype: SSD
+      - extendParams:
+          useType: docker
+        size: 100
+        volumetype: SSD
+    flavor: s2.xlarge.2
+    initialNodeCount: 1
+    keyPairSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sample-instance
+    maxNodeCount: 9
+    minNodeCount: 1
+    name: sample-crossplane-node-pool
+    os: EulerOS 2.9
+    priority: 1
+    rootVolume:
+      - size: 40
+        volumetype: SSD
+    runtime: containerd
+    scaleDownCooldownTime: 100
+    scaleEnable: true
