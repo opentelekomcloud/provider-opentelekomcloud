@@ -1,0 +1,118 @@
+apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: VpcV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/v1
+  labels:
+    testing.upbound.io/example-name: sample-lb
+  name: sample-lb
+spec:
+  forProvider:
+    cidr: "192.168.0.0/16"
+    name: crossplane-vpc
+    tags:
+      managed-by: crossplane
+---
+
+apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: SubnetV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/subnetv1
+  labels:
+    testing.upbound.io/example-name: sample-lb
+  name: sample-lb
+spec:
+  forProvider:
+    cidr: "192.168.0.0/16"
+    gatewayIp: "192.168.0.1"
+    name: crossplane-subnet
+    ntpAddresses: "10.100.0.33,10.100.0.34"
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sample-lb
+    tags:
+      managed-by: crossplane
+
+---
+
+apiVersion: lb.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: LoadbalancerV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lb/v1alpha1/loadbalancerv3
+  labels:
+    testing.upbound.io/example-name: sample-lb
+  name: sample-lb
+spec:
+  forProvider:
+    name: crossplane-lb
+    availabilityZones:
+      - eu-de-01
+    networkIdsRefs:
+      - name: sample-lb
+    routerIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sample-lb
+    tags:
+      managed-by: crossplane
+
+---
+
+apiVersion: lb.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: PoolV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lb/v1alpha1/memberv3
+  labels:
+    testing.upbound.io/example-name: sample-lb
+  name: sample-lb
+spec:
+  forProvider:
+    lbAlgorithm: ROUND_ROBIN
+    loadbalancerIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sample-lb
+    name: crossplane-pool
+    protocol: TCP
+
+---
+
+apiVersion: lb.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: MonitorV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lb/v1alpha1/monitorv3
+  labels:
+    testing.upbound.io/example-name: sample-lb
+  name: sample-lb
+spec:
+  forProvider:
+    delay: 3
+    maxRetries: 5
+    maxRetriesDown: 1
+    monitorPort: 8080
+    poolIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sample-lb
+    timeout: 30
+    type: HTTP
+
+---
+
+apiVersion: lb.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: MemberV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lb/v1alpha1/memberv3
+  labels:
+    testing.upbound.io/example-name: sample-lb
+  name: sample-lb
+spec:
+  forProvider:
+    address: ${cidrhost(var.subnet_cidr, 3)}
+    name: crossplane-member
+    poolIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sample-lb
+    protocolPort: 8080
