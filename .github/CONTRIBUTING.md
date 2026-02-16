@@ -127,7 +127,7 @@ export UPTEST_CLOUD_CREDENTIALS={"user_name":"some_user","password":"some_passwo
 
 2. Trigger testing for a specific directory
 > [!NOTE]
-> Uptest default timeout values is 20m, unless you are testing resources which take a long time to create you should use lower timeout.
+> Uptest default timeout value is 20m, unless you are testing resources which take a long time to create you should use lower timeout.
 ```console
 UPTEST_DEFAULT_TIMEOUT=5m UPTEST_EXAMPLE_LIST=$(find examples/namespaced/swr/*.yaml | tr '\n' ',') make e2e
 ```
