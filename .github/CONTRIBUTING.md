@@ -111,5 +111,34 @@ EOF
 > [!NOTE]
 > Small code changes can lead to large diffs. `scripts/diff_helper.sh` can help you ignoring generated files.
 
-## Adding test cases
-[TBD](https://github.com/opentelekomcloud/provider-opentelekomcloud/issues/45)
+## Integration testing
+`/examples/` are used for automated tests utilizing [uptest](https://github.com/crossplane/upjet/blob/main/docs/testing-with-uptest.md) framework. If you contribute new resources, please make sure to include corresponding test cases. These tests create real resources and can be expensive so they are not started on each PR. Maintainers can trigger these tests by posting specific comments in the PR:
+- `/test-examples="examples/namespaced/swr/repositoryv2.yaml"` (single resource)
+- `/test-examples="examples/namespaced/swr/repositoryv2.yaml, examples/namespaced/swr/organizationsv2.yaml"` (multiple resources)
+- `/test-examples="examples/namespaced/swr/"` (all resources in directory)
+
+### Local testing
+For faster feedback loop you can use the e2e make target to run the tests locally. 
+
+1. Create credentails
+```console
+export UPTEST_CLOUD_CREDENTIALS={"user_name":"some_user","password":"some_password","auth_url":"https://iam.eu-de.otc.t-systems.com/v3","domain_name":"OTCXXXX","tenant_name":"eu-de_project","swauth":"false","allow_reauth":"true","max_retries":"2","max_backoff_retries":"6","backoff_retry_timeout":"60","insecure":"false"}
+```
+
+2. Trigger testing for a specific directory
+> [!NOTE]
+> Uptest default timeout values is 20m, unless you are testing resources which take a long time to create you should use lower timeout.
+```console
+UPTEST_DEFAULT_TIMEOUT=5m UPTEST_EXAMPLE_LIST=$(find examples/namespaced/swr/*.yaml | tr '\n' ',') make e2e
+```
+
+This will do the following:
+- Builds provider from source
+- Creates local cluster using kind
+- Deploys crossplane core
+- Deploys provider
+- Configures provider credentials
+- Configures ClusterProviderConfig
+- Renders chainsaw manifests
+- Runs tests
+- Cleans up
