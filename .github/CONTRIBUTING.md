@@ -120,7 +120,7 @@ EOF
 ### Local testing
 For faster feedback loop you can use the e2e make target to run the tests locally. 
 
-1. Create credentails
+1. Create credentials
 ```console
 export UPTEST_CLOUD_CREDENTIALS={"user_name":"some_user","password":"some_password","auth_url":"https://iam.eu-de.otc.t-systems.com/v3","domain_name":"OTCXXXX","tenant_name":"eu-de_project","swauth":"false","allow_reauth":"true","max_retries":"2","max_backoff_retries":"6","backoff_retry_timeout":"60","insecure":"false"}
 ```
