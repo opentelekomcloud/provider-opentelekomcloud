@@ -20,6 +20,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: sample-instance
   name: sample-instance
+  namespace: test
 spec:
   forProvider:
     cidr: "192.168.0.0/16"
@@ -35,6 +36,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: sample-instance
   name: sample-instance
+  namespace: test
 spec:
   forProvider:
     cidr: "192.168.0.0/16"
@@ -56,6 +58,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: sample-crossplane-cluster
   name: sample-crossplane-cluster
+  namespace: test
 spec:
   forProvider:
     authenticationMode: rbac
@@ -80,6 +83,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: sample-instance
   name: sample-instance
+  namespace: test
 spec:
   forProvider:
     availabilityZone: eu-de-01
@@ -114,6 +118,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: sample-node-pool
   name: sample-node-pool
+  namespace: test
 spec:
   forProvider:
     availabilityZone: eu-de-01
