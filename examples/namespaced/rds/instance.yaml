@@ -2,10 +2,10 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: example-rds-secret
-  namespace: crossplane-system
+  namespace: test
 type: Opaque
 data:
-  example-rds-key: UG9zdGdyZXNAIzIwMjQ=
+  example-rds-key: ${data.rdsKey}
 
 ---
 apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
@@ -16,6 +16,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: sample-rds-instance
   name: sample-rds-instance
+  namespace: test
 spec:
   forProvider:
     cidr: "192.168.0.0/16"
@@ -23,7 +24,6 @@ spec:
     tags:
       managed-by: crossplane
 ---
-
 apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: SubnetV1
 metadata:
@@ -32,6 +32,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: sample-rds-instance
   name: sample-rds-instance
+  namespace: test
 spec:
   forProvider:
     cidr: "192.168.0.0/16"
@@ -45,7 +46,6 @@ spec:
       managed-by: crossplane
 
 ---
-
 apiVersion: compute.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: SecgroupV2
 metadata:
@@ -54,6 +54,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: sample-rds-instance
   name: sample-rds-instance
+  namespace: test
 spec:
   forProvider:
     description: crossplane security group
@@ -73,7 +74,6 @@ spec:
         toPort: 443
 
 ---
-
 apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: EIPV1
 metadata:
@@ -82,6 +82,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: sample-rds-instance
   name: sample-rds-instance
+  namespace: test
 spec:
   forProvider:
     bandwidth:
@@ -93,7 +94,6 @@ spec:
       - type: 5_bgp
 
 ---
-
 apiVersion: rds.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: InstanceV3
 metadata:
@@ -102,6 +102,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: sample-rds-instance
   name: sample-rds-instance
+  namespace: test
 spec:
   forProvider:
     availabilityZone:
@@ -113,11 +114,10 @@ spec:
       - passwordSecretRef:
           key: example-rds-key
           name: example-rds-secret
-          namespace: crossplane-system
         port: 8635
         type: PostgreSQL
         version: "15"
-    flavor: rds.pg.c2.medium
+    flavor: rds.pg.n1.large.2
     name: crossplane-rds-instance
     computeSecurityGroupIdSelector:
       matchLabels:
@@ -129,7 +129,7 @@ spec:
       managed-by: crossplane
     volume:
       - size: 100
-        type: COMMON
+        type: CLOUDSSD
     vpcIdSelector:
       matchLabels:
         testing.upbound.io/example-name: sample-rds-instance
