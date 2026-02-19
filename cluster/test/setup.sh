@@ -37,5 +37,9 @@ spec:
       key: credentials
 EOF
 
+echo "Kind clusters need some time to process new CRDs..."
+echo "Give them a minute to be ready..."
+sleep 1m
+
 ${KUBECTL} wait provider.pkg --all --for condition=Healthy --timeout 5m
 ${KUBECTL} -n crossplane-system wait --for=condition=Available deployment --all --timeout=5m
