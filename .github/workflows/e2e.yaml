@@ -145,8 +145,10 @@ jobs:
           UPTEST_DATASOURCE_PATH: .work/uptest-datasource.yaml
           UPTEST_UPDATE_PARAMETER: ""
           UPTEST_DEFAULT_TIMEOUT: ${{ vars.UPTEST_DEFAULT_TIMEOUT }}
+          UPTEST_SKIP_IMPORT: ${{ vars.UPTEST_SKIP_IMPORT }}
         run: |
           echo "Timeout is $UPTEST_DEFAULT_TIMEOUT"
+          echo "UPTEST_SKIP_IMPORT is $UPTEST_SKIP_IMPORT"
           mkdir -p .work && echo "${{ secrets.UPTEST_DATASOURCE }}" > .work/uptest-datasource.yaml
           make e2e
 
