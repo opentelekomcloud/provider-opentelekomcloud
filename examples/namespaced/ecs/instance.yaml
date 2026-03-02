@@ -6,13 +6,13 @@ metadata:
   labels:
     testing.upbound.io/example-name: sample-instance
   name: sample-instance
+  namespace: test
 spec:
   forProvider:
     name: crossplane-keypair
     publicKey: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDTUED6lEQhwmmpqypHQLqGu8xoUzvT8/uHb9c/uSTNq/qk5GN7gOeK8bs9DvPf4BIYBj5CPzhaidVDue+poqfL9su0mZ1K+eldWoGwkmjOB22kiA9vYmKDEG5u+S3S2UxsM+k09Qh8WGGMuvmCRF7KyNf8rlSJns3bsyG0vDjKuo3hdoCQi5RW950VtaAaefRXfQqgk1y8SR2xZKM0e24yICHd1C40tb5RgiNx7s45VHfVY6XMO+eESeHyDEJMr1AoJhkuiziE1feYmLIC2C02wpRXdLxqu2DbrJfqaPWe0J5mZKTXAFzpr/kdReDDp0lgJhjcralcLSZVa1JhQ1iX4n7+v0YKa6WHInnjmeN4PLz8gBanE40OpkZI/DVIWbhX/CrYi+tpZKzYc9ZGdd9UDGPNUNwIMMvat73zp/arAhh9n2nl68/iqM/Xhs8BQ8PYYSuMkhEAZksmSN3Qr6PuE3OpmoHRt+nWwtap751O3JwI8Kmt2iH+I4EOD5cx2CPNjFEOnLLSRqcnQ6CszDfDxDfEAT3wNT/4spM7xqDcvUD523b91fJb1N5NjgmxAmksOxJlrJzTUbVLwLh+RcPd/Lz8kB/NX/peZhcUFLdRbdAUIIgKuEOPBTbFm39Hgj5YVSnSQIkXp6hwO7FSh88ps+8fTPgW01IKr8MG4GhiWQ==
 
 ---
-
 apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: VpcV1
 metadata:
@@ -21,6 +21,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: sample-instance
   name: sample-instance
+  namespace: test
 spec:
   forProvider:
     cidr: "192.168.0.0/16"
@@ -28,7 +29,6 @@ spec:
     tags:
       managed-by: crossplane
 ---
-
 apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: SubnetV1
 metadata:
@@ -37,6 +37,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: sample-instance
   name: sample-instance
+  namespace: test
 spec:
   forProvider:
     cidr: "192.168.0.0/16"
@@ -50,7 +51,6 @@ spec:
       managed-by: crossplane
 
 ---
-
 apiVersion: compute.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: SecgroupV2
 metadata:
@@ -59,6 +59,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: sample-instance
   name: sample-instance
+  namespace: test
 spec:
   forProvider:
     description: crossplane security group
@@ -74,7 +75,6 @@ spec:
         toPort: 8080
 
 ---
-
 apiVersion: ecs.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: InstanceV1
 metadata:
@@ -83,6 +83,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: sample-instance
   name: sample-instance
+  namespace: test
 spec:
   forProvider:
     availabilityZone: eu-de-01
