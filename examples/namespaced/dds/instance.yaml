@@ -122,6 +122,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: sample-dds-backup
   name: sample-dds-backup
+  namespace: test
 spec:
   forProvider:
     instanceIdSelector:
