@@ -6,6 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: sample-dns-instance
   name: sample-dns-instance
+  namespace: test
 spec:
   forProvider:
     cidr: "192.168.0.0/16"
@@ -14,7 +15,6 @@ spec:
       managed-by: crossplane
 
 ---
-
 apiVersion: dns.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: ZoneV2
 metadata:
@@ -23,23 +23,23 @@ metadata:
   labels:
     testing.upbound.io/example-name: sample-dns-zone-private
   name: sample-dns-zone-private
+  namespace: test
 spec:
   forProvider:
     description: Crossplane example for private zone
     email: crossplane@priv-example.com
     name: crossplane.priv-example.com.
     router:
-    - routerIdSelector:
-        matchLabels:
-          testing.upbound.io/example-name: sample-dns-instance
-      routerRegion: eu-de
+      - routerIdSelector:
+          matchLabels:
+            testing.upbound.io/example-name: sample-dns-instance
+        routerRegion: eu-de
     tags:
       managed-by: crossplane
     ttl: 3000
     type: private
 
 ---
-
 apiVersion: dns.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: ZoneV2
 metadata:
@@ -48,6 +48,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: sample-dns-zone-public
   name: sample-dns-zone-public
+  namespace: test
 spec:
   forProvider:
     description: Crossplane example for public zone
@@ -59,7 +60,6 @@ spec:
     type: public
 
 ---
-
 apiVersion: dns.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: RecordsetV2
 metadata:
@@ -68,20 +68,20 @@ metadata:
   labels:
     testing.upbound.io/example-name: sample-a-record
   name: sample-a-record
+  namespace: test
 spec:
   forProvider:
     description: Crossplane example record set
-    name: a.crossplane.pub-example.com
+    name: a.crossplane.pub-example.com.
     records:
       - 10.0.0.1
     ttl: 3000
     type: A
     zoneIdSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-dns-zone-private
+        testing.upbound.io/example-name: sample-dns-zone-public
 
 ---
-
 apiVersion: dns.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: RecordsetV2
 metadata:
@@ -90,14 +90,15 @@ metadata:
   labels:
     testing.upbound.io/example-name: sample-txt-record
   name: sample-txt-record
+  namespace: test
 spec:
   forProvider:
     description: Crossplane example record set
-    name: txt.crossplane.pub-example.com
+    name: txt.crossplane.pub-example.com.
     records:
       - "v=spf1 include:my.example.try.com -all"
     ttl: 300
     type: TXT
     zoneIdSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-dns-zone-private
+        testing.upbound.io/example-name: sample-dns-zone-public
