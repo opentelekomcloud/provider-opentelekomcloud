@@ -6,6 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: sample-lb
   name: sample-lb
+  namespace: test
 spec:
   forProvider:
     cidr: "192.168.0.0/16"
@@ -13,7 +14,6 @@ spec:
     tags:
       managed-by: crossplane
 ---
-
 apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: SubnetV1
 metadata:
@@ -22,6 +22,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: sample-lb
   name: sample-lb
+  namespace: test
 spec:
   forProvider:
     cidr: "192.168.0.0/16"
@@ -35,7 +36,6 @@ spec:
       managed-by: crossplane
 
 ---
-
 apiVersion: lb.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: LoadbalancerV3
 metadata:
@@ -44,9 +44,11 @@ metadata:
   labels:
     testing.upbound.io/example-name: sample-lb
   name: sample-lb
+  namespace: test
 spec:
   forProvider:
     name: crossplane-lb
+    ipTargetEnable: true
     availabilityZones:
       - eu-de-01
     networkIdsRefs:
@@ -58,7 +60,6 @@ spec:
       managed-by: crossplane
 
 ---
-
 apiVersion: lb.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: PoolV3
 metadata:
@@ -67,6 +68,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: sample-lb
   name: sample-lb
+  namespace: test
 spec:
   forProvider:
     lbAlgorithm: ROUND_ROBIN
@@ -77,7 +79,6 @@ spec:
     protocol: TCP
 
 ---
-
 apiVersion: lb.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: MonitorV3
 metadata:
@@ -86,6 +87,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: sample-lb
   name: sample-lb
+  namespace: test
 spec:
   forProvider:
     delay: 3
@@ -99,7 +101,6 @@ spec:
     type: HTTP
 
 ---
-
 apiVersion: lb.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: MemberV3
 metadata:
@@ -108,9 +109,10 @@ metadata:
   labels:
     testing.upbound.io/example-name: sample-lb
   name: sample-lb
+  namespace: test
 spec:
   forProvider:
-    address: ${cidrhost(var.subnet_cidr, 3)}
+    address: "192.168.0.100"
     name: crossplane-member
     poolIdSelector:
       matchLabels:

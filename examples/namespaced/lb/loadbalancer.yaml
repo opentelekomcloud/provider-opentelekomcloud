@@ -6,6 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: sample-lb
   name: sample-lb
+  namespace: test
 spec:
   forProvider:
     cidr: "192.168.0.0/16"
@@ -13,7 +14,6 @@ spec:
     tags:
       managed-by: crossplane
 ---
-
 apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: SubnetV1
 metadata:
@@ -22,6 +22,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: sample-lb
   name: sample-lb
+  namespace: test
 spec:
   forProvider:
     cidr: "192.168.0.0/16"
@@ -35,7 +36,6 @@ spec:
       managed-by: crossplane
 
 ---
-
 apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: EIPV1
 metadata:
@@ -44,6 +44,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: sample-lb
   name: sample-lb
+  namespace: test
 spec:
   forProvider:
     bandwidth:
@@ -55,7 +56,6 @@ spec:
       - type: 5_bgp
 
 ---
-
 apiVersion: lb.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: LoadbalancerV3
 metadata:
@@ -64,6 +64,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: sample-lb
   name: sample-lb
+  namespace: test
 spec:
   forProvider:
     name: crossplane-lb

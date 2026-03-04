@@ -6,13 +6,13 @@ metadata:
   labels:
     testing.upbound.io/example-name: sample-network
   name: sample-network
+  namespace: test
 spec:
   forProvider:
     adminStateUp: "true"
     name: crossplane_network
 
 ---
-
 apiVersion: networking.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: RouterV2
 metadata:
@@ -21,12 +21,12 @@ metadata:
   labels:
     testing.upbound.io/example-name: sample-router
   name: sample-router
+  namespace: test
 spec:
   forProvider:
     name: crossplane_router
 
 ---
-
 apiVersion: networking.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: SubnetV2
 metadata:
@@ -35,6 +35,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: sample-subnet
   name: sample-subnet
+  namespace: test
 spec:
   forProvider:
     name: crossplane_subnet
@@ -45,7 +46,6 @@ spec:
         testing.upbound.io/example-name: sample-network
 
 ---
-
 apiVersion: networking.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: RouterInterfaceV2
 metadata:
@@ -54,6 +54,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: router_interface
   name: router-interface
+  namespace: test
 spec:
   forProvider:
     routerIdSelector:
