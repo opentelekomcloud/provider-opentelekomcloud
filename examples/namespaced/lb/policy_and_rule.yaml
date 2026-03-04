@@ -6,6 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: sample-lb
   name: sample-lb
+  namespace: test
 spec:
   forProvider:
     cidr: "192.168.0.0/16"
@@ -13,7 +14,6 @@ spec:
     tags:
       managed-by: crossplane
 ---
-
 apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: SubnetV1
 metadata:
@@ -22,6 +22,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: sample-lb
   name: sample-lb
+  namespace: test
 spec:
   forProvider:
     cidr: "192.168.0.0/16"
@@ -35,7 +36,6 @@ spec:
       managed-by: crossplane
 
 ---
-
 apiVersion: lb.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: LoadbalancerV3
 metadata:
@@ -44,6 +44,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: sample-lb
   name: sample-lb
+  namespace: test
 spec:
   forProvider:
     name: crossplane-lb
@@ -58,7 +59,6 @@ spec:
       managed-by: crossplane
 
 ---
-
 apiVersion: lb.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: ListenerV3
 metadata:
@@ -67,6 +67,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: sample-lb
   name: sample-lb
+  namespace: test
 spec:
   forProvider:
     name: crossplane-listener
@@ -78,9 +79,7 @@ spec:
     tags:
       managed-by: crossplane
 
-
 ---
-
 apiVersion: lb.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: PoolV3
 metadata:
@@ -89,6 +88,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: sample-lb
   name: sample-lb
+  namespace: test
 spec:
   forProvider:
     lbAlgorithm: ROUND_ROBIN
@@ -99,7 +99,6 @@ spec:
     protocol: HTTP
 
 ---
-
 apiVersion: lb.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: PolicyV3
 metadata:
@@ -108,6 +107,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: sample-lb
   name: sample-lb
+  namespace: test
 spec:
   forProvider:
     action: REDIRECT_TO_POOL
@@ -120,7 +120,6 @@ spec:
         testing.upbound.io/example-name: sample-lb
 
 ---
-
 apiVersion: lb.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: RuleV3
 metadata:
@@ -129,6 +128,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: sample-lb
   name: sample-lb
+  namespace: test
 spec:
   forProvider:
     compareType: REGEX
