@@ -341,6 +341,14 @@ spec:
                       overrides values from configuration template (parameter group).
                     type: object
                     x-kubernetes-map-type: granular
+                  privateDomainName:
+                    description: |-
+                      Specifies the DB instance name. The DB instance name of the same type
+                      must be unique for the same tenant. The value must be 4 to 64
+                      characters in length and start with a letter. It is case-sensitive
+                      and can contain only letters, digits, hyphens (-), and underscores
+                      (_).
+                    type: string
                   privateIp:
                     description: Specifies the private IP address of a DB instance.
                     type: string
@@ -1010,6 +1018,14 @@ spec:
                       overrides values from configuration template (parameter group).
                     type: object
                     x-kubernetes-map-type: granular
+                  privateDomainName:
+                    description: |-
+                      Specifies the DB instance name. The DB instance name of the same type
+                      must be unique for the same tenant. The value must be 4 to 64
+                      characters in length and start with a letter. It is case-sensitive
+                      and can contain only letters, digits, hyphens (-), and underscores
+                      (_).
+                    type: string
                   privateIp:
                     description: Specifies the private IP address of a DB instance.
                     type: string
@@ -1608,6 +1624,16 @@ spec:
                       overrides values from configuration template (parameter group).
                     type: object
                     x-kubernetes-map-type: granular
+                  privateDomainName:
+                    description: |-
+                      Specifies the DB instance name. The DB instance name of the same type
+                      must be unique for the same tenant. The value must be 4 to 64
+                      characters in length and start with a letter. It is case-sensitive
+                      and can contain only letters, digits, hyphens (-), and underscores
+                      (_).
+                    type: string
+                  privateFqdn:
+                    type: string
                   privateIp:
                     description: Specifies the private IP address of a DB instance.
                     type: string

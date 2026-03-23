@@ -69,10 +69,6 @@ import (
 	instancev3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/dds/instancev3"
 	ltslogv3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/dds/ltslogv3"
 	hostv1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/deh/hostv1"
-	appv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/dis/appv2"
-	checkpointv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/dis/checkpointv2"
-	dumptaskv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/dis/dumptaskv2"
-	streamv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/dis/streamv2"
 	consumergroupv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/dms/consumergroupv2"
 	dedicatedinstancev2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/dms/dedicatedinstancev2"
 	instancev1dms "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/dms/instancev1"
@@ -159,7 +155,7 @@ import (
 	keywordsalarmrulev2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/lts/keywordsalarmrulev2"
 	notificationtemplatev2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/lts/notificationtemplatev2"
 	quicksearchcriteriav1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/lts/quicksearchcriteriav1"
-	streamv2lts "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/lts/streamv2"
+	streamv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/lts/streamv2"
 	transferv2lts "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/lts/transferv2"
 	dnatrulev2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/nat/dnatrulev2"
 	gatewayv2nat "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/nat/gatewayv2"
@@ -323,10 +319,6 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		instancev3.Setup,
 		ltslogv3.Setup,
 		hostv1.Setup,
-		appv2.Setup,
-		checkpointv2.Setup,
-		dumptaskv2.Setup,
-		streamv2.Setup,
 		consumergroupv2.Setup,
 		dedicatedinstancev2.Setup,
 		instancev1dms.Setup,
@@ -413,7 +405,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		keywordsalarmrulev2.Setup,
 		notificationtemplatev2.Setup,
 		quicksearchcriteriav1.Setup,
-		streamv2lts.Setup,
+		streamv2.Setup,
 		transferv2lts.Setup,
 		dnatrulev2.Setup,
 		gatewayv2nat.Setup,
@@ -583,10 +575,6 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		instancev3.SetupGated,
 		ltslogv3.SetupGated,
 		hostv1.SetupGated,
-		appv2.SetupGated,
-		checkpointv2.SetupGated,
-		dumptaskv2.SetupGated,
-		streamv2.SetupGated,
 		consumergroupv2.SetupGated,
 		dedicatedinstancev2.SetupGated,
 		instancev1dms.SetupGated,
@@ -673,7 +661,7 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		keywordsalarmrulev2.SetupGated,
 		notificationtemplatev2.SetupGated,
 		quicksearchcriteriav1.SetupGated,
-		streamv2lts.SetupGated,
+		streamv2.SetupGated,
 		transferv2lts.SetupGated,
 		dnatrulev2.SetupGated,
 		gatewayv2nat.SetupGated,

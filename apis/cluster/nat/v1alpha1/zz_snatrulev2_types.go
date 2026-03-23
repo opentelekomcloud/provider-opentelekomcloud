@@ -22,6 +22,8 @@ type SnatRuleV2InitParameters struct {
 	// and cannot conflict with the VPC CIDR blocks. Changing this creates a new snat rule.
 	Cidr *string `json:"cidr,omitempty" tf:"cidr,omitempty"`
 
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
 	// ID of the floating ip this snat rule connects to.
 	// Changing this creates a new snat rule.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.EIPV1
@@ -78,6 +80,8 @@ type SnatRuleV2Observation struct {
 	// and cannot conflict with the VPC CIDR blocks. Changing this creates a new snat rule.
 	Cidr *string `json:"cidr,omitempty" tf:"cidr,omitempty"`
 
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
 	// ID of the floating ip this snat rule connects to.
 	// Changing this creates a new snat rule.
 	FloatingIPID *string `json:"floatingIpId,omitempty" tf:"floating_ip_id,omitempty"`
@@ -108,6 +112,9 @@ type SnatRuleV2Parameters struct {
 	// and cannot conflict with the VPC CIDR blocks. Changing this creates a new snat rule.
 	// +kubebuilder:validation:Optional
 	Cidr *string `json:"cidr,omitempty" tf:"cidr,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// ID of the floating ip this snat rule connects to.
 	// Changing this creates a new snat rule.

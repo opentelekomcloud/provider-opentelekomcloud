@@ -1076,6 +1076,11 @@ func (in *CreationPolicyInitParameters) DeepCopyInto(out *CreationPolicyInitPara
 		*out = new(bool)
 		**out = **in
 	}
+	if in.Frequency != nil {
+		in, out := &in.Frequency, &out.Frequency
+		*out = new(string)
+		**out = **in
+	}
 	if in.Keepday != nil {
 		in, out := &in.Keepday, &out.Keepday
 		*out = new(float64)
@@ -1116,6 +1121,11 @@ func (in *CreationPolicyObservation) DeepCopyInto(out *CreationPolicyObservation
 		*out = new(bool)
 		**out = **in
 	}
+	if in.Frequency != nil {
+		in, out := &in.Frequency, &out.Frequency
+		*out = new(string)
+		**out = **in
+	}
 	if in.Keepday != nil {
 		in, out := &in.Keepday, &out.Keepday
 		*out = new(float64)
@@ -1154,6 +1164,11 @@ func (in *CreationPolicyParameters) DeepCopyInto(out *CreationPolicyParameters) 
 	if in.Enable != nil {
 		in, out := &in.Enable, &out.Enable
 		*out = new(bool)
+		**out = **in
+	}
+	if in.Frequency != nil {
+		in, out := &in.Frequency, &out.Frequency
+		*out = new(string)
 		**out = **in
 	}
 	if in.Keepday != nil {
