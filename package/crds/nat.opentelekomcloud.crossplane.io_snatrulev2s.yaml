@@ -81,6 +81,8 @@ spec:
                       the value of source_type is 1, the CIDR block must be a CIDR block of Direct Connect
                       and cannot conflict with the VPC CIDR blocks. Changing this creates a new snat rule.
                     type: string
+                  description:
+                    type: string
                   floatingIpId:
                     description: |-
                       ID of the floating ip this snat rule connects to.
@@ -346,6 +348,8 @@ spec:
                       source_type is 0, the CIDR block must be a subset of the VPC subnet CIDR block. If
                       the value of source_type is 1, the CIDR block must be a CIDR block of Direct Connect
                       and cannot conflict with the VPC CIDR blocks. Changing this creates a new snat rule.
+                    type: string
+                  description:
                     type: string
                   floatingIpId:
                     description: |-
@@ -690,6 +694,8 @@ spec:
                       source_type is 0, the CIDR block must be a subset of the VPC subnet CIDR block. If
                       the value of source_type is 1, the CIDR block must be a CIDR block of Direct Connect
                       and cannot conflict with the VPC CIDR blocks. Changing this creates a new snat rule.
+                    type: string
+                  description:
                     type: string
                   floatingIpId:
                     description: |-

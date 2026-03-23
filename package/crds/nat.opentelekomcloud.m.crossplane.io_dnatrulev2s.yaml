@@ -59,6 +59,8 @@ spec:
             properties:
               forProvider:
                 properties:
+                  description:
+                    type: string
                   externalServicePort:
                     description: |-
                       Specifies port used by ECSs or
@@ -350,6 +352,8 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
+                  description:
+                    type: string
                   externalServicePort:
                     description: |-
                       Specifies port used by ECSs or
@@ -706,6 +710,8 @@ spec:
                 properties:
                   createdAt:
                     description: DNAT rule creation time.
+                    type: string
+                  description:
                     type: string
                   externalServicePort:
                     description: |-

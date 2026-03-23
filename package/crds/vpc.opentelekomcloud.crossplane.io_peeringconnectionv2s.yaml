@@ -73,6 +73,8 @@ spec:
                 type: string
               forProvider:
                 properties:
+                  description:
+                    type: string
                   name:
                     description: Specifies the name of the VPC peering connection.
                       The value can contain 1 to 64 characters.
@@ -253,6 +255,8 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
+                  description:
+                    type: string
                   name:
                     description: Specifies the name of the VPC peering connection.
                       The value can contain 1 to 64 characters.
@@ -516,6 +520,8 @@ spec:
             properties:
               atProvider:
                 properties:
+                  description:
+                    type: string
                   id:
                     description: The VPC peering connection ID.
                     type: string

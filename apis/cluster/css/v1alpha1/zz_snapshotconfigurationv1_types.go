@@ -75,6 +75,8 @@ type CreationPolicyInitParameters struct {
 	// and value false indicates that the automatic snapshot creation policy is disabled.
 	Enable *bool `json:"enable,omitempty" tf:"enable,omitempty"`
 
+	Frequency *string `json:"frequency,omitempty" tf:"frequency,omitempty"`
+
 	// Number of days that a snapshot can be retained. The value ranges from 1 to 90.
 	// The system automatically deletes snapshots that have been retained for the allowed maximum duration on the half hour.
 	Keepday *float64 `json:"keepday,omitempty" tf:"keepday,omitempty"`
@@ -101,6 +103,8 @@ type CreationPolicyObservation struct {
 	// Value true indicates that the automatic snapshot creation policy is enabled,
 	// and value false indicates that the automatic snapshot creation policy is disabled.
 	Enable *bool `json:"enable,omitempty" tf:"enable,omitempty"`
+
+	Frequency *string `json:"frequency,omitempty" tf:"frequency,omitempty"`
 
 	// Number of days that a snapshot can be retained. The value ranges from 1 to 90.
 	// The system automatically deletes snapshots that have been retained for the allowed maximum duration on the half hour.
@@ -130,6 +134,9 @@ type CreationPolicyParameters struct {
 	// and value false indicates that the automatic snapshot creation policy is disabled.
 	// +kubebuilder:validation:Optional
 	Enable *bool `json:"enable" tf:"enable,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Frequency *string `json:"frequency,omitempty" tf:"frequency,omitempty"`
 
 	// Number of days that a snapshot can be retained. The value ranges from 1 to 90.
 	// The system automatically deletes snapshots that have been retained for the allowed maximum duration on the half hour.

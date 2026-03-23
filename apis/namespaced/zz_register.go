@@ -23,7 +23,6 @@ import (
 	v1alpha1ddm "github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/ddm/v1alpha1"
 	v1alpha1dds "github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/dds/v1alpha1"
 	v1alpha1deh "github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/deh/v1alpha1"
-	v1alpha1dis "github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/dis/v1alpha1"
 	v1alpha1dms "github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/dms/v1alpha1"
 	v1alpha1dns "github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/dns/v1alpha1"
 	v1alpha1drs "github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/drs/v1alpha1"
@@ -80,7 +79,6 @@ func init() {
 		v1alpha1ddm.SchemeBuilder.AddToScheme,
 		v1alpha1dds.SchemeBuilder.AddToScheme,
 		v1alpha1deh.SchemeBuilder.AddToScheme,
-		v1alpha1dis.SchemeBuilder.AddToScheme,
 		v1alpha1dms.SchemeBuilder.AddToScheme,
 		v1alpha1dns.SchemeBuilder.AddToScheme,
 		v1alpha1drs.SchemeBuilder.AddToScheme,
