@@ -111,7 +111,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
           submodules: true
 
@@ -145,7 +145,27 @@ jobs:
         run: make vendor vendor.check
 
       - name: Check Diff
-        run: make check-diff
+        id: check-diff
+        run: |
+          mkdir _output
+          make check-diff
+        env:
+          # check-diff depends on the generate Make target, and we would like
+          # to save a skipped resource list
+          SKIPPED_RESOURCES_CSV: ../_output/skipped_resources.csv
+
+      - name: Show diff
+        if: failure() && steps.check-diff.outcome == 'failure'
+        run: git diff
+
+      - name: Report Statistics
+        run: head -1 _output/skipped_resources.csv
+
+      - name: Publish skipped resources CSV to Github
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        with:
+          name: skipped_resources
+          path: _output/skipped_resources.csv
 
   unit-tests:
     runs-on: ubuntu-24.04
