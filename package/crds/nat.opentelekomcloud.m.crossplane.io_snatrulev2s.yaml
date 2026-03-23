@@ -68,6 +68,9 @@ spec:
                       and cannot conflict with the VPC CIDR blocks. Changing this creates a new snat rule.
                     type: string
                   description:
+                    description: |-
+                      Provides supplementary information about the SNAT rule.
+                      Changing this creates a new snat rule.
                     type: string
                   floatingIpId:
                     description: |-
@@ -354,6 +357,9 @@ spec:
                       and cannot conflict with the VPC CIDR blocks. Changing this creates a new snat rule.
                     type: string
                   description:
+                    description: |-
+                      Provides supplementary information about the SNAT rule.
+                      Changing this creates a new snat rule.
                     type: string
                   floatingIpId:
                     description: |-
@@ -690,6 +696,9 @@ spec:
                       and cannot conflict with the VPC CIDR blocks. Changing this creates a new snat rule.
                     type: string
                   description:
+                    description: |-
+                      Provides supplementary information about the SNAT rule.
+                      Changing this creates a new snat rule.
                     type: string
                   floatingIpId:
                     description: |-

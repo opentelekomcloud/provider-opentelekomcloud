@@ -60,6 +60,9 @@ spec:
               forProvider:
                 properties:
                   description:
+                    description: |-
+                      Provides supplementary information about the DNAT rule.
+                      Changing this creates a new DNAT rule.
                     type: string
                   externalServicePort:
                     description: |-
@@ -353,6 +356,9 @@ spec:
                   autoscaler.
                 properties:
                   description:
+                    description: |-
+                      Provides supplementary information about the DNAT rule.
+                      Changing this creates a new DNAT rule.
                     type: string
                   externalServicePort:
                     description: |-
@@ -712,6 +718,9 @@ spec:
                     description: DNAT rule creation time.
                     type: string
                   description:
+                    description: |-
+                      Provides supplementary information about the DNAT rule.
+                      Changing this creates a new DNAT rule.
                     type: string
                   externalServicePort:
                     description: |-

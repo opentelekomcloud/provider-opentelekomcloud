@@ -23,6 +23,8 @@ type SnatRuleV2InitParameters struct {
 	// and cannot conflict with the VPC CIDR blocks. Changing this creates a new snat rule.
 	Cidr *string `json:"cidr,omitempty" tf:"cidr,omitempty"`
 
+	// Provides supplementary information about the SNAT rule.
+	// Changing this creates a new snat rule.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// ID of the floating ip this snat rule connects to.
@@ -81,6 +83,8 @@ type SnatRuleV2Observation struct {
 	// and cannot conflict with the VPC CIDR blocks. Changing this creates a new snat rule.
 	Cidr *string `json:"cidr,omitempty" tf:"cidr,omitempty"`
 
+	// Provides supplementary information about the SNAT rule.
+	// Changing this creates a new snat rule.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// ID of the floating ip this snat rule connects to.
@@ -114,6 +118,8 @@ type SnatRuleV2Parameters struct {
 	// +kubebuilder:validation:Optional
 	Cidr *string `json:"cidr,omitempty" tf:"cidr,omitempty"`
 
+	// Provides supplementary information about the SNAT rule.
+	// Changing this creates a new snat rule.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 

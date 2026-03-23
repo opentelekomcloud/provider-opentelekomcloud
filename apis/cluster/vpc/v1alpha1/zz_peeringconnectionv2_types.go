@@ -14,6 +14,8 @@ import (
 )
 
 type PeeringConnectionV2InitParameters struct {
+
+	// Specifies the description of the VPC peering connection.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// Specifies the name of the VPC peering connection. The value can contain 1 to 64 characters.
@@ -50,6 +52,8 @@ type PeeringConnectionV2InitParameters struct {
 }
 
 type PeeringConnectionV2Observation struct {
+
+	// Specifies the description of the VPC peering connection.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// The VPC peering connection ID.
@@ -75,6 +79,7 @@ type PeeringConnectionV2Observation struct {
 
 type PeeringConnectionV2Parameters struct {
 
+	// Specifies the description of the VPC peering connection.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 

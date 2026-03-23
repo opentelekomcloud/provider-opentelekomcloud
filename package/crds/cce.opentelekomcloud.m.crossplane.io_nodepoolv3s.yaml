@@ -473,8 +473,9 @@ spec:
                     type: string
                   passwordSecretRef:
                     description: |-
-                      Key pair name when logging in to select the key pair mode.
+                      Password used for node login.
                       This parameter and password are alternative. Changing this parameter will create a new resource.
+                      -> NOTE: This field is not supported for the current version.
                     properties:
                       key:
                         type: string
@@ -750,8 +751,7 @@ spec:
                   userTags:
                     additionalProperties:
                       type: string
-                    description: Tag of a VM, key/value pair format. Changing this
-                      parameter will create a new resource.
+                    description: Tag of a VM, key/value pair format.
                     type: object
                     x-kubernetes-map-type: granular
                 type: object
@@ -1182,8 +1182,9 @@ spec:
                     type: string
                   passwordSecretRef:
                     description: |-
-                      Key pair name when logging in to select the key pair mode.
+                      Password used for node login.
                       This parameter and password are alternative. Changing this parameter will create a new resource.
+                      -> NOTE: This field is not supported for the current version.
                     properties:
                       key:
                         type: string
@@ -1459,8 +1460,7 @@ spec:
                   userTags:
                     additionalProperties:
                       type: string
-                    description: Tag of a VM, key/value pair format. Changing this
-                      parameter will create a new resource.
+                    description: Tag of a VM, key/value pair format.
                     type: object
                     x-kubernetes-map-type: granular
                 type: object
@@ -1751,8 +1751,7 @@ spec:
                   userTags:
                     additionalProperties:
                       type: string
-                    description: Tag of a VM, key/value pair format. Changing this
-                      parameter will create a new resource.
+                    description: Tag of a VM, key/value pair format.
                     type: object
                     x-kubernetes-map-type: granular
                 type: object

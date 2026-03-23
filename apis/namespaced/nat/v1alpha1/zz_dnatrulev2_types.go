@@ -15,6 +15,9 @@ import (
 )
 
 type DnatRuleV2InitParameters struct {
+
+	// Provides supplementary information about the DNAT rule.
+	// Changing this creates a new DNAT rule.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// Specifies port used by ECSs or
@@ -80,6 +83,8 @@ type DnatRuleV2Observation struct {
 	// DNAT rule creation time.
 	CreatedAt *string `json:"createdAt,omitempty" tf:"created_at,omitempty"`
 
+	// Provides supplementary information about the DNAT rule.
+	// Changing this creates a new DNAT rule.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// Specifies port used by ECSs or
@@ -125,6 +130,8 @@ type DnatRuleV2Observation struct {
 
 type DnatRuleV2Parameters struct {
 
+	// Provides supplementary information about the DNAT rule.
+	// Changing this creates a new DNAT rule.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 

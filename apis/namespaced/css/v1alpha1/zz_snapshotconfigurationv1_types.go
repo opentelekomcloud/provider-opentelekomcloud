@@ -76,6 +76,8 @@ type CreationPolicyInitParameters struct {
 	// and value false indicates that the automatic snapshot creation policy is disabled.
 	Enable *bool `json:"enable,omitempty" tf:"enable,omitempty"`
 
+	// Snapshot creation frequency. The default value is DAY.
+	// Available options are: HOUR, DAY, SUN, MON, TUE, WED, THU, FRI, SAT.
 	Frequency *string `json:"frequency,omitempty" tf:"frequency,omitempty"`
 
 	// Number of days that a snapshot can be retained. The value ranges from 1 to 90.
@@ -105,6 +107,8 @@ type CreationPolicyObservation struct {
 	// and value false indicates that the automatic snapshot creation policy is disabled.
 	Enable *bool `json:"enable,omitempty" tf:"enable,omitempty"`
 
+	// Snapshot creation frequency. The default value is DAY.
+	// Available options are: HOUR, DAY, SUN, MON, TUE, WED, THU, FRI, SAT.
 	Frequency *string `json:"frequency,omitempty" tf:"frequency,omitempty"`
 
 	// Number of days that a snapshot can be retained. The value ranges from 1 to 90.
@@ -136,6 +140,8 @@ type CreationPolicyParameters struct {
 	// +kubebuilder:validation:Optional
 	Enable *bool `json:"enable" tf:"enable,omitempty"`
 
+	// Snapshot creation frequency. The default value is DAY.
+	// Available options are: HOUR, DAY, SUN, MON, TUE, WED, THU, FRI, SAT.
 	// +kubebuilder:validation:Optional
 	Frequency *string `json:"frequency,omitempty" tf:"frequency,omitempty"`
 

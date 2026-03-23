@@ -182,8 +182,9 @@ type NodePoolV3InitParameters struct {
 	// Node OS. Changing this parameter will create a new resource.
 	Os *string `json:"os,omitempty" tf:"os,omitempty"`
 
-	// Key pair name when logging in to select the key pair mode.
+	// Password used for node login.
 	// This parameter and password are alternative. Changing this parameter will create a new resource.
+	// -> NOTE: This field is not supported for the current version.
 	PasswordSecretRef *v1.LocalSecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
 
 	// Script required after installation. The input value can be a Base64 encoded string or not.
@@ -241,7 +242,7 @@ type NodePoolV3InitParameters struct {
 	// Taints to created nodes to configure anti-affinity.
 	Taints []NodePoolV3TaintsInitParameters `json:"taints,omitempty" tf:"taints,omitempty"`
 
-	// Tag of a VM, key/value pair format. Changing this parameter will create a new resource.
+	// Tag of a VM, key/value pair format.
 	// +mapType=granular
 	UserTags map[string]*string `json:"userTags,omitempty" tf:"user_tags,omitempty"`
 }
@@ -351,7 +352,7 @@ type NodePoolV3Observation struct {
 	// Taints to created nodes to configure anti-affinity.
 	Taints []NodePoolV3TaintsObservation `json:"taints,omitempty" tf:"taints,omitempty"`
 
-	// Tag of a VM, key/value pair format. Changing this parameter will create a new resource.
+	// Tag of a VM, key/value pair format.
 	// +mapType=granular
 	UserTags map[string]*string `json:"userTags,omitempty" tf:"user_tags,omitempty"`
 }
@@ -453,8 +454,9 @@ type NodePoolV3Parameters struct {
 	// +kubebuilder:validation:Optional
 	Os *string `json:"os,omitempty" tf:"os,omitempty"`
 
-	// Key pair name when logging in to select the key pair mode.
+	// Password used for node login.
 	// This parameter and password are alternative. Changing this parameter will create a new resource.
+	// -> NOTE: This field is not supported for the current version.
 	// +kubebuilder:validation:Optional
 	PasswordSecretRef *v1.LocalSecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
 
@@ -525,7 +527,7 @@ type NodePoolV3Parameters struct {
 	// +kubebuilder:validation:Optional
 	Taints []NodePoolV3TaintsParameters `json:"taints,omitempty" tf:"taints,omitempty"`
 
-	// Tag of a VM, key/value pair format. Changing this parameter will create a new resource.
+	// Tag of a VM, key/value pair format.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	UserTags map[string]*string `json:"userTags,omitempty" tf:"user_tags,omitempty"`

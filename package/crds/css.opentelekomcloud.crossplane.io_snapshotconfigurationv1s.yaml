@@ -122,6 +122,9 @@ spec:
                             and value false indicates that the automatic snapshot creation policy is disabled.
                           type: boolean
                         frequency:
+                          description: |-
+                            Snapshot creation frequency. The default value is DAY.
+                            Available options are: HOUR, DAY, SUN, MON, TUE, WED, THU, FRI, SAT.
                           type: string
                         keepday:
                           description: |-
@@ -203,6 +206,9 @@ spec:
                             and value false indicates that the automatic snapshot creation policy is disabled.
                           type: boolean
                         frequency:
+                          description: |-
+                            Snapshot creation frequency. The default value is DAY.
+                            Available options are: HOUR, DAY, SUN, MON, TUE, WED, THU, FRI, SAT.
                           type: string
                         keepday:
                           description: |-
@@ -368,6 +374,9 @@ spec:
                             and value false indicates that the automatic snapshot creation policy is disabled.
                           type: boolean
                         frequency:
+                          description: |-
+                            Snapshot creation frequency. The default value is DAY.
+                            Available options are: HOUR, DAY, SUN, MON, TUE, WED, THU, FRI, SAT.
                           type: string
                         keepday:
                           description: |-

@@ -17,6 +17,7 @@ spec:
     creationPolicy:
     - deleteAuto: true
       enable: true
+      frequency: DAY
       keepday: 2
       period: 00:00 GMT+03:00
       prefix: snapshot

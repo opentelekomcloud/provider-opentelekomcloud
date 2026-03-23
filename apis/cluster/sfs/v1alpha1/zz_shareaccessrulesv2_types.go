@@ -19,11 +19,10 @@ type AccessRuleInitParameters struct {
 	// and rw (read-write). The default value is rw (read/write).
 	AccessLevel *string `json:"accessLevel,omitempty" tf:"access_level,omitempty"`
 
-	// The access that the back end grants or denies.
+	// The value that defines the access. The format depends on access_type:
 	AccessTo *string `json:"accessTo,omitempty" tf:"access_to,omitempty"`
 
-	// The type of the share access rule. The value cert indicates
-	// that the certificate is used to access the storage.
+	// The type of the share access rule. Valid values are:
 	AccessType *string `json:"accessType,omitempty" tf:"access_type,omitempty"`
 }
 
@@ -36,11 +35,10 @@ type AccessRuleObservation struct {
 	// The status of the share access rule.
 	AccessRuleStatus *string `json:"accessRuleStatus,omitempty" tf:"access_rule_status,omitempty"`
 
-	// The access that the back end grants or denies.
+	// The value that defines the access. The format depends on access_type:
 	AccessTo *string `json:"accessTo,omitempty" tf:"access_to,omitempty"`
 
-	// The type of the share access rule. The value cert indicates
-	// that the certificate is used to access the storage.
+	// The type of the share access rule. Valid values are:
 	AccessType *string `json:"accessType,omitempty" tf:"access_type,omitempty"`
 
 	// The UUID of the share access rule.
@@ -54,12 +52,11 @@ type AccessRuleParameters struct {
 	// +kubebuilder:validation:Optional
 	AccessLevel *string `json:"accessLevel" tf:"access_level,omitempty"`
 
-	// The access that the back end grants or denies.
+	// The value that defines the access. The format depends on access_type:
 	// +kubebuilder:validation:Optional
 	AccessTo *string `json:"accessTo" tf:"access_to,omitempty"`
 
-	// The type of the share access rule. The value cert indicates
-	// that the certificate is used to access the storage.
+	// The type of the share access rule. Valid values are:
 	// +kubebuilder:validation:Optional
 	AccessType *string `json:"accessType,omitempty" tf:"access_type,omitempty"`
 }

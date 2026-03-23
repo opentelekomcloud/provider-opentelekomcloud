@@ -228,11 +228,7 @@ type InstanceV3InitParameters struct {
 	// +mapType=granular
 	Parameters map[string]*string `json:"parameters,omitempty" tf:"parameters,omitempty"`
 
-	// Specifies the DB instance name. The DB instance name of the same type
-	// must be unique for the same tenant. The value must be 4 to 64
-	// characters in length and start with a letter. It is case-sensitive
-	// and can contain only letters, digits, hyphens (-), and underscores
-	// (_).
+	// Specifies the prefix of the new domain name. The value contains 8 to 63 characters. Only uppercase letters, lowercase letters, and digits are allowed.
 	PrivateDomainName *string `json:"privateDomainName,omitempty" tf:"private_domain_name,omitempty"`
 
 	// Specifies the private IP address of a DB instance.
@@ -372,13 +368,10 @@ type InstanceV3Observation struct {
 	// +mapType=granular
 	Parameters map[string]*string `json:"parameters,omitempty" tf:"parameters,omitempty"`
 
-	// Specifies the DB instance name. The DB instance name of the same type
-	// must be unique for the same tenant. The value must be 4 to 64
-	// characters in length and start with a letter. It is case-sensitive
-	// and can contain only letters, digits, hyphens (-), and underscores
-	// (_).
+	// Specifies the prefix of the new domain name. The value contains 8 to 63 characters. Only uppercase letters, lowercase letters, and digits are allowed.
 	PrivateDomainName *string `json:"privateDomainName,omitempty" tf:"private_domain_name,omitempty"`
 
+	// Indicates the fully qualified domain name of an RDS instance.
 	PrivateFqdn *string `json:"privateFqdn,omitempty" tf:"private_fqdn,omitempty"`
 
 	// Specifies the private IP address of a DB instance.
@@ -503,11 +496,7 @@ type InstanceV3Parameters struct {
 	// +mapType=granular
 	Parameters map[string]*string `json:"parameters,omitempty" tf:"parameters,omitempty"`
 
-	// Specifies the DB instance name. The DB instance name of the same type
-	// must be unique for the same tenant. The value must be 4 to 64
-	// characters in length and start with a letter. It is case-sensitive
-	// and can contain only letters, digits, hyphens (-), and underscores
-	// (_).
+	// Specifies the prefix of the new domain name. The value contains 8 to 63 characters. Only uppercase letters, lowercase letters, and digits are allowed.
 	// +kubebuilder:validation:Optional
 	PrivateDomainName *string `json:"privateDomainName,omitempty" tf:"private_domain_name,omitempty"`
 

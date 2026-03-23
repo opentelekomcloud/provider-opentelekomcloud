@@ -3657,6 +3657,44 @@ resources:
                 reset the node.
             volumetype: '- The disk type.'
         importStatements: []
+    opentelekomcloud_cce_node_pool_config_v3:
+        subCategory: Cloud Container Engine (CCE)
+        description: Manages a CCE node pool configuration resource within OpenTelekomCloud.
+        name: opentelekomcloud_cce_node_pool_config_v3
+        title: opentelekomcloud_cce_node_pool_config_v3
+        examples:
+            - name: node_pool_config
+              manifest: |-
+                {
+                  "cluster_id": "${var.cluster_id}",
+                  "name": "configuration",
+                  "nodepool_id": "${var.nodepool_id}",
+                  "packages": [
+                    {
+                      "configurations": [
+                        {
+                          "name": "system-reserved-mem",
+                          "value": 600
+                        }
+                      ],
+                      "name": "kubelet"
+                    }
+                  ]
+                }
+              references:
+                cluster_id: var.cluster_id
+                nodepool_id: var.nodepool_id
+        argumentDocs:
+            cluster_id: '- (Required, String, ForceNew) Specifies the ID of the CCE cluster.'
+            id: '- Specifies a resource ID in UUID format.'
+            labels: '- (Optional, Map) Specifies the configuration labels in a key-value pair.'
+            name: '- (Requried, String) Specifies the configuration name.'
+            nodepool_id: '- (Required, String, ForceNew) Specifies the node pool ID.'
+            packages: '- (Required, List) Specifies the vomponent configuration item details. The packages structure is documented below.'
+            packages.configurations: '- (Required, List) Specifies configuration items. The structure is documented below:'
+            packages.name: '- (Required, String) Specifies the component/package name.'
+            value: '- (Required) Specifies the configuration item value. This configuration item will be ignored if unsupported component or parameter is specified.'
+        importStatements: []
     opentelekomcloud_cce_node_pool_v3:
         subCategory: Cloud Container Engine (CCE)
         description: Manages a CCE Cluster Node Pool resource within OpenTelekomCloud.
@@ -3774,8 +3812,9 @@ resources:
             name: '- (Required, String) Node Pool Name.'
             os: '- (Optional, ForceNew, String) Node OS. Changing this parameter will create a new resource.'
             password: |-
-                - (Optional, ForceNew, String) Key pair name when logging in to select the key pair mode.
+                - (Optional, ForceNew, String) Password used for node login.
                 This parameter and password are alternative. Changing this parameter will create a new resource.
+                -> NOTE: This field is not supported for the current version.
             postinstall: |-
                 - (Optional, String) Script required after installation. The input value can be a Base64 encoded string or not.
                 Changing this parameter will create a new resource.
@@ -3805,7 +3844,7 @@ resources:
             subnet_id: '- (Optional, String, ForceNew) The ID of the subnet to which the NIC belongs. Changing this parameter will create a new resource.'
             taints: '- (Optional, List) Taints to created nodes to configure anti-affinity.'
             update: '- Default is 30 minutes.'
-            user_tags: '- (Optional, Map, ForceNew) Tag of a VM, key/value pair format. Changing this parameter will create a new resource.'
+            user_tags: '- (Optional, Map) Tag of a VM, key/value pair format.'
             v1.30: |-
                 , v1.29, v1.28, v1.27 |
                 | Ubuntu 22.04 | v1.30, v1.29, v1.28, v1.27 |
@@ -3977,6 +4016,554 @@ resources:
             resource_version: '- The resource version of the namespace.'
             status: '- The status of the namespace.'
             uid: '- The uid of the namespace.'
+        importStatements: []
+    opentelekomcloud_ces_alarm_rule_v2:
+        subCategory: Cloud Eye (CES)
+        description: Manages a CES Alarm Rule v2 resource within OpenTelekomCloud.
+        name: opentelekomcloud_ces_alarm_rule_v2
+        title: opentelekomcloud_ces_alarm_rule_v2
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "alarm_actions": [
+                    {
+                      "notification_list": [
+                        "${var.topic_urn}"
+                      ],
+                      "type": "notification"
+                    }
+                  ],
+                  "alarm_enabled": true,
+                  "name": "alarm-rule-test",
+                  "namespace": "SYS.ECS",
+                  "notification_enabled": true,
+                  "policies": [
+                    {
+                      "comparison_operator": "\u003e",
+                      "count": 1,
+                      "filter": "average",
+                      "level": 4,
+                      "metric_name": "network_outgoing_bytes_rate_inband",
+                      "period": 1200,
+                      "suppress_duration": 300,
+                      "unit": "B/s",
+                      "value": 6.5
+                    },
+                    {
+                      "comparison_operator": "\u003e=",
+                      "count": 1,
+                      "filter": "average",
+                      "level": 4,
+                      "metric_name": "network_outgoing_bytes_rate_inband",
+                      "period": 3600,
+                      "suppress_duration": 300,
+                      "unit": "B/s",
+                      "value": 20
+                    }
+                  ],
+                  "resources": [
+                    {
+                      "dimensions": [
+                        {
+                          "name": "instance_id",
+                          "value": "${var.instance_id_1}"
+                        }
+                      ]
+                    },
+                    {
+                      "dimensions": [
+                        {
+                          "name": "instance_id",
+                          "value": "${var.instance_id_2}"
+                        }
+                      ]
+                    }
+                  ],
+                  "type": "MULTI_INSTANCE"
+                }
+              references:
+                alarm_actions.notification_list: var.topic_urn
+                resources.dimensions.value: var.instance_id_2
+            - name: test
+              manifest: |-
+                {
+                  "alarm_actions": [
+                    {
+                      "notification_list": [
+                        "${var.topic_urn}"
+                      ],
+                      "type": "notification"
+                    }
+                  ],
+                  "alarm_enabled": true,
+                  "name": "alarm-rule-all-instance",
+                  "namespace": "AGT.ECS",
+                  "notification_enabled": true,
+                  "policies": [
+                    {
+                      "comparison_operator": "\u003e",
+                      "count": 1,
+                      "filter": "average",
+                      "level": 2,
+                      "metric_name": "disk_usedPercent",
+                      "period": 1,
+                      "suppress_duration": 0,
+                      "value": 80
+                    }
+                  ],
+                  "resources": [
+                    {
+                      "dimensions": [
+                        {
+                          "name": "instance_id"
+                        },
+                        {
+                          "name": "mount_point"
+                        }
+                      ]
+                    }
+                  ],
+                  "type": "ALL_INSTANCE"
+                }
+              references:
+                alarm_actions.notification_list: var.topic_urn
+            - name: test
+              manifest: |-
+                {
+                  "alarm_enabled": true,
+                  "name": "alarm-rule-sys-event",
+                  "namespace": "SYS.ECS",
+                  "notification_enabled": false,
+                  "policies": [
+                    {
+                      "comparison_operator": "\u003e=",
+                      "count": 1,
+                      "filter": "average",
+                      "level": 2,
+                      "metric_name": "stopServer",
+                      "period": 0,
+                      "suppress_duration": 0,
+                      "unit": "count",
+                      "value": 1
+                    }
+                  ],
+                  "resources": [
+                    {
+                      "dimensions": [
+                        {
+                          "name": "resource_id",
+                          "value": "all_instance"
+                        }
+                      ]
+                    }
+                  ],
+                  "type": "EVENT.SYS"
+                }
+            - name: test
+              manifest: |-
+                {
+                  "alarm_actions": [
+                    {
+                      "notification_list": [
+                        "${var.topic_urn}"
+                      ],
+                      "type": "notification"
+                    }
+                  ],
+                  "alarm_enabled": true,
+                  "name": "alarm-rule-sys-event",
+                  "namespace": "SYS.ECS",
+                  "notification_enabled": true,
+                  "policies": [
+                    {
+                      "comparison_operator": "\u003e=",
+                      "count": 1,
+                      "filter": "average",
+                      "level": 2,
+                      "metric_name": "stopServer",
+                      "period": 0,
+                      "suppress_duration": 0,
+                      "unit": "count",
+                      "value": 1
+                    }
+                  ],
+                  "resources": [
+                    {
+                      "dimensions": [
+                        {
+                          "name": "resource_id",
+                          "value": "all_instance"
+                        }
+                      ]
+                    }
+                  ],
+                  "type": "EVENT.SYS"
+                }
+              references:
+                alarm_actions.notification_list: var.topic_urn
+            - name: test
+              manifest: |-
+                {
+                  "alarm_actions": [
+                    {
+                      "notification_list": [
+                        "${var.topic_urn}"
+                      ],
+                      "type": "notification"
+                    }
+                  ],
+                  "alarm_enabled": true,
+                  "name": "alarm-rule-with-ok-actions",
+                  "namespace": "SYS.ECS",
+                  "notification_enabled": true,
+                  "ok_actions": [
+                    {
+                      "notification_list": [
+                        "${var.topic_urn}"
+                      ],
+                      "type": "notification"
+                    }
+                  ],
+                  "policies": [
+                    {
+                      "comparison_operator": "\u003e",
+                      "count": 1,
+                      "filter": "average",
+                      "level": 2,
+                      "metric_name": "network_outgoing_bytes_rate_inband",
+                      "period": 300,
+                      "unit": "B/s",
+                      "value": 6.5
+                    }
+                  ],
+                  "resources": [
+                    {
+                      "dimensions": [
+                        {
+                          "name": "instance_id",
+                          "value": "${var.instance_id}"
+                        }
+                      ]
+                    }
+                  ],
+                  "type": "MULTI_INSTANCE"
+                }
+              references:
+                alarm_actions.notification_list: var.topic_urn
+                ok_actions.notification_list: var.topic_urn
+                resources.dimensions.value: var.instance_id
+            - name: test
+              manifest: |-
+                {
+                  "alarm_actions": [
+                    {
+                      "notification_list": [
+                        "${var.topic_urn}"
+                      ],
+                      "type": "notification"
+                    }
+                  ],
+                  "alarm_enabled": true,
+                  "alarm_template_id": "${var.alarm_template_id}",
+                  "name": "alarm-rule-with-template",
+                  "namespace": "SYS.ECS",
+                  "notification_enabled": true,
+                  "ok_actions": [
+                    {
+                      "notification_list": [
+                        "${var.topic_urn}"
+                      ],
+                      "type": "notification"
+                    }
+                  ],
+                  "resources": [
+                    {
+                      "dimensions": [
+                        {
+                          "name": "instance_id",
+                          "value": "${var.instance_id}"
+                        }
+                      ]
+                    }
+                  ],
+                  "type": "MULTI_INSTANCE"
+                }
+              references:
+                alarm_actions.notification_list: var.topic_urn
+                alarm_template_id: var.alarm_template_id
+                ok_actions.notification_list: var.topic_urn
+                resources.dimensions.value: var.instance_id
+        argumentDocs:
+            alarm_actions: |-
+                - (Optional, List, ForceNew) Specifies the action triggered by an alarm.
+                The alarm_actions structure is documented below.
+                Changing this creates a new resource.
+            alarm_actions.notification_list: |-
+                - (Required, List) Specifies the list of objects to be notified if the alarm status changes.
+                The maximum length is 5. If type is set to notification, the value of notification_list cannot be empty.
+                If type is set to autoscaling, the value of notification_list must be [] and the value of namespace
+                must be SYS.AS.
+            alarm_actions.type: '- (Required, String) Specifies the type of action triggered by an alarm. The value can be:'
+            alarm_enabled: |-
+                - (Optional, Bool) Specifies whether to enable the alarm rule.
+                The default value is true.
+            alarm_id: '- The alarm rule ID.'
+            alarm_template_id: |-
+                - (Optional, String, ForceNew) Specifies the ID of the alarm template.
+                When using an alarm template, the policies are inherited from the template.
+                Exactly one of alarm_template_id or policies must be specified.
+                Changing this creates a new resource.
+            create: '- Default is 10 minutes.'
+            delete: '- Default is 5 minutes.'
+            description: |-
+                - (Optional, String, ForceNew) The value can be a string of 0 to 256 characters.
+                Changing this creates a new resource.
+            enterprise_project_id: |-
+                - (Optional, String, ForceNew) Specifies the enterprise project ID of the alarm rule.
+                Changing this creates a new resource.
+            id: '- The resource ID in UUID format.'
+            name: |-
+                - (Required, String, ForceNew) Specifies the name of an alarm rule. The value can be a string of 1 to 128
+                characters that can consist of letters, digits, underscores (_), and hyphens (-).
+                Changing this creates a new resource.
+            namespace: |-
+                - (Required, String, ForceNew) Specifies the namespace in service.item format. service and item
+                each must be a string that starts with a letter and contains only letters, digits, and underscores (_).
+                Changing this creates a new resource.
+                For details, see Services Interconnected with Cloud Eye.
+            notification_begin_time: |-
+                - (Optional, String, ForceNew) Specifies the alarm notification start time,
+                for example: 05:30. Changing this creates a new resource.
+            notification_enabled: |-
+                - (Optional, Bool, ForceNew) Specifies whether to enable the action to be triggered by an alarm.
+                The default value is false. Changing this creates a new resource.
+            notification_end_time: |-
+                - (Optional, String, ForceNew) Specifies the alarm notification stop time,
+                for example: 22:10. Changing this creates a new resource.
+            ok_actions: |-
+                - (Optional, List, ForceNew) Specifies the action triggered by the clearing of an alarm.
+                The ok_actions structure is documented below.
+                Changing this creates a new resource.
+            ok_actions.notification_list: |-
+                - (Required, List) Specifies the list of objects to be notified if the alarm status changes.
+                The maximum length is 5.
+            ok_actions.type: |-
+                - (Required, String) Specifies the type of action triggered by the clearing of an alarm.
+                The value can be:
+            policies: |-
+                - (Optional, Set) Specifies the alarm policies. The policies structure is
+                documented below. Exactly one of policies or alarm_template_id must be specified.
+                When using alarm_template_id, the policies are inherited from the template and cannot be modified directly.
+            policies.0: .
+            policies.comparison_operator: |-
+                - (Required, String) Specifies the comparison condition of alarm thresholds.
+                The value can be >, =, <, >=, <=, or !=.
+            policies.count: |-
+                - (Required, Int) Specifies the number of consecutive occurrence times.
+                The value ranges from 1 to 5.
+            policies.filter: |-
+                - (Required, String) Specifies the data rollup method. The value can be max, min, average,
+                sum, and variance.
+            policies.level: |-
+                - (Optional, Int) Specifies the alarm severity. The value can be 1, 2, 3, or 4, which indicates
+                critical, major, minor, and informational, respectively.
+                The default value is 2.
+            policies.metric_name: |-
+                - (Required, String) Specifies the metric name. The value can be a string of 1 to 64 characters
+                that must start with a letter and contain only letters, digits, and underscores (_).
+                For details, see Services Interconnected with Cloud Eye.
+            policies.period: |-
+                - (Required, Int) Specifies the alarm checking period in seconds. The value can be 0, 1, 300,
+                1200, 3600, 14400, and 86400.
+            policies.suppress_duration: |-
+                - (Optional, Int) Specifies the interval for triggering an alarm if the alarm persists.
+                Possible values are as follows:
+            policies.unit: '- (Optional, String) Specifies the data unit. The value can be a string of 0 to 32 characters.'
+            policies.value: |-
+                - (Optional, Float) Specifies the alarm threshold. The value ranges from 0 to
+                Number.MAX_VALUE (1.7976931348623157e+108).
+            resource_group_id: |-
+                - (Optional, String, ForceNew) Specifies the resource group ID.
+                Changing this creates a new resource.
+            resources: |-
+                - (Optional, Set) Specifies the list of resources to monitor.
+                The resources structure is documented below.
+            resources.dimensions: |-
+                - (Required, List) Specifies the list of metric dimensions.
+                The dimensions structure is documented below.
+            resources.dimensions.name: |-
+                - (Required, String) Specifies the dimension name. The value can be a string of 1 to 32 characters
+                that must start with a letter and contain only letters, digits, underscores (_), and hyphens (-).
+            resources.dimensions.value: |-
+                - (Optional, String) Specifies the dimension value. The value can be a string of 1 to 64 characters
+                that must start with a letter or a number and contain only letters, digits, underscores (_), and hyphens (-).
+                For ALL_INSTANCE type alarms, this field can be left empty.
+            type: '- (Optional, String, ForceNew) Specifies the alarm type. The value can be:'
+            update: '- Default is 10 minutes.'
+        importStatements: []
+    opentelekomcloud_ces_alarm_template_v2:
+        subCategory: Cloud Eye (CES)
+        description: Manages a CES Alarm Template resource within OpenTelekomCloud.
+        name: opentelekomcloud_ces_alarm_template_v2
+        title: opentelekomcloud_ces_alarm_template_v2
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "description": "Alarm template for ECS monitoring",
+                  "name": "my-alarm-template",
+                  "policies": [
+                    {
+                      "alarm_level": 2,
+                      "comparison_operator": "\u003e=",
+                      "count": 3,
+                      "dimension_name": "instance_id",
+                      "filter": "average",
+                      "metric_name": "cpu_util",
+                      "namespace": "SYS.ECS",
+                      "period": 300,
+                      "suppress_duration": 3600,
+                      "unit": "%",
+                      "value": 80
+                    }
+                  ]
+                }
+            - name: test
+              manifest: |-
+                {
+                  "description": "Event alarm template",
+                  "name": "my-event-template",
+                  "policies": [
+                    {
+                      "alarm_level": 2,
+                      "comparison_operator": "\u003e=",
+                      "count": 1,
+                      "filter": "average",
+                      "metric_name": "stopServer",
+                      "namespace": "SYS.ECS",
+                      "period": 0,
+                      "suppress_duration": 0,
+                      "unit": "count",
+                      "value": 1
+                    }
+                  ],
+                  "type": 2
+                }
+            - name: test
+              manifest: |-
+                {
+                  "description": "Alarm template with multiple monitoring policies",
+                  "name": "multi-policy-template",
+                  "policies": [
+                    {
+                      "alarm_level": 2,
+                      "comparison_operator": "\u003e",
+                      "count": 3,
+                      "dimension_name": "instance_id",
+                      "filter": "average",
+                      "metric_name": "cpu_util",
+                      "namespace": "SYS.ECS",
+                      "period": 300,
+                      "suppress_duration": 300,
+                      "unit": "%",
+                      "value": 80
+                    },
+                    {
+                      "alarm_level": 2,
+                      "comparison_operator": "\u003e",
+                      "count": 3,
+                      "dimension_name": "instance_id",
+                      "filter": "average",
+                      "metric_name": "mem_util",
+                      "namespace": "SYS.ECS",
+                      "period": 300,
+                      "suppress_duration": 300,
+                      "unit": "%",
+                      "value": 85
+                    },
+                    {
+                      "alarm_level": 1,
+                      "comparison_operator": "\u003e=",
+                      "count": 3,
+                      "dimension_name": "instance_id",
+                      "filter": "average",
+                      "metric_name": "disk_util_inband",
+                      "namespace": "SYS.ECS",
+                      "period": 300,
+                      "suppress_duration": 600,
+                      "unit": "%",
+                      "value": 90
+                    }
+                  ]
+                }
+            - name: test
+              manifest: |-
+                {
+                  "lifecycle": [
+                    {
+                      "ignore_changes": [
+                        "${delete_associate_alarm}"
+                      ]
+                    }
+                  ]
+                }
+              references:
+                lifecycle.ignore_changes: delete_associate_alarm
+        argumentDocs:
+            delete_associate_alarm: |-
+                - (Optional, Bool) Specifies whether to delete the alarm rules
+                associated with the alarm template when deleting the template. Defaults to false.
+            description: |-
+                - (Optional, String) Specifies the description of the CES alarm template.
+                The description can contain a maximum of 256 characters.
+            id: '- The resource ID (same as template_id).'
+            name: |-
+                - (Required, String) Specifies the name of the CES alarm template.
+                An alarm template name starts with a letter, consists of 1 to 128 characters,
+                and can contain only letters, digits, underscores (_), hyphens (-), parentheses, and periods (.).
+            policies: |-
+                - (Required, Set) Specifies the policy list of the CES alarm template.
+                A maximum of 50 policies are supported.
+                The policies structure is documented below.
+            policies.alarm_level: |-
+                - (Optional, Int) Specifies the alarm level.
+                Defaults to 2. The valid values are as follows:
+            policies.comparison_operator: |-
+                - (Required, String) Specifies the comparison conditions for alarm threshold.
+                Value options: >, <, =, >=, <=, !=.
+            policies.count: '- (Required, Int) Specifies the number of consecutive alarm triggering times.'
+            policies.dimension_name: |-
+                - (Optional, String) Specifies the resource dimension.
+                Leave this parameter blank for an event alarm template.
+            policies.filter: |-
+                - (Required, String) Specifies the data rollup methods.
+                Value options: average, variance, min, max, sum.
+            policies.metric_name: |-
+                - (Required, String) Specifies the alarm metric name.
+                The value must start with a letter and can contain 1 to 96 characters,
+                including letters, digits, and underscores (_).
+            policies.namespace: |-
+                - (Required, String) Specifies the namespace of the service.
+                The value must be in the service.item format and can contain 3 to 32 characters.
+                For details, see Services Interconnected with Cloud Eye.
+            policies.period: |-
+                - (Required, Int) Specifies the aggregation period of alarm condition in seconds.
+                Value options: 0, 1, 300, 1200, 3600, 14400, 86400.
+            policies.suppress_duration: |-
+                - (Required, Int) Specifies the alarm suppression cycle in seconds.
+                Only one alarm is sent when the alarm suppression period is 0.
+                Value options: 0, 300, 600, 900, 1800, 3600, 10800, 21600,
+                43200, 86400.
+            policies.unit: '- (Optional, String) Specifies the unit string of the alarm threshold.'
+            policies.value: |-
+                - (Optional, Float) Specifies the alarm threshold.
+                The value ranges from 0 to Number.MAX_VALUE (1.7976931348623157e+108).
+            template_id: '- The alarm template ID.'
+            type: |-
+                - (Optional, Int, ForceNew) Specifies the type of the CES alarm template.
+                Defaults to 0. Changing this parameter will create a new resource.
+                The valid values are as follows:
         importStatements: []
     opentelekomcloud_ces_alarmrule:
         subCategory: Cloud Eye (CES)
@@ -4162,6 +4749,52 @@ resources:
                 - Specifies the time when the alarm status changed. The value
                 is a UNIX timestamp and the unit is ms.
         importStatements: []
+    opentelekomcloud_ces_dashboard_v2:
+        subCategory: Cloud Eye (CES)
+        description: Manages a CES Dashboard v2 resource within OpenTelekomCloud.
+        name: opentelekomcloud_ces_dashboard_v2
+        title: opentelekomcloud_ces_dashboard_v2
+        examples:
+            - name: dashboard
+              manifest: |-
+                {
+                  "is_favorite": true,
+                  "name": "my-dashboard",
+                  "row_widget_num": 1
+                }
+            - name: base
+              manifest: |-
+                {
+                  "name": "base-dashboard",
+                  "row_widget_num": 2
+                }
+            - name: copy
+              manifest: |-
+                {
+                  "dashboard_id": "${opentelekomcloud_ces_dashboard_v2.base.id}",
+                  "name": "copied-dashboard",
+                  "row_widget_num": 1
+                }
+              references:
+                dashboard_id: opentelekomcloud_ces_dashboard_v2.base.id
+        argumentDocs:
+            "0": .
+            created_at: '- The creation time of the dashboard in RFC3339 format.'
+            creator_name: '- The creator of the dashboard.'
+            dashboard_id: |-
+                - (Optional, String, ForceNew) Specifies the ID of an existing dashboard to copy.
+                If omitted, a new empty dashboard is created. Changing this creates a new resource.
+            enterprise_project_id: |-
+                - (Optional, String, ForceNew) Specifies the enterprise project ID.
+                Changing this creates a new resource.
+            id: '- The dashboard ID.'
+            is_favorite: '- (Optional, Bool) Specifies whether to add the dashboard to favorites.'
+            name: |-
+                - (Required, String) Specifies the dashboard name. The value can be a string of 1 to 128
+                characters that can consist of letters, digits, underscores (_), and hyphens (-).
+            region: '- The region in which the dashboard is created.'
+            row_widget_num: '- (Optional, Int) Specifies the graph display mode. The value can be:'
+        importStatements: []
     opentelekomcloud_ces_event_report_v1:
         subCategory: Cloud Eye (CES)
         description: Manages a v1 CES Event Report resource within OpenTelekomCloud.
@@ -4246,6 +4879,265 @@ resources:
             type: '- (Optional, String, ForceNew) Specifies the enumerated type. Possible values: int, float'
             unit: '- (Optional, String, ForceNew) Specifies the data unit. Supported range: 1 to 32'
             value: '- (Required, Float, ForceNew) Specifies the monitoring metric data to be added, which can be an integer or a floating point number.'
+        importStatements: []
+    opentelekomcloud_ces_one_click_alarm_v2:
+        subCategory: Cloud Eye (CES)
+        description: Manages a CES One-Click Alarm v2 resource within OpenTelekomCloud.
+        name: opentelekomcloud_ces_one_click_alarm_v2
+        title: opentelekomcloud_ces_one_click_alarm_v2
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "dimension_names": [
+                    {
+                      "metric": [
+                        "instance_id"
+                      ]
+                    }
+                  ],
+                  "notification_enabled": false,
+                  "one_click_alarm_id": "ECSSystemOneClickAlarm"
+                }
+            - name: test
+              manifest: |-
+                {
+                  "alarm_notifications": [
+                    {
+                      "notification_list": [
+                        "${var.topic_urn}"
+                      ],
+                      "type": "notification"
+                    }
+                  ],
+                  "dimension_names": [
+                    {
+                      "metric": [
+                        "bucket_name"
+                      ]
+                    }
+                  ],
+                  "notification_begin_time": "00:00",
+                  "notification_enabled": true,
+                  "notification_end_time": "23:59",
+                  "ok_notifications": [
+                    {
+                      "notification_list": [
+                        "${var.topic_urn}"
+                      ],
+                      "type": "notification"
+                    }
+                  ],
+                  "one_click_alarm_id": "OBSSystemOneClickAlarm"
+                }
+              references:
+                alarm_notifications.notification_list: var.topic_urn
+                ok_notifications.notification_list: var.topic_urn
+            - name: test
+              manifest: |-
+                {
+                  "alarm_notifications": [
+                    {
+                      "notification_list": [
+                        "${var.topic_urn}"
+                      ],
+                      "type": "notification"
+                    }
+                  ],
+                  "dimension_names": [
+                    {
+                      "event": true,
+                      "metric": [
+                        "instance_id"
+                      ]
+                    }
+                  ],
+                  "notification_begin_time": "00:00",
+                  "notification_enabled": true,
+                  "notification_end_time": "23:59",
+                  "one_click_alarm_id": "ECSSystemOneClickAlarm"
+                }
+              references:
+                alarm_notifications.notification_list: var.topic_urn
+            - name: test
+              manifest: |-
+                {
+                  "lifecycle": [
+                    {
+                      "ignore_changes": [
+                        "${one_click_alarm_id}",
+                        "${dimension_names}",
+                        "${notification_enabled}",
+                        "${alarm_notifications}",
+                        "${ok_notifications}",
+                        "${notification_begin_time}",
+                        "${notification_end_time}"
+                      ]
+                    }
+                  ]
+                }
+              references:
+                lifecycle.ignore_changes: one_click_alarm_id
+        argumentDocs:
+            alarm_notifications: '- (Optional, List) Specifies the action to be triggered by an alarm.'
+            alarm_notifications.notification_list: |-
+                - (Required, List) Specifies the list of SMN topic URNs.
+                A maximum of 20 items are supported.
+            alarm_notifications.type: |-
+                - (Required, String) Specifies the notification type. The value is notification,
+                which indicates that a notification will be sent via SMN topic subscriptions.
+            create: '- Default is 10 minutes.'
+            delete: '- Default is 5 minutes.'
+            description: '- The description of the one-click monitoring configuration.'
+            dimension_names: |-
+                - (Required, List, ForceNew) Specifies the dimension names for metric and event alarm rules.
+                The dimension_names structure is documented below.
+                Changing this creates a new resource.
+            dimension_names.event: |-
+                - (Optional, Bool) Specifies whether to enable event alarm rules.
+                Defaults to false.
+            dimension_names.metric: |-
+                - (Optional, List) Specifies the dimension strings for metric alarm rules.
+                A maximum of 100 items are supported. Each element can be a string of 1 to 131 characters
+                that must start with a letter and contain only letters, digits, underscores (_), hyphens (-), and commas (,).
+            enabled: '- Whether one-click monitoring is enabled.'
+            id: '- The one-click alarm ID.'
+            internal_alarm_id: '- The auto-generated internal alarm ID returned by the API.'
+            namespace: '- The namespace of the monitored service.'
+            notification_begin_time: |-
+                - (Optional, String) Specifies the alarm notification start time,
+                for example: 00:00. The format is HH:MM.
+            notification_enabled: '- (Required, Bool) Specifies whether to enable alarm notifications.'
+            notification_end_time: |-
+                - (Optional, String) Specifies the alarm notification end time,
+                for example: 23:59. The format is HH:MM.
+            ok_notifications: '- (Optional, List) Specifies the action to be triggered after an alarm is cleared.'
+            one_click_alarm_id: |-
+                - (Required, String, ForceNew) Specifies the one-click monitoring ID.
+                The value can be a string of 1 to 64 alphanumeric characters.
+                Changing this creates a new resource.
+            update: '- Default is 10 minutes.'
+        importStatements: []
+    opentelekomcloud_ces_resource_group_v2:
+        subCategory: Cloud Eye (CES)
+        description: Manages a CES Resource Group v2 resource within OpenTelekomCloud.
+        name: opentelekomcloud_ces_resource_group_v2
+        title: opentelekomcloud_ces_resource_group_v2
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "name": "test",
+                  "resources": [
+                    {
+                      "dimensions": [
+                        {
+                          "name": "instance_id",
+                          "value": "${opentelekomcloud_compute_instance_v2.vm_1.id}"
+                        }
+                      ],
+                      "namespace": "SYS.ECS"
+                    },
+                    {
+                      "dimensions": [
+                        {
+                          "name": "disk_name",
+                          "value": "${opentelekomcloud_compute_instance_v2.vm_1.id}-sda"
+                        }
+                      ],
+                      "namespace": "SYS.EVS"
+                    }
+                  ]
+                }
+              references:
+                resources.dimensions.value: opentelekomcloud_compute_instance_v2.vm_1.id
+              dependencies:
+                opentelekomcloud_compute_instance_v2.vm_1: |-
+                    {
+                      "flavor_name": "s3.large.2",
+                      "image_name": "Standard_Debian_11_latest",
+                      "name": "ecs-test",
+                      "network": [
+                        {
+                          "uuid": "${var.subnet_id}"
+                        }
+                      ]
+                    }
+            - name: test
+              manifest: |-
+                {
+                  "associated_eps_ids": [
+                    "${var.eps_id}"
+                  ],
+                  "name": "test",
+                  "type": "EPS"
+                }
+              references:
+                associated_eps_ids: var.eps_id
+            - name: test
+              manifest: |-
+                {
+                  "name": "test",
+                  "tags": {
+                    "foo": "bar",
+                    "key": "value"
+                  },
+                  "type": "TAG"
+                }
+            - name: test
+              manifest: |-
+                {
+                  "lifecycle": [
+                    {
+                      "ignore_changes": [
+                        "${resources}"
+                      ]
+                    }
+                  ]
+                }
+              references:
+                lifecycle.ignore_changes: resources
+        argumentDocs:
+            associated_eps_ids: |-
+                - (Optional, List, ForceNew) Specifies the enterprise project IDs where the resources from.
+                It's required if the value of type is EPS.
+                Changing this parameter will create a new resource.
+            created_at: '- The creation time.'
+            dimensions.name: |-
+                - (Required, String) Specifies the dimension name.
+                The value can be a string of 1 to 32 characters that must start with a letter
+                and contain only letters, digits, and underscores (_).
+            dimensions.value: |-
+                - (Required, String) Specifies the dimension value.
+                The value can be a string of 1 to 256 characters that must start with a letter or a number
+                and contain only letters, digits, underscores (_), hyphens (-), and dots (.).
+            enterprise_project_id: |-
+                - (Optional, String, ForceNew) Specifies the enterprise project ID of the resource group.
+                Changing this parameter will create a new resource.
+            id: '- The resource ID.'
+            name: |-
+                - (Required, String) Specifies the resource group name.
+                This parameter can contain a maximum of 128 characters, which may consist of letters,
+                digits, hyphens (-), and underscores (_). It must start with a letter.
+            region: '- The region in which the resource group is created.'
+            resources: |-
+                - (Optional, List) Specifies the list of resources to add into the group.
+                The resources structure is documented below.
+            resources.dimensions: |-
+                - (Required, List) Specifies the list of dimensions.
+                The dimensions structure is documented below.
+            resources.namespace: |-
+                - (Required, String) Specifies the namespace in service.item format.
+                service and item each must be a string that starts with a letter and contains only letters, digits, and
+                underscores (_). For details,
+                see Services Interconnected with Cloud Eye.
+            tags: |-
+                - (Optional, Map) Specifies the key/value to match resources.
+                It's required if the value of type is TAG.
+            type: |-
+                - (Optional, String, ForceNew) Specifies the resource group type.
+                The value can be EPS, TAG, and Manual. If not specified, that means add resources manually.
+                Changing this parameter will create a new resource.
         importStatements: []
     opentelekomcloud_cfw_acl_rule_v1:
         subCategory: Cloud Firewall (CFW)
@@ -6086,6 +6978,7 @@ resources:
                     {
                       "delete_auto": true,
                       "enable": true,
+                      "frequency": "DAY",
                       "keepday": 2,
                       "period": "00:00 GMT+03:00",
                       "prefix": "snapshot"
@@ -6149,6 +7042,9 @@ resources:
             creation_policy.enable: |-
                 - (Required) Value true indicates that the automatic snapshot creation policy is enabled,
                 and value false indicates that the automatic snapshot creation policy is disabled.
+            creation_policy.frequency: |-
+                - (Optional) Snapshot creation frequency. The default value is DAY.
+                Available options are: HOUR, DAY, SUN, MON, TUE, WED, THU, FRI, SAT.
             creation_policy.keepday: |-
                 - (Required) Number of days that a snapshot can be retained. The value ranges from 1 to 90.
                 The system automatically deletes snapshots that have been retained for the allowed maximum duration on the half hour.
@@ -7746,259 +8642,6 @@ resources:
             vgw_type: (String) - Specifies the type of the gateway. Currently, only the default type is supported.
             vlan: (Number, ForceNew) - Specifies the VLAN ID of the connection.
         importStatements: []
-    opentelekomcloud_dis_app_v2:
-        subCategory: Data Ingestion Service (DIS)
-        description: Manages a DIS App resource within OpenTelekomCloud.
-        name: opentelekomcloud_dis_app_v2
-        title: opentelekomcloud_dis_app_v2
-        examples:
-            - name: app_1
-              manifest: |-
-                {
-                  "name": "app_name"
-                }
-        argumentDocs:
-            checkpoint_type: ': Type of the checkpoint.'
-            commit_checkpoint_stream_names: '- List of associated streams.'
-            created: '- Time when the app is created. The value is a timestamp.'
-            earliest_offset: ': Partition data earliest offset'
-            id: '- Unique identifier of the app.'
-            latest_offset: ': Partition data latest offset'
-            name: |-
-                - (Required) Name of the consumer application to be created
-                The application name contains 1 to 200 characters. Only letters, digits, hyphens (-), and underscores (_) are allowed.
-            partition_consuming_states: '- Associated partitions details.'
-            sequence_number: ': Partition Sequence Number'
-            status: ': Partition Status, can be:'
-        importStatements:
-            - terraform import opentelekomcloud_dis_app_v2.app_1 app_name
-    opentelekomcloud_dis_checkpoint_v2:
-        subCategory: Data Ingestion Service (DIS)
-        description: Manages a DIS Checkpoint resource within OpenTelekomCloud.
-        name: opentelekomcloud_dis_checkpoint_v2
-        title: opentelekomcloud_dis_checkpoint_v2
-        examples:
-            - name: checkpoint_1
-              manifest: |-
-                {
-                  "app_name": "${opentelekomcloud_dis_app_v2.app_1.name}",
-                  "metadata": "my_first_checkpoint",
-                  "partition_id": "0",
-                  "sequence_number": "0",
-                  "stream_name": "${opentelekomcloud_dis_stream_v2.stream_1.name}"
-                }
-              references:
-                app_name: opentelekomcloud_dis_app_v2.app_1.name
-                stream_name: opentelekomcloud_dis_stream_v2.stream_1.name
-              dependencies:
-                opentelekomcloud_dis_app_v2.app_1: |-
-                    {
-                      "name": "my_app"
-                    }
-                opentelekomcloud_dis_stream_v2.stream_1: |-
-                    {
-                      "auto_scale_max_partition_count": 4,
-                      "auto_scale_min_partition_count": 1,
-                      "compression_format": "zip",
-                      "data_type": "BLOB",
-                      "name": "my_stream",
-                      "partition_count": 3,
-                      "retention_period": 24,
-                      "stream_type": "COMMON",
-                      "tags": {
-                        "foo": "bar"
-                      }
-                    }
-        argumentDocs:
-            app_name: |-
-                - (Required) Name of the consumer application to be created
-                The application name contains 1 to 200 characters. Only letters, digits, hyphens (-), and underscores (_) are allowed.
-            checkpoint_type: |-
-                - (Required) Type of the checkpoint. LAST_READ: Only sequence numbers are recorded in databases.
-                Default value: LAST_READ
-            metadata: |-
-                - (Optional) Metadata information of the consumer application.
-                Maximum length: 1000
-            partition_id: '- (Required) Partition ID of the stream The value can be in either of the following formats:'
-            sequence_number: |-
-                - (Required) Sequence number to be submitted, which is used to record the consumption
-                checkpoint of the stream. Ensure that the sequence number is within the valid range.
-            stream_name: |-
-                - (Required) Name of the stream. The stream name can contain 1 to 64 characters,
-                including letters, digits, underscores (_), and hyphens (-).
-        importStatements: []
-    opentelekomcloud_dis_dump_task_v2:
-        subCategory: Data Ingestion Service (DIS)
-        description: Manages a DIS Dump Task resource within OpenTelekomCloud.
-        name: opentelekomcloud_dis_dump_task_v2
-        title: opentelekomcloud_dis_dump_task_v2
-        examples:
-            - name: task_1
-              manifest: |-
-                {
-                  "destination": "OBS",
-                  "obs_destination_descriptor": [
-                    {
-                      "agency_name": "dis_admin_agency",
-                      "consumer_strategy": "LATEST",
-                      "deliver_time_interval": 30,
-                      "destination_file_type": "text",
-                      "file_prefix": "_pf",
-                      "obs_bucket_path": "${opentelekomcloud_obs_bucket.bucket.bucket}",
-                      "partition_format": "yyyy/MM/dd/HH/mm",
-                      "record_delimiter": "|",
-                      "task_name": "my_task"
-                    }
-                  ],
-                  "stream_name": "${opentelekomcloud_dis_stream_v2.stream_1.name}"
-                }
-              references:
-                obs_destination_descriptor.obs_bucket_path: opentelekomcloud_obs_bucket.bucket.bucket
-                stream_name: opentelekomcloud_dis_stream_v2.stream_1.name
-              dependencies:
-                opentelekomcloud_dis_app_v2.app_1: |-
-                    {
-                      "name": "my_app"
-                    }
-                opentelekomcloud_dis_stream_v2.stream_1: |-
-                    {
-                      "auto_scale_max_partition_count": 4,
-                      "auto_scale_min_partition_count": 1,
-                      "compression_format": "zip",
-                      "data_type": "BLOB",
-                      "name": "my_stream",
-                      "partition_count": 3,
-                      "retention_period": 24,
-                      "stream_type": "COMMON",
-                      "tags": {
-                        "foo": "bar"
-                      }
-                    }
-                opentelekomcloud_obs_bucket.bucket: |-
-                    {
-                      "acl": "private",
-                      "bucket": "my-dis-bucket",
-                      "storage_class": "STANDARD"
-                    }
-        argumentDocs:
-            ABNORMAL: ': deleted'
-            DELETE: ': deleted'
-            ERROR: ': creating'
-            PAUSED: ': deleting'
-            RUNNING: ': deleted'
-            STARTING: ': running'
-            action: '- (Optional) Dump task operation. The value can only be start or stop.'
-            agency_name: |-
-                - (Required) Name of the agency created on IAM. DIS uses an agency to access your specified resources.
-                The parameters for creating an agency are as follows:
-            consumer_strategy: |-
-                - (Optional) Offset.
-                LATEST: Maximum offset, indicating that the latest data will be extracted.
-                TRIM_HORIZON: Minimum offset, indicating that the earliest data will be extracted.
-            created_at: '- Time when the dump task is created.'
-            deliver_time_interval: |-
-                - (Required) User-defined interval at which data is imported from the current DIS stream into OBS.
-                If no data is pushed to the DIS stream during the current interval, no dump file package will be generated. Value range: 30-900.
-            destination: |-
-                - (Required) Dump destination. Possible values:
-                OBS: Data is dumped to OBS.
-            destination_file_type: '- (Optional) Dump file format. Possible values: text'
-            file_prefix: |-
-                - (Optional) Directory to store files that will be dumped to OBS.
-                Different directory levels are separated by slashes (/) and cannot start with slashes.
-            hash_range: ': Possible value range of the hash key used by the partition.'
-            id: ': Unique identifier of the partition.'
-            last_transfer_timestamp: '- Latest dump time of the dump task.'
-            name: '- Name of the dump task.'
-            obs_bucket_path: '- (Required) Name of the OBS bucket used to store data from the DIS stream.'
-            obs_destination_descriptor: '- (Optional) Parameter list of OBS to which data in the DIS stream will be dumped.'
-            obs_processing_schema: |-
-                - (Optional) Dump time directory generated based on the timestamp
-                of the source data and the configured partition_format.
-                Directory structure of the object file written into OBS.
-                The directory structure is in the format of yyyy/MM/dd/HH/mm.
-            parent_partitions: ': Parent partition.'
-            partition_format: |-
-                - (Optional) Directory structure of the object file written into OBS.
-                The directory structure is in the format of yyyy/MM/dd/HH/mm (time at which the dump task was created).
-                Possible values:
-            partitions: '- List of partition dump details.'
-            record_delimiter: '- (Optional) Delimiter for the dump file, which is used to separate the user data that is written into the dump file.'
-            sequence_number_range: ': Sequence number range of the partition.'
-            status: '- Current status of the stream, can be:'
-            stream_name: '- (Required) Name of the stream.'
-            task_id: '- ID of the dump task.'
-            task_name: '- (Required) Name of the dump task. The task name consists of letters, digits, hyphens (-), and underscores (_). It must be a string of 1 to 64 characters.'
-            timestamp_format: |-
-                - (Required) OBS directory generated based on the timestamp format.
-                This parameter is mandatory when the timestamp type of the source data is String.
-            timestamp_name: '- (Required) Attribute name of the source data timestamp.'
-            timestamp_type: |-
-                - (Required) Type of the source data timestamp.
-                Possible values:
-        importStatements: []
-    opentelekomcloud_dis_stream_v2:
-        subCategory: Data Ingestion Service (DIS)
-        description: Manages a DIS Stream resource within OpenTelekomCloud.
-        name: opentelekomcloud_dis_stream_v2
-        title: opentelekomcloud_dis_stream_v2
-        examples:
-            - name: stream_1
-              manifest: |-
-                {
-                  "auto_scale_max_partition_count": 4,
-                  "auto_scale_min_partition_count": 1,
-                  "compression_format": "zip",
-                  "data_type": "BLOB",
-                  "name": "MyStream",
-                  "partition_count": 3,
-                  "retention_period": 24,
-                  "stream_type": "COMMON",
-                  "tags": {
-                    "foo": "bar"
-                  }
-                }
-        argumentDocs:
-            ADVANCED: ': an advanced stream with a bandwidth of 5 MB/s'
-            COMMON: ': a common stream with a bandwidth of 1 MB/s'
-            CREATING: ': creating'
-            RUNNING: ': running'
-            TERMINATED: ': deleted'
-            TERMINATING: ': deleting'
-            auto_scale_max_partition_count: '- (Optional) Maximum number of partitions for automatic scale-up when auto-scaling is enabled.'
-            auto_scale_min_partition_count: |-
-                - (Optional) Minimum number of partitions for automatic scale-down
-                when auto-scaling is enabled. Minimum: 1.
-            compression_format: |-
-                - (Optional) Data compression type. The following types are available:
-                snappy, gzip, zip. Data is not compressed by default.
-            created: '- Time when the stream is created. The value is a timestamp.'
-            data_type: |-
-                - (Optional) Source data type.
-                BLOB: a collection of binary data stored as a single entity in a database management system.
-                Default value: BLOB.
-            hash_range: ': Possible value range of the hash key used by the partition.'
-            id: ': Unique identifier of the partition.'
-            name: |-
-                - (Required) Name of the stream. The stream name can contain 1 to 64 characters,
-                including letters, digits, underscores (_), and hyphens (-).
-            parent_partitions: ': Parent partition.'
-            partition_count: '- (Required) Number of partitions. Partitions are the base throughput unit of a DIS stream.'
-            partitions: '- Stream partitions details.'
-            readable_partition_count: '- Total number of readable partitions (including partitions in ACTIVE and DELETED state).'
-            retention_period: |-
-                - (Optional) Period of time for which data is retained in the stream.
-                Value range: 24-72 Unit: hour. If this parameter is left blank, the default value is used.
-                Maximum: 72
-                Default: 24
-            sequence_number_range: ': Sequence number range of the partition.'
-            status: '- Current status of the stream, can be:'
-            stream_id: '- Unique identifier of the stream.'
-            stream_type: '- (Optional) Stream type.'
-            tags: '- (Optional) Tags key/value pairs to associate with the instance.'
-            writable_partition_count: '- Total number of writable partitions (including partitions in ACTIVE state only).'
-        importStatements:
-            - terraform import opentelekomcloud_dis_stream_v2.stream_1 my_stream
     opentelekomcloud_dms_consumer_group_v2:
         subCategory: Distributed Message Service (DMS)
         description: Manages an up-to-date DMS Consumer Group v2 resource within OpenTelekomCloud.
@@ -11886,6 +12529,35 @@ resources:
                 {
                   "ip_cidrs": [
                     {
+                      "cidr": "192.168.0.1/32",
+                      "description": "This is a basic ip address for console access"
+                    }
+                  ],
+                  "ip_ranges": [
+                    {
+                      "description": "This is a basic ip range for console access",
+                      "range": "172.16.0.0-172.16.255.255"
+                    }
+                  ],
+                  "ipv6_cidrs": [
+                    {
+                      "cidr": "0000:0000:0000:0000:0000:0000:0000:0000/100",
+                      "description": "This is a basic ipv6 address for console access"
+                    }
+                  ],
+                  "ipv6_ranges": [
+                    {
+                      "description": "This is a basic ipv6 range for console access",
+                      "range": "0000:0000:0000:0000:0000:0000:0000:0000-FFFF:FFFF:FFFF:FFFF:FFFF:FFFF:FFFF:FFFF"
+                    }
+                  ],
+                  "type": "console"
+                }
+            - name: acl
+              manifest: |-
+                {
+                  "ip_cidrs": [
+                    {
                       "cidr": "159.138.39.192/32",
                       "description": "This is a test ip address"
                     }
@@ -11896,20 +12568,28 @@ resources:
                       "range": "0.0.0.0-255.255.255.0"
                     }
                   ],
-                  "type": "console"
+                  "type": "api"
                 }
         argumentDocs:
+            description: '- (Optional, String) Specifies a description about an IP address range.'
             id: '- The ID of identity ACL.'
             ip_cidrs: |-
-                - (Optional, List) Specifies the IPv4 CIDR blocks from which console access or api access is allowed.
-                The ip_cidrs cannot repeat. The object structure is documented below.
+                - (Optional, List) Specifies the IPv4 CIDR blocks from which console access or api access is allowed. The ip_cidrs cannot repeat. At least one of the two, ip_cidrs and ip_ranges, must be specified. Both cannot be empty.
+                The structure is documented below.
             ip_cidrs.cidr: '- (Required, String) Specifies the IPv4 CIDR block, for example, 192.168.0.0/24.'
             ip_cidrs.description: '- (Optional, String) Specifies a description about an IPv4 CIDR block.'
             ip_ranges: |-
-                - (Optional, List) Specifies the IP address ranges from which console access or api access is allowed.
-                The ip_ranges cannot repeat. The object structure is documented below.
-            ip_ranges.description: '- (Optional, String) Specifies a description about an IP address range.'
-            ip_ranges.range: '- (Required, String) Specifies the Ip address range, for example, 0.0.0.0-255.255.255.0.'
+                - (Optional, List) Specifies the IP address ranges from which console access or api access is allowed. The ip_ranges cannot repeat. At least one of the two, ip_cidrs and ip_ranges, must be specified. Both cannot be empty.
+                The structure is documented below.
+            ipv6_cidrs: |-
+                - (Optional, List) Specifies the IPv6 CIDR blocks from which console access or api access is allowed. The ipv6_cidrs cannot repeat. The ipv6_cidrs can only be used when type is console. At least one of the two, ipv6_cidrs and ipv6_ranges, must be specified. Both cannot be empty.
+                The structure is documented below.
+            ipv6_cidrs.cidr: '- (Required, String) Specifies the IPv6 CIDR block, for example, 0000:0000:0000:0000:0000:0000:0000:0000/100.'
+            ipv6_cidrs.description: '- (Optional, String) Specifies a description about an IPv6 CIDR block.'
+            ipv6_ranges: |-
+                - (Optional, List) Specifies the IPv6 address ranges from which console access or api access is allowed. The ipv6_ranges cannot repeat. The ipv6_ranges can only be used when type is console. At least one of the two, ipv6_cidrs and ipv6_ranges, must be specified. Both cannot be empty.
+                The structure is documented below.
+            range: '- (Required, String) Specifies the Ip address range, for example, 0.0.0.0-255.255.255.0.'
             type: |-
                 - (Required, String, ForceNew) Specifies the ACL is created through the Console or API.
                 Valid values are console and api. Changing this parameter will create a new ACL.
@@ -14986,21 +15666,7 @@ resources:
                           "mode": "system"
                         }
                       ],
-                      "stdout": true,
-                      "windows_log_info": [
-                        {
-                          "categories": [
-                            "System",
-                            "Application"
-                          ],
-                          "event_level": [
-                            "warning",
-                            "error"
-                          ],
-                          "time_offset": 7,
-                          "time_offset_unit": "day"
-                        }
-                      ]
+                      "stdout": true
                     }
                   ],
                   "cluster_id": "${var.cluster_id}",
@@ -16089,6 +16755,9 @@ resources:
                 private_ip: var.private_id
         argumentDocs:
             created_at: '- DNAT rule creation time.'
+            description: |-
+                - (Optional) Provides supplementary information about the DNAT rule.
+                Changing this creates a new DNAT rule.
             external_service_port: |-
                 - (Required) Specifies port used by ECSs or
                 BMSs to provide services for external systems. Changing this creates a new DNAT rule.
@@ -16185,6 +16854,9 @@ resources:
                 source_type is 0, the CIDR block must be a subset of the VPC subnet CIDR block. If
                 the value of source_type is 1, the CIDR block must be a CIDR block of Direct Connect
                 and cannot conflict with the VPC CIDR blocks. Changing this creates a new snat rule.
+            description: |-
+                - (Optional) Provides supplementary information about the SNAT rule.
+                Changing this creates a new snat rule.
             floating_ip_id: |-
                 - (Required) ID of the floating ip this snat rule connects to.
                 Changing this creates a new snat rule.
@@ -18790,6 +19462,8 @@ resources:
             parameters: |-
                 - (Optional) Map of additional configuration parameters. Values should be strings. Parameters set here
                 overrides values from configuration template (parameter group).
+            private_domain_name: '- (Optional) Specifies the prefix of the new domain name. The value contains 8 to 63 characters. Only uppercase letters, lowercase letters, and digits are allowed.'
+            private_fqdn: '- Indicates the fully qualified domain name of an RDS instance.'
             private_ip: '- (Optional, ForceNew) Specifies the private IP address of a DB instance.'
             private_ips: |-
                 - Indicates the private IP address list. It is a blank string until an
@@ -20007,18 +20681,49 @@ resources:
                       "cidr": "192.168.0.0/16",
                       "name": "sfs_share_vpc_2"
                     }
+            - name: sfs_rules
+              manifest: |-
+                {
+                  "access_rule": [
+                    {
+                      "access_level": "rw",
+                      "access_to": "${opentelekomcloud_vpc_v1.vpc_1.id}#192.168.1.0/24#100#all_squash,root_squash",
+                      "access_type": "cert"
+                    }
+                  ],
+                  "share_id": "${opentelekomcloud_sfs_file_system_v2.sfs_1.id}"
+                }
+              references:
+                share_id: opentelekomcloud_sfs_file_system_v2.sfs_1.id
+              dependencies:
+                opentelekomcloud_sfs_file_system_v2.sfs_1: |-
+                    {
+                      "name": "sfs-with-ip-access",
+                      "share_proto": "NFS",
+                      "size": 50
+                    }
+                opentelekomcloud_vpc_v1.vpc_1: |-
+                    {
+                      "cidr": "192.168.0.0/16",
+                      "name": "sfs_share_vpc"
+                    }
         argumentDocs:
+            <vpc_id>: '- grants access to the entire VPC.'
+            <vpc_id>#<ip_address>/<mask>#<priority>#<user_permission>: '- grants access to specific IP addresses within the VPC.'
             access_rule: '- (Required) Specifies the access rules of SFS file share. Structure is documented below.'
             access_rule.access_level: |-
                 - (Required) The access level of the shared file system. Possible values are ro (read-only)
                 and rw (read-write). The default value is rw (read/write).
             access_rule.access_rule_status: '- The status of the share access rule.'
-            access_rule.access_to: '- (Required) The access that the back end grants or denies.'
-            access_rule.access_type: |-
-                - (Optional) The type of the share access rule. The value cert indicates
-                that the certificate is used to access the storage.
+            access_rule.access_to: '- (Required) The value that defines the access. The format depends on access_type:'
+            access_rule.access_type: '- (Optional) The type of the share access rule. Valid values are:'
             access_rule.share_access_id: '- The UUID of the share access rule.'
+            access_type: 'is cert:'
+            cert: '- (Default) VPC-based access using VPC ID and optionally IP address.'
+            priority: ': An integer from 0 to 100. A smaller value indicates a higher priority. In case of the same VPC ID, only the rule with the highest priority is delivered.'
             share_id: '- (Required) The UUID of the shared file system.'
+            user: '- Username-based access using Access Key (AK).'
+            user_permission: ': Possible values are all_squash, root_squash, no_all_squash, no_root_squash.'
         importStatements:
             - terraform import opentelekomcloud_sfs_share_access_rules_v2 4779ab1c-7c1a-44b1-a02e-93dfc361b32d
     opentelekomcloud_sfs_turbo_share_v1:
@@ -20362,6 +21067,49 @@ resources:
             organization_id: '- Numeric ID of the organization.'
         importStatements:
             - terraform import opentelekomcloud_swr_organization_v2.org_1 organization_1
+    opentelekomcloud_swr_policy_v2:
+        subCategory: Software Repository for Container (SWR)
+        description: Manages an SWR image retention policy resource within OpenTelekomCloud.
+        name: opentelekomcloud_swr_policy_v2
+        title: opentelekomcloud_swr_policy_v2
+        examples:
+            - name: policy_1
+              manifest: |-
+                {
+                  "algorithm": "or",
+                  "organization": "${var.org_name}",
+                  "repository": "${var.repo_name}",
+                  "rules": [
+                    {
+                      "params": {
+                        "days": "30"
+                      },
+                      "tag_selector": [
+                        {
+                          "kind": "label",
+                          "pattern": "v1"
+                        }
+                      ],
+                      "template": "date_rule"
+                    }
+                  ]
+                }
+              references:
+                organization: var.org_name
+                repository: var.repo_name
+        argumentDocs:
+            algorithm: '- (Required, String) Specifies the image retention policy matching rule. Accepted value: or.'
+            id: '- ID of the image retention policy.'
+            kind: '- (Required, String) Specifies the matching rule. Accepted values: label, regexp.'
+            organization: '- (Required, String, ForceNew) Specifies the name of the repository organization.'
+            pattern: '- (Required, String) Specifies the matching rule value. If kind is set to label, set pattern to the <image tag>, e.g. "v1". If kind is set to regexp, set pattern to a <regular expression>, e.g. "^123$".'
+            repository: '- (Required, String, ForceNew) Specifies the name of the image repository.'
+            rules: '- (Required, List) Specifies the image retention policy. The rules structure is documented below.'
+            rules.params: '- (Required, Map) Specifies the image retention policy parameters. If template is set to date_rule, set params to { days = "xxx" }. If template is set to tag_rule, set params to { num = "xxx" }.'
+            rules.tag_selector: '- (Required, List) Specifies the exception images. The structure is documented below.'
+            rules.template: '- (Required, String) Specifies the image retention policy type. Acceped values: date_rule, tag_rule.'
+        importStatements:
+            - terraform import opentelekomcloud_swr_policy_v2.policy_1 <org_name>/<repo_name>/<id>
     opentelekomcloud_swr_repository_v2:
         subCategory: Software Repository for Container (SWR)
         description: Manages an SWR Repository resource within OpenTelekomCloud.
@@ -21252,12 +22000,13 @@ resources:
                 peer_vpc_id: var.accepter_vpc_id
                 vpc_id: var.vpc_id
         argumentDocs:
+            description: '- (Optional, String) Specifies the description of the VPC peering connection.'
             id: '- The VPC peering connection ID.'
-            name: '- (Required) Specifies the name of the VPC peering connection. The value can contain 1 to 64 characters.'
-            peer_tenant_id: '- (Optional) Specified the Tenant Id of the accepter tenant. Changing this creates a new VPC peering connection.'
-            peer_vpc_id: '- (Required) Specifies the VPC ID of the accepter tenant. Changing this creates a new VPC peering connection.'
+            name: '- (Required, String) Specifies the name of the VPC peering connection. The value can contain 1 to 64 characters.'
+            peer_tenant_id: '- (Optional, String, ForceNew) Specified the Tenant Id of the accepter tenant. Changing this creates a new VPC peering connection.'
+            peer_vpc_id: '- (Required, String, ForceNew) Specifies the VPC ID of the accepter tenant. Changing this creates a new VPC peering connection.'
             status: '- The VPC peering connection status. The value can be PENDING_ACCEPTANCE, REJECTED, EXPIRED, DELETED, or ACTIVE.'
-            vpc_id: '- (Required) Specifies the ID of a VPC involved in a VPC peering connection. Changing this creates a new VPC peering connection.'
+            vpc_id: '- (Required, String, ForceNew) Specifies the ID of a VPC involved in a VPC peering connection. Changing this creates a new VPC peering connection.'
         importStatements: []
     opentelekomcloud_vpc_route_table_v1:
         subCategory: Virtual Private Cloud (VPC)

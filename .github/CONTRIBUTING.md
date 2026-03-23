@@ -20,7 +20,8 @@ make submodules
 ### Make your changes in the code...
 
 ### Run the code-generation pipeline
-
+> !NOTE
+> To do clean builds for PR's I would recommend deleting the `.cache` and `.work` directories before generating the code.
 ```console
 make generate
 ```
