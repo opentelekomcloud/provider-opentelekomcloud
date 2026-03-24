@@ -723,6 +723,11 @@ func (in *InstanceV3InitParameters) DeepCopyInto(out *InstanceV3InitParameters) 
 			(*out)[key] = outVal
 		}
 	}
+	if in.PrivateDomainName != nil {
+		in, out := &in.PrivateDomainName, &out.PrivateDomainName
+		*out = new(string)
+		**out = **in
+	}
 	if in.PrivateIP != nil {
 		in, out := &in.PrivateIP, &out.PrivateIP
 		*out = new(string)
@@ -995,6 +1000,16 @@ func (in *InstanceV3Observation) DeepCopyInto(out *InstanceV3Observation) {
 			(*out)[key] = outVal
 		}
 	}
+	if in.PrivateDomainName != nil {
+		in, out := &in.PrivateDomainName, &out.PrivateDomainName
+		*out = new(string)
+		**out = **in
+	}
+	if in.PrivateFqdn != nil {
+		in, out := &in.PrivateFqdn, &out.PrivateFqdn
+		*out = new(string)
+		**out = **in
+	}
 	if in.PrivateIP != nil {
 		in, out := &in.PrivateIP, &out.PrivateIP
 		*out = new(string)
@@ -1205,6 +1220,11 @@ func (in *InstanceV3Parameters) DeepCopyInto(out *InstanceV3Parameters) {
 			}
 			(*out)[key] = outVal
 		}
+	}
+	if in.PrivateDomainName != nil {
+		in, out := &in.PrivateDomainName, &out.PrivateDomainName
+		*out = new(string)
+		**out = **in
 	}
 	if in.PrivateIP != nil {
 		in, out := &in.PrivateIP, &out.PrivateIP

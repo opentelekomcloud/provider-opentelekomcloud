@@ -14,15 +14,6 @@ spec:
       singleLogFormat:
       - mode: system
       stdout: true
-      windows_log_info:
-      - categories:
-        - System
-        - Application
-        event_level:
-        - warning
-        - error
-        time_offset: 7
-        time_offset_unit: day
     clusterId: ${var.cluster_id}
     hostGroupIds:
     - ${var.host_group_id}

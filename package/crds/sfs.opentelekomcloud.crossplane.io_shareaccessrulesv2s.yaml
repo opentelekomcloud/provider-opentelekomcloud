@@ -84,12 +84,12 @@ spec:
                             and rw (read-write). The default value is rw (read/write).
                           type: string
                         accessTo:
-                          description: The access that the back end grants or denies.
+                          description: 'The value that defines the access. The format
+                            depends on access_type:'
                           type: string
                         accessType:
-                          description: |-
-                            The type of the share access rule. The value cert indicates
-                            that the certificate is used to access the storage.
+                          description: 'The type of the share access rule. Valid values
+                            are:'
                           type: string
                       type: object
                     type: array
@@ -121,12 +121,12 @@ spec:
                             and rw (read-write). The default value is rw (read/write).
                           type: string
                         accessTo:
-                          description: The access that the back end grants or denies.
+                          description: 'The value that defines the access. The format
+                            depends on access_type:'
                           type: string
                         accessType:
-                          description: |-
-                            The type of the share access rule. The value cert indicates
-                            that the certificate is used to access the storage.
+                          description: 'The type of the share access rule. Valid values
+                            are:'
                           type: string
                       type: object
                     type: array
@@ -248,12 +248,12 @@ spec:
                           description: The status of the share access rule.
                           type: string
                         accessTo:
-                          description: The access that the back end grants or denies.
+                          description: 'The value that defines the access. The format
+                            depends on access_type:'
                           type: string
                         accessType:
-                          description: |-
-                            The type of the share access rule. The value cert indicates
-                            that the certificate is used to access the storage.
+                          description: 'The type of the share access rule. Valid values
+                            are:'
                           type: string
                         shareAccessId:
                           description: The UUID of the share access rule.

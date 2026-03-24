@@ -121,6 +121,11 @@ spec:
                             Value true indicates that the automatic snapshot creation policy is enabled,
                             and value false indicates that the automatic snapshot creation policy is disabled.
                           type: boolean
+                        frequency:
+                          description: |-
+                            Snapshot creation frequency. The default value is DAY.
+                            Available options are: HOUR, DAY, SUN, MON, TUE, WED, THU, FRI, SAT.
+                          type: string
                         keepday:
                           description: |-
                             Number of days that a snapshot can be retained. The value ranges from 1 to 90.
@@ -200,6 +205,11 @@ spec:
                             Value true indicates that the automatic snapshot creation policy is enabled,
                             and value false indicates that the automatic snapshot creation policy is disabled.
                           type: boolean
+                        frequency:
+                          description: |-
+                            Snapshot creation frequency. The default value is DAY.
+                            Available options are: HOUR, DAY, SUN, MON, TUE, WED, THU, FRI, SAT.
+                          type: string
                         keepday:
                           description: |-
                             Number of days that a snapshot can be retained. The value ranges from 1 to 90.
@@ -363,6 +373,11 @@ spec:
                             Value true indicates that the automatic snapshot creation policy is enabled,
                             and value false indicates that the automatic snapshot creation policy is disabled.
                           type: boolean
+                        frequency:
+                          description: |-
+                            Snapshot creation frequency. The default value is DAY.
+                            Available options are: HOUR, DAY, SUN, MON, TUE, WED, THU, FRI, SAT.
+                          type: string
                         keepday:
                           description: |-
                             Number of days that a snapshot can be retained. The value ranges from 1 to 90.

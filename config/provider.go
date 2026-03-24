@@ -34,7 +34,6 @@ import (
 	dcsCluster "github.com/opentelekomcloud/provider-opentelekomcloud/config/cluster/dcs"
 	ddsCluster "github.com/opentelekomcloud/provider-opentelekomcloud/config/cluster/dds"
 	dehCluster "github.com/opentelekomcloud/provider-opentelekomcloud/config/cluster/deh"
-	disCluster "github.com/opentelekomcloud/provider-opentelekomcloud/config/cluster/dis"
 	dmsCluster "github.com/opentelekomcloud/provider-opentelekomcloud/config/cluster/dms"
 	dnsCluster "github.com/opentelekomcloud/provider-opentelekomcloud/config/cluster/dns"
 	fgCluster "github.com/opentelekomcloud/provider-opentelekomcloud/config/cluster/fg"
@@ -77,7 +76,6 @@ import (
 	dcsNamespaced "github.com/opentelekomcloud/provider-opentelekomcloud/config/namespaced/dcs"
 	ddsNamespaced "github.com/opentelekomcloud/provider-opentelekomcloud/config/namespaced/dds"
 	dehNamespaced "github.com/opentelekomcloud/provider-opentelekomcloud/config/namespaced/deh"
-	disNamespaced "github.com/opentelekomcloud/provider-opentelekomcloud/config/namespaced/dis"
 	dmsNamespaced "github.com/opentelekomcloud/provider-opentelekomcloud/config/namespaced/dms"
 	dnsNamespaced "github.com/opentelekomcloud/provider-opentelekomcloud/config/namespaced/dns"
 	fgNamespaced "github.com/opentelekomcloud/provider-opentelekomcloud/config/namespaced/fg"
@@ -134,7 +132,6 @@ func GetProvider() *ujconfig.Provider {
 		ddsCluster.Configure,
 		ddmCluster.Configure,
 		dehCluster.Configure,
-		disCluster.Configure,
 		dmsCluster.Configure,
 		dnsCluster.Configure,
 		drsCluster.Configure,
@@ -195,7 +192,6 @@ func GetProviderNamespaced() *ujconfig.Provider {
 		ddsNamespaced.Configure,
 		ddmNamespaced.Configure,
 		dehNamespaced.Configure,
-		disNamespaced.Configure,
 		dmsNamespaced.Configure,
 		dnsNamespaced.Configure,
 		drsNamespaced.Configure,

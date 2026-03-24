@@ -341,6 +341,11 @@ spec:
                       overrides values from configuration template (parameter group).
                     type: object
                     x-kubernetes-map-type: granular
+                  privateDomainName:
+                    description: Specifies the prefix of the new domain name. The
+                      value contains 8 to 63 characters. Only uppercase letters, lowercase
+                      letters, and digits are allowed.
+                    type: string
                   privateIp:
                     description: Specifies the private IP address of a DB instance.
                     type: string
@@ -1010,6 +1015,11 @@ spec:
                       overrides values from configuration template (parameter group).
                     type: object
                     x-kubernetes-map-type: granular
+                  privateDomainName:
+                    description: Specifies the prefix of the new domain name. The
+                      value contains 8 to 63 characters. Only uppercase letters, lowercase
+                      letters, and digits are allowed.
+                    type: string
                   privateIp:
                     description: Specifies the private IP address of a DB instance.
                     type: string
@@ -1608,6 +1618,15 @@ spec:
                       overrides values from configuration template (parameter group).
                     type: object
                     x-kubernetes-map-type: granular
+                  privateDomainName:
+                    description: Specifies the prefix of the new domain name. The
+                      value contains 8 to 63 characters. Only uppercase letters, lowercase
+                      letters, and digits are allowed.
+                    type: string
+                  privateFqdn:
+                    description: Indicates the fully qualified domain name of an RDS
+                      instance.
+                    type: string
                   privateIp:
                     description: Specifies the private IP address of a DB instance.
                     type: string
