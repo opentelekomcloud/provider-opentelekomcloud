@@ -7,8 +7,8 @@
 
 ## Provider Resources Overview
 
-You can find all supported resources bundled in the **T Cloud Public** in the [Upbound Marketplace](https://marketplace.upbound.io/providers/opentelekomcloud/provider-opentelekomcloud/).
-`provider-opentelekomcloud` is built on top of the [Terraform Open Telekom Cloud Provider](https://github.com/opentelekomcloud/terraform-provider-opentelekomcloud)
+You can find all supported resources bundled in the **T Cloud Public** provider at the [Upbound Marketplace](https://marketplace.upbound.io/providers/opentelekomcloud/provider-opentelekomcloud/).
+`provider-opentelekomcloud` is built on top of the [T Cloud Public terraform provider](https://github.com/opentelekomcloud/terraform-provider-opentelekomcloud)
 . This means that all resources supported by the Terraform provider are also configurable through our Crossplane provider.
 
 Please note that some services are not yet fully configured. While you can still provision and manage these services, dynamic value assignment is not configured for them. In such cases, cross-resource identifiers must be configured manually. You can check [this](https://github.com/opentelekomcloud/provider-opentelekomcloud/issues/7) issue tracker to see the status of the services.
