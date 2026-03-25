@@ -1,6 +1,6 @@
 
 # T Cloud Public Crossplane provider
-> !NOTE
+> [!NOTE]
 > **T Cloud Public** is formerly known as **Open Telekom Cloud**. We are in the process of renaming, rewriting our codebases and documentations with the new name.
 
 `provider-opentelekomcloud` is a [Crossplane](https://crossplane.io/) provider that is built using [Upjet](https://github.com/crossplane/upjet) code generation tools and exposes XRM-conformant managed resources for the **T Cloud Public** API. The provider has been upgraded to support Crossplane v2, which introduced a lot of changes and new features like namespaced [ManagedResouces](https://docs.crossplane.io/latest/managed-resources/managed-resources/). Cluster scoped MRs are now legacy APIs, thus we recommend using the modern `opentelekomcloud.m.crossplane.io` namespaced APIs instead. For more information please check [What’s New in v2?](https://docs.crossplane.io/latest/whats-new/)
