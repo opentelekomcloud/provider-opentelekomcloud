@@ -2,6 +2,8 @@ module github.com/opentelekomcloud/provider-opentelekomcloud
 
 go 1.24.7
 
+tool golang.org/x/tools/cmd/goimports
+
 require (
 	dario.cat/mergo v1.0.2
 	github.com/crossplane/crossplane-runtime/v2 v2.0.0
