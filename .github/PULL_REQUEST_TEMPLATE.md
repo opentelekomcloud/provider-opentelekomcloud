@@ -21,15 +21,20 @@ Fixes #
 
 I have:
 
-- [ ] Read and followed Crossplane's [contribution process].
+- [ ] Read and followed the provider's [contribution process](https://github.com/opentelekomcloud/provider-opentelekomcloud?tab=contributing-ov-file).
 - [ ] Run `make reviewable test` to ensure this PR is ready for review.
+
+
 
 ### How has this code been tested
 
 <!--
 Before reviewers can be confident in the correctness of this pull request, it
 needs to tested and shown to be correct. Briefly describe the testing that has
-already been done or which is planned for this change.
+already been done or which is planned for this change. We are running upbound e2e testing framework, please read our [guide](https://github.com/opentelekomcloud/provider-opentelekomcloud?tab=contributing-ov-file#integration-testing) before opening the PR.
 -->
 
-[contribution process]: https://git.io/fj2m9
+#### [E2E testing](https://github.com/opentelekomcloud/provider-opentelekomcloud?tab=contributing-ov-file#integration-testing) is required for the following services:
+
+- [ ] `service_name or example file`
+
