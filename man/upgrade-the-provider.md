@@ -2,7 +2,7 @@
 
 To upgrade an existing Provider edit the installed `Provider Package` by either applying a new Provider manifest or with `kubectl edit providers.pkg.crossplane.io`.
 
-```bash
+```console
 kubectl get providers.pkg.crossplane.io
 NAME                        INSTALLED   HEALTHY   PACKAGE                                                             AGE
 provider-opentelekomcloud   True        True      xpkg.upbound.io/opentelekomcloud/provider-opentelekomcloud:v0.7.0   42d
@@ -21,14 +21,14 @@ spec:
 + package: xpkg.upbound.io/opentelekomcloud/provider-opentelekomcloud:v0.8.0
 ```
 
-```bash
+```console
 kubectl apply -f provider.yaml
 ```
 
 
 The `ProviderRevision` allows Crossplane to store deprecated Provider CRDs without removing them until you decide.
 
-```bash
+```console
 kubectl get providerrevisions
 NAME                                     HEALTHY   RUNTIME   IMAGE                                                               STATE      AGE
 provider-opentelekomcloud-98495c1871db             False     xpkg.upbound.io/opentelekomcloud/provider-opentelekomcloud:v0.8.0   Active     25s
@@ -49,11 +49,11 @@ spec:
 - package: xpkg.upbound.io/opentelekomcloud/provider-opentelekomcloud:v0.8.0
 ```
 
-```bash
+```console
 kubectl apply -f provider.yaml
 ```
 
-```bash
+```console
 kubectl get providerrevisions
 NAME                                     HEALTHY   RUNTIME   IMAGE                                                               STATE      AGE
 provider-opentelekomcloud-98495c1871db   True      True      xpkg.upbound.io/opentelekomcloud/provider-opentelekomcloud:v0.8.0   Inactive   99s
