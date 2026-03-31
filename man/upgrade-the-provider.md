@@ -9,7 +9,7 @@ provider-opentelekomcloud   True        True      xpkg.upbound.io/opentelekomclo
 ```
 
 
-Update the version number in the Provider’s `spec.package`` and apply the change. Crossplane installs the new image and creates a new `ProviderRevision`.
+Update the version number in the Provider’s `spec.package` and apply the change. Crossplane installs the new image and creates a new `ProviderRevision`.
 ```diff
 
 apiVersion: pkg.crossplane.io/v1
