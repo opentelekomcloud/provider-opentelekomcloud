@@ -9,6 +9,7 @@
 package v1alpha1
 
 import (
+	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 )
 
@@ -47,10 +48,30 @@ func (in *GrantV1InitParameters) DeepCopyInto(out *GrantV1InitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.GranteePrincipalRef != nil {
+		in, out := &in.GranteePrincipalRef, &out.GranteePrincipalRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.GranteePrincipalSelector != nil {
+		in, out := &in.GranteePrincipalSelector, &out.GranteePrincipalSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.KeyID != nil {
 		in, out := &in.KeyID, &out.KeyID
 		*out = new(string)
 		**out = **in
+	}
+	if in.KeyIDRef != nil {
+		in, out := &in.KeyIDRef, &out.KeyIDRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.KeyIDSelector != nil {
+		in, out := &in.KeyIDSelector, &out.KeyIDSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
@@ -186,10 +207,30 @@ func (in *GrantV1Parameters) DeepCopyInto(out *GrantV1Parameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.GranteePrincipalRef != nil {
+		in, out := &in.GranteePrincipalRef, &out.GranteePrincipalRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.GranteePrincipalSelector != nil {
+		in, out := &in.GranteePrincipalSelector, &out.GranteePrincipalSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.KeyID != nil {
 		in, out := &in.KeyID, &out.KeyID
 		*out = new(string)
 		**out = **in
+	}
+	if in.KeyIDRef != nil {
+		in, out := &in.KeyIDRef, &out.KeyIDRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.KeyIDSelector != nil {
+		in, out := &in.KeyIDSelector, &out.KeyIDSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
