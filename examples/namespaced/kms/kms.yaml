@@ -1,0 +1,57 @@
+apiVersion: identity.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: UserV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: identity/v1alpha1/userv3
+  labels:
+    testing.upbound.io/example-name: user_test
+  name: user-test
+  namespace: test
+spec:
+  forProvider:
+    name: user_test
+    passwordSecretRef:
+      key: example-key
+      name: example-secret
+---
+apiVersion: kms.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: KeyV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: kms/v1alpha1/keyv1
+  labels:
+    testing.upbound.io/example-name: key_test
+  name: key-test
+  namespace: test
+spec:
+  forProvider:
+    isEnabled: true
+    keyAlias: key_test-${Rand.RFC1123Subdomain}
+    keyDescription: first test key
+    pendingDays: "7"
+    realm: eu-de
+    tags:
+      muh: kuh
+---
+apiVersion: kms.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: GrantV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: kms/v1alpha1/grantv1
+  labels:
+    testing.upbound.io/example-name: grant_1
+  name: grant-1
+  namespace: test
+spec:
+  forProvider:
+    granteePrincipalSelector:
+      matchLabels:
+        testing.upbound.io/example-name: user_test
+    keyIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: key_test
+    name: my_grant
+    operations:
+      - describe-key
+      - create-datakey
+      - encrypt-datakey
