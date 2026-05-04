@@ -18,10 +18,28 @@ type GrantV1InitParameters struct {
 
 	// Indicates the ID of the authorized user.
 	// Changing this creates new grant.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/identity/v1alpha1.UserV3
 	GranteePrincipal *string `json:"granteePrincipal,omitempty" tf:"grantee_principal,omitempty"`
 
+	// Reference to a UserV3 in identity to populate granteePrincipal.
+	// +kubebuilder:validation:Optional
+	GranteePrincipalRef *v1.NamespacedReference `json:"granteePrincipalRef,omitempty" tf:"-"`
+
+	// Selector for a UserV3 in identity to populate granteePrincipal.
+	// +kubebuilder:validation:Optional
+	GranteePrincipalSelector *v1.NamespacedSelector `json:"granteePrincipalSelector,omitempty" tf:"-"`
+
 	// Indicates the ID of the KMS. Changing this creates new grant.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/kms/v1alpha1.KeyV1
 	KeyID *string `json:"keyId,omitempty" tf:"key_id,omitempty"`
+
+	// Reference to a KeyV1 in kms to populate keyId.
+	// +kubebuilder:validation:Optional
+	KeyIDRef *v1.NamespacedReference `json:"keyIdRef,omitempty" tf:"-"`
+
+	// Selector for a KeyV1 in kms to populate keyId.
+	// +kubebuilder:validation:Optional
+	KeyIDSelector *v1.NamespacedSelector `json:"keyIdSelector,omitempty" tf:"-"`
 
 	// Name of a grant which can be 1 to 255 characters in length
 	// and matches the regular expression ^[a-zA-Z0-9:/_-]{1,255}$.
@@ -79,12 +97,30 @@ type GrantV1Parameters struct {
 
 	// Indicates the ID of the authorized user.
 	// Changing this creates new grant.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/identity/v1alpha1.UserV3
 	// +kubebuilder:validation:Optional
 	GranteePrincipal *string `json:"granteePrincipal,omitempty" tf:"grantee_principal,omitempty"`
 
+	// Reference to a UserV3 in identity to populate granteePrincipal.
+	// +kubebuilder:validation:Optional
+	GranteePrincipalRef *v1.NamespacedReference `json:"granteePrincipalRef,omitempty" tf:"-"`
+
+	// Selector for a UserV3 in identity to populate granteePrincipal.
+	// +kubebuilder:validation:Optional
+	GranteePrincipalSelector *v1.NamespacedSelector `json:"granteePrincipalSelector,omitempty" tf:"-"`
+
 	// Indicates the ID of the KMS. Changing this creates new grant.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/kms/v1alpha1.KeyV1
 	// +kubebuilder:validation:Optional
 	KeyID *string `json:"keyId,omitempty" tf:"key_id,omitempty"`
+
+	// Reference to a KeyV1 in kms to populate keyId.
+	// +kubebuilder:validation:Optional
+	KeyIDRef *v1.NamespacedReference `json:"keyIdRef,omitempty" tf:"-"`
+
+	// Selector for a KeyV1 in kms to populate keyId.
+	// +kubebuilder:validation:Optional
+	KeyIDSelector *v1.NamespacedSelector `json:"keyIdSelector,omitempty" tf:"-"`
 
 	// Name of a grant which can be 1 to 255 characters in length
 	// and matches the regular expression ^[a-zA-Z0-9:/_-]{1,255}$.
@@ -142,10 +178,8 @@ type GrantV1Status struct {
 type GrantV1 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.granteePrincipal) || (has(self.initProvider) && has(self.initProvider.granteePrincipal))",message="spec.forProvider.granteePrincipal is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.keyId) || (has(self.initProvider) && has(self.initProvider.keyId))",message="spec.forProvider.keyId is a required parameter"
-	Spec   GrantV1Spec   `json:"spec"`
-	Status GrantV1Status `json:"status,omitempty"`
+	Spec              GrantV1Spec   `json:"spec"`
+	Status            GrantV1Status `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true
