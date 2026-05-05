@@ -17,7 +17,7 @@ for TAG in $TAGS; do
 		--jq .body)
 
 	{
-		echo "#RELEASE $TAG"
+		echo "# $TAG"
 		echo ""
 		echo "$NOTES"
 		echo ""

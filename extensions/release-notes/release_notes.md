@@ -1,4 +1,4 @@
-#RELEASE v0.8.0
+# v0.8.0
 
 ## What's Changed
 * tests: #74 CI test examples  by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/87
@@ -11,7 +11,7 @@
 
 **Full Changelog**: https://github.com/opentelekomcloud/provider-opentelekomcloud/compare/v0.7.1...v0.8.0
 
-#RELEASE v0.7.1
+# v0.7.1
 
 ## What's Changed
 * chore: workflow to check if we are on latest provider by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/47
@@ -37,7 +37,7 @@
 
 **Full Changelog**: https://github.com/opentelekomcloud/provider-opentelekomcloud/compare/v0.7.0...v0.7.1
 
-#RELEASE v0.7.0
+# v0.7.0
 
 ## What's Changed
 * feat: GeminiDB instance and readme update by @anton-sidelnikov in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/29
@@ -50,7 +50,7 @@
 
 **Full Changelog**: https://github.com/opentelekomcloud/provider-opentelekomcloud/compare/v0.6.2...v0.7.0
 
-#RELEASE v0.6.2
+# v0.6.2
 
 ## What's Changed
 * feat. Bump provider version to 1.36.52 by @anton-sidelnikov in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/28
@@ -58,7 +58,7 @@
 
 **Full Changelog**: https://github.com/opentelekomcloud/provider-opentelekomcloud/compare/v0.6.1...v0.6.2
 
-#RELEASE v0.6.1
+# v0.6.1
 
 ## What's Changed
 * fix: switch FipAddressExtractor and EipAddressExtractor to resource.Observable by @anton-sidelnikov in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/27
@@ -66,7 +66,7 @@
 
 **Full Changelog**: https://github.com/opentelekomcloud/provider-opentelekomcloud/compare/v0.6.0...v0.6.1
 
-#RELEASE v0.6.0
+# v0.6.0
 
 ## What's Changed
 * feat: switch to crossplane v2 / add more resources by @anton-sidelnikov in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/24
@@ -75,7 +75,7 @@
 
 **Full Changelog**: https://github.com/opentelekomcloud/provider-opentelekomcloud/compare/v0.5.0...v0.6.0
 
-#RELEASE v0.5.0
+# v0.5.0
 
 ## What's Changed
 * Sync repository with upjet-provider-template@90fdc76 and update upjet to v1.9.0 by @cerealsnow in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/23
@@ -85,7 +85,7 @@
 
 **Full Changelog**: https://github.com/opentelekomcloud/provider-opentelekomcloud/compare/v0.4.0...v0.5.0
 
-#RELEASE v0.4.0
+# v0.4.0
 
 ## What's Changed
 * feat: loadbalancer v3 configurations removed v2 version by @anton-sidelnikov in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/19
@@ -93,7 +93,7 @@
 
 **Full Changelog**: https://github.com/opentelekomcloud/provider-opentelekomcloud/compare/v0.3.0...v0.4.0
 
-#RELEASE v0.3.0
+# v0.3.0
 
 ## What's Changed
 * feat: update networking, vpc, nat add logtank modules by @anton-sidelnikov in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/14
@@ -106,7 +106,7 @@
 
 **Full Changelog**: https://github.com/opentelekomcloud/provider-opentelekomcloud/compare/v0.2.0...v0.3.0
 
-#RELEASE v0.2.0
+# v0.2.0
 
 ## What's Changed
 * added selectors for vpc and ecs by @anton-sidelnikov in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/9
@@ -117,7 +117,7 @@
 
 **Full Changelog**: https://github.com/opentelekomcloud/provider-opentelekomcloud/compare/v0.1.0...v0.2.0
 
-#RELEASE v0.1.0
+# v0.1.0
 
 ## What's Changed
 * Bump tj-actions/changed-files from 34 to 41 in /.github/workflows by @dependabot[bot] in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/1
