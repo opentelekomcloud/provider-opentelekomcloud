@@ -1,3 +1,15 @@
+# v0.9.0
+
+## What's Changed
+* docs: import manual by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/100
+* docs: provider upgrade manual by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/99
+* docs: move to doc dir by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/101
+* feat: add support for basic kms by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/103
+* bug: remove softlink for upbound doc by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/104
+
+
+**Full Changelog**: https://github.com/opentelekomcloud/provider-opentelekomcloud/compare/v0.8.0...v0.9.0
+
 # v0.8.0
 
 ## What's Changed
