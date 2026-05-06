@@ -191,6 +191,10 @@ type InstanceV1InitParameters struct {
 	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
+	// Specifies whether to enable vTPM on the ECS. Defaults to false.
+	// Currently, only Pi5e instance types support TPM.
+	TpmEnabled *bool `json:"tpmEnabled,omitempty" tf:"tpm_enabled,omitempty"`
+
 	// The user data to provide when launching the instance.
 	// Changing this creates a new server.
 	UserData *string `json:"userData,omitempty" tf:"user_data,omitempty"`
@@ -276,6 +280,10 @@ type InstanceV1Observation struct {
 	// Tags key/value pairs to associate with the instance.
 	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
+
+	// Specifies whether to enable vTPM on the ECS. Defaults to false.
+	// Currently, only Pi5e instance types support TPM.
+	TpmEnabled *bool `json:"tpmEnabled,omitempty" tf:"tpm_enabled,omitempty"`
 
 	// The user data to provide when launching the instance.
 	// Changing this creates a new server.
@@ -400,6 +408,11 @@ type InstanceV1Parameters struct {
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
+
+	// Specifies whether to enable vTPM on the ECS. Defaults to false.
+	// Currently, only Pi5e instance types support TPM.
+	// +kubebuilder:validation:Optional
+	TpmEnabled *bool `json:"tpmEnabled,omitempty" tf:"tpm_enabled,omitempty"`
 
 	// The user data to provide when launching the instance.
 	// Changing this creates a new server.

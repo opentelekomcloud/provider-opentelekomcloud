@@ -315,6 +315,11 @@ func (in *InstanceV1InitParameters) DeepCopyInto(out *InstanceV1InitParameters) 
 			(*out)[key] = outVal
 		}
 	}
+	if in.TpmEnabled != nil {
+		in, out := &in.TpmEnabled, &out.TpmEnabled
+		*out = new(bool)
+		**out = **in
+	}
 	if in.UserData != nil {
 		in, out := &in.UserData, &out.UserData
 		*out = new(string)
@@ -497,6 +502,11 @@ func (in *InstanceV1Observation) DeepCopyInto(out *InstanceV1Observation) {
 			(*out)[key] = outVal
 		}
 	}
+	if in.TpmEnabled != nil {
+		in, out := &in.TpmEnabled, &out.TpmEnabled
+		*out = new(bool)
+		**out = **in
+	}
 	if in.UserData != nil {
 		in, out := &in.UserData, &out.UserData
 		*out = new(string)
@@ -670,6 +680,11 @@ func (in *InstanceV1Parameters) DeepCopyInto(out *InstanceV1Parameters) {
 			}
 			(*out)[key] = outVal
 		}
+	}
+	if in.TpmEnabled != nil {
+		in, out := &in.TpmEnabled, &out.TpmEnabled
+		*out = new(bool)
+		**out = **in
 	}
 	if in.UserData != nil {
 		in, out := &in.UserData, &out.UserData

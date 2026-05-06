@@ -33,8 +33,8 @@ type BackupStrategyInitParameters struct {
 	// triggered during the backup time window. It must be a valid value in the "hh:mm-HH:MM"
 	// format. The current time is in the UTC format. The HH value must
 	// be 1 greater than the hh value. The values of mm and MM must be
-	// the same and must be set to any of the following: 00, 15, 30, or
-	// 45. Example value: 08:15-09:15 23:00-00:00.
+	// the same and must be set to any of the following: 00, 15, 30, or 45.
+	// Example value: 08:15-09:15 23:00-00:00.
 	StartTime *string `json:"startTime,omitempty" tf:"start_time,omitempty"`
 }
 
@@ -57,8 +57,8 @@ type BackupStrategyObservation struct {
 	// triggered during the backup time window. It must be a valid value in the "hh:mm-HH:MM"
 	// format. The current time is in the UTC format. The HH value must
 	// be 1 greater than the hh value. The values of mm and MM must be
-	// the same and must be set to any of the following: 00, 15, 30, or
-	// 45. Example value: 08:15-09:15 23:00-00:00.
+	// the same and must be set to any of the following: 00, 15, 30, or 45.
+	// Example value: 08:15-09:15 23:00-00:00.
 	StartTime *string `json:"startTime,omitempty" tf:"start_time,omitempty"`
 }
 
@@ -83,8 +83,8 @@ type BackupStrategyParameters struct {
 	// triggered during the backup time window. It must be a valid value in the "hh:mm-HH:MM"
 	// format. The current time is in the UTC format. The HH value must
 	// be 1 greater than the hh value. The values of mm and MM must be
-	// the same and must be set to any of the following: 00, 15, 30, or
-	// 45. Example value: 08:15-09:15 23:00-00:00.
+	// the same and must be set to any of the following: 00, 15, 30, or 45.
+	// Example value: 08:15-09:15 23:00-00:00.
 	// +kubebuilder:validation:Optional
 	StartTime *string `json:"startTime" tf:"start_time,omitempty"`
 }
@@ -372,7 +372,7 @@ type InstanceV3Observation struct {
 	// Specifies the prefix of the new domain name. The value contains 8 to 63 characters. Only uppercase letters, lowercase letters, and digits are allowed.
 	PrivateDomainName *string `json:"privateDomainName,omitempty" tf:"private_domain_name,omitempty"`
 
-	// Indicates the fully qualified domain name of an RDS instance.
+	// Indicates the fully qualified domain name of an RDS instance (not supported in eu-ch2 region).
 	PrivateFqdn *string `json:"privateFqdn,omitempty" tf:"private_fqdn,omitempty"`
 
 	// Specifies the private IP address of a DB instance.

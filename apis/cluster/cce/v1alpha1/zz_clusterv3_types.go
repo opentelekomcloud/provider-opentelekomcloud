@@ -181,6 +181,9 @@ type ClusterV3InitParameters struct {
 	// +kubebuilder:validation:Optional
 	EIPSelector *v1.Selector `json:"eipSelector,omitempty" tf:"-"`
 
+	// Enable cluster deletion protection. Only effective during cluster creation. Changing this parameter will create a new cluster resource.
+	EnableDeletionProtection *bool `json:"enableDeletionProtection,omitempty" tf:"enable_deletion_protection,omitempty"`
+
 	// System and data disks encryption of master nodes. Changing this parameter will create a new cluster resource.
 	EnableVolumeEncryption *bool `json:"enableVolumeEncryption,omitempty" tf:"enable_volume_encryption,omitempty"`
 
@@ -395,6 +398,9 @@ type ClusterV3Observation struct {
 
 	// EIP address of the cluster.
 	EIP *string `json:"eip,omitempty" tf:"eip,omitempty"`
+
+	// Enable cluster deletion protection. Only effective during cluster creation. Changing this parameter will create a new cluster resource.
+	EnableDeletionProtection *bool `json:"enableDeletionProtection,omitempty" tf:"enable_deletion_protection,omitempty"`
 
 	// System and data disks encryption of master nodes. Changing this parameter will create a new cluster resource.
 	EnableVolumeEncryption *bool `json:"enableVolumeEncryption,omitempty" tf:"enable_volume_encryption,omitempty"`
@@ -614,6 +620,10 @@ type ClusterV3Parameters struct {
 	// Selector for a EIPV1 in vpc to populate eip.
 	// +kubebuilder:validation:Optional
 	EIPSelector *v1.Selector `json:"eipSelector,omitempty" tf:"-"`
+
+	// Enable cluster deletion protection. Only effective during cluster creation. Changing this parameter will create a new cluster resource.
+	// +kubebuilder:validation:Optional
+	EnableDeletionProtection *bool `json:"enableDeletionProtection,omitempty" tf:"enable_deletion_protection,omitempty"`
 
 	// System and data disks encryption of master nodes. Changing this parameter will create a new cluster resource.
 	// +kubebuilder:validation:Optional
