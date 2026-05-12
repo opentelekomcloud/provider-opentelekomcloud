@@ -283,6 +283,11 @@ spec:
                             type: string
                         type: object
                     type: object
+                  enableDeletionProtection:
+                    description: Enable cluster deletion protection. Only effective
+                      during cluster creation. Changing this parameter will create
+                      a new cluster resource.
+                    type: boolean
                   enableVolumeEncryption:
                     description: System and data disks encryption of master nodes.
                       Changing this parameter will create a new cluster resource.
@@ -1033,6 +1038,11 @@ spec:
                             type: string
                         type: object
                     type: object
+                  enableDeletionProtection:
+                    description: Enable cluster deletion protection. Only effective
+                      during cluster creation. Changing this parameter will create
+                      a new cluster resource.
+                    type: boolean
                   enableVolumeEncryption:
                     description: System and data disks encryption of master nodes.
                       Changing this parameter will create a new cluster resource.
@@ -1796,6 +1806,11 @@ spec:
                   eip:
                     description: EIP address of the cluster.
                     type: string
+                  enableDeletionProtection:
+                    description: Enable cluster deletion protection. Only effective
+                      during cluster creation. Changing this parameter will create
+                      a new cluster resource.
+                    type: boolean
                   enableVolumeEncryption:
                     description: System and data disks encryption of master nodes.
                       Changing this parameter will create a new cluster resource.

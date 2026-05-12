@@ -3390,6 +3390,7 @@ resources:
                 cluster. valid values are true, try and false. Default is false.
             description: '- (Optional, String) Cluster description.'
             eip: '- (Optional, String) EIP address of the cluster.'
+            enable_deletion_protection: '- (Optional, Boolean, ForceNew) Enable cluster deletion protection. Only effective during cluster creation. Changing this parameter will create a new cluster resource.'
             enable_volume_encryption: '- (Optional, Boolean, ForceNew) System and data disks encryption of master nodes. Changing this parameter will create a new cluster resource.'
             eni: '- Cloud native 2.0 network model which integrates the native ENI capability of VPC.'
             eni_subnet_cidr: '- (Optional, String, ForceNew) Specifies the ENI network segment. Specified when creating a CCE Turbo cluster. Changing this parameter will create a new cluster resource.'
@@ -3988,6 +3989,55 @@ resources:
             value: '- (Required, String) A value must start with a letter or digit and can contain a maximum of 63 characters, including letters, digits, hyphens (-), underscores (_), and periods (.).'
             volumetype: '- (Required, ForceNew, String) Disk type.'
         importStatements: []
+    opentelekomcloud_cci_configmap_v2:
+        subCategory: Cloud Container Instance (CCI)
+        description: Manages a CCI v2 ConfigMap resource within OpenTelekomCloud.
+        name: opentelekomcloud_cci_configmap_v2
+        title: opentelekomcloud_cci_configmap_v2
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "data": {
+                    "app.properties": "debug=false\nlog_level=info",
+                    "timeout": "30s"
+                  },
+                  "name": "my-configmap",
+                  "namespace": "${opentelekomcloud_cci_namespace_v2.test.name}"
+                }
+              references:
+                namespace: opentelekomcloud_cci_namespace_v2.test.name
+            - name: tls
+              manifest: |-
+                {
+                  "data": {
+                    "ca.crt": "${file(\"ca.crt\")}"
+                  },
+                  "name": "my-tls-config",
+                  "namespace": "${opentelekomcloud_cci_namespace_v2.test.name}"
+                }
+              references:
+                namespace: opentelekomcloud_cci_namespace_v2.test.name
+        argumentDocs:
+            annotations: '- The annotations of the CCI ConfigMap.'
+            api_version: '- The API version of the CCI ConfigMap.'
+            binary_data: |-
+                - (Optional, Map) Specifies the binary data of the CCI ConfigMap.
+                Each value must be a base64-encoded string.
+            creation_timestamp: '- The creation timestamp of the CCI ConfigMap.'
+            data: |-
+                - (Optional, Map) Specifies the configuration data of the CCI ConfigMap.
+                Each value must be a UTF-8 string.
+            id: '- The resource ID in format <namespace>/<name>.'
+            immutable: '- Whether the CCI ConfigMap is immutable.'
+            kind: '- The kind of the CCI ConfigMap.'
+            labels: '- The labels of the CCI ConfigMap.'
+            name: '- (Required, String, ForceNew) Specifies the name of the CCI ConfigMap.'
+            namespace: '- (Required, String, ForceNew) Specifies the namespace of the CCI ConfigMap.'
+            region: '- The region of the CCI ConfigMap.'
+            resource_version: '- The resource version of the CCI ConfigMap.'
+            uid: '- The UID of the CCI ConfigMap.'
+        importStatements: []
     opentelekomcloud_cci_namespace_v2:
         subCategory: Cloud Container Instance (CCI)
         description: Manages a CCI v2 Namespace resource within OpenTelekomCloud.
@@ -4016,6 +4066,555 @@ resources:
             resource_version: '- The resource version of the namespace.'
             status: '- The status of the namespace.'
             uid: '- The uid of the namespace.'
+        importStatements: []
+    opentelekomcloud_cci_network_v2:
+        subCategory: Cloud Container Instance (CCI)
+        description: Manages a CCI Network resource within OpenTelekomCloud.
+        name: opentelekomcloud_cci_network_v2
+        title: opentelekomcloud_cci_network_v2
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "annotations": {
+                    "yangtse.io/domain-id": "${var.domain_id}",
+                    "yangtse.io/project-id": "${var.project_id}",
+                    "yangtse.io/warm-pool-recycle-interval": "2",
+                    "yangtse.io/warm-pool-size": "10"
+                  },
+                  "name": "${var.name}",
+                  "namespace": "${var.namespace}",
+                  "security_group_ids": [
+                    "${var.security_group_id}"
+                  ],
+                  "subnets": [
+                    {
+                      "subnet_id": "${var.subnet_id}"
+                    }
+                  ]
+                }
+              references:
+                name: var.name
+                namespace: var.namespace
+                security_group_ids: var.security_group_id
+                subnets.subnet_id: var.subnet_id
+        argumentDocs:
+            annotations: |-
+                - (Optional, Map) Specifies the annotations of the CCI network.
+                Annotations is an unstructured key value map that may be set by external tools to store and retrieve arbitrary
+                metadata.
+            api_version: '- The API version of the CCI network.'
+            conditions.last_transition_time: '- The last time the condition transitioned from one status to another.'
+            conditions.message: '- A human-readable message indicating details about the transition.'
+            conditions.reason: '- The reason for the condition''s last transition.'
+            conditions.status: '- The status of the CCI network condition. The value can be True, False, or Unknown.'
+            conditions.type: '- The type of the CCI network condition.'
+            create: '- Default is 10 minutes.'
+            creation_timestamp: '- The creation timestamp of the CCI network. The value is in RFC3339 format and is in UTC.'
+            delete: '- Default is 10 minutes.'
+            finalizers: '- The finalizers of the CCI network. Must be empty before the object is deleted from the registry.'
+            id: '- The resource ID in format <namespace>/<name>.'
+            ip_families: |-
+                - (Optional, List, ForceNew) Specifies the IP families of the CCI network.
+                The value can be IPv4 or IPv6. When IPv6 is enabled, the value can be ["IPv4", "IPv6"].
+                Changing this creates a new resource.
+            kind: '- The kind of the CCI network.'
+            name: |-
+                - (Required, String, ForceNew) Specifies the name of the CCI network.
+                Changing this creates a new resource.
+            namespace: |-
+                - (Required, String, ForceNew) Specifies the namespace of the CCI network.
+                Changing this creates a new resource.
+            region: '- The region of the CCI network.'
+            resource_version: '- The resource version of the CCI network.'
+            security_group_ids: '- (Optional, List) Specifies the security group IDs of the CCI network.'
+            status: |-
+                - The status of the CCI network.
+                The status structure is documented below.
+            status.conditions: |-
+                - The conditions of the CCI network.
+                The conditions structure is documented below.
+            status.status: '- The status of the CCI network. The value can be Ready, Failed, or IPInsufficient.'
+            status.subnet_attrs: |-
+                - The subnet attributes of the CCI network.
+                The subnet_attrs structure is documented below.
+            subnet_attrs.network_id: '- The network ID of the subnet.'
+            subnet_attrs.subnet_v4_id: '- The subnet IPv4 ID.'
+            subnet_attrs.subnet_v6_id: '- The subnet IPv6 ID.'
+            subnets: |-
+                - (Optional, List, ForceNew) Specifies the subnets of the CCI network.
+                Changing this creates a new resource.
+                The subnets structure is documented below.
+            subnets.subnet_id: |-
+                - (Required, String, ForceNew) Specifies the subnet ID (the network ID of the subnet) of the
+                CCI network. Changing this creates a new resource.
+            uid: '- The uid of the CCI network.'
+        importStatements: []
+    opentelekomcloud_cci_pod_v2:
+        subCategory: Cloud Container Instance (CCI)
+        description: Manages a CCI v2 Pod resource within OpenTelekomCloud.
+        name: opentelekomcloud_cci_pod_v2
+        title: opentelekomcloud_cci_pod_v2
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "annotations": {
+                    "resource.cci.io/instance-type": "general-computing",
+                    "resource.cci.io/pod-size-specs": "2.00_4.0"
+                  },
+                  "containers": [
+                    {
+                      "image": "swr.eu-de.otc.t-systems.com/cce-1.25/nginx:1.25.3-alpine",
+                      "name": "nginx",
+                      "resources": [
+                        {
+                          "limits": {
+                            "cpu": 2,
+                            "memory": "4G"
+                          },
+                          "requests": {
+                            "cpu": 2,
+                            "memory": "4G"
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "depends_on": [
+                    "${opentelekomcloud_cci_network_v2.example}"
+                  ],
+                  "image_pull_secrets": [
+                    {
+                      "name": "imagepull-secret"
+                    }
+                  ],
+                  "name": "my-pod",
+                  "namespace": "${opentelekomcloud_cci_namespace_v2.example.name}"
+                }
+              references:
+                namespace: opentelekomcloud_cci_namespace_v2.example.name
+        argumentDocs:
+            active_deadline_seconds: '- (Optional, Int) Specifies the active deadline seconds for the pod.'
+            affinity: |-
+                - (Optional, List, ForceNew) Specifies the affinity scheduling rules of the CCI pod.
+                Changing this creates a new resource.
+                The affinity structure is documented below.
+            affinity.node_affinity: |-
+                - (Optional, List) Specifies the node affinity scheduling rules.
+                The node_affinity structure is documented below.
+            affinity.pod_anti_affinity: |-
+                - (Optional, List) Specifies the pod anti-affinity scheduling rules.
+                The pod_anti_affinity structure is documented below.
+            annotations: '- (Optional, Map) Specifies the annotations of the CCI pod.'
+            api_version: '- The API version of the CCI pod.'
+            capabilities.add: '- (Optional, List) Specifies the list of capabilities to add.'
+            capabilities.drop: '- (Optional, List) Specifies the list of capabilities to drop.'
+            conditions.last_probe_time: '- The last time the condition was probed.'
+            conditions.last_transition_time: '- The last time the condition transitioned from one status to another.'
+            conditions.message: '- A human-readable message indicating details about the transition.'
+            conditions.reason: '- The reason for the condition''s last transition.'
+            conditions.status: '- The status of the condition.'
+            conditions.type: '- The type of the pod condition.'
+            config_map.default_mode: '- (Optional, Int) Specifies the default file mode bits for the volume.'
+            config_map.items: |-
+                - (Optional, List) Specifies the list of key-to-path mappings.
+                The items structure is documented below.
+            config_map.name: '- (Optional, String) Specifies the name of the ConfigMap.'
+            config_map.optional: '- (Optional, Bool) Specifies whether the ConfigMap must be defined.'
+            config_map_ref.name: '- (Optional, String) Specifies the name of the referent.'
+            config_map_ref.optional: '- (Optional, Bool) Specifies whether the referent must be defined.'
+            containers: |-
+                - (Required, List) Specifies the containers of the CCI pod.
+                Only image can be updated in-place; changing other container fields will trigger re-creation.
+                The containers structure is documented below.
+            containers.args: '- (Optional, List) Specifies the arguments to the entrypoint of the container.'
+            containers.command: '- (Optional, List) Specifies the entrypoint command of the container.'
+            containers.env: |-
+                - (Optional, List) Specifies the environment variables of the container.
+                The env structure is documented below.
+            containers.env_from: |-
+                - (Optional, List) Specifies the sources to populate environment variables.
+                The env_from structure is documented below.
+            containers.image: '- (Optional, String) Specifies the image name of the container.'
+            containers.lifecycle: |-
+                - (Optional, List) Specifies the lifecycle hooks of the container.
+                The lifecycle structure is documented below.
+            containers.liveness_probe: |-
+                - (Optional, List) Specifies the liveness probe of the container.
+                The liveness_probe structure is documented below.
+            containers.name: '- (Required, String) Specifies the name of the container.'
+            containers.ports: |-
+                - (Optional, List) Specifies the ports exposed by the container.
+                The ports structure is documented below.
+            containers.readiness_probe: |-
+                - (Optional, List) Specifies the readiness probe of the container.
+                The readiness_probe structure is documented below.
+            containers.resources: |-
+                - (Optional, List) Specifies the compute resources of the container.
+                The resources structure is documented below.
+            containers.security_context: |-
+                - (Optional, List) Specifies the security context of the container.
+                The security_context structure is documented below.
+            containers.startup_probe: |-
+                - (Optional, List) Specifies the startup probe of the container.
+                The startup_probe structure is documented below.
+            containers.stdin: '- (Optional, Bool) Specifies whether this container should allocate a buffer for stdin.'
+            containers.stdin_once: |-
+                - (Optional, Bool) Specifies whether the container runtime should close the stdin channel
+                after it has been opened by a single attach.
+            containers.termination_message_path: |-
+                - (Optional, String) Specifies the path at which the file to which the
+                container's termination message will be written.
+            containers.termination_message_policy: '- (Optional, String) Specifies how the termination message should be populated.'
+            containers.tty: '- (Optional, Bool) Specifies whether this container should allocate a TTY for itself.'
+            containers.volume_mounts: |-
+                - (Optional, List) Specifies the volume mounts of the container.
+                The volume_mounts structure is documented below.
+            containers.working_dir: '- (Optional, String) Specifies the working directory of the container.'
+            create: '- Default is 10 minutes.'
+            creation_timestamp: '- The creation timestamp of the CCI pod.'
+            delete: '- Default is 10 minutes.'
+            dns_config: |-
+                - (Optional, List, ForceNew) Specifies the DNS configuration of the pod.
+                Changing this creates a new resource.
+                The dns_config structure is documented below.
+            dns_config.nameservers: '- (Optional, List) Specifies the list of DNS name servers.'
+            dns_config.options: |-
+                - (Optional, List) Specifies the list of DNS resolver options.
+                The options structure is documented below.
+            dns_config.searches: '- (Optional, List) Specifies the list of DNS search domains.'
+            dns_policy: |-
+                - (Optional, String, ForceNew) Specifies the DNS policy of the pod.
+                Valid values are ClusterFirst, ClusterFirstWithHostNet, Default, or None.
+                Changing this creates a new resource.
+            downward_api.items: |-
+                - (Optional, List) Specifies the list of downward API volume files.
+                The items structure is documented below.
+            downward_api.items.field_ref: |-
+                - (Optional, List) Specifies the object field selector.
+                The field_ref structure is documented below.
+            downward_api.items.mode: '- (Optional, Int) Specifies the file mode bits for the file.'
+            downward_api.items.path: '- (Required, String) Specifies the relative path of the file to create.'
+            downward_api.items.resource_field_ref: |-
+                - (Optional, List) Specifies the container resource field selector.
+                The resource_field_ref structure is documented below.
+            env.name: '- (Required, String) Specifies the name of the environment variable.'
+            env.value: '- (Optional, String) Specifies the value of the environment variable.'
+            env_from.config_map_ref: |-
+                - (Optional, List) Specifies the ConfigMap to select from.
+                The config_map_ref structure is documented below.
+            env_from.prefix: '- (Optional, String) Specifies an optional identifier to prepend to each key.'
+            env_from.secret_ref: |-
+                - (Optional, List) Specifies the Secret to select from.
+                The secret_ref structure is documented below.
+            ephemeral_containers: |-
+                - (Optional, List, ForceNew) Specifies the ephemeral containers of the CCI pod.
+                Changing this creates a new resource.
+                The ephemeral_containers structure is documented below.
+            ephemeral_containers.args: '- (Optional, List) Specifies the arguments to the entrypoint.'
+            ephemeral_containers.command: '- (Optional, List) Specifies the entrypoint command.'
+            ephemeral_containers.env: |-
+                - (Optional, List) Specifies the environment variables.
+                The env structure is documented below.
+            ephemeral_containers.env_from: |-
+                - (Optional, List) Specifies the sources to populate environment variables.
+                The env_from structure is documented below.
+            ephemeral_containers.image: '- (Optional, String) Specifies the image name of the ephemeral container.'
+            ephemeral_containers.name: '- (Required, String) Specifies the name of the ephemeral container.'
+            ephemeral_containers.security_context: |-
+                - (Optional, List) Specifies the security context.
+                The security_context structure is documented below.
+            ephemeral_containers.stdin: '- (Optional, Bool) Specifies whether to allocate a buffer for stdin.'
+            ephemeral_containers.stdin_once: '- (Optional, Bool) Specifies whether the runtime should close the stdin channel.'
+            ephemeral_containers.target_container_name: |-
+                - (Optional, String) Specifies the name of the target container
+                to which the ephemeral container will be attached.
+            ephemeral_containers.termination_message_path: '- (Optional, String) Specifies the termination message path.'
+            ephemeral_containers.termination_message_policy: '- (Optional, String) Specifies the termination message policy.'
+            ephemeral_containers.tty: '- (Optional, Bool) Specifies whether to allocate a TTY.'
+            ephemeral_containers.volume_mounts: |-
+                - (Optional, List) Specifies the volume mounts.
+                The volume_mounts structure is documented below.
+            ephemeral_containers.working_dir: '- (Optional, String) Specifies the working directory.'
+            exec.command: '- (Optional, List) Specifies the command line to execute inside the container.'
+            field_ref.api_version: '- (Optional, String) Specifies the API version of the field path.'
+            field_ref.field_path: '- (Required, String) Specifies the field path to select.'
+            finalizers: '- The finalizers of the CCI pod.'
+            host_aliases: |-
+                - (Optional, List, ForceNew) Specifies the host aliases of the CCI pod.
+                Changing this creates a new resource.
+                The host_aliases structure is documented below.
+            host_aliases.hostnames: '- (Optional, List) Specifies the list of hostnames for the IP address.'
+            host_aliases.ip: '- (Optional, String) Specifies the IP address of the host.'
+            hostname: |-
+                - (Optional, String, ForceNew) Specifies the hostname of the pod.
+                Changing this creates a new resource.
+            http_get.host: '- (Optional, String) Specifies the hostname to connect to.'
+            http_get.http_headers: |-
+                - (Optional, List) Specifies the custom headers to set in the request.
+                The http_headers structure is documented below.
+            http_get.path: '- (Optional, String) Specifies the path to access on the HTTP server.'
+            http_get.port: '- (Required, String) Specifies the port to access on the container.'
+            http_get.scheme: '- (Optional, String) Specifies the scheme to use for connecting to the host.'
+            http_headers.name: '- (Required, String) Specifies the name of the custom HTTP header.'
+            http_headers.value: '- (Required, String) Specifies the value of the custom HTTP header.'
+            id: '- The resource ID in format <namespace>/<name>.'
+            image_pull_secrets: |-
+                - (Optional, List, ForceNew) Specifies the image pull secrets of the pod.
+                Changing this creates a new resource.
+                The image_pull_secrets structure is documented below.
+            image_pull_secrets.name: '- (Optional, String) Specifies the name of the image pull secret.'
+            init_containers: |-
+                - (Optional, List) Specifies the init containers of the CCI pod.
+                Only image can be updated in-place; changing other fields will trigger re-creation.
+                The init_containers structure is documented below.
+            items.key: '- (Required, String) Specifies the key to project.'
+            items.mode: '- (Optional, Int) Specifies the file mode bits for the file.'
+            items.path: '- (Required, String) Specifies the relative path of the file to map the key to.'
+            kind: '- The kind of the CCI pod.'
+            label_selector.match_expressions: |-
+                - (Optional, List) Specifies the list of label selector requirements.
+                The match_expressions structure is documented below.
+            label_selector.match_labels: '- (Optional, Map) Specifies the map of key-value pairs for matching.'
+            labels: '- (Optional, Map) Specifies the labels of the CCI pod.'
+            lifecycle.post_start: |-
+                - (Optional, List) Specifies the handler called after a container is created.
+                The post_start structure is documented below.
+            lifecycle.pre_stop: |-
+                - (Optional, List) Specifies the handler called before a container is terminated.
+                The pre_stop structure is documented below.
+            liveness_probe.exec: |-
+                - (Optional, List) Specifies the exec-based probe action.
+                The exec structure is documented below.
+            liveness_probe.failure_threshold: |-
+                - (Optional, Int) Specifies the minimum consecutive failures for the probe to be
+                considered failed after having succeeded.
+            liveness_probe.http_get: |-
+                - (Optional, List) Specifies the HTTP GET-based probe action.
+                The http_get structure is documented below.
+            liveness_probe.initial_delay_seconds: |-
+                - (Optional, Int) Specifies the number of seconds after the container has started
+                before probes are initiated.
+            liveness_probe.period_seconds: '- (Optional, Int) Specifies how often (in seconds) to perform the probe.'
+            liveness_probe.success_threshold: |-
+                - (Computed, Int) The minimum consecutive successes for the probe to be considered
+                successful after having failed.
+            liveness_probe.termination_grace_period_seconds: |-
+                - (Optional, Int) Specifies the grace period in seconds before
+                the pod is forcefully terminated when the probe fails.
+            match_expressions.key: '- (Required, String) Specifies the label key that the selector applies to.'
+            match_expressions.operator: '- (Required, String) Specifies the operator. Valid values are In, NotIn, Exists, DoesNotExist.'
+            match_expressions.values: '- (Optional, List) Specifies the list of string values.'
+            name: |-
+                - (Required, String, ForceNew) Specifies the name of the CCI pod.
+                Changing this creates a new resource.
+            namespace: |-
+                - (Required, String, ForceNew) Specifies the namespace of the CCI pod.
+                Changing this creates a new resource.
+            nfs.path: '- (Required, String) Specifies the NFS server path.'
+            nfs.read_only: '- (Optional, Bool) Specifies whether the NFS volume is read-only.'
+            nfs.server: '- (Required, String) Specifies the NFS server hostname or IP address.'
+            node_affinity.required_during_scheduling_ignored_during_execution: |-
+                - (Optional, List) Specifies the required node selector.
+                The required_during_scheduling_ignored_during_execution structure is documented below.
+            node_affinity.required_during_scheduling_ignored_during_execution.node_selector_terms: |-
+                - (Required, List) Specifies the list of node selector terms.
+                The node_selector_terms structure is documented below.
+            node_affinity.required_during_scheduling_ignored_during_execution.node_selector_terms.match_expressions: |-
+                - (Optional, List) Specifies the list of node selector requirements by node's labels.
+                The match_expressions structure is documented below.
+            node_name: |-
+                - (Optional, String, ForceNew) Specifies the node name of the CCI pod.
+                Changing this creates a new resource.
+            options.name: '- (Optional, String) Specifies the name of the option.'
+            options.value: '- (Optional, String) Specifies the value of the option.'
+            overhead: |-
+                - (Optional, Map, ForceNew) Specifies the overhead resources of the CCI pod.
+                Changing this creates a new resource.
+            persistent_volume_claim.claim_name: '- (Required, String) Specifies the name of the PersistentVolumeClaim.'
+            persistent_volume_claim.read_only: '- (Optional, Bool) Specifies whether the volume is read-only.'
+            pod_affinity_term.label_selector: |-
+                - (Optional, List) Specifies the label selector.
+                The label_selector structure is documented below.
+            pod_affinity_term.namespaces: '- (Optional, List) Specifies the namespaces to match against.'
+            pod_affinity_term.topology_key: '- (Required, String) Specifies the topology key.'
+            pod_anti_affinity.preferred_during_scheduling_ignored_during_execution: |-
+                - (Optional, List) Specifies the preferred scheduling terms.
+                The preferred_during_scheduling_ignored_during_execution structure is documented below.
+            pod_anti_affinity.required_during_scheduling_ignored_during_execution: |-
+                - (Optional, List) Specifies the required scheduling terms.
+                The required_during_scheduling_ignored_during_execution structure is documented below.
+            ports.container_port: '- (Required, Int) Specifies the port number to expose on the pod''s IP address.'
+            ports.name: '- (Optional, String) Specifies the name of the port.'
+            ports.protocol: '- (Optional, String) Specifies the protocol for the port. Valid values are TCP, UDP.'
+            post_start.exec: |-
+                - (Optional, List) Specifies the exec-based handler.
+                The exec structure is documented below.
+            post_start.http_get: |-
+                - (Optional, List) Specifies the HTTP GET-based handler.
+                The http_get structure is documented below.
+            preferred_during_scheduling_ignored_during_execution.pod_affinity_term: |-
+                - (Required, List) Specifies the pod affinity term.
+                The pod_affinity_term structure is documented below.
+            preferred_during_scheduling_ignored_during_execution.weight: '- (Required, Int) Specifies the weight associated with matching the corresponding pod affinity term.'
+            projected.default_mode: '- (Optional, Int) Specifies the default file mode bits for the volume.'
+            projected.sources: |-
+                - (Optional, List) Specifies the list of volume projection sources.
+                The sources structure is documented below.
+            readiness_gates: |-
+                - (Optional, List, ForceNew) Specifies the readiness gates of the CCI pod.
+                Changing this creates a new resource.
+                The readiness_gates structure is documented below.
+            readiness_gates.condition_type: '- (Required, String) Specifies the condition type of the readiness gate.'
+            region: '- The region of the CCI pod.'
+            resource_field_ref.container_name: '- (Optional, String) Specifies the name of the container.'
+            resource_field_ref.resource: '- (Required, String) Specifies the resource to select.'
+            resource_version: '- The resource version of the CCI pod.'
+            resources.limits: '- (Optional, Map) Specifies the maximum amount of compute resources allowed.'
+            resources.requests: '- (Optional, Map) Specifies the minimum amount of compute resources required.'
+            restart_policy: |-
+                - (Optional, String, ForceNew) The restart policy for all containers within the pod.
+                Valid values are Always, Never, or OnFailure.
+                Changing this creates a new resource.
+            scheduler_name: |-
+                - (Optional, String, ForceNew) Specifies the scheduler name of the CCI pod.
+                Changing this creates a new resource.
+            secret.default_mode: '- (Optional, Int) Specifies the default file mode bits for the volume.'
+            secret.items: |-
+                - (Optional, List) Specifies the key-to-path mappings.
+                The items structure is documented below.
+            secret.name: '- (Optional, String) Specifies the name of the Secret.'
+            secret.optional: '- (Optional, Bool) Specifies whether the Secret must be defined.'
+            secret.secret_name: '- (Optional, String) Specifies the name of the Secret.'
+            security_context: |-
+                - (Optional, List, ForceNew) Specifies the pod-level security context.
+                Changing this creates a new resource.
+                The security_context structure is documented below.
+            security_context.capabilities: |-
+                - (Optional, List) Specifies the capabilities to add/drop.
+                The capabilities structure is documented below.
+            security_context.fs_group: '- (Optional, Int) Specifies the GID applied to all containers in the pod.'
+            security_context.fs_group_change_policy: |-
+                - (Optional, String) Specifies the behavior of changing ownership
+                and permission of the volume. Valid values are Always, OnRootMismatch.
+            security_context.proc_mount: '- (Optional, String) Specifies the type of proc mount to use for the container.'
+            security_context.read_only_root_file_system: '- (Optional, Bool) Specifies whether this container has a read-only root filesystem.'
+            security_context.run_as_group: '- (Optional, Int) Specifies the GID to run the entrypoint of the container process.'
+            security_context.run_as_non_root: '- (Optional, Bool) Specifies that the container must run as a non-root user.'
+            security_context.run_as_user: '- (Optional, Int) Specifies the UID to run the entrypoint of the container process.'
+            security_context.supplemental_groups: '- (Optional, List) Specifies the list of supplemental groups applied to the pod.'
+            security_context.sysctls: |-
+                - (Optional, List) Specifies the list of namespaced sysctls.
+                The sysctls structure is documented below.
+            set_hostname_as_fqdn: |-
+                - (Optional, Bool, ForceNew) Specifies whether the pod hostname is configured
+                as the pod FQDN. Changing this creates a new resource.
+            share_process_namespace: |-
+                - (Optional, Bool, ForceNew) Specifies whether to share a single process namespace
+                between all containers in a pod. Changing this creates a new resource.
+            sources.config_map: |-
+                - (Optional, List) Specifies the ConfigMap projection.
+                The config_map structure is documented below.
+            sources.downward_api: |-
+                - (Optional, List) Specifies the Downward API projection.
+                The downward_api structure is documented below.
+            sources.secret: |-
+                - (Optional, List) Specifies the Secret projection.
+                The secret structure is documented below.
+            status: |-
+                - The status of the CCI pod.
+                The status structure is documented below.
+            status.conditions: |-
+                - The conditions of the CCI pod.
+                The conditions structure is documented below.
+            status.phase: '- The phase of the CCI pod. Valid values include Pending, Running, Succeeded, Failed, Unknown.'
+            sysctls.name: '- (Required, String) Specifies the name of the sysctl.'
+            sysctls.value: '- (Required, String) Specifies the value of the sysctl.'
+            termination_grace_period_seconds: |-
+                - (Optional, Int) Specifies the grace period in seconds before the pod
+                is forcefully terminated.
+            uid: '- The UID of the CCI pod.'
+            volume_mounts.extend_path_mode: '- (Optional, String) Specifies the extend path mode of the volume mount.'
+            volume_mounts.mount_path: '- (Required, String) Specifies the path within the container at which the volume should be mounted.'
+            volume_mounts.name: '- (Required, String) Specifies the name of the volume to mount. Must match the name of a volume.'
+            volume_mounts.read_only: '- (Optional, Bool) Specifies whether the volume is mounted as read-only. Defaults to false.'
+            volume_mounts.sub_path: '- (Optional, String) Specifies the sub-path inside the volume to mount.'
+            volume_mounts.sub_path_expr: '- (Optional, String) Specifies the expanded sub-path using environment variables.'
+            volumes: |-
+                - (Optional, List, ForceNew) Specifies the volumes of the CCI pod.
+                Changing this creates a new resource.
+                The volumes structure is documented below.
+            volumes.config_map: |-
+                - (Optional, List) Specifies the ConfigMap volume source.
+                The config_map structure is documented below.
+            volumes.name: '- (Required, String) Specifies the name of the volume.'
+            volumes.nfs: |-
+                - (Optional, List) Specifies the NFS volume source.
+                The nfs structure is documented below.
+            volumes.persistent_volume_claim: |-
+                - (Optional, List) Specifies the PersistentVolumeClaim volume source.
+                The persistent_volume_claim structure is documented below.
+            volumes.projected: |-
+                - (Optional, List) Specifies the projected volume source.
+                The projected structure is documented below.
+            volumes.secret: |-
+                - (Optional, List) Specifies the Secret volume source.
+                The secret structure is documented below.
+        importStatements: []
+    opentelekomcloud_cci_secret_v2:
+        subCategory: Cloud Container Instance (CCI)
+        description: Manages a CCI v2 Secret resource within OpenTelekomCloud.
+        name: opentelekomcloud_cci_secret_v2
+        title: opentelekomcloud_cci_secret_v2
+        examples:
+            - name: opaque
+              manifest: |-
+                {
+                  "data": {
+                    "password": "${base64encode(\"p@ssw0rd\")}",
+                    "username": "${base64encode(\"admin\")}"
+                  },
+                  "name": "my-opaque-secret",
+                  "namespace": "${opentelekomcloud_cci_namespace_v2.test.name}",
+                  "type": "Opaque"
+                }
+              references:
+                namespace: opentelekomcloud_cci_namespace_v2.test.name
+            - name: registry
+              manifest: |-
+                {
+                  "data": {
+                    ".dockerconfigjson": "${base64encode(jsonencode({\n      auths = {\n        \"swr.eu-de.otc.t-systems.com\" = {\n          username = \"user\"\n          password = \"token\"\n          auth     = base64encode(\"user:token\")\n        }\n      }\n    }))}"
+                  },
+                  "name": "my-registry-secret",
+                  "namespace": "${opentelekomcloud_cci_namespace_v2.test.name}",
+                  "type": "kubernetes.io/dockerconfigjson"
+                }
+              references:
+                namespace: opentelekomcloud_cci_namespace_v2.test.name
+        argumentDocs:
+            annotations: '- The annotations of the CCI Secret.'
+            api_version: '- The API version of the CCI Secret.'
+            creation_timestamp: '- The creation timestamp of the CCI Secret.'
+            data: |-
+                - (Optional, Map) Specifies the data of the CCI Secret.
+                The values must be base64-encoded strings.
+            id: '- The resource ID in format <namespace>/<name>.'
+            immutable: '- Whether the CCI Secret is immutable.'
+            kind: '- The kind of the CCI Secret.'
+            labels: '- The labels of the CCI Secret.'
+            name: '- (Required, String, ForceNew) Specifies the name of the CCI Secret.'
+            namespace: '- (Required, String, ForceNew) Specifies the namespace of the CCI Secret.'
+            region: '- The region of the CCI Secret.'
+            resource_version: '- The resource version of the CCI Secret.'
+            string_data: |-
+                - (Optional, Map) Specifies string data of the CCI Secret.
+                The values will be encoded to base64 by the API before storage.
+            type: |-
+                - (Optional, String) Specifies the type of the CCI Secret.
+                For example, Opaque, kubernetes.io/dockerconfigjson, etc.
+            uid: '- The uid of the CCI Secret.'
         importStatements: []
     opentelekomcloud_ces_alarm_rule_v2:
         subCategory: Cloud Eye (CES)
@@ -10522,6 +11121,9 @@ resources:
                 - (Optional, String, ForceNew) The system disk type of the server.
                 Changing this creates a new server. Options are limited depending on AZ. Default: SSD. Available options are:
             tags: '- (Optional, Map) Tags key/value pairs to associate with the instance.'
+            tpm_enabled: |-
+                - (Optional, Boolean) Specifies whether to enable vTPM on the ECS. Defaults to false.
+                Currently, only Pi5e instance types support TPM.
             user_data: |-
                 - (Optional, String, ForceNew) The user data to provide when launching the instance.
                 Changing this creates a new server.
@@ -19409,8 +20011,8 @@ resources:
                 triggered during the backup time window. It must be a valid value in the "hh:mm-HH:MM"
                 format. The current time is in the UTC format. The HH value must
                 be 1 greater than the hh value. The values of mm and MM must be
-                the same and must be set to any of the following: 00, 15, 30, or
-                45. Example value: 08:15-09:15 23:00-00:00.
+                the same and must be set to any of the following: 00, 15, 30, or 45.
+                Example value: 08:15-09:15 23:00-00:00.
             create: '- Default is 30 minute.'
             created: '- Indicates the creation time.'
             db: '- (Required, ForceNew) Specifies the database information. Structure is documented below. Changing this parameter will create a new resource.'
@@ -19463,7 +20065,7 @@ resources:
                 - (Optional) Map of additional configuration parameters. Values should be strings. Parameters set here
                 overrides values from configuration template (parameter group).
             private_domain_name: '- (Optional) Specifies the prefix of the new domain name. The value contains 8 to 63 characters. Only uppercase letters, lowercase letters, and digits are allowed.'
-            private_fqdn: '- Indicates the fully qualified domain name of an RDS instance.'
+            private_fqdn: '- Indicates the fully qualified domain name of an RDS instance (not supported in eu-ch2 region).'
             private_ip: '- (Optional, ForceNew) Specifies the private IP address of a DB instance.'
             private_ips: |-
                 - Indicates the private IP address list. It is a blank string until an
@@ -22007,6 +22609,154 @@ resources:
             peer_vpc_id: '- (Required, String, ForceNew) Specifies the VPC ID of the accepter tenant. Changing this creates a new VPC peering connection.'
             status: '- The VPC peering connection status. The value can be PENDING_ACCEPTANCE, REJECTED, EXPIRED, DELETED, or ACTIVE.'
             vpc_id: '- (Required, String, ForceNew) Specifies the ID of a VPC involved in a VPC peering connection. Changing this creates a new VPC peering connection.'
+        importStatements: []
+    opentelekomcloud_vpc_route_table_route_v1:
+        subCategory: Virtual Private Cloud (VPC)
+        description: Manages a VPC Route Table Route resource within OpenTelekomCloud.
+        name: opentelekomcloud_vpc_route_table_route_v1
+        title: opentelekomcloud_vpc_route_table_route_v1
+        examples:
+            - name: route
+              manifest: |-
+                {
+                  "description": "peering route",
+                  "destination": "172.16.0.0/16",
+                  "nexthop": "${opentelekomcloud_vpc_peering_connection_v2.peering.id}",
+                  "type": "peering",
+                  "vpc_id": "${opentelekomcloud_vpc_v1.vpc_1.id}"
+                }
+              references:
+                nexthop: opentelekomcloud_vpc_peering_connection_v2.peering.id
+                vpc_id: opentelekomcloud_vpc_v1.vpc_1.id
+              dependencies:
+                opentelekomcloud_vpc_peering_connection_v2.peering: |-
+                    {
+                      "name": "my_peering",
+                      "peer_vpc_id": "${opentelekomcloud_vpc_v1.vpc_2.id}",
+                      "vpc_id": "${opentelekomcloud_vpc_v1.vpc_1.id}"
+                    }
+                opentelekomcloud_vpc_v1.vpc_1: |-
+                    {
+                      "cidr": "192.168.0.0/16",
+                      "name": "vpc-1"
+                    }
+                opentelekomcloud_vpc_v1.vpc_2: |-
+                    {
+                      "cidr": "172.16.0.0/16",
+                      "name": "vpc-2"
+                    }
+            - name: route
+              manifest: |-
+                {
+                  "description": "peering route on custom table",
+                  "destination": "172.16.0.0/16",
+                  "nexthop": "${opentelekomcloud_vpc_peering_connection_v2.peering.id}",
+                  "route_table_id": "${opentelekomcloud_vpc_route_table_v1.table.id}",
+                  "type": "peering",
+                  "vpc_id": "${opentelekomcloud_vpc_v1.vpc_1.id}"
+                }
+              references:
+                nexthop: opentelekomcloud_vpc_peering_connection_v2.peering.id
+                route_table_id: opentelekomcloud_vpc_route_table_v1.table.id
+                vpc_id: opentelekomcloud_vpc_v1.vpc_1.id
+              dependencies:
+                opentelekomcloud_vpc_peering_connection_v2.peering: |-
+                    {
+                      "name": "my_peering",
+                      "peer_vpc_id": "${opentelekomcloud_vpc_v1.vpc_2.id}",
+                      "vpc_id": "${opentelekomcloud_vpc_v1.vpc_1.id}"
+                    }
+                opentelekomcloud_vpc_route_table_v1.table: |-
+                    {
+                      "name": "my_table",
+                      "vpc_id": "${opentelekomcloud_vpc_v1.vpc_1.id}"
+                    }
+                opentelekomcloud_vpc_v1.vpc_1: |-
+                    {
+                      "cidr": "192.168.0.0/16",
+                      "name": "vpc-1"
+                    }
+                opentelekomcloud_vpc_v1.vpc_2: |-
+                    {
+                      "cidr": "172.16.0.0/16",
+                      "name": "vpc-2"
+                    }
+        argumentDocs:
+            description: |-
+                - (Optional, String) Specifies the supplementary information about the route.
+                The value is a string of no more than 255 characters and cannot contain angle brackets (< or >).
+            destination: |-
+                - (Required, String, ForceNew) Specifies the destination address in the CIDR notation format,
+                for example, 192.168.200.0/24. The destination of each route must be unique and cannot overlap
+                with any subnet in the VPC. Changing this creates a new resource.
+            id: '- The resource ID in format {route_table_id}/{destination}.'
+            nexthop: '- (Required, String) Specifies the next hop.'
+            region: |-
+                - (Optional, String, ForceNew) The region in which to create the route.
+                If omitted, the provider-level region will be used. Changing this creates a new resource.
+            route_table_id: |-
+                - (Optional, String, ForceNew) Specifies the route table ID. If omitted, the
+                default route table of the VPC will be used. Changing this creates a new resource.
+            route_table_name: '- The name of the route table.'
+            type: |-
+                - (Required, String) Specifies the route type. Currently, the value can be:
+                ecs, eni, vip, nat, peering, vpn, dc, egw, er, subeni and local
+            vpc_id: |-
+                - (Required, String, ForceNew) Specifies the VPC ID that the route table belongs to.
+                Changing this creates a new resource.
+        importStatements: []
+    opentelekomcloud_vpc_route_table_subnet_associate_v1:
+        subCategory: Virtual Private Cloud (VPC)
+        description: Manages a VPC Route Table Subnet Association resource within OpenTelekomCloud.
+        name: opentelekomcloud_vpc_route_table_subnet_associate_v1
+        title: opentelekomcloud_vpc_route_table_subnet_associate_v1
+        examples:
+            - name: assoc
+              manifest: |-
+                {
+                  "route_table_id": "${opentelekomcloud_vpc_route_table_v1.table.id}",
+                  "subnet_id": "${opentelekomcloud_vpc_subnet_v1.subnet.id}"
+                }
+              references:
+                route_table_id: opentelekomcloud_vpc_route_table_v1.table.id
+                subnet_id: opentelekomcloud_vpc_subnet_v1.subnet.id
+              dependencies:
+                opentelekomcloud_vpc_route_table_v1.table: |-
+                    {
+                      "lifecycle": [
+                        {
+                          "ignore_changes": [
+                            "${subnets}"
+                          ]
+                        }
+                      ],
+                      "name": "my-table",
+                      "vpc_id": "${opentelekomcloud_vpc_v1.vpc.id}"
+                    }
+                opentelekomcloud_vpc_subnet_v1.subnet: |-
+                    {
+                      "cidr": "192.168.0.0/24",
+                      "gateway_ip": "192.168.0.1",
+                      "name": "my-subnet",
+                      "vpc_id": "${opentelekomcloud_vpc_v1.vpc.id}"
+                    }
+                opentelekomcloud_vpc_v1.vpc: |-
+                    {
+                      "cidr": "192.168.0.0/16",
+                      "name": "my-vpc"
+                    }
+        argumentDocs:
+            id: '- The resource ID in format {route_table_id}/{subnet_id}.'
+            region: |-
+                - (Optional, String, ForceNew) The region in which to create the association.
+                If omitted, the provider-level region will be used. Changing this creates a new resource.
+            route_table_id: |-
+                - (Required, String, ForceNew) Specifies the route table ID to associate the
+                subnet with. Changing this creates a new resource.
+            subnet_id: |-
+                - (Required, String, ForceNew) Specifies the subnet ID to associate with the route
+                table. Changing this creates a new resource.
+            vpc_id: '- The VPC ID that the route table belongs to.'
         importStatements: []
     opentelekomcloud_vpc_route_table_v1:
         subCategory: Virtual Private Cloud (VPC)

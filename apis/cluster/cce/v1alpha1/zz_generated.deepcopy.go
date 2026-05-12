@@ -640,6 +640,11 @@ func (in *ClusterV3InitParameters) DeepCopyInto(out *ClusterV3InitParameters) {
 		*out = new(v1.Selector)
 		(*in).DeepCopyInto(*out)
 	}
+	if in.EnableDeletionProtection != nil {
+		in, out := &in.EnableDeletionProtection, &out.EnableDeletionProtection
+		*out = new(bool)
+		**out = **in
+	}
 	if in.EnableVolumeEncryption != nil {
 		in, out := &in.EnableVolumeEncryption, &out.EnableVolumeEncryption
 		*out = new(bool)
@@ -1027,6 +1032,11 @@ func (in *ClusterV3Observation) DeepCopyInto(out *ClusterV3Observation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.EnableDeletionProtection != nil {
+		in, out := &in.EnableDeletionProtection, &out.EnableDeletionProtection
+		*out = new(bool)
+		**out = **in
+	}
 	if in.EnableVolumeEncryption != nil {
 		in, out := &in.EnableVolumeEncryption, &out.EnableVolumeEncryption
 		*out = new(bool)
@@ -1373,6 +1383,11 @@ func (in *ClusterV3Parameters) DeepCopyInto(out *ClusterV3Parameters) {
 		in, out := &in.EIPSelector, &out.EIPSelector
 		*out = new(v1.Selector)
 		(*in).DeepCopyInto(*out)
+	}
+	if in.EnableDeletionProtection != nil {
+		in, out := &in.EnableDeletionProtection, &out.EnableDeletionProtection
+		*out = new(bool)
+		**out = **in
 	}
 	if in.EnableVolumeEncryption != nil {
 		in, out := &in.EnableVolumeEncryption, &out.EnableVolumeEncryption

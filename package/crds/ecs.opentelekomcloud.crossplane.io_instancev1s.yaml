@@ -605,6 +605,11 @@ spec:
                     description: Tags key/value pairs to associate with the instance.
                     type: object
                     x-kubernetes-map-type: granular
+                  tpmEnabled:
+                    description: |-
+                      Specifies whether to enable vTPM on the ECS. Defaults to false.
+                      Currently, only Pi5e instance types support TPM.
+                    type: boolean
                   userData:
                     description: |-
                       The user data to provide when launching the instance.
@@ -1234,6 +1239,11 @@ spec:
                     description: Tags key/value pairs to associate with the instance.
                     type: object
                     x-kubernetes-map-type: granular
+                  tpmEnabled:
+                    description: |-
+                      Specifies whether to enable vTPM on the ECS. Defaults to false.
+                      Currently, only Pi5e instance types support TPM.
+                    type: boolean
                   userData:
                     description: |-
                       The user data to provide when launching the instance.
@@ -1581,6 +1591,11 @@ spec:
                     description: Tags key/value pairs to associate with the instance.
                     type: object
                     x-kubernetes-map-type: granular
+                  tpmEnabled:
+                    description: |-
+                      Specifies whether to enable vTPM on the ECS. Defaults to false.
+                      Currently, only Pi5e instance types support TPM.
+                    type: boolean
                   userData:
                     description: |-
                       The user data to provide when launching the instance.
