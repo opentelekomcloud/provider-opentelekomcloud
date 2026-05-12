@@ -6,6 +6,9 @@
 * docs: move to doc dir by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/101
 * feat: add support for basic kms by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/103
 * bug: remove softlink for upbound doc by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/104
+* Release notes for upbound marketplace by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/107
+* chore(deps): bump go.opentelemetry.io/otel from 1.39.0 to 1.41.0 in the go_modules group across 1 directory by @dependabot[bot] in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/105
+* chore: Regen provider with v1.36.63 by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/108
 
 
 **Full Changelog**: https://github.com/opentelekomcloud/provider-opentelekomcloud/compare/v0.8.0...v0.9.0
