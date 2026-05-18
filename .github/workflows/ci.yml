@@ -328,17 +328,20 @@ jobs:
         run: make publish BRANCH_NAME=${GITHUB_REF##*/}
 
       - name: Install Up CLI
+        if: startsWith(github.ref_name, 'release-')
         run: |
           curl -sL https://cli.upbound.io | sh
           sudo mv up /usr/local/bin/
 
       - name: Up CLI Login
+        if: startsWith(github.ref_name, 'release-')
         env:
           username: ${{ secrets.UPBOUND_MARKETPLACE_PUSH_ROBOT_USR }}
           password: ${{ secrets.UPBOUND_MARKETPLACE_PUSH_ROBOT_PSW }}
         run: |
           up login --username ${username} --password ${password}
       - name: Up CLI Append extension
+        if: startsWith(github.ref_name, 'release-')
         run: |
           up alpha xpkg append \
             --extensions-root=./extensions \
