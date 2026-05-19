@@ -331,15 +331,15 @@ jobs:
         if: startsWith(github.ref_name, 'release-')
         run: |
           curl -sL https://cli.upbound.io | sh
-          sudo mv up /usr/local/bin/
+          if command -v sudo >/dev/null 2>&1; then
+            sudo mv up /usr/local/bin/up
+          else
+            mkdir -p "$HOME/bin"
+            mv up "$HOME/bin/up"
+            echo "$HOME/bin" >> "$GITHUB_PATH"
+          fi
+          /usr/local/bin/up version || up version
 
-      - name: Up CLI Login
-        if: startsWith(github.ref_name, 'release-')
-        env:
-          username: ${{ secrets.UPBOUND_MARKETPLACE_PUSH_ROBOT_USR }}
-          password: ${{ secrets.UPBOUND_MARKETPLACE_PUSH_ROBOT_PSW }}
-        run: |
-          up login --username ${username} --password ${password}
       - name: Up CLI Append extension
         if: startsWith(github.ref_name, 'release-')
         run: |
