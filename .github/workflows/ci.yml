@@ -340,20 +340,12 @@ jobs:
           fi
           /usr/local/bin/up version || up version
 
-      - name: Upbound login
-        if: env.UPBOUND_MARKETPLACE_PUSH_ROBOT_USR != ''
-        run: |
-          echo "${{ secrets.UPBOUND_MARKETPLACE_PUSH_ROBOT_PSW }}" | docker login xpkg.upbound.io -u "${{ secrets.UPBOUND_MARKETPLACE_PUSH_ROBOT_USR }}" --password-stdin
-
-      - name: DEBUG test UP CLI
-        run: |
-          up robot list
       - name: Up CLI Append extension
-        if: startsWith(github.ref_name, 'release-')
+        #if: startsWith(github.ref_name, 'release-')
         run: |
           up alpha xpkg append \
             --extensions-root=./extensions \
-            xpkg.upbound.io/opentelekomcloud/provider-opentelekomcloud:${GITHUB_REF##*/}
+            xpkg.upbound.io/opentelekomcloud/provider-opentelekomcloud:v0.9.0
 
   eco_check:
     name: eco/check
