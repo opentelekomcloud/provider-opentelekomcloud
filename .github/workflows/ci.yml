@@ -339,12 +339,12 @@ jobs:
             echo "$HOME/bin" >> "$GITHUB_PATH"
           fi
           /usr/local/bin/up version || up version
-      
+
       - name: Upbound login
         if: env.UPBOUND_MARKETPLACE_PUSH_ROBOT_USR != ''
         run: |
-        echo "${{ secrets.UPBOUND_MARKETPLACE_PUSH_ROBOT_PSW }}" | \ 
-        docker login xpkg.upbound.io -u "${{ secrets.UPBOUND_MARKETPLACE_PUSH_ROBOT_USR }}" --password-stdin
+          echo "${{ secrets.UPBOUND_MARKETPLACE_PUSH_ROBOT_PSW }}" | \ 
+          docker login xpkg.upbound.io -u "${{ secrets.UPBOUND_MARKETPLACE_PUSH_ROBOT_USR }}" --password-stdin
 
       - name: DEBUG test UP CLI
         run: |
