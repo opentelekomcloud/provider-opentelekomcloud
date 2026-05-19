@@ -328,7 +328,7 @@ jobs:
         run: make publish BRANCH_NAME=${GITHUB_REF##*/}
 
       - name: Install Up CLI
-        if: startsWith(github.ref_name, 'release-')
+        #if: startsWith(github.ref_name, 'release-')
         run: |
           curl -sL https://cli.upbound.io | sh
           if command -v sudo >/dev/null 2>&1; then
@@ -340,6 +340,9 @@ jobs:
           fi
           /usr/local/bin/up version || up version
 
+      - name: DEBUG test UP CLI
+        run: |
+          up robot list
       - name: Up CLI Append extension
         if: startsWith(github.ref_name, 'release-')
         run: |
