@@ -1,3 +1,4 @@
+# For releases should be started from the release-* branch
 name: CI
 
 on:
@@ -327,6 +328,7 @@ jobs:
       - name: Publish Artifacts
         run: make publish BRANCH_NAME=${GITHUB_REF##*/}
 
+      ### --- RUN ONLY ON release-* branches --- ###
       - name: Install Up CLI
         if: startsWith(github.ref_name, 'release-')
         run: |
@@ -340,13 +342,14 @@ jobs:
           fi
           /usr/local/bin/up version || up version
 
+      # GITHUB_REF_NAME is the branch. from that we derive the version for upbound
       - name: Up CLI Append extension
         if: startsWith(github.ref_name, 'release-')
         run: |
           up alpha xpkg append \
             --extensions-root=./extensions \
-            xpkg.upbound.io/opentelekomcloud/provider-opentelekomcloud:${GITHUB_REF##*/}
-
+            xpkg.upbound.io/opentelekomcloud/provider-opentelekomcloud:"v${GITHUB_REF_NAME#release-}"
+      ### --- END --- ###
   eco_check:
     name: eco/check
     if: needs.detect-noop.outputs.noop != 'true'
