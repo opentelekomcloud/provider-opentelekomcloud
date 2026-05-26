@@ -16,6 +16,9 @@ env:
 
 jobs:
   check-permissions:
+    if: |
+      github.event.issue.pull_request &&
+      !contains(github.event.issue.labels.*.name, 'noop')
     runs-on: ubuntu-latest
     outputs:
       permission: ${{ steps.check-permissions.outputs.permission }}
