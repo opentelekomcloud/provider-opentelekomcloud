@@ -161,8 +161,11 @@ spec:
                         type: object
                     type: object
                   floatingIps:
-                    description: Specifies IDs of floating IPs to be added to the
-                      bandwidth.
+                    description: |-
+                      Specifies IDs to be added to the bandwidth.
+                      The values can be floating IP IDs or ECS NIC port_id values.
+                      When a value is a port_id, the provider verifies that the port exists and
+                      sends the association as a dual-stack public IP path.
                     items:
                       type: string
                     type: array
@@ -346,8 +349,11 @@ spec:
                         type: object
                     type: object
                   floatingIps:
-                    description: Specifies IDs of floating IPs to be added to the
-                      bandwidth.
+                    description: |-
+                      Specifies IDs to be added to the bandwidth.
+                      The values can be floating IP IDs or ECS NIC port_id values.
+                      When a value is a port_id, the provider verifies that the port exists and
+                      sends the association as a dual-stack public IP path.
                     items:
                       type: string
                     type: array
@@ -536,8 +542,11 @@ spec:
                     description: Specifies ID of the bandwidth to be assigned.
                     type: string
                   floatingIps:
-                    description: Specifies IDs of floating IPs to be added to the
-                      bandwidth.
+                    description: |-
+                      Specifies IDs to be added to the bandwidth.
+                      The values can be floating IP IDs or ECS NIC port_id values.
+                      When a value is a port_id, the provider verifies that the port exists and
+                      sends the association as a dual-stack public IP path.
                     items:
                       type: string
                     type: array

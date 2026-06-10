@@ -21,8 +21,13 @@ type BandwidthInitParameters struct {
 	// IP addresses. Changing this creates a new eip.
 	ChargeMode *string `json:"chargeMode,omitempty" tf:"charge_mode,omitempty"`
 
+	// An existing shared bandwidth ID to attach the EIP to. This
+	// conflicts with name.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	// The bandwidth name, which is a string of 1 to 64 characters
-	// that contain letters, digits, underscores (_), and hyphens (-).
+	// that contain letters, digits, underscores (_), and hyphens (-). Required with
+	// size when creating a new bandwidth.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Whether the bandwidth is shared or exclusive. Changing
@@ -30,6 +35,7 @@ type BandwidthInitParameters struct {
 	ShareType *string `json:"shareType,omitempty" tf:"share_type,omitempty"`
 
 	// The bandwidth size. The value ranges from 1 to 300 Mbit/s.
+	// Required with name when creating a new bandwidth.
 	Size *float64 `json:"size,omitempty" tf:"size,omitempty"`
 }
 
@@ -40,8 +46,13 @@ type BandwidthObservation struct {
 	// IP addresses. Changing this creates a new eip.
 	ChargeMode *string `json:"chargeMode,omitempty" tf:"charge_mode,omitempty"`
 
+	// An existing shared bandwidth ID to attach the EIP to. This
+	// conflicts with name.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	// The bandwidth name, which is a string of 1 to 64 characters
-	// that contain letters, digits, underscores (_), and hyphens (-).
+	// that contain letters, digits, underscores (_), and hyphens (-). Required with
+	// size when creating a new bandwidth.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Whether the bandwidth is shared or exclusive. Changing
@@ -49,6 +60,7 @@ type BandwidthObservation struct {
 	ShareType *string `json:"shareType,omitempty" tf:"share_type,omitempty"`
 
 	// The bandwidth size. The value ranges from 1 to 300 Mbit/s.
+	// Required with name when creating a new bandwidth.
 	Size *float64 `json:"size,omitempty" tf:"size,omitempty"`
 }
 
@@ -60,10 +72,16 @@ type BandwidthParameters struct {
 	// +kubebuilder:validation:Optional
 	ChargeMode *string `json:"chargeMode,omitempty" tf:"charge_mode,omitempty"`
 
-	// The bandwidth name, which is a string of 1 to 64 characters
-	// that contain letters, digits, underscores (_), and hyphens (-).
+	// An existing shared bandwidth ID to attach the EIP to. This
+	// conflicts with name.
 	// +kubebuilder:validation:Optional
-	Name *string `json:"name" tf:"name,omitempty"`
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// The bandwidth name, which is a string of 1 to 64 characters
+	// that contain letters, digits, underscores (_), and hyphens (-). Required with
+	// size when creating a new bandwidth.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Whether the bandwidth is shared or exclusive. Changing
 	// this creates a new eip.
@@ -71,8 +89,9 @@ type BandwidthParameters struct {
 	ShareType *string `json:"shareType" tf:"share_type,omitempty"`
 
 	// The bandwidth size. The value ranges from 1 to 300 Mbit/s.
+	// Required with name when creating a new bandwidth.
 	// +kubebuilder:validation:Optional
-	Size *float64 `json:"size" tf:"size,omitempty"`
+	Size *float64 `json:"size,omitempty" tf:"size,omitempty"`
 }
 
 type EIPV1InitParameters struct {

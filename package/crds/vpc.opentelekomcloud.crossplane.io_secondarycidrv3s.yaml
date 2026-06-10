@@ -4,19 +4,19 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.18.0
-  name: vpcv1s.vpc.opentelekomcloud.m.crossplane.io
+  name: secondarycidrv3s.vpc.opentelekomcloud.crossplane.io
 spec:
-  group: vpc.opentelekomcloud.m.crossplane.io
+  group: vpc.opentelekomcloud.crossplane.io
   names:
     categories:
     - crossplane
     - managed
     - opentelekomcloud
-    kind: VpcV1
-    listKind: VpcV1List
-    plural: vpcv1s
-    singular: vpcv1
-  scope: Namespaced
+    kind: SecondaryCidrV3
+    listKind: SecondaryCidrV3List
+    plural: secondarycidrv3s
+    singular: secondarycidrv3
+  scope: Cluster
   versions:
   - additionalPrinterColumns:
     - jsonPath: .status.conditions[?(@.type=='Synced')].status
@@ -34,8 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: VpcV1 is the Schema for the VpcV1s API. Manages a VPC resource
-          within OpenTelekomCloud.
+        description: SecondaryCidrV3 is the Schema for the SecondaryCidrV3s API. Manages
+          secondary CIDR blocks for a VPC within OpenTelekomCloud.
         properties:
           apiVersion:
             description: |-
@@ -55,45 +55,41 @@ spec:
           metadata:
             type: object
           spec:
-            description: VpcV1Spec defines the desired state of VpcV1
+            description: SecondaryCidrV3Spec defines the desired state of SecondaryCidrV3
             properties:
+              deletionPolicy:
+                default: Delete
+                description: |-
+                  DeletionPolicy specifies what will happen to the underlying external
+                  when this managed resource is deleted - either "Delete" or "Orphan" the
+                  external resource.
+                  This field is planned to be deprecated in favor of the ManagementPolicies
+                  field in a future release. Currently, both could be set independently and
+                  non-default values would be honored if the feature flag is enabled.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                enum:
+                - Orphan
+                - Delete
+                type: string
               forProvider:
                 properties:
-                  cidr:
+                  cidrs:
                     description: |-
-                      The range of available subnets in the VPC. The value ranges from
-                      10.0.0.0/8 to 10.255.255.0/24, 172.16.0.0/12 to 172.31.255.0/24,
-                      or 192.168.0.0/16 to 192.168.255.0/24.
-                    type: string
-                  description:
-                    description: A description of the VPC.
-                    type: string
-                  name:
-                    description: |-
-                      The name of the VPC. The name must be unique for a tenant. The value is a string of
-                      no more than 64 characters and can contain digits, letters, underscores (_), and hyphens (-).
-                    type: string
-                  region:
-                    type: string
-                  secondaryCidr:
-                    description: |-
-                      DEPRECATED  Secondary CIDR block that can be added to VPCs.
-                      The value cannot contain the following: 100.64.0.0/1, 214.0.0.0/7, 198.18.0.0/15, 169.254.0.0/16,
-                      0.0.0.0/8, 127.0.0.0/8, 240.0.0.0/4, 172.31.0.0/16, 192.168.0.0/16.
-                      Please use resource opentelekomcloud_vpc_secondary_cidr_v3 instead.
-                    type: string
-                  shared:
-                    description: |-
-                      Specifies whether the shared SNAT should be used or not. Is also
-                      required for cross-tenant sharing. Shared SNAT only avadilable in eu-de region.
-                      Deprecated, VPC Shared SNAT End of Life from 01.03.2024, please do not use.
-                    type: boolean
-                  tags:
-                    additionalProperties:
+                      Set of secondary CIDR blocks to attach to the VPC.
+                      At least 1 and at most 5 entries are supported. Each entry must be a valid
+                      IPv4 CIDR. The cloud rejects reserved ranges (for example
+                      100.64.0.0/10, 214.0.0.0/7, 198.18.0.0/15, 169.254.0.0/16,
+                      0.0.0.0/8, 127.0.0.0/8, 240.0.0.0/4, 172.31.0.0/16,
+                      192.168.0.0/16); these checks are enforced server-side.
+                    items:
                       type: string
-                    description: The key/value pairs to associate with the VPC.
-                    type: object
-                    x-kubernetes-map-type: granular
+                    type: array
+                    x-kubernetes-list-type: set
+                  vpcId:
+                    description: |-
+                      The ID of the VPC to which the secondary CIDR
+                      blocks are attached. Changing this forces a new resource to be created.
+                    type: string
                 type: object
               initProvider:
                 description: |-
@@ -108,41 +104,23 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
-                  cidr:
+                  cidrs:
                     description: |-
-                      The range of available subnets in the VPC. The value ranges from
-                      10.0.0.0/8 to 10.255.255.0/24, 172.16.0.0/12 to 172.31.255.0/24,
-                      or 192.168.0.0/16 to 192.168.255.0/24.
-                    type: string
-                  description:
-                    description: A description of the VPC.
-                    type: string
-                  name:
-                    description: |-
-                      The name of the VPC. The name must be unique for a tenant. The value is a string of
-                      no more than 64 characters and can contain digits, letters, underscores (_), and hyphens (-).
-                    type: string
-                  region:
-                    type: string
-                  secondaryCidr:
-                    description: |-
-                      DEPRECATED  Secondary CIDR block that can be added to VPCs.
-                      The value cannot contain the following: 100.64.0.0/1, 214.0.0.0/7, 198.18.0.0/15, 169.254.0.0/16,
-                      0.0.0.0/8, 127.0.0.0/8, 240.0.0.0/4, 172.31.0.0/16, 192.168.0.0/16.
-                      Please use resource opentelekomcloud_vpc_secondary_cidr_v3 instead.
-                    type: string
-                  shared:
-                    description: |-
-                      Specifies whether the shared SNAT should be used or not. Is also
-                      required for cross-tenant sharing. Shared SNAT only avadilable in eu-de region.
-                      Deprecated, VPC Shared SNAT End of Life from 01.03.2024, please do not use.
-                    type: boolean
-                  tags:
-                    additionalProperties:
+                      Set of secondary CIDR blocks to attach to the VPC.
+                      At least 1 and at most 5 entries are supported. Each entry must be a valid
+                      IPv4 CIDR. The cloud rejects reserved ranges (for example
+                      100.64.0.0/10, 214.0.0.0/7, 198.18.0.0/15, 169.254.0.0/16,
+                      0.0.0.0/8, 127.0.0.0/8, 240.0.0.0/4, 172.31.0.0/16,
+                      192.168.0.0/16); these checks are enforced server-side.
+                    items:
                       type: string
-                    description: The key/value pairs to associate with the VPC.
-                    type: object
-                    x-kubernetes-map-type: granular
+                    type: array
+                    x-kubernetes-list-type: set
+                  vpcId:
+                    description: |-
+                      The ID of the VPC to which the secondary CIDR
+                      blocks are attached. Changing this forces a new resource to be created.
+                    type: string
                 type: object
               managementPolicies:
                 default:
@@ -152,6 +130,10 @@ spec:
                   through a Crossplane feature flag.
                   ManagementPolicies specify the array of actions Crossplane is allowed to
                   take on the managed and external resources.
+                  This field is planned to replace the DeletionPolicy field in a future
+                  release. Currently, both could be set independently and non-default
+                  values would be honored if the feature flag is enabled. If both are
+                  custom, the DeletionPolicy field will be ignored.
                   See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
                   and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md
                 items:
@@ -169,21 +151,41 @@ spec:
                 type: array
               providerConfigRef:
                 default:
-                  kind: ClusterProviderConfig
                   name: default
                 description: |-
                   ProviderConfigReference specifies how the provider that will be used to
                   create, observe, update, and delete this managed resource should be
                   configured.
                 properties:
-                  kind:
-                    description: Kind of the referenced object.
-                    type: string
                   name:
                     description: Name of the referenced object.
                     type: string
+                  policy:
+                    description: Policies for referencing.
+                    properties:
+                      resolution:
+                        default: Required
+                        description: |-
+                          Resolution specifies whether resolution of this reference is required.
+                          The default is 'Required', which means the reconcile will fail if the
+                          reference cannot be resolved. 'Optional' means this reference will be
+                          a no-op if it cannot be resolved.
+                        enum:
+                        - Required
+                        - Optional
+                        type: string
+                      resolve:
+                        description: |-
+                          Resolve specifies when this reference should be resolved. The default
+                          is 'IfNotPresent', which will attempt to resolve the reference only when
+                          the corresponding field is not present. Use 'Always' to resolve the
+                          reference on every reconcile.
+                        enum:
+                        - Always
+                        - IfNotPresent
+                        type: string
+                    type: object
                 required:
-                - kind
                 - name
                 type: object
               writeConnectionSecretToRef:
@@ -196,68 +198,57 @@ spec:
                   name:
                     description: Name of the secret.
                     type: string
+                  namespace:
+                    description: Namespace of the secret.
+                    type: string
                 required:
                 - name
+                - namespace
                 type: object
             required:
             - forProvider
             type: object
             x-kubernetes-validations:
-            - message: spec.forProvider.cidr is a required parameter
+            - message: spec.forProvider.cidrs is a required parameter
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.cidr)
-                || (has(self.initProvider) && has(self.initProvider.cidr))'
-            - message: spec.forProvider.name is a required parameter
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.cidrs)
+                || (has(self.initProvider) && has(self.initProvider.cidrs))'
+            - message: spec.forProvider.vpcId is a required parameter
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
-                || (has(self.initProvider) && has(self.initProvider.name))'
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.vpcId)
+                || (has(self.initProvider) && has(self.initProvider.vpcId))'
           status:
-            description: VpcV1Status defines the observed state of VpcV1.
+            description: SecondaryCidrV3Status defines the observed state of SecondaryCidrV3.
             properties:
               atProvider:
                 properties:
-                  cidr:
+                  cidrs:
                     description: |-
-                      The range of available subnets in the VPC. The value ranges from
-                      10.0.0.0/8 to 10.255.255.0/24, 172.16.0.0/12 to 172.31.255.0/24,
-                      or 192.168.0.0/16 to 192.168.255.0/24.
-                    type: string
-                  description:
-                    description: A description of the VPC.
-                    type: string
+                      Set of secondary CIDR blocks to attach to the VPC.
+                      At least 1 and at most 5 entries are supported. Each entry must be a valid
+                      IPv4 CIDR. The cloud rejects reserved ranges (for example
+                      100.64.0.0/10, 214.0.0.0/7, 198.18.0.0/15, 169.254.0.0/16,
+                      0.0.0.0/8, 127.0.0.0/8, 240.0.0.0/4, 172.31.0.0/16,
+                      192.168.0.0/16); these checks are enforced server-side.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
                   id:
-                    type: string
-                  name:
                     description: |-
-                      The name of the VPC. The name must be unique for a tenant. The value is a string of
-                      no more than 64 characters and can contain digits, letters, underscores (_), and hyphens (-).
+                      The ID of the resource. Equal to the vpc_id because each VPC has a
+                      single set of secondary CIDR blocks.
                     type: string
                   region:
-                    type: string
-                  secondaryCidr:
                     description: |-
-                      DEPRECATED  Secondary CIDR block that can be added to VPCs.
-                      The value cannot contain the following: 100.64.0.0/1, 214.0.0.0/7, 198.18.0.0/15, 169.254.0.0/16,
-                      0.0.0.0/8, 127.0.0.0/8, 240.0.0.0/4, 172.31.0.0/16, 192.168.0.0/16.
-                      Please use resource opentelekomcloud_vpc_secondary_cidr_v3 instead.
+                      The region in which the secondary CIDRs are managed. Inherited
+                      from the provider configuration.
                     type: string
-                  shared:
+                  vpcId:
                     description: |-
-                      Specifies whether the shared SNAT should be used or not. Is also
-                      required for cross-tenant sharing. Shared SNAT only avadilable in eu-de region.
-                      Deprecated, VPC Shared SNAT End of Life from 01.03.2024, please do not use.
-                    type: boolean
-                  status:
-                    description: |-
-                      The current status of the desired VPC. Can be either CREATING,
-                      OK, DOWN, PENDING_UPDATE, PENDING_DELETE or ERROR.
+                      The ID of the VPC to which the secondary CIDR
+                      blocks are attached. Changing this forces a new resource to be created.
                     type: string
-                  tags:
-                    additionalProperties:
-                      type: string
-                    description: The key/value pairs to associate with the VPC.
-                    type: object
-                    x-kubernetes-map-type: granular
                 type: object
               conditions:
                 description: Conditions of the resource.

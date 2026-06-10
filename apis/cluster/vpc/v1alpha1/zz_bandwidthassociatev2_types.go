@@ -35,7 +35,10 @@ type BandwidthAssociateV2InitParameters struct {
 	// +kubebuilder:validation:Optional
 	BandwidthSelector *v1.Selector `json:"bandwidthSelector,omitempty" tf:"-"`
 
-	// Specifies IDs of floating IPs to be added to the bandwidth.
+	// Specifies IDs to be added to the bandwidth.
+	// The values can be floating IP IDs or ECS NIC port_id values.
+	// When a value is a port_id, the provider verifies that the port exists and
+	// sends the association as a dual-stack public IP path.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.EIPV1
 	// +listType=set
 	FloatingIps []*string `json:"floatingIps,omitempty" tf:"floating_ips,omitempty"`
@@ -62,7 +65,10 @@ type BandwidthAssociateV2Observation struct {
 	// Specifies ID of the bandwidth to be assigned.
 	Bandwidth *string `json:"bandwidth,omitempty" tf:"bandwidth,omitempty"`
 
-	// Specifies IDs of floating IPs to be added to the bandwidth.
+	// Specifies IDs to be added to the bandwidth.
+	// The values can be floating IP IDs or ECS NIC port_id values.
+	// When a value is a port_id, the provider verifies that the port exists and
+	// sends the association as a dual-stack public IP path.
 	// +listType=set
 	FloatingIps []*string `json:"floatingIps,omitempty" tf:"floating_ips,omitempty"`
 
@@ -94,7 +100,10 @@ type BandwidthAssociateV2Parameters struct {
 	// +kubebuilder:validation:Optional
 	BandwidthSelector *v1.Selector `json:"bandwidthSelector,omitempty" tf:"-"`
 
-	// Specifies IDs of floating IPs to be added to the bandwidth.
+	// Specifies IDs to be added to the bandwidth.
+	// The values can be floating IP IDs or ECS NIC port_id values.
+	// When a value is a port_id, the provider verifies that the port exists and
+	// sends the association as a dual-stack public IP path.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.EIPV1
 	// +kubebuilder:validation:Optional
 	// +listType=set

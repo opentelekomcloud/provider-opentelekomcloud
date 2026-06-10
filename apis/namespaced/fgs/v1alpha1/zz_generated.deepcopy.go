@@ -1417,6 +1417,11 @@ func (in *FunctionV2InitParameters) DeepCopyInto(out *FunctionV2InitParameters) 
 		*out = new(string)
 		**out = **in
 	}
+	if in.SourceCodeHash != nil {
+		in, out := &in.SourceCodeHash, &out.SourceCodeHash
+		*out = new(string)
+		**out = **in
+	}
 	if in.Tags != nil {
 		in, out := &in.Tags, &out.Tags
 		*out = make(map[string]*string, len(*in))
@@ -1782,6 +1787,11 @@ func (in *FunctionV2Observation) DeepCopyInto(out *FunctionV2Observation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.SourceCodeHash != nil {
+		in, out := &in.SourceCodeHash, &out.SourceCodeHash
+		*out = new(string)
+		**out = **in
+	}
 	if in.Tags != nil {
 		in, out := &in.Tags, &out.Tags
 		*out = make(map[string]*string, len(*in))
@@ -2092,6 +2102,11 @@ func (in *FunctionV2Parameters) DeepCopyInto(out *FunctionV2Parameters) {
 	}
 	if in.Runtime != nil {
 		in, out := &in.Runtime, &out.Runtime
+		*out = new(string)
+		**out = **in
+	}
+	if in.SourceCodeHash != nil {
+		in, out := &in.SourceCodeHash, &out.SourceCodeHash
 		*out = new(string)
 		**out = **in
 	}
