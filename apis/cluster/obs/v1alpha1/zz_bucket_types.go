@@ -37,8 +37,10 @@ type AbortIncompleteMultipartUploadParameters struct {
 
 type BucketInitParameters struct {
 
-	// Specifies the ACL policy for a bucket. The predefined common policies are as follows:
+	// Specifies the canned ACL policy for a bucket. Supported values are:
 	// private, public-read, public-read-write and log-delivery-write. Defaults to private.
+	// Drift is detected for these canned ACLs during refresh. For custom ACL grants, use
+	// opentelekomcloud_obs_bucket_acl.
 	ACL *string `json:"acl,omitempty" tf:"acl,omitempty"`
 
 	// Specifies the name of the bucket. Changing this parameter will create a new resource.
@@ -99,8 +101,10 @@ type BucketInitParameters struct {
 
 type BucketObservation struct {
 
-	// Specifies the ACL policy for a bucket. The predefined common policies are as follows:
+	// Specifies the canned ACL policy for a bucket. Supported values are:
 	// private, public-read, public-read-write and log-delivery-write. Defaults to private.
+	// Drift is detected for these canned ACLs during refresh. For custom ACL grants, use
+	// opentelekomcloud_obs_bucket_acl.
 	ACL *string `json:"acl,omitempty" tf:"acl,omitempty"`
 
 	// Specifies the name of the bucket. Changing this parameter will create a new resource.
@@ -170,8 +174,10 @@ type BucketObservation struct {
 
 type BucketParameters struct {
 
-	// Specifies the ACL policy for a bucket. The predefined common policies are as follows:
+	// Specifies the canned ACL policy for a bucket. Supported values are:
 	// private, public-read, public-read-write and log-delivery-write. Defaults to private.
+	// Drift is detected for these canned ACLs during refresh. For custom ACL grants, use
+	// opentelekomcloud_obs_bucket_acl.
 	// +kubebuilder:validation:Optional
 	ACL *string `json:"acl,omitempty" tf:"acl,omitempty"`
 

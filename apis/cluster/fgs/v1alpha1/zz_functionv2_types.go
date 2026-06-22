@@ -415,6 +415,11 @@ type FunctionV2InitParameters struct {
 	// The valid values are as follows:
 	Runtime *string `json:"runtime,omitempty" tf:"runtime,omitempty"`
 
+	// This is especially useful with code_type = "obs", for example by setting
+	// it to opentelekomcloud_obs_bucket_object.example.etag. If omitted, changes to the OBS object content alone will
+	// not trigger a FunctionGraph code update.
+	SourceCodeHash *string `json:"sourceCodeHash,omitempty" tf:"source_code_hash,omitempty"`
+
 	// Specifies the key/value pairs to associate with the function.
 	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
@@ -625,6 +630,11 @@ type FunctionV2Observation struct {
 	// Specifies the environment for executing the function.
 	// The valid values are as follows:
 	Runtime *string `json:"runtime,omitempty" tf:"runtime,omitempty"`
+
+	// This is especially useful with code_type = "obs", for example by setting
+	// it to opentelekomcloud_obs_bucket_object.example.etag. If omitted, changes to the OBS object content alone will
+	// not trigger a FunctionGraph code update.
+	SourceCodeHash *string `json:"sourceCodeHash,omitempty" tf:"source_code_hash,omitempty"`
 
 	// Specifies the key/value pairs to associate with the function.
 	// +mapType=granular
@@ -870,6 +880,12 @@ type FunctionV2Parameters struct {
 	// The valid values are as follows:
 	// +kubebuilder:validation:Optional
 	Runtime *string `json:"runtime,omitempty" tf:"runtime,omitempty"`
+
+	// This is especially useful with code_type = "obs", for example by setting
+	// it to opentelekomcloud_obs_bucket_object.example.etag. If omitted, changes to the OBS object content alone will
+	// not trigger a FunctionGraph code update.
+	// +kubebuilder:validation:Optional
+	SourceCodeHash *string `json:"sourceCodeHash,omitempty" tf:"source_code_hash,omitempty"`
 
 	// Specifies the key/value pairs to associate with the function.
 	// +kubebuilder:validation:Optional

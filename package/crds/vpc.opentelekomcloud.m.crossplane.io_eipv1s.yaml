@@ -69,10 +69,16 @@ spec:
                             by traffic and this field is specified, then you are charged by traffic for elastic
                             IP addresses. Changing this creates a new eip.
                           type: string
+                        id:
+                          description: |-
+                            An existing shared bandwidth ID to attach the EIP to. This
+                            conflicts with name.
+                          type: string
                         name:
                           description: |-
                             The bandwidth name, which is a string of 1 to 64 characters
-                            that contain letters, digits, underscores (_), and hyphens (-).
+                            that contain letters, digits, underscores (_), and hyphens (-). Required with
+                            size when creating a new bandwidth.
                           type: string
                         shareType:
                           description: |-
@@ -80,8 +86,9 @@ spec:
                             this creates a new eip.
                           type: string
                         size:
-                          description: The bandwidth size. The value ranges from 1
-                            to 300 Mbit/s.
+                          description: |-
+                            The bandwidth size. The value ranges from 1 to 300 Mbit/s.
+                            Required with name when creating a new bandwidth.
                           type: number
                       type: object
                     type: array
@@ -155,10 +162,16 @@ spec:
                             by traffic and this field is specified, then you are charged by traffic for elastic
                             IP addresses. Changing this creates a new eip.
                           type: string
+                        id:
+                          description: |-
+                            An existing shared bandwidth ID to attach the EIP to. This
+                            conflicts with name.
+                          type: string
                         name:
                           description: |-
                             The bandwidth name, which is a string of 1 to 64 characters
-                            that contain letters, digits, underscores (_), and hyphens (-).
+                            that contain letters, digits, underscores (_), and hyphens (-). Required with
+                            size when creating a new bandwidth.
                           type: string
                         shareType:
                           description: |-
@@ -166,8 +179,9 @@ spec:
                             this creates a new eip.
                           type: string
                         size:
-                          description: The bandwidth size. The value ranges from 1
-                            to 300 Mbit/s.
+                          description: |-
+                            The bandwidth size. The value ranges from 1 to 300 Mbit/s.
+                            Required with name when creating a new bandwidth.
                           type: number
                       type: object
                     type: array
@@ -300,10 +314,16 @@ spec:
                             by traffic and this field is specified, then you are charged by traffic for elastic
                             IP addresses. Changing this creates a new eip.
                           type: string
+                        id:
+                          description: |-
+                            An existing shared bandwidth ID to attach the EIP to. This
+                            conflicts with name.
+                          type: string
                         name:
                           description: |-
                             The bandwidth name, which is a string of 1 to 64 characters
-                            that contain letters, digits, underscores (_), and hyphens (-).
+                            that contain letters, digits, underscores (_), and hyphens (-). Required with
+                            size when creating a new bandwidth.
                           type: string
                         shareType:
                           description: |-
@@ -311,8 +331,9 @@ spec:
                             this creates a new eip.
                           type: string
                         size:
-                          description: The bandwidth size. The value ranges from 1
-                            to 300 Mbit/s.
+                          description: |-
+                            The bandwidth size. The value ranges from 1 to 300 Mbit/s.
+                            Required with name when creating a new bandwidth.
                           type: number
                       type: object
                     type: array

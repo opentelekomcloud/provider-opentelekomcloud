@@ -228,6 +228,7 @@ import (
 	routev2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/vpc/routev2"
 	secgrouprulev3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/vpc/secgrouprulev3"
 	secgroupv3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/vpc/secgroupv3"
+	secondarycidrv3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/vpc/secondarycidrv3"
 	subnetv1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/vpc/subnetv1"
 	vpcv1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/vpc/vpcv1"
 	approvalv1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/vpcep/approvalv1"
@@ -478,6 +479,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		routev2.Setup,
 		secgrouprulev3.Setup,
 		secgroupv3.Setup,
+		secondarycidrv3.Setup,
 		subnetv1.Setup,
 		vpcv1.Setup,
 		approvalv1.Setup,
@@ -734,6 +736,7 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		routev2.SetupGated,
 		secgrouprulev3.SetupGated,
 		secgroupv3.SetupGated,
+		secondarycidrv3.SetupGated,
 		subnetv1.SetupGated,
 		vpcv1.SetupGated,
 		approvalv1.SetupGated,

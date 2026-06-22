@@ -30,10 +30,10 @@ type VpcV1InitParameters struct {
 
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
-	// Secondary CIDR block that can be added to VPCs.
+	// DEPRECATED  Secondary CIDR block that can be added to VPCs.
 	// The value cannot contain the following: 100.64.0.0/1, 214.0.0.0/7, 198.18.0.0/15, 169.254.0.0/16,
 	// 0.0.0.0/8, 127.0.0.0/8, 240.0.0.0/4, 172.31.0.0/16, 192.168.0.0/16.
-	// Currently, only one secondary CIDR block can be added to each VPC.
+	// Please use resource opentelekomcloud_vpc_secondary_cidr_v3 instead.
 	SecondaryCidr *string `json:"secondaryCidr,omitempty" tf:"secondary_cidr,omitempty"`
 
 	// Specifies whether the shared SNAT should be used or not. Is also
@@ -64,10 +64,10 @@ type VpcV1Observation struct {
 
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
-	// Secondary CIDR block that can be added to VPCs.
+	// DEPRECATED  Secondary CIDR block that can be added to VPCs.
 	// The value cannot contain the following: 100.64.0.0/1, 214.0.0.0/7, 198.18.0.0/15, 169.254.0.0/16,
 	// 0.0.0.0/8, 127.0.0.0/8, 240.0.0.0/4, 172.31.0.0/16, 192.168.0.0/16.
-	// Currently, only one secondary CIDR block can be added to each VPC.
+	// Please use resource opentelekomcloud_vpc_secondary_cidr_v3 instead.
 	SecondaryCidr *string `json:"secondaryCidr,omitempty" tf:"secondary_cidr,omitempty"`
 
 	// Specifies whether the shared SNAT should be used or not. Is also
@@ -104,10 +104,10 @@ type VpcV1Parameters struct {
 	// +kubebuilder:validation:Optional
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
-	// Secondary CIDR block that can be added to VPCs.
+	// DEPRECATED  Secondary CIDR block that can be added to VPCs.
 	// The value cannot contain the following: 100.64.0.0/1, 214.0.0.0/7, 198.18.0.0/15, 169.254.0.0/16,
 	// 0.0.0.0/8, 127.0.0.0/8, 240.0.0.0/4, 172.31.0.0/16, 192.168.0.0/16.
-	// Currently, only one secondary CIDR block can be added to each VPC.
+	// Please use resource opentelekomcloud_vpc_secondary_cidr_v3 instead.
 	// +kubebuilder:validation:Optional
 	SecondaryCidr *string `json:"secondaryCidr,omitempty" tf:"secondary_cidr,omitempty"`
 

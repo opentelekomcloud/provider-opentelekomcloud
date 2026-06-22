@@ -75,8 +75,10 @@ spec:
                 properties:
                   acl:
                     description: |-
-                      Specifies the ACL policy for a bucket. The predefined common policies are as follows:
+                      Specifies the canned ACL policy for a bucket. Supported values are:
                       private, public-read, public-read-write and log-delivery-write. Defaults to private.
+                      Drift is detected for these canned ACLs during refresh. For custom ACL grants, use
+                      opentelekomcloud_obs_bucket_acl.
                     type: string
                   bucket:
                     description: |-
@@ -410,8 +412,10 @@ spec:
                 properties:
                   acl:
                     description: |-
-                      Specifies the ACL policy for a bucket. The predefined common policies are as follows:
+                      Specifies the canned ACL policy for a bucket. Supported values are:
                       private, public-read, public-read-write and log-delivery-write. Defaults to private.
+                      Drift is detected for these canned ACLs during refresh. For custom ACL grants, use
+                      opentelekomcloud_obs_bucket_acl.
                     type: string
                   bucket:
                     description: |-
@@ -828,8 +832,10 @@ spec:
                 properties:
                   acl:
                     description: |-
-                      Specifies the ACL policy for a bucket. The predefined common policies are as follows:
+                      Specifies the canned ACL policy for a bucket. Supported values are:
                       private, public-read, public-read-write and log-delivery-write. Defaults to private.
+                      Drift is detected for these canned ACLs during refresh. For custom ACL grants, use
+                      opentelekomcloud_obs_bucket_acl.
                     type: string
                   bucket:
                     description: |-

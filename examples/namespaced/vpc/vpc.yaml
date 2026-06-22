@@ -1,0 +1,33 @@
+apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: SecondaryCidrV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/secondarycidrv3
+  labels:
+    testing.upbound.io/example-name: secondary
+  name: secondary
+  namespace: test
+spec:
+  forProvider:
+    cidrs:
+      - 23.9.0.0/16
+      - 23.10.0.0/16
+      - 23.11.0.0/16
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: vpc
+
+---
+apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: VpcV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/secondarycidrv3
+  labels:
+    testing.upbound.io/example-name: vpc
+  name: vpc
+  namespace: test
+spec:
+  forProvider:
+    cidr: 192.168.0.0/16
+    name: crossplane-vpc

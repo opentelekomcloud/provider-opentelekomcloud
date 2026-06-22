@@ -37,6 +37,9 @@ func (tr *SecgroupRuleV3) Hub() {}
 func (tr *SecgroupV3) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *SecondaryCidrV3) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *SubnetV1) Hub() {}
 
 // Hub marks this type as a conversion hub.
