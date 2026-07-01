@@ -9,10 +9,10 @@ metadata:
   namespace: test
 spec:
   forProvider:
-    description: Daily backup
+    description: crossplane
     metadata:
       foo: bar
-    name: snapshot-001
+    name: xp-test-${Rand.RFC1123Subdomain}
     volumeIdSelector:
       matchLabels:
         testing.upbound.io/example-name: test
@@ -30,7 +30,7 @@ metadata:
 spec:
   forProvider:
     availabilityZone: eu-de-01
-    description: Created by acc test
-    name: volume-001
+    description: crossplane
+    name: xp-test-${Rand.RFC1123Subdomain}
     size: 12
     volumeType: SAS
