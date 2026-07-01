@@ -1,0 +1,33 @@
+apiVersion: evs.opentelekomcloud.crossplane.io/v1alpha1
+kind: SnapshotV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: evs/v1alpha1/snapshotv2
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    description: Daily backup
+    metadata:
+      foo: bar
+    name: snapshot-001
+    volumeId: ${opentelekomcloud_evs_volume_v3.test.id}
+
+---
+
+apiVersion: evs.opentelekomcloud.crossplane.io/v1alpha1
+kind: VolumeV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: evs/v1alpha1/snapshotv2
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    availabilityZone: ${data.opentelekomcloud_compute_availability_zones_v2.test.names[0]}
+    description: Created by acc test
+    name: volume-001
+    size: 12
+    volumeType: SAS

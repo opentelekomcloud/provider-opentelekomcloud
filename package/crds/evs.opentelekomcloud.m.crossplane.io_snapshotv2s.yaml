@@ -4,18 +4,18 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.18.0
-  name: subnetv1s.vpc.opentelekomcloud.m.crossplane.io
+  name: snapshotv2s.evs.opentelekomcloud.m.crossplane.io
 spec:
-  group: vpc.opentelekomcloud.m.crossplane.io
+  group: evs.opentelekomcloud.m.crossplane.io
   names:
     categories:
     - crossplane
     - managed
     - opentelekomcloud
-    kind: SubnetV1
-    listKind: SubnetV1List
-    plural: subnetv1s
-    singular: subnetv1
+    kind: SnapshotV2
+    listKind: SnapshotV2List
+    plural: snapshotv2s
+    singular: snapshotv2
   scope: Namespaced
   versions:
   - additionalPrinterColumns:
@@ -34,8 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: SubnetV1 is the Schema for the SubnetV1s API. Manages a VPC Subnet
-          resource within OpenTelekomCloud.
+        description: SnapshotV2 is the Schema for the SnapshotV2s API. Manages an
+          EVS snapshot resource within OpenTelekomCloud.
         properties:
           apiVersion:
             description: |-
@@ -55,80 +55,37 @@ spec:
           metadata:
             type: object
           spec:
-            description: SubnetV1Spec defines the desired state of SubnetV1
+            description: SnapshotV2Spec defines the desired state of SnapshotV2
             properties:
               forProvider:
                 properties:
-                  availabilityZone:
-                    description: |-
-                      Identifies the availability zone (AZ) to which the subnet belongs.
-                      The value must be an existing AZ in the system. Changing this creates a new Subnet.
-                    type: string
-                  cidr:
-                    description: |-
-                      Specifies the network segment on which the subnet resides. The value must be in CIDR format.
-                      The value must be within the CIDR block of the VPC. The subnet mask cannot be greater than 28.
-                      Changing this creates a new Subnet.
-                    type: string
                   description:
-                    description: A description of the VPC subnet.
+                    description: The description of the snapshot. The value can contain
+                      a maximum of 255 bytes.
                     type: string
-                  dhcpEnable:
-                    description: |-
-                      Specifies whether the DHCP function is enabled for the subnet. The value can
-                      be true or false. If this parameter is left blank, it is set to true by default.
+                  force:
+                    description: Specifies whether to forcibly create a snapshot.
+                      Defaults to false.
                     type: boolean
-                  dnsList:
-                    description: |-
-                      Specifies the DNS server address list of a subnet. This field is required if you
-                      need to use more than two DNS servers. This parameter value is the superset of both DNS server address
-                      1 and DNS server address 2.
-                    items:
-                      type: string
-                    type: array
-                  gatewayIp:
-                    description: |-
-                      Specifies the gateway of the subnet. The value must be a valid IP address.
-                      The value must be an IP address in the subnet segment. Changing this creates a new Subnet.
-                    type: string
-                  ipv6Enable:
-                    description: |-
-                      Specifies whether IPv6 is enabled. If IPv6 is enabled, you can use IPv6 CIDR blocks. The value can
-                      be true or false. If this parameter is left blank, it is set to false by default.
-                    type: boolean
-                  name:
-                    description: |-
-                      The subnet name. The value is a string of 1 to 64 characters that can contain letters,
-                      digits, underscores (_), and hyphens (-).
-                    type: string
-                  ntpAddresses:
-                    description: Specifies the NTP server address configured for the
-                      subnet.
-                    type: string
-                  primaryDns:
-                    description: |-
-                      Specifies the IP address of DNS server 1 on the subnet. The value must be a
-                      valid IP address. Default is 100.125.4.25, OpenTelekomCloud internal DNS server.
-                    type: string
-                  region:
-                    type: string
-                  secondaryDns:
-                    description: |-
-                      Specifies the IP address of DNS server 2 on the subnet. The value must be a
-                      valid IP address. Default is 100.125.129.199, OpenTelekomCloud secondary internal DNS server.
-                    type: string
-                  tags:
+                  metadata:
                     additionalProperties:
                       type: string
-                    description: The key/value pairs to associate with the subnet.
+                    description: |-
+                      Specifies the user-defined metadata key-value pairs. Changing this parameter
+                      creates a new snapshot.
                     type: object
                     x-kubernetes-map-type: granular
-                  vpcId:
-                    description: Specifies the ID of the VPC to which the subnet belongs.
-                      Changing this creates a new Subnet.
+                  name:
+                    description: The name of the snapshot. The value can contain a
+                      maximum of 255 bytes.
                     type: string
-                  vpcIdRef:
-                    description: Reference to a VpcV1 in vpc to populate vpcId.
+                  volumeId:
+                    description: |-
+                      The ID of the snapshot's source disk. Changing this parameter creates a new
+                      snapshot.
+                    type: string
+                  volumeIdRef:
+                    description: Reference to a VolumeV3 in evs to populate volumeId.
                     properties:
                       name:
                         description: Name of the referenced object.
@@ -164,8 +121,8 @@ spec:
                     required:
                     - name
                     type: object
-                  vpcIdSelector:
-                    description: Selector for a VpcV1 in vpc to populate vpcId.
+                  volumeIdSelector:
+                    description: Selector for a VolumeV3 in evs to populate volumeId.
                     properties:
                       matchControllerRef:
                         description: |-
@@ -221,76 +178,33 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
-                  availabilityZone:
-                    description: |-
-                      Identifies the availability zone (AZ) to which the subnet belongs.
-                      The value must be an existing AZ in the system. Changing this creates a new Subnet.
-                    type: string
-                  cidr:
-                    description: |-
-                      Specifies the network segment on which the subnet resides. The value must be in CIDR format.
-                      The value must be within the CIDR block of the VPC. The subnet mask cannot be greater than 28.
-                      Changing this creates a new Subnet.
-                    type: string
                   description:
-                    description: A description of the VPC subnet.
+                    description: The description of the snapshot. The value can contain
+                      a maximum of 255 bytes.
                     type: string
-                  dhcpEnable:
-                    description: |-
-                      Specifies whether the DHCP function is enabled for the subnet. The value can
-                      be true or false. If this parameter is left blank, it is set to true by default.
+                  force:
+                    description: Specifies whether to forcibly create a snapshot.
+                      Defaults to false.
                     type: boolean
-                  dnsList:
-                    description: |-
-                      Specifies the DNS server address list of a subnet. This field is required if you
-                      need to use more than two DNS servers. This parameter value is the superset of both DNS server address
-                      1 and DNS server address 2.
-                    items:
-                      type: string
-                    type: array
-                  gatewayIp:
-                    description: |-
-                      Specifies the gateway of the subnet. The value must be a valid IP address.
-                      The value must be an IP address in the subnet segment. Changing this creates a new Subnet.
-                    type: string
-                  ipv6Enable:
-                    description: |-
-                      Specifies whether IPv6 is enabled. If IPv6 is enabled, you can use IPv6 CIDR blocks. The value can
-                      be true or false. If this parameter is left blank, it is set to false by default.
-                    type: boolean
-                  name:
-                    description: |-
-                      The subnet name. The value is a string of 1 to 64 characters that can contain letters,
-                      digits, underscores (_), and hyphens (-).
-                    type: string
-                  ntpAddresses:
-                    description: Specifies the NTP server address configured for the
-                      subnet.
-                    type: string
-                  primaryDns:
-                    description: |-
-                      Specifies the IP address of DNS server 1 on the subnet. The value must be a
-                      valid IP address. Default is 100.125.4.25, OpenTelekomCloud internal DNS server.
-                    type: string
-                  region:
-                    type: string
-                  secondaryDns:
-                    description: |-
-                      Specifies the IP address of DNS server 2 on the subnet. The value must be a
-                      valid IP address. Default is 100.125.129.199, OpenTelekomCloud secondary internal DNS server.
-                    type: string
-                  tags:
+                  metadata:
                     additionalProperties:
                       type: string
-                    description: The key/value pairs to associate with the subnet.
+                    description: |-
+                      Specifies the user-defined metadata key-value pairs. Changing this parameter
+                      creates a new snapshot.
                     type: object
                     x-kubernetes-map-type: granular
-                  vpcId:
-                    description: Specifies the ID of the VPC to which the subnet belongs.
-                      Changing this creates a new Subnet.
+                  name:
+                    description: The name of the snapshot. The value can contain a
+                      maximum of 255 bytes.
                     type: string
-                  vpcIdRef:
-                    description: Reference to a VpcV1 in vpc to populate vpcId.
+                  volumeId:
+                    description: |-
+                      The ID of the snapshot's source disk. Changing this parameter creates a new
+                      snapshot.
+                    type: string
+                  volumeIdRef:
+                    description: Reference to a VolumeV3 in evs to populate volumeId.
                     properties:
                       name:
                         description: Name of the referenced object.
@@ -326,8 +240,8 @@ spec:
                     required:
                     - name
                     type: object
-                  vpcIdSelector:
-                    description: Selector for a VpcV1 in vpc to populate vpcId.
+                  volumeIdSelector:
+                    description: Selector for a VolumeV3 in evs to populate volumeId.
                     properties:
                       matchControllerRef:
                         description: |-
@@ -429,112 +343,58 @@ spec:
             - forProvider
             type: object
             x-kubernetes-validations:
-            - message: spec.forProvider.cidr is a required parameter
-              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.cidr)
-                || (has(self.initProvider) && has(self.initProvider.cidr))'
-            - message: spec.forProvider.gatewayIp is a required parameter
-              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.gatewayIp)
-                || (has(self.initProvider) && has(self.initProvider.gatewayIp))'
             - message: spec.forProvider.name is a required parameter
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
                 || (has(self.initProvider) && has(self.initProvider.name))'
           status:
-            description: SubnetV1Status defines the observed state of SubnetV1.
+            description: SnapshotV2Status defines the observed state of SnapshotV2.
             properties:
               atProvider:
                 properties:
-                  availabilityZone:
-                    description: |-
-                      Identifies the availability zone (AZ) to which the subnet belongs.
-                      The value must be an existing AZ in the system. Changing this creates a new Subnet.
-                    type: string
-                  cidr:
-                    description: |-
-                      Specifies the network segment on which the subnet resides. The value must be in CIDR format.
-                      The value must be within the CIDR block of the VPC. The subnet mask cannot be greater than 28.
-                      Changing this creates a new Subnet.
-                    type: string
-                  cidrIpv6:
+                  createdAt:
+                    description: The time when the snapshot was created.
                     type: string
                   description:
-                    description: A description of the VPC subnet.
+                    description: The description of the snapshot. The value can contain
+                      a maximum of 255 bytes.
                     type: string
-                  dhcpEnable:
-                    description: |-
-                      Specifies whether the DHCP function is enabled for the subnet. The value can
-                      be true or false. If this parameter is left blank, it is set to true by default.
+                  force:
+                    description: Specifies whether to forcibly create a snapshot.
+                      Defaults to false.
                     type: boolean
-                  dnsList:
-                    description: |-
-                      Specifies the DNS server address list of a subnet. This field is required if you
-                      need to use more than two DNS servers. This parameter value is the superset of both DNS server address
-                      1 and DNS server address 2.
-                    items:
-                      type: string
-                    type: array
-                  gatewayIp:
-                    description: |-
-                      Specifies the gateway of the subnet. The value must be a valid IP address.
-                      The value must be an IP address in the subnet segment. Changing this creates a new Subnet.
-                    type: string
-                  gatewayIpv6:
-                    type: string
                   id:
-                    description: Specifies a resource ID in UUID format. Same as OpenStack
-                      network ID (OS_NETWORK_ID).
+                    description: The ID of the snapshot.
                     type: string
-                  ipv6Enable:
-                    description: |-
-                      Specifies whether IPv6 is enabled. If IPv6 is enabled, you can use IPv6 CIDR blocks. The value can
-                      be true or false. If this parameter is left blank, it is set to false by default.
-                    type: boolean
-                  name:
-                    description: |-
-                      The subnet name. The value is a string of 1 to 64 characters that can contain letters,
-                      digits, underscores (_), and hyphens (-).
-                    type: string
-                  networkId:
-                    description: Specifies the OpenStack network ID.
-                    type: string
-                  ntpAddresses:
-                    description: Specifies the NTP server address configured for the
-                      subnet.
-                    type: string
-                  primaryDns:
-                    description: |-
-                      Specifies the IP address of DNS server 1 on the subnet. The value must be a
-                      valid IP address. Default is 100.125.4.25, OpenTelekomCloud internal DNS server.
-                    type: string
-                  region:
-                    type: string
-                  secondaryDns:
-                    description: |-
-                      Specifies the IP address of DNS server 2 on the subnet. The value must be a
-                      valid IP address. Default is 100.125.129.199, OpenTelekomCloud secondary internal DNS server.
-                    type: string
-                  status:
-                    description: Specifies the status of the subnet. The value can
-                      be ACTIVE, DOWN, UNKNOWN, or ERROR.
-                    type: string
-                  subnetId:
-                    description: Specifies the OpenStack subnet ID.
-                    type: string
-                  subnetIdV6:
-                    description: Specifies the OpenStack IPv6 subnet ID. Only returned
-                      if subnet is IPV6 enabled.
-                    type: string
-                  tags:
+                  metadata:
                     additionalProperties:
                       type: string
-                    description: The key/value pairs to associate with the subnet.
+                    description: |-
+                      Specifies the user-defined metadata key-value pairs. Changing this parameter
+                      creates a new snapshot.
                     type: object
                     x-kubernetes-map-type: granular
-                  vpcId:
-                    description: Specifies the ID of the VPC to which the subnet belongs.
-                      Changing this creates a new Subnet.
+                  name:
+                    description: The name of the snapshot. The value can contain a
+                      maximum of 255 bytes.
+                    type: string
+                  region:
+                    description: The region in which the EVS snapshot resource was
+                      created.
+                    type: string
+                  size:
+                    description: The size of the snapshot in GB.
+                    type: number
+                  status:
+                    description: The status of the snapshot.
+                    type: string
+                  updatedAt:
+                    description: The time when the snapshot was updated.
+                    type: string
+                  volumeId:
+                    description: |-
+                      The ID of the snapshot's source disk. Changing this parameter creates a new
+                      snapshot.
                     type: string
                 type: object
               conditions:

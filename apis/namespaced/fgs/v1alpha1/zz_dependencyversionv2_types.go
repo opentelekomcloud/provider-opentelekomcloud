@@ -99,6 +99,9 @@ type DependencyVersionV2Observation struct {
 
 	// The dependency package version.
 	Version *float64 `json:"version,omitempty" tf:"version,omitempty"`
+
+	// The ID of the dependency package version.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
 }
 
 type DependencyVersionV2Parameters struct {

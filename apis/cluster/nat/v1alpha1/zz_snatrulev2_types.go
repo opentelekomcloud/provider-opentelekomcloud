@@ -26,7 +26,7 @@ type SnatRuleV2InitParameters struct {
 	// Changing this creates a new snat rule.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// ID of the floating ip this snat rule connects to.
+	// ID of the floating ip this snat rule connects to. Multiple IDs can be passed separated by commas, for e.g., "id_1,id_2". Maximum number of IDs: 20. Maximum length: 4096.
 	// Changing this creates a new snat rule.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.EIPV1
 	FloatingIPID *string `json:"floatingIpId,omitempty" tf:"floating_ip_id,omitempty"`
@@ -86,7 +86,7 @@ type SnatRuleV2Observation struct {
 	// Changing this creates a new snat rule.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// ID of the floating ip this snat rule connects to.
+	// ID of the floating ip this snat rule connects to. Multiple IDs can be passed separated by commas, for e.g., "id_1,id_2". Maximum number of IDs: 20. Maximum length: 4096.
 	// Changing this creates a new snat rule.
 	FloatingIPID *string `json:"floatingIpId,omitempty" tf:"floating_ip_id,omitempty"`
 
@@ -122,7 +122,7 @@ type SnatRuleV2Parameters struct {
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// ID of the floating ip this snat rule connects to.
+	// ID of the floating ip this snat rule connects to. Multiple IDs can be passed separated by commas, for e.g., "id_1,id_2". Maximum number of IDs: 20. Maximum length: 4096.
 	// Changing this creates a new snat rule.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.EIPV1
 	// +kubebuilder:validation:Optional

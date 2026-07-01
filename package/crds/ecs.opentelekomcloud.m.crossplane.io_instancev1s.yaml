@@ -263,6 +263,11 @@ spec:
                       Delete the data disks upon termination of the instance.
                       Defaults to false. Changing this creates a new server.
                     type: boolean
+                  description:
+                    description: |-
+                      A description of the instance.
+                      The value consists of 0 to 85 characters. Angle brackets (<>) are not allowed.
+                    type: string
                   flavor:
                     description: The name of the desired flavor for the server.
                     type: string
@@ -506,6 +511,10 @@ spec:
                     - key
                     - name
                     type: object
+                  powerState:
+                    description: Provide the VM state. Only active and shutoff are
+                      supported values.
+                    type: string
                   securityGroups:
                     description: |-
                       An array of one or more security group IDs
@@ -928,6 +937,11 @@ spec:
                       Delete the data disks upon termination of the instance.
                       Defaults to false. Changing this creates a new server.
                     type: boolean
+                  description:
+                    description: |-
+                      A description of the instance.
+                      The value consists of 0 to 85 characters. Angle brackets (<>) are not allowed.
+                    type: string
                   flavor:
                     description: The name of the desired flavor for the server.
                     type: string
@@ -1171,6 +1185,10 @@ spec:
                     - key
                     - name
                     type: object
+                  powerState:
+                    description: Provide the VM state. Only active and shutoff are
+                      supported values.
+                    type: string
                   securityGroups:
                     description: |-
                       An array of one or more security group IDs
@@ -1498,6 +1516,11 @@ spec:
                       Delete the data disks upon termination of the instance.
                       Defaults to false. Changing this creates a new server.
                     type: boolean
+                  description:
+                    description: |-
+                      A description of the instance.
+                      The value consists of 0 to 85 characters. Angle brackets (<>) are not allowed.
+                    type: string
                   flavor:
                     description: The name of the desired flavor for the server.
                     type: string
@@ -1578,6 +1601,10 @@ spec:
                           type: string
                       type: object
                     type: array
+                  powerState:
+                    description: Provide the VM state. Only active and shutoff are
+                      supported values.
+                    type: string
                   securityGroups:
                     description: |-
                       An array of one or more security group IDs

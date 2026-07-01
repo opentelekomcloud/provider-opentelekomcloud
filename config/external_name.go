@@ -38,6 +38,7 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	// BLOCK STORAGE / EVS
 	"opentelekomcloud_evs_volume_v3":          config.IdentifierFromProvider,
 	"opentelekomcloud_blockstorage_volume_v2": config.IdentifierFromProvider,
+	"opentelekomcloud_evs_snapshot_v2":        config.IdentifierFromProvider,
 
 	// CBR
 	"opentelekomcloud_cbr_policy_v3": config.IdentifierFromProvider,

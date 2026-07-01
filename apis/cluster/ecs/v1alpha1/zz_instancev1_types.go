@@ -118,6 +118,10 @@ type InstanceV1InitParameters struct {
 	// Defaults to false. Changing this creates a new server.
 	DeleteDisksOnTermination *bool `json:"deleteDisksOnTermination,omitempty" tf:"delete_disks_on_termination,omitempty"`
 
+	// A description of the instance.
+	// The value consists of 0 to 85 characters. Angle brackets (<>) are not allowed.
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
 	// The name of the desired flavor for the server.
 	Flavor *string `json:"flavor,omitempty" tf:"flavor,omitempty"`
 
@@ -155,6 +159,9 @@ type InstanceV1InitParameters struct {
 	// The administrative password to assign to the server.
 	// Changing this creates a new server.
 	PasswordSecretRef *v1.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
+
+	// Provide the VM state. Only active and shutoff are supported values.
+	PowerState *string `json:"powerState,omitempty" tf:"power_state,omitempty"`
 
 	// An array of one or more security group IDs
 	// to associate with the server. If this parameter is left blank, the default
@@ -228,6 +235,10 @@ type InstanceV1Observation struct {
 	// Defaults to false. Changing this creates a new server.
 	DeleteDisksOnTermination *bool `json:"deleteDisksOnTermination,omitempty" tf:"delete_disks_on_termination,omitempty"`
 
+	// A description of the instance.
+	// The value consists of 0 to 85 characters. Angle brackets (<>) are not allowed.
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
 	// The name of the desired flavor for the server.
 	Flavor *string `json:"flavor,omitempty" tf:"flavor,omitempty"`
 
@@ -254,6 +265,9 @@ type InstanceV1Observation struct {
 
 	// Schedules ECSs, for example, by configuring an ECS group. The os_scheduler_hints object structure is documented below. Changing this creates a new server.
 	OsSchedulerHints []OsSchedulerHintsObservation `json:"osSchedulerHints,omitempty" tf:"os_scheduler_hints,omitempty"`
+
+	// Provide the VM state. Only active and shutoff are supported values.
+	PowerState *string `json:"powerState,omitempty" tf:"power_state,omitempty"`
 
 	// An array of one or more security group IDs
 	// to associate with the server. If this parameter is left blank, the default
@@ -323,6 +337,11 @@ type InstanceV1Parameters struct {
 	// +kubebuilder:validation:Optional
 	DeleteDisksOnTermination *bool `json:"deleteDisksOnTermination,omitempty" tf:"delete_disks_on_termination,omitempty"`
 
+	// A description of the instance.
+	// The value consists of 0 to 85 characters. Angle brackets (<>) are not allowed.
+	// +kubebuilder:validation:Optional
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
 	// The name of the desired flavor for the server.
 	// +kubebuilder:validation:Optional
 	Flavor *string `json:"flavor,omitempty" tf:"flavor,omitempty"`
@@ -368,6 +387,10 @@ type InstanceV1Parameters struct {
 	// Changing this creates a new server.
 	// +kubebuilder:validation:Optional
 	PasswordSecretRef *v1.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
+
+	// Provide the VM state. Only active and shutoff are supported values.
+	// +kubebuilder:validation:Optional
+	PowerState *string `json:"powerState,omitempty" tf:"power_state,omitempty"`
 
 	// An array of one or more security group IDs
 	// to associate with the server. If this parameter is left blank, the default

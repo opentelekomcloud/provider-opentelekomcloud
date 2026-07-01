@@ -63,6 +63,7 @@ import (
 	dwsNamespaced "github.com/opentelekomcloud/provider-opentelekomcloud/config/namespaced/dws"
 	erNamespaced "github.com/opentelekomcloud/provider-opentelekomcloud/config/namespaced/er"
 	evpnNamespaced "github.com/opentelekomcloud/provider-opentelekomcloud/config/namespaced/evpn"
+	evsNamespaced "github.com/opentelekomcloud/provider-opentelekomcloud/config/namespaced/evs"
 	hssNamespaced "github.com/opentelekomcloud/provider-opentelekomcloud/config/namespaced/hss"
 	rmsNamespaced "github.com/opentelekomcloud/provider-opentelekomcloud/config/namespaced/rms"
 	rtsNamespaced "github.com/opentelekomcloud/provider-opentelekomcloud/config/namespaced/rts"
@@ -205,6 +206,7 @@ func GetProviderNamespaced() *ujconfig.Provider {
 		taurusdbNamespaced.Configure,
 		tmsNamespaced.Configure,
 		evpnNamespaced.Configure,
+		evsNamespaced.Configure,
 		fgNamespaced.Configure,
 		fwNamespaced.Configure,
 		identityNamespaced.Configure,

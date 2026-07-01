@@ -54,7 +54,16 @@ type VolumeV3InitParameters struct {
 
 	// The Encryption KMS ID to create the volume.
 	// Changing this creates a new volume.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/kms/v1alpha1.KeyV1
 	KMSID *string `json:"kmsId,omitempty" tf:"kms_id,omitempty"`
+
+	// Reference to a KeyV1 in kms to populate kmsId.
+	// +kubebuilder:validation:Optional
+	KMSIDRef *v1.NamespacedReference `json:"kmsIdRef,omitempty" tf:"-"`
+
+	// Selector for a KeyV1 in kms to populate kmsId.
+	// +kubebuilder:validation:Optional
+	KMSIDSelector *v1.NamespacedSelector `json:"kmsIdSelector,omitempty" tf:"-"`
 
 	// Specifies whether the disk is shareable. The default value is false.
 	// Changing this creates a new volume.
@@ -177,8 +186,17 @@ type VolumeV3Parameters struct {
 
 	// The Encryption KMS ID to create the volume.
 	// Changing this creates a new volume.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/kms/v1alpha1.KeyV1
 	// +kubebuilder:validation:Optional
 	KMSID *string `json:"kmsId,omitempty" tf:"kms_id,omitempty"`
+
+	// Reference to a KeyV1 in kms to populate kmsId.
+	// +kubebuilder:validation:Optional
+	KMSIDRef *v1.NamespacedReference `json:"kmsIdRef,omitempty" tf:"-"`
+
+	// Selector for a KeyV1 in kms to populate kmsId.
+	// +kubebuilder:validation:Optional
+	KMSIDSelector *v1.NamespacedSelector `json:"kmsIdSelector,omitempty" tf:"-"`
 
 	// Specifies whether the disk is shareable. The default value is false.
 	// Changing this creates a new volume.

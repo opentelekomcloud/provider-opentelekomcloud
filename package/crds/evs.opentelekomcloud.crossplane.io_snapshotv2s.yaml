@@ -4,18 +4,18 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.18.0
-  name: dependencyversionv2s.fgs.opentelekomcloud.crossplane.io
+  name: snapshotv2s.evs.opentelekomcloud.crossplane.io
 spec:
-  group: fgs.opentelekomcloud.crossplane.io
+  group: evs.opentelekomcloud.crossplane.io
   names:
     categories:
     - crossplane
     - managed
     - opentelekomcloud
-    kind: DependencyVersionV2
-    listKind: DependencyVersionV2List
-    plural: dependencyversionv2s
-    singular: dependencyversionv2
+    kind: SnapshotV2
+    listKind: SnapshotV2List
+    plural: snapshotv2s
+    singular: snapshotv2
   scope: Cluster
   versions:
   - additionalPrinterColumns:
@@ -34,8 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: DependencyVersionV2 is the Schema for the DependencyVersionV2s
-          API. Manages a custom dependency version within OpenTelekomCloud.
+        description: SnapshotV2 is the Schema for the SnapshotV2s API. Manages an
+          EVS snapshot resource within OpenTelekomCloud.
         properties:
           apiVersion:
             description: |-
@@ -55,7 +55,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: DependencyVersionV2Spec defines the desired state of DependencyVersionV2
+            description: SnapshotV2Spec defines the desired state of SnapshotV2
             properties:
               deletionPolicy:
                 default: Delete
@@ -74,37 +74,29 @@ spec:
               forProvider:
                 properties:
                   description:
-                    description: |-
-                      Specifies the description of the custom dependency version.
-                      The description can contain a maximum of 512 characters.
-                      Changing this will create a new resource.
+                    description: The description of the snapshot. The value can contain
+                      a maximum of 255 bytes.
                     type: string
-                  file:
+                  force:
+                    description: Specifies whether to forcibly create a snapshot.
+                      Defaults to false.
+                    type: boolean
+                  metadata:
+                    additionalProperties:
+                      type: string
                     description: |-
-                      Specifies the file contents in the file stream format and must be a ZIP file encoded using Base64.
-                      The size of the ZIP file cannot exceed 40 MB. For a larger file, upload it through OBS.
-                      Either link or file must be specified.
-                    type: string
-                  link:
-                    description: |-
-                      Specifies the OBS bucket path where the dependency package is located.
-                      The OBS object URL must be in ZIP format, such as
-                      https://test-bucket.obs.eu-de.otc.t-systems.com/index.zip.
-                      Either link or file must be specified.
-                      Changing this will create a new resource.
-                    type: string
+                      Specifies the user-defined metadata key-value pairs. Changing this parameter
+                      creates a new snapshot.
+                    type: object
+                    x-kubernetes-map-type: granular
                   name:
-                    description: |-
-                      Specifies the name of the custom dependency package to which the version
-                      belongs.
-                      The name can contain a maximum of 96 characters and must start with a letter and end with a letter or digit.
-                      Only letters, digits, underscores (_), periods (.), and hyphens (-) are allowed.
-                      Changing this will create a new resource.
+                    description: The name of the snapshot. The value can contain a
+                      maximum of 255 bytes.
                     type: string
-                  runtime:
+                  volumeId:
                     description: |-
-                      Specifies the runtime of the custom dependency version.
-                      The valid values are as follows:
+                      The ID of the snapshot's source disk. Changing this parameter creates a new
+                      snapshot.
                     type: string
                 type: object
               initProvider:
@@ -121,37 +113,29 @@ spec:
                   autoscaler.
                 properties:
                   description:
-                    description: |-
-                      Specifies the description of the custom dependency version.
-                      The description can contain a maximum of 512 characters.
-                      Changing this will create a new resource.
+                    description: The description of the snapshot. The value can contain
+                      a maximum of 255 bytes.
                     type: string
-                  file:
+                  force:
+                    description: Specifies whether to forcibly create a snapshot.
+                      Defaults to false.
+                    type: boolean
+                  metadata:
+                    additionalProperties:
+                      type: string
                     description: |-
-                      Specifies the file contents in the file stream format and must be a ZIP file encoded using Base64.
-                      The size of the ZIP file cannot exceed 40 MB. For a larger file, upload it through OBS.
-                      Either link or file must be specified.
-                    type: string
-                  link:
-                    description: |-
-                      Specifies the OBS bucket path where the dependency package is located.
-                      The OBS object URL must be in ZIP format, such as
-                      https://test-bucket.obs.eu-de.otc.t-systems.com/index.zip.
-                      Either link or file must be specified.
-                      Changing this will create a new resource.
-                    type: string
+                      Specifies the user-defined metadata key-value pairs. Changing this parameter
+                      creates a new snapshot.
+                    type: object
+                    x-kubernetes-map-type: granular
                   name:
-                    description: |-
-                      Specifies the name of the custom dependency package to which the version
-                      belongs.
-                      The name can contain a maximum of 96 characters and must start with a letter and end with a letter or digit.
-                      Only letters, digits, underscores (_), periods (.), and hyphens (-) are allowed.
-                      Changing this will create a new resource.
+                    description: The name of the snapshot. The value can contain a
+                      maximum of 255 bytes.
                     type: string
-                  runtime:
+                  volumeId:
                     description: |-
-                      Specifies the runtime of the custom dependency version.
-                      The valid values are as follows:
+                      The ID of the snapshot's source disk. Changing this parameter creates a new
+                      snapshot.
                     type: string
                 type: object
               managementPolicies:
@@ -245,77 +229,58 @@ spec:
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
                 || (has(self.initProvider) && has(self.initProvider.name))'
-            - message: spec.forProvider.runtime is a required parameter
+            - message: spec.forProvider.volumeId is a required parameter
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.runtime)
-                || (has(self.initProvider) && has(self.initProvider.runtime))'
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.volumeId)
+                || (has(self.initProvider) && has(self.initProvider.volumeId))'
           status:
-            description: DependencyVersionV2Status defines the observed state of DependencyVersionV2.
+            description: SnapshotV2Status defines the observed state of SnapshotV2.
             properties:
               atProvider:
                 properties:
-                  dependencyId:
-                    description: The ID of the dependency package corresponding to
-                      the version.
+                  createdAt:
+                    description: The time when the snapshot was created.
                     type: string
                   description:
-                    description: |-
-                      Specifies the description of the custom dependency version.
-                      The description can contain a maximum of 512 characters.
-                      Changing this will create a new resource.
+                    description: The description of the snapshot. The value can contain
+                      a maximum of 255 bytes.
                     type: string
-                  downloadLink:
-                    description: The temporary download link of a dependency file.
-                    type: string
-                  etag:
-                    description: The unique ID of the dependency.
-                    type: string
-                  file:
-                    description: |-
-                      Specifies the file contents in the file stream format and must be a ZIP file encoded using Base64.
-                      The size of the ZIP file cannot exceed 40 MB. For a larger file, upload it through OBS.
-                      Either link or file must be specified.
-                    type: string
-                  fileName:
-                    description: The dependency file name.
-                    type: string
+                  force:
+                    description: Specifies whether to forcibly create a snapshot.
+                      Defaults to false.
+                    type: boolean
                   id:
-                    description: |-
-                      The resource ID, consists of dependency ID and version number, separated by a slash (/).
-                      The format is <name>/<version>.
+                    description: The ID of the snapshot.
                     type: string
-                  link:
+                  metadata:
+                    additionalProperties:
+                      type: string
                     description: |-
-                      Specifies the OBS bucket path where the dependency package is located.
-                      The OBS object URL must be in ZIP format, such as
-                      https://test-bucket.obs.eu-de.otc.t-systems.com/index.zip.
-                      Either link or file must be specified.
-                      Changing this will create a new resource.
-                    type: string
+                      Specifies the user-defined metadata key-value pairs. Changing this parameter
+                      creates a new snapshot.
+                    type: object
+                    x-kubernetes-map-type: granular
                   name:
-                    description: |-
-                      Specifies the name of the custom dependency package to which the version
-                      belongs.
-                      The name can contain a maximum of 96 characters and must start with a letter and end with a letter or digit.
-                      Only letters, digits, underscores (_), periods (.), and hyphens (-) are allowed.
-                      Changing this will create a new resource.
+                    description: The name of the snapshot. The value can contain a
+                      maximum of 255 bytes.
                     type: string
-                  owner:
-                    description: The dependency owner, public indicates a public dependency.
-                    type: string
-                  runtime:
-                    description: |-
-                      Specifies the runtime of the custom dependency version.
-                      The valid values are as follows:
+                  region:
+                    description: The region in which the EVS snapshot resource was
+                      created.
                     type: string
                   size:
-                    description: The dependency size, in bytes.
+                    description: The size of the snapshot in GB.
                     type: number
-                  version:
-                    description: The dependency package version.
-                    type: number
-                  versionId:
-                    description: The ID of the dependency package version.
+                  status:
+                    description: The status of the snapshot.
+                    type: string
+                  updatedAt:
+                    description: The time when the snapshot was updated.
+                    type: string
+                  volumeId:
+                    description: |-
+                      The ID of the snapshot's source disk. Changing this parameter creates a new
+                      snapshot.
                     type: string
                 type: object
               conditions:

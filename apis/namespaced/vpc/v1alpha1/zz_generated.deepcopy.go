@@ -3547,6 +3547,11 @@ func (in *SubnetV1Observation) DeepCopyInto(out *SubnetV1Observation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.SubnetIDV6 != nil {
+		in, out := &in.SubnetIDV6, &out.SubnetIDV6
+		*out = new(string)
+		**out = **in
+	}
 	if in.Tags != nil {
 		in, out := &in.Tags, &out.Tags
 		*out = make(map[string]*string, len(*in))

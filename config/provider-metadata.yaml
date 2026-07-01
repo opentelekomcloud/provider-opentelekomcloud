@@ -5965,9 +5965,9 @@ resources:
             description: '- (Optional, String) Specifies the description of the domain name group.'
             domain_address_id: '- Indicates the domain name ID.'
             domain_name: '- See Argument Reference above.'
-            domain_names: '- (Required, List, ForceNew) Specifies the domain name information list. The domain_names structure is documented below.'
-            domain_names.description: '- (Optional, String, ForceNew) Specifies the domain name description.'
-            domain_names.domain_name: '- (Required, String, ForceNew) Specifies the domain name, for example, www.test.com.'
+            domain_names: '- (Required, List) Specifies the domain name information list. The domain_names structure is documented below.'
+            domain_names.description: '- (Optional, String) Specifies the domain name description.'
+            domain_names.domain_name: '- (Required, String) Specifies the domain name, for example, www.test.com.'
             domain_set_type: '- (Optional, Integer, ForceNew) Specifies the domain name group typ: 0 (application domain name group), 1 (network domain name group).'
             firewall_id: '- (Required, String, ForceNew) Specifies the Firewall ID.'
             id: '- Indicates the domain name group ID.'
@@ -6879,7 +6879,7 @@ resources:
                 OTC-API
                 -> NOTE: Common I/O (SATA) will reach end of life, end of 2025.
             config_drive: |-
-                - (Optional) Whether to use the config_drive feature to configure the instance. Changing this creates a
+                DEPRECATED - (Optional) Whether to use the config_drive feature to configure the instance. Changing this creates a
                 new server.
             connection: 'information:'
             description: '- (Optional) Server description.'
@@ -11059,6 +11059,9 @@ resources:
             delete_disks_on_termination: |-
                 - (Optional, Boolean) Delete the data disks upon termination of the instance.
                 Defaults to false. Changing this creates a new server.
+            description: |-
+                - (Optional, String) A description of the instance.
+                The value consists of 0 to 85 characters. Angle brackets (<>) are not allowed.
             flavor: '- (Required, String) The name of the desired flavor for the server.'
             image_id: '- (Required, String, ForceNew) The ID of the desired image for the server. Changing this creates a new server.'
             key_name: |-
@@ -11084,6 +11087,7 @@ resources:
             os_scheduler_hints: '- (Optional, Map, ForceNew) Schedules ECSs, for example, by configuring an ECS group. The os_scheduler_hints object structure is documented below. Changing this creates a new server.'
             os_scheduler_hints.dedicated_host_id: '- (Optional, String, ForceNew) Specifies the dedicated host ID. A Dedicated Host ID takes effect only when tenancy is set to dedicated.'
             os_scheduler_hints.group: '- (Optional, String, ForceNew) Specifies the ECS group ID in UUID format.'
+            os_scheduler_hints.power_state: '- (Optional) Provide the VM state. Only active and shutoff are supported values.'
             os_scheduler_hints.tenancy: '- (Optional, String, ForceNew) Creates ECSs on a dedicated or shared host. Available options are: dedicated  or shared.'
             password: |-
                 - (Optional, String, ForceNew) The administrative password to assign to the server.
@@ -11834,6 +11838,65 @@ resources:
                 - (Required, String, ForceNew) Specifies the ID of the VPC to which the VPC attachment belongs.
                 Changing this parameter will create a new resource.
         importStatements: []
+    opentelekomcloud_evs_snapshot_v2:
+        subCategory: Elastic Volume Service (EVS)
+        description: Manages an EVS snapshot resource within OpenTelekomCloud.
+        name: opentelekomcloud_evs_snapshot_v2
+        title: opentelekomcloud_evs_snapshot_v2
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "description": "Daily backup",
+                  "metadata": {
+                    "foo": "bar"
+                  },
+                  "name": "snapshot-001",
+                  "volume_id": "${opentelekomcloud_evs_volume_v3.test.id}"
+                }
+              references:
+                volume_id: opentelekomcloud_evs_volume_v3.test.id
+              dependencies:
+                opentelekomcloud_evs_volume_v3.test: |-
+                    {
+                      "availability_zone": "${data.opentelekomcloud_compute_availability_zones_v2.test.names[0]}",
+                      "description": "Created by acc test",
+                      "name": "volume-001",
+                      "size": 12,
+                      "volume_type": "SAS"
+                    }
+            - name: test
+              manifest: |-
+                {
+                  "lifecycle": [
+                    {
+                      "ignore_changes": [
+                        "${force}"
+                      ]
+                    }
+                  ]
+                }
+              references:
+                lifecycle.ignore_changes: force
+        argumentDocs:
+            create: '- Default is 10 minutes.'
+            created_at: '- The time when the snapshot was created.'
+            delete: '- Default is 3 minutes.'
+            description: '- (Optional, String) The description of the snapshot. The value can contain a maximum of 255 bytes.'
+            force: '- (Optional, Boolean) Specifies whether to forcibly create a snapshot. Defaults to false.'
+            id: '- The ID of the snapshot.'
+            metadata: |-
+                - (Optional, Map, ForceNew) Specifies the user-defined metadata key-value pairs. Changing this parameter
+                creates a new snapshot.
+            name: '- (Required, String) The name of the snapshot. The value can contain a maximum of 255 bytes.'
+            region: '- The region in which the EVS snapshot resource was created.'
+            size: '- The size of the snapshot in GB.'
+            status: '- The status of the snapshot.'
+            updated_at: '- The time when the snapshot was updated.'
+            volume_id: |-
+                - (Required, String, ForceNew) The ID of the snapshot's source disk. Changing this parameter creates a new
+                snapshot.
+        importStatements: []
     opentelekomcloud_evs_volume_v3:
         subCategory: Elastic Volume Service (EVS)
         description: Manages an EVS resource within OpenTelekomCloud.
@@ -12042,6 +12105,7 @@ resources:
                 The valid values are as follows:
             size: '- The dependency size, in bytes.'
             version: '- The dependency package version.'
+            version_id: '- The ID of the dependency package version.'
         importStatements: []
     opentelekomcloud_fgs_event_v2:
         subCategory: FunctionGraph
@@ -12353,7 +12417,9 @@ resources:
                 The rule is xx.xx, such as com.huawei.demo.TriggerTests.heartBeat, it must contain periods (.).
                 The heartbeat function entry must be in the same file as the function execution entry.
             id: '- The resource ID, consist of urn and current version, the format is <urn>:<version>.'
-            initializer_handler: '- (Optional, String) Specifies the initializer of the function.'
+            initializer_handler: |-
+                - (Optional, String) Specifies the initializer of the function.
+                Removing this argument (together with initializer_timeout) disables the function initialization.
             initializer_timeout: |-
                 - (Optional, Int) Specifies the maximum duration the function can be initialized. Value range:
                 1s to 300s.
@@ -13951,6 +14017,15 @@ resources:
             - name: user_1
               manifest: |-
                 {
+                  "enabled": true,
+                  "name": "user_external",
+                  "password": "password123@!",
+                  "xuser_id": "external-system-user-id",
+                  "xuser_type": "TenantIdp"
+                }
+            - name: user_1
+              manifest: |-
+                {
                   "lifecycle": [
                     {
                       "ignore_changes": [
@@ -13974,6 +14049,8 @@ resources:
             login_protection: |-
                 - (Optional, List) Login protection configuration.
                 The login_protection block supports:
+            login_protection.enabled: '- (Required, Bool) Indicates whether login protection has been enabled for the user. The value can be true or false.'
+            login_protection.verification_method: '- (Required, String) Login authentication method of the user. Options: sms, email, and vmfa.'
             name: |-
                 - (Required, String) Specifies the name of the user. The user name consists of 5 to 32 characters. It can
                 contain only uppercase letters, lowercase letters, digits, spaces, and special characters (-_) and cannot start with a
@@ -13991,9 +14068,12 @@ resources:
             send_welcome_email: |-
                 - (Optional, Bool) Whether to send a Welcome Email or not.
                 Possible values are true and false.
-            verification_method: '- (Required, String) Login authentication method of the user. Options: sms, email, and vmfa.'
-            xuser_id: '- ID of the user in the external system.'
-            xuser_type: '- Type of the user in the external system.'
+            xuser_id: |-
+                - (Optional, String) Specifies the ID of the IAM user in the external system.
+                Must be used together with xuser_type. The ID can contain a maximum of 128 characters.
+            xuser_type: |-
+                - (Optional, String) Specifies the type of the IAM user in the external system.
+                Must be used together with xuser_id. Currently, the only supported value is TenantIdp.
         importStatements: []
     opentelekomcloud_images_image_access_accept_v2:
         subCategory: Image Management Service (IMS)
@@ -17476,7 +17556,7 @@ resources:
                 - (Optional) Provides supplementary information about the SNAT rule.
                 Changing this creates a new snat rule.
             floating_ip_id: |-
-                - (Required) ID of the floating ip this snat rule connects to.
+                - (Required) ID of the floating ip this snat rule connects to. Multiple IDs can be passed separated by commas, for e.g., "id_1,id_2". Maximum number of IDs: 20. Maximum length: 4096.
                 Changing this creates a new snat rule.
             nat_gateway_id: |-
                 - (Required) ID of the nat gateway this snat rule belongs to.
@@ -18482,6 +18562,17 @@ resources:
             - name: bucket
               manifest: |-
                 {
+                  "acl": "private",
+                  "bucket": "my-bucket",
+                  "server_side_encryption": [
+                    {
+                      "algorithm": "kms"
+                    }
+                  ]
+                }
+            - name: bucket
+              manifest: |-
+                {
                   "acl": "public-read",
                   "bucket": "my-bucket",
                   "server_side_encryption": [
@@ -18778,7 +18869,7 @@ resources:
                 directory of a bucket to function as the default homepage. That is to say, do not set the default homepage
                 with a multi-level directory structure (for example, /page/index.html).
             key: '- (Required) The tag key. Must be unique within the rule, cannot be blank, maximum 128 characters. Cannot contain: =*<>,|/?!;'
-            kms_key_id: '- (Required) The ID of KMS key used for the encryption.'
+            kms_key_id: '- (Optional) The ID of KMS key used for the encryption. If not specified, the default master key will be used.'
             kms_project_id: '- (Optional) The ID of the project where the KMS master key belongs.'
             lifecycle_rule: '- (Optional) A configuration of object lifecycle management (documented below).'
             logging: '- (Optional) A settings of bucket logging (documented below).'
@@ -23258,6 +23349,7 @@ resources:
                 valid IP address. Default is 100.125.129.199, OpenTelekomCloud secondary internal DNS server.
             status: '- Specifies the status of the subnet. The value can be ACTIVE, DOWN, UNKNOWN, or ERROR.'
             subnet_id: '- Specifies the OpenStack subnet ID.'
+            subnet_id_v6: '- Specifies the OpenStack IPv6 subnet ID. Only returned if subnet is IPV6 enabled.'
             tags: '- (Optional) The key/value pairs to associate with the subnet.'
             vpc_id: '- (Required) Specifies the ID of the VPC to which the subnet belongs. Changing this creates a new Subnet.'
         importStatements:

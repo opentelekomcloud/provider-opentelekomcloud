@@ -74,7 +74,7 @@ spec:
                     type: string
                   floatingIpId:
                     description: |-
-                      ID of the floating ip this snat rule connects to.
+                      ID of the floating ip this snat rule connects to. Multiple IDs can be passed separated by commas, for e.g., "id_1,id_2". Maximum number of IDs: 20. Maximum length: 4096.
                       Changing this creates a new snat rule.
                     type: string
                   floatingIpIdRef:
@@ -363,7 +363,7 @@ spec:
                     type: string
                   floatingIpId:
                     description: |-
-                      ID of the floating ip this snat rule connects to.
+                      ID of the floating ip this snat rule connects to. Multiple IDs can be passed separated by commas, for e.g., "id_1,id_2". Maximum number of IDs: 20. Maximum length: 4096.
                       Changing this creates a new snat rule.
                     type: string
                   floatingIpIdRef:
@@ -702,7 +702,7 @@ spec:
                     type: string
                   floatingIpId:
                     description: |-
-                      ID of the floating ip this snat rule connects to.
+                      ID of the floating ip this snat rule connects to. Multiple IDs can be passed separated by commas, for e.g., "id_1,id_2". Maximum number of IDs: 20. Maximum length: 4096.
                       Changing this creates a new snat rule.
                     type: string
                   id:

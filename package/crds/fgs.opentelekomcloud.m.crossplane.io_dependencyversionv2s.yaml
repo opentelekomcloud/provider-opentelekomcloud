@@ -272,6 +272,9 @@ spec:
                   version:
                     description: The dependency package version.
                     type: number
+                  versionId:
+                    description: The ID of the dependency package version.
+                    type: string
                 type: object
               conditions:
                 description: Conditions of the resource.
