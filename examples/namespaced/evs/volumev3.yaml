@@ -36,6 +36,6 @@ spec:
     keyAlias: xp-test-${Rand.RFC1123Subdomain}
     keyDescription: crossplane
     pendingDays: "7"
-    realm: eu-de-01
+    realm: eu-de
     tags:
       muh: kuh
