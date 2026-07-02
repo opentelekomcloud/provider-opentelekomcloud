@@ -657,7 +657,7 @@ type ServerSideEncryptionInitParameters struct {
 	// The algorithm used for SSE. Only kms is supported.
 	Algorithm *string `json:"algorithm,omitempty" tf:"algorithm,omitempty"`
 
-	// The ID of KMS key used for the encryption.
+	// The ID of KMS key used for the encryption. If not specified, the default master key will be used.
 	KMSKeyID *string `json:"kmsKeyId,omitempty" tf:"kms_key_id,omitempty"`
 
 	// The ID of the project where the KMS master key belongs.
@@ -669,7 +669,7 @@ type ServerSideEncryptionObservation struct {
 	// The algorithm used for SSE. Only kms is supported.
 	Algorithm *string `json:"algorithm,omitempty" tf:"algorithm,omitempty"`
 
-	// The ID of KMS key used for the encryption.
+	// The ID of KMS key used for the encryption. If not specified, the default master key will be used.
 	KMSKeyID *string `json:"kmsKeyId,omitempty" tf:"kms_key_id,omitempty"`
 
 	// The ID of the project where the KMS master key belongs.
@@ -682,9 +682,9 @@ type ServerSideEncryptionParameters struct {
 	// +kubebuilder:validation:Optional
 	Algorithm *string `json:"algorithm" tf:"algorithm,omitempty"`
 
-	// The ID of KMS key used for the encryption.
+	// The ID of KMS key used for the encryption. If not specified, the default master key will be used.
 	// +kubebuilder:validation:Optional
-	KMSKeyID *string `json:"kmsKeyId" tf:"kms_key_id,omitempty"`
+	KMSKeyID *string `json:"kmsKeyId,omitempty" tf:"kms_key_id,omitempty"`
 
 	// The ID of the project where the KMS master key belongs.
 	// +kubebuilder:validation:Optional

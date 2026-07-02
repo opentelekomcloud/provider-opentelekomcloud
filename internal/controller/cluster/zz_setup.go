@@ -97,6 +97,7 @@ import (
 	routetablev3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/er/routetablev3"
 	staticroutev3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/er/staticroutev3"
 	vpcattachmentv3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/er/vpcattachmentv3"
+	snapshotv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/evs/snapshotv2"
 	volumev3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/evs/volumev3"
 	asyncinvokeconfigv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/fgs/asyncinvokeconfigv2"
 	dependencyversionv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/fgs/dependencyversionv2"
@@ -348,6 +349,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		routetablev3.Setup,
 		staticroutev3.Setup,
 		vpcattachmentv3.Setup,
+		snapshotv2.Setup,
 		volumev3.Setup,
 		asyncinvokeconfigv2.Setup,
 		dependencyversionv2.Setup,
@@ -605,6 +607,7 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		routetablev3.SetupGated,
 		staticroutev3.SetupGated,
 		vpcattachmentv3.SetupGated,
+		snapshotv2.SetupGated,
 		volumev3.SetupGated,
 		asyncinvokeconfigv2.SetupGated,
 		dependencyversionv2.SetupGated,

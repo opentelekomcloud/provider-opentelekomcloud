@@ -15,7 +15,7 @@ import (
 
 type LoginProtectionInitParameters struct {
 
-	// Specifies whether the user is enabled or disabled. Valid values are true and false.
+	// Indicates whether login protection has been enabled for the user. The value can be true or false.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
 	// Login authentication method of the user. Options: sms, email, and vmfa.
@@ -24,7 +24,7 @@ type LoginProtectionInitParameters struct {
 
 type LoginProtectionObservation struct {
 
-	// Specifies whether the user is enabled or disabled. Valid values are true and false.
+	// Indicates whether login protection has been enabled for the user. The value can be true or false.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
 	// Login authentication method of the user. Options: sms, email, and vmfa.
@@ -33,7 +33,7 @@ type LoginProtectionObservation struct {
 
 type LoginProtectionParameters struct {
 
-	// Specifies whether the user is enabled or disabled. Valid values are true and false.
+	// Indicates whether login protection has been enabled for the user. The value can be true or false.
 	// +kubebuilder:validation:Optional
 	Enabled *bool `json:"enabled" tf:"enabled,omitempty"`
 
@@ -83,6 +83,14 @@ type UserV3InitParameters struct {
 	// Whether to send a Welcome Email or not.
 	// Possible values are true and false.
 	SendWelcomeEmail *bool `json:"sendWelcomeEmail,omitempty" tf:"send_welcome_email,omitempty"`
+
+	// Specifies the ID of the IAM user in the external system.
+	// Must be used together with xuser_type. The ID can contain a maximum of 128 characters.
+	XuserID *string `json:"xuserId,omitempty" tf:"xuser_id,omitempty"`
+
+	// Specifies the type of the IAM user in the external system.
+	// Must be used together with xuser_id. Currently, the only supported value is TenantIdp.
+	XuserType *string `json:"xuserType,omitempty" tf:"xuser_type,omitempty"`
 }
 
 type UserV3Observation struct {
@@ -138,10 +146,12 @@ type UserV3Observation struct {
 	// Possible values are true and false.
 	SendWelcomeEmail *bool `json:"sendWelcomeEmail,omitempty" tf:"send_welcome_email,omitempty"`
 
-	// ID of the user in the external system.
+	// Specifies the ID of the IAM user in the external system.
+	// Must be used together with xuser_type. The ID can contain a maximum of 128 characters.
 	XuserID *string `json:"xuserId,omitempty" tf:"xuser_id,omitempty"`
 
-	// Type of the user in the external system.
+	// Specifies the type of the IAM user in the external system.
+	// Must be used together with xuser_id. Currently, the only supported value is TenantIdp.
 	XuserType *string `json:"xuserType,omitempty" tf:"xuser_type,omitempty"`
 }
 
@@ -197,6 +207,16 @@ type UserV3Parameters struct {
 	// Possible values are true and false.
 	// +kubebuilder:validation:Optional
 	SendWelcomeEmail *bool `json:"sendWelcomeEmail,omitempty" tf:"send_welcome_email,omitempty"`
+
+	// Specifies the ID of the IAM user in the external system.
+	// Must be used together with xuser_type. The ID can contain a maximum of 128 characters.
+	// +kubebuilder:validation:Optional
+	XuserID *string `json:"xuserId,omitempty" tf:"xuser_id,omitempty"`
+
+	// Specifies the type of the IAM user in the external system.
+	// Must be used together with xuser_id. Currently, the only supported value is TenantIdp.
+	// +kubebuilder:validation:Optional
+	XuserType *string `json:"xuserType,omitempty" tf:"xuser_type,omitempty"`
 }
 
 // UserV3Spec defines the desired state of UserV3

@@ -252,7 +252,9 @@ spec:
                       The heartbeat function entry must be in the same file as the function execution entry.
                     type: string
                   initializerHandler:
-                    description: Specifies the initializer of the function.
+                    description: |-
+                      Specifies the initializer of the function.
+                      Removing this argument (together with initializer_timeout) disables the function initialization.
                     type: string
                   initializerTimeout:
                     description: |-
@@ -670,7 +672,9 @@ spec:
                       The heartbeat function entry must be in the same file as the function execution entry.
                     type: string
                   initializerHandler:
-                    description: Specifies the initializer of the function.
+                    description: |-
+                      Specifies the initializer of the function.
+                      Removing this argument (together with initializer_timeout) disables the function initialization.
                     type: string
                   initializerTimeout:
                     description: |-
@@ -1179,7 +1183,9 @@ spec:
                       the format is <urn>:<version>.
                     type: string
                   initializerHandler:
-                    description: Specifies the initializer of the function.
+                    description: |-
+                      Specifies the initializer of the function.
+                      Removing this argument (together with initializer_timeout) disables the function initialization.
                     type: string
                   initializerTimeout:
                     description: |-

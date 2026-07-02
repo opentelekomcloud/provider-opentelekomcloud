@@ -301,6 +301,7 @@ spec:
                           type: string
                         kmsKeyId:
                           description: The ID of KMS key used for the encryption.
+                            If not specified, the default master key will be used.
                           type: string
                         kmsProjectId:
                           description: The ID of the project where the KMS master
@@ -638,6 +639,7 @@ spec:
                           type: string
                         kmsKeyId:
                           description: The ID of KMS key used for the encryption.
+                            If not specified, the default master key will be used.
                           type: string
                         kmsProjectId:
                           description: The ID of the project where the KMS master
@@ -1040,6 +1042,7 @@ spec:
                           type: string
                         kmsKeyId:
                           description: The ID of KMS key used for the encryption.
+                            If not specified, the default master key will be used.
                           type: string
                         kmsProjectId:
                           description: The ID of the project where the KMS master

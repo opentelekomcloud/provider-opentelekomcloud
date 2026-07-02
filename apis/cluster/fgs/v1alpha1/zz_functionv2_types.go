@@ -338,6 +338,7 @@ type FunctionV2InitParameters struct {
 	HeartbeatHandler *string `json:"heartbeatHandler,omitempty" tf:"heartbeat_handler,omitempty"`
 
 	// Specifies the initializer of the function.
+	// Removing this argument (together with initializer_timeout) disables the function initialization.
 	InitializerHandler *string `json:"initializerHandler,omitempty" tf:"initializer_handler,omitempty"`
 
 	// Specifies the maximum duration the function can be initialized. Value range:
@@ -547,6 +548,7 @@ type FunctionV2Observation struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// Specifies the initializer of the function.
+	// Removing this argument (together with initializer_timeout) disables the function initialization.
 	InitializerHandler *string `json:"initializerHandler,omitempty" tf:"initializer_handler,omitempty"`
 
 	// Specifies the maximum duration the function can be initialized. Value range:
@@ -783,6 +785,7 @@ type FunctionV2Parameters struct {
 	HeartbeatHandler *string `json:"heartbeatHandler,omitempty" tf:"heartbeat_handler,omitempty"`
 
 	// Specifies the initializer of the function.
+	// Removing this argument (together with initializer_timeout) disables the function initialization.
 	// +kubebuilder:validation:Optional
 	InitializerHandler *string `json:"initializerHandler,omitempty" tf:"initializer_handler,omitempty"`
 

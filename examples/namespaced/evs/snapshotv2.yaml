@@ -1,0 +1,36 @@
+apiVersion: evs.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: SnapshotV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: evs/v1alpha1/snapshotv2
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+  namespace: test
+spec:
+  forProvider:
+    description: crossplane
+    metadata:
+      foo: bar
+    name: xp-test-${Rand.RFC1123Subdomain}
+    volumeIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: test
+
+---
+apiVersion: evs.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: VolumeV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: evs/v1alpha1/snapshotv2
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+  namespace: test
+spec:
+  forProvider:
+    availabilityZone: eu-de-01
+    description: crossplane
+    name: xp-test-${Rand.RFC1123Subdomain}
+    size: 12
+    volumeType: SAS

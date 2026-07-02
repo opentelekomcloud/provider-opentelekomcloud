@@ -143,6 +143,9 @@ type SubnetV1Observation struct {
 	// Specifies the OpenStack subnet ID.
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 
+	// Specifies the OpenStack IPv6 subnet ID. Only returned if subnet is IPV6 enabled.
+	SubnetIDV6 *string `json:"subnetIdV6,omitempty" tf:"subnet_id_v6,omitempty"`
+
 	// The key/value pairs to associate with the subnet.
 	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`

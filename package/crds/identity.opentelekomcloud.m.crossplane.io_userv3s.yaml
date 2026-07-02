@@ -85,8 +85,8 @@ spec:
                     items:
                       properties:
                         enabled:
-                          description: Specifies whether the user is enabled or disabled.
-                            Valid values are true and false.
+                          description: Indicates whether login protection has been
+                            enabled for the user. The value can be true or false.
                           type: boolean
                         verificationMethod:
                           description: 'Login authentication method of the user. Options:
@@ -129,6 +129,16 @@ spec:
                       Whether to send a Welcome Email or not.
                       Possible values are true and false.
                     type: boolean
+                  xuserId:
+                    description: |-
+                      Specifies the ID of the IAM user in the external system.
+                      Must be used together with xuser_type. The ID can contain a maximum of 128 characters.
+                    type: string
+                  xuserType:
+                    description: |-
+                      Specifies the type of the IAM user in the external system.
+                      Must be used together with xuser_id. Currently, the only supported value is TenantIdp.
+                    type: string
                 type: object
               initProvider:
                 description: |-
@@ -169,8 +179,8 @@ spec:
                     items:
                       properties:
                         enabled:
-                          description: Specifies whether the user is enabled or disabled.
-                            Valid values are true and false.
+                          description: Indicates whether login protection has been
+                            enabled for the user. The value can be true or false.
                           type: boolean
                         verificationMethod:
                           description: 'Login authentication method of the user. Options:
@@ -213,6 +223,16 @@ spec:
                       Whether to send a Welcome Email or not.
                       Possible values are true and false.
                     type: boolean
+                  xuserId:
+                    description: |-
+                      Specifies the ID of the IAM user in the external system.
+                      Must be used together with xuser_type. The ID can contain a maximum of 128 characters.
+                    type: string
+                  xuserType:
+                    description: |-
+                      Specifies the type of the IAM user in the external system.
+                      Must be used together with xuser_id. Currently, the only supported value is TenantIdp.
+                    type: string
                 type: object
               managementPolicies:
                 default:
@@ -320,8 +340,8 @@ spec:
                     items:
                       properties:
                         enabled:
-                          description: Specifies whether the user is enabled or disabled.
-                            Valid values are true and false.
+                          description: Indicates whether login protection has been
+                            enabled for the user. The value can be true or false.
                           type: boolean
                         verificationMethod:
                           description: 'Login authentication method of the user. Options:
@@ -354,10 +374,14 @@ spec:
                       Possible values are true and false.
                     type: boolean
                   xuserId:
-                    description: ID of the user in the external system.
+                    description: |-
+                      Specifies the ID of the IAM user in the external system.
+                      Must be used together with xuser_type. The ID can contain a maximum of 128 characters.
                     type: string
                   xuserType:
-                    description: Type of the user in the external system.
+                    description: |-
+                      Specifies the type of the IAM user in the external system.
+                      Must be used together with xuser_id. Currently, the only supported value is TenantIdp.
                     type: string
                 type: object
               conditions:

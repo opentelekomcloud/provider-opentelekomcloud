@@ -1,0 +1,41 @@
+apiVersion: evs.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: VolumeV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: evs/v1alpha1/volumev3
+  labels:
+    testing.upbound.io/example-name: volume_1
+  name: volume-1
+  namespace: test
+spec:
+  forProvider:
+    availabilityZone: eu-de-01
+    description: crossplane
+    name: xp-test-${Rand.RFC1123Subdomain}
+    size: 20
+    tags:
+      foo: bar
+      key: value
+    volumeType: SAS
+    kmsIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: key_1
+---
+apiVersion: kms.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: KeyV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: kms/v1alpha1/keyv1
+  labels:
+    testing.upbound.io/example-name: key_1
+  name: key-1
+  namespace: test
+spec:
+  forProvider:
+    isEnabled: true
+    keyAlias: xp-test-${Rand.RFC1123Subdomain}
+    keyDescription: crossplane
+    pendingDays: "7"
+    realm: eu-de
+    tags:
+      muh: kuh

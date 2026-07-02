@@ -207,6 +207,11 @@ func (in *InstanceV1InitParameters) DeepCopyInto(out *InstanceV1InitParameters) 
 		*out = new(bool)
 		**out = **in
 	}
+	if in.Description != nil {
+		in, out := &in.Description, &out.Description
+		*out = new(string)
+		**out = **in
+	}
 	if in.Flavor != nil {
 		in, out := &in.Flavor, &out.Flavor
 		*out = new(string)
@@ -261,6 +266,11 @@ func (in *InstanceV1InitParameters) DeepCopyInto(out *InstanceV1InitParameters) 
 	if in.PasswordSecretRef != nil {
 		in, out := &in.PasswordSecretRef, &out.PasswordSecretRef
 		*out = new(v1.SecretKeySelector)
+		**out = **in
+	}
+	if in.PowerState != nil {
+		in, out := &in.PowerState, &out.PowerState
+		*out = new(string)
 		**out = **in
 	}
 	if in.SecurityGroups != nil {
@@ -409,6 +419,11 @@ func (in *InstanceV1Observation) DeepCopyInto(out *InstanceV1Observation) {
 		*out = new(bool)
 		**out = **in
 	}
+	if in.Description != nil {
+		in, out := &in.Description, &out.Description
+		*out = new(string)
+		**out = **in
+	}
 	if in.Flavor != nil {
 		in, out := &in.Flavor, &out.Flavor
 		*out = new(string)
@@ -454,6 +469,11 @@ func (in *InstanceV1Observation) DeepCopyInto(out *InstanceV1Observation) {
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.PowerState != nil {
+		in, out := &in.PowerState, &out.PowerState
+		*out = new(string)
+		**out = **in
 	}
 	if in.SecurityGroups != nil {
 		in, out := &in.SecurityGroups, &out.SecurityGroups
@@ -573,6 +593,11 @@ func (in *InstanceV1Parameters) DeepCopyInto(out *InstanceV1Parameters) {
 		*out = new(bool)
 		**out = **in
 	}
+	if in.Description != nil {
+		in, out := &in.Description, &out.Description
+		*out = new(string)
+		**out = **in
+	}
 	if in.Flavor != nil {
 		in, out := &in.Flavor, &out.Flavor
 		*out = new(string)
@@ -627,6 +652,11 @@ func (in *InstanceV1Parameters) DeepCopyInto(out *InstanceV1Parameters) {
 	if in.PasswordSecretRef != nil {
 		in, out := &in.PasswordSecretRef, &out.PasswordSecretRef
 		*out = new(v1.SecretKeySelector)
+		**out = **in
+	}
+	if in.PowerState != nil {
+		in, out := &in.PowerState, &out.PowerState
+		*out = new(string)
 		**out = **in
 	}
 	if in.SecurityGroups != nil {

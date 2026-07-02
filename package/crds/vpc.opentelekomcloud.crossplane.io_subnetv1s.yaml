@@ -552,6 +552,10 @@ spec:
                   subnetId:
                     description: Specifies the OpenStack subnet ID.
                     type: string
+                  subnetIdV6:
+                    description: Specifies the OpenStack IPv6 subnet ID. Only returned
+                      if subnet is IPV6 enabled.
+                    type: string
                   tags:
                     additionalProperties:
                       type: string
