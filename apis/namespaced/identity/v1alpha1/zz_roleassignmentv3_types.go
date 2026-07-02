@@ -27,16 +27,7 @@ type RoleAssignmentV3InitParameters struct {
 	GroupID *string `json:"groupId,omitempty" tf:"group_id,omitempty"`
 
 	// The project to assign the role in.
-	// +crossplane:generate:reference:type=ProjectV3
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
-
-	// Reference to a ProjectV3 to populate projectId.
-	// +kubebuilder:validation:Optional
-	ProjectIDRef *v1.NamespacedReference `json:"projectIdRef,omitempty" tf:"-"`
-
-	// Selector for a ProjectV3 to populate projectId.
-	// +kubebuilder:validation:Optional
-	ProjectIDSelector *v1.NamespacedSelector `json:"projectIdSelector,omitempty" tf:"-"`
 
 	// The role to assign.
 	RoleID *string `json:"roleId,omitempty" tf:"role_id,omitempty"`
@@ -79,17 +70,8 @@ type RoleAssignmentV3Parameters struct {
 	GroupID *string `json:"groupId,omitempty" tf:"group_id,omitempty"`
 
 	// The project to assign the role in.
-	// +crossplane:generate:reference:type=ProjectV3
 	// +kubebuilder:validation:Optional
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
-
-	// Reference to a ProjectV3 to populate projectId.
-	// +kubebuilder:validation:Optional
-	ProjectIDRef *v1.NamespacedReference `json:"projectIdRef,omitempty" tf:"-"`
-
-	// Selector for a ProjectV3 to populate projectId.
-	// +kubebuilder:validation:Optional
-	ProjectIDSelector *v1.NamespacedSelector `json:"projectIdSelector,omitempty" tf:"-"`
 
 	// The role to assign.
 	// +kubebuilder:validation:Optional

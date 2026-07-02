@@ -13,46 +13,46 @@ import (
 	client "sigs.k8s.io/controller-runtime/pkg/client"
 )
 
-// ResolveReferences of this RoleAssignmentV3.
-func (mg *RoleAssignmentV3) ResolveReferences(ctx context.Context, c client.Reader) error {
+// ResolveReferences of this CredentialV3.
+func (mg *CredentialV3) ResolveReferences(ctx context.Context, c client.Reader) error {
 	r := reference.NewAPINamespacedResolver(c, mg)
 
 	var rsp reference.NamespacedResolutionResponse
 	var err error
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ProjectID),
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.UserID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.ForProvider.ProjectIDRef,
-		Selector:     mg.Spec.ForProvider.ProjectIDSelector,
+		Reference:    mg.Spec.ForProvider.UserIDRef,
+		Selector:     mg.Spec.ForProvider.UserIDSelector,
 		To: reference.To{
-			List:    &ProjectV3List{},
-			Managed: &ProjectV3{},
+			List:    &UserV3List{},
+			Managed: &UserV3{},
 		},
 	})
 	if err != nil {
-		return errors.Wrap(err, "mg.Spec.ForProvider.ProjectID")
+		return errors.Wrap(err, "mg.Spec.ForProvider.UserID")
 	}
-	mg.Spec.ForProvider.ProjectID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.ProjectIDRef = rsp.ResolvedReference
+	mg.Spec.ForProvider.UserID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.UserIDRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ProjectID),
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.UserID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.InitProvider.ProjectIDRef,
-		Selector:     mg.Spec.InitProvider.ProjectIDSelector,
+		Reference:    mg.Spec.InitProvider.UserIDRef,
+		Selector:     mg.Spec.InitProvider.UserIDSelector,
 		To: reference.To{
-			List:    &ProjectV3List{},
-			Managed: &ProjectV3{},
+			List:    &UserV3List{},
+			Managed: &UserV3{},
 		},
 	})
 	if err != nil {
-		return errors.Wrap(err, "mg.Spec.InitProvider.ProjectID")
+		return errors.Wrap(err, "mg.Spec.InitProvider.UserID")
 	}
-	mg.Spec.InitProvider.ProjectID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.ProjectIDRef = rsp.ResolvedReference
+	mg.Spec.InitProvider.UserID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.UserIDRef = rsp.ResolvedReference
 
 	return nil
 }
