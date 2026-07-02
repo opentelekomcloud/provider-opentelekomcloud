@@ -32,4 +32,4 @@ metadata:
   namespace: test
 spec:
   forProvider:
-    name: swr_op
+    name: xp-test-${Rand.RFC1123Subdomain}

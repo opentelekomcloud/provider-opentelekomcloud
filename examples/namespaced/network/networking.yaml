@@ -10,7 +10,7 @@ metadata:
 spec:
   forProvider:
     adminStateUp: "true"
-    name: crossplane_network
+    name: xp-test-${Rand.RFC1123Subdomain}
 
 ---
 apiVersion: networking.opentelekomcloud.m.crossplane.io/v1alpha1
@@ -24,7 +24,7 @@ metadata:
   namespace: test
 spec:
   forProvider:
-    name: crossplane_router
+    name: xp-test-${Rand.RFC1123Subdomain}
 
 ---
 apiVersion: networking.opentelekomcloud.m.crossplane.io/v1alpha1
@@ -38,7 +38,7 @@ metadata:
   namespace: test
 spec:
   forProvider:
-    name: crossplane_subnet
+    name: xp-test-${Rand.RFC1123Subdomain}
     cidr: 192.168.199.0/24
     ipVersion: 4
     networkIdSelector:

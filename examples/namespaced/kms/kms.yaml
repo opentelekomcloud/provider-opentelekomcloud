@@ -9,7 +9,7 @@ metadata:
   namespace: test
 spec:
   forProvider:
-    name: user_test
+    name: xp-test-${Rand.RFC1123Subdomain}
     passwordSecretRef:
       key: example-key
       name: example-secret
