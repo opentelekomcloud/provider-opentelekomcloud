@@ -157,6 +157,7 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"opentelekomcloud_hss_host_protection_v5": config.IdentifierFromProvider,
 
 	// IDENTITY
+	"opentelekomcloud_identity_acl_v3":                   config.IdentifierFromProvider,
 	"opentelekomcloud_identity_agency_v3":                config.IdentifierFromProvider,
 	"opentelekomcloud_identity_credential_v3":            config.IdentifierFromProvider,
 	"opentelekomcloud_identity_group_v3":                 config.IdentifierFromProvider,

@@ -1,0 +1,18 @@
+apiVersion: identity.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: ACLV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: identity/v1alpha1/aclv3
+  labels:
+    testing.upbound.io/example-name: acl
+  name: acl
+  namespace: test
+spec:
+  forProvider:
+    ipRanges:
+      - description: This is a basic ip range for console access
+        range: 0.0.0.0-255.255.255.255
+    ipv6Ranges:
+      - description: This is a basic ipv6 range for console access
+        range: 0000:0000:0000:0000:0000:0000:0000:0000-FFFF:FFFF:FFFF:FFFF:FFFF:FFFF:FFFF:FFFF
+    type: console
