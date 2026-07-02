@@ -43,9 +43,15 @@ helm repo update
 ```
 
 Finally, install Crossplane using Helm:
+#### Install the T Cloud Public provider
+> [!NOTE]
+> The provider ships hundreds of ManagedResouces by default, which will increase the load on `kube-apiserver`. Please consider using [MRAP](https://docs.crossplane.io/latest/managed-resources/managed-resource-activation-policies/) to only activate needed resources. Crossplane by [default](https://docs.crossplane.io/latest/managed-resources/managed-resource-activation-policies/#activate-everything-default-behavior) activates all controllers and APIs, even the legacy ones. If you are just started using Crossplane we recommend installing with `provider.defaultActivations={"*.opentelekomcloud.m.crossplane.io"} ` to avoid a large number of legacy resources.
+
 
 ```console
-helm install crossplane --namespace crossplane-system crossplane-stable/crossplane 
+helm install crossplane crossplane-stable/crossplane \
+  --set provider.defaultActivations={"*.opentelekomcloud.m.crossplane.io"} \
+-n crossplane-system
 ```
 
 After installation, verify that Crossplane is running correctly:
@@ -55,8 +61,6 @@ kubectl -n crossplane-system wait --for=condition=Available deployment --all --t
 ```
 
 #### Install the T Cloud Public provider
-> [!NOTE]
-> The provider ships hundreds of ManagedResouces by default, which will increase the load on `kube-apiserver`. Please consider using [MRAP](https://docs.crossplane.io/latest/managed-resources/managed-resource-activation-policies/) to only activate needed resources.
 
 Install the provider by using the following command after changing the image tag to the [latest release](https://marketplace.upbound.io/providers/opentelekomcloud/provider-opentelekomcloud):
 
@@ -67,7 +71,7 @@ kind: Provider
 metadata:
   name: provider-opentelekomcloud
 spec:
-  package: xpkg.upbound.io/opentelekomcloud/provider-opentelekomcloud:v0.7.0
+  package: xpkg.upbound.io/opentelekomcloud/provider-opentelekomcloud:v0.9.0
 EOF
 ```
 
