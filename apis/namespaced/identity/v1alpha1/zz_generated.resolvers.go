@@ -56,3 +56,82 @@ func (mg *CredentialV3) ResolveReferences(ctx context.Context, c client.Reader) 
 
 	return nil
 }
+
+// ResolveReferences of this GroupMembershipV3.
+func (mg *GroupMembershipV3) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var rsp reference.NamespacedResolutionResponse
+	var mrsp reference.MultiNamespacedResolutionResponse
+	var err error
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Group),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.GroupRef,
+		Selector:     mg.Spec.ForProvider.GroupSelector,
+		To: reference.To{
+			List:    &GroupV3List{},
+			Managed: &GroupV3{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.Group")
+	}
+	mg.Spec.ForProvider.Group = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.GroupRef = rsp.ResolvedReference
+
+	mrsp, err = r.ResolveMultiple(ctx, reference.MultiNamespacedResolutionRequest{
+		CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.Users),
+		Extract:       reference.ExternalName(),
+		Namespace:     mg.GetNamespace(),
+		References:    mg.Spec.ForProvider.UsersRefs,
+		Selector:      mg.Spec.ForProvider.UsersSelector,
+		To: reference.To{
+			List:    &UserV3List{},
+			Managed: &UserV3{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.Users")
+	}
+	mg.Spec.ForProvider.Users = reference.ToPtrValues(mrsp.ResolvedValues)
+	mg.Spec.ForProvider.UsersRefs = mrsp.ResolvedReferences
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Group),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.GroupRef,
+		Selector:     mg.Spec.InitProvider.GroupSelector,
+		To: reference.To{
+			List:    &GroupV3List{},
+			Managed: &GroupV3{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.Group")
+	}
+	mg.Spec.InitProvider.Group = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.GroupRef = rsp.ResolvedReference
+
+	mrsp, err = r.ResolveMultiple(ctx, reference.MultiNamespacedResolutionRequest{
+		CurrentValues: reference.FromPtrValues(mg.Spec.InitProvider.Users),
+		Extract:       reference.ExternalName(),
+		Namespace:     mg.GetNamespace(),
+		References:    mg.Spec.InitProvider.UsersRefs,
+		Selector:      mg.Spec.InitProvider.UsersSelector,
+		To: reference.To{
+			List:    &UserV3List{},
+			Managed: &UserV3{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.Users")
+	}
+	mg.Spec.InitProvider.Users = reference.ToPtrValues(mrsp.ResolvedValues)
+	mg.Spec.InitProvider.UsersRefs = mrsp.ResolvedReferences
+
+	return nil
+}

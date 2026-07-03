@@ -9,4 +9,12 @@ func Configure(p *config.Provider) {
 			TerraformName: "opentelekomcloud_identity_user_v3",
 		}
 	})
+	p.AddResourceConfigurator("opentelekomcloud_identity_group_membership_v3", func(r *config.Resource) {
+		r.References["group"] = config.Reference{
+			TerraformName: "opentelekomcloud_identity_group_v3",
+		}
+		r.References["users"] = config.Reference{
+			TerraformName: "opentelekomcloud_identity_user_v3",
+		}
+	})
 }

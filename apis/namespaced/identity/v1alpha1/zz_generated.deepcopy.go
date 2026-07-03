@@ -1030,6 +1030,16 @@ func (in *GroupMembershipV3InitParameters) DeepCopyInto(out *GroupMembershipV3In
 		*out = new(string)
 		**out = **in
 	}
+	if in.GroupRef != nil {
+		in, out := &in.GroupRef, &out.GroupRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.GroupSelector != nil {
+		in, out := &in.GroupSelector, &out.GroupSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Users != nil {
 		in, out := &in.Users, &out.Users
 		*out = make([]*string, len(*in))
@@ -1040,6 +1050,18 @@ func (in *GroupMembershipV3InitParameters) DeepCopyInto(out *GroupMembershipV3In
 				**out = **in
 			}
 		}
+	}
+	if in.UsersRefs != nil {
+		in, out := &in.UsersRefs, &out.UsersRefs
+		*out = make([]v1.NamespacedReference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.UsersSelector != nil {
+		in, out := &in.UsersSelector, &out.UsersSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -1129,6 +1151,16 @@ func (in *GroupMembershipV3Parameters) DeepCopyInto(out *GroupMembershipV3Parame
 		*out = new(string)
 		**out = **in
 	}
+	if in.GroupRef != nil {
+		in, out := &in.GroupRef, &out.GroupRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.GroupSelector != nil {
+		in, out := &in.GroupSelector, &out.GroupSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Users != nil {
 		in, out := &in.Users, &out.Users
 		*out = make([]*string, len(*in))
@@ -1139,6 +1171,18 @@ func (in *GroupMembershipV3Parameters) DeepCopyInto(out *GroupMembershipV3Parame
 				**out = **in
 			}
 		}
+	}
+	if in.UsersRefs != nil {
+		in, out := &in.UsersRefs, &out.UsersRefs
+		*out = make([]v1.NamespacedReference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.UsersSelector != nil {
+		in, out := &in.UsersSelector, &out.UsersSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
