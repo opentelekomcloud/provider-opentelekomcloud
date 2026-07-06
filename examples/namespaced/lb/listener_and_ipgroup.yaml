@@ -10,7 +10,7 @@ metadata:
 spec:
   forProvider:
     cidr: "192.168.0.0/16"
-    name: crossplane-vpc
+    name: xp-test-${Rand.RFC1123Subdomain}
     tags:
       managed-by: crossplane
 ---
@@ -27,7 +27,7 @@ spec:
   forProvider:
     cidr: "192.168.0.0/16"
     gatewayIp: "192.168.0.1"
-    name: crossplane-subnet
+    name: xp-test-${Rand.RFC1123Subdomain}
     ntpAddresses: "10.100.0.33,10.100.0.34"
     vpcIdSelector:
       matchLabels:
@@ -47,7 +47,7 @@ metadata:
   namespace: test
 spec:
   forProvider:
-    name: crossplane-lb
+    name: xp-test-${Rand.RFC1123Subdomain}
     availabilityZones:
       - eu-de-01
     networkIdsRefs:
@@ -74,7 +74,7 @@ spec:
     ipList:
       - description: first
         ip: "192.168.10.11"
-    name: crossplane-group
+    name: xp-test-${Rand.RFC1123Subdomain}
 
 ---
 apiVersion: lb.opentelekomcloud.m.crossplane.io/v1alpha1
@@ -88,7 +88,7 @@ metadata:
   namespace: test
 spec:
   forProvider:
-    name: crossplane-listener
+    name: xp-test-${Rand.RFC1123Subdomain}
     loadbalancerIdSelector:
       matchLabels:
         testing.upbound.io/example-name: sample-lb

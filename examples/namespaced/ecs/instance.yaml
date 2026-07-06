@@ -9,7 +9,7 @@ metadata:
   namespace: test
 spec:
   forProvider:
-    name: crossplane-keypair
+    name: xp-test-${Rand.RFC1123Subdomain}
     publicKey: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDTUED6lEQhwmmpqypHQLqGu8xoUzvT8/uHb9c/uSTNq/qk5GN7gOeK8bs9DvPf4BIYBj5CPzhaidVDue+poqfL9su0mZ1K+eldWoGwkmjOB22kiA9vYmKDEG5u+S3S2UxsM+k09Qh8WGGMuvmCRF7KyNf8rlSJns3bsyG0vDjKuo3hdoCQi5RW950VtaAaefRXfQqgk1y8SR2xZKM0e24yICHd1C40tb5RgiNx7s45VHfVY6XMO+eESeHyDEJMr1AoJhkuiziE1feYmLIC2C02wpRXdLxqu2DbrJfqaPWe0J5mZKTXAFzpr/kdReDDp0lgJhjcralcLSZVa1JhQ1iX4n7+v0YKa6WHInnjmeN4PLz8gBanE40OpkZI/DVIWbhX/CrYi+tpZKzYc9ZGdd9UDGPNUNwIMMvat73zp/arAhh9n2nl68/iqM/Xhs8BQ8PYYSuMkhEAZksmSN3Qr6PuE3OpmoHRt+nWwtap751O3JwI8Kmt2iH+I4EOD5cx2CPNjFEOnLLSRqcnQ6CszDfDxDfEAT3wNT/4spM7xqDcvUD523b91fJb1N5NjgmxAmksOxJlrJzTUbVLwLh+RcPd/Lz8kB/NX/peZhcUFLdRbdAUIIgKuEOPBTbFm39Hgj5YVSnSQIkXp6hwO7FSh88ps+8fTPgW01IKr8MG4GhiWQ==
 
 ---
@@ -25,7 +25,7 @@ metadata:
 spec:
   forProvider:
     cidr: "192.168.0.0/16"
-    name: crossplane-vpc
+    name: xp-test-${Rand.RFC1123Subdomain}
     tags:
       managed-by: crossplane
 ---
@@ -42,7 +42,7 @@ spec:
   forProvider:
     cidr: "192.168.0.0/16"
     gatewayIp: "192.168.0.1"
-    name: crossplane-subnet
+    name: xp-test-${Rand.RFC1123Subdomain}
     ntpAddresses: "10.100.0.33,10.100.0.34"
     vpcIdSelector:
       matchLabels:
@@ -63,7 +63,7 @@ metadata:
 spec:
   forProvider:
     description: crossplane security group
-    name: crossplane-sg
+    name: xp-test-${Rand.RFC1123Subdomain}
     rule:
       - cidr: 0.0.0.0/0
         fromPort: 22
@@ -95,7 +95,7 @@ spec:
     computeSecurityGroupIdSelector:
       matchLabels:
         testing.upbound.io/example-name: sample-instance
-    name: crossplane-instance-01
+    name: xp-test-${Rand.RFC1123Subdomain}
     nics:
       - networkIdSelector:
           matchLabels:
