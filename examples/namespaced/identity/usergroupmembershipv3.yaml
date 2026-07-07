@@ -6,48 +6,45 @@ metadata:
   labels:
     testing.upbound.io/example-name: membership_1
   name: membership-1
-  namespace: upbound-system
+  namespace: test
 spec:
   forProvider:
-    groupsRefs:
-    - name: group_1
-    - name: group_2
+    groupsSelector:
+      matchLabels:
+        testing.upbound.io/example-name: group_match
     userSelector:
       matchLabels:
         testing.upbound.io/example-name: user_1
 
 ---
-
 apiVersion: identity.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: GroupV3
 metadata:
   annotations:
     meta.upbound.io/example-id: identity/v1alpha1/usergroupmembershipv3
   labels:
-    testing.upbound.io/example-name: group_1
+    testing.upbound.io/example-name: group_match
   name: group-1
-  namespace: upbound-system
+  namespace: test
 spec:
   forProvider:
-    name: group-1
+    name: xp-test-${Rand.RFC1123Subdomain}
 
 ---
-
 apiVersion: identity.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: GroupV3
 metadata:
   annotations:
     meta.upbound.io/example-id: identity/v1alpha1/usergroupmembershipv3
   labels:
-    testing.upbound.io/example-name: group_2
+    testing.upbound.io/example-name: group_match
   name: group-2
-  namespace: upbound-system
+  namespace: test
 spec:
   forProvider:
-    name: group-2
+    name: xp-test-${Rand.RFC1123Subdomain}
 
 ---
-
 apiVersion: identity.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: UserV3
 metadata:
@@ -56,11 +53,21 @@ metadata:
   labels:
     testing.upbound.io/example-name: user_1
   name: user-1
-  namespace: upbound-system
+  namespace: test
 spec:
   forProvider:
     enabled: true
-    name: user-1
+    name: xp-test-${Rand.RFC1123Subdomain}
     passwordSecretRef:
       key: example-key
       name: example-secret
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: example-secret
+  namespace: test
+type: Opaque
+data:
+  example-key: ${data.userKey}
