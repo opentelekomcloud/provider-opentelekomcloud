@@ -25,7 +25,7 @@ type RoleAssignmentV3InitParameters struct {
 
 	// The group to assign the role to.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/identity/v1alpha1.GroupV3
-	// +crossplane:generate:reference:refFieldName=GroupSelectorRefs
+	// +crossplane:generate:reference:refFieldName=GroupSelectorRef
 	// +crossplane:generate:reference:selectorFieldName=GroupSelector
 	GroupID *string `json:"groupId,omitempty" tf:"group_id,omitempty"`
 
@@ -35,11 +35,11 @@ type RoleAssignmentV3InitParameters struct {
 
 	// Reference to a GroupV3 in identity to populate groupId.
 	// +kubebuilder:validation:Optional
-	GroupSelectorRefs *v1.NamespacedReference `json:"groupSelectorRefs,omitempty" tf:"-"`
+	GroupSelectorRef *v1.NamespacedReference `json:"groupSelectorRef,omitempty" tf:"-"`
 
 	// The project to assign the role in.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/identity/v1alpha1.ProjectV3
-	// +crossplane:generate:reference:refFieldName=ProjectSelectorRefs
+	// +crossplane:generate:reference:refFieldName=ProjectSelectorRef
 	// +crossplane:generate:reference:selectorFieldName=ProjectSelector
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
 
@@ -49,11 +49,11 @@ type RoleAssignmentV3InitParameters struct {
 
 	// Reference to a ProjectV3 in identity to populate projectId.
 	// +kubebuilder:validation:Optional
-	ProjectSelectorRefs *v1.NamespacedReference `json:"projectSelectorRefs,omitempty" tf:"-"`
+	ProjectSelectorRef *v1.NamespacedReference `json:"projectSelectorRef,omitempty" tf:"-"`
 
 	// The role to assign.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/identity/v1alpha1.RoleV3
-	// +crossplane:generate:reference:refFieldName=RoleSelectorRefs
+	// +crossplane:generate:reference:refFieldName=RoleSelectorRef
 	// +crossplane:generate:reference:selectorFieldName=RoleSelector
 	RoleID *string `json:"roleId,omitempty" tf:"role_id,omitempty"`
 
@@ -63,7 +63,7 @@ type RoleAssignmentV3InitParameters struct {
 
 	// Reference to a RoleV3 in identity to populate roleId.
 	// +kubebuilder:validation:Optional
-	RoleSelectorRefs *v1.NamespacedReference `json:"roleSelectorRefs,omitempty" tf:"-"`
+	RoleSelectorRef *v1.NamespacedReference `json:"roleSelectorRef,omitempty" tf:"-"`
 }
 
 type RoleAssignmentV3Observation struct {
@@ -100,7 +100,7 @@ type RoleAssignmentV3Parameters struct {
 
 	// The group to assign the role to.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/identity/v1alpha1.GroupV3
-	// +crossplane:generate:reference:refFieldName=GroupSelectorRefs
+	// +crossplane:generate:reference:refFieldName=GroupSelectorRef
 	// +crossplane:generate:reference:selectorFieldName=GroupSelector
 	// +kubebuilder:validation:Optional
 	GroupID *string `json:"groupId,omitempty" tf:"group_id,omitempty"`
@@ -111,11 +111,11 @@ type RoleAssignmentV3Parameters struct {
 
 	// Reference to a GroupV3 in identity to populate groupId.
 	// +kubebuilder:validation:Optional
-	GroupSelectorRefs *v1.NamespacedReference `json:"groupSelectorRefs,omitempty" tf:"-"`
+	GroupSelectorRef *v1.NamespacedReference `json:"groupSelectorRef,omitempty" tf:"-"`
 
 	// The project to assign the role in.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/identity/v1alpha1.ProjectV3
-	// +crossplane:generate:reference:refFieldName=ProjectSelectorRefs
+	// +crossplane:generate:reference:refFieldName=ProjectSelectorRef
 	// +crossplane:generate:reference:selectorFieldName=ProjectSelector
 	// +kubebuilder:validation:Optional
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
@@ -126,11 +126,11 @@ type RoleAssignmentV3Parameters struct {
 
 	// Reference to a ProjectV3 in identity to populate projectId.
 	// +kubebuilder:validation:Optional
-	ProjectSelectorRefs *v1.NamespacedReference `json:"projectSelectorRefs,omitempty" tf:"-"`
+	ProjectSelectorRef *v1.NamespacedReference `json:"projectSelectorRef,omitempty" tf:"-"`
 
 	// The role to assign.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/identity/v1alpha1.RoleV3
-	// +crossplane:generate:reference:refFieldName=RoleSelectorRefs
+	// +crossplane:generate:reference:refFieldName=RoleSelectorRef
 	// +crossplane:generate:reference:selectorFieldName=RoleSelector
 	// +kubebuilder:validation:Optional
 	RoleID *string `json:"roleId,omitempty" tf:"role_id,omitempty"`
@@ -141,7 +141,7 @@ type RoleAssignmentV3Parameters struct {
 
 	// Reference to a RoleV3 in identity to populate roleId.
 	// +kubebuilder:validation:Optional
-	RoleSelectorRefs *v1.NamespacedReference `json:"roleSelectorRefs,omitempty" tf:"-"`
+	RoleSelectorRef *v1.NamespacedReference `json:"roleSelectorRef,omitempty" tf:"-"`
 }
 
 // RoleAssignmentV3Spec defines the desired state of RoleAssignmentV3

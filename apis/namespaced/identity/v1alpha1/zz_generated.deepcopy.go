@@ -806,14 +806,14 @@ func (in *CredentialV3InitParameters) DeepCopyInto(out *CredentialV3InitParamete
 		*out = new(string)
 		**out = **in
 	}
-	if in.UserIDRef != nil {
-		in, out := &in.UserIDRef, &out.UserIDRef
-		*out = new(v1.NamespacedReference)
+	if in.UserSelector != nil {
+		in, out := &in.UserSelector, &out.UserSelector
+		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.UserIDSelector != nil {
-		in, out := &in.UserIDSelector, &out.UserIDSelector
-		*out = new(v1.NamespacedSelector)
+	if in.UserSelectorRef != nil {
+		in, out := &in.UserSelectorRef, &out.UserSelectorRef
+		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
 }
@@ -938,14 +938,14 @@ func (in *CredentialV3Parameters) DeepCopyInto(out *CredentialV3Parameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.UserIDRef != nil {
-		in, out := &in.UserIDRef, &out.UserIDRef
-		*out = new(v1.NamespacedReference)
+	if in.UserSelector != nil {
+		in, out := &in.UserSelector, &out.UserSelector
+		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.UserIDSelector != nil {
-		in, out := &in.UserIDSelector, &out.UserIDSelector
-		*out = new(v1.NamespacedSelector)
+	if in.UserSelectorRef != nil {
+		in, out := &in.UserSelectorRef, &out.UserSelectorRef
+		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
 }
@@ -4255,8 +4255,8 @@ func (in *RoleAssignmentV3InitParameters) DeepCopyInto(out *RoleAssignmentV3Init
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.GroupSelectorRefs != nil {
-		in, out := &in.GroupSelectorRefs, &out.GroupSelectorRefs
+	if in.GroupSelectorRef != nil {
+		in, out := &in.GroupSelectorRef, &out.GroupSelectorRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
@@ -4270,8 +4270,8 @@ func (in *RoleAssignmentV3InitParameters) DeepCopyInto(out *RoleAssignmentV3Init
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.ProjectSelectorRefs != nil {
-		in, out := &in.ProjectSelectorRefs, &out.ProjectSelectorRefs
+	if in.ProjectSelectorRef != nil {
+		in, out := &in.ProjectSelectorRef, &out.ProjectSelectorRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
@@ -4285,8 +4285,8 @@ func (in *RoleAssignmentV3InitParameters) DeepCopyInto(out *RoleAssignmentV3Init
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.RoleSelectorRefs != nil {
-		in, out := &in.RoleSelectorRefs, &out.RoleSelectorRefs
+	if in.RoleSelectorRef != nil {
+		in, out := &in.RoleSelectorRef, &out.RoleSelectorRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
@@ -4402,8 +4402,8 @@ func (in *RoleAssignmentV3Parameters) DeepCopyInto(out *RoleAssignmentV3Paramete
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.GroupSelectorRefs != nil {
-		in, out := &in.GroupSelectorRefs, &out.GroupSelectorRefs
+	if in.GroupSelectorRef != nil {
+		in, out := &in.GroupSelectorRef, &out.GroupSelectorRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
@@ -4417,8 +4417,8 @@ func (in *RoleAssignmentV3Parameters) DeepCopyInto(out *RoleAssignmentV3Paramete
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.ProjectSelectorRefs != nil {
-		in, out := &in.ProjectSelectorRefs, &out.ProjectSelectorRefs
+	if in.ProjectSelectorRef != nil {
+		in, out := &in.ProjectSelectorRef, &out.ProjectSelectorRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
@@ -4432,8 +4432,8 @@ func (in *RoleAssignmentV3Parameters) DeepCopyInto(out *RoleAssignmentV3Paramete
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.RoleSelectorRefs != nil {
-		in, out := &in.RoleSelectorRefs, &out.RoleSelectorRefs
+	if in.RoleSelectorRef != nil {
+		in, out := &in.RoleSelectorRef, &out.RoleSelectorRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}

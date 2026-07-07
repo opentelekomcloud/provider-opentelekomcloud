@@ -113,7 +113,7 @@ spec:
                             type: string
                         type: object
                     type: object
-                  groupSelectorRefs:
+                  groupSelectorRef:
                     description: Reference to a GroupV3 in identity to populate groupId.
                     properties:
                       name:
@@ -197,7 +197,7 @@ spec:
                             type: string
                         type: object
                     type: object
-                  projectSelectorRefs:
+                  projectSelectorRef:
                     description: Reference to a ProjectV3 in identity to populate
                       projectId.
                     properties:
@@ -281,7 +281,7 @@ spec:
                             type: string
                         type: object
                     type: object
-                  roleSelectorRefs:
+                  roleSelectorRef:
                     description: Reference to a RoleV3 in identity to populate roleId.
                     properties:
                       name:
@@ -386,7 +386,7 @@ spec:
                             type: string
                         type: object
                     type: object
-                  groupSelectorRefs:
+                  groupSelectorRef:
                     description: Reference to a GroupV3 in identity to populate groupId.
                     properties:
                       name:
@@ -470,7 +470,7 @@ spec:
                             type: string
                         type: object
                     type: object
-                  projectSelectorRefs:
+                  projectSelectorRef:
                     description: Reference to a ProjectV3 in identity to populate
                       projectId.
                     properties:
@@ -554,7 +554,7 @@ spec:
                             type: string
                         type: object
                     type: object
-                  roleSelectorRefs:
+                  roleSelectorRef:
                     description: Reference to a RoleV3 in identity to populate roleId.
                     properties:
                       name:

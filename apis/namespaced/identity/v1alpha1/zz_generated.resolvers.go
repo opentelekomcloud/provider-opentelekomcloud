@@ -24,8 +24,8 @@ func (mg *CredentialV3) ResolveReferences(ctx context.Context, c client.Reader) 
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.UserID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.ForProvider.UserIDRef,
-		Selector:     mg.Spec.ForProvider.UserIDSelector,
+		Reference:    mg.Spec.ForProvider.UserSelectorRef,
+		Selector:     mg.Spec.ForProvider.UserSelector,
 		To: reference.To{
 			List:    &UserV3List{},
 			Managed: &UserV3{},
@@ -35,14 +35,14 @@ func (mg *CredentialV3) ResolveReferences(ctx context.Context, c client.Reader) 
 		return errors.Wrap(err, "mg.Spec.ForProvider.UserID")
 	}
 	mg.Spec.ForProvider.UserID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.UserIDRef = rsp.ResolvedReference
+	mg.Spec.ForProvider.UserSelectorRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.UserID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.InitProvider.UserIDRef,
-		Selector:     mg.Spec.InitProvider.UserIDSelector,
+		Reference:    mg.Spec.InitProvider.UserSelectorRef,
+		Selector:     mg.Spec.InitProvider.UserSelector,
 		To: reference.To{
 			List:    &UserV3List{},
 			Managed: &UserV3{},
@@ -52,7 +52,7 @@ func (mg *CredentialV3) ResolveReferences(ctx context.Context, c client.Reader) 
 		return errors.Wrap(err, "mg.Spec.InitProvider.UserID")
 	}
 	mg.Spec.InitProvider.UserID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.UserIDRef = rsp.ResolvedReference
+	mg.Spec.InitProvider.UserSelectorRef = rsp.ResolvedReference
 
 	return nil
 }
@@ -147,7 +147,7 @@ func (mg *RoleAssignmentV3) ResolveReferences(ctx context.Context, c client.Read
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.GroupID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.ForProvider.GroupSelectorRefs,
+		Reference:    mg.Spec.ForProvider.GroupSelectorRef,
 		Selector:     mg.Spec.ForProvider.GroupSelector,
 		To: reference.To{
 			List:    &GroupV3List{},
@@ -158,13 +158,13 @@ func (mg *RoleAssignmentV3) ResolveReferences(ctx context.Context, c client.Read
 		return errors.Wrap(err, "mg.Spec.ForProvider.GroupID")
 	}
 	mg.Spec.ForProvider.GroupID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.GroupSelectorRefs = rsp.ResolvedReference
+	mg.Spec.ForProvider.GroupSelectorRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ProjectID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.ForProvider.ProjectSelectorRefs,
+		Reference:    mg.Spec.ForProvider.ProjectSelectorRef,
 		Selector:     mg.Spec.ForProvider.ProjectSelector,
 		To: reference.To{
 			List:    &ProjectV3List{},
@@ -175,13 +175,13 @@ func (mg *RoleAssignmentV3) ResolveReferences(ctx context.Context, c client.Read
 		return errors.Wrap(err, "mg.Spec.ForProvider.ProjectID")
 	}
 	mg.Spec.ForProvider.ProjectID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.ProjectSelectorRefs = rsp.ResolvedReference
+	mg.Spec.ForProvider.ProjectSelectorRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.RoleID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.ForProvider.RoleSelectorRefs,
+		Reference:    mg.Spec.ForProvider.RoleSelectorRef,
 		Selector:     mg.Spec.ForProvider.RoleSelector,
 		To: reference.To{
 			List:    &RoleV3List{},
@@ -192,13 +192,13 @@ func (mg *RoleAssignmentV3) ResolveReferences(ctx context.Context, c client.Read
 		return errors.Wrap(err, "mg.Spec.ForProvider.RoleID")
 	}
 	mg.Spec.ForProvider.RoleID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.RoleSelectorRefs = rsp.ResolvedReference
+	mg.Spec.ForProvider.RoleSelectorRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.GroupID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.InitProvider.GroupSelectorRefs,
+		Reference:    mg.Spec.InitProvider.GroupSelectorRef,
 		Selector:     mg.Spec.InitProvider.GroupSelector,
 		To: reference.To{
 			List:    &GroupV3List{},
@@ -209,13 +209,13 @@ func (mg *RoleAssignmentV3) ResolveReferences(ctx context.Context, c client.Read
 		return errors.Wrap(err, "mg.Spec.InitProvider.GroupID")
 	}
 	mg.Spec.InitProvider.GroupID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.GroupSelectorRefs = rsp.ResolvedReference
+	mg.Spec.InitProvider.GroupSelectorRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ProjectID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.InitProvider.ProjectSelectorRefs,
+		Reference:    mg.Spec.InitProvider.ProjectSelectorRef,
 		Selector:     mg.Spec.InitProvider.ProjectSelector,
 		To: reference.To{
 			List:    &ProjectV3List{},
@@ -226,13 +226,13 @@ func (mg *RoleAssignmentV3) ResolveReferences(ctx context.Context, c client.Read
 		return errors.Wrap(err, "mg.Spec.InitProvider.ProjectID")
 	}
 	mg.Spec.InitProvider.ProjectID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.ProjectSelectorRefs = rsp.ResolvedReference
+	mg.Spec.InitProvider.ProjectSelectorRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.RoleID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.InitProvider.RoleSelectorRefs,
+		Reference:    mg.Spec.InitProvider.RoleSelectorRef,
 		Selector:     mg.Spec.InitProvider.RoleSelector,
 		To: reference.To{
 			List:    &RoleV3List{},
@@ -243,7 +243,7 @@ func (mg *RoleAssignmentV3) ResolveReferences(ctx context.Context, c client.Read
 		return errors.Wrap(err, "mg.Spec.InitProvider.RoleID")
 	}
 	mg.Spec.InitProvider.RoleID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.RoleSelectorRefs = rsp.ResolvedReference
+	mg.Spec.InitProvider.RoleSelectorRef = rsp.ResolvedReference
 
 	return nil
 }

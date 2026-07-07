@@ -7,7 +7,9 @@ import "github.com/crossplane/upjet/v2/pkg/config"
 func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("opentelekomcloud_identity_credential_v3", func(r *config.Resource) {
 		r.References["user_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_identity_user_v3",
+			TerraformName:     "opentelekomcloud_identity_user_v3",
+			SelectorFieldName: "UserSelector",
+			RefFieldName:      "UserSelectorRef",
 		}
 	})
 	p.AddResourceConfigurator("opentelekomcloud_identity_group_membership_v3", func(r *config.Resource) {
@@ -30,17 +32,17 @@ func Configure(p *config.Provider) {
 		r.References["group_id"] = config.Reference{
 			TerraformName:     "opentelekomcloud_identity_group_v3",
 			SelectorFieldName: "GroupSelector",
-			RefFieldName:      "GroupSelectorRefs",
+			RefFieldName:      "GroupSelectorRef",
 		}
 		r.References["project_id"] = config.Reference{
 			TerraformName:     "opentelekomcloud_identity_project_v3",
 			SelectorFieldName: "ProjectSelector",
-			RefFieldName:      "ProjectSelectorRefs",
+			RefFieldName:      "ProjectSelectorRef",
 		}
 		r.References["role_id"] = config.Reference{
 			TerraformName:     "opentelekomcloud_identity_role_v3",
 			SelectorFieldName: "RoleSelector",
-			RefFieldName:      "RoleSelectorRefs",
+			RefFieldName:      "RoleSelectorRef",
 		}
 	})
 }
