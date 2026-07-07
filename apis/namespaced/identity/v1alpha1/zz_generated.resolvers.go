@@ -136,6 +136,118 @@ func (mg *GroupMembershipV3) ResolveReferences(ctx context.Context, c client.Rea
 	return nil
 }
 
+// ResolveReferences of this RoleAssignmentV3.
+func (mg *RoleAssignmentV3) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var rsp reference.NamespacedResolutionResponse
+	var err error
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.GroupID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.GroupSelectorRefs,
+		Selector:     mg.Spec.ForProvider.GroupSelector,
+		To: reference.To{
+			List:    &GroupV3List{},
+			Managed: &GroupV3{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.GroupID")
+	}
+	mg.Spec.ForProvider.GroupID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.GroupSelectorRefs = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ProjectID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.ProjectSelectorRefs,
+		Selector:     mg.Spec.ForProvider.ProjectSelector,
+		To: reference.To{
+			List:    &ProjectV3List{},
+			Managed: &ProjectV3{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.ProjectID")
+	}
+	mg.Spec.ForProvider.ProjectID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.ProjectSelectorRefs = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.RoleID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.RoleSelectorRefs,
+		Selector:     mg.Spec.ForProvider.RoleSelector,
+		To: reference.To{
+			List:    &RoleV3List{},
+			Managed: &RoleV3{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.RoleID")
+	}
+	mg.Spec.ForProvider.RoleID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.RoleSelectorRefs = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.GroupID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.GroupSelectorRefs,
+		Selector:     mg.Spec.InitProvider.GroupSelector,
+		To: reference.To{
+			List:    &GroupV3List{},
+			Managed: &GroupV3{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.GroupID")
+	}
+	mg.Spec.InitProvider.GroupID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.GroupSelectorRefs = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ProjectID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.ProjectSelectorRefs,
+		Selector:     mg.Spec.InitProvider.ProjectSelector,
+		To: reference.To{
+			List:    &ProjectV3List{},
+			Managed: &ProjectV3{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.ProjectID")
+	}
+	mg.Spec.InitProvider.ProjectID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.ProjectSelectorRefs = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.RoleID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.RoleSelectorRefs,
+		Selector:     mg.Spec.InitProvider.RoleSelector,
+		To: reference.To{
+			List:    &RoleV3List{},
+			Managed: &RoleV3{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.RoleID")
+	}
+	mg.Spec.InitProvider.RoleID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.RoleSelectorRefs = rsp.ResolvedReference
+
+	return nil
+}
+
 // ResolveReferences of this UserGroupMembershipV3.
 func (mg *UserGroupMembershipV3) ResolveReferences(ctx context.Context, c client.Reader) error {
 	r := reference.NewAPINamespacedResolver(c, mg)

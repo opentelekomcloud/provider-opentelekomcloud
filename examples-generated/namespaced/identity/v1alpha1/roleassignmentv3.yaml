@@ -9,9 +9,15 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    groupId: ${opentelekomcloud_identity_group_v3.group_1.id}
-    projectId: ${opentelekomcloud_identity_project_v3.project_1.id}
-    roleId: ${data.opentelekomcloud_identity_role_v3.role_1.id}
+    groupSelector:
+      matchLabels:
+        testing.upbound.io/example-name: group_1
+    projectSelector:
+      matchLabels:
+        testing.upbound.io/example-name: project_1
+    roleSelector:
+      matchLabels:
+        testing.upbound.io/example-name: opentelekomcloud_identity_role_v3
 
 ---
 

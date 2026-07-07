@@ -4250,15 +4250,45 @@ func (in *RoleAssignmentV3InitParameters) DeepCopyInto(out *RoleAssignmentV3Init
 		*out = new(string)
 		**out = **in
 	}
+	if in.GroupSelector != nil {
+		in, out := &in.GroupSelector, &out.GroupSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.GroupSelectorRefs != nil {
+		in, out := &in.GroupSelectorRefs, &out.GroupSelectorRefs
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.ProjectID != nil {
 		in, out := &in.ProjectID, &out.ProjectID
 		*out = new(string)
 		**out = **in
 	}
+	if in.ProjectSelector != nil {
+		in, out := &in.ProjectSelector, &out.ProjectSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ProjectSelectorRefs != nil {
+		in, out := &in.ProjectSelectorRefs, &out.ProjectSelectorRefs
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.RoleID != nil {
 		in, out := &in.RoleID, &out.RoleID
 		*out = new(string)
 		**out = **in
+	}
+	if in.RoleSelector != nil {
+		in, out := &in.RoleSelector, &out.RoleSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.RoleSelectorRefs != nil {
+		in, out := &in.RoleSelectorRefs, &out.RoleSelectorRefs
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -4367,15 +4397,45 @@ func (in *RoleAssignmentV3Parameters) DeepCopyInto(out *RoleAssignmentV3Paramete
 		*out = new(string)
 		**out = **in
 	}
+	if in.GroupSelector != nil {
+		in, out := &in.GroupSelector, &out.GroupSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.GroupSelectorRefs != nil {
+		in, out := &in.GroupSelectorRefs, &out.GroupSelectorRefs
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.ProjectID != nil {
 		in, out := &in.ProjectID, &out.ProjectID
 		*out = new(string)
 		**out = **in
 	}
+	if in.ProjectSelector != nil {
+		in, out := &in.ProjectSelector, &out.ProjectSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ProjectSelectorRefs != nil {
+		in, out := &in.ProjectSelectorRefs, &out.ProjectSelectorRefs
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.RoleID != nil {
 		in, out := &in.RoleID, &out.RoleID
 		*out = new(string)
 		**out = **in
+	}
+	if in.RoleSelector != nil {
+		in, out := &in.RoleSelector, &out.RoleSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.RoleSelectorRefs != nil {
+		in, out := &in.RoleSelectorRefs, &out.RoleSelectorRefs
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
