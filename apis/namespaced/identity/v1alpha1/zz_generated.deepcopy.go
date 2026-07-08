@@ -3252,6 +3252,16 @@ func (in *ProtocolV3InitParameters) DeepCopyInto(out *ProtocolV3InitParameters) 
 		*out = new(string)
 		**out = **in
 	}
+	if in.MappingSelector != nil {
+		in, out := &in.MappingSelector, &out.MappingSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.MappingSelectorRef != nil {
+		in, out := &in.MappingSelectorRef, &out.MappingSelectorRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Metadata != nil {
 		in, out := &in.Metadata, &out.Metadata
 		*out = make([]MetadataInitParameters, len(*in))
@@ -3268,6 +3278,16 @@ func (in *ProtocolV3InitParameters) DeepCopyInto(out *ProtocolV3InitParameters) 
 		in, out := &in.ProviderID, &out.ProviderID
 		*out = new(string)
 		**out = **in
+	}
+	if in.ProviderSelector != nil {
+		in, out := &in.ProviderSelector, &out.ProviderSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ProviderSelectorRef != nil {
+		in, out := &in.ProviderSelectorRef, &out.ProviderSelectorRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -3393,6 +3413,16 @@ func (in *ProtocolV3Parameters) DeepCopyInto(out *ProtocolV3Parameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.MappingSelector != nil {
+		in, out := &in.MappingSelector, &out.MappingSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.MappingSelectorRef != nil {
+		in, out := &in.MappingSelectorRef, &out.MappingSelectorRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Metadata != nil {
 		in, out := &in.Metadata, &out.Metadata
 		*out = make([]MetadataParameters, len(*in))
@@ -3409,6 +3439,16 @@ func (in *ProtocolV3Parameters) DeepCopyInto(out *ProtocolV3Parameters) {
 		in, out := &in.ProviderID, &out.ProviderID
 		*out = new(string)
 		**out = **in
+	}
+	if in.ProviderSelector != nil {
+		in, out := &in.ProviderSelector, &out.ProviderSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ProviderSelectorRef != nil {
+		in, out := &in.ProviderSelectorRef, &out.ProviderSelectorRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
 	}
 }
 

@@ -45,4 +45,16 @@ func Configure(p *config.Provider) {
 			RefFieldName:      "RoleSelectorRef",
 		}
 	})
+	p.AddResourceConfigurator("opentelekomcloud_identity_protocol_v3", func(r *config.Resource) {
+		r.References["provider_id"] = config.Reference{
+			TerraformName:     "opentelekomcloud_identity_provider_v3",
+			SelectorFieldName: "ProviderSelector",
+			RefFieldName:      "ProviderSelectorRef",
+		}
+		r.References["mapping_id"] = config.Reference{
+			TerraformName:     "opentelekomcloud_identity_mapping_v3",
+			SelectorFieldName: "MappingSelector",
+			RefFieldName:      "MappingSelectorRef",
+		}
+	})
 }

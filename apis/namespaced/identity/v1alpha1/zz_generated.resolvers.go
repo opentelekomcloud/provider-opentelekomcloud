@@ -136,6 +136,84 @@ func (mg *GroupMembershipV3) ResolveReferences(ctx context.Context, c client.Rea
 	return nil
 }
 
+// ResolveReferences of this ProtocolV3.
+func (mg *ProtocolV3) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var rsp reference.NamespacedResolutionResponse
+	var err error
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.MappingID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.MappingSelectorRef,
+		Selector:     mg.Spec.ForProvider.MappingSelector,
+		To: reference.To{
+			List:    &MappingV3List{},
+			Managed: &MappingV3{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.MappingID")
+	}
+	mg.Spec.ForProvider.MappingID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.MappingSelectorRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ProviderID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.ProviderSelectorRef,
+		Selector:     mg.Spec.ForProvider.ProviderSelector,
+		To: reference.To{
+			List:    &ProviderV3List{},
+			Managed: &ProviderV3{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.ProviderID")
+	}
+	mg.Spec.ForProvider.ProviderID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.ProviderSelectorRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.MappingID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.MappingSelectorRef,
+		Selector:     mg.Spec.InitProvider.MappingSelector,
+		To: reference.To{
+			List:    &MappingV3List{},
+			Managed: &MappingV3{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.MappingID")
+	}
+	mg.Spec.InitProvider.MappingID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.MappingSelectorRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ProviderID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.ProviderSelectorRef,
+		Selector:     mg.Spec.InitProvider.ProviderSelector,
+		To: reference.To{
+			List:    &ProviderV3List{},
+			Managed: &ProviderV3{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.ProviderID")
+	}
+	mg.Spec.InitProvider.ProviderID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.ProviderSelectorRef = rsp.ResolvedReference
+
+	return nil
+}
+
 // ResolveReferences of this RoleAssignmentV3.
 func (mg *RoleAssignmentV3) ResolveReferences(ctx context.Context, c client.Reader) error {
 	r := reference.NewAPINamespacedResolver(c, mg)
