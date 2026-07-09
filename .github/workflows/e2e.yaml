@@ -140,17 +140,25 @@ jobs:
         id: run-uptest
         env:
           UPTEST_CLOUD_CREDENTIALS: ${{ secrets.UPTEST_CLOUD_CREDENTIALS }}
-          UPTEST_EXAMPLE_LIST: ${{ needs.get-example-list.outputs.example_list }}
+          #UPTEST_EXAMPLE_LIST: ${{ needs.get-example-list.outputs.example_list }}
+          EXAMPLE_LIST: ${{ needs.get-example-list.outputs.example_list }}
           UPTEST_TEST_DIR: ./_output/controlplane-dump
           UPTEST_DATASOURCE_PATH: .work/uptest-datasource.yaml
           UPTEST_UPDATE_PARAMETER: ""
           UPTEST_DEFAULT_TIMEOUT: ${{ vars.UPTEST_DEFAULT_TIMEOUT }}
           UPTEST_SKIP_IMPORT: ${{ vars.UPTEST_SKIP_IMPORT }}
         run: |
+          # UPTEST merges all examples into one test case which leads a huge amount of created resources at the same time
+          # also resources are not removed before each example but only at the end
+          # rather then flattening and running make e2e we can just call make local-deploy and then run make uptest one by one
           echo "Timeout is $UPTEST_DEFAULT_TIMEOUT"
           echo "UPTEST_SKIP_IMPORT is $UPTEST_SKIP_IMPORT"
           mkdir -p .work && echo "${{ secrets.UPTEST_DATASOURCE }}" > .work/uptest-datasource.yaml
-          make e2e
+          make local-deploy
+          for EXAMPLE in $(echo "${EXAMPLE_LIST}" | tr ',' ' '); do
+            echo "Running uptest for: $EXAMPLE"
+            UPTEST_EXAMPLE_LIST="$EXAMPLE" make uptest
+          done
 
       - name: Create Successful Status Check
         env:
