@@ -31,7 +31,7 @@ metadata:
   namespace: test
 spec:
   forProvider:
-    name: xp-test-${Rand.RFC1123Subdomain}
+    name: eu_de-${Rand.RFC1123Subdomain}
 
 ---
 apiVersion: identity.opentelekomcloud.m.crossplane.io/v1alpha1
