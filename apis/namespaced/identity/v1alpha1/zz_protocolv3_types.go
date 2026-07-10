@@ -176,7 +176,18 @@ type ProtocolV3InitParameters struct {
 	AccessConfig []AccessConfigInitParameters `json:"accessConfig,omitempty" tf:"access_config,omitempty"`
 
 	// ID of an identity mapping.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/identity/v1alpha1.MappingV3
+	// +crossplane:generate:reference:refFieldName=MappingSelectorRef
+	// +crossplane:generate:reference:selectorFieldName=MappingSelector
 	MappingID *string `json:"mappingId,omitempty" tf:"mapping_id,omitempty"`
+
+	// Selector for a MappingV3 in identity to populate mappingId.
+	// +kubebuilder:validation:Optional
+	MappingSelector *v1.NamespacedSelector `json:"mappingSelector,omitempty" tf:"-"`
+
+	// Reference to a MappingV3 in identity to populate mappingId.
+	// +kubebuilder:validation:Optional
+	MappingSelectorRef *v1.NamespacedReference `json:"mappingSelectorRef,omitempty" tf:"-"`
 
 	// Metadata file configuration.
 	Metadata []MetadataInitParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
@@ -185,7 +196,18 @@ type ProtocolV3InitParameters struct {
 	Protocol *string `json:"protocol,omitempty" tf:"protocol,omitempty"`
 
 	// ID of an identity provider. Changing this creates a new protocol.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/identity/v1alpha1.ProviderV3
+	// +crossplane:generate:reference:refFieldName=ProviderSelectorRef
+	// +crossplane:generate:reference:selectorFieldName=ProviderSelector
 	ProviderID *string `json:"providerId,omitempty" tf:"provider_id,omitempty"`
+
+	// Selector for a ProviderV3 in identity to populate providerId.
+	// +kubebuilder:validation:Optional
+	ProviderSelector *v1.NamespacedSelector `json:"providerSelector,omitempty" tf:"-"`
+
+	// Reference to a ProviderV3 in identity to populate providerId.
+	// +kubebuilder:validation:Optional
+	ProviderSelectorRef *v1.NamespacedReference `json:"providerSelectorRef,omitempty" tf:"-"`
 }
 
 type ProtocolV3Observation struct {
@@ -221,8 +243,19 @@ type ProtocolV3Parameters struct {
 	AccessConfig []AccessConfigParameters `json:"accessConfig,omitempty" tf:"access_config,omitempty"`
 
 	// ID of an identity mapping.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/identity/v1alpha1.MappingV3
+	// +crossplane:generate:reference:refFieldName=MappingSelectorRef
+	// +crossplane:generate:reference:selectorFieldName=MappingSelector
 	// +kubebuilder:validation:Optional
 	MappingID *string `json:"mappingId,omitempty" tf:"mapping_id,omitempty"`
+
+	// Selector for a MappingV3 in identity to populate mappingId.
+	// +kubebuilder:validation:Optional
+	MappingSelector *v1.NamespacedSelector `json:"mappingSelector,omitempty" tf:"-"`
+
+	// Reference to a MappingV3 in identity to populate mappingId.
+	// +kubebuilder:validation:Optional
+	MappingSelectorRef *v1.NamespacedReference `json:"mappingSelectorRef,omitempty" tf:"-"`
 
 	// Metadata file configuration.
 	// +kubebuilder:validation:Optional
@@ -233,8 +266,19 @@ type ProtocolV3Parameters struct {
 	Protocol *string `json:"protocol,omitempty" tf:"protocol,omitempty"`
 
 	// ID of an identity provider. Changing this creates a new protocol.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/identity/v1alpha1.ProviderV3
+	// +crossplane:generate:reference:refFieldName=ProviderSelectorRef
+	// +crossplane:generate:reference:selectorFieldName=ProviderSelector
 	// +kubebuilder:validation:Optional
 	ProviderID *string `json:"providerId,omitempty" tf:"provider_id,omitempty"`
+
+	// Selector for a ProviderV3 in identity to populate providerId.
+	// +kubebuilder:validation:Optional
+	ProviderSelector *v1.NamespacedSelector `json:"providerSelector,omitempty" tf:"-"`
+
+	// Reference to a ProviderV3 in identity to populate providerId.
+	// +kubebuilder:validation:Optional
+	ProviderSelectorRef *v1.NamespacedReference `json:"providerSelectorRef,omitempty" tf:"-"`
 }
 
 // ProtocolV3Spec defines the desired state of ProtocolV3
@@ -273,9 +317,7 @@ type ProtocolV3Status struct {
 type ProtocolV3 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.mappingId) || (has(self.initProvider) && has(self.initProvider.mappingId))",message="spec.forProvider.mappingId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.protocol) || (has(self.initProvider) && has(self.initProvider.protocol))",message="spec.forProvider.protocol is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.providerId) || (has(self.initProvider) && has(self.initProvider.providerId))",message="spec.forProvider.providerId is a required parameter"
 	Spec   ProtocolV3Spec   `json:"spec"`
 	Status ProtocolV3Status `json:"status,omitempty"`
 }

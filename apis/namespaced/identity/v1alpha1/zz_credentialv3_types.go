@@ -27,7 +27,18 @@ type CredentialV3InitParameters struct {
 	Status *string `json:"status,omitempty" tf:"status,omitempty"`
 
 	// IAM user ID. If not set, will create AK/SK for yourself.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/identity/v1alpha1.UserV3
+	// +crossplane:generate:reference:refFieldName=UserSelectorRef
+	// +crossplane:generate:reference:selectorFieldName=UserSelector
 	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
+
+	// Selector for a UserV3 in identity to populate userId.
+	// +kubebuilder:validation:Optional
+	UserSelector *v1.NamespacedSelector `json:"userSelector,omitempty" tf:"-"`
+
+	// Reference to a UserV3 in identity to populate userId.
+	// +kubebuilder:validation:Optional
+	UserSelectorRef *v1.NamespacedReference `json:"userSelectorRef,omitempty" tf:"-"`
 }
 
 type CredentialV3Observation struct {
@@ -72,8 +83,19 @@ type CredentialV3Parameters struct {
 	Status *string `json:"status,omitempty" tf:"status,omitempty"`
 
 	// IAM user ID. If not set, will create AK/SK for yourself.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/identity/v1alpha1.UserV3
+	// +crossplane:generate:reference:refFieldName=UserSelectorRef
+	// +crossplane:generate:reference:selectorFieldName=UserSelector
 	// +kubebuilder:validation:Optional
 	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
+
+	// Selector for a UserV3 in identity to populate userId.
+	// +kubebuilder:validation:Optional
+	UserSelector *v1.NamespacedSelector `json:"userSelector,omitempty" tf:"-"`
+
+	// Reference to a UserV3 in identity to populate userId.
+	// +kubebuilder:validation:Optional
+	UserSelectorRef *v1.NamespacedReference `json:"userSelectorRef,omitempty" tf:"-"`
 }
 
 // CredentialV3Spec defines the desired state of CredentialV3

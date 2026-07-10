@@ -1,0 +1,88 @@
+apiVersion: identity.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: RoleAssignmentV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: identity/v1alpha1/roleassignmentv3
+  labels:
+    testing.upbound.io/example-name: role_assignment_1
+  name: role-assignment-1
+  namespace: test
+spec:
+  forProvider:
+    groupSelector:
+      matchLabels:
+        testing.upbound.io/example-name: group_1
+    projectSelector:
+      matchLabels:
+        testing.upbound.io/example-name: project_1
+    roleSelector:
+      matchLabels:
+        testing.upbound.io/example-name: role_1
+
+---
+apiVersion: identity.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: GroupV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: identity/v1alpha1/roleassignmentv3
+  labels:
+    testing.upbound.io/example-name: group_1
+  name: group-1
+  namespace: test
+spec:
+  forProvider:
+    name: xp-test-${Rand.RFC1123Subdomain}
+
+---
+apiVersion: identity.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: ProjectV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: identity/v1alpha1/roleassignmentv3
+  labels:
+    testing.upbound.io/example-name: project_1
+  name: project-1
+  namespace: test
+spec:
+  forProvider:
+    name: eu-de_${Rand.RFC1123Subdomain}
+
+---
+apiVersion: identity.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: RoleV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: identity/v1alpha1/rolev3
+  labels:
+    testing.upbound.io/example-name: role_1
+  name: role
+  namespace: test
+spec:
+  forProvider:
+    description: role
+    displayLayer: domain
+    displayName: xp-test-${Rand.RFC1123Subdomain}
+    statement:
+      - action:
+          - obs:bucket:GetBucketAcl
+        condition: |2
+            {
+              "StringStartWith": {
+                  "g:ProjectName": [
+                      "eu-de"
+                  ]
+              },
+              "StringNotEqualsIgnoreCase": {
+                  "g:ServiceName": [
+                      "iam"
+                  ]
+              }
+            }
+        effect: Allow
+        resource:
+          - OBS:*:*:bucket:test-bucket
+      - action:
+          - obs:bucket:HeadBucket
+          - obs:bucket:ListBucketMultipartUploads
+          - obs:bucket:ListBucket
+        effect: Allow

@@ -110,6 +110,7 @@ import (
 	instancev3gemini "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/gemini/instancev3"
 	hostgroupv5 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/hss/hostgroupv5"
 	hostprotectionv5 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/hss/hostprotectionv5"
+	aclv3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/identity/aclv3"
 	agencyv3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/identity/agencyv3"
 	credentialv3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/identity/credentialv3"
 	groupmembershipv3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/identity/groupmembershipv3"
@@ -362,6 +363,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		instancev3gemini.Setup,
 		hostgroupv5.Setup,
 		hostprotectionv5.Setup,
+		aclv3.Setup,
 		agencyv3.Setup,
 		credentialv3.Setup,
 		groupmembershipv3.Setup,
@@ -620,6 +622,7 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		instancev3gemini.SetupGated,
 		hostgroupv5.SetupGated,
 		hostprotectionv5.SetupGated,
+		aclv3.SetupGated,
 		agencyv3.SetupGated,
 		credentialv3.SetupGated,
 		groupmembershipv3.SetupGated,

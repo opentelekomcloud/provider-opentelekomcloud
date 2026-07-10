@@ -17,11 +17,29 @@ import (
 type UserGroupMembershipV3InitParameters struct {
 
 	// IDs of the groups for the user to be assigned to.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/identity/v1alpha1.GroupV3
 	// +listType=set
 	Groups []*string `json:"groups,omitempty" tf:"groups,omitempty"`
 
+	// References to GroupV3 in identity to populate groups.
+	// +kubebuilder:validation:Optional
+	GroupsRefs []v1.NamespacedReference `json:"groupsRefs,omitempty" tf:"-"`
+
+	// Selector for a list of GroupV3 in identity to populate groups.
+	// +kubebuilder:validation:Optional
+	GroupsSelector *v1.NamespacedSelector `json:"groupsSelector,omitempty" tf:"-"`
+
 	// ID of a user.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/identity/v1alpha1.UserV3
 	User *string `json:"user,omitempty" tf:"user,omitempty"`
+
+	// Reference to a UserV3 in identity to populate user.
+	// +kubebuilder:validation:Optional
+	UserRef *v1.NamespacedReference `json:"userRef,omitempty" tf:"-"`
+
+	// Selector for a UserV3 in identity to populate user.
+	// +kubebuilder:validation:Optional
+	UserSelector *v1.NamespacedSelector `json:"userSelector,omitempty" tf:"-"`
 }
 
 type UserGroupMembershipV3Observation struct {
@@ -39,13 +57,31 @@ type UserGroupMembershipV3Observation struct {
 type UserGroupMembershipV3Parameters struct {
 
 	// IDs of the groups for the user to be assigned to.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/identity/v1alpha1.GroupV3
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	Groups []*string `json:"groups,omitempty" tf:"groups,omitempty"`
 
+	// References to GroupV3 in identity to populate groups.
+	// +kubebuilder:validation:Optional
+	GroupsRefs []v1.NamespacedReference `json:"groupsRefs,omitempty" tf:"-"`
+
+	// Selector for a list of GroupV3 in identity to populate groups.
+	// +kubebuilder:validation:Optional
+	GroupsSelector *v1.NamespacedSelector `json:"groupsSelector,omitempty" tf:"-"`
+
 	// ID of a user.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/identity/v1alpha1.UserV3
 	// +kubebuilder:validation:Optional
 	User *string `json:"user,omitempty" tf:"user,omitempty"`
+
+	// Reference to a UserV3 in identity to populate user.
+	// +kubebuilder:validation:Optional
+	UserRef *v1.NamespacedReference `json:"userRef,omitempty" tf:"-"`
+
+	// Selector for a UserV3 in identity to populate user.
+	// +kubebuilder:validation:Optional
+	UserSelector *v1.NamespacedSelector `json:"userSelector,omitempty" tf:"-"`
 }
 
 // UserGroupMembershipV3Spec defines the desired state of UserGroupMembershipV3
@@ -84,10 +120,8 @@ type UserGroupMembershipV3Status struct {
 type UserGroupMembershipV3 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.groups) || (has(self.initProvider) && has(self.initProvider.groups))",message="spec.forProvider.groups is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.user) || (has(self.initProvider) && has(self.initProvider.user))",message="spec.forProvider.user is a required parameter"
-	Spec   UserGroupMembershipV3Spec   `json:"spec"`
-	Status UserGroupMembershipV3Status `json:"status,omitempty"`
+	Spec              UserGroupMembershipV3Spec   `json:"spec"`
+	Status            UserGroupMembershipV3Status `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

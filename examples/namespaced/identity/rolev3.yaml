@@ -1,0 +1,38 @@
+apiVersion: identity.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: RoleV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: identity/v1alpha1/rolev3
+  labels:
+    testing.upbound.io/example-name: role
+  name: role
+  namespace: test
+spec:
+  forProvider:
+    description: role
+    displayLayer: domain
+    displayName: xp-test-${Rand.RFC1123Subdomain}
+    statement:
+      - action:
+          - obs:bucket:GetBucketAcl
+        condition: |2
+            {
+              "StringStartWith": {
+                  "g:ProjectName": [
+                      "eu-de"
+                  ]
+              },
+              "StringNotEqualsIgnoreCase": {
+                  "g:ServiceName": [
+                      "iam"
+                  ]
+              }
+            }
+        effect: Allow
+        resource:
+          - OBS:*:*:bucket:test-bucket
+      - action:
+          - obs:bucket:HeadBucket
+          - obs:bucket:ListBucketMultipartUploads
+          - obs:bucket:ListBucket
+        effect: Allow
