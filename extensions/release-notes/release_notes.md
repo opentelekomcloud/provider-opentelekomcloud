@@ -1,3 +1,17 @@
+# v0.10.0
+
+## What's Changed
+* actions: publish upbound extension automaticly by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/113
+* add support for `secondarycidrv3` -  regen provider with 1.36.66 by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/120
+* feat: added `opentelekomcloud_evs_snapshot_v2`, by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/124
+* tests:  random names in `spec.forProvider` to avoid conflicting resource by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/126
+* docs: only activate modern APIs in default quick start installs by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/127
+* tests: run tests one by one instead of merging them together by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/131
+* [feat]: IAM implementation + e2e testing by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/129
+
+
+**Full Changelog**: https://github.com/opentelekomcloud/provider-opentelekomcloud/compare/v0.9.0...v0.10.0
+
 # v0.9.0
 
 ## What's Changed
@@ -9,6 +23,7 @@
 * Release notes for upbound marketplace by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/107
 * chore(deps): bump go.opentelemetry.io/otel from 1.39.0 to 1.41.0 in the go_modules group across 1 directory by @dependabot[bot] in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/105
 * chore: Regen provider with v1.36.63 by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/108
+* release notes for v0.9.0 by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/109
 
 
 **Full Changelog**: https://github.com/opentelekomcloud/provider-opentelekomcloud/compare/v0.8.0...v0.9.0
