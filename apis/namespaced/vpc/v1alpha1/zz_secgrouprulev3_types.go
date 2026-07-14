@@ -46,7 +46,16 @@ type SecgroupRuleV3InitParameters struct {
 	RemoteIPPrefix *string `json:"remoteIpPrefix,omitempty" tf:"remote_ip_prefix,omitempty"`
 
 	// Specifies the ID of the security group to which the security group rule belongs.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.SecgroupV3
 	SecurityGroupID *string `json:"securityGroupId,omitempty" tf:"security_group_id,omitempty"`
+
+	// Reference to a SecgroupV3 in vpc to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	SecurityGroupIDRef *v1.NamespacedReference `json:"securityGroupIdRef,omitempty" tf:"-"`
+
+	// Selector for a SecgroupV3 in vpc to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	SecurityGroupIDSelector *v1.NamespacedSelector `json:"securityGroupIdSelector,omitempty" tf:"-"`
 }
 
 type SecgroupRuleV3Observation struct {
@@ -138,8 +147,17 @@ type SecgroupRuleV3Parameters struct {
 	RemoteIPPrefix *string `json:"remoteIpPrefix,omitempty" tf:"remote_ip_prefix,omitempty"`
 
 	// Specifies the ID of the security group to which the security group rule belongs.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.SecgroupV3
 	// +kubebuilder:validation:Optional
 	SecurityGroupID *string `json:"securityGroupId,omitempty" tf:"security_group_id,omitempty"`
+
+	// Reference to a SecgroupV3 in vpc to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	SecurityGroupIDRef *v1.NamespacedReference `json:"securityGroupIdRef,omitempty" tf:"-"`
+
+	// Selector for a SecgroupV3 in vpc to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	SecurityGroupIDSelector *v1.NamespacedSelector `json:"securityGroupIdSelector,omitempty" tf:"-"`
 }
 
 // SecgroupRuleV3Spec defines the desired state of SecgroupRuleV3
@@ -179,7 +197,6 @@ type SecgroupRuleV3 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.direction) || (has(self.initProvider) && has(self.initProvider.direction))",message="spec.forProvider.direction is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.securityGroupId) || (has(self.initProvider) && has(self.initProvider.securityGroupId))",message="spec.forProvider.securityGroupId is a required parameter"
 	Spec   SecgroupRuleV3Spec   `json:"spec"`
 	Status SecgroupRuleV3Status `json:"status,omitempty"`
 }

@@ -68,4 +68,10 @@ func Configure(p *config.Provider) {
 			TerraformName: "opentelekomcloud_vpc_v1",
 		}
 	})
+	p.AddResourceConfigurator("opentelekomcloud_vpc_secgroup_rule_v3", func(r *config.Resource) {
+		r.UseAsync = true
+		r.References["security_group_id"] = config.Reference{
+			TerraformName: "opentelekomcloud_vpc_secgroup_v3",
+		}
+	})
 }

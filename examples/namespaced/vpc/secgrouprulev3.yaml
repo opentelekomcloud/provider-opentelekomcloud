@@ -1,0 +1,36 @@
+apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: SecgroupRuleV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/secgrouprulev3
+  labels:
+    testing.upbound.io/example-name: rule_1
+  name: rule-1
+  namespace: test
+spec:
+  forProvider:
+    action: allow
+    description: crossplane
+    direction: ingress
+    multiPort: "8080"
+    priority: 1
+    protocol: tcp
+    remoteIpPrefix: 10.10.0.0/16
+    securityGroupIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: secgroup_1
+
+---
+apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: SecgroupV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/secgroupv3
+  labels:
+    testing.upbound.io/example-name: secgroup_1
+  name: secgroup-1
+  namespace: test
+spec:
+  forProvider:
+    description: crossplane
+    name: xp-test-${Rand.RFC1123Subdomain}
