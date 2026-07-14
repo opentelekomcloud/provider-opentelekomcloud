@@ -90,21 +90,26 @@ spec:
                       is icmpv6, IP version should be IPv6. When the protocol is icmp,
                       IP version should be IPv4.
                     type: string
+                  remoteAddressGroupId:
+                    description: Specifies the ID of an existing IP address group.
+                      The parameter value is mutually exclusive with parameters remote_ip_prefix
+                      and remote_group_id.
+                    type: string
                   remoteGroupId:
                     description: Specifies the ID of the remote security group, which
                       allows or denies traffic to and from the security group. The
                       value has to be the ID of an existing security group. The parameter
-                      is mutually exclusive with parameter remote_ip_prefix.
+                      is mutually exclusive with parameter remote_ip_prefix and remote_address_group_id.
                     type: string
                   remoteIpPrefix:
                     description: Specifies the remote IP address. If direction is
                       set to egress, the parameter specifies the source IP address.
                       If direction is set to ingress, the parameter specifies the
                       destination IP address. The value is an IP address or a CIDR
-                      block. The parameter is mutually exclusive with parameter remote_group_id.
-                      If this parameter is left blank, the remote IP address is not
-                      limited, and the traffic from all remote IP addresses is allowed
-                      or rejected.
+                      block. The parameter is mutually exclusive with parameter remote_group_id
+                      and remote_address_group_id. If this parameter is left blank,
+                      the remote IP address is not limited, and the traffic from all
+                      remote IP addresses is allowed or rejected.
                     type: string
                   securityGroupId:
                     description: Specifies the ID of the security group to which the
@@ -155,21 +160,26 @@ spec:
                       is icmpv6, IP version should be IPv6. When the protocol is icmp,
                       IP version should be IPv4.
                     type: string
+                  remoteAddressGroupId:
+                    description: Specifies the ID of an existing IP address group.
+                      The parameter value is mutually exclusive with parameters remote_ip_prefix
+                      and remote_group_id.
+                    type: string
                   remoteGroupId:
                     description: Specifies the ID of the remote security group, which
                       allows or denies traffic to and from the security group. The
                       value has to be the ID of an existing security group. The parameter
-                      is mutually exclusive with parameter remote_ip_prefix.
+                      is mutually exclusive with parameter remote_ip_prefix and remote_address_group_id.
                     type: string
                   remoteIpPrefix:
                     description: Specifies the remote IP address. If direction is
                       set to egress, the parameter specifies the source IP address.
                       If direction is set to ingress, the parameter specifies the
                       destination IP address. The value is an IP address or a CIDR
-                      block. The parameter is mutually exclusive with parameter remote_group_id.
-                      If this parameter is left blank, the remote IP address is not
-                      limited, and the traffic from all remote IP addresses is allowed
-                      or rejected.
+                      block. The parameter is mutually exclusive with parameter remote_group_id
+                      and remote_address_group_id. If this parameter is left blank,
+                      the remote IP address is not limited, and the traffic from all
+                      remote IP addresses is allowed or rejected.
                     type: string
                   securityGroupId:
                     description: Specifies the ID of the security group to which the
@@ -290,7 +300,7 @@ spec:
                       IP version should be IPv4.
                     type: string
                   remoteAddressGroupId:
-                    description: Indicates the ID of the remote IP address group.
+                    description: Specifies the ID of an existing IP address group.
                       The parameter value is mutually exclusive with parameters remote_ip_prefix
                       and remote_group_id.
                     type: string
@@ -298,17 +308,17 @@ spec:
                     description: Specifies the ID of the remote security group, which
                       allows or denies traffic to and from the security group. The
                       value has to be the ID of an existing security group. The parameter
-                      is mutually exclusive with parameter remote_ip_prefix.
+                      is mutually exclusive with parameter remote_ip_prefix and remote_address_group_id.
                     type: string
                   remoteIpPrefix:
                     description: Specifies the remote IP address. If direction is
                       set to egress, the parameter specifies the source IP address.
                       If direction is set to ingress, the parameter specifies the
                       destination IP address. The value is an IP address or a CIDR
-                      block. The parameter is mutually exclusive with parameter remote_group_id.
-                      If this parameter is left blank, the remote IP address is not
-                      limited, and the traffic from all remote IP addresses is allowed
-                      or rejected.
+                      block. The parameter is mutually exclusive with parameter remote_group_id
+                      and remote_address_group_id. If this parameter is left blank,
+                      the remote IP address is not limited, and the traffic from all
+                      remote IP addresses is allowed or rejected.
                     type: string
                   securityGroupId:
                     description: Specifies the ID of the security group to which the

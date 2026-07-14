@@ -14,18 +14,18 @@ import (
 	"github.com/crossplane/upjet/v2/pkg/resource/json"
 )
 
-// GetTerraformResourceType returns Terraform resource type for this CertificateV3
-func (mg *CertificateV3) GetTerraformResourceType() string {
-	return "opentelekomcloud_lb_certificate_v3"
+// GetTerraformResourceType returns Terraform resource type for this IPAddressGroupV3
+func (mg *IPAddressGroupV3) GetTerraformResourceType() string {
+	return "opentelekomcloud_vpc_ip_address_group_v3"
 }
 
-// GetConnectionDetailsMapping for this CertificateV3
-func (tr *CertificateV3) GetConnectionDetailsMapping() map[string]string {
-	return map[string]string{"private_key": "privateKeySecretRef"}
+// GetConnectionDetailsMapping for this IPAddressGroupV3
+func (tr *IPAddressGroupV3) GetConnectionDetailsMapping() map[string]string {
+	return nil
 }
 
-// GetObservation of this CertificateV3
-func (tr *CertificateV3) GetObservation() (map[string]any, error) {
+// GetObservation of this IPAddressGroupV3
+func (tr *IPAddressGroupV3) GetObservation() (map[string]any, error) {
 	o, err := json.TFParser.Marshal(tr.Status.AtProvider)
 	if err != nil {
 		return nil, err
@@ -34,8 +34,8 @@ func (tr *CertificateV3) GetObservation() (map[string]any, error) {
 	return base, json.TFParser.Unmarshal(o, &base)
 }
 
-// SetObservation for this CertificateV3
-func (tr *CertificateV3) SetObservation(obs map[string]any) error {
+// SetObservation for this IPAddressGroupV3
+func (tr *IPAddressGroupV3) SetObservation(obs map[string]any) error {
 	p, err := json.TFParser.Marshal(obs)
 	if err != nil {
 		return err
@@ -43,16 +43,16 @@ func (tr *CertificateV3) SetObservation(obs map[string]any) error {
 	return json.TFParser.Unmarshal(p, &tr.Status.AtProvider)
 }
 
-// GetID returns ID of underlying Terraform resource of this CertificateV3
-func (tr *CertificateV3) GetID() string {
+// GetID returns ID of underlying Terraform resource of this IPAddressGroupV3
+func (tr *IPAddressGroupV3) GetID() string {
 	if tr.Status.AtProvider.ID == nil {
 		return ""
 	}
 	return *tr.Status.AtProvider.ID
 }
 
-// GetParameters of this CertificateV3
-func (tr *CertificateV3) GetParameters() (map[string]any, error) {
+// GetParameters of this IPAddressGroupV3
+func (tr *IPAddressGroupV3) GetParameters() (map[string]any, error) {
 	p, err := json.TFParser.Marshal(tr.Spec.ForProvider)
 	if err != nil {
 		return nil, err
@@ -61,8 +61,8 @@ func (tr *CertificateV3) GetParameters() (map[string]any, error) {
 	return base, json.TFParser.Unmarshal(p, &base)
 }
 
-// SetParameters for this CertificateV3
-func (tr *CertificateV3) SetParameters(params map[string]any) error {
+// SetParameters for this IPAddressGroupV3
+func (tr *IPAddressGroupV3) SetParameters(params map[string]any) error {
 	p, err := json.TFParser.Marshal(params)
 	if err != nil {
 		return err
@@ -70,8 +70,8 @@ func (tr *CertificateV3) SetParameters(params map[string]any) error {
 	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
 }
 
-// GetInitParameters of this CertificateV3
-func (tr *CertificateV3) GetInitParameters() (map[string]any, error) {
+// GetInitParameters of this IPAddressGroupV3
+func (tr *IPAddressGroupV3) GetInitParameters() (map[string]any, error) {
 	p, err := json.TFParser.Marshal(tr.Spec.InitProvider)
 	if err != nil {
 		return nil, err
@@ -80,8 +80,8 @@ func (tr *CertificateV3) GetInitParameters() (map[string]any, error) {
 	return base, json.TFParser.Unmarshal(p, &base)
 }
 
-// GetInitParameters of this CertificateV3
-func (tr *CertificateV3) GetMergedParameters(shouldMergeInitProvider bool) (map[string]any, error) {
+// GetInitParameters of this IPAddressGroupV3
+func (tr *IPAddressGroupV3) GetMergedParameters(shouldMergeInitProvider bool) (map[string]any, error) {
 	params, err := tr.GetParameters()
 	if err != nil {
 		return nil, errors.Wrapf(err, "cannot get parameters for resource \"%s/%s\"", tr.GetNamespace(), tr.GetName())
@@ -110,10 +110,10 @@ func (tr *CertificateV3) GetMergedParameters(shouldMergeInitProvider bool) (map[
 	return params, nil
 }
 
-// LateInitialize this CertificateV3 using its observed tfState.
+// LateInitialize this IPAddressGroupV3 using its observed tfState.
 // returns True if there are any spec changes for the resource.
-func (tr *CertificateV3) LateInitialize(attrs []byte) (bool, error) {
-	params := &CertificateV3Parameters{}
+func (tr *IPAddressGroupV3) LateInitialize(attrs []byte) (bool, error) {
+	params := &IPAddressGroupV3Parameters{}
 	if err := json.TFParser.Unmarshal(attrs, params); err != nil {
 		return false, errors.Wrap(err, "failed to unmarshal Terraform state parameters for late-initialization")
 	}
@@ -124,6 +124,6 @@ func (tr *CertificateV3) LateInitialize(attrs []byte) (bool, error) {
 }
 
 // GetTerraformSchemaVersion returns the associated Terraform schema version
-func (tr *CertificateV3) GetTerraformSchemaVersion() int {
+func (tr *IPAddressGroupV3) GetTerraformSchemaVersion() int {
 	return 0
 }

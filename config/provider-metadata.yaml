@@ -1099,7 +1099,8 @@ resources:
             description: '- (Optional, String) Specifies gateway description.'
             enterprise_project_id: |-
                 - (Optional, String) Specifies the enterprise project ID to which the dedicated
-                instance belongs. This parameter is required for enterprise users.
+                instance belongs. This parameter is required for enterprise ("eps") users. If it is not set here or at the
+                provider level (OS_ENTERPRISE_PROJECT_ID), the default enterprise project 0 is used.
             ingress_bandwidth_charging_mode: |-
                 - (Optional, String, ForceNew) Specifies the ingress bandwidth billing type of the dedicated instance.
                 The valid values are as follows:
@@ -2953,6 +2954,241 @@ resources:
             tags: '- (Optional) Tag map.'
             type: '- Type of the resource to be backed up. Possible values are OS::Nova::Server, OS::Cinder::Volume and OS::Sfs::Turbo.'
             used: '- Used capacity, in MB.'
+        importStatements: []
+    opentelekomcloud_cc_central_network_policy_apply_v3:
+        subCategory: Cloud Connect (CC)
+        description: Applies a Cloud Connect Central Network Policy within OpenTelekomCloud.
+        name: opentelekomcloud_cc_central_network_policy_apply_v3
+        title: opentelekomcloud_cc_central_network_policy_apply_v3
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "central_network_id": "${var.central_network_id}",
+                  "policy_id": "${opentelekomcloud_cc_central_network_policy_v3.test.id}"
+                }
+              references:
+                central_network_id: var.central_network_id
+                policy_id: opentelekomcloud_cc_central_network_policy_v3.test.id
+              dependencies:
+                opentelekomcloud_cc_central_network_policy_v3.test: |-
+                    {
+                      "central_network_id": "${var.central_network_id}",
+                      "er_instances": [
+                        {
+                          "enterprise_router_id": "${var.enterprise_router_id}",
+                          "project_id": "${var.project_id}",
+                          "region_id": "eu-de"
+                        }
+                      ]
+                    }
+        argumentDocs:
+            central_network_id: |-
+                - (Required, String, ForceNew) The ID of the central network the policy is applied to.
+                Changing this parameter will create a new resource.
+            create: '- Default is 10 minutes.'
+            delete: '- Default is 10 minutes.'
+            id: '- The resource ID. Equal to the central network ID.'
+            policy_id: '- (Required, String) The ID of the central network policy to apply.'
+            region: '- The region in which the central network policy is applied.'
+            update: '- Default is 10 minutes.'
+        importStatements: []
+    opentelekomcloud_cc_central_network_policy_v3:
+        subCategory: Cloud Connect (CC)
+        description: Manages a Cloud Connect Central Network Policy resource within OpenTelekomCloud.
+        name: opentelekomcloud_cc_central_network_policy_v3
+        title: opentelekomcloud_cc_central_network_policy_v3
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "central_network_id": "${var.central_network_id}",
+                  "er_instances": [
+                    {
+                      "enterprise_router_id": "${var.enterprise_router_a_id}",
+                      "project_id": "${var.project_id}",
+                      "region_id": "eu-de"
+                    },
+                    {
+                      "enterprise_router_id": "${var.enterprise_router_b_id}",
+                      "project_id": "${var.project_id}",
+                      "region_id": "eu-nl"
+                    }
+                  ],
+                  "planes": [
+                    {
+                      "associate_er_tables": [
+                        {
+                          "enterprise_router_id": "${var.enterprise_router_a_id}",
+                          "enterprise_router_table_id": "${var.enterprise_router_a_table_id}",
+                          "project_id": "${var.project_id}",
+                          "region_id": "eu-de"
+                        },
+                        {
+                          "enterprise_router_id": "${var.enterprise_router_b_id}",
+                          "enterprise_router_table_id": "${var.enterprise_router_b_table_id}",
+                          "project_id": "${var.project_id}",
+                          "region_id": "eu-nl"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              references:
+                central_network_id: var.central_network_id
+                er_instances.enterprise_router_id: var.enterprise_router_b_id
+                er_instances.project_id: var.project_id
+                planes.associate_er_tables.enterprise_router_id: var.enterprise_router_b_id
+                planes.associate_er_tables.enterprise_router_table_id: var.enterprise_router_b_table_id
+                planes.associate_er_tables.project_id: var.project_id
+        argumentDocs:
+            associate_er_tables.enterprise_router_id: '- (Required, String, ForceNew) The ID of the enterprise router.'
+            associate_er_tables.enterprise_router_table_id: '- (Required, String, ForceNew) The ID of the enterprise router route table.'
+            associate_er_tables.project_id: '- (Required, String, ForceNew) The project ID of the enterprise router.'
+            associate_er_tables.region_id: '- (Required, String, ForceNew) The region ID of the enterprise router.'
+            central_network_id: |-
+                - (Required, String, ForceNew) The ID of the central network the policy belongs to.
+                Changing this parameter will create a new resource.
+            document_template_version: '- The version of the central network policy document template.'
+            er_instances: |-
+                - (Optional, List, ForceNew) The list of the enterprise routers on the central network policy.
+                Changing this parameter will create a new resource.
+                The er_instances structure is documented below.
+            er_instances.enterprise_router_id: '- (Required, String, ForceNew) The ID of the enterprise router.'
+            er_instances.project_id: '- (Required, String, ForceNew) The project ID of the enterprise router.'
+            er_instances.region_id: '- (Required, String, ForceNew) The region ID of the enterprise router.'
+            exclude_er_connections.exclude_er_instances: |-
+                - (Required, List, ForceNew) The list of enterprise routers that will not establish a
+                connection with each other. The exclude_er_instances structure is the same as the
+                er_instances structure documented above.
+            id: '- The resource ID in UUID format. Equal to the central network policy ID.'
+            is_applied: '- Whether the central network policy is applied.'
+            planes: |-
+                - (Optional, List, ForceNew) The list of the central network policy planes.
+                Changing this parameter will create a new resource.
+                The planes structure is documented below.
+            planes.associate_er_tables: |-
+                - (Optional, List, ForceNew) The list of route tables associated with the central
+                network policy. The associate_er_tables structure is documented below.
+            planes.exclude_er_connections: |-
+                - (Optional, List, ForceNew) The list of the enterprise router connections excluded
+                from the central network policy. The exclude_er_connections structure is
+                documented below.
+            region: '- The region in which the central network policy is managed.'
+            state: |-
+                - The status of the central network policy. The value can be AVAILABLE, CANCELING,
+                APPLYING, FAILED or DELETED.
+            version: '- The version of the central network policy.'
+        importStatements: []
+    opentelekomcloud_cc_central_network_v3:
+        subCategory: Cloud Connect (CC)
+        description: Manages a Cloud Connect Central Network resource within OpenTelekomCloud.
+        name: opentelekomcloud_cc_central_network_v3
+        title: opentelekomcloud_cc_central_network_v3
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "description": "managed by terraform",
+                  "name": "central-network-demo"
+                }
+        argumentDocs:
+            create: '- Default is 10 minutes.'
+            created_at: '- The creation time of the central network.'
+            default_plane_id: '- The ID of the default central network plane.'
+            delete: '- Default is 10 minutes.'
+            description: |-
+                - (Optional, String) The description of the central network.
+                The description can contain a maximum of 255 characters, and the angle brackets (< and >) are not allowed.
+            domain_id: '- The ID of the account that the central network belongs to.'
+            enterprise_project_id: |-
+                - (Optional, String, ForceNew) The ID of the enterprise project that the central
+                network belongs to. Changing this parameter will create a new resource.
+            id: '- The resource ID in UUID format. Equal to the central network ID.'
+            name: |-
+                - (Required, String) The name of the central network.
+                The name can contain 1 to 64 characters, only letters, digits, underscores (_) and hyphens (-) are allowed.
+            region: '- The region in which the central network is managed.'
+            state: |-
+                - The status of the central network. The value can be AVAILABLE, CREATING, UPDATING,
+                FAILED, DELETING, DELETED or RESTORING.
+            update: '- Default is 10 minutes.'
+            updated_at: '- The latest update time of the central network.'
+        importStatements: []
+    opentelekomcloud_cc_global_connection_bandwidth_v3:
+        subCategory: Cloud Connect (CC)
+        description: Manages a Cloud Connect Global Connection Bandwidth resource within OpenTelekomCloud.
+        name: opentelekomcloud_cc_global_connection_bandwidth_v3
+        title: opentelekomcloud_cc_global_connection_bandwidth_v3
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "bordercross": false,
+                  "charge_mode": "bwd",
+                  "description": "managed by terraform",
+                  "name": "gcb-demo",
+                  "size": 5,
+                  "type": "Region"
+                }
+        argumentDocs:
+            admin_state: '- The status of the global connection bandwidth. The value can be NORMAL or FREEZED.'
+            binding_service: |-
+                - (Optional, String) The service binding type. The value can be CC, GEIP,
+                GCN, GSN or ALL.
+            bordercross: |-
+                - (Required, Bool, ForceNew) Whether the bandwidth is used for cross-border connections.
+                Changing this parameter will create a new resource.
+            charge_mode: |-
+                - (Required, String) The billing option. The value can be bwd (billing by bandwidth),
+                95 (standard 95th percentile billing) or 95avr (enhanced 95th percentile billing).
+            created_at: '- The creation time of the global connection bandwidth.'
+            description: |-
+                - (Optional, String) The description of the global connection bandwidth.
+                The angle brackets (< and >) are not allowed.
+            directional_connections: |-
+                - The directional connections of the global connection bandwidth.
+                The directional_connections structure is documented below.
+            directional_connections.id: '- The connection ID.'
+            directional_connections.local_site_code: '- The local access point code.'
+            directional_connections.name: '- The connection name.'
+            directional_connections.remote_site_code: '- The remote access point code.'
+            domain_id: '- The ID of the account that the global connection bandwidth belongs to.'
+            enable_share: '- Whether the bandwidth can be shared by multiple instances.'
+            enterprise_project_id: |-
+                - (Optional, String, ForceNew) The ID of the enterprise project that the global
+                connection bandwidth belongs to. Changing this parameter will create a new resource.
+            eps_id: '- The ID of the enterprise project that the global connection bandwidth belongs to.'
+            frozen: '- Whether the global connection bandwidth is frozen.'
+            id: '- The resource ID in UUID format. Equal to the global connection bandwidth ID.'
+            instances: |-
+                - The instances associated with the global connection bandwidth.
+                The instances structure is documented below.
+            instances.id: '- The instance ID.'
+            instances.project_id: '- The project ID of the instance.'
+            instances.region_id: '- The region ID of the instance.'
+            instances.type: '- The instance type.'
+            local_area: |-
+                - (Optional, String, ForceNew) The local access point. The value can contain 1 to 64
+                characters, only letters, digits, underscores (_), hyphens (-) and periods (.) are allowed.
+                Changing this parameter will create a new resource.
+            local_site_code: '- The local access point code.'
+            name: '- (Required, String) The name of the global connection bandwidth.'
+            region: '- The region in which the global connection bandwidth is managed.'
+            remote_area: |-
+                - (Optional, String, ForceNew) The remote access point. The value can contain 1 to 64
+                characters, only letters, digits, underscores (_), hyphens (-) and periods (.) are allowed.
+                Changing this parameter will create a new resource.
+            remote_site_code: '- The remote access point code.'
+            size: '- (Required, Int) The bandwidth capacity, in Mbit/s. The value ranges from 2 to 300.'
+            sla_level: |-
+                - (Optional, String) The service class of the bandwidth. The value can be Pt (Platinum),
+                Au (Gold) or Ag (Silver).
+            spec_code_id: '- (Optional, String) The UUID of the line specification code.'
+            type: |-
+                - (Required, String, ForceNew) The bandwidth type. The value can be Area, TrsArea,
+                SubArea or Region. Changing this parameter will create a new resource.
+            updated_at: '- The latest update time of the global connection bandwidth.'
         importStatements: []
     opentelekomcloud_cce_addon_v3:
         subCategory: Cloud Container Engine (CCE)
@@ -6113,6 +6349,35 @@ resources:
             mode: '- (Required, Integer, ForceNew) Specifies the IPS protection mode: 0 (observation mode), 1 (strict mode), 2 (medium mode), or 3 (loose mode).'
             object_id: '- (Required, String, ForceNew) Specifies the protected object ID, which is used to distinguish between Internet border protection and VPC border protection after a cloud firewall is created. If the value of type is 0, the protected object ID belongs to the Internet border. If the value of type is 1, the protected object ID belongs to the VPC border.'
         importStatements: []
+    opentelekomcloud_cfw_log_configuration_v1:
+        subCategory: Cloud Firewall (CFW)
+        description: Manages a CFW Log Configuration resource within OpenTelekomCloud.
+        name: opentelekomcloud_cfw_log_configuration_v1
+        title: opentelekomcloud_cfw_log_configuration_v1
+        examples:
+            - name: log_config_1
+              manifest: |-
+                {
+                  "fw_instance_id": "${var.firewall_id}",
+                  "lts_enable": 1,
+                  "lts_log_group_id": "${var.group_id}"
+                }
+              references:
+                fw_instance_id: var.firewall_id
+                lts_log_group_id: var.group_id
+        argumentDocs:
+            enterprise_project_id: '- (Optional, String) Specifies the enterprise project ID.'
+            fw_instance_id: '- (Required, String, ForceNew) Specifies the Cloud Firewall instance ID.'
+            id: '- Indicates the Cloud Firewall instance ID (same as fw_instance_id).'
+            lts_access_log_stream_enable: '- (Optional, Integer) Specifies whether to enable the access control log stream. Valid values are 0 (disable, default) and 1 (enable).'
+            lts_access_log_stream_id: '- (Optional, String) Specifies the access control log stream ID. The value can be obtained by calling the LTS API for querying all log streams in a specified log group.'
+            lts_attack_log_stream_enable: '- (Optional, Integer) Specifies whether to enable the attack log stream. Valid values are 0 (disable, default) and 1 (enable).'
+            lts_attack_log_stream_id: '- (Optional, String) Specifies the attack log stream ID. The value can be obtained by calling the LTS API for querying all log streams in a specified log group.'
+            lts_enable: '- (Required, Integer) Specifies whether to enable the LTS service. Valid values are 0 (disable) and 1 (enable).'
+            lts_flow_log_stream_enable: '- (Optional, Integer) Specifies whether to enable the traffic log stream. Valid values are 0 (disable, default) and 1 (enable).'
+            lts_flow_log_stream_id: '- (Optional, String) Specifies the traffic log stream ID. The value can be obtained by calling the LTS API for querying all log streams in a specified log group.'
+            lts_log_group_id: '- (Required, String) Specifies the LTS log group ID. The value can be obtained by calling the LTS API for querying all log groups. The format is log_groups.log_group_id (the period [.] is used to separate different levels of objects).'
+        importStatements: []
     opentelekomcloud_cfw_service_group_member_v1:
         subCategory: Cloud Firewall (CFW)
         description: Manages a CFW Service group member resource within OpenTelekomCloud.
@@ -7423,16 +7688,12 @@ resources:
             enable_authority: |-
                 - (Optional, Bool) Whether to enable authentication.
                 Authentication is disabled by default.
-                When authentication is enabled, enable_https must be set to true.
-                Changing this parameter will create a new resource.
             enable_https: |-
-                - (Optional, Bool) Whether communication encryption is performed on the cluster.
-                By default, communication encryption is disabled.
-                Value true indicates that communication encryption is performed on the cluster.
-                Value false indicates that communication encryption is not performed on the cluster.
-                Changing this parameter will create a new resource.
+                - (Optional, Bool) Whether communication encryption is enabled for the cluster.
+                Communication encryption is disabled by default.
             endpoint: '- Indicates the IP address and port number of the user used to access the VPC.'
             expect_node_num: '- (Optional, Int) Number of cluster instances. The value range is 1 to 32.'
+            "false": disables communication encryption.
             name: |-
                 - (Required, String) Cluster name. It contains 4 to 32 characters. Only letters, digits,
                 hyphens (-), and underscores (_) are allowed. The value must start with a letter.
@@ -7468,6 +7729,7 @@ resources:
                 Separate the whitelisted network segments or IP addresses with commas (,), and each of them must be unique.
             public_access.whitelist_enabled: '- (Required, Bool) Specifies whether to enable the Kibana access control.'
             tags: '- (Optional) Tags key/value pairs to associate with the cluster.'
+            "true": enables communication encryption.
             update: '- Default is 30 minutes.'
             updated: '- Last modification time of a cluster. The format is ISO8601: CCYY-MM-DDThh:mm:ss.'
             volume.encryption_key: |-
@@ -11117,6 +11379,66 @@ resources:
             vpc_id: '- (Required, String, ForceNew) The ID of the desired VPC for the server. Changing this creates a new server.'
         importStatements:
             - terraform import opentelekomcloud_ecs_instance_v1.instance_1 d90ce693-5ccf-4136-a0ed-152ce412b6b9
+    opentelekomcloud_enterprise_project_v1:
+        subCategory: Enterprise Project Management Service (EPS)
+        description: Use this resource to manage an enterprise project within T-Cloud Public (former OpenTelekomCloud).
+        name: opentelekomcloud_enterprise_project_v1
+        title: opentelekomcloud_enterprise_project_v1
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "description": "${var.description}",
+                  "name": "${var.name}",
+                  "skip_disable_on_destroy": true
+                }
+              references:
+                description: var.description
+                name: var.name
+            - name: test
+              manifest: |-
+                {
+                  "description": "${var.description}",
+                  "name": "${var.name}"
+                }
+              references:
+                description: var.description
+                name: var.name
+            - name: test
+              manifest: |-
+                {
+                  "lifecycle": [
+                    {
+                      "ignore_changes": [
+                        "${skip_disable_on_destroy}"
+                      ]
+                    }
+                  ]
+                }
+              references:
+                lifecycle.ignore_changes: skip_disable_on_destroy
+        argumentDocs:
+            create: '- Default is 5 minutes.'
+            created_at: '- Indicates the time (UTC) when the enterprise project was created. Example: 2018-05-18T06:49:06Z.'
+            delete: '- Default is 5 minutes.'
+            description: '- (Optional, String) Specifies the description of the enterprise project.'
+            enable: '- (Optional, Bool) Specifies whether to enable the enterprise project. Defaults to true.'
+            id: '- Indicates the ID of the enterprise project.'
+            name: |-
+                - (Required, String) Specifies the name of the enterprise project.
+                This parameter can contain 1 to 64 characters. Only English letters, Chinese characters, digits, underscores (_),
+                and hyphens (-) are allowed.
+                The name must be unique in the domain and cannot include any form of the word "default" ("deFaulT", for instance).
+            skip_disable_on_destroy: |-
+                - (Optional, Bool) Specifies whether to skip disable the enterprise project on destroy.
+                Defaults to false.
+            status: '- Indicates the status of an enterprise project.'
+            type: |-
+                - (Optional, String) Specifies the type of the enterprise project.
+                The valid values are poc and prod, defaults to prod.
+            update: '- Default is 5 minutes.'
+            updated_at: '- Indicates the time (UTC) when the enterprise project was modified. Example: 2018-05-28T02:21:36Z.'
+        importStatements: []
     opentelekomcloud_enterprise_vpn_connection_monitor_v5:
         subCategory: Virtual Private Network (VPN)
         description: Manages a Enterprise VPN Connection Monitoring Service resource within OpenTelekomCloud.
@@ -13807,12 +14129,18 @@ resources:
                 {
                   "description": "This is simple identity provider",
                   "enabled": true,
-                  "name": "ACME"
+                  "name": "ACME",
+                  "sso_type": "iam_user_sso"
                 }
         argumentDocs:
             description: '- (Optional) A description of the provider.'
             enabled: '- (Optional) Whether an identity provider is enabled. Default value is false.'
             name: '- (Required) The name (ID) of the provider. Changing this creates a new provider.'
+            sso_type: |-
+                - (Optional) The single sign-on (SSO) type of the identity provider. Possible values
+                are virtual_user_sso and iam_user_sso. Defaults to virtual_user_sso. Each account can have
+                only one identity provider of the iam_user_sso type, and creating an iam_user_sso provider
+                requires an existing IAM user. Changing this creates a new provider.
         importStatements: []
     opentelekomcloud_identity_role_assignment_v3:
         subCategory: Identity and Access Management (IAM)
@@ -21506,10 +21834,10 @@ resources:
                 - (Optional, String, ForceNew) Specifies the ID of a KMS key to encrypt the file system.
                 Changing this will create a new resource.
             delete: '- Default is 10 minute.'
-            expand_type: '- (Optional, String, ForceNew) Specifies the extension type. This parameter is mandatory when you are creating an SFS Turbo 250 MB/s/TiB, 125 MB/s/TiB, 40 MB/s/TiB, 20 MB/s/TiB, or Enhanced file system. Accepted values:'
+            expand_type: '- (Optional, String, ForceNew) Specifies the extension type. This parameter is mandatory when you are creating an SFS Turbo 1,000 MB/s/TiB, 500 MB/s/TiB, 250 MB/s/TiB, 125 MB/s/TiB, 40 MB/s/TiB, 20 MB/s/TiB, or Enhanced file system. Accepted values:'
             export_location: '- The mount point of the SFS Turbo file system.'
-            hpc: ': To create a 250 MB/s/TiB, 125 MB/s/TiB, 40 MB/s/TiB, or 20 MB/s/TiB file system.'
-            hpc_bw: '- (Optional, String, ForceNew) Specifies the file system bandwidth. This parameter is mandatory when you are creating an SFS Turbo 250 MB/s/TiB, 125 MB/s/TiB, 40 MB/s/TiB, 20 MB/s/TiB file system. Accepted values: 20M (for a 20 MB/s/TiB file system), 40M (for a 40 MB/s/TiB file system), 125M (for a 125 MB/s/TiB file system), and 250M (for a 250 MB/s/TiB file system).'
+            hpc: ': To create a 1,000 MB/s/TiB, 500 MB/s/TiB, 250 MB/s/TiB, 125 MB/s/TiB, 40 MB/s/TiB, or 20 MB/s/TiB file system.'
+            hpc_bw: '- (Optional, String, ForceNew) Specifies the file system bandwidth. This parameter is mandatory when you are creating an SFS Turbo 1,000 MB/s/TiB, 500 MB/s/TiB, 250 MB/s/TiB, 125 MB/s/TiB, 40 MB/s/TiB, 20 MB/s/TiB file system. Accepted values: 20M (for a 20 MB/s/TiB file system), 40M (for a 40 MB/s/TiB file system), 125M (for a 125 MB/s/TiB file system), 250M (for a 250 MB/s/TiB file system), 500M (for a 500 MB/s/TiB file system), and 1000M (for a 1000 MB/s/TiB file system).'
             id: '- The UUID of the SFS Turbo file system.'
             name: |-
                 - (Required, String, ForceNew) Specifies the name of an SFS Turbo file system. The value contains 4 to 64
@@ -21522,11 +21850,21 @@ resources:
                 - (Optional, String, ForceNew) Specifies the protocol for sharing file systems. The valid value is NFS.
                 Changing this will create a new resource.
             share_type: |-
-                - (Optional, String, ForceNew) Specifies the file system type. The valid values are STANDARD and PERFORMANCE.
+                - (Optional, String, ForceNew) Specifies the file system type.
+                For a previous-generation SFS Turbo file system, specify STANDARD for a Standard or Standard-Enhanced file system, and PERFORMANCE for a Performance or Performance-Enhanced file system.
+                For a 1,000 MB/s/TiB, 500 MB/s/TiB, 250 MB/s/TiB, 125 MB/s/TiB, 40 MB/s/TiB, or 20 MB/s/TiB file system, this field is not verified. Specify either STANDARD or PERFORMANCE.
                 Changing this will create a new resource.
             size: |-
-                - (Required, Int) Specifies the capacity of a common file system, in GB. The value ranges
-                from 500 to 32768.For an SFS Turbo Enhanced file system, if expand_type is set to bandwidth in the metadata field, the capacity ranges from 10240 to 327680, in GiB. If expand_type is set to hpc and hpc_bw is set to 20M (20MB/s/TiB), 40M (40MB/s/TiB:), 125M (125MB/s/TiB), or 250M (250MB/s/TiB), the capacity ranges from 3686 to 1048576, in GiB. The capacity must be a multiple of 1.2 TiB. The value must be rounded down after being converted to GiB. For example, 3.6TiB->3686GiB, 4.8TiB->4915GiB, 8.4TiB->8601GiB.
+                - (Required, Int) Specifies the capacity of a file system, in GiB.
+                For a previous-generation SFS Turbo file system, the capacity ranges from 500 to 32768, in GiB.
+                For a previous-generation SFS Turbo file system with expand_type set to bandwidth in metadata, the capacity ranges from 10240 to 327680, in GiB.
+                For a 20 MB/s/TiB file system with expand_type set to hpc and hpc_bw set to 20M in metadata, the capacity ranges from 3686 to 1048576, in GiB, and must be a multiple of 1.2 TiB.
+                For a 40 MB/s/TiB file system with expand_type set to hpc and hpc_bw set to 40M in metadata, the capacity ranges from 1228 to 1048576, in GiB, and must be a multiple of 1.2 TiB.
+                For a 125 MB/s/TiB file system with expand_type set to hpc and hpc_bw set to 125M in metadata, the capacity ranges from 1228 to 1048576, in GiB, and must be a multiple of 1.2 TiB.
+                For a 250 MB/s/TiB file system with expand_type set to hpc and hpc_bw set to 250M in metadata, the capacity ranges from 1228 to 1048576, in GiB, and must be a multiple of 1.2 TiB.
+                For a 500 MB/s/TiB file system with expand_type set to hpc and hpc_bw set to 500M in metadata, the capacity ranges from 1228 to 1048576, in GiB, and must be a multiple of 1.2 TiB.
+                For a 1,000 MB/s/TiB file system with expand_type set to hpc and hpc_bw set to 1000M in metadata, the capacity ranges from 1228 to 1048576, in GiB, and must be a multiple of 1.2 TiB.
+                The desired capacity must be converted to GiB and rounded down to the nearest integer. For example, specify 3686 GiB for a 3.6 TiB file system, 4915 GiB for a 4.8 TiB file system, and 8601 GiB for an 8.4 TiB file system.
             subnet_id: '- (Required, String, ForceNew) Specifies the network ID of the subnet. Changing this will create a new resource.'
             version: '- The version ID of the SFS Turbo file system.'
             vpc_id: '- (Required, String, ForceNew) Specifies the VPC ID. Changing this will create a new resource.'
@@ -22692,6 +23030,59 @@ resources:
                 - (Required) Specifies the type of traffic to log. The value can be all, accept and reject.
                 Changing this creates a new VPC flow log.
         importStatements: []
+    opentelekomcloud_vpc_ip_address_group_v3:
+        subCategory: Virtual Private Cloud (VPC)
+        description: Manages a VPC IP Address Group resource within OpenTelekomCloud.
+        name: opentelekomcloud_vpc_ip_address_group_v3
+        title: opentelekomcloud_vpc_ip_address_group_v3
+        examples:
+            - name: group_1
+              manifest: |-
+                {
+                  "description": "My VPC IP address group",
+                  "ip_version": 4,
+                  "name": "group_1"
+                }
+        argumentDocs:
+            created_at: |-
+                - Indicates the time when the IP address group was created.
+                It is a UTC time in the format of yyyy-MM-ddTHH:mm:ss.
+            description: |-
+                - (Optional, String) Description about the IP address group.
+                The value can contain up to 255 characters and cannot contain angle brackets (< or >).
+            enterprise_project_id: |-
+                - (Optional, String, ForceNew) ID of the enterprise project to which the IP address group belongs.
+                Default: 0.
+            id: '- IP address group ID.'
+            ip_extra_set: |-
+                - (Optional, List) IP address entries with remarks.
+                The ip_set and ip_extra_set parameters cannot be both specified in a request.
+                Structure is documented below.
+            ip_extra_set.ip: '- (Required, String) IP address entry. Can be a single IP address, an IP address range, or a CIDR block.'
+            ip_extra_set.remarks: |-
+                - (Optional, String) Remarks of the IP address entry.
+                The value can contain 0 to 255 characters and cannot contain angle brackets (< or >).
+            ip_set: |-
+                - (Optional, List) IP address entries in the IP address group.
+                Both IPv4 and IPv6 addresses are supported. An IP address entry can be:
+            ip_version: |-
+                - (Required, Int, ForceNew) IP address version of the IP address group.
+                Valid values are 4 (IPv4) and 6 (IPv6).
+            max_capacity: |-
+                - (Optional, Int, ForceNew) Maximum number of IP address entries in the IP address group.
+                Range: 0 to 20. Default: 0.
+            name: |-
+                - (Required, String) A unique name for the IP address group.
+                The value can contain 1 to 64 characters, including letters, digits, underscores (_), hyphens (-), and periods (.).
+            project_id: '- Indicates the project ID that the IP address group belongs to.'
+            status: |-
+                - Status of the IP address group.
+                Valid values are NORMAL (normal), UPDATING (being updated), and UPDATE_FAILED (update failed).
+            status_message: '- Details about the IP address group status.'
+            updated_at: |-
+                - Indicates the time when the IP address group was last updated.
+                It is a UTC time in the format of yyyy-MM-ddTHH:mm:ss.
+        importStatements: []
     opentelekomcloud_vpc_peering_connection_accepter_v2:
         subCategory: Virtual Private Cloud (VPC)
         description: Manages a VPC Peering Accepter resource within OpenTelekomCloud.
@@ -23179,9 +23570,9 @@ resources:
             priority: '- (Optional, Integer, ForceNew) Specifies the rule priority in a security group. The value is from 1 to 100. The value 1 indicates the highest priority. Default value: 1.'
             project_id: '- Indicates the project ID.'
             protocol: '- (Optional, String, ForceNew) Specifies the protocol type. The value can be icmp, tcp, udp, icmpv6 or an IP number (0 to 255). If the parameter is left blank, all protocols are supported. When the protocol is icmpv6, IP version should be IPv6. When the protocol is icmp, IP version should be IPv4.'
-            remote_address_group_id: '- Indicates the ID of the remote IP address group. The parameter value is mutually exclusive with parameters remote_ip_prefix and remote_group_id.'
-            remote_group_id: '- (Optional, String, ForceNew) Specifies the ID of the remote security group, which allows or denies traffic to and from the security group. The value has to be the ID of an existing security group. The parameter is mutually exclusive with parameter remote_ip_prefix.'
-            remote_ip_prefix: '- (Optional, String, ForceNew) Specifies the remote IP address. If direction is set to egress, the parameter specifies the source IP address. If direction is set to ingress, the parameter specifies the destination IP address. The value is an IP address or a CIDR block. The parameter is mutually exclusive with parameter remote_group_id. If this parameter is left blank, the remote IP address is not limited, and the traffic from all remote IP addresses is allowed or rejected.'
+            remote_address_group_id: '- (Optional, String, ForceNew) Specifies the ID of an existing IP address group. The parameter value is mutually exclusive with parameters remote_ip_prefix and remote_group_id.'
+            remote_group_id: '- (Optional, String, ForceNew) Specifies the ID of the remote security group, which allows or denies traffic to and from the security group. The value has to be the ID of an existing security group. The parameter is mutually exclusive with parameter remote_ip_prefix and remote_address_group_id.'
+            remote_ip_prefix: '- (Optional, String, ForceNew) Specifies the remote IP address. If direction is set to egress, the parameter specifies the source IP address. If direction is set to ingress, the parameter specifies the destination IP address. The value is an IP address or a CIDR block. The parameter is mutually exclusive with parameter remote_group_id and remote_address_group_id. If this parameter is left blank, the remote IP address is not limited, and the traffic from all remote IP addresses is allowed or rejected.'
             security_group_id: '- (Required, String, ForceNew) Specifies the ID of the security group to which the security group rule belongs.'
             updated_at: '- Indicates the time when the security group rule was updated. It is a UTC time in yyyy-MM-ddTHH:mm:ssZ format.'
         importStatements: []

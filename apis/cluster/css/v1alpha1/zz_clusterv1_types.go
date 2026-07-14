@@ -79,15 +79,10 @@ type ClusterV1InitParameters struct {
 
 	// Whether to enable authentication.
 	// Authentication is disabled by default.
-	// When authentication is enabled, enable_https must be set to true.
-	// Changing this parameter will create a new resource.
 	EnableAuthority *bool `json:"enableAuthority,omitempty" tf:"enable_authority,omitempty"`
 
-	// Whether communication encryption is performed on the cluster.
-	// By default, communication encryption is disabled.
-	// Value true indicates that communication encryption is performed on the cluster.
-	// Value false indicates that communication encryption is not performed on the cluster.
-	// Changing this parameter will create a new resource.
+	// Whether communication encryption is enabled for the cluster.
+	// Communication encryption is disabled by default.
 	EnableHTTPS *bool `json:"enableHttps,omitempty" tf:"enable_https,omitempty"`
 
 	// Number of cluster instances. The value range is 1 to 32.
@@ -131,15 +126,10 @@ type ClusterV1Observation struct {
 
 	// Whether to enable authentication.
 	// Authentication is disabled by default.
-	// When authentication is enabled, enable_https must be set to true.
-	// Changing this parameter will create a new resource.
 	EnableAuthority *bool `json:"enableAuthority,omitempty" tf:"enable_authority,omitempty"`
 
-	// Whether communication encryption is performed on the cluster.
-	// By default, communication encryption is disabled.
-	// Value true indicates that communication encryption is performed on the cluster.
-	// Value false indicates that communication encryption is not performed on the cluster.
-	// Changing this parameter will create a new resource.
+	// Whether communication encryption is enabled for the cluster.
+	// Communication encryption is disabled by default.
 	EnableHTTPS *bool `json:"enableHttps,omitempty" tf:"enable_https,omitempty"`
 
 	// Indicates the IP address and port number of the user used to access the VPC.
@@ -192,16 +182,11 @@ type ClusterV1Parameters struct {
 
 	// Whether to enable authentication.
 	// Authentication is disabled by default.
-	// When authentication is enabled, enable_https must be set to true.
-	// Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
 	EnableAuthority *bool `json:"enableAuthority,omitempty" tf:"enable_authority,omitempty"`
 
-	// Whether communication encryption is performed on the cluster.
-	// By default, communication encryption is disabled.
-	// Value true indicates that communication encryption is performed on the cluster.
-	// Value false indicates that communication encryption is not performed on the cluster.
-	// Changing this parameter will create a new resource.
+	// Whether communication encryption is enabled for the cluster.
+	// Communication encryption is disabled by default.
 	// +kubebuilder:validation:Optional
 	EnableHTTPS *bool `json:"enableHttps,omitempty" tf:"enable_https,omitempty"`
 

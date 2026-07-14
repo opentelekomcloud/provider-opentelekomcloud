@@ -32,7 +32,8 @@ type GatewayV2InitParameters struct {
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// Specifies the enterprise project ID to which the dedicated
-	// instance belongs. This parameter is required for enterprise users.
+	// instance belongs. This parameter is required for enterprise ("eps") users. If it is not set here or at the
+	// provider level (OS_ENTERPRISE_PROJECT_ID), the default enterprise project 0 is used.
 	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
 
 	// Specifies the ingress bandwidth billing type of the dedicated instance.
@@ -94,7 +95,8 @@ type GatewayV2Observation struct {
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// Specifies the enterprise project ID to which the dedicated
-	// instance belongs. This parameter is required for enterprise users.
+	// instance belongs. This parameter is required for enterprise ("eps") users. If it is not set here or at the
+	// provider level (OS_ENTERPRISE_PROJECT_ID), the default enterprise project 0 is used.
 	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -187,7 +189,8 @@ type GatewayV2Parameters struct {
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// Specifies the enterprise project ID to which the dedicated
-	// instance belongs. This parameter is required for enterprise users.
+	// instance belongs. This parameter is required for enterprise ("eps") users. If it is not set here or at the
+	// provider level (OS_ENTERPRISE_PROJECT_ID), the default enterprise project 0 is used.
 	// +kubebuilder:validation:Optional
 	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
 

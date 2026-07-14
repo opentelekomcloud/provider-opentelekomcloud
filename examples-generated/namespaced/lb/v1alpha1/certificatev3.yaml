@@ -26,14 +26,6 @@ spec:
     description: terraform test certificate
     domain: www.elb.com
     name: certificate_1
-    privateKey: |
-      -----BEGIN RSA PRIVATE KEY-----
-      MIIBUwIBADANBgkqhkiG9w0BAQEFAASCAT0wggE5AgEAAkEAu+qgVpV6mqbaGW1Q
-      n6eDPzhwentQPPiXwG1665M9+gjW4pUQ0RudBc0fkUU/O+Q0UMT8ZV/I2hSenCVy
-      JoyPEwIDAQABAkAbyksEAv8qt9oxQHVX5xIF23bm5i2rlqf6kTZIeHIF89/NNJ2E
-      sejiqFIWqPc5a00Scn+ymdCvjC25JVyup9cBAiEA4a+7WhPmgS54yNHjwkG2pflz
-      cfH1V7qPqlBKIGLwZbMCIQDVKCsZ6eoNdQoLVmK0zii8XDCgL8HWMrm/bytbYM9B
-      IQIgVdcAXKebEeF6IW/rwDQ8Y2644UsVdTPJdw8o0p6vLw8CIDqm191EiPt09fOS
-      rIxVoc3ajCK3oV2ADa5IN6ToKX8hAiBPuNCCIYcZz0tAzWX7I1OYMI3UhJjtrESg
-      mYFrsJ4gHw==
-      -----END RSA PRIVATE KEY-----
+    privateKeySecretRef:
+      key: example-key
+      name: example-secret

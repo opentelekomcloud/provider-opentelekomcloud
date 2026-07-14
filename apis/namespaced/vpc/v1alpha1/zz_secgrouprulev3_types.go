@@ -36,10 +36,13 @@ type SecgroupRuleV3InitParameters struct {
 	// Specifies the protocol type. The value can be icmp, tcp, udp, icmpv6 or an IP number (0 to 255). If the parameter is left blank, all protocols are supported. When the protocol is icmpv6, IP version should be IPv6. When the protocol is icmp, IP version should be IPv4.
 	Protocol *string `json:"protocol,omitempty" tf:"protocol,omitempty"`
 
-	// Specifies the ID of the remote security group, which allows or denies traffic to and from the security group. The value has to be the ID of an existing security group. The parameter is mutually exclusive with parameter remote_ip_prefix.
+	// Specifies the ID of an existing IP address group. The parameter value is mutually exclusive with parameters remote_ip_prefix and remote_group_id.
+	RemoteAddressGroupID *string `json:"remoteAddressGroupId,omitempty" tf:"remote_address_group_id,omitempty"`
+
+	// Specifies the ID of the remote security group, which allows or denies traffic to and from the security group. The value has to be the ID of an existing security group. The parameter is mutually exclusive with parameter remote_ip_prefix and remote_address_group_id.
 	RemoteGroupID *string `json:"remoteGroupId,omitempty" tf:"remote_group_id,omitempty"`
 
-	// Specifies the remote IP address. If direction is set to egress, the parameter specifies the source IP address. If direction is set to ingress, the parameter specifies the destination IP address. The value is an IP address or a CIDR block. The parameter is mutually exclusive with parameter remote_group_id. If this parameter is left blank, the remote IP address is not limited, and the traffic from all remote IP addresses is allowed or rejected.
+	// Specifies the remote IP address. If direction is set to egress, the parameter specifies the source IP address. If direction is set to ingress, the parameter specifies the destination IP address. The value is an IP address or a CIDR block. The parameter is mutually exclusive with parameter remote_group_id and remote_address_group_id. If this parameter is left blank, the remote IP address is not limited, and the traffic from all remote IP addresses is allowed or rejected.
 	RemoteIPPrefix *string `json:"remoteIpPrefix,omitempty" tf:"remote_ip_prefix,omitempty"`
 
 	// Specifies the ID of the security group to which the security group rule belongs.
@@ -77,13 +80,13 @@ type SecgroupRuleV3Observation struct {
 	// Specifies the protocol type. The value can be icmp, tcp, udp, icmpv6 or an IP number (0 to 255). If the parameter is left blank, all protocols are supported. When the protocol is icmpv6, IP version should be IPv6. When the protocol is icmp, IP version should be IPv4.
 	Protocol *string `json:"protocol,omitempty" tf:"protocol,omitempty"`
 
-	// Indicates the ID of the remote IP address group. The parameter value is mutually exclusive with parameters remote_ip_prefix and remote_group_id.
+	// Specifies the ID of an existing IP address group. The parameter value is mutually exclusive with parameters remote_ip_prefix and remote_group_id.
 	RemoteAddressGroupID *string `json:"remoteAddressGroupId,omitempty" tf:"remote_address_group_id,omitempty"`
 
-	// Specifies the ID of the remote security group, which allows or denies traffic to and from the security group. The value has to be the ID of an existing security group. The parameter is mutually exclusive with parameter remote_ip_prefix.
+	// Specifies the ID of the remote security group, which allows or denies traffic to and from the security group. The value has to be the ID of an existing security group. The parameter is mutually exclusive with parameter remote_ip_prefix and remote_address_group_id.
 	RemoteGroupID *string `json:"remoteGroupId,omitempty" tf:"remote_group_id,omitempty"`
 
-	// Specifies the remote IP address. If direction is set to egress, the parameter specifies the source IP address. If direction is set to ingress, the parameter specifies the destination IP address. The value is an IP address or a CIDR block. The parameter is mutually exclusive with parameter remote_group_id. If this parameter is left blank, the remote IP address is not limited, and the traffic from all remote IP addresses is allowed or rejected.
+	// Specifies the remote IP address. If direction is set to egress, the parameter specifies the source IP address. If direction is set to ingress, the parameter specifies the destination IP address. The value is an IP address or a CIDR block. The parameter is mutually exclusive with parameter remote_group_id and remote_address_group_id. If this parameter is left blank, the remote IP address is not limited, and the traffic from all remote IP addresses is allowed or rejected.
 	RemoteIPPrefix *string `json:"remoteIpPrefix,omitempty" tf:"remote_ip_prefix,omitempty"`
 
 	// Specifies the ID of the security group to which the security group rule belongs.
@@ -122,11 +125,15 @@ type SecgroupRuleV3Parameters struct {
 	// +kubebuilder:validation:Optional
 	Protocol *string `json:"protocol,omitempty" tf:"protocol,omitempty"`
 
-	// Specifies the ID of the remote security group, which allows or denies traffic to and from the security group. The value has to be the ID of an existing security group. The parameter is mutually exclusive with parameter remote_ip_prefix.
+	// Specifies the ID of an existing IP address group. The parameter value is mutually exclusive with parameters remote_ip_prefix and remote_group_id.
+	// +kubebuilder:validation:Optional
+	RemoteAddressGroupID *string `json:"remoteAddressGroupId,omitempty" tf:"remote_address_group_id,omitempty"`
+
+	// Specifies the ID of the remote security group, which allows or denies traffic to and from the security group. The value has to be the ID of an existing security group. The parameter is mutually exclusive with parameter remote_ip_prefix and remote_address_group_id.
 	// +kubebuilder:validation:Optional
 	RemoteGroupID *string `json:"remoteGroupId,omitempty" tf:"remote_group_id,omitempty"`
 
-	// Specifies the remote IP address. If direction is set to egress, the parameter specifies the source IP address. If direction is set to ingress, the parameter specifies the destination IP address. The value is an IP address or a CIDR block. The parameter is mutually exclusive with parameter remote_group_id. If this parameter is left blank, the remote IP address is not limited, and the traffic from all remote IP addresses is allowed or rejected.
+	// Specifies the remote IP address. If direction is set to egress, the parameter specifies the source IP address. If direction is set to ingress, the parameter specifies the destination IP address. The value is an IP address or a CIDR block. The parameter is mutually exclusive with parameter remote_group_id and remote_address_group_id. If this parameter is left blank, the remote IP address is not limited, and the traffic from all remote IP addresses is allowed or rejected.
 	// +kubebuilder:validation:Optional
 	RemoteIPPrefix *string `json:"remoteIpPrefix,omitempty" tf:"remote_ip_prefix,omitempty"`
 

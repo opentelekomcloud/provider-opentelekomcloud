@@ -19,6 +19,9 @@ func (tr *EIPV1) Hub() {}
 func (tr *FlowLogV1) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *IPAddressGroupV3) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *PeeringConnectionAccepterV2) Hub() {}
 
 // Hub marks this type as a conversion hub.

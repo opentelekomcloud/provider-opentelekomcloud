@@ -251,6 +251,7 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"opentelekomcloud_vpc_secgroup_rule_v3":                  config.IdentifierFromProvider,
 	"opentelekomcloud_vpc_flow_log_v1":                       config.IdentifierFromProvider,
 	"opentelekomcloud_vpc_secondary_cidr_v3":                 config.IdentifierFromProvider,
+	"vpc_ip_address_group_v3":                                config.IdentifierFromProvider,
 
 	// OBS / S3
 	"opentelekomcloud_obs_bucket":             config.IdentifierFromProvider,

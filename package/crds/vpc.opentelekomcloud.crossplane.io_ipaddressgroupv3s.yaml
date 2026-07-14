@@ -4,7 +4,7 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.18.0
-  name: secgrouprulev3s.vpc.opentelekomcloud.crossplane.io
+  name: ipaddressgroupv3s.vpc.opentelekomcloud.crossplane.io
 spec:
   group: vpc.opentelekomcloud.crossplane.io
   names:
@@ -12,10 +12,10 @@ spec:
     - crossplane
     - managed
     - opentelekomcloud
-    kind: SecgroupRuleV3
-    listKind: SecgroupRuleV3List
-    plural: secgrouprulev3s
-    singular: secgrouprulev3
+    kind: IPAddressGroupV3
+    listKind: IPAddressGroupV3List
+    plural: ipaddressgroupv3s
+    singular: ipaddressgroupv3
   scope: Cluster
   versions:
   - additionalPrinterColumns:
@@ -34,8 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: SecgroupRuleV3 is the Schema for the SecgroupRuleV3s API. Manages
-          a VPC Security Group Rule v3 resource within OpenTelekomCloud.
+        description: IPAddressGroupV3 is the Schema for the IPAddressGroupV3s API.
+          Manages a VPC IP Address Group resource within OpenTelekomCloud.
         properties:
           apiVersion:
             description: |-
@@ -55,7 +55,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: SecgroupRuleV3Spec defines the desired state of SecgroupRuleV3
+            description: IPAddressGroupV3Spec defines the desired state of IPAddressGroupV3
             properties:
               deletionPolicy:
                 default: Delete
@@ -73,62 +73,51 @@ spec:
                 type: string
               forProvider:
                 properties:
-                  action:
-                    description: 'Specifies the action of the security group rule.
-                      Supported values: allow, deny. Default value: allow.'
-                    type: string
                   description:
-                    description: Provides supplementary information about the security
-                      group rule.
+                    description: |-
+                      Description about the IP address group.
+                      The value can contain up to 255 characters and cannot contain angle brackets (< or >).
                     type: string
-                  direction:
-                    description: 'Specifies inbound or outbound direction of a security
-                      group rule. Supported values: ingress (inbound direction), egress
-                      (outbound direction).'
+                  enterpriseProjectId:
+                    description: |-
+                      ID of the enterprise project to which the IP address group belongs.
+                      Default: 0.
                     type: string
-                  etherType:
-                    description: 'Specifies the IP version. Supported values: IPv4,
-                      IPv6. Default: IPv4 .'
-                    type: string
-                  multiPort:
-                    type: string
-                  priority:
-                    description: 'Specifies the rule priority in a security group.
-                      The value is from 1 to 100. The value 1 indicates the highest
-                      priority. Default value: 1.'
+                  ipExtraSet:
+                    description: |-
+                      IP address entries with remarks.
+                      The ip_set and ip_extra_set parameters cannot be both specified in a request.
+                      Structure is documented below.
+                    items:
+                      properties:
+                        ip:
+                          description: IP address entry. Can be a single IP address,
+                            an IP address range, or a CIDR block.
+                          type: string
+                        remarks:
+                          description: |-
+                            Remarks of the IP address entry.
+                            The value can contain 0 to 255 characters and cannot contain angle brackets (< or >).
+                          type: string
+                      type: object
+                    type: array
+                  ipSet:
+                    description: |-
+                      IP address entries in the IP address group.
+                      Both IPv4 and IPv6 addresses are supported. An IP address entry can be:
+                    items:
+                      type: string
+                    type: array
+                  ipVersion:
+                    description: |-
+                      IP address version of the IP address group.
+                      Valid values are 4 (IPv4) and 6 (IPv6).
                     type: number
-                  protocol:
-                    description: Specifies the protocol type. The value can be icmp,
-                      tcp, udp, icmpv6 or an IP number (0 to 255). If the parameter
-                      is left blank, all protocols are supported. When the protocol
-                      is icmpv6, IP version should be IPv6. When the protocol is icmp,
-                      IP version should be IPv4.
-                    type: string
-                  remoteAddressGroupId:
-                    description: Specifies the ID of an existing IP address group.
-                      The parameter value is mutually exclusive with parameters remote_ip_prefix
-                      and remote_group_id.
-                    type: string
-                  remoteGroupId:
-                    description: Specifies the ID of the remote security group, which
-                      allows or denies traffic to and from the security group. The
-                      value has to be the ID of an existing security group. The parameter
-                      is mutually exclusive with parameter remote_ip_prefix and remote_address_group_id.
-                    type: string
-                  remoteIpPrefix:
-                    description: Specifies the remote IP address. If direction is
-                      set to egress, the parameter specifies the source IP address.
-                      If direction is set to ingress, the parameter specifies the
-                      destination IP address. The value is an IP address or a CIDR
-                      block. The parameter is mutually exclusive with parameter remote_group_id
-                      and remote_address_group_id. If this parameter is left blank,
-                      the remote IP address is not limited, and the traffic from all
-                      remote IP addresses is allowed or rejected.
-                    type: string
-                  securityGroupId:
-                    description: Specifies the ID of the security group to which the
-                      security group rule belongs.
-                    type: string
+                  maxCapacity:
+                    description: |-
+                      Maximum number of IP address entries in the IP address group.
+                      Range: 0 to 20. Default: 0.
+                    type: number
                 type: object
               initProvider:
                 description: |-
@@ -143,62 +132,51 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
-                  action:
-                    description: 'Specifies the action of the security group rule.
-                      Supported values: allow, deny. Default value: allow.'
-                    type: string
                   description:
-                    description: Provides supplementary information about the security
-                      group rule.
+                    description: |-
+                      Description about the IP address group.
+                      The value can contain up to 255 characters and cannot contain angle brackets (< or >).
                     type: string
-                  direction:
-                    description: 'Specifies inbound or outbound direction of a security
-                      group rule. Supported values: ingress (inbound direction), egress
-                      (outbound direction).'
+                  enterpriseProjectId:
+                    description: |-
+                      ID of the enterprise project to which the IP address group belongs.
+                      Default: 0.
                     type: string
-                  etherType:
-                    description: 'Specifies the IP version. Supported values: IPv4,
-                      IPv6. Default: IPv4 .'
-                    type: string
-                  multiPort:
-                    type: string
-                  priority:
-                    description: 'Specifies the rule priority in a security group.
-                      The value is from 1 to 100. The value 1 indicates the highest
-                      priority. Default value: 1.'
+                  ipExtraSet:
+                    description: |-
+                      IP address entries with remarks.
+                      The ip_set and ip_extra_set parameters cannot be both specified in a request.
+                      Structure is documented below.
+                    items:
+                      properties:
+                        ip:
+                          description: IP address entry. Can be a single IP address,
+                            an IP address range, or a CIDR block.
+                          type: string
+                        remarks:
+                          description: |-
+                            Remarks of the IP address entry.
+                            The value can contain 0 to 255 characters and cannot contain angle brackets (< or >).
+                          type: string
+                      type: object
+                    type: array
+                  ipSet:
+                    description: |-
+                      IP address entries in the IP address group.
+                      Both IPv4 and IPv6 addresses are supported. An IP address entry can be:
+                    items:
+                      type: string
+                    type: array
+                  ipVersion:
+                    description: |-
+                      IP address version of the IP address group.
+                      Valid values are 4 (IPv4) and 6 (IPv6).
                     type: number
-                  protocol:
-                    description: Specifies the protocol type. The value can be icmp,
-                      tcp, udp, icmpv6 or an IP number (0 to 255). If the parameter
-                      is left blank, all protocols are supported. When the protocol
-                      is icmpv6, IP version should be IPv6. When the protocol is icmp,
-                      IP version should be IPv4.
-                    type: string
-                  remoteAddressGroupId:
-                    description: Specifies the ID of an existing IP address group.
-                      The parameter value is mutually exclusive with parameters remote_ip_prefix
-                      and remote_group_id.
-                    type: string
-                  remoteGroupId:
-                    description: Specifies the ID of the remote security group, which
-                      allows or denies traffic to and from the security group. The
-                      value has to be the ID of an existing security group. The parameter
-                      is mutually exclusive with parameter remote_ip_prefix and remote_address_group_id.
-                    type: string
-                  remoteIpPrefix:
-                    description: Specifies the remote IP address. If direction is
-                      set to egress, the parameter specifies the source IP address.
-                      If direction is set to ingress, the parameter specifies the
-                      destination IP address. The value is an IP address or a CIDR
-                      block. The parameter is mutually exclusive with parameter remote_group_id
-                      and remote_address_group_id. If this parameter is left blank,
-                      the remote IP address is not limited, and the traffic from all
-                      remote IP addresses is allowed or rejected.
-                    type: string
-                  securityGroupId:
-                    description: Specifies the ID of the security group to which the
-                      security group rule belongs.
-                    type: string
+                  maxCapacity:
+                    description: |-
+                      Maximum number of IP address entries in the IP address group.
+                      Range: 0 to 20. Default: 0.
+                    type: number
                 type: object
               managementPolicies:
                 default:
@@ -287,88 +265,84 @@ spec:
             - forProvider
             type: object
             x-kubernetes-validations:
-            - message: spec.forProvider.direction is a required parameter
+            - message: spec.forProvider.ipVersion is a required parameter
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.direction)
-                || (has(self.initProvider) && has(self.initProvider.direction))'
-            - message: spec.forProvider.securityGroupId is a required parameter
-              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.securityGroupId)
-                || (has(self.initProvider) && has(self.initProvider.securityGroupId))'
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.ipVersion)
+                || (has(self.initProvider) && has(self.initProvider.ipVersion))'
           status:
-            description: SecgroupRuleV3Status defines the observed state of SecgroupRuleV3.
+            description: IPAddressGroupV3Status defines the observed state of IPAddressGroupV3.
             properties:
               atProvider:
                 properties:
-                  action:
-                    description: 'Specifies the action of the security group rule.
-                      Supported values: allow, deny. Default value: allow.'
-                    type: string
                   createdAt:
-                    description: Indicates the time when the security group rule was
-                      created. It is a UTC time in yyyy-MM-ddTHH:mm:ssZ format.
+                    description: |-
+                      Indicates the time when the IP address group was created.
+                      It is a UTC time in the format of yyyy-MM-ddTHH:mm:ss.
                     type: string
                   description:
-                    description: Provides supplementary information about the security
-                      group rule.
+                    description: |-
+                      Description about the IP address group.
+                      The value can contain up to 255 characters and cannot contain angle brackets (< or >).
                     type: string
-                  direction:
-                    description: 'Specifies inbound or outbound direction of a security
-                      group rule. Supported values: ingress (inbound direction), egress
-                      (outbound direction).'
-                    type: string
-                  etherType:
-                    description: 'Specifies the IP version. Supported values: IPv4,
-                      IPv6. Default: IPv4 .'
+                  enterpriseProjectId:
+                    description: |-
+                      ID of the enterprise project to which the IP address group belongs.
+                      Default: 0.
                     type: string
                   id:
-                    description: Security Group Rule ID.
+                    description: IP address group ID.
                     type: string
-                  multiPort:
-                    type: string
-                  priority:
-                    description: 'Specifies the rule priority in a security group.
-                      The value is from 1 to 100. The value 1 indicates the highest
-                      priority. Default value: 1.'
+                  ipExtraSet:
+                    description: |-
+                      IP address entries with remarks.
+                      The ip_set and ip_extra_set parameters cannot be both specified in a request.
+                      Structure is documented below.
+                    items:
+                      properties:
+                        ip:
+                          description: IP address entry. Can be a single IP address,
+                            an IP address range, or a CIDR block.
+                          type: string
+                        remarks:
+                          description: |-
+                            Remarks of the IP address entry.
+                            The value can contain 0 to 255 characters and cannot contain angle brackets (< or >).
+                          type: string
+                      type: object
+                    type: array
+                  ipSet:
+                    description: |-
+                      IP address entries in the IP address group.
+                      Both IPv4 and IPv6 addresses are supported. An IP address entry can be:
+                    items:
+                      type: string
+                    type: array
+                  ipVersion:
+                    description: |-
+                      IP address version of the IP address group.
+                      Valid values are 4 (IPv4) and 6 (IPv6).
+                    type: number
+                  maxCapacity:
+                    description: |-
+                      Maximum number of IP address entries in the IP address group.
+                      Range: 0 to 20. Default: 0.
                     type: number
                   projectId:
-                    description: Indicates the project ID.
+                    description: Indicates the project ID that the IP address group
+                      belongs to.
                     type: string
-                  protocol:
-                    description: Specifies the protocol type. The value can be icmp,
-                      tcp, udp, icmpv6 or an IP number (0 to 255). If the parameter
-                      is left blank, all protocols are supported. When the protocol
-                      is icmpv6, IP version should be IPv6. When the protocol is icmp,
-                      IP version should be IPv4.
+                  status:
+                    description: |-
+                      Status of the IP address group.
+                      Valid values are NORMAL (normal), UPDATING (being updated), and UPDATE_FAILED (update failed).
                     type: string
-                  remoteAddressGroupId:
-                    description: Specifies the ID of an existing IP address group.
-                      The parameter value is mutually exclusive with parameters remote_ip_prefix
-                      and remote_group_id.
-                    type: string
-                  remoteGroupId:
-                    description: Specifies the ID of the remote security group, which
-                      allows or denies traffic to and from the security group. The
-                      value has to be the ID of an existing security group. The parameter
-                      is mutually exclusive with parameter remote_ip_prefix and remote_address_group_id.
-                    type: string
-                  remoteIpPrefix:
-                    description: Specifies the remote IP address. If direction is
-                      set to egress, the parameter specifies the source IP address.
-                      If direction is set to ingress, the parameter specifies the
-                      destination IP address. The value is an IP address or a CIDR
-                      block. The parameter is mutually exclusive with parameter remote_group_id
-                      and remote_address_group_id. If this parameter is left blank,
-                      the remote IP address is not limited, and the traffic from all
-                      remote IP addresses is allowed or rejected.
-                    type: string
-                  securityGroupId:
-                    description: Specifies the ID of the security group to which the
-                      security group rule belongs.
+                  statusMessage:
+                    description: Details about the IP address group status.
                     type: string
                   updatedAt:
-                    description: Indicates the time when the security group rule was
-                      updated. It is a UTC time in yyyy-MM-ddTHH:mm:ssZ format.
+                    description: |-
+                      Indicates the time when the IP address group was last updated.
+                      It is a UTC time in the format of yyyy-MM-ddTHH:mm:ss.
                     type: string
                 type: object
               conditions:
