@@ -1,3 +1,11 @@
+# v0.10.1
+
+## What's Changed
+* feat: add `vpc_ip_address_group_v3` - chore: regen provider with `1.37.1` by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/137
+
+
+**Full Changelog**: https://github.com/opentelekomcloud/provider-opentelekomcloud/compare/v0.10.0...v0.10.1
+
 # v0.10.0
 
 ## What's Changed
@@ -8,6 +16,7 @@
 * docs: only activate modern APIs in default quick start installs by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/127
 * tests: run tests one by one instead of merging them together by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/131
 * [feat]: IAM implementation + e2e testing by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/129
+* release notes for `v0.10.0` by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/134
 
 
 **Full Changelog**: https://github.com/opentelekomcloud/provider-opentelekomcloud/compare/v0.9.0...v0.10.0
