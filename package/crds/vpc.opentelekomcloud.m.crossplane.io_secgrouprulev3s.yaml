@@ -112,8 +112,9 @@ spec:
                       remote IP addresses is allowed or rejected.
                     type: string
                   securityGroupId:
-                    description: Specifies the ID of the security group to which the
-                      security group rule belongs.
+                    description: Configuration block defining a security_group for
+                      the rule. Only opentelekomcloud_vpc_secgroup_v3 (secgroupv3s.vpc.opentelekomcloud.m.crossplane.io)
+                      is supported for cross resource reference configuration.
                     type: string
                   securityGroupIdRef:
                     description: Reference to a SecgroupV3 in vpc to populate securityGroupId.
@@ -262,8 +263,9 @@ spec:
                       remote IP addresses is allowed or rejected.
                     type: string
                   securityGroupId:
-                    description: Specifies the ID of the security group to which the
-                      security group rule belongs.
+                    description: Configuration block defining a security_group for
+                      the rule. Only opentelekomcloud_vpc_secgroup_v3 (secgroupv3s.vpc.opentelekomcloud.m.crossplane.io)
+                      is supported for cross resource reference configuration.
                     type: string
                   securityGroupIdRef:
                     description: Reference to a SecgroupV3 in vpc to populate securityGroupId.
@@ -477,8 +479,9 @@ spec:
                       remote IP addresses is allowed or rejected.
                     type: string
                   securityGroupId:
-                    description: Specifies the ID of the security group to which the
-                      security group rule belongs.
+                    description: Configuration block defining a security_group for
+                      the rule. Only opentelekomcloud_vpc_secgroup_v3 (secgroupv3s.vpc.opentelekomcloud.m.crossplane.io)
+                      is supported for cross resource reference configuration.
                     type: string
                   updatedAt:
                     description: Indicates the time when the security group rule was
