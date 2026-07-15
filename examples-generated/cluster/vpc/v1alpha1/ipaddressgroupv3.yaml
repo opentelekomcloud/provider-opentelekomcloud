@@ -1,0 +1,12 @@
+apiVersion: vpc.opentelekomcloud.crossplane.io/v1alpha1
+kind: IPAddressGroupV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/ipaddressgroupv3
+  labels:
+    testing.upbound.io/example-name: group_1
+  name: group-1
+spec:
+  forProvider:
+    description: My VPC IP address group
+    ipVersion: 4

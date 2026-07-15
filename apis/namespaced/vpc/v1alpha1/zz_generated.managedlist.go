@@ -44,6 +44,15 @@ func (l *FlowLogV1List) GetItems() []resource.Managed {
 	return items
 }
 
+// GetItems of this IPAddressGroupV3List.
+func (l *IPAddressGroupV3List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this PeeringConnectionAccepterV2List.
 func (l *PeeringConnectionAccepterV2List) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))

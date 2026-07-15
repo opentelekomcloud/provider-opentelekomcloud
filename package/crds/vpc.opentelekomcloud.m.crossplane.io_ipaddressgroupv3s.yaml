@@ -4,18 +4,18 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.18.0
-  name: certificatev3s.lb.opentelekomcloud.m.crossplane.io
+  name: ipaddressgroupv3s.vpc.opentelekomcloud.m.crossplane.io
 spec:
-  group: lb.opentelekomcloud.m.crossplane.io
+  group: vpc.opentelekomcloud.m.crossplane.io
   names:
     categories:
     - crossplane
     - managed
     - opentelekomcloud
-    kind: CertificateV3
-    listKind: CertificateV3List
-    plural: certificatev3s
-    singular: certificatev3
+    kind: IPAddressGroupV3
+    listKind: IPAddressGroupV3List
+    plural: ipaddressgroupv3s
+    singular: ipaddressgroupv3
   scope: Namespaced
   versions:
   - additionalPrinterColumns:
@@ -34,8 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: CertificateV3 is the Schema for the CertificateV3s API. Manages
-          a LB Certificate resource within OpenTelekomCloud.
+        description: IPAddressGroupV3 is the Schema for the IPAddressGroupV3s API.
+          Manages a VPC IP Address Group resource within OpenTelekomCloud.
         properties:
           apiVersion:
             description: |-
@@ -55,51 +55,55 @@ spec:
           metadata:
             type: object
           spec:
-            description: CertificateV3Spec defines the desired state of CertificateV3
+            description: IPAddressGroupV3Spec defines the desired state of IPAddressGroupV3
             properties:
               forProvider:
                 properties:
-                  certificate:
-                    description: The public encrypted key of the Certificate, PEM
-                      format.
-                    type: string
                   description:
-                    description: Provides supplementary information about the certificate.
-                    type: string
-                  domain:
-                    description: The domain of the Certificate.
-                    type: string
-                  name:
                     description: |-
-                      Specifies the certificate name. Only letters,
-                      digits, underscores, and hyphens are allowed.
+                      Description about the IP address group.
+                      The value can contain up to 255 characters and cannot contain angle brackets (< or >).
                     type: string
-                  privateKeySecretRef:
+                  enterpriseProjectId:
                     description: |-
-                      The private encrypted key of the Certificate, PEM format.
-                      Required for certificates of type server.
-                    properties:
-                      key:
-                        type: string
-                      name:
-                        description: Name of the secret.
-                        type: string
-                    required:
-                    - key
-                    - name
-                    type: object
-                  region:
-                    description: |-
-                      The region in which to obtain the V3 ELB client.
-                      An ELB client is needed to create an LB certificate. If omitted, the
-                      region argument of the provider is used. Changing this creates a new
-                      LB certificate.
+                      ID of the enterprise project to which the IP address group belongs.
+                      Default: 0.
                     type: string
-                  type:
+                  ipExtraSet:
                     description: |-
-                      The type of certificate the container holds. Either server or client.
-                      Defaults to server if not set. Changing this creates a new LB certificate.
-                    type: string
+                      IP address entries with remarks.
+                      The ip_set and ip_extra_set parameters cannot be both specified in a request.
+                      Structure is documented below.
+                    items:
+                      properties:
+                        ip:
+                          description: IP address entry. Can be a single IP address,
+                            an IP address range, or a CIDR block.
+                          type: string
+                        remarks:
+                          description: |-
+                            Remarks of the IP address entry.
+                            The value can contain 0 to 255 characters and cannot contain angle brackets (< or >).
+                          type: string
+                      type: object
+                    type: array
+                  ipSet:
+                    description: |-
+                      IP address entries in the IP address group.
+                      Both IPv4 and IPv6 addresses are supported. An IP address entry can be:
+                    items:
+                      type: string
+                    type: array
+                  ipVersion:
+                    description: |-
+                      IP address version of the IP address group.
+                      Valid values are 4 (IPv4) and 6 (IPv6).
+                    type: number
+                  maxCapacity:
+                    description: |-
+                      Maximum number of IP address entries in the IP address group.
+                      Range: 0 to 20. Default: 0.
+                    type: number
                 type: object
               initProvider:
                 description: |-
@@ -114,47 +118,51 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
-                  certificate:
-                    description: The public encrypted key of the Certificate, PEM
-                      format.
-                    type: string
                   description:
-                    description: Provides supplementary information about the certificate.
-                    type: string
-                  domain:
-                    description: The domain of the Certificate.
-                    type: string
-                  name:
                     description: |-
-                      Specifies the certificate name. Only letters,
-                      digits, underscores, and hyphens are allowed.
+                      Description about the IP address group.
+                      The value can contain up to 255 characters and cannot contain angle brackets (< or >).
                     type: string
-                  privateKeySecretRef:
+                  enterpriseProjectId:
                     description: |-
-                      The private encrypted key of the Certificate, PEM format.
-                      Required for certificates of type server.
-                    properties:
-                      key:
-                        type: string
-                      name:
-                        description: Name of the secret.
-                        type: string
-                    required:
-                    - key
-                    - name
-                    type: object
-                  region:
-                    description: |-
-                      The region in which to obtain the V3 ELB client.
-                      An ELB client is needed to create an LB certificate. If omitted, the
-                      region argument of the provider is used. Changing this creates a new
-                      LB certificate.
+                      ID of the enterprise project to which the IP address group belongs.
+                      Default: 0.
                     type: string
-                  type:
+                  ipExtraSet:
                     description: |-
-                      The type of certificate the container holds. Either server or client.
-                      Defaults to server if not set. Changing this creates a new LB certificate.
-                    type: string
+                      IP address entries with remarks.
+                      The ip_set and ip_extra_set parameters cannot be both specified in a request.
+                      Structure is documented below.
+                    items:
+                      properties:
+                        ip:
+                          description: IP address entry. Can be a single IP address,
+                            an IP address range, or a CIDR block.
+                          type: string
+                        remarks:
+                          description: |-
+                            Remarks of the IP address entry.
+                            The value can contain 0 to 255 characters and cannot contain angle brackets (< or >).
+                          type: string
+                      type: object
+                    type: array
+                  ipSet:
+                    description: |-
+                      IP address entries in the IP address group.
+                      Both IPv4 and IPv6 addresses are supported. An IP address entry can be:
+                    items:
+                      type: string
+                    type: array
+                  ipVersion:
+                    description: |-
+                      IP address version of the IP address group.
+                      Valid values are 4 (IPv4) and 6 (IPv6).
+                    type: number
+                  maxCapacity:
+                    description: |-
+                      Maximum number of IP address entries in the IP address group.
+                      Range: 0 to 20. Default: 0.
+                    type: number
                 type: object
               managementPolicies:
                 default:
@@ -215,51 +223,84 @@ spec:
             - forProvider
             type: object
             x-kubernetes-validations:
-            - message: spec.forProvider.certificate is a required parameter
+            - message: spec.forProvider.ipVersion is a required parameter
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.certificate)
-                || (has(self.initProvider) && has(self.initProvider.certificate))'
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.ipVersion)
+                || (has(self.initProvider) && has(self.initProvider.ipVersion))'
           status:
-            description: CertificateV3Status defines the observed state of CertificateV3.
+            description: IPAddressGroupV3Status defines the observed state of IPAddressGroupV3.
             properties:
               atProvider:
                 properties:
-                  certificate:
-                    description: The public encrypted key of the Certificate, PEM
-                      format.
-                    type: string
                   createdAt:
+                    description: |-
+                      Indicates the time when the IP address group was created.
+                      It is a UTC time in the format of yyyy-MM-ddTHH:mm:ss.
                     type: string
                   description:
-                    description: Provides supplementary information about the certificate.
+                    description: |-
+                      Description about the IP address group.
+                      The value can contain up to 255 characters and cannot contain angle brackets (< or >).
                     type: string
-                  domain:
-                    description: The domain of the Certificate.
-                    type: string
-                  expireTime:
-                    description: Indicates the expiration time.
+                  enterpriseProjectId:
+                    description: |-
+                      ID of the enterprise project to which the IP address group belongs.
+                      Default: 0.
                     type: string
                   id:
+                    description: IP address group ID.
                     type: string
-                  name:
+                  ipExtraSet:
                     description: |-
-                      Specifies the certificate name. Only letters,
-                      digits, underscores, and hyphens are allowed.
+                      IP address entries with remarks.
+                      The ip_set and ip_extra_set parameters cannot be both specified in a request.
+                      Structure is documented below.
+                    items:
+                      properties:
+                        ip:
+                          description: IP address entry. Can be a single IP address,
+                            an IP address range, or a CIDR block.
+                          type: string
+                        remarks:
+                          description: |-
+                            Remarks of the IP address entry.
+                            The value can contain 0 to 255 characters and cannot contain angle brackets (< or >).
+                          type: string
+                      type: object
+                    type: array
+                  ipSet:
+                    description: |-
+                      IP address entries in the IP address group.
+                      Both IPv4 and IPv6 addresses are supported. An IP address entry can be:
+                    items:
+                      type: string
+                    type: array
+                  ipVersion:
+                    description: |-
+                      IP address version of the IP address group.
+                      Valid values are 4 (IPv4) and 6 (IPv6).
+                    type: number
+                  maxCapacity:
+                    description: |-
+                      Maximum number of IP address entries in the IP address group.
+                      Range: 0 to 20. Default: 0.
+                    type: number
+                  projectId:
+                    description: Indicates the project ID that the IP address group
+                      belongs to.
                     type: string
-                  region:
+                  status:
                     description: |-
-                      The region in which to obtain the V3 ELB client.
-                      An ELB client is needed to create an LB certificate. If omitted, the
-                      region argument of the provider is used. Changing this creates a new
-                      LB certificate.
+                      Status of the IP address group.
+                      Valid values are NORMAL (normal), UPDATING (being updated), and UPDATE_FAILED (update failed).
                     type: string
-                  type:
-                    description: |-
-                      The type of certificate the container holds. Either server or client.
-                      Defaults to server if not set. Changing this creates a new LB certificate.
+                  statusMessage:
+                    description: Details about the IP address group status.
                     type: string
                   updatedAt:
-                    description: Indicates the update time.
+                    description: |-
+                      Indicates the time when the IP address group was last updated.
+                      It is a UTC time in the format of yyyy-MM-ddTHH:mm:ss.
                     type: string
                 type: object
               conditions:

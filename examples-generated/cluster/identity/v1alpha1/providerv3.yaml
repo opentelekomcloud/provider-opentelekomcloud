@@ -11,3 +11,4 @@ spec:
     description: This is simple identity provider
     enabled: true
     name: ACME
+    ssoType: iam_user_sso

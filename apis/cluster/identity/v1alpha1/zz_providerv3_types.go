@@ -23,6 +23,12 @@ type ProviderV3InitParameters struct {
 
 	// The name (ID) of the provider. Changing this creates a new provider.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// The single sign-on (SSO) type of the identity provider. Possible values
+	// are virtual_user_sso and iam_user_sso. Defaults to virtual_user_sso. Each account can have
+	// only one identity provider of the iam_user_sso type, and creating an iam_user_sso provider
+	// requires an existing IAM user. Changing this creates a new provider.
+	SsoType *string `json:"ssoType,omitempty" tf:"sso_type,omitempty"`
 }
 
 type ProviderV3Observation struct {
@@ -43,6 +49,12 @@ type ProviderV3Observation struct {
 
 	// +listType=set
 	RemoteIds []*string `json:"remoteIds,omitempty" tf:"remote_ids,omitempty"`
+
+	// The single sign-on (SSO) type of the identity provider. Possible values
+	// are virtual_user_sso and iam_user_sso. Defaults to virtual_user_sso. Each account can have
+	// only one identity provider of the iam_user_sso type, and creating an iam_user_sso provider
+	// requires an existing IAM user. Changing this creates a new provider.
+	SsoType *string `json:"ssoType,omitempty" tf:"sso_type,omitempty"`
 }
 
 type ProviderV3Parameters struct {
@@ -58,6 +70,13 @@ type ProviderV3Parameters struct {
 	// The name (ID) of the provider. Changing this creates a new provider.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// The single sign-on (SSO) type of the identity provider. Possible values
+	// are virtual_user_sso and iam_user_sso. Defaults to virtual_user_sso. Each account can have
+	// only one identity provider of the iam_user_sso type, and creating an iam_user_sso provider
+	// requires an existing IAM user. Changing this creates a new provider.
+	// +kubebuilder:validation:Optional
+	SsoType *string `json:"ssoType,omitempty" tf:"sso_type,omitempty"`
 }
 
 // ProviderV3Spec defines the desired state of ProviderV3

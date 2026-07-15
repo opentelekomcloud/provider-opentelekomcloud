@@ -6,7 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: certificate_1
   name: certificate-1
-  namespace: upbound-system
+  namespace: test
 spec:
   forProvider:
     certificate: |
@@ -23,9 +23,18 @@ spec:
       KRcMa7RAXYJqCbRxtpqRU7OOAhDmBnldtS5CTMoh1r7TOGMfM1Npa+kGV5QnjRzI
       FzFSymo=
       -----END CERTIFICATE-----
-    description: terraform test certificate
+    description: crossplane
     domain: www.elb.com
     name: certificate_1
     privateKeySecretRef:
       key: example-key
       name: example-secret
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: example-secret
+  namespace: test
+type: Opaque
+data:
+  example-key: LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlCVXdJQkFEQU5CZ2txaGtpRzl3MEJBUUVGQUFTQ0FUMHdnZ0U1QWdFQUFrRUF1K3FnVnBWNm1xYmFHVzFRCm42ZURQemh3ZW50UVBQaVh3RzE2NjVNOStnalc0cFVRMFJ1ZEJjMGZrVVUvTytRMFVNVDhaVi9JMmhTZW5DVnkKSm95UEV3SURBUUFCQWtBYnlrc0VBdjhxdDlveFFIVlg1eElGMjNibTVpMnJscWY2a1RaSWVISUY4OS9OTkoyRQpzZWppcUZJV3FQYzVhMDBTY24reW1kQ3ZqQzI1SlZ5dXA5Y0JBaUVBNGErN1doUG1nUzU0eU5IandrRzJwZmx6CmNmSDFWN3FQcWxCS0lHTHdaYk1DSVFEVktDc1o2ZW9OZFFvTFZtSzB6aWk4WERDZ0w4SFdNcm0vYnl0YllNOUIKSVFJZ1ZkY0FYS2ViRWVGNklXL3J3RFE4WTI2NDRVc1ZkVFBKZHc4bzBwNnZMdzhDSURxbTE5MUVpUHQwOWZPUwpySXhWb2MzYWpDSzNvVjJBRGE1SU42VG9LWDhoQWlCUHVOQ0NJWWNaejB0QXpXWDdJMU9ZTUkzVWhKanRyRVNnCm1ZRnJzSjRnSHc9PQotLS0tLUVORCBSU0EgUFJJVkFURSBLRVktLS0tLQo=

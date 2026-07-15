@@ -68,4 +68,11 @@ func Configure(p *config.Provider) {
 			TerraformName: "opentelekomcloud_vpc_v1",
 		}
 	})
+	p.AddResourceConfigurator("opentelekomcloud_vpc_secgroup_rule_v3", func(r *config.Resource) {
+		r.UseAsync = true
+		r.MetaResource.ArgumentDocs["security_group_id"] = `Configuration block defining a security_group for the rule. Only opentelekomcloud_vpc_secgroup_v3 (secgroupv3s.vpc.opentelekomcloud.m.crossplane.io) is supported for cross resource reference configuration.`
+		r.References["security_group_id"] = config.Reference{
+			TerraformName: "opentelekomcloud_vpc_secgroup_v3",
+		}
+	})
 }

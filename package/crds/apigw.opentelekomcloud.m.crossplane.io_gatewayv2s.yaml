@@ -81,7 +81,8 @@ spec:
                   enterpriseProjectId:
                     description: |-
                       Specifies the enterprise project ID to which the dedicated
-                      instance belongs. This parameter is required for enterprise users.
+                      instance belongs. This parameter is required for enterprise ("eps") users. If it is not set here or at the
+                      provider level (OS_ENTERPRISE_PROJECT_ID), the default enterprise project 0 is used.
                     type: string
                   ingressBandwidthChargingMode:
                     description: |-
@@ -165,7 +166,8 @@ spec:
                   enterpriseProjectId:
                     description: |-
                       Specifies the enterprise project ID to which the dedicated
-                      instance belongs. This parameter is required for enterprise users.
+                      instance belongs. This parameter is required for enterprise ("eps") users. If it is not set here or at the
+                      provider level (OS_ENTERPRISE_PROJECT_ID), the default enterprise project 0 is used.
                     type: string
                   ingressBandwidthChargingMode:
                     description: |-
@@ -327,7 +329,8 @@ spec:
                   enterpriseProjectId:
                     description: |-
                       Specifies the enterprise project ID to which the dedicated
-                      instance belongs. This parameter is required for enterprise users.
+                      instance belongs. This parameter is required for enterprise ("eps") users. If it is not set here or at the
+                      provider level (OS_ENTERPRISE_PROJECT_ID), the default enterprise project 0 is used.
                     type: string
                   id:
                     type: string

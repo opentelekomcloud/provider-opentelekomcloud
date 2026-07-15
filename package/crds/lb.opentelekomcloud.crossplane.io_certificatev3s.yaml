@@ -88,11 +88,25 @@ spec:
                       Specifies the certificate name. Only letters,
                       digits, underscores, and hyphens are allowed.
                     type: string
-                  privateKey:
+                  privateKeySecretRef:
                     description: |-
                       The private encrypted key of the Certificate, PEM format.
                       Required for certificates of type server.
-                    type: string
+                    properties:
+                      key:
+                        description: The key to select.
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                      namespace:
+                        description: Namespace of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    - namespace
+                    type: object
                   region:
                     description: |-
                       The region in which to obtain the V3 ELB client.
@@ -134,11 +148,25 @@ spec:
                       Specifies the certificate name. Only letters,
                       digits, underscores, and hyphens are allowed.
                     type: string
-                  privateKey:
+                  privateKeySecretRef:
                     description: |-
                       The private encrypted key of the Certificate, PEM format.
                       Required for certificates of type server.
-                    type: string
+                    properties:
+                      key:
+                        description: The key to select.
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                      namespace:
+                        description: Namespace of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    - namespace
+                    type: object
                   region:
                     description: |-
                       The region in which to obtain the V3 ELB client.
@@ -269,11 +297,6 @@ spec:
                     description: |-
                       Specifies the certificate name. Only letters,
                       digits, underscores, and hyphens are allowed.
-                    type: string
-                  privateKey:
-                    description: |-
-                      The private encrypted key of the Certificate, PEM format.
-                      Required for certificates of type server.
                     type: string
                   region:
                     description: |-

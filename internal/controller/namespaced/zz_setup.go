@@ -224,6 +224,7 @@ import (
 	bandwidthv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/vpc/bandwidthv2"
 	eipv1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/vpc/eipv1"
 	flowlogv1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/vpc/flowlogv1"
+	ipaddressgroupv3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/vpc/ipaddressgroupv3"
 	peeringconnectionaccepterv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/vpc/peeringconnectionaccepterv2"
 	peeringconnectionv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/vpc/peeringconnectionv2"
 	routetablev1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/vpc/routetablev1"
@@ -477,6 +478,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		bandwidthv2.Setup,
 		eipv1.Setup,
 		flowlogv1.Setup,
+		ipaddressgroupv3.Setup,
 		peeringconnectionaccepterv2.Setup,
 		peeringconnectionv2.Setup,
 		routetablev1.Setup,
@@ -736,6 +738,7 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		bandwidthv2.SetupGated,
 		eipv1.SetupGated,
 		flowlogv1.SetupGated,
+		ipaddressgroupv3.SetupGated,
 		peeringconnectionaccepterv2.SetupGated,
 		peeringconnectionv2.SetupGated,
 		routetablev1.SetupGated,

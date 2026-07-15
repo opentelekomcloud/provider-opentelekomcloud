@@ -31,7 +31,7 @@ type CertificateV3InitParameters struct {
 
 	// The private encrypted key of the Certificate, PEM format.
 	// Required for certificates of type server.
-	PrivateKey *string `json:"privateKey,omitempty" tf:"private_key,omitempty"`
+	PrivateKeySecretRef *v1.LocalSecretKeySelector `json:"privateKeySecretRef,omitempty" tf:"-"`
 
 	// The region in which to obtain the V3 ELB client.
 	// An ELB client is needed to create an LB certificate. If omitted, the
@@ -65,10 +65,6 @@ type CertificateV3Observation struct {
 	// Specifies the certificate name. Only letters,
 	// digits, underscores, and hyphens are allowed.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-
-	// The private encrypted key of the Certificate, PEM format.
-	// Required for certificates of type server.
-	PrivateKey *string `json:"privateKey,omitempty" tf:"private_key,omitempty"`
 
 	// The region in which to obtain the V3 ELB client.
 	// An ELB client is needed to create an LB certificate. If omitted, the
@@ -106,7 +102,7 @@ type CertificateV3Parameters struct {
 	// The private encrypted key of the Certificate, PEM format.
 	// Required for certificates of type server.
 	// +kubebuilder:validation:Optional
-	PrivateKey *string `json:"privateKey,omitempty" tf:"private_key,omitempty"`
+	PrivateKeySecretRef *v1.LocalSecretKeySelector `json:"privateKeySecretRef,omitempty" tf:"-"`
 
 	// The region in which to obtain the V3 ELB client.
 	// An ELB client is needed to create an LB certificate. If omitted, the

@@ -122,16 +122,11 @@ spec:
                     description: |-
                       Whether to enable authentication.
                       Authentication is disabled by default.
-                      When authentication is enabled, enable_https must be set to true.
-                      Changing this parameter will create a new resource.
                     type: boolean
                   enableHttps:
                     description: |-
-                      Whether communication encryption is performed on the cluster.
-                      By default, communication encryption is disabled.
-                      Value true indicates that communication encryption is performed on the cluster.
-                      Value false indicates that communication encryption is not performed on the cluster.
-                      Changing this parameter will create a new resource.
+                      Whether communication encryption is enabled for the cluster.
+                      Communication encryption is disabled by default.
                     type: boolean
                   expectNodeNum:
                     description: Number of cluster instances. The value range is 1
@@ -295,16 +290,11 @@ spec:
                     description: |-
                       Whether to enable authentication.
                       Authentication is disabled by default.
-                      When authentication is enabled, enable_https must be set to true.
-                      Changing this parameter will create a new resource.
                     type: boolean
                   enableHttps:
                     description: |-
-                      Whether communication encryption is performed on the cluster.
-                      By default, communication encryption is disabled.
-                      Value true indicates that communication encryption is performed on the cluster.
-                      Value false indicates that communication encryption is not performed on the cluster.
-                      Changing this parameter will create a new resource.
+                      Whether communication encryption is enabled for the cluster.
+                      Communication encryption is disabled by default.
                     type: boolean
                   expectNodeNum:
                     description: Number of cluster instances. The value range is 1
@@ -562,16 +552,11 @@ spec:
                     description: |-
                       Whether to enable authentication.
                       Authentication is disabled by default.
-                      When authentication is enabled, enable_https must be set to true.
-                      Changing this parameter will create a new resource.
                     type: boolean
                   enableHttps:
                     description: |-
-                      Whether communication encryption is performed on the cluster.
-                      By default, communication encryption is disabled.
-                      Value true indicates that communication encryption is performed on the cluster.
-                      Value false indicates that communication encryption is not performed on the cluster.
-                      Changing this parameter will create a new resource.
+                      Whether communication encryption is enabled for the cluster.
+                      Communication encryption is disabled by default.
                     type: boolean
                   endpoint:
                     description: Indicates the IP address and port number of the user
