@@ -1,0 +1,139 @@
+# WILL BE REMOVED BEFORE MERGING TO MAIN
+# JUST HERE TO HELP REVIEW
+# Nightly test configuration for UPTEST
+# Each namespace entry defines:
+#   - enabled: whether to run tests for this namespace (default: true)
+#   - tests: list of yaml test files (relative to examples/namespaced/<namespace>/)
+#   - import_test: whether to run import testing (default: true)
+#   - timeout: default timeout for the test (default: 20m)
+
+namespaced:
+  - vpc:
+      enabled: true
+      tests:
+        - vpc.yaml
+        - ipaddressgroupv3.yaml
+        - secgrouprulev3.yaml
+      import_test: true
+      timeout: 20m
+
+  - network:
+      enabled: true
+      tests:
+        - networking.yaml
+      import_test: true
+      timeout: 20m
+
+  - cce:
+      enabled: true
+      tests:
+        - cluster.yaml
+      import_test: true
+      timeout: 20m
+
+  - ecs:
+      enabled: true
+      tests:
+        - instance.yaml
+      import_test: true
+      timeout: 20m
+
+  - compute:
+      enabled: true
+      tests:
+        - instance.yaml
+      import_test: true
+      timeout: 20m
+
+  - rds:
+      enabled: true
+      tests:
+        - instance.yaml
+      import_test: false
+      timeout: 40m
+
+  - dds:
+      enabled: true
+      tests:
+        - instance.yaml
+      import_test: true
+      timeout: 20m
+
+  - dcs:
+      enabled: true
+      tests:
+        - instance.yaml
+      import_test: true
+      timeout: 20m
+
+  - evs:
+      enabled: true
+      tests:
+        - volumev3.yaml
+        - snapshotv2.yaml
+      import_test: true
+      timeout: 20m
+
+  - lb:
+      enabled: true
+      tests:
+        - loadbalancer.yaml
+        - listener_and_ipgroup.yaml
+        - pool_and_monitor.yaml
+        - policy_and_rule.yaml
+        - certificatev3.yaml
+      import_test: true
+      timeout: 20m
+
+  - dns:
+      enabled: true
+      tests:
+        - zone.yaml
+        - ptrrecord.yaml
+      import_test: true
+      timeout: 20m
+
+  - nat:
+      enabled: true
+      tests:
+        - natgw.yaml
+      import_test: true
+      timeout: 20m
+
+  - kms:
+      enabled: true
+      tests:
+        - kms.yaml
+      import_test: true
+      timeout: 20m
+
+  - swr:
+      enabled: true
+      tests:
+        - domainv2.yaml
+        - repositoryv2.yaml
+        - organizationsv2.yaml
+        - organizationpermissionsv2.yaml
+      import_test: true
+      timeout: 20m
+
+  - identity:
+      enabled: false
+      tests:
+        - userv3.yaml
+        - groupv3.yaml
+        - projectv3.yaml
+        - rolev3.yaml
+        - providerv3.yaml
+        - protocolv3.yaml
+        - agencyv3.yaml
+        - credentialv3.yaml
+        - mappingv3.yaml
+        - aclv3.yaml
+        - passwordpolicyv3.yaml
+        - protectionpolicyv3.yaml
+        - roleassignmentv3.yaml
+        - groupmembershipv3.yaml
+        - usergroupmembershipv3.yaml
+      import_test: true
+      timeout: 30m

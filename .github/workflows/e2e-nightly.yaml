@@ -1,0 +1,104 @@
+name: Nightly E2E Tests
+
+permissions:
+  contents: read
+
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: "0 0 * * *"
+
+env:
+  GO_VERSION: "1.24"
+
+jobs:
+  nightly-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Cleanup Disk
+        uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be # v1.3.1
+        with:
+          large-packages: false
+          swap-storage: false
+
+      - name: Setup QEMU
+        uses: docker/setup-qemu-action@c7c53464625b32c7a7e944ae62b3e17d2b600130 # v3.7.0
+        with:
+          platforms: all
+
+      - name: Checkout
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        with:
+          submodules: true
+
+      - name: Setup Go
+        uses: actions/setup-go@4dc6199c7b1a012772edbd06daecab0f50c9053c # v6.1.0
+        with:
+          go-version: ${{ env.GO_VERSION }}
+
+      - name: Install yq
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wget
+          wget https://github.com/mikefarah/yq/releases/download/v4.53.3/yq_linux_amd64
+          chmod +x yq_linux_amd64
+          sudo mv yq_linux_amd64 /usr/local/bin/yq
+
+      - name: Vendor Dependencies
+        run: make vendor vendor.check
+
+      - name: Validate Nightly Config
+        env:
+          UPTEST_NIGHTLY_CONFIG: ${{ vars.UPTEST_NIGHTLY_CONFIG }}
+        run: |
+          if [[ -z "$UPTEST_NIGHTLY_CONFIG" ]]; then
+            echo "ERROR: UPTEST_NIGHTLY_CONFIG variable is not set or is empty."
+            exit 1
+          fi
+
+          echo "$UPTEST_NIGHTLY_CONFIG" | yq eval '.' - > /dev/null
+          if [[ $? -ne 0 ]]; then
+            echo "ERROR: UPTEST_NIGHTLY_CONFIG does not contain valid YAML."
+            exit 1
+          fi
+
+          echo ">>> UPTEST_NIGHTLY_CONFIG is set and contains valid YAML"
+
+      - name: Run Nightly Tests
+        id: run-nightly-test
+        env:
+          UPTEST_CLOUD_CREDENTIALS: ${{ secrets.UPTEST_CLOUD_CREDENTIALS }}
+          UPTEST_DATASOURCE_PATH: .work/uptest-datasource.yaml
+          UPTEST_TEST_DIR: ./_output/controlplane-dump
+          UPTEST_NIGHTLY_CONFIG: ${{ vars.UPTEST_NIGHTLY_CONFIG }}
+        run: |
+          mkdir -p .work && echo "${{ secrets.UPTEST_DATASOURCE }}" > .work/uptest-datasource.yaml
+          chmod +x scripts/nightly_test.sh
+          ./scripts/nightly_test.sh || true
+
+      - name: Upload Test Report
+        if: always()
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+        with:
+          name: nightly-test-report
+          path: .work/nightly-report/
+
+      - name: Collect Cluster Dump
+        if: always()
+        run: |
+          make controlplane.dump
+
+      - name: Upload Cluster Dump
+        if: always()
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+        with:
+          name: controlplane-dump-nightly
+          path: ./_output/controlplane-dump
+
+      - name: Cleanup
+        if: always()
+        run: |
+          eval $(make --no-print-directory build.vars)
+          ${KUBECTL} delete managed --all || true
+          ${KUBECTL} delete managed --all -n test || true
