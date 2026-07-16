@@ -1,10 +1,24 @@
 # Nightly E2E Testing
 
-The nightly tests run all `examples/namespaced/*.yaml` UPTEST cases.
+The nightly tests can run all `examples/namespaced/*.yaml` UPTEST cases.
 
 ## Configuration
 
 The test config lives in GitHub Actions variable `UPTEST_NIGHTLY_CONFIG` (YAML). It defines which namespaces to test, per-namespace `enabled`/`import_test`/`timeout` settings.
+
+### Example configuration
+```yaml
+namespaced:
+  - vpc:
+      enabled: true
+      tests:
+        - vpc.yaml
+        - ipaddressgroupv3.yaml
+        - secgrouprulev3.yaml
+      import_test: true
+      timeout: 20m
+[...]
+```
 
 ## GitHub Actions Workflow
 

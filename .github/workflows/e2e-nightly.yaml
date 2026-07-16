@@ -6,7 +6,7 @@ permissions:
 on:
   workflow_dispatch: {}
   schedule:
-    - cron: "0 0 * * *"
+    - cron: "5 1 * * 1"
 
 env:
   GO_VERSION: "1.24"
