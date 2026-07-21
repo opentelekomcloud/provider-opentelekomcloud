@@ -1,0 +1,38 @@
+apiVersion: obs.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: BucketACL
+metadata:
+  annotations:
+    meta.upbound.io/example-id: obs/v1alpha1/bucketacl
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+  namespace: test
+spec:
+  forProvider:
+    bucketSelector:
+      matchLabels:
+        testing.upbound.io/example-name: b
+    ownerPermission:
+      - accessToAcl:
+          - READ_ACP
+          - WRITE_ACP
+        accessToBucket:
+          - READ
+          - WRITE
+
+---
+apiVersion: obs.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: Bucket
+metadata:
+  annotations:
+    meta.upbound.io/example-id: obs/v1alpha1/bucket
+  labels:
+    testing.upbound.io/example-name: b
+  name: b
+  namespace: test
+spec:
+  forProvider:
+    bucket: my-tf-test-bucket
+    tags:
+      Env: Test
+      foo: bar

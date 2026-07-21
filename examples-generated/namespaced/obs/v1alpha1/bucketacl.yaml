@@ -23,7 +23,9 @@ spec:
       accessToBucket:
       - READ
       accountId: ${var.account2}
-    bucket: ${var.bucket}
+    bucketSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     logDeliveryUserPermission:
     - accessToAcl:
       - READ_ACP

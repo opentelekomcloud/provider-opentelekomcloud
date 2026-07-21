@@ -94,6 +94,7 @@ stringData:
       "password": "t0ps3cr3t11",
       "auth_url": "https://iam.eu-de.otc.t-systems.com/v3",
       "domain_name": "OTCxxxxx",
+      "domain_id": "xxxxxxxxxxx",
       "tenant_name": "eu-de_project",
       "swauth": "false",
       "allow_reauth": "true",

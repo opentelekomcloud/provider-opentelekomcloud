@@ -63,7 +63,17 @@ type BucketACLInitParameters struct {
 	AccountPermission []AccountPermissionInitParameters `json:"accountPermission,omitempty" tf:"account_permission,omitempty"`
 
 	// Specifies the name of the bucket to which to set the acl.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/obs/v1alpha1.Bucket
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractObsBucket()
 	Bucket *string `json:"bucket,omitempty" tf:"bucket,omitempty"`
+
+	// Reference to a Bucket in obs to populate bucket.
+	// +kubebuilder:validation:Optional
+	BucketRef *v1.NamespacedReference `json:"bucketRef,omitempty" tf:"-"`
+
+	// Selector for a Bucket in obs to populate bucket.
+	// +kubebuilder:validation:Optional
+	BucketSelector *v1.NamespacedSelector `json:"bucketSelector,omitempty" tf:"-"`
 
 	// Specifies the log delivery user permission.
 	// The permission_struct structure is documented below.
@@ -116,8 +126,18 @@ type BucketACLParameters struct {
 	AccountPermission []AccountPermissionParameters `json:"accountPermission,omitempty" tf:"account_permission,omitempty"`
 
 	// Specifies the name of the bucket to which to set the acl.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/obs/v1alpha1.Bucket
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractObsBucket()
 	// +kubebuilder:validation:Optional
 	Bucket *string `json:"bucket,omitempty" tf:"bucket,omitempty"`
+
+	// Reference to a Bucket in obs to populate bucket.
+	// +kubebuilder:validation:Optional
+	BucketRef *v1.NamespacedReference `json:"bucketRef,omitempty" tf:"-"`
+
+	// Selector for a Bucket in obs to populate bucket.
+	// +kubebuilder:validation:Optional
+	BucketSelector *v1.NamespacedSelector `json:"bucketSelector,omitempty" tf:"-"`
 
 	// Specifies the log delivery user permission.
 	// The permission_struct structure is documented below.
@@ -259,9 +279,8 @@ type BucketACLStatus struct {
 type BucketACL struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.bucket) || (has(self.initProvider) && has(self.initProvider.bucket))",message="spec.forProvider.bucket is a required parameter"
-	Spec   BucketACLSpec   `json:"spec"`
-	Status BucketACLStatus `json:"status,omitempty"`
+	Spec              BucketACLSpec   `json:"spec"`
+	Status            BucketACLStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

@@ -82,6 +82,5 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    acl: private
     bucket: test-bucket
     storageClass: STANDARD

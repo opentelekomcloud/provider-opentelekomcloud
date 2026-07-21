@@ -1,0 +1,38 @@
+apiVersion: obs.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: Bucket
+metadata:
+  annotations:
+    meta.upbound.io/example-id: obs/v1alpha1/bucket
+  labels:
+    testing.upbound.io/example-name: b
+  name: b
+  namespace: test
+spec:
+  forProvider:
+    bucket: xp-test-something2
+    tags:
+      Env: Test
+      foo: bar
+    kmsSelector:
+      matchLabels:
+        testing.upbound.io/example-name: key_test
+
+---
+apiVersion: kms.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: KeyV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: kms/v1alpha1/keyv1
+  labels:
+    testing.upbound.io/example-name: key_test
+  name: key-test
+  namespace: test
+spec:
+  forProvider:
+    isEnabled: true
+    keyAlias: key_test-55555
+    keyDescription: crossplane
+    pendingDays: "7"
+    realm: eu-de
+    tags:
+      muh: kuh

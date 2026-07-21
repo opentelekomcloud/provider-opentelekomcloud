@@ -6,10 +6,10 @@ metadata:
   labels:
     testing.upbound.io/example-name: b
   name: b
-  namespace: upbound-system
+  namespace: test
 spec:
   forProvider:
-    bucket: my-tf-test-bucket
+    bucket: xp-test-55555
     tags:
       Env: Test
       foo: bar
