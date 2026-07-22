@@ -96,7 +96,7 @@ type BucketInitParameters struct {
 
 type BucketObservation struct {
 
-	// Deprecated, deafults to ACL=private. Use bucketacls.obs.opentelekomcloud.m.crossplane.io for ACL management. buckets.obs.opentelekomcloud.m.crossplane.io can only observe ACL state, but cannot change it.
+	// Deprecated, defaults to ACL=private. Use bucketacls.obs.opentelekomcloud.m.crossplane.io for ACL management. buckets.obs.opentelekomcloud.m.crossplane.io can only observe ACL state, but cannot change it.
 	ACL *string `json:"acl,omitempty" tf:"acl,omitempty"`
 
 	// Specifies the name of the bucket. Changing this parameter will create a new resource.
