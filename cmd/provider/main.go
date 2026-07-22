@@ -97,9 +97,6 @@ func main() {
 		ctrl.SetLogger(zl)
 	}
 
-	// TODO remove before review
-	ctrl.SetLogger(zl)
-
 	log.Debug("Starting", "sync-period", syncPeriod.String(), "poll-interval", pollInterval.String(), "max-reconcile-rate", *maxReconcileRate)
 
 	cfg, err := ctrl.GetConfig()

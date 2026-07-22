@@ -223,3 +223,86 @@ func (mg *BucketACL) ResolveReferences(ctx context.Context, c client.Reader) err
 
 	return nil
 }
+
+// ResolveReferences of this BucketInventory.
+func (mg *BucketInventory) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var rsp reference.NamespacedResolutionResponse
+	var err error
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Bucket),
+		Extract:      common.ExtractObsBucket(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.BucketRef,
+		Selector:     mg.Spec.ForProvider.BucketSelector,
+		To: reference.To{
+			List:    &BucketList{},
+			Managed: &Bucket{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.Bucket")
+	}
+	mg.Spec.ForProvider.Bucket = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.BucketRef = rsp.ResolvedReference
+
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.Destination); i3++ {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Destination[i3].Bucket),
+			Extract:      common.ExtractObsBucket(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.Destination[i3].BucketRef,
+			Selector:     mg.Spec.ForProvider.Destination[i3].BucketSelector,
+			To: reference.To{
+				List:    &BucketList{},
+				Managed: &Bucket{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.Destination[i3].Bucket")
+		}
+		mg.Spec.ForProvider.Destination[i3].Bucket = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.Destination[i3].BucketRef = rsp.ResolvedReference
+
+	}
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Bucket),
+		Extract:      common.ExtractObsBucket(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.BucketRef,
+		Selector:     mg.Spec.InitProvider.BucketSelector,
+		To: reference.To{
+			List:    &BucketList{},
+			Managed: &Bucket{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.Bucket")
+	}
+	mg.Spec.InitProvider.Bucket = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.BucketRef = rsp.ResolvedReference
+
+	for i3 := 0; i3 < len(mg.Spec.InitProvider.Destination); i3++ {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Destination[i3].Bucket),
+			Extract:      common.ExtractObsBucket(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.Destination[i3].BucketRef,
+			Selector:     mg.Spec.InitProvider.Destination[i3].BucketSelector,
+			To: reference.To{
+				List:    &BucketList{},
+				Managed: &Bucket{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.InitProvider.Destination[i3].Bucket")
+		}
+		mg.Spec.InitProvider.Destination[i3].Bucket = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.InitProvider.Destination[i3].BucketRef = rsp.ResolvedReference
+
+	}
+
+	return nil
+}

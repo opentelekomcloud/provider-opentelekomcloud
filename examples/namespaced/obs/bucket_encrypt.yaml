@@ -13,9 +13,11 @@ spec:
     tags:
       Env: Test
       foo: bar
-    kmsSelector:
-      matchLabels:
-        testing.upbound.io/example-name: key_test
+    serverSideEncryption:
+      - kmsSelector:
+          matchLabels:
+            testing.upbound.io/example-name: key_test
+        algorithm: kms
 
 ---
 apiVersion: kms.opentelekomcloud.m.crossplane.io/v1alpha1

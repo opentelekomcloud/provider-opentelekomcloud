@@ -650,6 +650,16 @@ func (in *BucketInventoryInitParameters) DeepCopyInto(out *BucketInventoryInitPa
 		*out = new(string)
 		**out = **in
 	}
+	if in.BucketRef != nil {
+		in, out := &in.BucketRef, &out.BucketRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.BucketSelector != nil {
+		in, out := &in.BucketSelector, &out.BucketSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.ConfigurationID != nil {
 		in, out := &in.ConfigurationID, &out.ConfigurationID
 		*out = new(string)
@@ -817,6 +827,16 @@ func (in *BucketInventoryParameters) DeepCopyInto(out *BucketInventoryParameters
 		in, out := &in.Bucket, &out.Bucket
 		*out = new(string)
 		**out = **in
+	}
+	if in.BucketRef != nil {
+		in, out := &in.BucketRef, &out.BucketRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.BucketSelector != nil {
+		in, out := &in.BucketSelector, &out.BucketSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ConfigurationID != nil {
 		in, out := &in.ConfigurationID, &out.ConfigurationID
@@ -2672,6 +2692,16 @@ func (in *DestinationInitParameters) DeepCopyInto(out *DestinationInitParameters
 		*out = new(string)
 		**out = **in
 	}
+	if in.BucketRef != nil {
+		in, out := &in.BucketRef, &out.BucketRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.BucketSelector != nil {
+		in, out := &in.BucketSelector, &out.BucketSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Format != nil {
 		in, out := &in.Format, &out.Format
 		*out = new(string)
@@ -2731,6 +2761,16 @@ func (in *DestinationParameters) DeepCopyInto(out *DestinationParameters) {
 		in, out := &in.Bucket, &out.Bucket
 		*out = new(string)
 		**out = **in
+	}
+	if in.BucketRef != nil {
+		in, out := &in.BucketRef, &out.BucketRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.BucketSelector != nil {
+		in, out := &in.BucketSelector, &out.BucketSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Format != nil {
 		in, out := &in.Format, &out.Format

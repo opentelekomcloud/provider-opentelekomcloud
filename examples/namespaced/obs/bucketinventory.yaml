@@ -6,7 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: inventory
   name: inventory
-  namespace: upbound-system
+  namespace: test
 spec:
   forProvider:
     bucketSelector:
@@ -14,22 +14,21 @@ spec:
         testing.upbound.io/example-name: bucket
     configurationId: test-id
     destination:
-    - bucketSelector:
-        matchLabels:
-          testing.upbound.io/example-name: bucket
-      format: CSV
-      prefix: test-
+      - bucketSelector:
+          matchLabels:
+            testing.upbound.io/example-name: bucket
+        format: CSV
+        prefix: test-
     filterPrefix: test-filter-prefix
     frequency: Weekly
     includedObjectVersions: Current
     isEnabled: true
     optionalFields:
-    - Size
-    - LastModifiedDate
-    - ReplicationStatus
+      - Size
+      - LastModifiedDate
+      - ReplicationStatus
 
 ---
-
 apiVersion: obs.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: Bucket
 metadata:
@@ -38,7 +37,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: bucket
   name: bucket
-  namespace: upbound-system
+  namespace: test
 spec:
   forProvider:
-    bucket: my-tf-test-bucket
+    bucket: xp-test-678123678
