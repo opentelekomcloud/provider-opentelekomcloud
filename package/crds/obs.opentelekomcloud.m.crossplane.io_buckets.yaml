@@ -1421,7 +1421,7 @@ spec:
               atProvider:
                 properties:
                   acl:
-                    description: Deprecated deafults to ACL=private. Use bucketacls.obs.opentelekomcloud.m.crossplane.io
+                    description: Deprecated, deafults to ACL=private. Use bucketacls.obs.opentelekomcloud.m.crossplane.io
                       for ACL management. buckets.obs.opentelekomcloud.m.crossplane.io
                       can only observe ACL state, but cannot change it.
                     type: string

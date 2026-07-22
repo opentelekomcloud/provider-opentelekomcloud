@@ -270,7 +270,7 @@ type BucketACLStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// BucketACL is the Schema for the BucketACLs API. Manages a OBS Bucket ACL resource within OpenTelekomCloud.
+// BucketACL is the Schema for the BucketACLs API. Manages an OBS bucket acl resource within OpenTelekomCloud. For proper functionality need to configure domain_id in credentails.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

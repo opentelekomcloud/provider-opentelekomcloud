@@ -34,8 +34,9 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: BucketACL is the Schema for the BucketACLs API. Manages a OBS
-          Bucket ACL resource within OpenTelekomCloud.
+        description: BucketACL is the Schema for the BucketACLs API. Manages an OBS
+          bucket acl resource within OpenTelekomCloud. For proper functionality need
+          to configure domain_id in credentails.
         properties:
           apiVersion:
             description: |-
