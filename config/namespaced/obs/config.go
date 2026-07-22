@@ -27,6 +27,9 @@ func Configure(p *config.Provider) {
 		r.References["event_notifications.topic"] = config.Reference{
 			TerraformName: "opentelekomcloud_smn_topic_v2",
 		}
+		r.LateInitializer = config.LateInitializer{
+			IgnoredFields: []string{"acl"},
+		}
 	})
 
 	p.AddResourceConfigurator("opentelekomcloud_obs_bucket_acl", func(r *config.Resource) {
