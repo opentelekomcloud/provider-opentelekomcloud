@@ -1,0 +1,36 @@
+apiVersion: obs.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: BucketObject
+metadata:
+  annotations:
+    meta.upbound.io/example-id: obs/v1alpha1/bucketobject
+  labels:
+    testing.upbound.io/example-name: object
+  name: object
+  namespace: test
+spec:
+  forProvider:
+    bucketSelector:
+      matchLabels:
+        testing.upbound.io/example-name: b
+    content: |
+      {"provider_name": "t_cloud_public"}
+    contentType: application/json
+    key: test_index_html
+    encryption: true
+
+---
+apiVersion: obs.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: Bucket
+metadata:
+  annotations:
+    meta.upbound.io/example-id: obs/v1alpha1/bucket
+  labels:
+    testing.upbound.io/example-name: b
+  name: b
+  namespace: test
+spec:
+  forProvider:
+    bucket: xp-test-55555
+    tags:
+      Env: Test
+      foo: bar

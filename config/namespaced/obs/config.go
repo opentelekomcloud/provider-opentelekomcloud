@@ -50,4 +50,22 @@ func Configure(p *config.Provider) {
 			Extractor:     common.ObsBucketExtractor,
 		}
 	})
+
+	p.AddResourceConfigurator("opentelekomcloud_obs_bucket_object", func(r *config.Resource) {
+		config.MoveToStatus(r.TerraformResource, "acl")
+		r.MetaResource.ArgumentDocs["acl"] = `Defaults to ACL=private. Use bucketobjectsacl.obs.opentelekomcloud.m.crossplane.io for ACL management. bucketobjet.obs.opentelekomcloud.m.crossplane.io can only observe ACL state, but cannot change it.`
+		r.LateInitializer = config.LateInitializer{
+			IgnoredFields: []string{"acl"},
+		}
+
+		r.References["bucket"] = config.Reference{
+			TerraformName: "opentelekomcloud_obs_bucket",
+			Extractor:     common.ObsBucketExtractor,
+		}
+		r.References["sse_kms_key_id"] = config.Reference{
+			TerraformName:     "opentelekomcloud_kms_key_v1",
+			RefFieldName:      "KMSSelectorRef",
+			SelectorFieldName: "KMSSelector",
+		}
+	})
 }
