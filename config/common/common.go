@@ -298,7 +298,7 @@ func ExtractUsername() xpref.ExtractValueFn {
 // Convert(params map[string]any, r *Resource, mode Mode) (map[string]any, error)
 // }
 
-var obsBucketPolicyRe = regexp.MustCompile(`opentelekomcloud_obs_bucket\.[a-zA-Z0-9_-]+\.bucket`)
+var thisBucketRe = regexp.MustCompile(`\$\{this.bucket\}`)
 
 type PolicyResourceReplacer struct{}
 
@@ -312,6 +312,9 @@ func (r PolicyResourceReplacer) Convert(params map[string]any, _ *config.Resourc
 	}
 	policy, ok := params["policy"].(string)
 	if !ok || policy == "" {
+		return params, nil
+	}
+	if !thisBucketRe.MatchString(policy) {
 		return params, nil
 	}
 	return r.replacePolicy(params, policy, bucket)
@@ -340,7 +343,7 @@ func (r PolicyResourceReplacer) replacePolicy(params map[string]any, policy, buc
 			if !ok {
 				continue
 			}
-			stmtMap["Resource"].([]any)[i] = obsBucketPolicyRe.ReplaceAllString(resStr, bucket)
+			stmtMap["Resource"].([]any)[i] = thisBucketRe.ReplaceAllString(resStr, bucket)
 		}
 	}
 	modifiedPolicy, err := json.Marshal(policyMap)

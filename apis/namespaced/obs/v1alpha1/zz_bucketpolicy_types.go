@@ -29,7 +29,7 @@ type BucketPolicyInitParameters struct {
 	// +kubebuilder:validation:Optional
 	BucketSelector *v1.NamespacedSelector `json:"bucketSelector,omitempty" tf:"-"`
 
-	// Supports dynamic value substitution from the bucket selected with spec.forProvider.bucketSelector. Use the format "opentelekomcloud_obs_bucket.<label>.bucket" where <label> is a simple identifier (e.g. "label") inside the Statement[].Resource[] array. This will be replaced with the resolved bucket name. Example: "opentelekomcloud_obs_bucket.label.bucket/*" resolves to "my-bucket-name/*".
+	// The text of the policy. Supports dynamic value substitution using the placeholder ${this.bucket} which will be replaced with the resolved bucket name from spec.forProvider.bucketSelector. Example: "Resource": ["${this.bucket}/*"]. Alternatively if you choose to configure a different bucket you need to provide bucket/resource as a string. Example: "Resource": ["mybucket/*"]
 	Policy *string `json:"policy,omitempty" tf:"policy,omitempty"`
 }
 
@@ -40,7 +40,7 @@ type BucketPolicyObservation struct {
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// Supports dynamic value substitution from the bucket selected with spec.forProvider.bucketSelector. Use the format "opentelekomcloud_obs_bucket.<label>.bucket" where <label> is a simple identifier (e.g. "label") inside the Statement[].Resource[] array. This will be replaced with the resolved bucket name. Example: "opentelekomcloud_obs_bucket.label.bucket/*" resolves to "my-bucket-name/*".
+	// The text of the policy. Supports dynamic value substitution using the placeholder ${this.bucket} which will be replaced with the resolved bucket name from spec.forProvider.bucketSelector. Example: "Resource": ["${this.bucket}/*"]. Alternatively if you choose to configure a different bucket you need to provide bucket/resource as a string. Example: "Resource": ["mybucket/*"]
 	Policy *string `json:"policy,omitempty" tf:"policy,omitempty"`
 }
 
@@ -60,7 +60,7 @@ type BucketPolicyParameters struct {
 	// +kubebuilder:validation:Optional
 	BucketSelector *v1.NamespacedSelector `json:"bucketSelector,omitempty" tf:"-"`
 
-	// Supports dynamic value substitution from the bucket selected with spec.forProvider.bucketSelector. Use the format "opentelekomcloud_obs_bucket.<label>.bucket" where <label> is a simple identifier (e.g. "label") inside the Statement[].Resource[] array. This will be replaced with the resolved bucket name. Example: "opentelekomcloud_obs_bucket.label.bucket/*" resolves to "my-bucket-name/*".
+	// The text of the policy. Supports dynamic value substitution using the placeholder ${this.bucket} which will be replaced with the resolved bucket name from spec.forProvider.bucketSelector. Example: "Resource": ["${this.bucket}/*"]. Alternatively if you choose to configure a different bucket you need to provide bucket/resource as a string. Example: "Resource": ["mybucket/*"]
 	// +kubebuilder:validation:Optional
 	Policy *string `json:"policy,omitempty" tf:"policy,omitempty"`
 }

@@ -143,13 +143,12 @@ spec:
                         type: object
                     type: object
                   policy:
-                    description: 'Supports dynamic value substitution from the bucket
-                      selected with spec.forProvider.bucketSelector. Use the format
-                      "opentelekomcloud_obs_bucket.<label>.bucket" where <label> is
-                      a simple identifier (e.g. "label") inside the Statement[].Resource[]
-                      array. This will be replaced with the resolved bucket name.
-                      Example: "opentelekomcloud_obs_bucket.label.bucket/*" resolves
-                      to "my-bucket-name/*".'
+                    description: 'The text of the policy. Supports dynamic value substitution
+                      using the placeholder ${this.bucket} which will be replaced
+                      with the resolved bucket name from spec.forProvider.bucketSelector.
+                      Example: "Resource": ["${this.bucket}/*"]. Alternatively if
+                      you choose to configure a different bucket you need to provide
+                      bucket/resource as a string. Example: "Resource": ["mybucket/*"]'
                     type: string
                 type: object
               initProvider:
@@ -249,13 +248,12 @@ spec:
                         type: object
                     type: object
                   policy:
-                    description: 'Supports dynamic value substitution from the bucket
-                      selected with spec.forProvider.bucketSelector. Use the format
-                      "opentelekomcloud_obs_bucket.<label>.bucket" where <label> is
-                      a simple identifier (e.g. "label") inside the Statement[].Resource[]
-                      array. This will be replaced with the resolved bucket name.
-                      Example: "opentelekomcloud_obs_bucket.label.bucket/*" resolves
-                      to "my-bucket-name/*".'
+                    description: 'The text of the policy. Supports dynamic value substitution
+                      using the placeholder ${this.bucket} which will be replaced
+                      with the resolved bucket name from spec.forProvider.bucketSelector.
+                      Example: "Resource": ["${this.bucket}/*"]. Alternatively if
+                      you choose to configure a different bucket you need to provide
+                      bucket/resource as a string. Example: "Resource": ["mybucket/*"]'
                     type: string
                 type: object
               managementPolicies:
@@ -332,13 +330,12 @@ spec:
                   id:
                     type: string
                   policy:
-                    description: 'Supports dynamic value substitution from the bucket
-                      selected with spec.forProvider.bucketSelector. Use the format
-                      "opentelekomcloud_obs_bucket.<label>.bucket" where <label> is
-                      a simple identifier (e.g. "label") inside the Statement[].Resource[]
-                      array. This will be replaced with the resolved bucket name.
-                      Example: "opentelekomcloud_obs_bucket.label.bucket/*" resolves
-                      to "my-bucket-name/*".'
+                    description: 'The text of the policy. Supports dynamic value substitution
+                      using the placeholder ${this.bucket} which will be replaced
+                      with the resolved bucket name from spec.forProvider.bucketSelector.
+                      Example: "Resource": ["${this.bucket}/*"]. Alternatively if
+                      you choose to configure a different bucket you need to provide
+                      bucket/resource as a string. Example: "Resource": ["mybucket/*"]'
                     type: string
                 type: object
               conditions:

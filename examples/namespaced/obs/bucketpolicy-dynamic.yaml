@@ -14,7 +14,7 @@ spec:
           "Effect": "Allow",
           "Principal": {"ID": ["*"]},
           "Action": ["GetObject", "PutObject"],
-          "Resource": ["opentelekomcloud_obs_bucket.label.bucket/*"]
+          "Resource": ["${this.bucket}/*"]
         }]
       }
 
