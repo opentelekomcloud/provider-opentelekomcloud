@@ -68,4 +68,14 @@ func Configure(p *config.Provider) {
 			SelectorFieldName: "KMSSelector",
 		}
 	})
+
+	p.AddResourceConfigurator("opentelekomcloud_obs_bucket_object_acl", func(r *config.Resource) {
+		r.References["bucket"] = config.Reference{
+			TerraformName: "opentelekomcloud_obs_bucket",
+			Extractor:     common.ObsBucketExtractor,
+		}
+		r.References["key"] = config.Reference{
+			TerraformName: "opentelekomcloud_obs_bucket_object",
+		}
+	})
 }

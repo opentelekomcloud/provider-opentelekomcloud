@@ -1155,10 +1155,30 @@ func (in *BucketObjectACLInitParameters) DeepCopyInto(out *BucketObjectACLInitPa
 		*out = new(string)
 		**out = **in
 	}
+	if in.BucketRef != nil {
+		in, out := &in.BucketRef, &out.BucketRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.BucketSelector != nil {
+		in, out := &in.BucketSelector, &out.BucketSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Key != nil {
 		in, out := &in.Key, &out.Key
 		*out = new(string)
 		**out = **in
+	}
+	if in.KeyRef != nil {
+		in, out := &in.KeyRef, &out.KeyRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.KeySelector != nil {
+		in, out := &in.KeySelector, &out.KeySelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.PublicPermission != nil {
 		in, out := &in.PublicPermission, &out.PublicPermission
@@ -1349,10 +1369,30 @@ func (in *BucketObjectACLParameters) DeepCopyInto(out *BucketObjectACLParameters
 		*out = new(string)
 		**out = **in
 	}
+	if in.BucketRef != nil {
+		in, out := &in.BucketRef, &out.BucketRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.BucketSelector != nil {
+		in, out := &in.BucketSelector, &out.BucketSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Key != nil {
 		in, out := &in.Key, &out.Key
 		*out = new(string)
 		**out = **in
+	}
+	if in.KeyRef != nil {
+		in, out := &in.KeyRef, &out.KeyRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.KeySelector != nil {
+		in, out := &in.KeySelector, &out.KeySelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.PublicPermission != nil {
 		in, out := &in.PublicPermission, &out.PublicPermission

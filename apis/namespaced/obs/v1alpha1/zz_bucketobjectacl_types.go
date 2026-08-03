@@ -63,10 +63,29 @@ type BucketObjectACLInitParameters struct {
 	AccountPermission []BucketObjectACLAccountPermissionInitParameters `json:"accountPermission,omitempty" tf:"account_permission,omitempty"`
 
 	// Specifies the name of the bucket which the object belongs to.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/obs/v1alpha1.Bucket
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractObsBucket()
 	Bucket *string `json:"bucket,omitempty" tf:"bucket,omitempty"`
 
+	// Reference to a Bucket in obs to populate bucket.
+	// +kubebuilder:validation:Optional
+	BucketRef *v1.NamespacedReference `json:"bucketRef,omitempty" tf:"-"`
+
+	// Selector for a Bucket in obs to populate bucket.
+	// +kubebuilder:validation:Optional
+	BucketSelector *v1.NamespacedSelector `json:"bucketSelector,omitempty" tf:"-"`
+
 	// Specifies the name of the object to which to set the acl.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/obs/v1alpha1.BucketObject
 	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// Reference to a BucketObject in obs to populate key.
+	// +kubebuilder:validation:Optional
+	KeyRef *v1.NamespacedReference `json:"keyRef,omitempty" tf:"-"`
+
+	// Selector for a BucketObject in obs to populate key.
+	// +kubebuilder:validation:Optional
+	KeySelector *v1.NamespacedSelector `json:"keySelector,omitempty" tf:"-"`
 
 	// Specifies the object public permission.
 	// The permission_struct structure is documented below.
@@ -123,12 +142,31 @@ type BucketObjectACLParameters struct {
 	AccountPermission []BucketObjectACLAccountPermissionParameters `json:"accountPermission,omitempty" tf:"account_permission,omitempty"`
 
 	// Specifies the name of the bucket which the object belongs to.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/obs/v1alpha1.Bucket
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractObsBucket()
 	// +kubebuilder:validation:Optional
 	Bucket *string `json:"bucket,omitempty" tf:"bucket,omitempty"`
 
+	// Reference to a Bucket in obs to populate bucket.
+	// +kubebuilder:validation:Optional
+	BucketRef *v1.NamespacedReference `json:"bucketRef,omitempty" tf:"-"`
+
+	// Selector for a Bucket in obs to populate bucket.
+	// +kubebuilder:validation:Optional
+	BucketSelector *v1.NamespacedSelector `json:"bucketSelector,omitempty" tf:"-"`
+
 	// Specifies the name of the object to which to set the acl.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/obs/v1alpha1.BucketObject
 	// +kubebuilder:validation:Optional
 	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// Reference to a BucketObject in obs to populate key.
+	// +kubebuilder:validation:Optional
+	KeyRef *v1.NamespacedReference `json:"keyRef,omitempty" tf:"-"`
+
+	// Selector for a BucketObject in obs to populate key.
+	// +kubebuilder:validation:Optional
+	KeySelector *v1.NamespacedSelector `json:"keySelector,omitempty" tf:"-"`
 
 	// Specifies the object public permission.
 	// The permission_struct structure is documented below.
@@ -201,10 +239,8 @@ type BucketObjectACLStatus struct {
 type BucketObjectACL struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.bucket) || (has(self.initProvider) && has(self.initProvider.bucket))",message="spec.forProvider.bucket is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.key) || (has(self.initProvider) && has(self.initProvider.key))",message="spec.forProvider.key is a required parameter"
-	Spec   BucketObjectACLSpec   `json:"spec"`
-	Status BucketObjectACLStatus `json:"status,omitempty"`
+	Spec              BucketObjectACLSpec   `json:"spec"`
+	Status            BucketObjectACLStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

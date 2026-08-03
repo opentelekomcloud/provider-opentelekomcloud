@@ -350,3 +350,81 @@ func (mg *BucketObject) ResolveReferences(ctx context.Context, c client.Reader) 
 
 	return nil
 }
+
+// ResolveReferences of this BucketObjectACL.
+func (mg *BucketObjectACL) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var rsp reference.NamespacedResolutionResponse
+	var err error
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Bucket),
+		Extract:      common.ExtractObsBucket(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.BucketRef,
+		Selector:     mg.Spec.ForProvider.BucketSelector,
+		To: reference.To{
+			List:    &BucketList{},
+			Managed: &Bucket{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.Bucket")
+	}
+	mg.Spec.ForProvider.Bucket = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.BucketRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Key),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.KeyRef,
+		Selector:     mg.Spec.ForProvider.KeySelector,
+		To: reference.To{
+			List:    &BucketObjectList{},
+			Managed: &BucketObject{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.Key")
+	}
+	mg.Spec.ForProvider.Key = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.KeyRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Bucket),
+		Extract:      common.ExtractObsBucket(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.BucketRef,
+		Selector:     mg.Spec.InitProvider.BucketSelector,
+		To: reference.To{
+			List:    &BucketList{},
+			Managed: &Bucket{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.Bucket")
+	}
+	mg.Spec.InitProvider.Bucket = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.BucketRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Key),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.KeyRef,
+		Selector:     mg.Spec.InitProvider.KeySelector,
+		To: reference.To{
+			List:    &BucketObjectList{},
+			Managed: &BucketObject{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.Key")
+	}
+	mg.Spec.InitProvider.Key = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.KeyRef = rsp.ResolvedReference
+
+	return nil
+}
