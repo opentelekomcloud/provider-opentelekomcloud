@@ -293,10 +293,10 @@ func ExtractUsername() xpref.ExtractValueFn {
 	}
 }
 
-//TerraformConversion is an interface in upjet that lets you convert data between the Crossplane layer and the Terraform layer.
-//type TerraformConversion interface {
-//Convert(params map[string]any, r *Resource, mode Mode) (map[string]any, error)
-//}
+// TerraformConversion is an interface in upjet that lets you convert data between the Crossplane layer and the Terraform layer.
+// type TerraformConversion interface {
+// Convert(params map[string]any, r *Resource, mode Mode) (map[string]any, error)
+// }
 
 var obsBucketPolicyRe = regexp.MustCompile(`opentelekomcloud_obs_bucket\.[a-zA-Z0-9_-]+\.bucket`)
 
@@ -314,6 +314,10 @@ func (r PolicyResourceReplacer) Convert(params map[string]any, _ *config.Resourc
 	if !ok || policy == "" {
 		return params, nil
 	}
+	return r.replacePolicy(params, policy, bucket)
+}
+
+func (r PolicyResourceReplacer) replacePolicy(params map[string]any, policy, bucket string) (map[string]any, error) {
 	var policyMap map[string]any
 	if err := json.Unmarshal([]byte(policy), &policyMap); err != nil {
 		return params, err
