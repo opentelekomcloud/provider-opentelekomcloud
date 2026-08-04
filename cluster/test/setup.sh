@@ -11,7 +11,7 @@ kind: Namespace
 metadata:
   name: test
 EOF
-
+### TODO set up ClusterProviderConfig for eu-nl
 ${KUBECTL} -n test create secret generic provider-secret \
 	--from-literal=credentials="${UPTEST_CLOUD_CREDENTIALS}" \
 	--dry-run=client -o yaml | ${KUBECTL} apply -f -

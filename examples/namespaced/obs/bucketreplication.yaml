@@ -1,0 +1,84 @@
+apiVersion: obs.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: BucketReplication
+metadata:
+  annotations:
+    meta.upbound.io/example-id: obs/v1alpha1/bucketreplication
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+  namespace: test
+spec:
+  forProvider:
+    agencySelector:
+      matchLabels:
+        testing.upbound.io/example-name: agency
+    bucketSelector:
+      matchLabels:
+        testing.upbound.io/example-name: repl-source
+    destinationBucketSelector:
+      matchLabels:
+        testing.upbound.io/example-name: repl-dest
+    rule:
+      - deleteData: false
+        historyEnabled: false
+
+---
+apiVersion: obs.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: Bucket
+metadata:
+  annotations:
+    meta.upbound.io/example-id: obs/v1alpha1/bucket
+  labels:
+    testing.upbound.io/example-name: repl-source
+  name: b
+  namespace: test
+spec:
+  forProvider:
+    region: eu-de
+    bucket: xp-repl-source-1111
+    tags:
+      Env: Test
+      foo: bar
+
+---
+apiVersion: obs.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: Bucket
+metadata:
+  annotations:
+    meta.upbound.io/example-id: obs/v1alpha1/bucket
+  labels:
+    testing.upbound.io/example-name: repl-dest
+  name: c
+  namespace: test
+spec:
+  forProvider:
+    bucket: xp-repl-dest-1111
+    region: eu-nl
+    tags:
+      Env: Test
+      foo: bar
+  providerConfigRef:
+    name: default-nl
+    kind: ClusterProviderConfig
+
+---
+apiVersion: identity.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: AgencyV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: identity/v1alpha1/agencyv3
+  labels:
+    testing.upbound.io/example-name: agency
+  name: agency
+  namespace: test
+spec:
+  forProvider:
+    delegatedDomainName: op_svc_obs
+    description: test agency
+    domainRoles:
+      - OBS Administrator
+    projectRole:
+      - allProjects: true
+        roles:
+          - OBS Administrator
+    name: test_agency

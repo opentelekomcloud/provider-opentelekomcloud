@@ -92,4 +92,18 @@ func Configure(p *config.Provider) {
 		// Policy:  {"Statement":[{"Effect":"Allow","Resource":["xp-test-55555/*"]}]}
 		r.TerraformConversions = append(r.TerraformConversions, common.PolicyResourceReplacer{})
 	})
+
+	p.AddResourceConfigurator("opentelekomcloud_obs_bucket_replication", func(r *config.Resource) {
+		r.References["bucket"] = config.Reference{
+			TerraformName: "opentelekomcloud_obs_bucket",
+			Extractor:     common.ObsBucketExtractor,
+		}
+		r.References["destination_bucket"] = config.Reference{
+			TerraformName: "opentelekomcloud_obs_bucket",
+			Extractor:     common.ObsBucketExtractor,
+		}
+		r.References["agency"] = config.Reference{
+			TerraformName: "opentelekomcloud_identity_agency_v3",
+		}
+	})
 }

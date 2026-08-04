@@ -2337,15 +2337,45 @@ func (in *BucketReplicationInitParameters) DeepCopyInto(out *BucketReplicationIn
 		*out = new(string)
 		**out = **in
 	}
+	if in.AgencyRef != nil {
+		in, out := &in.AgencyRef, &out.AgencyRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.AgencySelector != nil {
+		in, out := &in.AgencySelector, &out.AgencySelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Bucket != nil {
 		in, out := &in.Bucket, &out.Bucket
 		*out = new(string)
 		**out = **in
 	}
+	if in.BucketRef != nil {
+		in, out := &in.BucketRef, &out.BucketRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.BucketSelector != nil {
+		in, out := &in.BucketSelector, &out.BucketSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.DestinationBucket != nil {
 		in, out := &in.DestinationBucket, &out.DestinationBucket
 		*out = new(string)
 		**out = **in
+	}
+	if in.DestinationBucketRef != nil {
+		in, out := &in.DestinationBucketRef, &out.DestinationBucketRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.DestinationBucketSelector != nil {
+		in, out := &in.DestinationBucketSelector, &out.DestinationBucketSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
@@ -2458,15 +2488,45 @@ func (in *BucketReplicationParameters) DeepCopyInto(out *BucketReplicationParame
 		*out = new(string)
 		**out = **in
 	}
+	if in.AgencyRef != nil {
+		in, out := &in.AgencyRef, &out.AgencyRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.AgencySelector != nil {
+		in, out := &in.AgencySelector, &out.AgencySelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Bucket != nil {
 		in, out := &in.Bucket, &out.Bucket
 		*out = new(string)
 		**out = **in
 	}
+	if in.BucketRef != nil {
+		in, out := &in.BucketRef, &out.BucketRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.BucketSelector != nil {
+		in, out := &in.BucketSelector, &out.BucketSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.DestinationBucket != nil {
 		in, out := &in.DestinationBucket, &out.DestinationBucket
 		*out = new(string)
 		**out = **in
+	}
+	if in.DestinationBucketRef != nil {
+		in, out := &in.DestinationBucketRef, &out.DestinationBucketRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.DestinationBucketSelector != nil {
+		in, out := &in.DestinationBucketSelector, &out.DestinationBucketSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
