@@ -53,7 +53,6 @@ spec:
     logDeliveryUserPermission:
       - accessToAcl:
           - READ_ACP
-          - WRITE_ACP
         accessToBucket:
           - READ
           - WRITE
