@@ -371,7 +371,7 @@ spec:
               atProvider:
                 properties:
                   acl:
-                    description: Defaults to ACL=private. Use bucketobjectsacl.obs.opentelekomcloud.m.crossplane.io
+                    description: Deprecated. Defaults to ACL=private. Use bucketobjectsacl.obs.opentelekomcloud.m.crossplane.io
                       for ACL management. bucketobjet.obs.opentelekomcloud.m.crossplane.io
                       can only observe ACL state, but cannot change it.
                     type: string

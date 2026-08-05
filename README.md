@@ -90,12 +90,12 @@ type: Opaque
 stringData:
   credentials: |
     {
-      "user_name": "admin",
-      "password": "t0ps3cr3t11",
+      "access_key": "xxxxxxxxxxx",
+      "secret_key": "xxxxxxxxxxx",
       "auth_url": "https://iam.eu-de.otc.t-systems.com/v3",
       "domain_name": "OTCxxxxx",
       "domain_id": "xxxxxxxxxxx",
-      "tenant_name": "eu-de_project",
+      "tenant_id": "xxxxxxxxxxx",
       "swauth": "false",
       "allow_reauth": "true",
       "max_retries": "2",

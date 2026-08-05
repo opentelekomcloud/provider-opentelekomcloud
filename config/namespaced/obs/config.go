@@ -53,7 +53,7 @@ func Configure(p *config.Provider) {
 
 	p.AddResourceConfigurator("opentelekomcloud_obs_bucket_object", func(r *config.Resource) {
 		config.MoveToStatus(r.TerraformResource, "acl")
-		r.MetaResource.ArgumentDocs["acl"] = `Defaults to ACL=private. Use bucketobjectsacl.obs.opentelekomcloud.m.crossplane.io for ACL management. bucketobjet.obs.opentelekomcloud.m.crossplane.io can only observe ACL state, but cannot change it.`
+		r.MetaResource.ArgumentDocs["acl"] = `Deprecated. Defaults to ACL=private. Use bucketobjectsacl.obs.opentelekomcloud.m.crossplane.io for ACL management. bucketobjet.obs.opentelekomcloud.m.crossplane.io can only observe ACL state, but cannot change it.`
 		r.LateInitializer = config.LateInitializer{
 			IgnoredFields: []string{"acl"},
 		}
@@ -84,7 +84,7 @@ func Configure(p *config.Provider) {
 			TerraformName: "opentelekomcloud_obs_bucket",
 			Extractor:     common.ObsBucketExtractor,
 		}
-		r.MetaResource.ArgumentDocs["policy"] = `The text of the policy. Supports dynamic value substitution using the placeholder ${this.bucket} which will be replaced with the resolved bucket name from spec.forProvider.bucketSelector. Example: "Resource": ["${this.bucket}/*"]. Alternatively if you choose to configure a different bucket you need to provide bucket/resource as a string. Example: "Resource": ["mybucket/*"]`
+		r.MetaResource.ArgumentDocs["policy"] = `The text of the policy. Supports dynamic value substitution for Resource using the placeholder ${this.bucket} which will be replaced with the resolved bucket name from spec.forProvider.bucketSelector. Example: "Resource": ["${this.bucket}/*"]. Alternatively if you choose to configure a different bucket you need to provide bucket/resource as a string. Example: "Resource": ["mybucket/*"]`
 
 		// common.PolicyResourceReplacer replaces ${this.bucket} placeholder in policy.resource with the resolved bucket name from bucketSelector.
 		// Policy:  {"Statement":[{"Effect":"Allow","Resource":["${this.bucket}/*"]}]}

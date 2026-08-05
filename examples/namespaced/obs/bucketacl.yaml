@@ -32,7 +32,7 @@ metadata:
   namespace: test
 spec:
   forProvider:
-    bucket: my-tf-test-bucket
+    bucket: bucket-${Rand.RFC1123Subdomain}
     tags:
       Env: Test
       foo: bar

@@ -144,8 +144,8 @@ spec:
                     type: object
                   policy:
                     description: 'The text of the policy. Supports dynamic value substitution
-                      using the placeholder ${this.bucket} which will be replaced
-                      with the resolved bucket name from spec.forProvider.bucketSelector.
+                      for Resource using the placeholder ${this.bucket} which will
+                      be replaced with the resolved bucket name from spec.forProvider.bucketSelector.
                       Example: "Resource": ["${this.bucket}/*"]. Alternatively if
                       you choose to configure a different bucket you need to provide
                       bucket/resource as a string. Example: "Resource": ["mybucket/*"]'
@@ -249,8 +249,8 @@ spec:
                     type: object
                   policy:
                     description: 'The text of the policy. Supports dynamic value substitution
-                      using the placeholder ${this.bucket} which will be replaced
-                      with the resolved bucket name from spec.forProvider.bucketSelector.
+                      for Resource using the placeholder ${this.bucket} which will
+                      be replaced with the resolved bucket name from spec.forProvider.bucketSelector.
                       Example: "Resource": ["${this.bucket}/*"]. Alternatively if
                       you choose to configure a different bucket you need to provide
                       bucket/resource as a string. Example: "Resource": ["mybucket/*"]'
@@ -331,8 +331,8 @@ spec:
                     type: string
                   policy:
                     description: 'The text of the policy. Supports dynamic value substitution
-                      using the placeholder ${this.bucket} which will be replaced
-                      with the resolved bucket name from spec.forProvider.bucketSelector.
+                      for Resource using the placeholder ${this.bucket} which will
+                      be replaced with the resolved bucket name from spec.forProvider.bucketSelector.
                       Example: "Resource": ["${this.bucket}/*"]. Alternatively if
                       you choose to configure a different bucket you need to provide
                       bucket/resource as a string. Example: "Resource": ["mybucket/*"]'

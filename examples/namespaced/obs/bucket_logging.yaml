@@ -9,7 +9,7 @@ metadata:
   namespace: test
 spec:
   forProvider:
-    bucket: xp-test-55551215
+    bucket: xp-bucket-${Rand.RFC1123Subdomain}
     tags:
       Env: Test
       foo: bar
@@ -29,7 +29,7 @@ metadata:
   namespace: test
 spec:
   forProvider:
-    bucket: xp-test-55555-log
+    bucket: xp-bucketlog-${Rand.RFC1123Subdomain}
     forceDestroy: true
     tags:
       Env: Test

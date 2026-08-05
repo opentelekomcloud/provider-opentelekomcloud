@@ -53,7 +53,7 @@ metadata:
   namespace: test
 spec:
   forProvider:
-    bucket: xp-test-55555
+    bucket: xp-bucket-${Rand.RFC1123Subdomain}
     tags:
       Env: Test
       foo: bar

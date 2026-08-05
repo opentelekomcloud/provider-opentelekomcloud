@@ -58,7 +58,7 @@ type BucketObjectInitParameters struct {
 
 type BucketObjectObservation struct {
 
-	// Defaults to ACL=private. Use bucketobjectsacl.obs.opentelekomcloud.m.crossplane.io for ACL management. bucketobjet.obs.opentelekomcloud.m.crossplane.io can only observe ACL state, but cannot change it.
+	// Deprecated. Defaults to ACL=private. Use bucketobjectsacl.obs.opentelekomcloud.m.crossplane.io for ACL management. bucketobjet.obs.opentelekomcloud.m.crossplane.io can only observe ACL state, but cannot change it.
 	ACL *string `json:"acl,omitempty" tf:"acl,omitempty"`
 
 	// The name of the bucket to put the file in.

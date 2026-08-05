@@ -40,4 +40,4 @@ metadata:
   namespace: test
 spec:
   forProvider:
-    bucket: xp-test-678123678
+    bucket: bucket-${Rand.RFC1123Subdomain}

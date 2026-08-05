@@ -35,7 +35,7 @@ metadata:
 spec:
   forProvider:
     region: eu-de
-    bucket: xp-repl-source-1111
+    bucket: xp-source-${Rand.RFC1123Subdomain}
     tags:
       Env: Test
       foo: bar
@@ -52,7 +52,7 @@ metadata:
   namespace: test
 spec:
   forProvider:
-    bucket: xp-repl-dest-1111
+    bucket: xp-dest-${Rand.RFC1123Subdomain}
     region: eu-nl
     tags:
       Env: Test
@@ -81,4 +81,4 @@ spec:
       - allProjects: true
         roles:
           - OBS Administrator
-    name: repl_test_agency
+    name: xp-agency-${Rand.RFC1123Subdomain}

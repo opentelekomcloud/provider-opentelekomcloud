@@ -9,7 +9,7 @@ metadata:
   namespace: test
 spec:
   forProvider:
-    bucket: xp-test-something2
+    bucket: xp-bucket-${Rand.RFC1123Subdomain}
     tags:
       Env: Test
       foo: bar
@@ -32,7 +32,7 @@ metadata:
 spec:
   forProvider:
     isEnabled: true
-    keyAlias: key_test-55555
+    keyAlias: xp-key-${Rand.RFC1123Subdomain}
     keyDescription: crossplane
     pendingDays: "7"
     realm: eu-de
