@@ -140,6 +140,8 @@ jobs:
         id: run-uptest
         env:
           UPTEST_CLOUD_CREDENTIALS: ${{ secrets.UPTEST_CLOUD_CREDENTIALS }}
+          UPTEST_CLOUD_CREDENTIALS_DE: ${{ secrets.UPTEST_CLOUD_CREDENTIALS_DE }}
+          UPTEST_CLOUD_CREDENTIALS_NL: ${{ secrets.UPTEST_CLOUD_CREDENTIALS_NL }}
           #UPTEST_EXAMPLE_LIST: ${{ needs.get-example-list.outputs.example_list }}
           EXAMPLE_LIST: ${{ needs.get-example-list.outputs.example_list }}
           UPTEST_TEST_DIR: ./_output/controlplane-dump
