@@ -482,7 +482,7 @@ func (mg *BucketReplication) ResolveReferences(ctx context.Context, c client.Rea
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Agency),
-		Extract:      reference.ExternalName(),
+		Extract:      common.ExtractAgencyName(),
 		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.ForProvider.AgencyRef,
 		Selector:     mg.Spec.ForProvider.AgencySelector,
@@ -533,7 +533,7 @@ func (mg *BucketReplication) ResolveReferences(ctx context.Context, c client.Rea
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Agency),
-		Extract:      reference.ExternalName(),
+		Extract:      common.ExtractAgencyName(),
 		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.InitProvider.AgencyRef,
 		Selector:     mg.Spec.InitProvider.AgencySelector,

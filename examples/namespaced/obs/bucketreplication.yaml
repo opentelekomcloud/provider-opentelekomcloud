@@ -11,7 +11,7 @@ spec:
   forProvider:
     agencySelector:
       matchLabels:
-        testing.upbound.io/example-name: agency
+        testing.upbound.io/example-name: repl-agency
     bucketSelector:
       matchLabels:
         testing.upbound.io/example-name: repl-source
@@ -68,7 +68,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: identity/v1alpha1/agencyv3
   labels:
-    testing.upbound.io/example-name: agency
+    testing.upbound.io/example-name: repl-agency
   name: agency
   namespace: test
 spec:
@@ -81,4 +81,4 @@ spec:
       - allProjects: true
         roles:
           - OBS Administrator
-    name: test_agency
+    name: repl_test_agency

@@ -104,6 +104,7 @@ func Configure(p *config.Provider) {
 		}
 		r.References["agency"] = config.Reference{
 			TerraformName: "opentelekomcloud_identity_agency_v3",
+			Extractor:     common.AgencyNameExtractor,
 		}
 	})
 }

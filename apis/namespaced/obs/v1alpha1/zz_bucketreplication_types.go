@@ -18,6 +18,7 @@ type BucketReplicationInitParameters struct {
 
 	// Specifies the IAM agency name applied to the cross-region replication.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/identity/v1alpha1.AgencyV3
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractAgencyName()
 	Agency *string `json:"agency,omitempty" tf:"agency,omitempty"`
 
 	// Reference to a AgencyV3 in identity to populate agency.
@@ -90,6 +91,7 @@ type BucketReplicationParameters struct {
 
 	// Specifies the IAM agency name applied to the cross-region replication.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/identity/v1alpha1.AgencyV3
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractAgencyName()
 	// +kubebuilder:validation:Optional
 	Agency *string `json:"agency,omitempty" tf:"agency,omitempty"`
 
