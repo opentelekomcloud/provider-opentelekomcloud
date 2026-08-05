@@ -14,7 +14,7 @@ spec:
           "Effect": "Allow",
           "Principal": {"ID": ["*"]},
           "Action": ["GetObject", "PutObject"],
-          "Resource": ["xp-test-55555/*"]
+          "Resource": ["xp-bucket-statictest-0428/*"]
         }]
       }
 
@@ -30,7 +30,7 @@ metadata:
   namespace: test
 spec:
   forProvider:
-    bucket: xp-bucket-${Rand.RFC1123Subdomain}
+    bucket: xp-bucket-statictest-0428
     tags:
       Env: Test
       foo: bar
