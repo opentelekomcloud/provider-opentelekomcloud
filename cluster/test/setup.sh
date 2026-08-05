@@ -31,12 +31,16 @@ kind: Namespace
 metadata:
   name: test
 EOF
-
+	#TOP LEVEL PROJECT eu-de
+	${KUBECTL} -n test create secret generic provider-secret-tlp \
+		--from-literal=credentials="${UPTEST_CLOUD_CREDENTIALS}" \
+		--dry-run=client -o yaml | ${KUBECTL} apply -f -
+	#eu-de_project
 	${KUBECTL} -n test create secret generic provider-secret-de \
 		--from-literal=credentials="${UPTEST_CLOUD_CREDENTIALS_DE}" \
 		--dry-run=client -o yaml | ${KUBECTL} apply -f -
 
-	# needed for testing cross-region-replication
+	#eu-nl_project
 	${KUBECTL} -n test create secret generic provider-secret-nl \
 		--from-literal=credentials="${UPTEST_CLOUD_CREDENTIALS_NL}" \
 		--dry-run=client -o yaml | ${KUBECTL} apply -f -
@@ -47,7 +51,21 @@ EOF
 	echo "Waiting for all pods to come online..."
 	${KUBECTL} -n crossplane-system wait --for=condition=Available deployment --all --timeout=5m
 
-	echo "Creating a default provider config..."
+	echo "Creating provider config for TopLevelProject..."
+	cat <<EOF | ${KUBECTL} apply -f -
+apiVersion: opentelekomcloud.m.crossplane.io/v1beta1
+kind: ClusterProviderConfig
+metadata:
+  name: default-tlp
+spec:
+  credentials:
+    source: Secret
+    secretRef:
+      name: provider-secret-tlp
+      namespace: test
+      key: credentials
+EOF
+	echo "Creating a default provider config in eu-de..."
 	cat <<EOF | ${KUBECTL} apply -f -
 apiVersion: opentelekomcloud.m.crossplane.io/v1beta1
 kind: ClusterProviderConfig

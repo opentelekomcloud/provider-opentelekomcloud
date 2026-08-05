@@ -38,3 +38,6 @@ spec:
     realm: eu-de
     tags:
       muh: kuh
+  providerConfigRef:
+    name: default-tlp
+    kind: ClusterProviderConfig
