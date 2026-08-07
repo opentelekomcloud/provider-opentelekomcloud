@@ -1,6 +1,6 @@
 module github.com/opentelekomcloud/provider-opentelekomcloud
 
-go 1.24.7
+go 1.26.5
 
 tool golang.org/x/tools/cmd/goimports
 
