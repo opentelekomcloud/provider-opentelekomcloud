@@ -7,6 +7,10 @@ import (
 	"github.com/opentelekomcloud/provider-opentelekomcloud/config/common"
 )
 
+const (
+	tfVpcSubnetV1 = "opentelekomcloud_vpc_subnet_v1"
+)
+
 // Configure configures individual resources by adding custom ResourceConfigurators.
 func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("opentelekomcloud_cce_cluster_v3", func(r *config.Resource) {
@@ -15,19 +19,19 @@ func Configure(p *config.Provider) {
 			TerraformName: "opentelekomcloud_vpc_v1",
 		}
 		r.References["subnet_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_vpc_subnet_v1",
+			TerraformName: tfVpcSubnetV1,
 			Extractor:     common.NetworkIDExtractor,
 		}
 		r.References["highway_subnet_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_vpc_subnet_v1",
+			TerraformName: tfVpcSubnetV1,
 			Extractor:     common.NetworkIDExtractor,
 		}
 		r.References["eni_subnet_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_vpc_subnet_v1",
+			TerraformName: tfVpcSubnetV1,
 			Extractor:     common.SubnetIDExtractor,
 		}
 		r.References["eni_subnet_cidr"] = config.Reference{
-			TerraformName: "opentelekomcloud_vpc_subnet_v1",
+			TerraformName: tfVpcSubnetV1,
 			Extractor:     common.SubnetCIDRExtractor,
 		}
 		r.References["eip"] = config.Reference{
@@ -109,7 +113,7 @@ func Configure(p *config.Provider) {
 			Extractor:     common.AgencyNameExtractor,
 		}
 		r.References["subnet_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_vpc_subnet_v1",
+			TerraformName: tfVpcSubnetV1,
 			Extractor:     common.NetworkIDExtractor,
 		}
 	})

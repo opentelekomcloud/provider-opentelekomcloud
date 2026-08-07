@@ -2,12 +2,16 @@ package vpc
 
 import "github.com/crossplane/upjet/v2/pkg/config"
 
+const (
+	tfVpcV1 = "opentelekomcloud_vpc_v1"
+)
+
 // Configure configures individual resources by adding custom ResourceConfigurators.
 func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("opentelekomcloud_vpc_subnet_v1", func(r *config.Resource) {
 		r.UseAsync = true
 		r.References["vpc_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_vpc_v1",
+			TerraformName: tfVpcV1,
 		}
 	})
 	p.AddResourceConfigurator("opentelekomcloud_vpc_v1", func(r *config.Resource) {
@@ -26,7 +30,7 @@ func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("opentelekomcloud_vpc_flow_log_v1", func(r *config.Resource) {
 		r.UseAsync = true
 		r.References["resource_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_vpc_v1",
+			TerraformName: tfVpcV1,
 		}
 		r.References["log_group_id"] = config.Reference{
 			TerraformName: "opentelekomcloud_logtank_group_v2",
@@ -38,10 +42,10 @@ func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("opentelekomcloud_vpc_peering_connection_v2", func(r *config.Resource) {
 		r.UseAsync = true
 		r.References["vpc_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_vpc_v1",
+			TerraformName: tfVpcV1,
 		}
 		r.References["peer_vpc_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_vpc_v1",
+			TerraformName: tfVpcV1,
 		}
 	})
 	p.AddResourceConfigurator("opentelekomcloud_vpc_peering_connection_accepter_v2", func(r *config.Resource) {
@@ -53,19 +57,19 @@ func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("opentelekomcloud_vpc_route_v2", func(r *config.Resource) {
 		r.UseAsync = true
 		r.References["vpc_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_vpc_v1",
+			TerraformName: tfVpcV1,
 		}
 	})
 	p.AddResourceConfigurator("opentelekomcloud_vpc_route_table_v1", func(r *config.Resource) {
 		r.UseAsync = true
 		r.References["vpc_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_vpc_v1",
+			TerraformName: tfVpcV1,
 		}
 	})
 	p.AddResourceConfigurator("opentelekomcloud_vpc_secondary_cidr_v3", func(r *config.Resource) {
 		r.UseAsync = true
 		r.References["vpc_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_vpc_v1",
+			TerraformName: tfVpcV1,
 		}
 	})
 	p.AddResourceConfigurator("opentelekomcloud_vpc_secgroup_rule_v3", func(r *config.Resource) {

@@ -6,6 +6,11 @@ import (
 	"github.com/opentelekomcloud/provider-opentelekomcloud/config/common"
 )
 
+const (
+	tfLbPoolV3          = "opentelekomcloud_lb_pool_v3"
+	tfIdentityProjectV3 = "opentelekomcloud_identity_project_v3"
+)
+
 // Configure configures individual resources by adding custom ResourceConfigurators.
 func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("opentelekomcloud_lb_loadbalancer_v3", func(r *config.Resource) {
@@ -33,7 +38,7 @@ func Configure(p *config.Provider) {
 			TerraformName: "opentelekomcloud_lb_certificate_v3",
 		}
 		r.References["default_pool_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_lb_pool_v3",
+			TerraformName: tfLbPoolV3,
 		}
 		r.References["ip_group.id"] = config.Reference{
 			TerraformName: "opentelekomcloud_lb_ipgroup_v3",
@@ -45,7 +50,7 @@ func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("opentelekomcloud_lb_pool_v3", func(r *config.Resource) {
 		r.UseAsync = true
 		r.References["project_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_identity_project_v3",
+			TerraformName: tfIdentityProjectV3,
 		}
 		r.References["listener_id"] = config.Reference{
 			TerraformName: "opentelekomcloud_lb_listener_v3",
@@ -60,10 +65,10 @@ func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("opentelekomcloud_lb_member_v3", func(r *config.Resource) {
 		r.UseAsync = true
 		r.References["project_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_identity_project_v3",
+			TerraformName: tfIdentityProjectV3,
 		}
 		r.References["pool_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_lb_pool_v3",
+			TerraformName: tfLbPoolV3,
 		}
 		r.References["subnet_id"] = config.Reference{
 			TerraformName: "opentelekomcloud_vpc_subnet_v1",
@@ -72,7 +77,7 @@ func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("opentelekomcloud_lb_ipgroup_v3", func(r *config.Resource) {
 		r.UseAsync = true
 		r.References["project_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_identity_project_v3",
+			TerraformName: tfIdentityProjectV3,
 		}
 		r.References["ip_list.ip"] = config.Reference{
 			TerraformName: "opentelekomcloud_vpc_eip_v1",
@@ -82,16 +87,16 @@ func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("opentelekomcloud_lb_monitor_v3", func(r *config.Resource) {
 		r.UseAsync = true
 		r.References["pool_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_lb_pool_v3",
+			TerraformName: tfLbPoolV3,
 		}
 		r.References["project_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_identity_project_v3",
+			TerraformName: tfIdentityProjectV3,
 		}
 	})
 	p.AddResourceConfigurator("opentelekomcloud_lb_policy_v3", func(r *config.Resource) {
 		r.UseAsync = true
 		r.References["project_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_identity_project_v3",
+			TerraformName: tfIdentityProjectV3,
 		}
 		r.References["listener_id"] = config.Reference{
 			TerraformName: "opentelekomcloud_lb_listener_v3",
@@ -100,10 +105,10 @@ func Configure(p *config.Provider) {
 			TerraformName: "opentelekomcloud_lb_listener_v3",
 		}
 		r.References["redirect_pool_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_lb_pool_v3",
+			TerraformName: tfLbPoolV3,
 		}
 		r.References["redirect_pools_config.pool_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_lb_pool_v3",
+			TerraformName: tfLbPoolV3,
 		}
 	})
 	p.AddResourceConfigurator("opentelekomcloud_lb_rule_v3", func(r *config.Resource) {
@@ -112,13 +117,13 @@ func Configure(p *config.Provider) {
 			TerraformName: "opentelekomcloud_lb_policy_v3",
 		}
 		r.References["project_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_identity_project_v3",
+			TerraformName: tfIdentityProjectV3,
 		}
 	})
 	p.AddResourceConfigurator("opentelekomcloud_lb_security_policy_v3", func(r *config.Resource) {
 		r.UseAsync = true
 		r.References["project_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_identity_project_v3",
+			TerraformName: tfIdentityProjectV3,
 		}
 		r.References["listener_ids"] = config.Reference{
 			TerraformName: "opentelekomcloud_lb_listener_v3",
