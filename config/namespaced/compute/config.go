@@ -24,7 +24,7 @@ func Configure(p *config.Provider) {
 		}
 		r.References["network.name"] = config.Reference{
 			TerraformName: "opentelekomcloud_networking_network_v2",
-			Extractor:     common.NetworkingNetworkExtractor,
+			Extractor:     common.NetworkingNetworkNameExtractor,
 		}
 	})
 	p.AddResourceConfigurator("opentelekomcloud_compute_keypair_v2", func(r *config.Resource) {

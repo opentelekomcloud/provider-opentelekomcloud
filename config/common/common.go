@@ -50,7 +50,7 @@ const (
 	// in this package.
 	UsernameExtractor = SelfPackagePath + ".ExtractUsername()"
 
-	NetworkingNetworkExtractor = SelfPackagePath + ".ExtractNetworkingNetworkName()"
+	NetworkingNetworkNameExtractor = SelfPackagePath + ".ExtractNetworkingNetworkName()"
 )
 
 // getStringFromMap safely returns a non-empty string value for a key.
