@@ -49,6 +49,8 @@ const (
 	// UsernameExtractor is the golang path to ExtractUsername function
 	// in this package.
 	UsernameExtractor = SelfPackagePath + ".ExtractUsername()"
+
+	NetworkingNetworkExtractor = SelfPackagePath + ".ExtractNetworkingNetworkName()"
 )
 
 // getStringFromMap safely returns a non-empty string value for a key.
@@ -91,6 +93,24 @@ func ExtractNetworkID() xpref.ExtractValueFn {
 		}
 
 		if k := o["network_id"]; k != nil {
+			return k.(string)
+		}
+		return ""
+	}
+}
+
+func ExtractNetworkingNetworkName() xpref.ExtractValueFn {
+	return func(mr xpresource.Managed) string {
+		tr, ok := mr.(resource.Observable)
+		if !ok {
+			return ""
+		}
+		o, err := tr.GetObservation()
+		if err != nil {
+			return ""
+		}
+
+		if k := o["name"]; k != nil {
 			return k.(string)
 		}
 		return ""

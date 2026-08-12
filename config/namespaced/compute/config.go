@@ -22,6 +22,10 @@ func Configure(p *config.Provider) {
 		r.References["network.uuid"] = config.Reference{
 			TerraformName: "opentelekomcloud_networking_network_v2",
 		}
+		r.References["network.name"] = config.Reference{
+			TerraformName: "opentelekomcloud_networking_network_v2",
+			Extractor:     common.NetworkingNetworkExtractor,
+		}
 	})
 	p.AddResourceConfigurator("opentelekomcloud_compute_keypair_v2", func(r *config.Resource) {
 		r.UseAsync = true
