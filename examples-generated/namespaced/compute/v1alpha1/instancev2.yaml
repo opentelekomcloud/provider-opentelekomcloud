@@ -18,7 +18,9 @@ spec:
       this: that
     name: basic
     network:
-    - name: my_network
+    - nameSelector:
+        matchLabels:
+          testing.upbound.io/example-name: example
     securityGroupsRefs:
     - name: example
     tags:

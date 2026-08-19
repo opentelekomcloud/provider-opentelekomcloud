@@ -506,7 +506,17 @@ type NetworkInitParameters struct {
 
 	// The human-readable name of the network. Changing this creates
 	// a new server.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/networking/v1alpha1.NetworkV2
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractNetworkingNetworkName()
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// Reference to a NetworkV2 in networking to populate name.
+	// +kubebuilder:validation:Optional
+	NameRef *v1.NamespacedReference `json:"nameRef,omitempty" tf:"-"`
+
+	// Selector for a NetworkV2 in networking to populate name.
+	// +kubebuilder:validation:Optional
+	NameSelector *v1.NamespacedSelector `json:"nameSelector,omitempty" tf:"-"`
 
 	// The port UUID of a network to attach to the server. Changing
 	// this creates a new server.
@@ -574,8 +584,18 @@ type NetworkParameters struct {
 
 	// The human-readable name of the network. Changing this creates
 	// a new server.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/networking/v1alpha1.NetworkV2
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractNetworkingNetworkName()
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// Reference to a NetworkV2 in networking to populate name.
+	// +kubebuilder:validation:Optional
+	NameRef *v1.NamespacedReference `json:"nameRef,omitempty" tf:"-"`
+
+	// Selector for a NetworkV2 in networking to populate name.
+	// +kubebuilder:validation:Optional
+	NameSelector *v1.NamespacedSelector `json:"nameSelector,omitempty" tf:"-"`
 
 	// The port UUID of a network to attach to the server. Changing
 	// this creates a new server.

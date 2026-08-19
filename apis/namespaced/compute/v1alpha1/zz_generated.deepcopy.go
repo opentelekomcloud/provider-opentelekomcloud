@@ -1579,6 +1579,16 @@ func (in *NetworkInitParameters) DeepCopyInto(out *NetworkInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.NameRef != nil {
+		in, out := &in.NameRef, &out.NameRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.NameSelector != nil {
+		in, out := &in.NameSelector, &out.NameSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Port != nil {
 		in, out := &in.Port, &out.Port
 		*out = new(string)
@@ -1683,6 +1693,16 @@ func (in *NetworkParameters) DeepCopyInto(out *NetworkParameters) {
 		in, out := &in.Name, &out.Name
 		*out = new(string)
 		**out = **in
+	}
+	if in.NameRef != nil {
+		in, out := &in.NameRef, &out.NameRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.NameSelector != nil {
+		in, out := &in.NameSelector, &out.NameSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Port != nil {
 		in, out := &in.Port, &out.Port

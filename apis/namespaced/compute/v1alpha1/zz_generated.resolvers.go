@@ -140,6 +140,25 @@ func (mg *InstanceV2) ResolveReferences(ctx context.Context, c client.Reader) er
 
 	for i3 := 0; i3 < len(mg.Spec.ForProvider.Network); i3++ {
 		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Network[i3].Name),
+			Extract:      common.ExtractNetworkingNetworkName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.Network[i3].NameRef,
+			Selector:     mg.Spec.ForProvider.Network[i3].NameSelector,
+			To: reference.To{
+				List:    &v1alpha1.NetworkV2List{},
+				Managed: &v1alpha1.NetworkV2{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.Network[i3].Name")
+		}
+		mg.Spec.ForProvider.Network[i3].Name = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.Network[i3].NameRef = rsp.ResolvedReference
+
+	}
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.Network); i3++ {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Network[i3].UUID),
 			Extract:      reference.ExternalName(),
 			Namespace:    mg.GetNamespace(),
@@ -210,6 +229,25 @@ func (mg *InstanceV2) ResolveReferences(ctx context.Context, c client.Reader) er
 	mg.Spec.InitProvider.KeyPair = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.InitProvider.KeyPairRef = rsp.ResolvedReference
 
+	for i3 := 0; i3 < len(mg.Spec.InitProvider.Network); i3++ {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Network[i3].Name),
+			Extract:      common.ExtractNetworkingNetworkName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.Network[i3].NameRef,
+			Selector:     mg.Spec.InitProvider.Network[i3].NameSelector,
+			To: reference.To{
+				List:    &v1alpha1.NetworkV2List{},
+				Managed: &v1alpha1.NetworkV2{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.InitProvider.Network[i3].Name")
+		}
+		mg.Spec.InitProvider.Network[i3].Name = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.InitProvider.Network[i3].NameRef = rsp.ResolvedReference
+
+	}
 	for i3 := 0; i3 < len(mg.Spec.InitProvider.Network); i3++ {
 		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Network[i3].UUID),
