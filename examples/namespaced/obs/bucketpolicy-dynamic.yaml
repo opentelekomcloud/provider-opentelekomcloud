@@ -1,0 +1,36 @@
+apiVersion: obs.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: BucketPolicy
+metadata:
+  name: xp-bucket-policy-dynamic
+  namespace: test
+spec:
+  forProvider:
+    bucketSelector:
+      matchLabels:
+        testing.upbound.io/example-name: b
+    policy: |
+      {
+        "Statement": [{
+          "Effect": "Allow",
+          "Principal": {"ID": ["*"]},
+          "Action": ["GetObject", "PutObject"],
+          "Resource": ["${this.bucket}/*"]
+        }]
+      }
+
+---
+apiVersion: obs.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: Bucket
+metadata:
+  annotations:
+    meta.upbound.io/example-id: obs/v1alpha1/bucket
+  labels:
+    testing.upbound.io/example-name: b
+  name: xp-bucket-policy-dynamic-bucket
+  namespace: test
+spec:
+  forProvider:
+    bucket: xp-bucket-${Rand.RFC1123Subdomain}
+    tags:
+      Env: Test
+      foo: bar

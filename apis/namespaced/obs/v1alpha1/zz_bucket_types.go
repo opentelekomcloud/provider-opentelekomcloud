@@ -38,12 +38,6 @@ type AbortIncompleteMultipartUploadParameters struct {
 
 type BucketInitParameters struct {
 
-	// Specifies the canned ACL policy for a bucket. Supported values are:
-	// private, public-read, public-read-write and log-delivery-write. Defaults to private.
-	// Drift is detected for these canned ACLs during refresh. For custom ACL grants, use
-	// opentelekomcloud_obs_bucket_acl.
-	ACL *string `json:"acl,omitempty" tf:"acl,omitempty"`
-
 	// Specifies the name of the bucket. Changing this parameter will create a new resource.
 	// A bucket must be named according to the globally applied DNS naming regulations as follows:
 	Bucket *string `json:"bucket,omitempty" tf:"bucket,omitempty"`
@@ -102,10 +96,7 @@ type BucketInitParameters struct {
 
 type BucketObservation struct {
 
-	// Specifies the canned ACL policy for a bucket. Supported values are:
-	// private, public-read, public-read-write and log-delivery-write. Defaults to private.
-	// Drift is detected for these canned ACLs during refresh. For custom ACL grants, use
-	// opentelekomcloud_obs_bucket_acl.
+	// Deprecated, defaults to ACL=private. Use bucketacls.obs.opentelekomcloud.m.crossplane.io for ACL management. buckets.obs.opentelekomcloud.m.crossplane.io can only observe ACL state, but cannot change it.
 	ACL *string `json:"acl,omitempty" tf:"acl,omitempty"`
 
 	// Specifies the name of the bucket. Changing this parameter will create a new resource.
@@ -174,13 +165,6 @@ type BucketObservation struct {
 }
 
 type BucketParameters struct {
-
-	// Specifies the canned ACL policy for a bucket. Supported values are:
-	// private, public-read, public-read-write and log-delivery-write. Defaults to private.
-	// Drift is detected for these canned ACLs during refresh. For custom ACL grants, use
-	// opentelekomcloud_obs_bucket_acl.
-	// +kubebuilder:validation:Optional
-	ACL *string `json:"acl,omitempty" tf:"acl,omitempty"`
 
 	// Specifies the name of the bucket. Changing this parameter will create a new resource.
 	// A bucket must be named according to the globally applied DNS naming regulations as follows:
@@ -340,7 +324,16 @@ type EventNotificationsInitParameters struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// URN of the event notification topic. After detecting a specific event, OBS sends a message to the topic.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/smn/v1alpha1.TopicV2
 	Topic *string `json:"topic,omitempty" tf:"topic,omitempty"`
+
+	// Reference to a TopicV2 in smn to populate topic.
+	// +kubebuilder:validation:Optional
+	TopicRef *v1.NamespacedReference `json:"topicRef,omitempty" tf:"-"`
+
+	// Selector for a TopicV2 in smn to populate topic.
+	// +kubebuilder:validation:Optional
+	TopicSelector *v1.NamespacedSelector `json:"topicSelector,omitempty" tf:"-"`
 }
 
 type EventNotificationsObservation struct {
@@ -375,8 +368,17 @@ type EventNotificationsParameters struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// URN of the event notification topic. After detecting a specific event, OBS sends a message to the topic.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/smn/v1alpha1.TopicV2
 	// +kubebuilder:validation:Optional
-	Topic *string `json:"topic" tf:"topic,omitempty"`
+	Topic *string `json:"topic,omitempty" tf:"topic,omitempty"`
+
+	// Reference to a TopicV2 in smn to populate topic.
+	// +kubebuilder:validation:Optional
+	TopicRef *v1.NamespacedReference `json:"topicRef,omitempty" tf:"-"`
+
+	// Selector for a TopicV2 in smn to populate topic.
+	// +kubebuilder:validation:Optional
+	TopicSelector *v1.NamespacedSelector `json:"topicSelector,omitempty" tf:"-"`
 }
 
 type ExpirationInitParameters struct {
@@ -556,11 +558,31 @@ type LifecycleRuleParameters struct {
 type LoggingInitParameters struct {
 
 	// Specifies the IAM agency of OBS cloud service.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/identity/v1alpha1.AgencyV3
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractAgencyName()
 	Agency *string `json:"agency,omitempty" tf:"agency,omitempty"`
+
+	// Reference to a AgencyV3 in identity to populate agency.
+	// +kubebuilder:validation:Optional
+	AgencyRef *v1.NamespacedReference `json:"agencyRef,omitempty" tf:"-"`
+
+	// Selector for a AgencyV3 in identity to populate agency.
+	// +kubebuilder:validation:Optional
+	AgencySelector *v1.NamespacedSelector `json:"agencySelector,omitempty" tf:"-"`
 
 	// The name of the bucket that will receive the log objects.
 	// The acl policy of the target bucket should be log-delivery-write.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/obs/v1alpha1.Bucket
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractObsBucket()
 	TargetBucket *string `json:"targetBucket,omitempty" tf:"target_bucket,omitempty"`
+
+	// Reference to a Bucket in obs to populate targetBucket.
+	// +kubebuilder:validation:Optional
+	TargetBucketRef *v1.NamespacedReference `json:"targetBucketRef,omitempty" tf:"-"`
+
+	// Selector for a Bucket in obs to populate targetBucket.
+	// +kubebuilder:validation:Optional
+	TargetBucketSelector *v1.NamespacedSelector `json:"targetBucketSelector,omitempty" tf:"-"`
 
 	// To specify a key prefix for log objects.
 	TargetPrefix *string `json:"targetPrefix,omitempty" tf:"target_prefix,omitempty"`
@@ -582,13 +604,33 @@ type LoggingObservation struct {
 type LoggingParameters struct {
 
 	// Specifies the IAM agency of OBS cloud service.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/identity/v1alpha1.AgencyV3
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractAgencyName()
 	// +kubebuilder:validation:Optional
 	Agency *string `json:"agency,omitempty" tf:"agency,omitempty"`
 
+	// Reference to a AgencyV3 in identity to populate agency.
+	// +kubebuilder:validation:Optional
+	AgencyRef *v1.NamespacedReference `json:"agencyRef,omitempty" tf:"-"`
+
+	// Selector for a AgencyV3 in identity to populate agency.
+	// +kubebuilder:validation:Optional
+	AgencySelector *v1.NamespacedSelector `json:"agencySelector,omitempty" tf:"-"`
+
 	// The name of the bucket that will receive the log objects.
 	// The acl policy of the target bucket should be log-delivery-write.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/obs/v1alpha1.Bucket
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractObsBucket()
 	// +kubebuilder:validation:Optional
-	TargetBucket *string `json:"targetBucket" tf:"target_bucket,omitempty"`
+	TargetBucket *string `json:"targetBucket,omitempty" tf:"target_bucket,omitempty"`
+
+	// Reference to a Bucket in obs to populate targetBucket.
+	// +kubebuilder:validation:Optional
+	TargetBucketRef *v1.NamespacedReference `json:"targetBucketRef,omitempty" tf:"-"`
+
+	// Selector for a Bucket in obs to populate targetBucket.
+	// +kubebuilder:validation:Optional
+	TargetBucketSelector *v1.NamespacedSelector `json:"targetBucketSelector,omitempty" tf:"-"`
 
 	// To specify a key prefix for log objects.
 	// +kubebuilder:validation:Optional
@@ -658,10 +700,21 @@ type ServerSideEncryptionInitParameters struct {
 	Algorithm *string `json:"algorithm,omitempty" tf:"algorithm,omitempty"`
 
 	// The ID of KMS key used for the encryption. If not specified, the default master key will be used.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/kms/v1alpha1.KeyV1
+	// +crossplane:generate:reference:refFieldName=KMSSelectorRef
+	// +crossplane:generate:reference:selectorFieldName=KMSSelector
 	KMSKeyID *string `json:"kmsKeyId,omitempty" tf:"kms_key_id,omitempty"`
 
 	// The ID of the project where the KMS master key belongs.
 	KMSProjectID *string `json:"kmsProjectId,omitempty" tf:"kms_project_id,omitempty"`
+
+	// Selector for a KeyV1 in kms to populate kmsKeyId.
+	// +kubebuilder:validation:Optional
+	KMSSelector *v1.NamespacedSelector `json:"kmsSelector,omitempty" tf:"-"`
+
+	// Reference to a KeyV1 in kms to populate kmsKeyId.
+	// +kubebuilder:validation:Optional
+	KMSSelectorRef *v1.NamespacedReference `json:"kmsSelectorRef,omitempty" tf:"-"`
 }
 
 type ServerSideEncryptionObservation struct {
@@ -683,12 +736,23 @@ type ServerSideEncryptionParameters struct {
 	Algorithm *string `json:"algorithm" tf:"algorithm,omitempty"`
 
 	// The ID of KMS key used for the encryption. If not specified, the default master key will be used.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/kms/v1alpha1.KeyV1
+	// +crossplane:generate:reference:refFieldName=KMSSelectorRef
+	// +crossplane:generate:reference:selectorFieldName=KMSSelector
 	// +kubebuilder:validation:Optional
 	KMSKeyID *string `json:"kmsKeyId,omitempty" tf:"kms_key_id,omitempty"`
 
 	// The ID of the project where the KMS master key belongs.
 	// +kubebuilder:validation:Optional
 	KMSProjectID *string `json:"kmsProjectId,omitempty" tf:"kms_project_id,omitempty"`
+
+	// Selector for a KeyV1 in kms to populate kmsKeyId.
+	// +kubebuilder:validation:Optional
+	KMSSelector *v1.NamespacedSelector `json:"kmsSelector,omitempty" tf:"-"`
+
+	// Reference to a KeyV1 in kms to populate kmsKeyId.
+	// +kubebuilder:validation:Optional
+	KMSSelectorRef *v1.NamespacedReference `json:"kmsSelectorRef,omitempty" tf:"-"`
 }
 
 type TagInitParameters struct {

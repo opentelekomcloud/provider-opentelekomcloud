@@ -17,7 +17,17 @@ import (
 type BucketInventoryInitParameters struct {
 
 	// Name of the bucket for saving inventories.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/obs/v1alpha1.Bucket
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractObsBucket()
 	Bucket *string `json:"bucket,omitempty" tf:"bucket,omitempty"`
+
+	// Reference to a Bucket in obs to populate bucket.
+	// +kubebuilder:validation:Optional
+	BucketRef *v1.NamespacedReference `json:"bucketRef,omitempty" tf:"-"`
+
+	// Selector for a Bucket in obs to populate bucket.
+	// +kubebuilder:validation:Optional
+	BucketSelector *v1.NamespacedSelector `json:"bucketSelector,omitempty" tf:"-"`
 
 	// ID of the inventory configuration. Valid characters: letters, digits, hyphens (-),
 	// periods (.) and underscores (_).
@@ -90,8 +100,18 @@ type BucketInventoryObservation struct {
 type BucketInventoryParameters struct {
 
 	// Name of the bucket for saving inventories.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/obs/v1alpha1.Bucket
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractObsBucket()
 	// +kubebuilder:validation:Optional
 	Bucket *string `json:"bucket,omitempty" tf:"bucket,omitempty"`
+
+	// Reference to a Bucket in obs to populate bucket.
+	// +kubebuilder:validation:Optional
+	BucketRef *v1.NamespacedReference `json:"bucketRef,omitempty" tf:"-"`
+
+	// Selector for a Bucket in obs to populate bucket.
+	// +kubebuilder:validation:Optional
+	BucketSelector *v1.NamespacedSelector `json:"bucketSelector,omitempty" tf:"-"`
 
 	// ID of the inventory configuration. Valid characters: letters, digits, hyphens (-),
 	// periods (.) and underscores (_).
@@ -132,7 +152,17 @@ type BucketInventoryParameters struct {
 type DestinationInitParameters struct {
 
 	// Name of the bucket for saving inventories.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/obs/v1alpha1.Bucket
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractObsBucket()
 	Bucket *string `json:"bucket,omitempty" tf:"bucket,omitempty"`
+
+	// Reference to a Bucket in obs to populate bucket.
+	// +kubebuilder:validation:Optional
+	BucketRef *v1.NamespacedReference `json:"bucketRef,omitempty" tf:"-"`
+
+	// Selector for a Bucket in obs to populate bucket.
+	// +kubebuilder:validation:Optional
+	BucketSelector *v1.NamespacedSelector `json:"bucketSelector,omitempty" tf:"-"`
 
 	// Inventory format. Only the CSV format is supported.
 	Format *string `json:"format,omitempty" tf:"format,omitempty"`
@@ -156,8 +186,18 @@ type DestinationObservation struct {
 type DestinationParameters struct {
 
 	// Name of the bucket for saving inventories.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/obs/v1alpha1.Bucket
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractObsBucket()
 	// +kubebuilder:validation:Optional
-	Bucket *string `json:"bucket" tf:"bucket,omitempty"`
+	Bucket *string `json:"bucket,omitempty" tf:"bucket,omitempty"`
+
+	// Reference to a Bucket in obs to populate bucket.
+	// +kubebuilder:validation:Optional
+	BucketRef *v1.NamespacedReference `json:"bucketRef,omitempty" tf:"-"`
+
+	// Selector for a Bucket in obs to populate bucket.
+	// +kubebuilder:validation:Optional
+	BucketSelector *v1.NamespacedSelector `json:"bucketSelector,omitempty" tf:"-"`
 
 	// Inventory format. Only the CSV format is supported.
 	// +kubebuilder:validation:Optional
@@ -204,7 +244,6 @@ type BucketInventoryStatus struct {
 type BucketInventory struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.bucket) || (has(self.initProvider) && has(self.initProvider.bucket))",message="spec.forProvider.bucket is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.configurationId) || (has(self.initProvider) && has(self.initProvider.configurationId))",message="spec.forProvider.configurationId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.destination) || (has(self.initProvider) && has(self.initProvider.destination))",message="spec.forProvider.destination is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.frequency) || (has(self.initProvider) && has(self.initProvider.frequency))",message="spec.forProvider.frequency is a required parameter"

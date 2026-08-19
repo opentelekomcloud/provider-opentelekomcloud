@@ -17,9 +17,19 @@ import (
 type BucketPolicyInitParameters struct {
 
 	// The name of the bucket to which to apply the policy.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/obs/v1alpha1.Bucket
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractObsBucket()
 	Bucket *string `json:"bucket,omitempty" tf:"bucket,omitempty"`
 
-	// The text of the policy.
+	// Reference to a Bucket in obs to populate bucket.
+	// +kubebuilder:validation:Optional
+	BucketRef *v1.NamespacedReference `json:"bucketRef,omitempty" tf:"-"`
+
+	// Selector for a Bucket in obs to populate bucket.
+	// +kubebuilder:validation:Optional
+	BucketSelector *v1.NamespacedSelector `json:"bucketSelector,omitempty" tf:"-"`
+
+	// The text of the policy. Supports dynamic value substitution for Resource using the placeholder ${this.bucket} which will be replaced with the resolved bucket name from spec.forProvider.bucketSelector. Example: "Resource": ["${this.bucket}/*"]. Alternatively if you choose to configure a different bucket you need to provide bucket/resource as a string. Example: "Resource": ["mybucket/*"]
 	Policy *string `json:"policy,omitempty" tf:"policy,omitempty"`
 }
 
@@ -30,17 +40,27 @@ type BucketPolicyObservation struct {
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// The text of the policy.
+	// The text of the policy. Supports dynamic value substitution for Resource using the placeholder ${this.bucket} which will be replaced with the resolved bucket name from spec.forProvider.bucketSelector. Example: "Resource": ["${this.bucket}/*"]. Alternatively if you choose to configure a different bucket you need to provide bucket/resource as a string. Example: "Resource": ["mybucket/*"]
 	Policy *string `json:"policy,omitempty" tf:"policy,omitempty"`
 }
 
 type BucketPolicyParameters struct {
 
 	// The name of the bucket to which to apply the policy.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/obs/v1alpha1.Bucket
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractObsBucket()
 	// +kubebuilder:validation:Optional
 	Bucket *string `json:"bucket,omitempty" tf:"bucket,omitempty"`
 
-	// The text of the policy.
+	// Reference to a Bucket in obs to populate bucket.
+	// +kubebuilder:validation:Optional
+	BucketRef *v1.NamespacedReference `json:"bucketRef,omitempty" tf:"-"`
+
+	// Selector for a Bucket in obs to populate bucket.
+	// +kubebuilder:validation:Optional
+	BucketSelector *v1.NamespacedSelector `json:"bucketSelector,omitempty" tf:"-"`
+
+	// The text of the policy. Supports dynamic value substitution for Resource using the placeholder ${this.bucket} which will be replaced with the resolved bucket name from spec.forProvider.bucketSelector. Example: "Resource": ["${this.bucket}/*"]. Alternatively if you choose to configure a different bucket you need to provide bucket/resource as a string. Example: "Resource": ["mybucket/*"]
 	// +kubebuilder:validation:Optional
 	Policy *string `json:"policy,omitempty" tf:"policy,omitempty"`
 }
@@ -81,7 +101,6 @@ type BucketPolicyStatus struct {
 type BucketPolicy struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.bucket) || (has(self.initProvider) && has(self.initProvider.bucket))",message="spec.forProvider.bucket is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.policy) || (has(self.initProvider) && has(self.initProvider.policy))",message="spec.forProvider.policy is a required parameter"
 	Spec   BucketPolicySpec   `json:"spec"`
 	Status BucketPolicyStatus `json:"status,omitempty"`

@@ -5,11 +5,11 @@ metadata:
     meta.upbound.io/example-id: obs/v1alpha1/bucket
   labels:
     testing.upbound.io/example-name: b
-  name: b
-  namespace: upbound-system
+  name: xp-bucket
+  namespace: test
 spec:
   forProvider:
-    bucket: my-tf-test-bucket
+    bucket: xp-test-${Rand.RFC1123Subdomain}
     tags:
       Env: Test
       foo: bar

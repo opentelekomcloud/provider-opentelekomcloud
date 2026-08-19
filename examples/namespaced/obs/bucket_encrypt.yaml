@@ -1,0 +1,43 @@
+apiVersion: obs.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: Bucket
+metadata:
+  annotations:
+    meta.upbound.io/example-id: obs/v1alpha1/bucket
+  labels:
+    testing.upbound.io/example-name: b
+  name: xp-bucket-encrypt
+  namespace: test
+spec:
+  forProvider:
+    bucket: xp-bucket-${Rand.RFC1123Subdomain}
+    tags:
+      Env: Test
+      foo: bar
+    serverSideEncryption:
+      - kmsSelector:
+          matchLabels:
+            testing.upbound.io/example-name: key_test
+        algorithm: kms
+
+---
+apiVersion: kms.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: KeyV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: kms/v1alpha1/keyv1
+  labels:
+    testing.upbound.io/example-name: key_test
+  name: xp-bucket-encrypt-key
+  namespace: test
+spec:
+  forProvider:
+    isEnabled: true
+    keyAlias: xp-key-${Rand.RFC1123Subdomain}
+    keyDescription: crossplane
+    pendingDays: "7"
+    realm: eu-de
+    tags:
+      muh: kuh
+  providerConfigRef:
+    name: default-tlp
+    kind: ClusterProviderConfig

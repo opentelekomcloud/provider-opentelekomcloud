@@ -17,13 +17,43 @@ import (
 type BucketReplicationInitParameters struct {
 
 	// Specifies the IAM agency name applied to the cross-region replication.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/identity/v1alpha1.AgencyV3
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractAgencyName()
 	Agency *string `json:"agency,omitempty" tf:"agency,omitempty"`
 
+	// Reference to a AgencyV3 in identity to populate agency.
+	// +kubebuilder:validation:Optional
+	AgencyRef *v1.NamespacedReference `json:"agencyRef,omitempty" tf:"-"`
+
+	// Selector for a AgencyV3 in identity to populate agency.
+	// +kubebuilder:validation:Optional
+	AgencySelector *v1.NamespacedSelector `json:"agencySelector,omitempty" tf:"-"`
+
 	// Specifies the name of the source bucket.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/obs/v1alpha1.Bucket
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractObsBucket()
 	Bucket *string `json:"bucket,omitempty" tf:"bucket,omitempty"`
 
+	// Reference to a Bucket in obs to populate bucket.
+	// +kubebuilder:validation:Optional
+	BucketRef *v1.NamespacedReference `json:"bucketRef,omitempty" tf:"-"`
+
+	// Selector for a Bucket in obs to populate bucket.
+	// +kubebuilder:validation:Optional
+	BucketSelector *v1.NamespacedSelector `json:"bucketSelector,omitempty" tf:"-"`
+
 	// Specifies the name of the destination bucket.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/obs/v1alpha1.Bucket
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractObsBucket()
 	DestinationBucket *string `json:"destinationBucket,omitempty" tf:"destination_bucket,omitempty"`
+
+	// Reference to a Bucket in obs to populate destinationBucket.
+	// +kubebuilder:validation:Optional
+	DestinationBucketRef *v1.NamespacedReference `json:"destinationBucketRef,omitempty" tf:"-"`
+
+	// Selector for a Bucket in obs to populate destinationBucket.
+	// +kubebuilder:validation:Optional
+	DestinationBucketSelector *v1.NamespacedSelector `json:"destinationBucketSelector,omitempty" tf:"-"`
 
 	// Specifies the region in which to create the resource.
 	// If omitted, the provider-level region will be used.
@@ -60,16 +90,46 @@ type BucketReplicationObservation struct {
 type BucketReplicationParameters struct {
 
 	// Specifies the IAM agency name applied to the cross-region replication.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/identity/v1alpha1.AgencyV3
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractAgencyName()
 	// +kubebuilder:validation:Optional
 	Agency *string `json:"agency,omitempty" tf:"agency,omitempty"`
 
+	// Reference to a AgencyV3 in identity to populate agency.
+	// +kubebuilder:validation:Optional
+	AgencyRef *v1.NamespacedReference `json:"agencyRef,omitempty" tf:"-"`
+
+	// Selector for a AgencyV3 in identity to populate agency.
+	// +kubebuilder:validation:Optional
+	AgencySelector *v1.NamespacedSelector `json:"agencySelector,omitempty" tf:"-"`
+
 	// Specifies the name of the source bucket.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/obs/v1alpha1.Bucket
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractObsBucket()
 	// +kubebuilder:validation:Optional
 	Bucket *string `json:"bucket,omitempty" tf:"bucket,omitempty"`
 
+	// Reference to a Bucket in obs to populate bucket.
+	// +kubebuilder:validation:Optional
+	BucketRef *v1.NamespacedReference `json:"bucketRef,omitempty" tf:"-"`
+
+	// Selector for a Bucket in obs to populate bucket.
+	// +kubebuilder:validation:Optional
+	BucketSelector *v1.NamespacedSelector `json:"bucketSelector,omitempty" tf:"-"`
+
 	// Specifies the name of the destination bucket.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/obs/v1alpha1.Bucket
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractObsBucket()
 	// +kubebuilder:validation:Optional
 	DestinationBucket *string `json:"destinationBucket,omitempty" tf:"destination_bucket,omitempty"`
+
+	// Reference to a Bucket in obs to populate destinationBucket.
+	// +kubebuilder:validation:Optional
+	DestinationBucketRef *v1.NamespacedReference `json:"destinationBucketRef,omitempty" tf:"-"`
+
+	// Selector for a Bucket in obs to populate destinationBucket.
+	// +kubebuilder:validation:Optional
+	DestinationBucketSelector *v1.NamespacedSelector `json:"destinationBucketSelector,omitempty" tf:"-"`
 
 	// Specifies the region in which to create the resource.
 	// If omitted, the provider-level region will be used.
@@ -201,11 +261,8 @@ type BucketReplicationStatus struct {
 type BucketReplication struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.agency) || (has(self.initProvider) && has(self.initProvider.agency))",message="spec.forProvider.agency is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.bucket) || (has(self.initProvider) && has(self.initProvider.bucket))",message="spec.forProvider.bucket is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.destinationBucket) || (has(self.initProvider) && has(self.initProvider.destinationBucket))",message="spec.forProvider.destinationBucket is a required parameter"
-	Spec   BucketReplicationSpec   `json:"spec"`
-	Status BucketReplicationStatus `json:"status,omitempty"`
+	Spec              BucketReplicationSpec   `json:"spec"`
+	Status            BucketReplicationStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

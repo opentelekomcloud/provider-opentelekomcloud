@@ -1,8 +1,12 @@
 package common
 
 import (
+	"encoding/json"
+	"regexp"
+
 	xpref "github.com/crossplane/crossplane-runtime/v2/pkg/reference"
 	xpresource "github.com/crossplane/crossplane-runtime/v2/pkg/resource"
+	"github.com/crossplane/upjet/v2/pkg/config"
 	"github.com/crossplane/upjet/v2/pkg/resource"
 )
 
@@ -287,4 +291,65 @@ func ExtractUsername() xpref.ExtractValueFn {
 
 		return ""
 	}
+}
+
+// TerraformConversion is an interface in upjet that lets you convert data between the Crossplane layer and the Terraform layer.
+// type TerraformConversion interface {
+// Convert(params map[string]any, r *Resource, mode Mode) (map[string]any, error)
+// }
+
+var thisBucketRe = regexp.MustCompile(`\$\{this.bucket\}`)
+
+type PolicyResourceReplacer struct{}
+
+func (r PolicyResourceReplacer) Convert(params map[string]any, _ *config.Resource, mode config.Mode) (map[string]any, error) {
+	if mode != config.ToTerraform {
+		return params, nil
+	}
+	bucket, ok := params["bucket"].(string)
+	if !ok || bucket == "" {
+		return params, nil
+	}
+	policy, ok := params["policy"].(string)
+	if !ok || policy == "" {
+		return params, nil
+	}
+	if !thisBucketRe.MatchString(policy) {
+		return params, nil
+	}
+	return r.replacePolicy(params, policy, bucket)
+}
+
+func (r PolicyResourceReplacer) replacePolicy(params map[string]any, policy, bucket string) (map[string]any, error) {
+	var policyMap map[string]any
+	if err := json.Unmarshal([]byte(policy), &policyMap); err != nil {
+		return params, err
+	}
+	stmts, ok := policyMap["Statement"].([]any)
+	if !ok {
+		return params, nil
+	}
+	for _, stmt := range stmts {
+		stmtMap, ok := stmt.(map[string]any)
+		if !ok {
+			continue
+		}
+		resources, ok := stmtMap["Resource"].([]any)
+		if !ok {
+			continue
+		}
+		for i, res := range resources {
+			resStr, ok := res.(string)
+			if !ok {
+				continue
+			}
+			stmtMap["Resource"].([]any)[i] = thisBucketRe.ReplaceAllString(resStr, bucket)
+		}
+	}
+	modifiedPolicy, err := json.Marshal(policyMap)
+	if err != nil {
+		return params, err
+	}
+	params["policy"] = string(modifiedPolicy)
+	return params, nil
 }

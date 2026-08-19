@@ -9,7 +9,9 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    bucket: your_bucket_name
+    bucketSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     content: some object content
     contentType: application/xml
     key: new_key_from_content

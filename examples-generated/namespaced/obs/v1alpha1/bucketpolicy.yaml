@@ -9,7 +9,9 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    bucket: ${opentelekomcloud_obs_bucket.bucket.id}
+    bucketSelector:
+      matchLabels:
+        testing.upbound.io/example-name: bucket
     policy: my-tf-test-bucket
 
 ---

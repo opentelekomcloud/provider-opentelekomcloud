@@ -9,9 +9,15 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    agency: ${var.agency}
-    bucket: ${var.bucket}
-    destinationBucket: ${var.destination_bucket}
+    agencySelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    bucketSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    destinationBucketSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     rule:
     - deleteData: false
       historyEnabled: false

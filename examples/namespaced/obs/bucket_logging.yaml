@@ -1,0 +1,65 @@
+apiVersion: obs.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: Bucket
+metadata:
+  annotations:
+    meta.upbound.io/example-id: obs/v1alpha1/bucket
+  labels:
+    testing.upbound.io/example-name: b
+  name: xp-bucket-logging-source
+  namespace: test
+spec:
+  forProvider:
+    bucket: xp-bucket-${Rand.RFC1123Subdomain}
+    tags:
+      Env: Test
+      foo: bar
+    logging:
+      - targetBucketSelector:
+          matchLabels:
+            testing.upbound.io/example-name: logging
+---
+apiVersion: obs.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: Bucket
+metadata:
+  annotations:
+    meta.upbound.io/example-id: obs/v1alpha1/bucket
+  labels:
+    testing.upbound.io/example-name: logging
+  name: xp-bucket-logging-dest
+  namespace: test
+spec:
+  forProvider:
+    bucket: xp-bucketlog-${Rand.RFC1123Subdomain}
+    forceDestroy: true
+    tags:
+      Env: Test
+      foo: bar
+
+---
+apiVersion: obs.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: BucketACL
+metadata:
+  annotations:
+    meta.upbound.io/example-id: obs/v1alpha1/bucketacl
+  labels:
+    testing.upbound.io/example-name: test
+  name: xp-bucket-logging-acl
+  namespace: test
+spec:
+  forProvider:
+    bucketSelector:
+      matchLabels:
+        testing.upbound.io/example-name: logging
+    logDeliveryUserPermission:
+      - accessToAcl:
+          - READ_ACP
+        accessToBucket:
+          - READ
+          - WRITE
+    ownerPermission:
+      - accessToAcl:
+          - READ_ACP
+          - WRITE_ACP
+        accessToBucket:
+          - READ
+          - WRITE
