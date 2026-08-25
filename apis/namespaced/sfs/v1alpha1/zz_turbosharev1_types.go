@@ -22,6 +22,9 @@ type TurboShareV1InitParameters struct {
 
 	// Specifies the ID of a KMS key to encrypt the file system.
 	// Changing this will create a new resource.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/kms/v1alpha1.KeyV1
+	// +crossplane:generate:reference:refFieldName=KMSSelectorRef
+	// +crossplane:generate:reference:selectorFieldName=KMSSelector
 	CryptKeyID *string `json:"cryptKeyId,omitempty" tf:"crypt_key_id,omitempty"`
 
 	Enhanced *bool `json:"enhanced,omitempty" tf:"enhanced,omitempty"`
@@ -32,6 +35,14 @@ type TurboShareV1InitParameters struct {
 	// Specifies the file system bandwidth. This parameter is mandatory when you are creating an SFS Turbo 1,000 MB/s/TiB, 500 MB/s/TiB, 250 MB/s/TiB, 125 MB/s/TiB, 40 MB/s/TiB, 20 MB/s/TiB file system. Accepted values: 20M (for a 20 MB/s/TiB file system), 40M (for a 40 MB/s/TiB file system), 125M (for a 125 MB/s/TiB file system), 250M (for a 250 MB/s/TiB file system), 500M (for a 500 MB/s/TiB file system), and 1000M (for a 1000 MB/s/TiB file system).
 	HpcBw *string `json:"hpcBw,omitempty" tf:"hpc_bw,omitempty"`
 
+	// Selector for a KeyV1 in kms to populate cryptKeyId.
+	// +kubebuilder:validation:Optional
+	KMSSelector *v1.NamespacedSelector `json:"kmsSelector,omitempty" tf:"-"`
+
+	// Reference to a KeyV1 in kms to populate cryptKeyId.
+	// +kubebuilder:validation:Optional
+	KMSSelectorRef *v1.NamespacedReference `json:"kmsSelectorRef,omitempty" tf:"-"`
+
 	// Specifies the name of an SFS Turbo file system. The value contains 4 to 64
 	// characters and must start with a letter. Changing this will create a new resource.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -40,7 +51,18 @@ type TurboShareV1InitParameters struct {
 	// provider-level region will be used. Changing this creates a new SFS Turbo resource.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
+	// Selector for a SecgroupV3 in vpc to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	SecgroupSelector *v1.NamespacedSelector `json:"secgroupSelector,omitempty" tf:"-"`
+
+	// Reference to a SecgroupV3 in vpc to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	SecgroupSelectorRef *v1.NamespacedReference `json:"secgroupSelectorRef,omitempty" tf:"-"`
+
 	// Specifies the security group ID.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.SecgroupV3
+	// +crossplane:generate:reference:refFieldName=SecgroupSelectorRef
+	// +crossplane:generate:reference:selectorFieldName=SecgroupSelector
 	SecurityGroupID *string `json:"securityGroupId,omitempty" tf:"security_group_id,omitempty"`
 
 	// Specifies the protocol for sharing file systems. The valid value is NFS.
@@ -66,10 +88,32 @@ type TurboShareV1InitParameters struct {
 	Size *float64 `json:"size,omitempty" tf:"size,omitempty"`
 
 	// Specifies the network ID of the subnet. Changing this will create a new resource.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.SubnetV1
+	// +crossplane:generate:reference:refFieldName=SubnetSelectorRef
+	// +crossplane:generate:reference:selectorFieldName=SubnetSelector
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 
+	// Selector for a SubnetV1 in vpc to populate subnetId.
+	// +kubebuilder:validation:Optional
+	SubnetSelector *v1.NamespacedSelector `json:"subnetSelector,omitempty" tf:"-"`
+
+	// Reference to a SubnetV1 in vpc to populate subnetId.
+	// +kubebuilder:validation:Optional
+	SubnetSelectorRef *v1.NamespacedReference `json:"subnetSelectorRef,omitempty" tf:"-"`
+
 	// Specifies the VPC ID. Changing this will create a new resource.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.VpcV1
+	// +crossplane:generate:reference:refFieldName=VPCSelectorRef
+	// +crossplane:generate:reference:selectorFieldName=VPCSelector
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
+
+	// Selector for a VpcV1 in vpc to populate vpcId.
+	// +kubebuilder:validation:Optional
+	VPCSelector *v1.NamespacedSelector `json:"vpcSelector,omitempty" tf:"-"`
+
+	// Reference to a VpcV1 in vpc to populate vpcId.
+	// +kubebuilder:validation:Optional
+	VPCSelectorRef *v1.NamespacedReference `json:"vpcSelectorRef,omitempty" tf:"-"`
 }
 
 type TurboShareV1Observation struct {
@@ -151,6 +195,9 @@ type TurboShareV1Parameters struct {
 
 	// Specifies the ID of a KMS key to encrypt the file system.
 	// Changing this will create a new resource.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/kms/v1alpha1.KeyV1
+	// +crossplane:generate:reference:refFieldName=KMSSelectorRef
+	// +crossplane:generate:reference:selectorFieldName=KMSSelector
 	// +kubebuilder:validation:Optional
 	CryptKeyID *string `json:"cryptKeyId,omitempty" tf:"crypt_key_id,omitempty"`
 
@@ -165,6 +212,14 @@ type TurboShareV1Parameters struct {
 	// +kubebuilder:validation:Optional
 	HpcBw *string `json:"hpcBw,omitempty" tf:"hpc_bw,omitempty"`
 
+	// Selector for a KeyV1 in kms to populate cryptKeyId.
+	// +kubebuilder:validation:Optional
+	KMSSelector *v1.NamespacedSelector `json:"kmsSelector,omitempty" tf:"-"`
+
+	// Reference to a KeyV1 in kms to populate cryptKeyId.
+	// +kubebuilder:validation:Optional
+	KMSSelectorRef *v1.NamespacedReference `json:"kmsSelectorRef,omitempty" tf:"-"`
+
 	// Specifies the name of an SFS Turbo file system. The value contains 4 to 64
 	// characters and must start with a letter. Changing this will create a new resource.
 	// +kubebuilder:validation:Optional
@@ -175,7 +230,18 @@ type TurboShareV1Parameters struct {
 	// +kubebuilder:validation:Optional
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
+	// Selector for a SecgroupV3 in vpc to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	SecgroupSelector *v1.NamespacedSelector `json:"secgroupSelector,omitempty" tf:"-"`
+
+	// Reference to a SecgroupV3 in vpc to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	SecgroupSelectorRef *v1.NamespacedReference `json:"secgroupSelectorRef,omitempty" tf:"-"`
+
 	// Specifies the security group ID.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.SecgroupV3
+	// +crossplane:generate:reference:refFieldName=SecgroupSelectorRef
+	// +crossplane:generate:reference:selectorFieldName=SecgroupSelector
 	// +kubebuilder:validation:Optional
 	SecurityGroupID *string `json:"securityGroupId,omitempty" tf:"security_group_id,omitempty"`
 
@@ -205,12 +271,34 @@ type TurboShareV1Parameters struct {
 	Size *float64 `json:"size,omitempty" tf:"size,omitempty"`
 
 	// Specifies the network ID of the subnet. Changing this will create a new resource.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.SubnetV1
+	// +crossplane:generate:reference:refFieldName=SubnetSelectorRef
+	// +crossplane:generate:reference:selectorFieldName=SubnetSelector
 	// +kubebuilder:validation:Optional
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 
+	// Selector for a SubnetV1 in vpc to populate subnetId.
+	// +kubebuilder:validation:Optional
+	SubnetSelector *v1.NamespacedSelector `json:"subnetSelector,omitempty" tf:"-"`
+
+	// Reference to a SubnetV1 in vpc to populate subnetId.
+	// +kubebuilder:validation:Optional
+	SubnetSelectorRef *v1.NamespacedReference `json:"subnetSelectorRef,omitempty" tf:"-"`
+
 	// Specifies the VPC ID. Changing this will create a new resource.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.VpcV1
+	// +crossplane:generate:reference:refFieldName=VPCSelectorRef
+	// +crossplane:generate:reference:selectorFieldName=VPCSelector
 	// +kubebuilder:validation:Optional
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
+
+	// Selector for a VpcV1 in vpc to populate vpcId.
+	// +kubebuilder:validation:Optional
+	VPCSelector *v1.NamespacedSelector `json:"vpcSelector,omitempty" tf:"-"`
+
+	// Reference to a VpcV1 in vpc to populate vpcId.
+	// +kubebuilder:validation:Optional
+	VPCSelectorRef *v1.NamespacedReference `json:"vpcSelectorRef,omitempty" tf:"-"`
 }
 
 // TurboShareV1Spec defines the desired state of TurboShareV1
@@ -251,10 +339,7 @@ type TurboShareV1 struct {
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.availabilityZone) || (has(self.initProvider) && has(self.initProvider.availabilityZone))",message="spec.forProvider.availabilityZone is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.securityGroupId) || (has(self.initProvider) && has(self.initProvider.securityGroupId))",message="spec.forProvider.securityGroupId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.size) || (has(self.initProvider) && has(self.initProvider.size))",message="spec.forProvider.size is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.subnetId) || (has(self.initProvider) && has(self.initProvider.subnetId))",message="spec.forProvider.subnetId is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.vpcId) || (has(self.initProvider) && has(self.initProvider.vpcId))",message="spec.forProvider.vpcId is a required parameter"
 	Spec   TurboShareV1Spec   `json:"spec"`
 	Status TurboShareV1Status `json:"status,omitempty"`
 }

@@ -59,23 +59,6 @@ spec:
             properties:
               forProvider:
                 properties:
-                  accessLevel:
-                    description: |-
-                      The access level of the shared file system. Changing this will create
-                      a new access rule. Deprecated, please use the opentelekomcloud_sfs_share_access_rule_v2
-                      resource instead.
-                    type: string
-                  accessTo:
-                    description: |-
-                      The access that the back end grants or denies. Changing this will
-                      create new access rule. Deprecated, please use the opentelekomcloud_sfs_share_access_rule_v2
-                      resource instead.
-                    type: string
-                  accessType:
-                    description: |-
-                      The type of the share access rule. Changing this will create a new
-                      access rule. Deprecated, please use the opentelekomcloud_sfs_share_access_rule_v2 resource instead.
-                    type: string
                   availabilityZone:
                     description: |-
                       The availability zone name. Changing this parameter will create
@@ -131,23 +114,6 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
-                  accessLevel:
-                    description: |-
-                      The access level of the shared file system. Changing this will create
-                      a new access rule. Deprecated, please use the opentelekomcloud_sfs_share_access_rule_v2
-                      resource instead.
-                    type: string
-                  accessTo:
-                    description: |-
-                      The access that the back end grants or denies. Changing this will
-                      create new access rule. Deprecated, please use the opentelekomcloud_sfs_share_access_rule_v2
-                      resource instead.
-                    type: string
-                  accessType:
-                    description: |-
-                      The type of the share access rule. Changing this will create a new
-                      access rule. Deprecated, please use the opentelekomcloud_sfs_share_access_rule_v2 resource instead.
-                    type: string
                   availabilityZone:
                     description: |-
                       The availability zone name. Changing this parameter will create

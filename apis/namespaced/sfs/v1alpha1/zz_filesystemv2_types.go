@@ -16,20 +16,6 @@ import (
 
 type FileSystemV2InitParameters struct {
 
-	// The access level of the shared file system. Changing this will create
-	// a new access rule. Deprecated, please use the opentelekomcloud_sfs_share_access_rule_v2
-	// resource instead.
-	AccessLevel *string `json:"accessLevel,omitempty" tf:"access_level,omitempty"`
-
-	// The access that the back end grants or denies. Changing this will
-	// create new access rule. Deprecated, please use the opentelekomcloud_sfs_share_access_rule_v2
-	// resource instead.
-	AccessTo *string `json:"accessTo,omitempty" tf:"access_to,omitempty"`
-
-	// The type of the share access rule. Changing this will create a new
-	// access rule. Deprecated, please use the opentelekomcloud_sfs_share_access_rule_v2 resource instead.
-	AccessType *string `json:"accessType,omitempty" tf:"access_type,omitempty"`
-
 	// The availability zone name. Changing this parameter will create
 	// a new resource.
 	AvailabilityZone *string `json:"availabilityZone,omitempty" tf:"availability_zone,omitempty"`
@@ -138,23 +124,6 @@ type FileSystemV2Observation struct {
 }
 
 type FileSystemV2Parameters struct {
-
-	// The access level of the shared file system. Changing this will create
-	// a new access rule. Deprecated, please use the opentelekomcloud_sfs_share_access_rule_v2
-	// resource instead.
-	// +kubebuilder:validation:Optional
-	AccessLevel *string `json:"accessLevel,omitempty" tf:"access_level,omitempty"`
-
-	// The access that the back end grants or denies. Changing this will
-	// create new access rule. Deprecated, please use the opentelekomcloud_sfs_share_access_rule_v2
-	// resource instead.
-	// +kubebuilder:validation:Optional
-	AccessTo *string `json:"accessTo,omitempty" tf:"access_to,omitempty"`
-
-	// The type of the share access rule. Changing this will create a new
-	// access rule. Deprecated, please use the opentelekomcloud_sfs_share_access_rule_v2 resource instead.
-	// +kubebuilder:validation:Optional
-	AccessType *string `json:"accessType,omitempty" tf:"access_type,omitempty"`
 
 	// The availability zone name. Changing this parameter will create
 	// a new resource.

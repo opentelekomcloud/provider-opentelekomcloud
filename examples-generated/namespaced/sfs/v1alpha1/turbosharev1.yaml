@@ -11,8 +11,14 @@ spec:
   forProvider:
     availabilityZone: ${var.az}
     name: sfs-turbo
-    securityGroupId: ${var.sg_id}
+    secgroupSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     shareProto: NFS
     size: 500
-    subnetId: ${var.subnet_id}
-    vpcId: ${var.vpc_id}
+    subnetSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    vpcSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example

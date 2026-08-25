@@ -21,7 +21,16 @@ type AccessRuleInitParameters struct {
 	AccessLevel *string `json:"accessLevel,omitempty" tf:"access_level,omitempty"`
 
 	// The value that defines the access. The format depends on access_type:
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.VpcV1
 	AccessTo *string `json:"accessTo,omitempty" tf:"access_to,omitempty"`
+
+	// Reference to a VpcV1 in vpc to populate accessTo.
+	// +kubebuilder:validation:Optional
+	AccessToRef *v1.NamespacedReference `json:"accessToRef,omitempty" tf:"-"`
+
+	// Selector for a VpcV1 in vpc to populate accessTo.
+	// +kubebuilder:validation:Optional
+	AccessToSelector *v1.NamespacedSelector `json:"accessToSelector,omitempty" tf:"-"`
 
 	// The type of the share access rule. Valid values are:
 	AccessType *string `json:"accessType,omitempty" tf:"access_type,omitempty"`
@@ -54,8 +63,17 @@ type AccessRuleParameters struct {
 	AccessLevel *string `json:"accessLevel" tf:"access_level,omitempty"`
 
 	// The value that defines the access. The format depends on access_type:
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.VpcV1
 	// +kubebuilder:validation:Optional
-	AccessTo *string `json:"accessTo" tf:"access_to,omitempty"`
+	AccessTo *string `json:"accessTo,omitempty" tf:"access_to,omitempty"`
+
+	// Reference to a VpcV1 in vpc to populate accessTo.
+	// +kubebuilder:validation:Optional
+	AccessToRef *v1.NamespacedReference `json:"accessToRef,omitempty" tf:"-"`
+
+	// Selector for a VpcV1 in vpc to populate accessTo.
+	// +kubebuilder:validation:Optional
+	AccessToSelector *v1.NamespacedSelector `json:"accessToSelector,omitempty" tf:"-"`
 
 	// The type of the share access rule. Valid values are:
 	// +kubebuilder:validation:Optional
@@ -68,7 +86,18 @@ type ShareAccessRulesV2InitParameters struct {
 	AccessRule []AccessRuleInitParameters `json:"accessRule,omitempty" tf:"access_rule,omitempty"`
 
 	// The UUID of the shared file system.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/sfs/v1alpha1.FileSystemV2
+	// +crossplane:generate:reference:refFieldName=ShareSelectorRef
+	// +crossplane:generate:reference:selectorFieldName=ShareSelector
 	ShareID *string `json:"shareId,omitempty" tf:"share_id,omitempty"`
+
+	// Selector for a FileSystemV2 in sfs to populate shareId.
+	// +kubebuilder:validation:Optional
+	ShareSelector *v1.NamespacedSelector `json:"shareSelector,omitempty" tf:"-"`
+
+	// Reference to a FileSystemV2 in sfs to populate shareId.
+	// +kubebuilder:validation:Optional
+	ShareSelectorRef *v1.NamespacedReference `json:"shareSelectorRef,omitempty" tf:"-"`
 }
 
 type ShareAccessRulesV2Observation struct {
@@ -89,8 +118,19 @@ type ShareAccessRulesV2Parameters struct {
 	AccessRule []AccessRuleParameters `json:"accessRule,omitempty" tf:"access_rule,omitempty"`
 
 	// The UUID of the shared file system.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/sfs/v1alpha1.FileSystemV2
+	// +crossplane:generate:reference:refFieldName=ShareSelectorRef
+	// +crossplane:generate:reference:selectorFieldName=ShareSelector
 	// +kubebuilder:validation:Optional
 	ShareID *string `json:"shareId,omitempty" tf:"share_id,omitempty"`
+
+	// Selector for a FileSystemV2 in sfs to populate shareId.
+	// +kubebuilder:validation:Optional
+	ShareSelector *v1.NamespacedSelector `json:"shareSelector,omitempty" tf:"-"`
+
+	// Reference to a FileSystemV2 in sfs to populate shareId.
+	// +kubebuilder:validation:Optional
+	ShareSelectorRef *v1.NamespacedReference `json:"shareSelectorRef,omitempty" tf:"-"`
 }
 
 // ShareAccessRulesV2Spec defines the desired state of ShareAccessRulesV2
@@ -130,7 +170,6 @@ type ShareAccessRulesV2 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.accessRule) || (has(self.initProvider) && has(self.initProvider.accessRule))",message="spec.forProvider.accessRule is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.shareId) || (has(self.initProvider) && has(self.initProvider.shareId))",message="spec.forProvider.shareId is a required parameter"
 	Spec   ShareAccessRulesV2Spec   `json:"spec"`
 	Status ShareAccessRulesV2Status `json:"status,omitempty"`
 }

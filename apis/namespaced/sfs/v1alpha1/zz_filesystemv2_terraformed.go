@@ -118,6 +118,9 @@ func (tr *FileSystemV2) LateInitialize(attrs []byte) (bool, error) {
 		return false, errors.Wrap(err, "failed to unmarshal Terraform state parameters for late-initialization")
 	}
 	opts := []resource.GenericLateInitializerOption{resource.WithZeroValueJSONOmitEmptyFilter(resource.CNameWildcard)}
+	opts = append(opts, resource.WithNameFilter("AccessLevel"))
+	opts = append(opts, resource.WithNameFilter("AccessTo"))
+	opts = append(opts, resource.WithNameFilter("AccessType"))
 
 	li := resource.NewGenericLateInitializer(opts...)
 	return li.LateInitialize(&tr.Spec.ForProvider, params)
