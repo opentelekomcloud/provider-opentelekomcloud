@@ -82,7 +82,10 @@ spec:
                           description: The Router(VPC) ID. which VPC network will
                             assicate with.
                           type: string
-                        routerIdRef:
+                        routerRegion:
+                          description: The Region name for this private zone.
+                          type: string
+                        vpcRef:
                           description: Reference to a VpcV1 in vpc to populate routerId.
                           properties:
                             name:
@@ -119,7 +122,7 @@ spec:
                           required:
                           - name
                           type: object
-                        routerIdSelector:
+                        vpcSelector:
                           description: Selector for a VpcV1 in vpc to populate routerId.
                           properties:
                             matchControllerRef:
@@ -162,9 +165,6 @@ spec:
                                   type: string
                               type: object
                           type: object
-                        routerRegion:
-                          description: The Region name for this private zone.
-                          type: string
                       type: object
                     type: array
                   tags:
@@ -225,7 +225,10 @@ spec:
                           description: The Router(VPC) ID. which VPC network will
                             assicate with.
                           type: string
-                        routerIdRef:
+                        routerRegion:
+                          description: The Region name for this private zone.
+                          type: string
+                        vpcRef:
                           description: Reference to a VpcV1 in vpc to populate routerId.
                           properties:
                             name:
@@ -262,7 +265,7 @@ spec:
                           required:
                           - name
                           type: object
-                        routerIdSelector:
+                        vpcSelector:
                           description: Selector for a VpcV1 in vpc to populate routerId.
                           properties:
                             matchControllerRef:
@@ -305,9 +308,6 @@ spec:
                                   type: string
                               type: object
                           type: object
-                        routerRegion:
-                          description: The Region name for this private zone.
-                          type: string
                       type: object
                     type: array
                   tags:

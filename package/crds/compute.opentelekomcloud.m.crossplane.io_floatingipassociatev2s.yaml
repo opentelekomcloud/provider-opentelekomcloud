@@ -150,7 +150,7 @@ spec:
                   instanceId:
                     description: The instance to associte the floating IP with.
                     type: string
-                  instanceIdRef:
+                  instanceRef:
                     description: Reference to a InstanceV2 in compute to populate
                       instanceId.
                     properties:
@@ -188,7 +188,7 @@ spec:
                     required:
                     - name
                     type: object
-                  instanceIdSelector:
+                  instanceSelector:
                     description: Selector for a InstanceV2 in compute to populate
                       instanceId.
                     properties:
@@ -339,7 +339,7 @@ spec:
                   instanceId:
                     description: The instance to associte the floating IP with.
                     type: string
-                  instanceIdRef:
+                  instanceRef:
                     description: Reference to a InstanceV2 in compute to populate
                       instanceId.
                     properties:
@@ -377,7 +377,7 @@ spec:
                     required:
                     - name
                     type: object
-                  instanceIdSelector:
+                  instanceSelector:
                     description: Selector for a InstanceV2 in compute to populate
                       instanceId.
                     properties:

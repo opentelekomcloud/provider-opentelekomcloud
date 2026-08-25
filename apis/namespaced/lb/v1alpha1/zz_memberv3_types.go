@@ -23,15 +23,17 @@ type MemberV3InitParameters struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lb/v1alpha1.PoolV3
+	// +crossplane:generate:reference:refFieldName=PoolRef
+	// +crossplane:generate:reference:selectorFieldName=PoolSelector
 	PoolID *string `json:"poolId,omitempty" tf:"pool_id,omitempty"`
 
 	// Reference to a PoolV3 in lb to populate poolId.
 	// +kubebuilder:validation:Optional
-	PoolIDRef *v1.NamespacedReference `json:"poolIdRef,omitempty" tf:"-"`
+	PoolRef *v1.NamespacedReference `json:"poolRef,omitempty" tf:"-"`
 
 	// Selector for a PoolV3 in lb to populate poolId.
 	// +kubebuilder:validation:Optional
-	PoolIDSelector *v1.NamespacedSelector `json:"poolIdSelector,omitempty" tf:"-"`
+	PoolSelector *v1.NamespacedSelector `json:"poolSelector,omitempty" tf:"-"`
 
 	// Specifies the project ID.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/identity/v1alpha1.ProjectV3
@@ -51,15 +53,17 @@ type MemberV3InitParameters struct {
 
 	// , for example, 192.168.3.11.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.SubnetV1
+	// +crossplane:generate:reference:refFieldName=SubnetRef
+	// +crossplane:generate:reference:selectorFieldName=SubnetSelector
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 
 	// Reference to a SubnetV1 in vpc to populate subnetId.
 	// +kubebuilder:validation:Optional
-	SubnetIDRef *v1.NamespacedReference `json:"subnetIdRef,omitempty" tf:"-"`
+	SubnetRef *v1.NamespacedReference `json:"subnetRef,omitempty" tf:"-"`
 
 	// Selector for a SubnetV1 in vpc to populate subnetId.
 	// +kubebuilder:validation:Optional
-	SubnetIDSelector *v1.NamespacedSelector `json:"subnetIdSelector,omitempty" tf:"-"`
+	SubnetSelector *v1.NamespacedSelector `json:"subnetSelector,omitempty" tf:"-"`
 
 	// Specifies the weight of the backend server.
 	Weight *float64 `json:"weight,omitempty" tf:"weight,omitempty"`
@@ -111,16 +115,18 @@ type MemberV3Parameters struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lb/v1alpha1.PoolV3
+	// +crossplane:generate:reference:refFieldName=PoolRef
+	// +crossplane:generate:reference:selectorFieldName=PoolSelector
 	// +kubebuilder:validation:Optional
 	PoolID *string `json:"poolId,omitempty" tf:"pool_id,omitempty"`
 
 	// Reference to a PoolV3 in lb to populate poolId.
 	// +kubebuilder:validation:Optional
-	PoolIDRef *v1.NamespacedReference `json:"poolIdRef,omitempty" tf:"-"`
+	PoolRef *v1.NamespacedReference `json:"poolRef,omitempty" tf:"-"`
 
 	// Selector for a PoolV3 in lb to populate poolId.
 	// +kubebuilder:validation:Optional
-	PoolIDSelector *v1.NamespacedSelector `json:"poolIdSelector,omitempty" tf:"-"`
+	PoolSelector *v1.NamespacedSelector `json:"poolSelector,omitempty" tf:"-"`
 
 	// Specifies the project ID.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/identity/v1alpha1.ProjectV3
@@ -142,16 +148,18 @@ type MemberV3Parameters struct {
 
 	// , for example, 192.168.3.11.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.SubnetV1
+	// +crossplane:generate:reference:refFieldName=SubnetRef
+	// +crossplane:generate:reference:selectorFieldName=SubnetSelector
 	// +kubebuilder:validation:Optional
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 
 	// Reference to a SubnetV1 in vpc to populate subnetId.
 	// +kubebuilder:validation:Optional
-	SubnetIDRef *v1.NamespacedReference `json:"subnetIdRef,omitempty" tf:"-"`
+	SubnetRef *v1.NamespacedReference `json:"subnetRef,omitempty" tf:"-"`
 
 	// Selector for a SubnetV1 in vpc to populate subnetId.
 	// +kubebuilder:validation:Optional
-	SubnetIDSelector *v1.NamespacedSelector `json:"subnetIdSelector,omitempty" tf:"-"`
+	SubnetSelector *v1.NamespacedSelector `json:"subnetSelector,omitempty" tf:"-"`
 
 	// Specifies the weight of the backend server.
 	// +kubebuilder:validation:Optional

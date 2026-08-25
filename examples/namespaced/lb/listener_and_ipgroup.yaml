@@ -29,7 +29,7 @@ spec:
     gatewayIp: "192.168.0.1"
     name: xp-test-${Rand.RFC1123Subdomain}
     ntpAddresses: "10.100.0.33,10.100.0.34"
-    vpcIdSelector:
+    vpcSelector:
       matchLabels:
         testing.upbound.io/example-name: sample-lb
     tags:
@@ -50,9 +50,9 @@ spec:
     name: xp-test-${Rand.RFC1123Subdomain}
     availabilityZones:
       - eu-de-01
-    networkIdsRefs:
+    networkRef:
       - name: sample-lb
-    routerIdSelector:
+    vpcSelector:
       matchLabels:
         testing.upbound.io/example-name: sample-lb
     tags:
@@ -89,13 +89,13 @@ metadata:
 spec:
   forProvider:
     name: xp-test-${Rand.RFC1123Subdomain}
-    loadbalancerIdSelector:
+    loadbalancerSelector:
       matchLabels:
         testing.upbound.io/example-name: sample-lb
     protocol: HTTP
     protocolPort: 8080
     ipGroup:
-      - idSelector:
+      - ipGroupIdSelector:
           matchLabels:
             testing.upbound.io/example-name: sample-lb
     tags:

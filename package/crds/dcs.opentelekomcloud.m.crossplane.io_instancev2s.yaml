@@ -226,7 +226,7 @@ spec:
                       The ID of the security group which the instance belongs to.
                       This parameter is mandatory for Memcached and Redis 3.0 version.
                     type: string
-                  securityGroupIdRef:
+                  securityGroupRef:
                     description: Reference to a SecgroupV2 in compute to populate
                       securityGroupId.
                     properties:
@@ -264,7 +264,7 @@ spec:
                     required:
                     - name
                     type: object
-                  securityGroupIdSelector:
+                  securityGroupSelector:
                     description: Selector for a SecgroupV2 in compute to populate
                       securityGroupId.
                     properties:
@@ -317,7 +317,7 @@ spec:
                       The ID of subnet (Network ID) which the instance belongs to.
                       Changing this creates a new instance resource.
                     type: string
-                  subnetIdRef:
+                  subnetRef:
                     description: Reference to a SubnetV1 in vpc to populate subnetId.
                     properties:
                       name:
@@ -354,7 +354,7 @@ spec:
                     required:
                     - name
                     type: object
-                  subnetIdSelector:
+                  subnetSelector:
                     description: Selector for a SubnetV1 in vpc to populate subnetId.
                     properties:
                       matchControllerRef:
@@ -413,7 +413,7 @@ spec:
                       The ID of VPC which the instance belongs to.
                       Changing this creates a new instance resource.
                     type: string
-                  vpcIdRef:
+                  vpcRef:
                     description: Reference to a VpcV1 in vpc to populate vpcId.
                     properties:
                       name:
@@ -450,7 +450,7 @@ spec:
                     required:
                     - name
                     type: object
-                  vpcIdSelector:
+                  vpcSelector:
                     description: Selector for a VpcV1 in vpc to populate vpcId.
                     properties:
                       matchControllerRef:
@@ -692,7 +692,7 @@ spec:
                       The ID of the security group which the instance belongs to.
                       This parameter is mandatory for Memcached and Redis 3.0 version.
                     type: string
-                  securityGroupIdRef:
+                  securityGroupRef:
                     description: Reference to a SecgroupV2 in compute to populate
                       securityGroupId.
                     properties:
@@ -730,7 +730,7 @@ spec:
                     required:
                     - name
                     type: object
-                  securityGroupIdSelector:
+                  securityGroupSelector:
                     description: Selector for a SecgroupV2 in compute to populate
                       securityGroupId.
                     properties:
@@ -783,7 +783,7 @@ spec:
                       The ID of subnet (Network ID) which the instance belongs to.
                       Changing this creates a new instance resource.
                     type: string
-                  subnetIdRef:
+                  subnetRef:
                     description: Reference to a SubnetV1 in vpc to populate subnetId.
                     properties:
                       name:
@@ -820,7 +820,7 @@ spec:
                     required:
                     - name
                     type: object
-                  subnetIdSelector:
+                  subnetSelector:
                     description: Selector for a SubnetV1 in vpc to populate subnetId.
                     properties:
                       matchControllerRef:
@@ -879,7 +879,7 @@ spec:
                       The ID of VPC which the instance belongs to.
                       Changing this creates a new instance resource.
                     type: string
-                  vpcIdRef:
+                  vpcRef:
                     description: Reference to a VpcV1 in vpc to populate vpcId.
                     properties:
                       name:
@@ -916,7 +916,7 @@ spec:
                     required:
                     - name
                     type: object
-                  vpcIdSelector:
+                  vpcSelector:
                     description: Selector for a VpcV1 in vpc to populate vpcId.
                     properties:
                       matchControllerRef:

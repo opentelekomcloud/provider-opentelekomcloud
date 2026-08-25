@@ -25,28 +25,32 @@ type RouterInterfaceV2InitParameters struct {
 	// ID of the router this interface belongs to. Changing
 	// this creates a new router interface.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/networking/v1alpha1.RouterV2
+	// +crossplane:generate:reference:refFieldName=RouterRef
+	// +crossplane:generate:reference:selectorFieldName=RouterSelector
 	RouterID *string `json:"routerId,omitempty" tf:"router_id,omitempty"`
 
 	// Reference to a RouterV2 in networking to populate routerId.
 	// +kubebuilder:validation:Optional
-	RouterIDRef *v1.NamespacedReference `json:"routerIdRef,omitempty" tf:"-"`
+	RouterRef *v1.NamespacedReference `json:"routerRef,omitempty" tf:"-"`
 
 	// Selector for a RouterV2 in networking to populate routerId.
 	// +kubebuilder:validation:Optional
-	RouterIDSelector *v1.NamespacedSelector `json:"routerIdSelector,omitempty" tf:"-"`
+	RouterSelector *v1.NamespacedSelector `json:"routerSelector,omitempty" tf:"-"`
 
 	// ID of the subnet this interface connects to. Changing
 	// this creates a new router interface.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/networking/v1alpha1.SubnetV2
+	// +crossplane:generate:reference:refFieldName=SubnetRef
+	// +crossplane:generate:reference:selectorFieldName=SubnetSelector
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 
 	// Reference to a SubnetV2 in networking to populate subnetId.
 	// +kubebuilder:validation:Optional
-	SubnetIDRef *v1.NamespacedReference `json:"subnetIdRef,omitempty" tf:"-"`
+	SubnetRef *v1.NamespacedReference `json:"subnetRef,omitempty" tf:"-"`
 
 	// Selector for a SubnetV2 in networking to populate subnetId.
 	// +kubebuilder:validation:Optional
-	SubnetIDSelector *v1.NamespacedSelector `json:"subnetIdSelector,omitempty" tf:"-"`
+	SubnetSelector *v1.NamespacedSelector `json:"subnetSelector,omitempty" tf:"-"`
 }
 
 type RouterInterfaceV2Observation struct {
@@ -80,30 +84,34 @@ type RouterInterfaceV2Parameters struct {
 	// ID of the router this interface belongs to. Changing
 	// this creates a new router interface.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/networking/v1alpha1.RouterV2
+	// +crossplane:generate:reference:refFieldName=RouterRef
+	// +crossplane:generate:reference:selectorFieldName=RouterSelector
 	// +kubebuilder:validation:Optional
 	RouterID *string `json:"routerId,omitempty" tf:"router_id,omitempty"`
 
 	// Reference to a RouterV2 in networking to populate routerId.
 	// +kubebuilder:validation:Optional
-	RouterIDRef *v1.NamespacedReference `json:"routerIdRef,omitempty" tf:"-"`
+	RouterRef *v1.NamespacedReference `json:"routerRef,omitempty" tf:"-"`
 
 	// Selector for a RouterV2 in networking to populate routerId.
 	// +kubebuilder:validation:Optional
-	RouterIDSelector *v1.NamespacedSelector `json:"routerIdSelector,omitempty" tf:"-"`
+	RouterSelector *v1.NamespacedSelector `json:"routerSelector,omitempty" tf:"-"`
 
 	// ID of the subnet this interface connects to. Changing
 	// this creates a new router interface.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/networking/v1alpha1.SubnetV2
+	// +crossplane:generate:reference:refFieldName=SubnetRef
+	// +crossplane:generate:reference:selectorFieldName=SubnetSelector
 	// +kubebuilder:validation:Optional
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 
 	// Reference to a SubnetV2 in networking to populate subnetId.
 	// +kubebuilder:validation:Optional
-	SubnetIDRef *v1.NamespacedReference `json:"subnetIdRef,omitempty" tf:"-"`
+	SubnetRef *v1.NamespacedReference `json:"subnetRef,omitempty" tf:"-"`
 
 	// Selector for a SubnetV2 in networking to populate subnetId.
 	// +kubebuilder:validation:Optional
-	SubnetIDSelector *v1.NamespacedSelector `json:"subnetIdSelector,omitempty" tf:"-"`
+	SubnetSelector *v1.NamespacedSelector `json:"subnetSelector,omitempty" tf:"-"`
 }
 
 // RouterInterfaceV2Spec defines the desired state of RouterInterfaceV2

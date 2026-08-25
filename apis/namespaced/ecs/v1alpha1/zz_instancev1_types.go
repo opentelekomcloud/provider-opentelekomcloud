@@ -19,15 +19,17 @@ type DataDisksInitParameters struct {
 	// The Encryption KMS ID of the data disk. Changing this
 	// creates a new server.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/kms/v1alpha1.KeyV1
+	// +crossplane:generate:reference:refFieldName=KMSRef
+	// +crossplane:generate:reference:selectorFieldName=KMSSelector
 	KMSID *string `json:"kmsId,omitempty" tf:"kms_id,omitempty"`
 
 	// Reference to a KeyV1 in kms to populate kmsId.
 	// +kubebuilder:validation:Optional
-	KMSIDRef *v1.NamespacedReference `json:"kmsIdRef,omitempty" tf:"-"`
+	KMSRef *v1.NamespacedReference `json:"kmsRef,omitempty" tf:"-"`
 
 	// Selector for a KeyV1 in kms to populate kmsId.
 	// +kubebuilder:validation:Optional
-	KMSIDSelector *v1.NamespacedSelector `json:"kmsIdSelector,omitempty" tf:"-"`
+	KMSSelector *v1.NamespacedSelector `json:"kmsSelector,omitempty" tf:"-"`
 
 	// The size of the data disk in GB. The value range is 10 to 32768.
 	// Changing this creates a new server.
@@ -67,16 +69,18 @@ type DataDisksParameters struct {
 	// The Encryption KMS ID of the data disk. Changing this
 	// creates a new server.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/kms/v1alpha1.KeyV1
+	// +crossplane:generate:reference:refFieldName=KMSRef
+	// +crossplane:generate:reference:selectorFieldName=KMSSelector
 	// +kubebuilder:validation:Optional
 	KMSID *string `json:"kmsId,omitempty" tf:"kms_id,omitempty"`
 
 	// Reference to a KeyV1 in kms to populate kmsId.
 	// +kubebuilder:validation:Optional
-	KMSIDRef *v1.NamespacedReference `json:"kmsIdRef,omitempty" tf:"-"`
+	KMSRef *v1.NamespacedReference `json:"kmsRef,omitempty" tf:"-"`
 
 	// Selector for a KeyV1 in kms to populate kmsId.
 	// +kubebuilder:validation:Optional
-	KMSIDSelector *v1.NamespacedSelector `json:"kmsIdSelector,omitempty" tf:"-"`
+	KMSSelector *v1.NamespacedSelector `json:"kmsSelector,omitempty" tf:"-"`
 
 	// The size of the data disk in GB. The value range is 10 to 32768.
 	// Changing this creates a new server.
@@ -176,15 +180,17 @@ type InstanceV1InitParameters struct {
 	// The Encryption KMS ID of the system disk. Changing this
 	// creates a new server.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/kms/v1alpha1.KeyV1
+	// +crossplane:generate:reference:refFieldName=SystemDiskKMSRef
+	// +crossplane:generate:reference:selectorFieldName=SystemDiskKMSSelector
 	SystemDiskKMSID *string `json:"systemDiskKmsId,omitempty" tf:"system_disk_kms_id,omitempty"`
 
 	// Reference to a KeyV1 in kms to populate systemDiskKmsId.
 	// +kubebuilder:validation:Optional
-	SystemDiskKMSIDRef *v1.NamespacedReference `json:"systemDiskKmsIdRef,omitempty" tf:"-"`
+	SystemDiskKMSRef *v1.NamespacedReference `json:"systemDiskKmsRef,omitempty" tf:"-"`
 
 	// Selector for a KeyV1 in kms to populate systemDiskKmsId.
 	// +kubebuilder:validation:Optional
-	SystemDiskKMSIDSelector *v1.NamespacedSelector `json:"systemDiskKmsIdSelector,omitempty" tf:"-"`
+	SystemDiskKMSSelector *v1.NamespacedSelector `json:"systemDiskKmsSelector,omitempty" tf:"-"`
 
 	// The system disk size in GB, The value range is 1 to 1024.
 	// Changing this creates a new server.
@@ -208,15 +214,17 @@ type InstanceV1InitParameters struct {
 
 	// The ID of the desired VPC for the server. Changing this creates a new server.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.VpcV1
+	// +crossplane:generate:reference:refFieldName=VpcRef
+	// +crossplane:generate:reference:selectorFieldName=VpcSelector
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
 
 	// Reference to a VpcV1 in vpc to populate vpcId.
 	// +kubebuilder:validation:Optional
-	VPCIDRef *v1.NamespacedReference `json:"vpcIdRef,omitempty" tf:"-"`
+	VPCRef *v1.NamespacedReference `json:"vpcRef,omitempty" tf:"-"`
 
 	// Selector for a VpcV1 in vpc to populate vpcId.
 	// +kubebuilder:validation:Optional
-	VPCIDSelector *v1.NamespacedSelector `json:"vpcIdSelector,omitempty" tf:"-"`
+	VPCSelector *v1.NamespacedSelector `json:"vpcSelector,omitempty" tf:"-"`
 }
 
 type InstanceV1Observation struct {
@@ -406,16 +414,18 @@ type InstanceV1Parameters struct {
 	// The Encryption KMS ID of the system disk. Changing this
 	// creates a new server.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/kms/v1alpha1.KeyV1
+	// +crossplane:generate:reference:refFieldName=SystemDiskKMSRef
+	// +crossplane:generate:reference:selectorFieldName=SystemDiskKMSSelector
 	// +kubebuilder:validation:Optional
 	SystemDiskKMSID *string `json:"systemDiskKmsId,omitempty" tf:"system_disk_kms_id,omitempty"`
 
 	// Reference to a KeyV1 in kms to populate systemDiskKmsId.
 	// +kubebuilder:validation:Optional
-	SystemDiskKMSIDRef *v1.NamespacedReference `json:"systemDiskKmsIdRef,omitempty" tf:"-"`
+	SystemDiskKMSRef *v1.NamespacedReference `json:"systemDiskKmsRef,omitempty" tf:"-"`
 
 	// Selector for a KeyV1 in kms to populate systemDiskKmsId.
 	// +kubebuilder:validation:Optional
-	SystemDiskKMSIDSelector *v1.NamespacedSelector `json:"systemDiskKmsIdSelector,omitempty" tf:"-"`
+	SystemDiskKMSSelector *v1.NamespacedSelector `json:"systemDiskKmsSelector,omitempty" tf:"-"`
 
 	// The system disk size in GB, The value range is 1 to 1024.
 	// Changing this creates a new server.
@@ -444,16 +454,18 @@ type InstanceV1Parameters struct {
 
 	// The ID of the desired VPC for the server. Changing this creates a new server.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.VpcV1
+	// +crossplane:generate:reference:refFieldName=VpcRef
+	// +crossplane:generate:reference:selectorFieldName=VpcSelector
 	// +kubebuilder:validation:Optional
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
 
 	// Reference to a VpcV1 in vpc to populate vpcId.
 	// +kubebuilder:validation:Optional
-	VPCIDRef *v1.NamespacedReference `json:"vpcIdRef,omitempty" tf:"-"`
+	VPCRef *v1.NamespacedReference `json:"vpcRef,omitempty" tf:"-"`
 
 	// Selector for a VpcV1 in vpc to populate vpcId.
 	// +kubebuilder:validation:Optional
-	VPCIDSelector *v1.NamespacedSelector `json:"vpcIdSelector,omitempty" tf:"-"`
+	VPCSelector *v1.NamespacedSelector `json:"vpcSelector,omitempty" tf:"-"`
 }
 
 type MetadataInitParameters struct {
@@ -487,15 +499,17 @@ type NicsInitParameters struct {
 	// The network UUID to attach to the server. Changing this creates a new server.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.SubnetV1
 	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractNetworkID()
+	// +crossplane:generate:reference:refFieldName=NetworkRef
+	// +crossplane:generate:reference:selectorFieldName=NetworkSelector
 	NetworkID *string `json:"networkId,omitempty" tf:"network_id,omitempty"`
 
 	// Reference to a SubnetV1 in vpc to populate networkId.
 	// +kubebuilder:validation:Optional
-	NetworkIDRef *v1.NamespacedReference `json:"networkIdRef,omitempty" tf:"-"`
+	NetworkRef *v1.NamespacedReference `json:"networkRef,omitempty" tf:"-"`
 
 	// Selector for a SubnetV1 in vpc to populate networkId.
 	// +kubebuilder:validation:Optional
-	NetworkIDSelector *v1.NamespacedSelector `json:"networkIdSelector,omitempty" tf:"-"`
+	NetworkSelector *v1.NamespacedSelector `json:"networkSelector,omitempty" tf:"-"`
 }
 
 type NicsObservation struct {
@@ -535,16 +549,18 @@ type NicsParameters struct {
 	// The network UUID to attach to the server. Changing this creates a new server.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.SubnetV1
 	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractNetworkID()
+	// +crossplane:generate:reference:refFieldName=NetworkRef
+	// +crossplane:generate:reference:selectorFieldName=NetworkSelector
 	// +kubebuilder:validation:Optional
 	NetworkID *string `json:"networkId,omitempty" tf:"network_id,omitempty"`
 
 	// Reference to a SubnetV1 in vpc to populate networkId.
 	// +kubebuilder:validation:Optional
-	NetworkIDRef *v1.NamespacedReference `json:"networkIdRef,omitempty" tf:"-"`
+	NetworkRef *v1.NamespacedReference `json:"networkRef,omitempty" tf:"-"`
 
 	// Selector for a SubnetV1 in vpc to populate networkId.
 	// +kubebuilder:validation:Optional
-	NetworkIDSelector *v1.NamespacedSelector `json:"networkIdSelector,omitempty" tf:"-"`
+	NetworkSelector *v1.NamespacedSelector `json:"networkSelector,omitempty" tf:"-"`
 }
 
 type OsSchedulerHintsInitParameters struct {

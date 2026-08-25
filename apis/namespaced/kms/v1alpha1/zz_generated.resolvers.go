@@ -42,8 +42,8 @@ func (mg *GrantV1) ResolveReferences(ctx context.Context, c client.Reader) error
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.KeyID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.ForProvider.KeyIDRef,
-		Selector:     mg.Spec.ForProvider.KeyIDSelector,
+		Reference:    mg.Spec.ForProvider.KeyRef,
+		Selector:     mg.Spec.ForProvider.KeySelector,
 		To: reference.To{
 			List:    &KeyV1List{},
 			Managed: &KeyV1{},
@@ -53,7 +53,7 @@ func (mg *GrantV1) ResolveReferences(ctx context.Context, c client.Reader) error
 		return errors.Wrap(err, "mg.Spec.ForProvider.KeyID")
 	}
 	mg.Spec.ForProvider.KeyID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.KeyIDRef = rsp.ResolvedReference
+	mg.Spec.ForProvider.KeyRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.GranteePrincipal),
@@ -76,8 +76,8 @@ func (mg *GrantV1) ResolveReferences(ctx context.Context, c client.Reader) error
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.KeyID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.InitProvider.KeyIDRef,
-		Selector:     mg.Spec.InitProvider.KeyIDSelector,
+		Reference:    mg.Spec.InitProvider.KeyRef,
+		Selector:     mg.Spec.InitProvider.KeySelector,
 		To: reference.To{
 			List:    &KeyV1List{},
 			Managed: &KeyV1{},
@@ -87,7 +87,7 @@ func (mg *GrantV1) ResolveReferences(ctx context.Context, c client.Reader) error
 		return errors.Wrap(err, "mg.Spec.InitProvider.KeyID")
 	}
 	mg.Spec.InitProvider.KeyID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.KeyIDRef = rsp.ResolvedReference
+	mg.Spec.InitProvider.KeyRef = rsp.ResolvedReference
 
 	return nil
 }

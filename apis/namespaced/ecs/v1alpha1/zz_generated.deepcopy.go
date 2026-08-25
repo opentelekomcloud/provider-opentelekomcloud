@@ -21,13 +21,13 @@ func (in *DataDisksInitParameters) DeepCopyInto(out *DataDisksInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.KMSIDRef != nil {
-		in, out := &in.KMSIDRef, &out.KMSIDRef
+	if in.KMSRef != nil {
+		in, out := &in.KMSRef, &out.KMSRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.KMSIDSelector != nil {
-		in, out := &in.KMSIDSelector, &out.KMSIDSelector
+	if in.KMSSelector != nil {
+		in, out := &in.KMSSelector, &out.KMSSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -106,13 +106,13 @@ func (in *DataDisksParameters) DeepCopyInto(out *DataDisksParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.KMSIDRef != nil {
-		in, out := &in.KMSIDRef, &out.KMSIDRef
+	if in.KMSRef != nil {
+		in, out := &in.KMSRef, &out.KMSRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.KMSIDSelector != nil {
-		in, out := &in.KMSIDSelector, &out.KMSIDSelector
+	if in.KMSSelector != nil {
+		in, out := &in.KMSSelector, &out.KMSSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -289,13 +289,13 @@ func (in *InstanceV1InitParameters) DeepCopyInto(out *InstanceV1InitParameters) 
 		*out = new(string)
 		**out = **in
 	}
-	if in.SystemDiskKMSIDRef != nil {
-		in, out := &in.SystemDiskKMSIDRef, &out.SystemDiskKMSIDRef
+	if in.SystemDiskKMSRef != nil {
+		in, out := &in.SystemDiskKMSRef, &out.SystemDiskKMSRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.SystemDiskKMSIDSelector != nil {
-		in, out := &in.SystemDiskKMSIDSelector, &out.SystemDiskKMSIDSelector
+	if in.SystemDiskKMSSelector != nil {
+		in, out := &in.SystemDiskKMSSelector, &out.SystemDiskKMSSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -340,13 +340,13 @@ func (in *InstanceV1InitParameters) DeepCopyInto(out *InstanceV1InitParameters) 
 		*out = new(string)
 		**out = **in
 	}
-	if in.VPCIDRef != nil {
-		in, out := &in.VPCIDRef, &out.VPCIDRef
+	if in.VPCRef != nil {
+		in, out := &in.VPCRef, &out.VPCRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.VPCIDSelector != nil {
-		in, out := &in.VPCIDSelector, &out.VPCIDSelector
+	if in.VPCSelector != nil {
+		in, out := &in.VPCSelector, &out.VPCSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -675,13 +675,13 @@ func (in *InstanceV1Parameters) DeepCopyInto(out *InstanceV1Parameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.SystemDiskKMSIDRef != nil {
-		in, out := &in.SystemDiskKMSIDRef, &out.SystemDiskKMSIDRef
+	if in.SystemDiskKMSRef != nil {
+		in, out := &in.SystemDiskKMSRef, &out.SystemDiskKMSRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.SystemDiskKMSIDSelector != nil {
-		in, out := &in.SystemDiskKMSIDSelector, &out.SystemDiskKMSIDSelector
+	if in.SystemDiskKMSSelector != nil {
+		in, out := &in.SystemDiskKMSSelector, &out.SystemDiskKMSSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -726,13 +726,13 @@ func (in *InstanceV1Parameters) DeepCopyInto(out *InstanceV1Parameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.VPCIDRef != nil {
-		in, out := &in.VPCIDRef, &out.VPCIDRef
+	if in.VPCRef != nil {
+		in, out := &in.VPCRef, &out.VPCRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.VPCIDSelector != nil {
-		in, out := &in.VPCIDSelector, &out.VPCIDSelector
+	if in.VPCSelector != nil {
+		in, out := &in.VPCSelector, &out.VPCSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -861,13 +861,13 @@ func (in *NicsInitParameters) DeepCopyInto(out *NicsInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.NetworkIDRef != nil {
-		in, out := &in.NetworkIDRef, &out.NetworkIDRef
+	if in.NetworkRef != nil {
+		in, out := &in.NetworkRef, &out.NetworkRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.NetworkIDSelector != nil {
-		in, out := &in.NetworkIDSelector, &out.NetworkIDSelector
+	if in.NetworkSelector != nil {
+		in, out := &in.NetworkSelector, &out.NetworkSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -951,13 +951,13 @@ func (in *NicsParameters) DeepCopyInto(out *NicsParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.NetworkIDRef != nil {
-		in, out := &in.NetworkIDRef, &out.NetworkIDRef
+	if in.NetworkRef != nil {
+		in, out := &in.NetworkRef, &out.NetworkRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.NetworkIDSelector != nil {
-		in, out := &in.NetworkIDSelector, &out.NetworkIDSelector
+	if in.NetworkSelector != nil {
+		in, out := &in.NetworkSelector, &out.NetworkSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}

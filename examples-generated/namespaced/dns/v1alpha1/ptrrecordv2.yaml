@@ -10,7 +10,7 @@ metadata:
 spec:
   forProvider:
     description: An example PTR record
-    floatingipIdSelector:
+    floatingIpSelector:
       matchLabels:
         testing.upbound.io/example-name: fip_1
     name: ptr.example.com.

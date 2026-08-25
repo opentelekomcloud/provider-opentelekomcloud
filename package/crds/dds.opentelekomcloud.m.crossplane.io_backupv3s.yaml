@@ -65,7 +65,7 @@ spec:
                   instanceId:
                     description: Specifies the ID of a DDS instance.
                     type: string
-                  instanceIdRef:
+                  instanceRef:
                     description: Reference to a InstanceV3 in dds to populate instanceId.
                     properties:
                       name:
@@ -102,7 +102,7 @@ spec:
                     required:
                     - name
                     type: object
-                  instanceIdSelector:
+                  instanceSelector:
                     description: Selector for a InstanceV3 in dds to populate instanceId.
                     properties:
                       matchControllerRef:
@@ -171,7 +171,7 @@ spec:
                   instanceId:
                     description: Specifies the ID of a DDS instance.
                     type: string
-                  instanceIdRef:
+                  instanceRef:
                     description: Reference to a InstanceV3 in dds to populate instanceId.
                     properties:
                       name:
@@ -208,7 +208,7 @@ spec:
                     required:
                     - name
                     type: object
-                  instanceIdSelector:
+                  instanceSelector:
                     description: Selector for a InstanceV3 in dds to populate instanceId.
                     properties:
                       matchControllerRef:

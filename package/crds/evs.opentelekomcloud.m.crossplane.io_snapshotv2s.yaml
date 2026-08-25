@@ -84,7 +84,7 @@ spec:
                       The ID of the snapshot's source disk. Changing this parameter creates a new
                       snapshot.
                     type: string
-                  volumeIdRef:
+                  volumeRef:
                     description: Reference to a VolumeV3 in evs to populate volumeId.
                     properties:
                       name:
@@ -121,7 +121,7 @@ spec:
                     required:
                     - name
                     type: object
-                  volumeIdSelector:
+                  volumeSelector:
                     description: Selector for a VolumeV3 in evs to populate volumeId.
                     properties:
                       matchControllerRef:
@@ -203,7 +203,7 @@ spec:
                       The ID of the snapshot's source disk. Changing this parameter creates a new
                       snapshot.
                     type: string
-                  volumeIdRef:
+                  volumeRef:
                     description: Reference to a VolumeV3 in evs to populate volumeId.
                     properties:
                       name:
@@ -240,7 +240,7 @@ spec:
                     required:
                     - name
                     type: object
-                  volumeIdSelector:
+                  volumeSelector:
                     description: Selector for a VolumeV3 in evs to populate volumeId.
                     properties:
                       matchControllerRef:

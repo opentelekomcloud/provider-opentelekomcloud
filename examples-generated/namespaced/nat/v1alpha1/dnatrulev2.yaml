@@ -10,11 +10,11 @@ metadata:
 spec:
   forProvider:
     externalServicePort: 242
-    floatingIpIdSelector:
+    floatingIpSelector:
       matchLabels:
         testing.upbound.io/example-name: example
     internalServicePort: 993
-    natGatewayIdSelector:
+    natGatewaySelector:
       matchLabels:
         testing.upbound.io/example-name: example
     privateIp: ${var.private_id}

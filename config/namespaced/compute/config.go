@@ -41,32 +41,46 @@ func Configure(p *config.Provider) {
 			SelectorFieldName: "ComputeSecurityGroupIDSelector",
 		}
 		r.References["vpc_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_vpc_v1",
+			TerraformName:     "opentelekomcloud_vpc_v1",
+			SelectorFieldName: "VpcSelector",
+			RefFieldName:      "VpcRef",
 		}
 		r.References["nics.network_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_vpc_subnet_v1",
-			Extractor:     common.NetworkIDExtractor,
+			TerraformName:     "opentelekomcloud_vpc_subnet_v1",
+			Extractor:         common.NetworkIDExtractor,
+			SelectorFieldName: "NetworkSelector",
+			RefFieldName:      "NetworkRef",
 		}
 		r.References["data_disks.kms_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_kms_key_v1",
+			TerraformName:     "opentelekomcloud_kms_key_v1",
+			SelectorFieldName: "KMSSelector",
+			RefFieldName:      "KMSRef",
 		}
 		r.References["system_disk_kms_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_kms_key_v1",
+			TerraformName:     "opentelekomcloud_kms_key_v1",
+			SelectorFieldName: "SystemDiskKMSSelector",
+			RefFieldName:      "SystemDiskKMSRef",
 		}
 	})
 	p.AddResourceConfigurator("opentelekomcloud_compute_volume_attach_v2", func(r *config.Resource) {
 		r.UseAsync = true
 		r.References["instance_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_compute_instance_v2",
+			TerraformName:     "opentelekomcloud_compute_instance_v2",
+			SelectorFieldName: "InstanceSelector",
+			RefFieldName:      "InstanceRef",
 		}
 		r.References["volume_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_blockstorage_volume_v2",
+			TerraformName:     "opentelekomcloud_blockstorage_volume_v2",
+			SelectorFieldName: "VolumeSelector",
+			RefFieldName:      "VolumeRef",
 		}
 	})
 	p.AddResourceConfigurator("opentelekomcloud_compute_floatingip_associate_v2", func(r *config.Resource) {
 		r.UseAsync = true
 		r.References["instance_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_compute_instance_v2",
+			TerraformName:     "opentelekomcloud_compute_instance_v2",
+			SelectorFieldName: "InstanceSelector",
+			RefFieldName:      "InstanceRef",
 		}
 		r.References["floating_ip"] = config.Reference{
 			TerraformName: "opentelekomcloud_networking_floatingip_v2",

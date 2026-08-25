@@ -27,15 +27,15 @@ spec:
     passwordSecretRef:
       key: example-key
       name: example-secret
-    securityGroupIdSelector:
+    securityGroupSelector:
       matchLabels:
         testing.upbound.io/example-name: example
-    subnetIdSelector:
+    subnetSelector:
       matchLabels:
         testing.upbound.io/example-name: example
     tags:
       foo: bar
       new_test: new_test2
-    vpcIdSelector:
+    vpcSelector:
       matchLabels:
         testing.upbound.io/example-name: example

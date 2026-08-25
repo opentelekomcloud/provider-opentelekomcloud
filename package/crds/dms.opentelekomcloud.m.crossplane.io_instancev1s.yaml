@@ -133,7 +133,7 @@ spec:
                   securityGroupId:
                     description: Indicates the ID of a security group.
                     type: string
-                  securityGroupIdRef:
+                  securityGroupRef:
                     description: Reference to a SecgroupV2 in compute to populate
                       securityGroupId.
                     properties:
@@ -171,7 +171,7 @@ spec:
                     required:
                     - name
                     type: object
-                  securityGroupIdSelector:
+                  securityGroupSelector:
                     description: Selector for a SecgroupV2 in compute to populate
                       securityGroupId.
                     properties:
@@ -233,7 +233,7 @@ spec:
                     description: Indicates the ID of the subnet (OpenStack network
                       ID).
                     type: string
-                  subnetIdRef:
+                  subnetRef:
                     description: Reference to a SubnetV1 in vpc to populate subnetId.
                     properties:
                       name:
@@ -270,7 +270,7 @@ spec:
                     required:
                     - name
                     type: object
-                  subnetIdSelector:
+                  subnetSelector:
                     description: Selector for a SubnetV1 in vpc to populate subnetId.
                     properties:
                       matchControllerRef:
@@ -316,7 +316,7 @@ spec:
                   vpcId:
                     description: Indicates the ID of a VPC (OpenStack router ID).
                     type: string
-                  vpcIdRef:
+                  vpcRef:
                     description: Reference to a VpcV1 in vpc to populate vpcId.
                     properties:
                       name:
@@ -353,7 +353,7 @@ spec:
                     required:
                     - name
                     type: object
-                  vpcIdSelector:
+                  vpcSelector:
                     description: Selector for a VpcV1 in vpc to populate vpcId.
                     properties:
                       matchControllerRef:
@@ -484,7 +484,7 @@ spec:
                   securityGroupId:
                     description: Indicates the ID of a security group.
                     type: string
-                  securityGroupIdRef:
+                  securityGroupRef:
                     description: Reference to a SecgroupV2 in compute to populate
                       securityGroupId.
                     properties:
@@ -522,7 +522,7 @@ spec:
                     required:
                     - name
                     type: object
-                  securityGroupIdSelector:
+                  securityGroupSelector:
                     description: Selector for a SecgroupV2 in compute to populate
                       securityGroupId.
                     properties:
@@ -584,7 +584,7 @@ spec:
                     description: Indicates the ID of the subnet (OpenStack network
                       ID).
                     type: string
-                  subnetIdRef:
+                  subnetRef:
                     description: Reference to a SubnetV1 in vpc to populate subnetId.
                     properties:
                       name:
@@ -621,7 +621,7 @@ spec:
                     required:
                     - name
                     type: object
-                  subnetIdSelector:
+                  subnetSelector:
                     description: Selector for a SubnetV1 in vpc to populate subnetId.
                     properties:
                       matchControllerRef:
@@ -667,7 +667,7 @@ spec:
                   vpcId:
                     description: Indicates the ID of a VPC (OpenStack router ID).
                     type: string
-                  vpcIdRef:
+                  vpcRef:
                     description: Reference to a VpcV1 in vpc to populate vpcId.
                     properties:
                       name:
@@ -704,7 +704,7 @@ spec:
                     required:
                     - name
                     type: object
-                  vpcIdSelector:
+                  vpcSelector:
                     description: Selector for a VpcV1 in vpc to populate vpcId.
                     properties:
                       matchControllerRef:

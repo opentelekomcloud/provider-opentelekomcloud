@@ -30,7 +30,7 @@ metadata:
 spec:
   forProvider:
     description: Crossplane example PTR record
-    floatingipIdSelector:
+    floatingIpSelector:
       matchLabels:
         testing.upbound.io/example-name: sample-ptr-instance
     name: ptr.crossplane.com.

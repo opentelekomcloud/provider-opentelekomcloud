@@ -74,15 +74,17 @@ type PolicyV3InitParameters struct {
 	// The Listener on which the Policy will be associated with.
 	// Changing this creates a new Policy.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lb/v1alpha1.ListenerV3
+	// +crossplane:generate:reference:refFieldName=ListenerRef
+	// +crossplane:generate:reference:selectorFieldName=ListenerSelector
 	ListenerID *string `json:"listenerId,omitempty" tf:"listener_id,omitempty"`
 
 	// Reference to a ListenerV3 in lb to populate listenerId.
 	// +kubebuilder:validation:Optional
-	ListenerIDRef *v1.NamespacedReference `json:"listenerIdRef,omitempty" tf:"-"`
+	ListenerRef *v1.NamespacedReference `json:"listenerRef,omitempty" tf:"-"`
 
 	// Selector for a ListenerV3 in lb to populate listenerId.
 	// +kubebuilder:validation:Optional
-	ListenerIDSelector *v1.NamespacedSelector `json:"listenerIdSelector,omitempty" tf:"-"`
+	ListenerSelector *v1.NamespacedSelector `json:"listenerSelector,omitempty" tf:"-"`
 
 	// Specifies the forwarding policy name.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -115,28 +117,32 @@ type PolicyV3InitParameters struct {
 	// Requests matching this policy will be redirected to the listener with this ID.
 	// Only valid if action is REDIRECT_TO_LISTENER.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lb/v1alpha1.ListenerV3
+	// +crossplane:generate:reference:refFieldName=RedirectListenerRef
+	// +crossplane:generate:reference:selectorFieldName=RedirectListenerSelector
 	RedirectListenerID *string `json:"redirectListenerId,omitempty" tf:"redirect_listener_id,omitempty"`
 
 	// Reference to a ListenerV3 in lb to populate redirectListenerId.
 	// +kubebuilder:validation:Optional
-	RedirectListenerIDRef *v1.NamespacedReference `json:"redirectListenerIdRef,omitempty" tf:"-"`
+	RedirectListenerRef *v1.NamespacedReference `json:"redirectListenerRef,omitempty" tf:"-"`
 
 	// Selector for a ListenerV3 in lb to populate redirectListenerId.
 	// +kubebuilder:validation:Optional
-	RedirectListenerIDSelector *v1.NamespacedSelector `json:"redirectListenerIdSelector,omitempty" tf:"-"`
+	RedirectListenerSelector *v1.NamespacedSelector `json:"redirectListenerSelector,omitempty" tf:"-"`
 
 	// Requests matching this policy will be redirected to the pool with this ID.
 	// Only valid if action is REDIRECT_TO_POOL.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lb/v1alpha1.PoolV3
+	// +crossplane:generate:reference:refFieldName=RedirectPoolRef
+	// +crossplane:generate:reference:selectorFieldName=RedirectPoolSelector
 	RedirectPoolID *string `json:"redirectPoolId,omitempty" tf:"redirect_pool_id,omitempty"`
 
 	// Reference to a PoolV3 in lb to populate redirectPoolId.
 	// +kubebuilder:validation:Optional
-	RedirectPoolIDRef *v1.NamespacedReference `json:"redirectPoolIdRef,omitempty" tf:"-"`
+	RedirectPoolRef *v1.NamespacedReference `json:"redirectPoolRef,omitempty" tf:"-"`
 
 	// Selector for a PoolV3 in lb to populate redirectPoolId.
 	// +kubebuilder:validation:Optional
-	RedirectPoolIDSelector *v1.NamespacedSelector `json:"redirectPoolIdSelector,omitempty" tf:"-"`
+	RedirectPoolSelector *v1.NamespacedSelector `json:"redirectPoolSelector,omitempty" tf:"-"`
 
 	// Specifies the configuration of the backend server group that the requests
 	// are forwarded to. This parameter is valid only when action is set to REDIRECT_TO_POOL.
@@ -243,16 +249,18 @@ type PolicyV3Parameters struct {
 	// The Listener on which the Policy will be associated with.
 	// Changing this creates a new Policy.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lb/v1alpha1.ListenerV3
+	// +crossplane:generate:reference:refFieldName=ListenerRef
+	// +crossplane:generate:reference:selectorFieldName=ListenerSelector
 	// +kubebuilder:validation:Optional
 	ListenerID *string `json:"listenerId,omitempty" tf:"listener_id,omitempty"`
 
 	// Reference to a ListenerV3 in lb to populate listenerId.
 	// +kubebuilder:validation:Optional
-	ListenerIDRef *v1.NamespacedReference `json:"listenerIdRef,omitempty" tf:"-"`
+	ListenerRef *v1.NamespacedReference `json:"listenerRef,omitempty" tf:"-"`
 
 	// Selector for a ListenerV3 in lb to populate listenerId.
 	// +kubebuilder:validation:Optional
-	ListenerIDSelector *v1.NamespacedSelector `json:"listenerIdSelector,omitempty" tf:"-"`
+	ListenerSelector *v1.NamespacedSelector `json:"listenerSelector,omitempty" tf:"-"`
 
 	// Specifies the forwarding policy name.
 	// +kubebuilder:validation:Optional
@@ -289,30 +297,34 @@ type PolicyV3Parameters struct {
 	// Requests matching this policy will be redirected to the listener with this ID.
 	// Only valid if action is REDIRECT_TO_LISTENER.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lb/v1alpha1.ListenerV3
+	// +crossplane:generate:reference:refFieldName=RedirectListenerRef
+	// +crossplane:generate:reference:selectorFieldName=RedirectListenerSelector
 	// +kubebuilder:validation:Optional
 	RedirectListenerID *string `json:"redirectListenerId,omitempty" tf:"redirect_listener_id,omitempty"`
 
 	// Reference to a ListenerV3 in lb to populate redirectListenerId.
 	// +kubebuilder:validation:Optional
-	RedirectListenerIDRef *v1.NamespacedReference `json:"redirectListenerIdRef,omitempty" tf:"-"`
+	RedirectListenerRef *v1.NamespacedReference `json:"redirectListenerRef,omitempty" tf:"-"`
 
 	// Selector for a ListenerV3 in lb to populate redirectListenerId.
 	// +kubebuilder:validation:Optional
-	RedirectListenerIDSelector *v1.NamespacedSelector `json:"redirectListenerIdSelector,omitempty" tf:"-"`
+	RedirectListenerSelector *v1.NamespacedSelector `json:"redirectListenerSelector,omitempty" tf:"-"`
 
 	// Requests matching this policy will be redirected to the pool with this ID.
 	// Only valid if action is REDIRECT_TO_POOL.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lb/v1alpha1.PoolV3
+	// +crossplane:generate:reference:refFieldName=RedirectPoolRef
+	// +crossplane:generate:reference:selectorFieldName=RedirectPoolSelector
 	// +kubebuilder:validation:Optional
 	RedirectPoolID *string `json:"redirectPoolId,omitempty" tf:"redirect_pool_id,omitempty"`
 
 	// Reference to a PoolV3 in lb to populate redirectPoolId.
 	// +kubebuilder:validation:Optional
-	RedirectPoolIDRef *v1.NamespacedReference `json:"redirectPoolIdRef,omitempty" tf:"-"`
+	RedirectPoolRef *v1.NamespacedReference `json:"redirectPoolRef,omitempty" tf:"-"`
 
 	// Selector for a PoolV3 in lb to populate redirectPoolId.
 	// +kubebuilder:validation:Optional
-	RedirectPoolIDSelector *v1.NamespacedSelector `json:"redirectPoolIdSelector,omitempty" tf:"-"`
+	RedirectPoolSelector *v1.NamespacedSelector `json:"redirectPoolSelector,omitempty" tf:"-"`
 
 	// Specifies the configuration of the backend server group that the requests
 	// are forwarded to. This parameter is valid only when action is set to REDIRECT_TO_POOL.
@@ -338,15 +350,17 @@ type RedirectPoolsConfigInitParameters struct {
 
 	// - Specifies the ID of the backend server group.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lb/v1alpha1.PoolV3
+	// +crossplane:generate:reference:refFieldName=PoolsRef
+	// +crossplane:generate:reference:selectorFieldName=PoolsSelector
 	PoolID *string `json:"poolId,omitempty" tf:"pool_id,omitempty"`
 
 	// Reference to a PoolV3 in lb to populate poolId.
 	// +kubebuilder:validation:Optional
-	PoolIDRef *v1.NamespacedReference `json:"poolIdRef,omitempty" tf:"-"`
+	PoolsRef *v1.NamespacedReference `json:"poolsRef,omitempty" tf:"-"`
 
 	// Selector for a PoolV3 in lb to populate poolId.
 	// +kubebuilder:validation:Optional
-	PoolIDSelector *v1.NamespacedSelector `json:"poolIdSelector,omitempty" tf:"-"`
+	PoolsSelector *v1.NamespacedSelector `json:"poolsSelector,omitempty" tf:"-"`
 
 	// - Specifies the weight of the backend server group. The value ranges from 0 to 100.
 	Weight *float64 `json:"weight,omitempty" tf:"weight,omitempty"`
@@ -365,16 +379,18 @@ type RedirectPoolsConfigParameters struct {
 
 	// - Specifies the ID of the backend server group.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lb/v1alpha1.PoolV3
+	// +crossplane:generate:reference:refFieldName=PoolsRef
+	// +crossplane:generate:reference:selectorFieldName=PoolsSelector
 	// +kubebuilder:validation:Optional
 	PoolID *string `json:"poolId,omitempty" tf:"pool_id,omitempty"`
 
 	// Reference to a PoolV3 in lb to populate poolId.
 	// +kubebuilder:validation:Optional
-	PoolIDRef *v1.NamespacedReference `json:"poolIdRef,omitempty" tf:"-"`
+	PoolsRef *v1.NamespacedReference `json:"poolsRef,omitempty" tf:"-"`
 
 	// Selector for a PoolV3 in lb to populate poolId.
 	// +kubebuilder:validation:Optional
-	PoolIDSelector *v1.NamespacedSelector `json:"poolIdSelector,omitempty" tf:"-"`
+	PoolsSelector *v1.NamespacedSelector `json:"poolsSelector,omitempty" tf:"-"`
 
 	// - Specifies the weight of the backend server group. The value ranges from 0 to 100.
 	// +kubebuilder:validation:Optional

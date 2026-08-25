@@ -44,7 +44,7 @@ spec:
     gatewayIp: "192.168.0.1"
     name: xp-test-${Rand.RFC1123Subdomain}
     ntpAddresses: "10.100.0.33,10.100.0.34"
-    vpcIdSelector:
+    vpcSelector:
       matchLabels:
         testing.upbound.io/example-name: sample-instance
     tags:
@@ -92,16 +92,16 @@ spec:
     keyNameSelector:
       matchLabels:
         testing.upbound.io/example-name: sample-instance
-    computeSecurityGroupIdSelector:
+    computeSecurityGroupIDSelector:
       matchLabels:
         testing.upbound.io/example-name: sample-instance
     name: xp-test-${Rand.RFC1123Subdomain}
     nics:
-      - networkIdSelector:
+      - networkSelector:
           matchLabels:
             testing.upbound.io/example-name: sample-instance
     tags:
       managed-by: crossplane
-    vpcIdSelector:
+    vpcSelector:
       matchLabels:
         testing.upbound.io/example-name: sample-instance

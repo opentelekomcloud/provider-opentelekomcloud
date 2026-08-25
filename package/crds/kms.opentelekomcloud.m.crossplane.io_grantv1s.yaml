@@ -148,7 +148,7 @@ spec:
                     description: Indicates the ID of the KMS. Changing this creates
                       new grant.
                     type: string
-                  keyIdRef:
+                  keyRef:
                     description: Reference to a KeyV1 in kms to populate keyId.
                     properties:
                       name:
@@ -185,7 +185,7 @@ spec:
                     required:
                     - name
                     type: object
-                  keyIdSelector:
+                  keySelector:
                     description: Selector for a KeyV1 in kms to populate keyId.
                     properties:
                       matchControllerRef:
@@ -352,7 +352,7 @@ spec:
                     description: Indicates the ID of the KMS. Changing this creates
                       new grant.
                     type: string
-                  keyIdRef:
+                  keyRef:
                     description: Reference to a KeyV1 in kms to populate keyId.
                     properties:
                       name:
@@ -389,7 +389,7 @@ spec:
                     required:
                     - name
                     type: object
-                  keyIdSelector:
+                  keySelector:
                     description: Selector for a KeyV1 in kms to populate keyId.
                     properties:
                       matchControllerRef:

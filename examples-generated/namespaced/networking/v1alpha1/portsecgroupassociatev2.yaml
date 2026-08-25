@@ -9,8 +9,8 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    portIdSelector:
+    portSelector:
       matchLabels:
         testing.upbound.io/example-name: opentelekomcloud_networking_port_v2
-    securityGroupIdsRefs:
+    securityGroupRef:
     - name: opentelekomcloud_networking_secgroup_v2

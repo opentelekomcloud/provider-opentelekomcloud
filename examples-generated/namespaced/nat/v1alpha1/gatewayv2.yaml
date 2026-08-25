@@ -10,13 +10,13 @@ metadata:
 spec:
   forProvider:
     description: NAT GW created by terraform
-    internalNetworkIdSelector:
+    internalNetworkSelector:
       matchLabels:
         testing.upbound.io/example-name: example
     name: tf_nat
-    routerIdSelector:
-      matchLabels:
-        testing.upbound.io/example-name: example
     spec: "0"
     tags:
       muh: kuh
+    vpcSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example

@@ -14,7 +14,7 @@ spec:
         testing.upbound.io/example-name: example
     availabilityZone: ${var.availability_zone}
     bandwidthSize: 100
-    clusterIdSelector:
+    clusterSelector:
       matchLabels:
         testing.upbound.io/example-name: example
     dataVolumes:

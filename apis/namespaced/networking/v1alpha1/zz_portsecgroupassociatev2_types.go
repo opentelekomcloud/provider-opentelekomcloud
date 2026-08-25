@@ -22,15 +22,17 @@ type PortSecgroupAssociateV2InitParameters struct {
 
 	// An UUID of the port to apply security groups to.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/networking/v1alpha1.PortV2
+	// +crossplane:generate:reference:refFieldName=PortRef
+	// +crossplane:generate:reference:selectorFieldName=PortSelector
 	PortID *string `json:"portId,omitempty" tf:"port_id,omitempty"`
 
 	// Reference to a PortV2 in networking to populate portId.
 	// +kubebuilder:validation:Optional
-	PortIDRef *v1.NamespacedReference `json:"portIdRef,omitempty" tf:"-"`
+	PortRef *v1.NamespacedReference `json:"portRef,omitempty" tf:"-"`
 
 	// Selector for a PortV2 in networking to populate portId.
 	// +kubebuilder:validation:Optional
-	PortIDSelector *v1.NamespacedSelector `json:"portIdSelector,omitempty" tf:"-"`
+	PortSelector *v1.NamespacedSelector `json:"portSelector,omitempty" tf:"-"`
 
 	// The region in which to obtain the V2 networking client.
 	// A networking client is needed to manage a port. If omitted, the
@@ -42,16 +44,18 @@ type PortSecgroupAssociateV2InitParameters struct {
 	// the port. The security groups must be specified by ID and not name (as
 	// opposed to how they are configured with the Compute Instance).
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/networking/v1alpha1.SecgroupV2
+	// +crossplane:generate:reference:refFieldName=SecurityGroupRef
+	// +crossplane:generate:reference:selectorFieldName=SecurityGroupSelector
 	// +listType=set
 	SecurityGroupIds []*string `json:"securityGroupIds,omitempty" tf:"security_group_ids,omitempty"`
 
 	// References to SecgroupV2 in networking to populate securityGroupIds.
 	// +kubebuilder:validation:Optional
-	SecurityGroupIdsRefs []v1.NamespacedReference `json:"securityGroupIdsRefs,omitempty" tf:"-"`
+	SecurityGroupRef []v1.NamespacedReference `json:"securityGroupRef,omitempty" tf:"-"`
 
 	// Selector for a list of SecgroupV2 in networking to populate securityGroupIds.
 	// +kubebuilder:validation:Optional
-	SecurityGroupIdsSelector *v1.NamespacedSelector `json:"securityGroupIdsSelector,omitempty" tf:"-"`
+	SecurityGroupSelector *v1.NamespacedSelector `json:"securityGroupSelector,omitempty" tf:"-"`
 }
 
 type PortSecgroupAssociateV2Observation struct {
@@ -92,16 +96,18 @@ type PortSecgroupAssociateV2Parameters struct {
 
 	// An UUID of the port to apply security groups to.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/networking/v1alpha1.PortV2
+	// +crossplane:generate:reference:refFieldName=PortRef
+	// +crossplane:generate:reference:selectorFieldName=PortSelector
 	// +kubebuilder:validation:Optional
 	PortID *string `json:"portId,omitempty" tf:"port_id,omitempty"`
 
 	// Reference to a PortV2 in networking to populate portId.
 	// +kubebuilder:validation:Optional
-	PortIDRef *v1.NamespacedReference `json:"portIdRef,omitempty" tf:"-"`
+	PortRef *v1.NamespacedReference `json:"portRef,omitempty" tf:"-"`
 
 	// Selector for a PortV2 in networking to populate portId.
 	// +kubebuilder:validation:Optional
-	PortIDSelector *v1.NamespacedSelector `json:"portIdSelector,omitempty" tf:"-"`
+	PortSelector *v1.NamespacedSelector `json:"portSelector,omitempty" tf:"-"`
 
 	// The region in which to obtain the V2 networking client.
 	// A networking client is needed to manage a port. If omitted, the
@@ -114,17 +120,19 @@ type PortSecgroupAssociateV2Parameters struct {
 	// the port. The security groups must be specified by ID and not name (as
 	// opposed to how they are configured with the Compute Instance).
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/networking/v1alpha1.SecgroupV2
+	// +crossplane:generate:reference:refFieldName=SecurityGroupRef
+	// +crossplane:generate:reference:selectorFieldName=SecurityGroupSelector
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	SecurityGroupIds []*string `json:"securityGroupIds,omitempty" tf:"security_group_ids,omitempty"`
 
 	// References to SecgroupV2 in networking to populate securityGroupIds.
 	// +kubebuilder:validation:Optional
-	SecurityGroupIdsRefs []v1.NamespacedReference `json:"securityGroupIdsRefs,omitempty" tf:"-"`
+	SecurityGroupRef []v1.NamespacedReference `json:"securityGroupRef,omitempty" tf:"-"`
 
 	// Selector for a list of SecgroupV2 in networking to populate securityGroupIds.
 	// +kubebuilder:validation:Optional
-	SecurityGroupIdsSelector *v1.NamespacedSelector `json:"securityGroupIdsSelector,omitempty" tf:"-"`
+	SecurityGroupSelector *v1.NamespacedSelector `json:"securityGroupSelector,omitempty" tf:"-"`
 }
 
 // PortSecgroupAssociateV2Spec defines the desired state of PortSecgroupAssociateV2

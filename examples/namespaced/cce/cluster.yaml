@@ -44,7 +44,7 @@ spec:
     gatewayIp: "192.168.0.1"
     name: xp-test-${Rand.RFC1123Subdomain}
     ntpAddresses: "10.100.0.33,10.100.0.34"
-    vpcIdSelector:
+    vpcSelector:
       matchLabels:
         testing.upbound.io/example-name: sample-instance
     tags:
@@ -68,10 +68,10 @@ spec:
     flavorId: cce.s1.small
     containerNetworkType: vpc-router
     name: xp-test-${Rand.RFC1123Subdomain}
-    subnetIdSelector:
+    subnetSelector:
       matchLabels:
         testing.upbound.io/example-name: sample-instance
-    vpcIdSelector:
+    vpcSelector:
       matchLabels:
         testing.upbound.io/example-name: sample-instance
 
@@ -89,7 +89,7 @@ spec:
   forProvider:
     availabilityZone: eu-de-01
     bandwidthSize: 100
-    clusterIdSelector:
+    clusterSelector:
       matchLabels:
         testing.upbound.io/example-name: sample-crossplane-cluster
     dataVolumes:
@@ -123,7 +123,7 @@ metadata:
 spec:
   forProvider:
     availabilityZone: eu-de-01
-    clusterIdSelector:
+    clusterSelector:
       matchLabels:
         testing.upbound.io/example-name: sample-crossplane-cluster
     dataVolumes:

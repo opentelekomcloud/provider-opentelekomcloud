@@ -367,13 +367,13 @@ func (in *OrganizationPermissionsV2InitParameters) DeepCopyInto(out *Organizatio
 		*out = new(string)
 		**out = **in
 	}
-	if in.UserIDRef != nil {
-		in, out := &in.UserIDRef, &out.UserIDRef
+	if in.UserRef != nil {
+		in, out := &in.UserRef, &out.UserRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.UserIDSelector != nil {
-		in, out := &in.UserIDSelector, &out.UserIDSelector
+	if in.UserSelector != nil {
+		in, out := &in.UserSelector, &out.UserSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -504,13 +504,13 @@ func (in *OrganizationPermissionsV2Parameters) DeepCopyInto(out *OrganizationPer
 		*out = new(string)
 		**out = **in
 	}
-	if in.UserIDRef != nil {
-		in, out := &in.UserIDRef, &out.UserIDRef
+	if in.UserRef != nil {
+		in, out := &in.UserRef, &out.UserRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.UserIDSelector != nil {
-		in, out := &in.UserIDSelector, &out.UserIDSelector
+	if in.UserSelector != nil {
+		in, out := &in.UserSelector, &out.UserSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}

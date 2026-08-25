@@ -161,7 +161,7 @@ spec:
                             The Encryption KMS ID of the data disk. Changing this
                             creates a new server.
                           type: string
-                        kmsIdRef:
+                        kmsRef:
                           description: Reference to a KeyV1 in kms to populate kmsId.
                           properties:
                             name:
@@ -198,7 +198,7 @@ spec:
                           required:
                           - name
                           type: object
-                        kmsIdSelector:
+                        kmsSelector:
                           description: Selector for a KeyV1 in kms to populate kmsId.
                           properties:
                             matchControllerRef:
@@ -394,7 +394,7 @@ spec:
                           description: The network UUID to attach to the server. Changing
                             this creates a new server.
                           type: string
-                        networkIdRef:
+                        networkRef:
                           description: Reference to a SubnetV1 in vpc to populate
                             networkId.
                           properties:
@@ -432,7 +432,7 @@ spec:
                           required:
                           - name
                           type: object
-                        networkIdSelector:
+                        networkSelector:
                           description: Selector for a SubnetV1 in vpc to populate
                             networkId.
                           properties:
@@ -529,7 +529,7 @@ spec:
                       The Encryption KMS ID of the system disk. Changing this
                       creates a new server.
                     type: string
-                  systemDiskKmsIdRef:
+                  systemDiskKmsRef:
                     description: Reference to a KeyV1 in kms to populate systemDiskKmsId.
                     properties:
                       name:
@@ -566,7 +566,7 @@ spec:
                     required:
                     - name
                     type: object
-                  systemDiskKmsIdSelector:
+                  systemDiskKmsSelector:
                     description: Selector for a KeyV1 in kms to populate systemDiskKmsId.
                     properties:
                       matchControllerRef:
@@ -639,7 +639,7 @@ spec:
                     description: The ID of the desired VPC for the server. Changing
                       this creates a new server.
                     type: string
-                  vpcIdRef:
+                  vpcRef:
                     description: Reference to a VpcV1 in vpc to populate vpcId.
                     properties:
                       name:
@@ -676,7 +676,7 @@ spec:
                     required:
                     - name
                     type: object
-                  vpcIdSelector:
+                  vpcSelector:
                     description: Selector for a VpcV1 in vpc to populate vpcId.
                     properties:
                       matchControllerRef:
@@ -835,7 +835,7 @@ spec:
                             The Encryption KMS ID of the data disk. Changing this
                             creates a new server.
                           type: string
-                        kmsIdRef:
+                        kmsRef:
                           description: Reference to a KeyV1 in kms to populate kmsId.
                           properties:
                             name:
@@ -872,7 +872,7 @@ spec:
                           required:
                           - name
                           type: object
-                        kmsIdSelector:
+                        kmsSelector:
                           description: Selector for a KeyV1 in kms to populate kmsId.
                           properties:
                             matchControllerRef:
@@ -1068,7 +1068,7 @@ spec:
                           description: The network UUID to attach to the server. Changing
                             this creates a new server.
                           type: string
-                        networkIdRef:
+                        networkRef:
                           description: Reference to a SubnetV1 in vpc to populate
                             networkId.
                           properties:
@@ -1106,7 +1106,7 @@ spec:
                           required:
                           - name
                           type: object
-                        networkIdSelector:
+                        networkSelector:
                           description: Selector for a SubnetV1 in vpc to populate
                             networkId.
                           properties:
@@ -1203,7 +1203,7 @@ spec:
                       The Encryption KMS ID of the system disk. Changing this
                       creates a new server.
                     type: string
-                  systemDiskKmsIdRef:
+                  systemDiskKmsRef:
                     description: Reference to a KeyV1 in kms to populate systemDiskKmsId.
                     properties:
                       name:
@@ -1240,7 +1240,7 @@ spec:
                     required:
                     - name
                     type: object
-                  systemDiskKmsIdSelector:
+                  systemDiskKmsSelector:
                     description: Selector for a KeyV1 in kms to populate systemDiskKmsId.
                     properties:
                       matchControllerRef:
@@ -1313,7 +1313,7 @@ spec:
                     description: The ID of the desired VPC for the server. Changing
                       this creates a new server.
                     type: string
-                  vpcIdRef:
+                  vpcRef:
                     description: Reference to a VpcV1 in vpc to populate vpcId.
                     properties:
                       name:
@@ -1350,7 +1350,7 @@ spec:
                     required:
                     - name
                     type: object
-                  vpcIdSelector:
+                  vpcSelector:
                     description: Selector for a VpcV1 in vpc to populate vpcId.
                     properties:
                       matchControllerRef:

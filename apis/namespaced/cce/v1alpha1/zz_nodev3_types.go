@@ -27,15 +27,17 @@ type NodeV3DataVolumesInitParameters struct {
 	// The Encryption KMS ID of the system volume. By default, it tries to get from env by OS_KMS_ID.
 	// -> NOTE: Common I/O (SATA) will reach end of life, end of 2025.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/kms/v1alpha1.KeyV1
+	// +crossplane:generate:reference:refFieldName=KMSRef
+	// +crossplane:generate:reference:selectorFieldName=KMSSelector
 	KMSID *string `json:"kmsId,omitempty" tf:"kms_id,omitempty"`
 
 	// Reference to a KeyV1 in kms to populate kmsId.
 	// +kubebuilder:validation:Optional
-	KMSIDRef *v1.NamespacedReference `json:"kmsIdRef,omitempty" tf:"-"`
+	KMSRef *v1.NamespacedReference `json:"kmsRef,omitempty" tf:"-"`
 
 	// Selector for a KeyV1 in kms to populate kmsId.
 	// +kubebuilder:validation:Optional
-	KMSIDSelector *v1.NamespacedSelector `json:"kmsIdSelector,omitempty" tf:"-"`
+	KMSSelector *v1.NamespacedSelector `json:"kmsSelector,omitempty" tf:"-"`
 
 	// Disk size in GB.
 	Size *float64 `json:"size,omitempty" tf:"size,omitempty"`
@@ -80,16 +82,18 @@ type NodeV3DataVolumesParameters struct {
 	// The Encryption KMS ID of the system volume. By default, it tries to get from env by OS_KMS_ID.
 	// -> NOTE: Common I/O (SATA) will reach end of life, end of 2025.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/kms/v1alpha1.KeyV1
+	// +crossplane:generate:reference:refFieldName=KMSRef
+	// +crossplane:generate:reference:selectorFieldName=KMSSelector
 	// +kubebuilder:validation:Optional
 	KMSID *string `json:"kmsId,omitempty" tf:"kms_id,omitempty"`
 
 	// Reference to a KeyV1 in kms to populate kmsId.
 	// +kubebuilder:validation:Optional
-	KMSIDRef *v1.NamespacedReference `json:"kmsIdRef,omitempty" tf:"-"`
+	KMSRef *v1.NamespacedReference `json:"kmsRef,omitempty" tf:"-"`
 
 	// Selector for a KeyV1 in kms to populate kmsId.
 	// +kubebuilder:validation:Optional
-	KMSIDSelector *v1.NamespacedSelector `json:"kmsIdSelector,omitempty" tf:"-"`
+	KMSSelector *v1.NamespacedSelector `json:"kmsSelector,omitempty" tf:"-"`
 
 	// Disk size in GB.
 	// +kubebuilder:validation:Optional
@@ -134,15 +138,17 @@ type NodeV3InitParameters struct {
 
 	// ID of the cluster. Changing this parameter will create a new resource.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/cce/v1alpha1.ClusterV3
+	// +crossplane:generate:reference:refFieldName=ClusterRef
+	// +crossplane:generate:reference:selectorFieldName=ClusterSelector
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
 
 	// Reference to a ClusterV3 in cce to populate clusterId.
 	// +kubebuilder:validation:Optional
-	ClusterIDRef *v1.NamespacedReference `json:"clusterIdRef,omitempty" tf:"-"`
+	ClusterRef *v1.NamespacedReference `json:"clusterRef,omitempty" tf:"-"`
 
 	// Selector for a ClusterV3 in cce to populate clusterId.
 	// +kubebuilder:validation:Optional
-	ClusterIDSelector *v1.NamespacedSelector `json:"clusterIdSelector,omitempty" tf:"-"`
+	ClusterSelector *v1.NamespacedSelector `json:"clusterSelector,omitempty" tf:"-"`
 
 	// Represents the data disk to be created. Changing this parameter will create a new resource.
 	DataVolumes []NodeV3DataVolumesInitParameters `json:"dataVolumes,omitempty" tf:"data_volumes,omitempty"`
@@ -163,16 +169,18 @@ type NodeV3InitParameters struct {
 
 	// List of existing elastic IP IDs.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.EIPV1
+	// +crossplane:generate:reference:refFieldName=EipRef
+	// +crossplane:generate:reference:selectorFieldName=EipSelector
 	// +listType=set
 	EIPIds []*string `json:"eipIds,omitempty" tf:"eip_ids,omitempty"`
 
 	// References to EIPV1 in vpc to populate eipIds.
 	// +kubebuilder:validation:Optional
-	EIPIdsRefs []v1.NamespacedReference `json:"eipIdsRefs,omitempty" tf:"-"`
+	EIPRef []v1.NamespacedReference `json:"eipRef,omitempty" tf:"-"`
 
 	// Selector for a list of EIPV1 in vpc to populate eipIds.
 	// +kubebuilder:validation:Optional
-	EIPIdsSelector *v1.NamespacedSelector `json:"eipIdsSelector,omitempty" tf:"-"`
+	EIPSelector *v1.NamespacedSelector `json:"eipSelector,omitempty" tf:"-"`
 
 	// Classification of cloud server specifications. Changing this parameter will create a new cluster resource.
 	EcsPerformanceType *string `json:"ecsPerformanceType,omitempty" tf:"ecs_performance_type,omitempty"`
@@ -436,16 +444,18 @@ type NodeV3Parameters struct {
 
 	// ID of the cluster. Changing this parameter will create a new resource.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/cce/v1alpha1.ClusterV3
+	// +crossplane:generate:reference:refFieldName=ClusterRef
+	// +crossplane:generate:reference:selectorFieldName=ClusterSelector
 	// +kubebuilder:validation:Optional
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
 
 	// Reference to a ClusterV3 in cce to populate clusterId.
 	// +kubebuilder:validation:Optional
-	ClusterIDRef *v1.NamespacedReference `json:"clusterIdRef,omitempty" tf:"-"`
+	ClusterRef *v1.NamespacedReference `json:"clusterRef,omitempty" tf:"-"`
 
 	// Selector for a ClusterV3 in cce to populate clusterId.
 	// +kubebuilder:validation:Optional
-	ClusterIDSelector *v1.NamespacedSelector `json:"clusterIdSelector,omitempty" tf:"-"`
+	ClusterSelector *v1.NamespacedSelector `json:"clusterSelector,omitempty" tf:"-"`
 
 	// Represents the data disk to be created. Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
@@ -471,17 +481,19 @@ type NodeV3Parameters struct {
 
 	// List of existing elastic IP IDs.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.EIPV1
+	// +crossplane:generate:reference:refFieldName=EipRef
+	// +crossplane:generate:reference:selectorFieldName=EipSelector
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	EIPIds []*string `json:"eipIds,omitempty" tf:"eip_ids,omitempty"`
 
 	// References to EIPV1 in vpc to populate eipIds.
 	// +kubebuilder:validation:Optional
-	EIPIdsRefs []v1.NamespacedReference `json:"eipIdsRefs,omitempty" tf:"-"`
+	EIPRef []v1.NamespacedReference `json:"eipRef,omitempty" tf:"-"`
 
 	// Selector for a list of EIPV1 in vpc to populate eipIds.
 	// +kubebuilder:validation:Optional
-	EIPIdsSelector *v1.NamespacedSelector `json:"eipIdsSelector,omitempty" tf:"-"`
+	EIPSelector *v1.NamespacedSelector `json:"eipSelector,omitempty" tf:"-"`
 
 	// Classification of cloud server specifications. Changing this parameter will create a new cluster resource.
 	// +kubebuilder:validation:Optional
@@ -606,15 +618,17 @@ type NodeV3RootVolumeInitParameters struct {
 	// The Encryption KMS ID of the system volume. By default, it tries to get from env by OS_KMS_ID.
 	// -> NOTE: Common I/O (SATA) will reach end of life, end of 2025.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/kms/v1alpha1.KeyV1
+	// +crossplane:generate:reference:refFieldName=KMSRef
+	// +crossplane:generate:reference:selectorFieldName=KMSSelector
 	KMSID *string `json:"kmsId,omitempty" tf:"kms_id,omitempty"`
 
 	// Reference to a KeyV1 in kms to populate kmsId.
 	// +kubebuilder:validation:Optional
-	KMSIDRef *v1.NamespacedReference `json:"kmsIdRef,omitempty" tf:"-"`
+	KMSRef *v1.NamespacedReference `json:"kmsRef,omitempty" tf:"-"`
 
 	// Selector for a KeyV1 in kms to populate kmsId.
 	// +kubebuilder:validation:Optional
-	KMSIDSelector *v1.NamespacedSelector `json:"kmsIdSelector,omitempty" tf:"-"`
+	KMSSelector *v1.NamespacedSelector `json:"kmsSelector,omitempty" tf:"-"`
 
 	// Disk size in GB.
 	Size *float64 `json:"size,omitempty" tf:"size,omitempty"`
@@ -659,16 +673,18 @@ type NodeV3RootVolumeParameters struct {
 	// The Encryption KMS ID of the system volume. By default, it tries to get from env by OS_KMS_ID.
 	// -> NOTE: Common I/O (SATA) will reach end of life, end of 2025.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/kms/v1alpha1.KeyV1
+	// +crossplane:generate:reference:refFieldName=KMSRef
+	// +crossplane:generate:reference:selectorFieldName=KMSSelector
 	// +kubebuilder:validation:Optional
 	KMSID *string `json:"kmsId,omitempty" tf:"kms_id,omitempty"`
 
 	// Reference to a KeyV1 in kms to populate kmsId.
 	// +kubebuilder:validation:Optional
-	KMSIDRef *v1.NamespacedReference `json:"kmsIdRef,omitempty" tf:"-"`
+	KMSRef *v1.NamespacedReference `json:"kmsRef,omitempty" tf:"-"`
 
 	// Selector for a KeyV1 in kms to populate kmsId.
 	// +kubebuilder:validation:Optional
-	KMSIDSelector *v1.NamespacedSelector `json:"kmsIdSelector,omitempty" tf:"-"`
+	KMSSelector *v1.NamespacedSelector `json:"kmsSelector,omitempty" tf:"-"`
 
 	// Disk size in GB.
 	// +kubebuilder:validation:Optional

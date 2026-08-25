@@ -13,7 +13,7 @@ spec:
     metadata:
       foo: bar
     name: xp-test-${Rand.RFC1123Subdomain}
-    volumeIdSelector:
+    volumeSelector:
       matchLabels:
         testing.upbound.io/example-name: test
 

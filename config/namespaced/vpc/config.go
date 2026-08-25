@@ -11,7 +11,9 @@ func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("opentelekomcloud_vpc_subnet_v1", func(r *config.Resource) {
 		r.UseAsync = true
 		r.References["vpc_id"] = config.Reference{
-			TerraformName: tfVpcV1,
+			TerraformName:     tfVpcV1,
+			SelectorFieldName: "VpcSelector",
+			RefFieldName:      "VpcRef",
 		}
 	})
 	p.AddResourceConfigurator("opentelekomcloud_vpc_v1", func(r *config.Resource) {
@@ -30,53 +32,73 @@ func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("opentelekomcloud_vpc_flow_log_v1", func(r *config.Resource) {
 		r.UseAsync = true
 		r.References["resource_id"] = config.Reference{
-			TerraformName: tfVpcV1,
+			TerraformName:     tfVpcV1,
+			SelectorFieldName: "ResourceSelector",
+			RefFieldName:      "ResourceRef",
 		}
 		r.References["log_group_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_logtank_group_v2",
+			TerraformName:     "opentelekomcloud_logtank_group_v2",
+			SelectorFieldName: "LogGroupSelector",
+			RefFieldName:      "LogGroupRef",
 		}
 		r.References["log_topic_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_logtank_topic_v2",
+			TerraformName:     "opentelekomcloud_logtank_topic_v2",
+			SelectorFieldName: "LogTopicSelector",
+			RefFieldName:      "LogTopicRef",
 		}
 	})
 	p.AddResourceConfigurator("opentelekomcloud_vpc_peering_connection_v2", func(r *config.Resource) {
 		r.UseAsync = true
 		r.References["vpc_id"] = config.Reference{
-			TerraformName: tfVpcV1,
+			TerraformName:     tfVpcV1,
+			SelectorFieldName: "VpcSelector",
+			RefFieldName:      "VpcRef",
 		}
 		r.References["peer_vpc_id"] = config.Reference{
-			TerraformName: tfVpcV1,
+			TerraformName:     tfVpcV1,
+			SelectorFieldName: "PeerVpcSelector",
+			RefFieldName:      "PeerVpcRef",
 		}
 	})
 	p.AddResourceConfigurator("opentelekomcloud_vpc_peering_connection_accepter_v2", func(r *config.Resource) {
 		r.UseAsync = true
 		r.References["vpc_peering_connection_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_vpc_peering_connection_v2",
+			TerraformName:     "opentelekomcloud_vpc_peering_connection_v2",
+			SelectorFieldName: "VpcPeeringConnectionSelector",
+			RefFieldName:      "VpcPeeringConnectionRef",
 		}
 	})
 	p.AddResourceConfigurator("opentelekomcloud_vpc_route_v2", func(r *config.Resource) {
 		r.UseAsync = true
 		r.References["vpc_id"] = config.Reference{
-			TerraformName: tfVpcV1,
+			TerraformName:     tfVpcV1,
+			SelectorFieldName: "VpcSelector",
+			RefFieldName:      "VpcRef",
 		}
 	})
 	p.AddResourceConfigurator("opentelekomcloud_vpc_route_table_v1", func(r *config.Resource) {
 		r.UseAsync = true
 		r.References["vpc_id"] = config.Reference{
-			TerraformName: tfVpcV1,
+			TerraformName:     tfVpcV1,
+			SelectorFieldName: "VpcSelector",
+			RefFieldName:      "VpcRef",
 		}
 	})
 	p.AddResourceConfigurator("opentelekomcloud_vpc_secondary_cidr_v3", func(r *config.Resource) {
 		r.UseAsync = true
 		r.References["vpc_id"] = config.Reference{
-			TerraformName: tfVpcV1,
+			TerraformName:     tfVpcV1,
+			SelectorFieldName: "VpcSelector",
+			RefFieldName:      "VpcRef",
 		}
 	})
 	p.AddResourceConfigurator("opentelekomcloud_vpc_secgroup_rule_v3", func(r *config.Resource) {
 		r.UseAsync = true
 		r.MetaResource.ArgumentDocs["security_group_id"] = `Configuration block defining a security_group for the rule. Only opentelekomcloud_vpc_secgroup_v3 (secgroupv3s.vpc.opentelekomcloud.m.crossplane.io) is supported for cross resource reference configuration.`
 		r.References["security_group_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_vpc_secgroup_v3",
+			TerraformName:     "opentelekomcloud_vpc_secgroup_v3",
+			SelectorFieldName: "SecurityGroupSelector",
+			RefFieldName:      "SecurityGroupRef",
 		}
 	})
 }

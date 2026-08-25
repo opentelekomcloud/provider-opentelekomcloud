@@ -225,28 +225,32 @@ type InstanceV3InitParameters struct {
 
 	// Specifies the security group ID of the DDS instance.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/compute/v1alpha1.SecgroupV2
+	// +crossplane:generate:reference:refFieldName=SecurityGroupRef
+	// +crossplane:generate:reference:selectorFieldName=SecurityGroupSelector
 	SecurityGroupID *string `json:"securityGroupId,omitempty" tf:"security_group_id,omitempty"`
 
 	// Reference to a SecgroupV2 in compute to populate securityGroupId.
 	// +kubebuilder:validation:Optional
-	SecurityGroupIDRef *v1.NamespacedReference `json:"securityGroupIdRef,omitempty" tf:"-"`
+	SecurityGroupRef *v1.NamespacedReference `json:"securityGroupRef,omitempty" tf:"-"`
 
 	// Selector for a SecgroupV2 in compute to populate securityGroupId.
 	// +kubebuilder:validation:Optional
-	SecurityGroupIDSelector *v1.NamespacedSelector `json:"securityGroupIdSelector,omitempty" tf:"-"`
+	SecurityGroupSelector *v1.NamespacedSelector `json:"securityGroupSelector,omitempty" tf:"-"`
 
 	// Specifies the subnet Network ID.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.SubnetV1
 	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractNetworkID()
+	// +crossplane:generate:reference:refFieldName=SubnetRef
+	// +crossplane:generate:reference:selectorFieldName=SubnetSelector
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 
 	// Reference to a SubnetV1 in vpc to populate subnetId.
 	// +kubebuilder:validation:Optional
-	SubnetIDRef *v1.NamespacedReference `json:"subnetIdRef,omitempty" tf:"-"`
+	SubnetRef *v1.NamespacedReference `json:"subnetRef,omitempty" tf:"-"`
 
 	// Selector for a SubnetV1 in vpc to populate subnetId.
 	// +kubebuilder:validation:Optional
-	SubnetIDSelector *v1.NamespacedSelector `json:"subnetIdSelector,omitempty" tf:"-"`
+	SubnetSelector *v1.NamespacedSelector `json:"subnetSelector,omitempty" tf:"-"`
 
 	// Tags key/value pairs to associate with the volume.
 	// Changing this updates the existing volume tags.
@@ -255,15 +259,17 @@ type InstanceV3InitParameters struct {
 
 	// Specifies the VPC ID.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.VpcV1
+	// +crossplane:generate:reference:refFieldName=VpcRef
+	// +crossplane:generate:reference:selectorFieldName=VpcSelector
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
 
 	// Reference to a VpcV1 in vpc to populate vpcId.
 	// +kubebuilder:validation:Optional
-	VPCIDRef *v1.NamespacedReference `json:"vpcIdRef,omitempty" tf:"-"`
+	VPCRef *v1.NamespacedReference `json:"vpcRef,omitempty" tf:"-"`
 
 	// Selector for a VpcV1 in vpc to populate vpcId.
 	// +kubebuilder:validation:Optional
-	VPCIDSelector *v1.NamespacedSelector `json:"vpcIdSelector,omitempty" tf:"-"`
+	VPCSelector *v1.NamespacedSelector `json:"vpcSelector,omitempty" tf:"-"`
 }
 
 type InstanceV3Observation struct {
@@ -419,30 +425,34 @@ type InstanceV3Parameters struct {
 
 	// Specifies the security group ID of the DDS instance.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/compute/v1alpha1.SecgroupV2
+	// +crossplane:generate:reference:refFieldName=SecurityGroupRef
+	// +crossplane:generate:reference:selectorFieldName=SecurityGroupSelector
 	// +kubebuilder:validation:Optional
 	SecurityGroupID *string `json:"securityGroupId,omitempty" tf:"security_group_id,omitempty"`
 
 	// Reference to a SecgroupV2 in compute to populate securityGroupId.
 	// +kubebuilder:validation:Optional
-	SecurityGroupIDRef *v1.NamespacedReference `json:"securityGroupIdRef,omitempty" tf:"-"`
+	SecurityGroupRef *v1.NamespacedReference `json:"securityGroupRef,omitempty" tf:"-"`
 
 	// Selector for a SecgroupV2 in compute to populate securityGroupId.
 	// +kubebuilder:validation:Optional
-	SecurityGroupIDSelector *v1.NamespacedSelector `json:"securityGroupIdSelector,omitempty" tf:"-"`
+	SecurityGroupSelector *v1.NamespacedSelector `json:"securityGroupSelector,omitempty" tf:"-"`
 
 	// Specifies the subnet Network ID.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.SubnetV1
 	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractNetworkID()
+	// +crossplane:generate:reference:refFieldName=SubnetRef
+	// +crossplane:generate:reference:selectorFieldName=SubnetSelector
 	// +kubebuilder:validation:Optional
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 
 	// Reference to a SubnetV1 in vpc to populate subnetId.
 	// +kubebuilder:validation:Optional
-	SubnetIDRef *v1.NamespacedReference `json:"subnetIdRef,omitempty" tf:"-"`
+	SubnetRef *v1.NamespacedReference `json:"subnetRef,omitempty" tf:"-"`
 
 	// Selector for a SubnetV1 in vpc to populate subnetId.
 	// +kubebuilder:validation:Optional
-	SubnetIDSelector *v1.NamespacedSelector `json:"subnetIdSelector,omitempty" tf:"-"`
+	SubnetSelector *v1.NamespacedSelector `json:"subnetSelector,omitempty" tf:"-"`
 
 	// Tags key/value pairs to associate with the volume.
 	// Changing this updates the existing volume tags.
@@ -452,16 +462,18 @@ type InstanceV3Parameters struct {
 
 	// Specifies the VPC ID.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.VpcV1
+	// +crossplane:generate:reference:refFieldName=VpcRef
+	// +crossplane:generate:reference:selectorFieldName=VpcSelector
 	// +kubebuilder:validation:Optional
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
 
 	// Reference to a VpcV1 in vpc to populate vpcId.
 	// +kubebuilder:validation:Optional
-	VPCIDRef *v1.NamespacedReference `json:"vpcIdRef,omitempty" tf:"-"`
+	VPCRef *v1.NamespacedReference `json:"vpcRef,omitempty" tf:"-"`
 
 	// Selector for a VpcV1 in vpc to populate vpcId.
 	// +kubebuilder:validation:Optional
-	VPCIDSelector *v1.NamespacedSelector `json:"vpcIdSelector,omitempty" tf:"-"`
+	VPCSelector *v1.NamespacedSelector `json:"vpcSelector,omitempty" tf:"-"`
 }
 
 type NodesInitParameters struct {

@@ -153,7 +153,7 @@ spec:
                   userId:
                     description: The ID of the existing Open Telekom Cloud user.
                     type: string
-                  userIdRef:
+                  userRef:
                     description: Reference to a UserV3 in identity to populate userId.
                     properties:
                       name:
@@ -190,7 +190,7 @@ spec:
                     required:
                     - name
                     type: object
-                  userIdSelector:
+                  userSelector:
                     description: Selector for a UserV3 in identity to populate userId.
                     properties:
                       matchControllerRef:
@@ -423,7 +423,7 @@ spec:
                   userId:
                     description: The ID of the existing Open Telekom Cloud user.
                     type: string
-                  userIdRef:
+                  userRef:
                     description: Reference to a UserV3 in identity to populate userId.
                     properties:
                       name:
@@ -460,7 +460,7 @@ spec:
                     required:
                     - name
                     type: object
-                  userIdSelector:
+                  userSelector:
                     description: Selector for a UserV3 in identity to populate userId.
                     properties:
                       matchControllerRef:

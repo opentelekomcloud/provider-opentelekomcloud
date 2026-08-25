@@ -121,8 +121,8 @@ func (mg *OrganizationPermissionsV2) ResolveReferences(ctx context.Context, c cl
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.UserID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.ForProvider.UserIDRef,
-		Selector:     mg.Spec.ForProvider.UserIDSelector,
+		Reference:    mg.Spec.ForProvider.UserRef,
+		Selector:     mg.Spec.ForProvider.UserSelector,
 		To: reference.To{
 			List:    &v1alpha1.UserV3List{},
 			Managed: &v1alpha1.UserV3{},
@@ -132,7 +132,7 @@ func (mg *OrganizationPermissionsV2) ResolveReferences(ctx context.Context, c cl
 		return errors.Wrap(err, "mg.Spec.ForProvider.UserID")
 	}
 	mg.Spec.ForProvider.UserID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.UserIDRef = rsp.ResolvedReference
+	mg.Spec.ForProvider.UserRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Username),
@@ -172,8 +172,8 @@ func (mg *OrganizationPermissionsV2) ResolveReferences(ctx context.Context, c cl
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.UserID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.InitProvider.UserIDRef,
-		Selector:     mg.Spec.InitProvider.UserIDSelector,
+		Reference:    mg.Spec.InitProvider.UserRef,
+		Selector:     mg.Spec.InitProvider.UserSelector,
 		To: reference.To{
 			List:    &v1alpha1.UserV3List{},
 			Managed: &v1alpha1.UserV3{},
@@ -183,7 +183,7 @@ func (mg *OrganizationPermissionsV2) ResolveReferences(ctx context.Context, c cl
 		return errors.Wrap(err, "mg.Spec.InitProvider.UserID")
 	}
 	mg.Spec.InitProvider.UserID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.UserIDRef = rsp.ResolvedReference
+	mg.Spec.InitProvider.UserRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Username),

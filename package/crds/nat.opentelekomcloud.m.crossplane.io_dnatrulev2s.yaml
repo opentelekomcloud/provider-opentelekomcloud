@@ -74,7 +74,7 @@ spec:
                       Specifies the ID of the floating IP address.
                       Changing this creates a new resource.
                     type: string
-                  floatingIpIdRef:
+                  floatingIpRef:
                     description: Reference to a EIPV1 in vpc to populate floatingIpId.
                     properties:
                       name:
@@ -111,7 +111,7 @@ spec:
                     required:
                     - name
                     type: object
-                  floatingIpIdSelector:
+                  floatingIpSelector:
                     description: Selector for a EIPV1 in vpc to populate floatingIpId.
                     properties:
                       matchControllerRef:
@@ -164,7 +164,7 @@ spec:
                       ID of the NAT gateway this DNAT rule belongs to.
                       Changing this creates a new DNAT rule.
                     type: string
-                  natGatewayIdRef:
+                  natGatewayRef:
                     description: Reference to a GatewayV2 in nat to populate natGatewayId.
                     properties:
                       name:
@@ -201,7 +201,7 @@ spec:
                     required:
                     - name
                     type: object
-                  natGatewayIdSelector:
+                  natGatewaySelector:
                     description: Selector for a GatewayV2 in nat to populate natGatewayId.
                     properties:
                       matchControllerRef:
@@ -250,7 +250,7 @@ spec:
                       This parameter and private_ip are alternative. Changing this creates a
                       new DNAT rule.
                     type: string
-                  portIdRef:
+                  portRef:
                     description: Reference to a PortV2 in networking to populate portId.
                     properties:
                       name:
@@ -287,7 +287,7 @@ spec:
                     required:
                     - name
                     type: object
-                  portIdSelector:
+                  portSelector:
                     description: Selector for a PortV2 in networking to populate portId.
                     properties:
                       matchControllerRef:
@@ -370,7 +370,7 @@ spec:
                       Specifies the ID of the floating IP address.
                       Changing this creates a new resource.
                     type: string
-                  floatingIpIdRef:
+                  floatingIpRef:
                     description: Reference to a EIPV1 in vpc to populate floatingIpId.
                     properties:
                       name:
@@ -407,7 +407,7 @@ spec:
                     required:
                     - name
                     type: object
-                  floatingIpIdSelector:
+                  floatingIpSelector:
                     description: Selector for a EIPV1 in vpc to populate floatingIpId.
                     properties:
                       matchControllerRef:
@@ -460,7 +460,7 @@ spec:
                       ID of the NAT gateway this DNAT rule belongs to.
                       Changing this creates a new DNAT rule.
                     type: string
-                  natGatewayIdRef:
+                  natGatewayRef:
                     description: Reference to a GatewayV2 in nat to populate natGatewayId.
                     properties:
                       name:
@@ -497,7 +497,7 @@ spec:
                     required:
                     - name
                     type: object
-                  natGatewayIdSelector:
+                  natGatewaySelector:
                     description: Selector for a GatewayV2 in nat to populate natGatewayId.
                     properties:
                       matchControllerRef:
@@ -546,7 +546,7 @@ spec:
                       This parameter and private_ip are alternative. Changing this creates a
                       new DNAT rule.
                     type: string
-                  portIdRef:
+                  portRef:
                     description: Reference to a PortV2 in networking to populate portId.
                     properties:
                       name:
@@ -583,7 +583,7 @@ spec:
                     required:
                     - name
                     type: object
-                  portIdSelector:
+                  portSelector:
                     description: Selector for a PortV2 in networking to populate portId.
                     properties:
                       matchControllerRef:

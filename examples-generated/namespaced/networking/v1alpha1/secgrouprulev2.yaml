@@ -15,7 +15,7 @@ spec:
     portRangeMin: 22
     protocol: tcp
     remoteIpPrefix: 0.0.0.0/0
-    securityGroupIdSelector:
+    securityGroupSelector:
       matchLabels:
         testing.upbound.io/example-name: secgroup_1
 

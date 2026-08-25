@@ -25,8 +25,8 @@ func (mg *SnapshotV2) ResolveReferences(ctx context.Context, c client.Reader) er
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.VolumeID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.ForProvider.VolumeIDRef,
-		Selector:     mg.Spec.ForProvider.VolumeIDSelector,
+		Reference:    mg.Spec.ForProvider.VolumeRef,
+		Selector:     mg.Spec.ForProvider.VolumeSelector,
 		To: reference.To{
 			List:    &VolumeV3List{},
 			Managed: &VolumeV3{},
@@ -36,14 +36,14 @@ func (mg *SnapshotV2) ResolveReferences(ctx context.Context, c client.Reader) er
 		return errors.Wrap(err, "mg.Spec.ForProvider.VolumeID")
 	}
 	mg.Spec.ForProvider.VolumeID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.VolumeIDRef = rsp.ResolvedReference
+	mg.Spec.ForProvider.VolumeRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.VolumeID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.InitProvider.VolumeIDRef,
-		Selector:     mg.Spec.InitProvider.VolumeIDSelector,
+		Reference:    mg.Spec.InitProvider.VolumeRef,
+		Selector:     mg.Spec.InitProvider.VolumeSelector,
 		To: reference.To{
 			List:    &VolumeV3List{},
 			Managed: &VolumeV3{},
@@ -53,7 +53,7 @@ func (mg *SnapshotV2) ResolveReferences(ctx context.Context, c client.Reader) er
 		return errors.Wrap(err, "mg.Spec.InitProvider.VolumeID")
 	}
 	mg.Spec.InitProvider.VolumeID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.VolumeIDRef = rsp.ResolvedReference
+	mg.Spec.InitProvider.VolumeRef = rsp.ResolvedReference
 
 	return nil
 }
@@ -69,8 +69,8 @@ func (mg *VolumeV3) ResolveReferences(ctx context.Context, c client.Reader) erro
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.KMSID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.ForProvider.KMSIDRef,
-		Selector:     mg.Spec.ForProvider.KMSIDSelector,
+		Reference:    mg.Spec.ForProvider.KMSRef,
+		Selector:     mg.Spec.ForProvider.KMSSelector,
 		To: reference.To{
 			List:    &v1alpha1.KeyV1List{},
 			Managed: &v1alpha1.KeyV1{},
@@ -80,14 +80,14 @@ func (mg *VolumeV3) ResolveReferences(ctx context.Context, c client.Reader) erro
 		return errors.Wrap(err, "mg.Spec.ForProvider.KMSID")
 	}
 	mg.Spec.ForProvider.KMSID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.KMSIDRef = rsp.ResolvedReference
+	mg.Spec.ForProvider.KMSRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.KMSID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.InitProvider.KMSIDRef,
-		Selector:     mg.Spec.InitProvider.KMSIDSelector,
+		Reference:    mg.Spec.InitProvider.KMSRef,
+		Selector:     mg.Spec.InitProvider.KMSSelector,
 		To: reference.To{
 			List:    &v1alpha1.KeyV1List{},
 			Managed: &v1alpha1.KeyV1{},
@@ -97,7 +97,7 @@ func (mg *VolumeV3) ResolveReferences(ctx context.Context, c client.Reader) erro
 		return errors.Wrap(err, "mg.Spec.InitProvider.KMSID")
 	}
 	mg.Spec.InitProvider.KMSID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.KMSIDRef = rsp.ResolvedReference
+	mg.Spec.InitProvider.KMSRef = rsp.ResolvedReference
 
 	return nil
 }

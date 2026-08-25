@@ -169,7 +169,7 @@ spec:
                     description: ID of the cluster. Changing this parameter will create
                       a new resource.
                     type: string
-                  clusterIdRef:
+                  clusterRef:
                     description: Reference to a ClusterV3 in cce to populate clusterId.
                     properties:
                       name:
@@ -206,7 +206,7 @@ spec:
                     required:
                     - name
                     type: object
-                  clusterIdSelector:
+                  clusterSelector:
                     description: Selector for a ClusterV3 in cce to populate clusterId.
                     properties:
                       matchControllerRef:
@@ -271,7 +271,7 @@ spec:
                             The Encryption KMS ID of the system volume. By default, it tries to get from env by OS_KMS_ID.
                             -> NOTE: Common I/O (SATA) will reach end of life, end of 2025.
                           type: string
-                        kmsIdRef:
+                        kmsRef:
                           description: Reference to a KeyV1 in kms to populate kmsId.
                           properties:
                             name:
@@ -308,7 +308,7 @@ spec:
                           required:
                           - name
                           type: object
-                        kmsIdSelector:
+                        kmsSelector:
                           description: Selector for a KeyV1 in kms to populate kmsId.
                           properties:
                             matchControllerRef:
@@ -386,7 +386,7 @@ spec:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
-                  eipIdsRefs:
+                  eipRef:
                     description: References to EIPV1 in vpc to populate eipIds.
                     items:
                       description: A NamespacedReference to a named object.
@@ -426,7 +426,7 @@ spec:
                       - name
                       type: object
                     type: array
-                  eipIdsSelector:
+                  eipSelector:
                     description: Selector for a list of EIPV1 in vpc to populate eipIds.
                     properties:
                       matchControllerRef:
@@ -639,7 +639,7 @@ spec:
                             The Encryption KMS ID of the system volume. By default, it tries to get from env by OS_KMS_ID.
                             -> NOTE: Common I/O (SATA) will reach end of life, end of 2025.
                           type: string
-                        kmsIdRef:
+                        kmsRef:
                           description: Reference to a KeyV1 in kms to populate kmsId.
                           properties:
                             name:
@@ -676,7 +676,7 @@ spec:
                           required:
                           - name
                           type: object
-                        kmsIdSelector:
+                        kmsSelector:
                           description: Selector for a KeyV1 in kms to populate kmsId.
                           properties:
                             matchControllerRef:
@@ -893,7 +893,7 @@ spec:
                     description: ID of the cluster. Changing this parameter will create
                       a new resource.
                     type: string
-                  clusterIdRef:
+                  clusterRef:
                     description: Reference to a ClusterV3 in cce to populate clusterId.
                     properties:
                       name:
@@ -930,7 +930,7 @@ spec:
                     required:
                     - name
                     type: object
-                  clusterIdSelector:
+                  clusterSelector:
                     description: Selector for a ClusterV3 in cce to populate clusterId.
                     properties:
                       matchControllerRef:
@@ -995,7 +995,7 @@ spec:
                             The Encryption KMS ID of the system volume. By default, it tries to get from env by OS_KMS_ID.
                             -> NOTE: Common I/O (SATA) will reach end of life, end of 2025.
                           type: string
-                        kmsIdRef:
+                        kmsRef:
                           description: Reference to a KeyV1 in kms to populate kmsId.
                           properties:
                             name:
@@ -1032,7 +1032,7 @@ spec:
                           required:
                           - name
                           type: object
-                        kmsIdSelector:
+                        kmsSelector:
                           description: Selector for a KeyV1 in kms to populate kmsId.
                           properties:
                             matchControllerRef:
@@ -1110,7 +1110,7 @@ spec:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
-                  eipIdsRefs:
+                  eipRef:
                     description: References to EIPV1 in vpc to populate eipIds.
                     items:
                       description: A NamespacedReference to a named object.
@@ -1150,7 +1150,7 @@ spec:
                       - name
                       type: object
                     type: array
-                  eipIdsSelector:
+                  eipSelector:
                     description: Selector for a list of EIPV1 in vpc to populate eipIds.
                     properties:
                       matchControllerRef:
@@ -1363,7 +1363,7 @@ spec:
                             The Encryption KMS ID of the system volume. By default, it tries to get from env by OS_KMS_ID.
                             -> NOTE: Common I/O (SATA) will reach end of life, end of 2025.
                           type: string
-                        kmsIdRef:
+                        kmsRef:
                           description: Reference to a KeyV1 in kms to populate kmsId.
                           properties:
                             name:
@@ -1400,7 +1400,7 @@ spec:
                           required:
                           - name
                           type: object
-                        kmsIdSelector:
+                        kmsSelector:
                           description: Selector for a KeyV1 in kms to populate kmsId.
                           properties:
                             matchControllerRef:

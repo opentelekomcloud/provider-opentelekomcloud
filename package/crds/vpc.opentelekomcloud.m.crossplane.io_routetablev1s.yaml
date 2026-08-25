@@ -113,7 +113,7 @@ spec:
                       Specifies the VPC ID for which a route table is to be added.
                       Changing this creates a new resource.
                     type: string
-                  vpcIdRef:
+                  vpcRef:
                     description: Reference to a VpcV1 in vpc to populate vpcId.
                     properties:
                       name:
@@ -150,7 +150,7 @@ spec:
                     required:
                     - name
                     type: object
-                  vpcIdSelector:
+                  vpcSelector:
                     description: Selector for a VpcV1 in vpc to populate vpcId.
                     properties:
                       matchControllerRef:
@@ -261,7 +261,7 @@ spec:
                       Specifies the VPC ID for which a route table is to be added.
                       Changing this creates a new resource.
                     type: string
-                  vpcIdRef:
+                  vpcRef:
                     description: Reference to a VpcV1 in vpc to populate vpcId.
                     properties:
                       name:
@@ -298,7 +298,7 @@ spec:
                     required:
                     - name
                     type: object
-                  vpcIdSelector:
+                  vpcSelector:
                     description: Selector for a VpcV1 in vpc to populate vpcId.
                     properties:
                       matchControllerRef:

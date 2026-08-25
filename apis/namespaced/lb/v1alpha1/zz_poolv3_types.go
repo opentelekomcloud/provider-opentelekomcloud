@@ -24,27 +24,31 @@ type PoolV3InitParameters struct {
 
 	// Specifies the ID of the listener associated with the backend server group.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lb/v1alpha1.ListenerV3
+	// +crossplane:generate:reference:refFieldName=ListenerRef
+	// +crossplane:generate:reference:selectorFieldName=ListenerSelector
 	ListenerID *string `json:"listenerId,omitempty" tf:"listener_id,omitempty"`
 
 	// Reference to a ListenerV3 in lb to populate listenerId.
 	// +kubebuilder:validation:Optional
-	ListenerIDRef *v1.NamespacedReference `json:"listenerIdRef,omitempty" tf:"-"`
+	ListenerRef *v1.NamespacedReference `json:"listenerRef,omitempty" tf:"-"`
 
 	// Selector for a ListenerV3 in lb to populate listenerId.
 	// +kubebuilder:validation:Optional
-	ListenerIDSelector *v1.NamespacedSelector `json:"listenerIdSelector,omitempty" tf:"-"`
-
-	// Specifies the ID of the associated load balancer.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lb/v1alpha1.LoadbalancerV3
-	LoadbalancerID *string `json:"loadbalancerId,omitempty" tf:"loadbalancer_id,omitempty"`
+	ListenerSelector *v1.NamespacedSelector `json:"listenerSelector,omitempty" tf:"-"`
 
 	// Reference to a LoadbalancerV3 in lb to populate loadbalancerId.
 	// +kubebuilder:validation:Optional
-	LoadbalancerIDRef *v1.NamespacedReference `json:"loadbalancerIdRef,omitempty" tf:"-"`
+	LoadBalancerRef *v1.NamespacedReference `json:"loadBalancerRef,omitempty" tf:"-"`
 
 	// Selector for a LoadbalancerV3 in lb to populate loadbalancerId.
 	// +kubebuilder:validation:Optional
-	LoadbalancerIDSelector *v1.NamespacedSelector `json:"loadbalancerIdSelector,omitempty" tf:"-"`
+	LoadBalancerSelector *v1.NamespacedSelector `json:"loadBalancerSelector,omitempty" tf:"-"`
+
+	// Specifies the ID of the associated load balancer.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lb/v1alpha1.LoadbalancerV3
+	// +crossplane:generate:reference:refFieldName=LoadBalancerRef
+	// +crossplane:generate:reference:selectorFieldName=LoadBalancerSelector
+	LoadbalancerID *string `json:"loadbalancerId,omitempty" tf:"loadbalancer_id,omitempty"`
 
 	// Specifies whether to enable removal protection for the pool members.
 	// true: Enable removal protection.
@@ -78,15 +82,17 @@ type PoolV3InitParameters struct {
 
 	// Specifies the ID of the VPC where the backend server group works.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.VpcV1
+	// +crossplane:generate:reference:refFieldName=VpcRef
+	// +crossplane:generate:reference:selectorFieldName=VpcSelector
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
 
 	// Reference to a VpcV1 in vpc to populate vpcId.
 	// +kubebuilder:validation:Optional
-	VPCIDRef *v1.NamespacedReference `json:"vpcIdRef,omitempty" tf:"-"`
+	VPCRef *v1.NamespacedReference `json:"vpcRef,omitempty" tf:"-"`
 
 	// Selector for a VpcV1 in vpc to populate vpcId.
 	// +kubebuilder:validation:Optional
-	VPCIDSelector *v1.NamespacedSelector `json:"vpcIdSelector,omitempty" tf:"-"`
+	VPCSelector *v1.NamespacedSelector `json:"vpcSelector,omitempty" tf:"-"`
 }
 
 type PoolV3Observation struct {
@@ -146,29 +152,33 @@ type PoolV3Parameters struct {
 
 	// Specifies the ID of the listener associated with the backend server group.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lb/v1alpha1.ListenerV3
+	// +crossplane:generate:reference:refFieldName=ListenerRef
+	// +crossplane:generate:reference:selectorFieldName=ListenerSelector
 	// +kubebuilder:validation:Optional
 	ListenerID *string `json:"listenerId,omitempty" tf:"listener_id,omitempty"`
 
 	// Reference to a ListenerV3 in lb to populate listenerId.
 	// +kubebuilder:validation:Optional
-	ListenerIDRef *v1.NamespacedReference `json:"listenerIdRef,omitempty" tf:"-"`
+	ListenerRef *v1.NamespacedReference `json:"listenerRef,omitempty" tf:"-"`
 
 	// Selector for a ListenerV3 in lb to populate listenerId.
 	// +kubebuilder:validation:Optional
-	ListenerIDSelector *v1.NamespacedSelector `json:"listenerIdSelector,omitempty" tf:"-"`
-
-	// Specifies the ID of the associated load balancer.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lb/v1alpha1.LoadbalancerV3
-	// +kubebuilder:validation:Optional
-	LoadbalancerID *string `json:"loadbalancerId,omitempty" tf:"loadbalancer_id,omitempty"`
+	ListenerSelector *v1.NamespacedSelector `json:"listenerSelector,omitempty" tf:"-"`
 
 	// Reference to a LoadbalancerV3 in lb to populate loadbalancerId.
 	// +kubebuilder:validation:Optional
-	LoadbalancerIDRef *v1.NamespacedReference `json:"loadbalancerIdRef,omitempty" tf:"-"`
+	LoadBalancerRef *v1.NamespacedReference `json:"loadBalancerRef,omitempty" tf:"-"`
 
 	// Selector for a LoadbalancerV3 in lb to populate loadbalancerId.
 	// +kubebuilder:validation:Optional
-	LoadbalancerIDSelector *v1.NamespacedSelector `json:"loadbalancerIdSelector,omitempty" tf:"-"`
+	LoadBalancerSelector *v1.NamespacedSelector `json:"loadBalancerSelector,omitempty" tf:"-"`
+
+	// Specifies the ID of the associated load balancer.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lb/v1alpha1.LoadbalancerV3
+	// +crossplane:generate:reference:refFieldName=LoadBalancerRef
+	// +crossplane:generate:reference:selectorFieldName=LoadBalancerSelector
+	// +kubebuilder:validation:Optional
+	LoadbalancerID *string `json:"loadbalancerId,omitempty" tf:"loadbalancer_id,omitempty"`
 
 	// Specifies whether to enable removal protection for the pool members.
 	// true: Enable removal protection.
@@ -208,16 +218,18 @@ type PoolV3Parameters struct {
 
 	// Specifies the ID of the VPC where the backend server group works.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.VpcV1
+	// +crossplane:generate:reference:refFieldName=VpcRef
+	// +crossplane:generate:reference:selectorFieldName=VpcSelector
 	// +kubebuilder:validation:Optional
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
 
 	// Reference to a VpcV1 in vpc to populate vpcId.
 	// +kubebuilder:validation:Optional
-	VPCIDRef *v1.NamespacedReference `json:"vpcIdRef,omitempty" tf:"-"`
+	VPCRef *v1.NamespacedReference `json:"vpcRef,omitempty" tf:"-"`
 
 	// Selector for a VpcV1 in vpc to populate vpcId.
 	// +kubebuilder:validation:Optional
-	VPCIDSelector *v1.NamespacedSelector `json:"vpcIdSelector,omitempty" tf:"-"`
+	VPCSelector *v1.NamespacedSelector `json:"vpcSelector,omitempty" tf:"-"`
 }
 
 type SessionPersistenceInitParameters struct {

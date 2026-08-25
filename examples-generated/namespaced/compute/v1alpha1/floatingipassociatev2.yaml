@@ -12,7 +12,7 @@ spec:
     floatingIpSelector:
       matchLabels:
         testing.upbound.io/example-name: fip_1
-    instanceIdSelector:
+    instanceSelector:
       matchLabels:
         testing.upbound.io/example-name: instance_1
 

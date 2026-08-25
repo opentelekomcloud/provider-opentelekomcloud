@@ -77,7 +77,7 @@ spec:
                       ID of the floating ip this snat rule connects to. Multiple IDs can be passed separated by commas, for e.g., "id_1,id_2". Maximum number of IDs: 20. Maximum length: 4096.
                       Changing this creates a new snat rule.
                     type: string
-                  floatingIpIdRef:
+                  floatingIpRef:
                     description: Reference to a EIPV1 in vpc to populate floatingIpId.
                     properties:
                       name:
@@ -114,7 +114,7 @@ spec:
                     required:
                     - name
                     type: object
-                  floatingIpIdSelector:
+                  floatingIpSelector:
                     description: Selector for a EIPV1 in vpc to populate floatingIpId.
                     properties:
                       matchControllerRef:
@@ -162,7 +162,7 @@ spec:
                       ID of the nat gateway this snat rule belongs to.
                       Changing this creates a new snat rule.
                     type: string
-                  natGatewayIdRef:
+                  natGatewayRef:
                     description: Reference to a GatewayV2 in nat to populate natGatewayId.
                     properties:
                       name:
@@ -199,7 +199,7 @@ spec:
                     required:
                     - name
                     type: object
-                  natGatewayIdSelector:
+                  natGatewaySelector:
                     description: Selector for a GatewayV2 in nat to populate natGatewayId.
                     properties:
                       matchControllerRef:
@@ -247,7 +247,7 @@ spec:
                       ID of the network this snat rule connects to. This parameter
                       and cidr are alternative. Changing this creates a new snat rule.
                     type: string
-                  networkIdRef:
+                  networkRef:
                     description: Reference to a SubnetV1 in vpc to populate networkId.
                     properties:
                       name:
@@ -284,7 +284,7 @@ spec:
                     required:
                     - name
                     type: object
-                  networkIdSelector:
+                  networkSelector:
                     description: Selector for a SubnetV1 in vpc to populate networkId.
                     properties:
                       matchControllerRef:
@@ -366,7 +366,7 @@ spec:
                       ID of the floating ip this snat rule connects to. Multiple IDs can be passed separated by commas, for e.g., "id_1,id_2". Maximum number of IDs: 20. Maximum length: 4096.
                       Changing this creates a new snat rule.
                     type: string
-                  floatingIpIdRef:
+                  floatingIpRef:
                     description: Reference to a EIPV1 in vpc to populate floatingIpId.
                     properties:
                       name:
@@ -403,7 +403,7 @@ spec:
                     required:
                     - name
                     type: object
-                  floatingIpIdSelector:
+                  floatingIpSelector:
                     description: Selector for a EIPV1 in vpc to populate floatingIpId.
                     properties:
                       matchControllerRef:
@@ -451,7 +451,7 @@ spec:
                       ID of the nat gateway this snat rule belongs to.
                       Changing this creates a new snat rule.
                     type: string
-                  natGatewayIdRef:
+                  natGatewayRef:
                     description: Reference to a GatewayV2 in nat to populate natGatewayId.
                     properties:
                       name:
@@ -488,7 +488,7 @@ spec:
                     required:
                     - name
                     type: object
-                  natGatewayIdSelector:
+                  natGatewaySelector:
                     description: Selector for a GatewayV2 in nat to populate natGatewayId.
                     properties:
                       matchControllerRef:
@@ -536,7 +536,7 @@ spec:
                       ID of the network this snat rule connects to. This parameter
                       and cidr are alternative. Changing this creates a new snat rule.
                     type: string
-                  networkIdRef:
+                  networkRef:
                     description: Reference to a SubnetV1 in vpc to populate networkId.
                     properties:
                       name:
@@ -573,7 +573,7 @@ spec:
                     required:
                     - name
                     type: object
-                  networkIdSelector:
+                  networkSelector:
                     description: Selector for a SubnetV1 in vpc to populate networkId.
                     properties:
                       matchControllerRef:

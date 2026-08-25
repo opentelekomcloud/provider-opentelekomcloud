@@ -27,8 +27,8 @@ func (mg *BackupV3) ResolveReferences(ctx context.Context, c client.Reader) erro
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.InstanceID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.ForProvider.InstanceIDRef,
-		Selector:     mg.Spec.ForProvider.InstanceIDSelector,
+		Reference:    mg.Spec.ForProvider.InstanceRef,
+		Selector:     mg.Spec.ForProvider.InstanceSelector,
 		To: reference.To{
 			List:    &InstanceV3List{},
 			Managed: &InstanceV3{},
@@ -38,14 +38,14 @@ func (mg *BackupV3) ResolveReferences(ctx context.Context, c client.Reader) erro
 		return errors.Wrap(err, "mg.Spec.ForProvider.InstanceID")
 	}
 	mg.Spec.ForProvider.InstanceID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.InstanceIDRef = rsp.ResolvedReference
+	mg.Spec.ForProvider.InstanceRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.InstanceID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.InitProvider.InstanceIDRef,
-		Selector:     mg.Spec.InitProvider.InstanceIDSelector,
+		Reference:    mg.Spec.InitProvider.InstanceRef,
+		Selector:     mg.Spec.InitProvider.InstanceSelector,
 		To: reference.To{
 			List:    &InstanceV3List{},
 			Managed: &InstanceV3{},
@@ -55,7 +55,7 @@ func (mg *BackupV3) ResolveReferences(ctx context.Context, c client.Reader) erro
 		return errors.Wrap(err, "mg.Spec.InitProvider.InstanceID")
 	}
 	mg.Spec.InitProvider.InstanceID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.InstanceIDRef = rsp.ResolvedReference
+	mg.Spec.InitProvider.InstanceRef = rsp.ResolvedReference
 
 	return nil
 }
@@ -72,8 +72,8 @@ func (mg *InstanceV3) ResolveReferences(ctx context.Context, c client.Reader) er
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ParamGroupID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.ForProvider.ParamGroupIDRef,
-		Selector:     mg.Spec.ForProvider.ParamGroupIDSelector,
+		Reference:    mg.Spec.ForProvider.ParameterGroupRef,
+		Selector:     mg.Spec.ForProvider.ParameterGroupSelector,
 		To: reference.To{
 			List:    &ParametergroupV3List{},
 			Managed: &ParametergroupV3{},
@@ -83,7 +83,7 @@ func (mg *InstanceV3) ResolveReferences(ctx context.Context, c client.Reader) er
 		return errors.Wrap(err, "mg.Spec.ForProvider.ParamGroupID")
 	}
 	mg.Spec.ForProvider.ParamGroupID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.ParamGroupIDRef = rsp.ResolvedReference
+	mg.Spec.ForProvider.ParameterGroupRef = rsp.ResolvedReference
 
 	mrsp, err = r.ResolveMultiple(ctx, reference.MultiNamespacedResolutionRequest{
 		CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.PublicIps),
@@ -123,8 +123,8 @@ func (mg *InstanceV3) ResolveReferences(ctx context.Context, c client.Reader) er
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.SubnetID),
 		Extract:      common.ExtractNetworkID(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.ForProvider.SubnetIDRef,
-		Selector:     mg.Spec.ForProvider.SubnetIDSelector,
+		Reference:    mg.Spec.ForProvider.SubnetRef,
+		Selector:     mg.Spec.ForProvider.SubnetSelector,
 		To: reference.To{
 			List:    &v1alpha1.SubnetV1List{},
 			Managed: &v1alpha1.SubnetV1{},
@@ -134,14 +134,14 @@ func (mg *InstanceV3) ResolveReferences(ctx context.Context, c client.Reader) er
 		return errors.Wrap(err, "mg.Spec.ForProvider.SubnetID")
 	}
 	mg.Spec.ForProvider.SubnetID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.SubnetIDRef = rsp.ResolvedReference
+	mg.Spec.ForProvider.SubnetRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.VPCID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.ForProvider.VPCIDRef,
-		Selector:     mg.Spec.ForProvider.VPCIDSelector,
+		Reference:    mg.Spec.ForProvider.VpcRef,
+		Selector:     mg.Spec.ForProvider.VpcSelector,
 		To: reference.To{
 			List:    &v1alpha1.VpcV1List{},
 			Managed: &v1alpha1.VpcV1{},
@@ -151,14 +151,14 @@ func (mg *InstanceV3) ResolveReferences(ctx context.Context, c client.Reader) er
 		return errors.Wrap(err, "mg.Spec.ForProvider.VPCID")
 	}
 	mg.Spec.ForProvider.VPCID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.VPCIDRef = rsp.ResolvedReference
+	mg.Spec.ForProvider.VpcRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ParamGroupID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.InitProvider.ParamGroupIDRef,
-		Selector:     mg.Spec.InitProvider.ParamGroupIDSelector,
+		Reference:    mg.Spec.InitProvider.ParameterGroupRef,
+		Selector:     mg.Spec.InitProvider.ParameterGroupSelector,
 		To: reference.To{
 			List:    &ParametergroupV3List{},
 			Managed: &ParametergroupV3{},
@@ -168,7 +168,7 @@ func (mg *InstanceV3) ResolveReferences(ctx context.Context, c client.Reader) er
 		return errors.Wrap(err, "mg.Spec.InitProvider.ParamGroupID")
 	}
 	mg.Spec.InitProvider.ParamGroupID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.ParamGroupIDRef = rsp.ResolvedReference
+	mg.Spec.InitProvider.ParameterGroupRef = rsp.ResolvedReference
 
 	mrsp, err = r.ResolveMultiple(ctx, reference.MultiNamespacedResolutionRequest{
 		CurrentValues: reference.FromPtrValues(mg.Spec.InitProvider.PublicIps),
@@ -208,8 +208,8 @@ func (mg *InstanceV3) ResolveReferences(ctx context.Context, c client.Reader) er
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.SubnetID),
 		Extract:      common.ExtractNetworkID(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.InitProvider.SubnetIDRef,
-		Selector:     mg.Spec.InitProvider.SubnetIDSelector,
+		Reference:    mg.Spec.InitProvider.SubnetRef,
+		Selector:     mg.Spec.InitProvider.SubnetSelector,
 		To: reference.To{
 			List:    &v1alpha1.SubnetV1List{},
 			Managed: &v1alpha1.SubnetV1{},
@@ -219,14 +219,14 @@ func (mg *InstanceV3) ResolveReferences(ctx context.Context, c client.Reader) er
 		return errors.Wrap(err, "mg.Spec.InitProvider.SubnetID")
 	}
 	mg.Spec.InitProvider.SubnetID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.SubnetIDRef = rsp.ResolvedReference
+	mg.Spec.InitProvider.SubnetRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.VPCID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.InitProvider.VPCIDRef,
-		Selector:     mg.Spec.InitProvider.VPCIDSelector,
+		Reference:    mg.Spec.InitProvider.VpcRef,
+		Selector:     mg.Spec.InitProvider.VpcSelector,
 		To: reference.To{
 			List:    &v1alpha1.VpcV1List{},
 			Managed: &v1alpha1.VpcV1{},
@@ -236,7 +236,7 @@ func (mg *InstanceV3) ResolveReferences(ctx context.Context, c client.Reader) er
 		return errors.Wrap(err, "mg.Spec.InitProvider.VPCID")
 	}
 	mg.Spec.InitProvider.VPCID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.VPCIDRef = rsp.ResolvedReference
+	mg.Spec.InitProvider.VpcRef = rsp.ResolvedReference
 
 	return nil
 }
@@ -270,8 +270,8 @@ func (mg *ReadReplicaV3) ResolveReferences(ctx context.Context, c client.Reader)
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ReplicaOfID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.ForProvider.ReplicaOfIDRef,
-		Selector:     mg.Spec.ForProvider.ReplicaOfIDSelector,
+		Reference:    mg.Spec.ForProvider.ReplicaOfRef,
+		Selector:     mg.Spec.ForProvider.ReplicaOfSelector,
 		To: reference.To{
 			List:    &InstanceV3List{},
 			Managed: &InstanceV3{},
@@ -281,7 +281,7 @@ func (mg *ReadReplicaV3) ResolveReferences(ctx context.Context, c client.Reader)
 		return errors.Wrap(err, "mg.Spec.ForProvider.ReplicaOfID")
 	}
 	mg.Spec.ForProvider.ReplicaOfID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.ReplicaOfIDRef = rsp.ResolvedReference
+	mg.Spec.ForProvider.ReplicaOfRef = rsp.ResolvedReference
 
 	mrsp, err = r.ResolveMultiple(ctx, reference.MultiNamespacedResolutionRequest{
 		CurrentValues: reference.FromPtrValues(mg.Spec.InitProvider.PublicIps),
@@ -304,8 +304,8 @@ func (mg *ReadReplicaV3) ResolveReferences(ctx context.Context, c client.Reader)
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ReplicaOfID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.InitProvider.ReplicaOfIDRef,
-		Selector:     mg.Spec.InitProvider.ReplicaOfIDSelector,
+		Reference:    mg.Spec.InitProvider.ReplicaOfRef,
+		Selector:     mg.Spec.InitProvider.ReplicaOfSelector,
 		To: reference.To{
 			List:    &InstanceV3List{},
 			Managed: &InstanceV3{},
@@ -315,7 +315,7 @@ func (mg *ReadReplicaV3) ResolveReferences(ctx context.Context, c client.Reader)
 		return errors.Wrap(err, "mg.Spec.InitProvider.ReplicaOfID")
 	}
 	mg.Spec.InitProvider.ReplicaOfID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.ReplicaOfIDRef = rsp.ResolvedReference
+	mg.Spec.InitProvider.ReplicaOfRef = rsp.ResolvedReference
 
 	return nil
 }

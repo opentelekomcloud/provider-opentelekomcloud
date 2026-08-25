@@ -19,17 +19,19 @@ type PtrrecordV2InitParameters struct {
 	// Description of the PTR record.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// The ID of the FloatingIP/EIP.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.EIPV1
-	FloatingipID *string `json:"floatingipId,omitempty" tf:"floatingip_id,omitempty"`
-
 	// Reference to a EIPV1 in vpc to populate floatingipId.
 	// +kubebuilder:validation:Optional
-	FloatingipIDRef *v1.NamespacedReference `json:"floatingipIdRef,omitempty" tf:"-"`
+	FloatingIPRef *v1.NamespacedReference `json:"floatingIpRef,omitempty" tf:"-"`
 
 	// Selector for a EIPV1 in vpc to populate floatingipId.
 	// +kubebuilder:validation:Optional
-	FloatingipIDSelector *v1.NamespacedSelector `json:"floatingipIdSelector,omitempty" tf:"-"`
+	FloatingIPSelector *v1.NamespacedSelector `json:"floatingIpSelector,omitempty" tf:"-"`
+
+	// The ID of the FloatingIP/EIP.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.EIPV1
+	// +crossplane:generate:reference:refFieldName=FloatingIpRef
+	// +crossplane:generate:reference:selectorFieldName=FloatingIpSelector
+	FloatingipID *string `json:"floatingipId,omitempty" tf:"floatingip_id,omitempty"`
 
 	// Domain name of the PTR record. A domain name is case insensitive.
 	// Uppercase letters will also be converted into lowercase letters.
@@ -77,18 +79,20 @@ type PtrrecordV2Parameters struct {
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// The ID of the FloatingIP/EIP.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.EIPV1
-	// +kubebuilder:validation:Optional
-	FloatingipID *string `json:"floatingipId,omitempty" tf:"floatingip_id,omitempty"`
-
 	// Reference to a EIPV1 in vpc to populate floatingipId.
 	// +kubebuilder:validation:Optional
-	FloatingipIDRef *v1.NamespacedReference `json:"floatingipIdRef,omitempty" tf:"-"`
+	FloatingIPRef *v1.NamespacedReference `json:"floatingIpRef,omitempty" tf:"-"`
 
 	// Selector for a EIPV1 in vpc to populate floatingipId.
 	// +kubebuilder:validation:Optional
-	FloatingipIDSelector *v1.NamespacedSelector `json:"floatingipIdSelector,omitempty" tf:"-"`
+	FloatingIPSelector *v1.NamespacedSelector `json:"floatingIpSelector,omitempty" tf:"-"`
+
+	// The ID of the FloatingIP/EIP.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.EIPV1
+	// +crossplane:generate:reference:refFieldName=FloatingIpRef
+	// +crossplane:generate:reference:selectorFieldName=FloatingIpSelector
+	// +kubebuilder:validation:Optional
+	FloatingipID *string `json:"floatingipId,omitempty" tf:"floatingip_id,omitempty"`
 
 	// Domain name of the PTR record. A domain name is case insensitive.
 	// Uppercase letters will also be converted into lowercase letters.

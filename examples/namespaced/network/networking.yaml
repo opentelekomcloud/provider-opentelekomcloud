@@ -41,7 +41,7 @@ spec:
     name: xp-test-${Rand.RFC1123Subdomain}
     cidr: 192.168.199.0/24
     ipVersion: 4
-    networkIdSelector:
+    networkSelector:
       matchLabels:
         testing.upbound.io/example-name: sample-network
 
@@ -57,9 +57,9 @@ metadata:
   namespace: test
 spec:
   forProvider:
-    routerIdSelector:
+    routerSelector:
       matchLabels:
         testing.upbound.io/example-name: sample-router
-    subnetIdSelector:
+    subnetSelector:
       matchLabels:
         testing.upbound.io/example-name: sample-subnet

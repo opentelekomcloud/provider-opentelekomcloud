@@ -20,10 +20,10 @@ spec:
     passwordSecretRef:
       key: example-key
       name: example-secret
-    subnetIdSelector:
+    subnetSelector:
       matchLabels:
         testing.upbound.io/example-name: opentelekomcloud_vpc_subnet_v1
-    vpcIdSelector:
+    vpcSelector:
       matchLabels:
         testing.upbound.io/example-name: opentelekomcloud_vpc_subnet_v1
     whitelist:

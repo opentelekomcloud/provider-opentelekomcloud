@@ -23,15 +23,17 @@ type GatewayV2InitParameters struct {
 	// Changing this creates a new NAT Gateway.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.SubnetV1
 	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractNetworkID()
+	// +crossplane:generate:reference:refFieldName=InternalNetworkRef
+	// +crossplane:generate:reference:selectorFieldName=InternalNetworkSelector
 	InternalNetworkID *string `json:"internalNetworkId,omitempty" tf:"internal_network_id,omitempty"`
 
 	// Reference to a SubnetV1 in vpc to populate internalNetworkId.
 	// +kubebuilder:validation:Optional
-	InternalNetworkIDRef *v1.NamespacedReference `json:"internalNetworkIdRef,omitempty" tf:"-"`
+	InternalNetworkRef *v1.NamespacedReference `json:"internalNetworkRef,omitempty" tf:"-"`
 
 	// Selector for a SubnetV1 in vpc to populate internalNetworkId.
 	// +kubebuilder:validation:Optional
-	InternalNetworkIDSelector *v1.NamespacedSelector `json:"internalNetworkIdSelector,omitempty" tf:"-"`
+	InternalNetworkSelector *v1.NamespacedSelector `json:"internalNetworkSelector,omitempty" tf:"-"`
 
 	// The name of the NAT Gateway.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -41,15 +43,9 @@ type GatewayV2InitParameters struct {
 	// ID of the router (or VPC) this NAT Gateway belongs to. Changing
 	// this creates a new NAT Gateway.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.VpcV1
+	// +crossplane:generate:reference:refFieldName=VpcRef
+	// +crossplane:generate:reference:selectorFieldName=VpcSelector
 	RouterID *string `json:"routerId,omitempty" tf:"router_id,omitempty"`
-
-	// Reference to a VpcV1 in vpc to populate routerId.
-	// +kubebuilder:validation:Optional
-	RouterIDRef *v1.NamespacedReference `json:"routerIdRef,omitempty" tf:"-"`
-
-	// Selector for a VpcV1 in vpc to populate routerId.
-	// +kubebuilder:validation:Optional
-	RouterIDSelector *v1.NamespacedSelector `json:"routerIdSelector,omitempty" tf:"-"`
 
 	// The specification of the NAT Gateway, valid values are "0","1", "2", "3", "4".
 	Spec *string `json:"spec,omitempty" tf:"spec,omitempty"`
@@ -61,6 +57,14 @@ type GatewayV2InitParameters struct {
 	// The target tenant ID in which to allocate the NAT
 	// Gateway. Changing this creates a new NAT Gateway.
 	TenantID *string `json:"tenantId,omitempty" tf:"tenant_id,omitempty"`
+
+	// Reference to a VpcV1 in vpc to populate routerId.
+	// +kubebuilder:validation:Optional
+	VPCRef *v1.NamespacedReference `json:"vpcRef,omitempty" tf:"-"`
+
+	// Selector for a VpcV1 in vpc to populate routerId.
+	// +kubebuilder:validation:Optional
+	VPCSelector *v1.NamespacedSelector `json:"vpcSelector,omitempty" tf:"-"`
 }
 
 type GatewayV2Observation struct {
@@ -105,16 +109,18 @@ type GatewayV2Parameters struct {
 	// Changing this creates a new NAT Gateway.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.SubnetV1
 	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractNetworkID()
+	// +crossplane:generate:reference:refFieldName=InternalNetworkRef
+	// +crossplane:generate:reference:selectorFieldName=InternalNetworkSelector
 	// +kubebuilder:validation:Optional
 	InternalNetworkID *string `json:"internalNetworkId,omitempty" tf:"internal_network_id,omitempty"`
 
 	// Reference to a SubnetV1 in vpc to populate internalNetworkId.
 	// +kubebuilder:validation:Optional
-	InternalNetworkIDRef *v1.NamespacedReference `json:"internalNetworkIdRef,omitempty" tf:"-"`
+	InternalNetworkRef *v1.NamespacedReference `json:"internalNetworkRef,omitempty" tf:"-"`
 
 	// Selector for a SubnetV1 in vpc to populate internalNetworkId.
 	// +kubebuilder:validation:Optional
-	InternalNetworkIDSelector *v1.NamespacedSelector `json:"internalNetworkIdSelector,omitempty" tf:"-"`
+	InternalNetworkSelector *v1.NamespacedSelector `json:"internalNetworkSelector,omitempty" tf:"-"`
 
 	// The name of the NAT Gateway.
 	// +kubebuilder:validation:Optional
@@ -126,16 +132,10 @@ type GatewayV2Parameters struct {
 	// ID of the router (or VPC) this NAT Gateway belongs to. Changing
 	// this creates a new NAT Gateway.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.VpcV1
+	// +crossplane:generate:reference:refFieldName=VpcRef
+	// +crossplane:generate:reference:selectorFieldName=VpcSelector
 	// +kubebuilder:validation:Optional
 	RouterID *string `json:"routerId,omitempty" tf:"router_id,omitempty"`
-
-	// Reference to a VpcV1 in vpc to populate routerId.
-	// +kubebuilder:validation:Optional
-	RouterIDRef *v1.NamespacedReference `json:"routerIdRef,omitempty" tf:"-"`
-
-	// Selector for a VpcV1 in vpc to populate routerId.
-	// +kubebuilder:validation:Optional
-	RouterIDSelector *v1.NamespacedSelector `json:"routerIdSelector,omitempty" tf:"-"`
 
 	// The specification of the NAT Gateway, valid values are "0","1", "2", "3", "4".
 	// +kubebuilder:validation:Optional
@@ -150,6 +150,14 @@ type GatewayV2Parameters struct {
 	// Gateway. Changing this creates a new NAT Gateway.
 	// +kubebuilder:validation:Optional
 	TenantID *string `json:"tenantId,omitempty" tf:"tenant_id,omitempty"`
+
+	// Reference to a VpcV1 in vpc to populate routerId.
+	// +kubebuilder:validation:Optional
+	VPCRef *v1.NamespacedReference `json:"vpcRef,omitempty" tf:"-"`
+
+	// Selector for a VpcV1 in vpc to populate routerId.
+	// +kubebuilder:validation:Optional
+	VPCSelector *v1.NamespacedSelector `json:"vpcSelector,omitempty" tf:"-"`
 }
 
 // GatewayV2Spec defines the desired state of GatewayV2

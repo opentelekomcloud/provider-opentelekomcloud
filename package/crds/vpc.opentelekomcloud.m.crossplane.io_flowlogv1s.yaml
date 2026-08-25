@@ -72,7 +72,7 @@ spec:
                       Specifies the log group ID.
                       Changing this creates a new VPC flow log.
                     type: string
-                  logGroupIdRef:
+                  logGroupRef:
                     description: Reference to a GroupV2 in logtank to populate logGroupId.
                     properties:
                       name:
@@ -109,7 +109,7 @@ spec:
                     required:
                     - name
                     type: object
-                  logGroupIdSelector:
+                  logGroupSelector:
                     description: Selector for a GroupV2 in logtank to populate logGroupId.
                     properties:
                       matchControllerRef:
@@ -157,7 +157,7 @@ spec:
                       Specifies the log topic ID.
                       Changing this creates a new VPC flow log.
                     type: string
-                  logTopicIdRef:
+                  logTopicRef:
                     description: Reference to a TopicV2 in logtank to populate logTopicId.
                     properties:
                       name:
@@ -194,7 +194,7 @@ spec:
                     required:
                     - name
                     type: object
-                  logTopicIdSelector:
+                  logTopicSelector:
                     description: Selector for a TopicV2 in logtank to populate logTopicId.
                     properties:
                       matchControllerRef:
@@ -247,7 +247,7 @@ spec:
                       Specifies the ID of resource type.
                       Changing this creates a new VPC flow log.
                     type: string
-                  resourceIdRef:
+                  resourceRef:
                     description: Reference to a VpcV1 in vpc to populate resourceId.
                     properties:
                       name:
@@ -284,7 +284,7 @@ spec:
                     required:
                     - name
                     type: object
-                  resourceIdSelector:
+                  resourceSelector:
                     description: Selector for a VpcV1 in vpc to populate resourceId.
                     properties:
                       matchControllerRef:
@@ -369,7 +369,7 @@ spec:
                       Specifies the log group ID.
                       Changing this creates a new VPC flow log.
                     type: string
-                  logGroupIdRef:
+                  logGroupRef:
                     description: Reference to a GroupV2 in logtank to populate logGroupId.
                     properties:
                       name:
@@ -406,7 +406,7 @@ spec:
                     required:
                     - name
                     type: object
-                  logGroupIdSelector:
+                  logGroupSelector:
                     description: Selector for a GroupV2 in logtank to populate logGroupId.
                     properties:
                       matchControllerRef:
@@ -454,7 +454,7 @@ spec:
                       Specifies the log topic ID.
                       Changing this creates a new VPC flow log.
                     type: string
-                  logTopicIdRef:
+                  logTopicRef:
                     description: Reference to a TopicV2 in logtank to populate logTopicId.
                     properties:
                       name:
@@ -491,7 +491,7 @@ spec:
                     required:
                     - name
                     type: object
-                  logTopicIdSelector:
+                  logTopicSelector:
                     description: Selector for a TopicV2 in logtank to populate logTopicId.
                     properties:
                       matchControllerRef:
@@ -544,7 +544,7 @@ spec:
                       Specifies the ID of resource type.
                       Changing this creates a new VPC flow log.
                     type: string
-                  resourceIdRef:
+                  resourceRef:
                     description: Reference to a VpcV1 in vpc to populate resourceId.
                     properties:
                       name:
@@ -581,7 +581,7 @@ spec:
                     required:
                     - name
                     type: object
-                  resourceIdSelector:
+                  resourceSelector:
                     description: Selector for a VpcV1 in vpc to populate resourceId.
                     properties:
                       matchControllerRef:

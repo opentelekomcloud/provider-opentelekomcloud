@@ -34,15 +34,17 @@ type OrganizationPermissionsV2InitParameters struct {
 
 	// The ID of the existing Open Telekom Cloud user.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/identity/v1alpha1.UserV3
+	// +crossplane:generate:reference:refFieldName=UserRef
+	// +crossplane:generate:reference:selectorFieldName=UserSelector
 	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
 
 	// Reference to a UserV3 in identity to populate userId.
 	// +kubebuilder:validation:Optional
-	UserIDRef *v1.NamespacedReference `json:"userIdRef,omitempty" tf:"-"`
+	UserRef *v1.NamespacedReference `json:"userRef,omitempty" tf:"-"`
 
 	// Selector for a UserV3 in identity to populate userId.
 	// +kubebuilder:validation:Optional
-	UserIDSelector *v1.NamespacedSelector `json:"userIdSelector,omitempty" tf:"-"`
+	UserSelector *v1.NamespacedSelector `json:"userSelector,omitempty" tf:"-"`
 
 	// The username of the existing Open Telekom Cloud user.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/identity/v1alpha1.UserV3
@@ -98,16 +100,18 @@ type OrganizationPermissionsV2Parameters struct {
 
 	// The ID of the existing Open Telekom Cloud user.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/identity/v1alpha1.UserV3
+	// +crossplane:generate:reference:refFieldName=UserRef
+	// +crossplane:generate:reference:selectorFieldName=UserSelector
 	// +kubebuilder:validation:Optional
 	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
 
 	// Reference to a UserV3 in identity to populate userId.
 	// +kubebuilder:validation:Optional
-	UserIDRef *v1.NamespacedReference `json:"userIdRef,omitempty" tf:"-"`
+	UserRef *v1.NamespacedReference `json:"userRef,omitempty" tf:"-"`
 
 	// Selector for a UserV3 in identity to populate userId.
 	// +kubebuilder:validation:Optional
-	UserIDSelector *v1.NamespacedSelector `json:"userIdSelector,omitempty" tf:"-"`
+	UserSelector *v1.NamespacedSelector `json:"userSelector,omitempty" tf:"-"`
 
 	// The username of the existing Open Telekom Cloud user.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/identity/v1alpha1.UserV3

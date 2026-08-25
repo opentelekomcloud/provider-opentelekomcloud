@@ -31,15 +31,17 @@ type GrantV1InitParameters struct {
 
 	// Indicates the ID of the KMS. Changing this creates new grant.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/kms/v1alpha1.KeyV1
+	// +crossplane:generate:reference:refFieldName=KeyRef
+	// +crossplane:generate:reference:selectorFieldName=KeySelector
 	KeyID *string `json:"keyId,omitempty" tf:"key_id,omitempty"`
 
 	// Reference to a KeyV1 in kms to populate keyId.
 	// +kubebuilder:validation:Optional
-	KeyIDRef *v1.NamespacedReference `json:"keyIdRef,omitempty" tf:"-"`
+	KeyRef *v1.NamespacedReference `json:"keyRef,omitempty" tf:"-"`
 
 	// Selector for a KeyV1 in kms to populate keyId.
 	// +kubebuilder:validation:Optional
-	KeyIDSelector *v1.NamespacedSelector `json:"keyIdSelector,omitempty" tf:"-"`
+	KeySelector *v1.NamespacedSelector `json:"keySelector,omitempty" tf:"-"`
 
 	// Name of a grant which can be 1 to 255 characters in length
 	// and matches the regular expression ^[a-zA-Z0-9:/_-]{1,255}$.
@@ -111,16 +113,18 @@ type GrantV1Parameters struct {
 
 	// Indicates the ID of the KMS. Changing this creates new grant.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/kms/v1alpha1.KeyV1
+	// +crossplane:generate:reference:refFieldName=KeyRef
+	// +crossplane:generate:reference:selectorFieldName=KeySelector
 	// +kubebuilder:validation:Optional
 	KeyID *string `json:"keyId,omitempty" tf:"key_id,omitempty"`
 
 	// Reference to a KeyV1 in kms to populate keyId.
 	// +kubebuilder:validation:Optional
-	KeyIDRef *v1.NamespacedReference `json:"keyIdRef,omitempty" tf:"-"`
+	KeyRef *v1.NamespacedReference `json:"keyRef,omitempty" tf:"-"`
 
 	// Selector for a KeyV1 in kms to populate keyId.
 	// +kubebuilder:validation:Optional
-	KeyIDSelector *v1.NamespacedSelector `json:"keyIdSelector,omitempty" tf:"-"`
+	KeySelector *v1.NamespacedSelector `json:"keySelector,omitempty" tf:"-"`
 
 	// Name of a grant which can be 1 to 255 characters in length
 	// and matches the regular expression ^[a-zA-Z0-9:/_-]{1,255}$.

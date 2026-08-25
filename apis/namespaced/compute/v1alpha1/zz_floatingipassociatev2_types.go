@@ -34,15 +34,17 @@ type FloatingipAssociateV2InitParameters struct {
 
 	// The instance to associte the floating IP with.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/compute/v1alpha1.InstanceV2
+	// +crossplane:generate:reference:refFieldName=InstanceRef
+	// +crossplane:generate:reference:selectorFieldName=InstanceSelector
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
 
 	// Reference to a InstanceV2 in compute to populate instanceId.
 	// +kubebuilder:validation:Optional
-	InstanceIDRef *v1.NamespacedReference `json:"instanceIdRef,omitempty" tf:"-"`
+	InstanceRef *v1.NamespacedReference `json:"instanceRef,omitempty" tf:"-"`
 
 	// Selector for a InstanceV2 in compute to populate instanceId.
 	// +kubebuilder:validation:Optional
-	InstanceIDSelector *v1.NamespacedSelector `json:"instanceIdSelector,omitempty" tf:"-"`
+	InstanceSelector *v1.NamespacedSelector `json:"instanceSelector,omitempty" tf:"-"`
 
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 }
@@ -85,16 +87,18 @@ type FloatingipAssociateV2Parameters struct {
 
 	// The instance to associte the floating IP with.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/compute/v1alpha1.InstanceV2
+	// +crossplane:generate:reference:refFieldName=InstanceRef
+	// +crossplane:generate:reference:selectorFieldName=InstanceSelector
 	// +kubebuilder:validation:Optional
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
 
 	// Reference to a InstanceV2 in compute to populate instanceId.
 	// +kubebuilder:validation:Optional
-	InstanceIDRef *v1.NamespacedReference `json:"instanceIdRef,omitempty" tf:"-"`
+	InstanceRef *v1.NamespacedReference `json:"instanceRef,omitempty" tf:"-"`
 
 	// Selector for a InstanceV2 in compute to populate instanceId.
 	// +kubebuilder:validation:Optional
-	InstanceIDSelector *v1.NamespacedSelector `json:"instanceIdSelector,omitempty" tf:"-"`
+	InstanceSelector *v1.NamespacedSelector `json:"instanceSelector,omitempty" tf:"-"`
 
 	// +kubebuilder:validation:Optional
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`

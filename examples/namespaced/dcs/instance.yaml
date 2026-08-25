@@ -39,7 +39,7 @@ spec:
     gatewayIp: "192.168.0.1"
     name: crossplane-subnet
     ntpAddresses: "10.100.0.33,10.100.0.34"
-    vpcIdSelector:
+    vpcSelector:
       matchLabels:
         testing.upbound.io/example-name: sample-dcs-instance-v2
     tags:
@@ -77,10 +77,10 @@ spec:
     passwordSecretRef:
       key: example-dcs-key
       name: example-dcs-password
-    subnetIdSelector:
+    subnetSelector:
       matchLabels:
         testing.upbound.io/example-name: sample-dcs-instance-v2
-    vpcIdSelector:
+    vpcSelector:
       matchLabels:
         testing.upbound.io/example-name: sample-dcs-instance-v2
     tags:

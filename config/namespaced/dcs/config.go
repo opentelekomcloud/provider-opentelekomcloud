@@ -11,14 +11,20 @@ func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("opentelekomcloud_dcs_instance_v2", func(r *config.Resource) {
 		r.UseAsync = true
 		r.References["security_group_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_compute_secgroup_v2",
+			TerraformName:     "opentelekomcloud_compute_secgroup_v2",
+			SelectorFieldName: "SecurityGroupSelector",
+			RefFieldName:      "SecurityGroupRef",
 		}
 		r.References["vpc_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_vpc_v1",
+			TerraformName:     "opentelekomcloud_vpc_v1",
+			SelectorFieldName: "VpcSelector",
+			RefFieldName:      "VpcRef",
 		}
 		r.References["subnet_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_vpc_subnet_v1",
-			Extractor:     common.NetworkIDExtractor,
+			TerraformName:     "opentelekomcloud_vpc_subnet_v1",
+			Extractor:         common.NetworkIDExtractor,
+			SelectorFieldName: "SubnetSelector",
+			RefFieldName:      "SubnetRef",
 		}
 	})
 }

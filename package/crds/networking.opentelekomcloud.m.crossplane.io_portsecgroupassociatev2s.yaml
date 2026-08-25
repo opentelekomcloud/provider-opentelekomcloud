@@ -68,7 +68,7 @@ spec:
                   portId:
                     description: An UUID of the port to apply security groups to.
                     type: string
-                  portIdRef:
+                  portRef:
                     description: Reference to a PortV2 in networking to populate portId.
                     properties:
                       name:
@@ -105,7 +105,7 @@ spec:
                     required:
                     - name
                     type: object
-                  portIdSelector:
+                  portSelector:
                     description: Selector for a PortV2 in networking to populate portId.
                     properties:
                       matchControllerRef:
@@ -164,7 +164,7 @@ spec:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
-                  securityGroupIdsRefs:
+                  securityGroupRef:
                     description: References to SecgroupV2 in networking to populate
                       securityGroupIds.
                     items:
@@ -205,7 +205,7 @@ spec:
                       - name
                       type: object
                     type: array
-                  securityGroupIdsSelector:
+                  securityGroupSelector:
                     description: Selector for a list of SecgroupV2 in networking to
                       populate securityGroupIds.
                     properties:
@@ -271,7 +271,7 @@ spec:
                   portId:
                     description: An UUID of the port to apply security groups to.
                     type: string
-                  portIdRef:
+                  portRef:
                     description: Reference to a PortV2 in networking to populate portId.
                     properties:
                       name:
@@ -308,7 +308,7 @@ spec:
                     required:
                     - name
                     type: object
-                  portIdSelector:
+                  portSelector:
                     description: Selector for a PortV2 in networking to populate portId.
                     properties:
                       matchControllerRef:
@@ -367,7 +367,7 @@ spec:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
-                  securityGroupIdsRefs:
+                  securityGroupRef:
                     description: References to SecgroupV2 in networking to populate
                       securityGroupIds.
                     items:
@@ -408,7 +408,7 @@ spec:
                       - name
                       type: object
                     type: array
-                  securityGroupIdsSelector:
+                  securityGroupSelector:
                     description: Selector for a list of SecgroupV2 in networking to
                       populate securityGroupIds.
                     properties:

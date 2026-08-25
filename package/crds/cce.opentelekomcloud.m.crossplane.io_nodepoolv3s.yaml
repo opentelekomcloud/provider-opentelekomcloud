@@ -153,7 +153,7 @@ spec:
                     description: ID of the cluster. Changing this parameter will create
                       a new resource.
                     type: string
-                  clusterIdRef:
+                  clusterRef:
                     description: Reference to a ClusterV3 in cce to populate clusterId.
                     properties:
                       name:
@@ -190,7 +190,7 @@ spec:
                     required:
                     - name
                     type: object
-                  clusterIdSelector:
+                  clusterSelector:
                     description: Selector for a ClusterV3 in cce to populate clusterId.
                     properties:
                       matchControllerRef:
@@ -255,7 +255,7 @@ spec:
                             The Encryption KMS ID of the system volume. By default, it tries to get from env by OS_KMS_ID.
                             -> NOTE: Common I/O (SATA) will reach end of life, end of 2025.
                           type: string
-                        kmsIdRef:
+                        kmsRef:
                           description: Reference to a KeyV1 in kms to populate kmsId.
                           properties:
                             name:
@@ -292,7 +292,7 @@ spec:
                           required:
                           - name
                           type: object
-                        kmsIdSelector:
+                        kmsSelector:
                           description: Selector for a KeyV1 in kms to populate kmsId.
                           properties:
                             matchControllerRef:
@@ -522,7 +522,7 @@ spec:
                             The Encryption KMS ID of the system volume. By default, it tries to get from env by OS_KMS_ID.
                             -> NOTE: Common I/O (SATA) will reach end of life, end of 2025.
                           type: string
-                        kmsIdRef:
+                        kmsRef:
                           description: Reference to a KeyV1 in kms to populate kmsId.
                           properties:
                             name:
@@ -559,7 +559,7 @@ spec:
                           required:
                           - name
                           type: object
-                        kmsIdSelector:
+                        kmsSelector:
                           description: Selector for a KeyV1 in kms to populate kmsId.
                           properties:
                             matchControllerRef:
@@ -647,7 +647,7 @@ spec:
                     description: The ID of the subnet to which the NIC belongs. Changing
                       this parameter will create a new resource.
                     type: string
-                  subnetIdRef:
+                  subnetRef:
                     description: Reference to a SubnetV1 in vpc to populate subnetId.
                     properties:
                       name:
@@ -684,7 +684,7 @@ spec:
                     required:
                     - name
                     type: object
-                  subnetIdSelector:
+                  subnetSelector:
                     description: Selector for a SubnetV1 in vpc to populate subnetId.
                     properties:
                       matchControllerRef:
@@ -862,7 +862,7 @@ spec:
                     description: ID of the cluster. Changing this parameter will create
                       a new resource.
                     type: string
-                  clusterIdRef:
+                  clusterRef:
                     description: Reference to a ClusterV3 in cce to populate clusterId.
                     properties:
                       name:
@@ -899,7 +899,7 @@ spec:
                     required:
                     - name
                     type: object
-                  clusterIdSelector:
+                  clusterSelector:
                     description: Selector for a ClusterV3 in cce to populate clusterId.
                     properties:
                       matchControllerRef:
@@ -964,7 +964,7 @@ spec:
                             The Encryption KMS ID of the system volume. By default, it tries to get from env by OS_KMS_ID.
                             -> NOTE: Common I/O (SATA) will reach end of life, end of 2025.
                           type: string
-                        kmsIdRef:
+                        kmsRef:
                           description: Reference to a KeyV1 in kms to populate kmsId.
                           properties:
                             name:
@@ -1001,7 +1001,7 @@ spec:
                           required:
                           - name
                           type: object
-                        kmsIdSelector:
+                        kmsSelector:
                           description: Selector for a KeyV1 in kms to populate kmsId.
                           properties:
                             matchControllerRef:
@@ -1231,7 +1231,7 @@ spec:
                             The Encryption KMS ID of the system volume. By default, it tries to get from env by OS_KMS_ID.
                             -> NOTE: Common I/O (SATA) will reach end of life, end of 2025.
                           type: string
-                        kmsIdRef:
+                        kmsRef:
                           description: Reference to a KeyV1 in kms to populate kmsId.
                           properties:
                             name:
@@ -1268,7 +1268,7 @@ spec:
                           required:
                           - name
                           type: object
-                        kmsIdSelector:
+                        kmsSelector:
                           description: Selector for a KeyV1 in kms to populate kmsId.
                           properties:
                             matchControllerRef:
@@ -1356,7 +1356,7 @@ spec:
                     description: The ID of the subnet to which the NIC belongs. Changing
                       this parameter will create a new resource.
                     type: string
-                  subnetIdRef:
+                  subnetRef:
                     description: Reference to a SubnetV1 in vpc to populate subnetId.
                     properties:
                       name:
@@ -1393,7 +1393,7 @@ spec:
                     required:
                     - name
                     type: object
-                  subnetIdSelector:
+                  subnetSelector:
                     description: Selector for a SubnetV1 in vpc to populate subnetId.
                     properties:
                       matchControllerRef:

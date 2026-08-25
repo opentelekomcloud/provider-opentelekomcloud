@@ -11,7 +11,7 @@ spec:
   forProvider:
     accept: true
     provider: opentelekomcloud.peer
-    vpcPeeringConnectionIdSelector:
+    vpcPeeringConnectionSelector:
       matchLabels:
         testing.upbound.io/example-name: peering
 
@@ -30,11 +30,11 @@ spec:
   forProvider:
     name: ${var.peer_name}
     peerTenantId: ${var.tenant_id}
-    peerVpcIdSelector:
+    peerVpcSelector:
       matchLabels:
         testing.upbound.io/example-name: vpc_peer
     provider: opentelekomcloud.main
-    vpcIdSelector:
+    vpcSelector:
       matchLabels:
         testing.upbound.io/example-name: vpc_main
 

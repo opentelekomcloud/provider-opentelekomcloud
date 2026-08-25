@@ -30,42 +30,48 @@ type SnatRuleV2InitParameters struct {
 	// ID of the floating ip this snat rule connects to. Multiple IDs can be passed separated by commas, for e.g., "id_1,id_2". Maximum number of IDs: 20. Maximum length: 4096.
 	// Changing this creates a new snat rule.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.EIPV1
+	// +crossplane:generate:reference:refFieldName=FloatingIpRef
+	// +crossplane:generate:reference:selectorFieldName=FloatingIpSelector
 	FloatingIPID *string `json:"floatingIpId,omitempty" tf:"floating_ip_id,omitempty"`
 
 	// Reference to a EIPV1 in vpc to populate floatingIpId.
 	// +kubebuilder:validation:Optional
-	FloatingIPIDRef *v1.NamespacedReference `json:"floatingIpIdRef,omitempty" tf:"-"`
+	FloatingIPRef *v1.NamespacedReference `json:"floatingIpRef,omitempty" tf:"-"`
 
 	// Selector for a EIPV1 in vpc to populate floatingIpId.
 	// +kubebuilder:validation:Optional
-	FloatingIPIDSelector *v1.NamespacedSelector `json:"floatingIpIdSelector,omitempty" tf:"-"`
+	FloatingIPSelector *v1.NamespacedSelector `json:"floatingIpSelector,omitempty" tf:"-"`
 
 	// ID of the nat gateway this snat rule belongs to.
 	// Changing this creates a new snat rule.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/nat/v1alpha1.GatewayV2
+	// +crossplane:generate:reference:refFieldName=NatGatewayRef
+	// +crossplane:generate:reference:selectorFieldName=NatGatewaySelector
 	NATGatewayID *string `json:"natGatewayId,omitempty" tf:"nat_gateway_id,omitempty"`
 
 	// Reference to a GatewayV2 in nat to populate natGatewayId.
 	// +kubebuilder:validation:Optional
-	NATGatewayIDRef *v1.NamespacedReference `json:"natGatewayIdRef,omitempty" tf:"-"`
+	NATGatewayRef *v1.NamespacedReference `json:"natGatewayRef,omitempty" tf:"-"`
 
 	// Selector for a GatewayV2 in nat to populate natGatewayId.
 	// +kubebuilder:validation:Optional
-	NATGatewayIDSelector *v1.NamespacedSelector `json:"natGatewayIdSelector,omitempty" tf:"-"`
+	NATGatewaySelector *v1.NamespacedSelector `json:"natGatewaySelector,omitempty" tf:"-"`
 
 	// ID of the network this snat rule connects to. This parameter
 	// and cidr are alternative. Changing this creates a new snat rule.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.SubnetV1
 	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractNetworkID()
+	// +crossplane:generate:reference:refFieldName=NetworkRef
+	// +crossplane:generate:reference:selectorFieldName=NetworkSelector
 	NetworkID *string `json:"networkId,omitempty" tf:"network_id,omitempty"`
 
 	// Reference to a SubnetV1 in vpc to populate networkId.
 	// +kubebuilder:validation:Optional
-	NetworkIDRef *v1.NamespacedReference `json:"networkIdRef,omitempty" tf:"-"`
+	NetworkRef *v1.NamespacedReference `json:"networkRef,omitempty" tf:"-"`
 
 	// Selector for a SubnetV1 in vpc to populate networkId.
 	// +kubebuilder:validation:Optional
-	NetworkIDSelector *v1.NamespacedSelector `json:"networkIdSelector,omitempty" tf:"-"`
+	NetworkSelector *v1.NamespacedSelector `json:"networkSelector,omitempty" tf:"-"`
 
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
@@ -126,45 +132,51 @@ type SnatRuleV2Parameters struct {
 	// ID of the floating ip this snat rule connects to. Multiple IDs can be passed separated by commas, for e.g., "id_1,id_2". Maximum number of IDs: 20. Maximum length: 4096.
 	// Changing this creates a new snat rule.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.EIPV1
+	// +crossplane:generate:reference:refFieldName=FloatingIpRef
+	// +crossplane:generate:reference:selectorFieldName=FloatingIpSelector
 	// +kubebuilder:validation:Optional
 	FloatingIPID *string `json:"floatingIpId,omitempty" tf:"floating_ip_id,omitempty"`
 
 	// Reference to a EIPV1 in vpc to populate floatingIpId.
 	// +kubebuilder:validation:Optional
-	FloatingIPIDRef *v1.NamespacedReference `json:"floatingIpIdRef,omitempty" tf:"-"`
+	FloatingIPRef *v1.NamespacedReference `json:"floatingIpRef,omitempty" tf:"-"`
 
 	// Selector for a EIPV1 in vpc to populate floatingIpId.
 	// +kubebuilder:validation:Optional
-	FloatingIPIDSelector *v1.NamespacedSelector `json:"floatingIpIdSelector,omitempty" tf:"-"`
+	FloatingIPSelector *v1.NamespacedSelector `json:"floatingIpSelector,omitempty" tf:"-"`
 
 	// ID of the nat gateway this snat rule belongs to.
 	// Changing this creates a new snat rule.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/nat/v1alpha1.GatewayV2
+	// +crossplane:generate:reference:refFieldName=NatGatewayRef
+	// +crossplane:generate:reference:selectorFieldName=NatGatewaySelector
 	// +kubebuilder:validation:Optional
 	NATGatewayID *string `json:"natGatewayId,omitempty" tf:"nat_gateway_id,omitempty"`
 
 	// Reference to a GatewayV2 in nat to populate natGatewayId.
 	// +kubebuilder:validation:Optional
-	NATGatewayIDRef *v1.NamespacedReference `json:"natGatewayIdRef,omitempty" tf:"-"`
+	NATGatewayRef *v1.NamespacedReference `json:"natGatewayRef,omitempty" tf:"-"`
 
 	// Selector for a GatewayV2 in nat to populate natGatewayId.
 	// +kubebuilder:validation:Optional
-	NATGatewayIDSelector *v1.NamespacedSelector `json:"natGatewayIdSelector,omitempty" tf:"-"`
+	NATGatewaySelector *v1.NamespacedSelector `json:"natGatewaySelector,omitempty" tf:"-"`
 
 	// ID of the network this snat rule connects to. This parameter
 	// and cidr are alternative. Changing this creates a new snat rule.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.SubnetV1
 	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractNetworkID()
+	// +crossplane:generate:reference:refFieldName=NetworkRef
+	// +crossplane:generate:reference:selectorFieldName=NetworkSelector
 	// +kubebuilder:validation:Optional
 	NetworkID *string `json:"networkId,omitempty" tf:"network_id,omitempty"`
 
 	// Reference to a SubnetV1 in vpc to populate networkId.
 	// +kubebuilder:validation:Optional
-	NetworkIDRef *v1.NamespacedReference `json:"networkIdRef,omitempty" tf:"-"`
+	NetworkRef *v1.NamespacedReference `json:"networkRef,omitempty" tf:"-"`
 
 	// Selector for a SubnetV1 in vpc to populate networkId.
 	// +kubebuilder:validation:Optional
-	NetworkIDSelector *v1.NamespacedSelector `json:"networkIdSelector,omitempty" tf:"-"`
+	NetworkSelector *v1.NamespacedSelector `json:"networkSelector,omitempty" tf:"-"`
 
 	// +kubebuilder:validation:Optional
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`

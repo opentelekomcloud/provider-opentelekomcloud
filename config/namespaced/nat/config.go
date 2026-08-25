@@ -11,36 +11,52 @@ func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("opentelekomcloud_nat_gateway_v2", func(r *config.Resource) {
 		r.UseAsync = true
 		r.References["internal_network_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_vpc_subnet_v1",
-			Extractor:     common.NetworkIDExtractor,
+			TerraformName:     "opentelekomcloud_vpc_subnet_v1",
+			Extractor:         common.NetworkIDExtractor,
+			SelectorFieldName: "InternalNetworkSelector",
+			RefFieldName:      "InternalNetworkRef",
 		}
 		r.References["router_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_vpc_v1",
+			TerraformName:     "opentelekomcloud_vpc_v1",
+			SelectorFieldName: "VpcSelector",
+			RefFieldName:      "VpcRef",
 		}
 	})
 	p.AddResourceConfigurator("opentelekomcloud_nat_dnat_rule_v2", func(r *config.Resource) {
 		r.UseAsync = true
 		r.References["floating_ip_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_vpc_eip_v1",
+			TerraformName:     "opentelekomcloud_vpc_eip_v1",
+			SelectorFieldName: "FloatingIpSelector",
+			RefFieldName:      "FloatingIpRef",
 		}
 		r.References["port_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_networking_port_v2",
+			TerraformName:     "opentelekomcloud_networking_port_v2",
+			SelectorFieldName: "PortSelector",
+			RefFieldName:      "PortRef",
 		}
 		r.References["nat_gateway_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_nat_gateway_v2",
+			TerraformName:     "opentelekomcloud_nat_gateway_v2",
+			SelectorFieldName: "NatGatewaySelector",
+			RefFieldName:      "NatGatewayRef",
 		}
 	})
 	p.AddResourceConfigurator("opentelekomcloud_nat_snat_rule_v2", func(r *config.Resource) {
 		r.UseAsync = true
 		r.References["floating_ip_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_vpc_eip_v1",
+			TerraformName:     "opentelekomcloud_vpc_eip_v1",
+			SelectorFieldName: "FloatingIpSelector",
+			RefFieldName:      "FloatingIpRef",
 		}
 		r.References["network_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_vpc_subnet_v1",
-			Extractor:     common.NetworkIDExtractor,
+			TerraformName:     "opentelekomcloud_vpc_subnet_v1",
+			Extractor:         common.NetworkIDExtractor,
+			SelectorFieldName: "NetworkSelector",
+			RefFieldName:      "NetworkRef",
 		}
 		r.References["nat_gateway_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_nat_gateway_v2",
+			TerraformName:     "opentelekomcloud_nat_gateway_v2",
+			SelectorFieldName: "NatGatewaySelector",
+			RefFieldName:      "NatGatewayRef",
 		}
 	})
 }

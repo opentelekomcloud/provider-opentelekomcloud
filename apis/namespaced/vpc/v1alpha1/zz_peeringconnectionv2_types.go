@@ -27,29 +27,33 @@ type PeeringConnectionV2InitParameters struct {
 
 	// Specifies the VPC ID of the accepter tenant. Changing this creates a new VPC peering connection.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.VpcV1
+	// +crossplane:generate:reference:refFieldName=PeerVpcRef
+	// +crossplane:generate:reference:selectorFieldName=PeerVpcSelector
 	PeerVPCID *string `json:"peerVpcId,omitempty" tf:"peer_vpc_id,omitempty"`
 
 	// Reference to a VpcV1 in vpc to populate peerVpcId.
 	// +kubebuilder:validation:Optional
-	PeerVPCIDRef *v1.NamespacedReference `json:"peerVpcIdRef,omitempty" tf:"-"`
+	PeerVPCRef *v1.NamespacedReference `json:"peerVpcRef,omitempty" tf:"-"`
 
 	// Selector for a VpcV1 in vpc to populate peerVpcId.
 	// +kubebuilder:validation:Optional
-	PeerVPCIDSelector *v1.NamespacedSelector `json:"peerVpcIdSelector,omitempty" tf:"-"`
+	PeerVPCSelector *v1.NamespacedSelector `json:"peerVpcSelector,omitempty" tf:"-"`
 
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
 	// Specifies the ID of a VPC involved in a VPC peering connection. Changing this creates a new VPC peering connection.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.VpcV1
+	// +crossplane:generate:reference:refFieldName=VpcRef
+	// +crossplane:generate:reference:selectorFieldName=VpcSelector
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
 
 	// Reference to a VpcV1 in vpc to populate vpcId.
 	// +kubebuilder:validation:Optional
-	VPCIDRef *v1.NamespacedReference `json:"vpcIdRef,omitempty" tf:"-"`
+	VPCRef *v1.NamespacedReference `json:"vpcRef,omitempty" tf:"-"`
 
 	// Selector for a VpcV1 in vpc to populate vpcId.
 	// +kubebuilder:validation:Optional
-	VPCIDSelector *v1.NamespacedSelector `json:"vpcIdSelector,omitempty" tf:"-"`
+	VPCSelector *v1.NamespacedSelector `json:"vpcSelector,omitempty" tf:"-"`
 }
 
 type PeeringConnectionV2Observation struct {
@@ -94,32 +98,36 @@ type PeeringConnectionV2Parameters struct {
 
 	// Specifies the VPC ID of the accepter tenant. Changing this creates a new VPC peering connection.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.VpcV1
+	// +crossplane:generate:reference:refFieldName=PeerVpcRef
+	// +crossplane:generate:reference:selectorFieldName=PeerVpcSelector
 	// +kubebuilder:validation:Optional
 	PeerVPCID *string `json:"peerVpcId,omitempty" tf:"peer_vpc_id,omitempty"`
 
 	// Reference to a VpcV1 in vpc to populate peerVpcId.
 	// +kubebuilder:validation:Optional
-	PeerVPCIDRef *v1.NamespacedReference `json:"peerVpcIdRef,omitempty" tf:"-"`
+	PeerVPCRef *v1.NamespacedReference `json:"peerVpcRef,omitempty" tf:"-"`
 
 	// Selector for a VpcV1 in vpc to populate peerVpcId.
 	// +kubebuilder:validation:Optional
-	PeerVPCIDSelector *v1.NamespacedSelector `json:"peerVpcIdSelector,omitempty" tf:"-"`
+	PeerVPCSelector *v1.NamespacedSelector `json:"peerVpcSelector,omitempty" tf:"-"`
 
 	// +kubebuilder:validation:Optional
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
 	// Specifies the ID of a VPC involved in a VPC peering connection. Changing this creates a new VPC peering connection.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.VpcV1
+	// +crossplane:generate:reference:refFieldName=VpcRef
+	// +crossplane:generate:reference:selectorFieldName=VpcSelector
 	// +kubebuilder:validation:Optional
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
 
 	// Reference to a VpcV1 in vpc to populate vpcId.
 	// +kubebuilder:validation:Optional
-	VPCIDRef *v1.NamespacedReference `json:"vpcIdRef,omitempty" tf:"-"`
+	VPCRef *v1.NamespacedReference `json:"vpcRef,omitempty" tf:"-"`
 
 	// Selector for a VpcV1 in vpc to populate vpcId.
 	// +kubebuilder:validation:Optional
-	VPCIDSelector *v1.NamespacedSelector `json:"vpcIdSelector,omitempty" tf:"-"`
+	VPCSelector *v1.NamespacedSelector `json:"vpcSelector,omitempty" tf:"-"`
 }
 
 // PeeringConnectionV2Spec defines the desired state of PeeringConnectionV2

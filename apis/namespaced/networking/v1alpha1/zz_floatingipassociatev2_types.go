@@ -32,15 +32,17 @@ type FloatingipAssociateV2InitParameters struct {
 	// ID of an existing port with at least one IP address to
 	// associate with this floating IP.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/networking/v1alpha1.PortV2
+	// +crossplane:generate:reference:refFieldName=PortRef
+	// +crossplane:generate:reference:selectorFieldName=PortSelector
 	PortID *string `json:"portId,omitempty" tf:"port_id,omitempty"`
 
 	// Reference to a PortV2 in networking to populate portId.
 	// +kubebuilder:validation:Optional
-	PortIDRef *v1.NamespacedReference `json:"portIdRef,omitempty" tf:"-"`
+	PortRef *v1.NamespacedReference `json:"portRef,omitempty" tf:"-"`
 
 	// Selector for a PortV2 in networking to populate portId.
 	// +kubebuilder:validation:Optional
-	PortIDSelector *v1.NamespacedSelector `json:"portIdSelector,omitempty" tf:"-"`
+	PortSelector *v1.NamespacedSelector `json:"portSelector,omitempty" tf:"-"`
 
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 }
@@ -78,16 +80,18 @@ type FloatingipAssociateV2Parameters struct {
 	// ID of an existing port with at least one IP address to
 	// associate with this floating IP.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/networking/v1alpha1.PortV2
+	// +crossplane:generate:reference:refFieldName=PortRef
+	// +crossplane:generate:reference:selectorFieldName=PortSelector
 	// +kubebuilder:validation:Optional
 	PortID *string `json:"portId,omitempty" tf:"port_id,omitempty"`
 
 	// Reference to a PortV2 in networking to populate portId.
 	// +kubebuilder:validation:Optional
-	PortIDRef *v1.NamespacedReference `json:"portIdRef,omitempty" tf:"-"`
+	PortRef *v1.NamespacedReference `json:"portRef,omitempty" tf:"-"`
 
 	// Selector for a PortV2 in networking to populate portId.
 	// +kubebuilder:validation:Optional
-	PortIDSelector *v1.NamespacedSelector `json:"portIdSelector,omitempty" tf:"-"`
+	PortSelector *v1.NamespacedSelector `json:"portSelector,omitempty" tf:"-"`
 
 	// +kubebuilder:validation:Optional
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`

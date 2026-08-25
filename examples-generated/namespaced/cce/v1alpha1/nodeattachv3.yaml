@@ -39,12 +39,12 @@ spec:
     imageId: ${var.image_id}
     name: ${var.server_name}
     nics:
-    - networkIdSelector:
+    - networkSelector:
         matchLabels:
           testing.upbound.io/example-name: opentelekomcloud_vpc_subnet_v1
     passwordSecretRef:
       key: example-key
       name: example-secret
-    vpcIdSelector:
+    vpcSelector:
       matchLabels:
         testing.upbound.io/example-name: opentelekomcloud_vpc_subnet_v1

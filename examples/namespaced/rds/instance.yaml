@@ -39,7 +39,7 @@ spec:
     gatewayIp: "192.168.0.1"
     name: crossplane-rds-subnet
     ntpAddresses: "10.100.0.33,10.100.0.34"
-    vpcIdSelector:
+    vpcSelector:
       matchLabels:
         testing.upbound.io/example-name: sample-rds-instance
     tags:
@@ -119,10 +119,10 @@ spec:
         version: "15"
     flavor: rds.pg.n1.large.2
     name: crossplane-rds-instance
-    computeSecurityGroupIdSelector:
+    computeSecurityGroupIDSelector:
       matchLabels:
         testing.upbound.io/example-name: sample-rds-instance
-    subnetIdSelector:
+    subnetSelector:
       matchLabels:
         testing.upbound.io/example-name: sample-rds-instance
     tags:
@@ -130,7 +130,7 @@ spec:
     volume:
       - size: 100
         type: CLOUDSSD
-    vpcIdSelector:
+    vpcSelector:
       matchLabels:
         testing.upbound.io/example-name: sample-rds-instance
     publicIpsSelector:

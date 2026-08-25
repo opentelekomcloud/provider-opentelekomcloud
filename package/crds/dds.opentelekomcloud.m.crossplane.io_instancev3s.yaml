@@ -180,7 +180,7 @@ spec:
                   securityGroupId:
                     description: Specifies the security group ID of the DDS instance.
                     type: string
-                  securityGroupIdRef:
+                  securityGroupRef:
                     description: Reference to a SecgroupV2 in compute to populate
                       securityGroupId.
                     properties:
@@ -218,7 +218,7 @@ spec:
                     required:
                     - name
                     type: object
-                  securityGroupIdSelector:
+                  securityGroupSelector:
                     description: Selector for a SecgroupV2 in compute to populate
                       securityGroupId.
                     properties:
@@ -270,7 +270,7 @@ spec:
                   subnetId:
                     description: Specifies the subnet Network ID.
                     type: string
-                  subnetIdRef:
+                  subnetRef:
                     description: Reference to a SubnetV1 in vpc to populate subnetId.
                     properties:
                       name:
@@ -307,7 +307,7 @@ spec:
                     required:
                     - name
                     type: object
-                  subnetIdSelector:
+                  subnetSelector:
                     description: Selector for a SubnetV1 in vpc to populate subnetId.
                     properties:
                       matchControllerRef:
@@ -361,7 +361,7 @@ spec:
                   vpcId:
                     description: Specifies the VPC ID.
                     type: string
-                  vpcIdRef:
+                  vpcRef:
                     description: Reference to a VpcV1 in vpc to populate vpcId.
                     properties:
                       name:
@@ -398,7 +398,7 @@ spec:
                     required:
                     - name
                     type: object
-                  vpcIdSelector:
+                  vpcSelector:
                     description: Selector for a VpcV1 in vpc to populate vpcId.
                     properties:
                       matchControllerRef:
@@ -576,7 +576,7 @@ spec:
                   securityGroupId:
                     description: Specifies the security group ID of the DDS instance.
                     type: string
-                  securityGroupIdRef:
+                  securityGroupRef:
                     description: Reference to a SecgroupV2 in compute to populate
                       securityGroupId.
                     properties:
@@ -614,7 +614,7 @@ spec:
                     required:
                     - name
                     type: object
-                  securityGroupIdSelector:
+                  securityGroupSelector:
                     description: Selector for a SecgroupV2 in compute to populate
                       securityGroupId.
                     properties:
@@ -666,7 +666,7 @@ spec:
                   subnetId:
                     description: Specifies the subnet Network ID.
                     type: string
-                  subnetIdRef:
+                  subnetRef:
                     description: Reference to a SubnetV1 in vpc to populate subnetId.
                     properties:
                       name:
@@ -703,7 +703,7 @@ spec:
                     required:
                     - name
                     type: object
-                  subnetIdSelector:
+                  subnetSelector:
                     description: Selector for a SubnetV1 in vpc to populate subnetId.
                     properties:
                       matchControllerRef:
@@ -757,7 +757,7 @@ spec:
                   vpcId:
                     description: Specifies the VPC ID.
                     type: string
-                  vpcIdRef:
+                  vpcRef:
                     description: Reference to a VpcV1 in vpc to populate vpcId.
                     properties:
                       name:
@@ -794,7 +794,7 @@ spec:
                     required:
                     - name
                     type: object
-                  vpcIdSelector:
+                  vpcSelector:
                     description: Selector for a VpcV1 in vpc to populate vpcId.
                     properties:
                       matchControllerRef:

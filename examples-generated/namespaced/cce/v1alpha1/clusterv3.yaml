@@ -22,11 +22,11 @@ spec:
     flavorId: ${var.flavor_id}
     kubeProxyMode: ipvs
     name: cluster
-    subnetIdSelector:
+    subnetSelector:
       matchLabels:
         testing.upbound.io/example-name: example
     timezone: Europe/Madrid
-    vpcIdSelector:
+    vpcSelector:
       matchLabels:
         testing.upbound.io/example-name: example
 

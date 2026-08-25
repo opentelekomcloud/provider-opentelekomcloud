@@ -10,7 +10,7 @@ metadata:
 spec:
   forProvider:
     compareType: REGEX
-    policyIdSelector:
+    policySelector:
       matchLabels:
         testing.upbound.io/example-name: this
     type: PATH
@@ -29,7 +29,7 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    loadbalancerIdSelector:
+    loadBalancerSelector:
       matchLabels:
         testing.upbound.io/example-name: this
     protocol: HTTP
@@ -50,9 +50,9 @@ spec:
   forProvider:
     availabilityZones:
     - ${var.az}
-    networkIdsRefs:
+    networkRef:
     - name: example
-    routerIdSelector:
+    vpcSelector:
       matchLabels:
         testing.upbound.io/example-name: example
 
@@ -70,11 +70,11 @@ metadata:
 spec:
   forProvider:
     action: REDIRECT_TO_POOL
-    listenerIdSelector:
+    listenerSelector:
       matchLabels:
         testing.upbound.io/example-name: this
     position: 37
-    redirectPoolIdSelector:
+    redirectPoolSelector:
       matchLabels:
         testing.upbound.io/example-name: this
 
@@ -92,7 +92,7 @@ metadata:
 spec:
   forProvider:
     lbAlgorithm: ROUND_ROBIN
-    loadbalancerIdSelector:
+    loadBalancerSelector:
       matchLabels:
         testing.upbound.io/example-name: this
     protocol: HTTP

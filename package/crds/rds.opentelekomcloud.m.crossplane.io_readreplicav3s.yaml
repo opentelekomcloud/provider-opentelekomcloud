@@ -170,7 +170,7 @@ spec:
                     description: Specifies ID of the replicated instance. Changing
                       this parameter will create a new resource.
                     type: string
-                  replicaOfIdRef:
+                  replicaOfRef:
                     description: Reference to a InstanceV3 in rds to populate replicaOfId.
                     properties:
                       name:
@@ -207,7 +207,7 @@ spec:
                     required:
                     - name
                     type: object
-                  replicaOfIdSelector:
+                  replicaOfSelector:
                     description: Selector for a InstanceV3 in rds to populate replicaOfId.
                     properties:
                       matchControllerRef:
@@ -396,7 +396,7 @@ spec:
                     description: Specifies ID of the replicated instance. Changing
                       this parameter will create a new resource.
                     type: string
-                  replicaOfIdRef:
+                  replicaOfRef:
                     description: Reference to a InstanceV3 in rds to populate replicaOfId.
                     properties:
                       name:
@@ -433,7 +433,7 @@ spec:
                     required:
                     - name
                     type: object
-                  replicaOfIdSelector:
+                  replicaOfSelector:
                     description: Selector for a InstanceV3 in rds to populate replicaOfId.
                     properties:
                       matchControllerRef:

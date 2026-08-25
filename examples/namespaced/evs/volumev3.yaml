@@ -17,7 +17,7 @@ spec:
       foo: bar
       key: value
     volumeType: SAS
-    kmsIdSelector:
+    kmsSelector:
       matchLabels:
         testing.upbound.io/example-name: key_1
 ---

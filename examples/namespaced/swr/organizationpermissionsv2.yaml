@@ -15,7 +15,7 @@ spec:
     usernameSelector:
       matchLabels:
         testing.upbound.io/example-name: swr_op
-    userIdSelector:
+    userSelector:
       matchLabels:
         testing.upbound.io/example-name: swr_op
     auth: 3

@@ -29,7 +29,9 @@ func Configure(p *config.Provider) {
 			TerraformName: "opentelekomcloud_swr_organization_v2",
 		}
 		r.References["user_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_identity_user_v3",
+			TerraformName:     "opentelekomcloud_identity_user_v3",
+			SelectorFieldName: "UserSelector",
+			RefFieldName:      "UserRef",
 		}
 		r.References["username"] = config.Reference{
 			TerraformName: "opentelekomcloud_identity_user_v3",

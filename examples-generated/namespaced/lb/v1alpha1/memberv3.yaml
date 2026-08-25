@@ -11,7 +11,7 @@ spec:
   forProvider:
     address: ${cidrhost(var.subnet_cidr, 3)}
     name: member-1
-    poolIdSelector:
+    poolSelector:
       matchLabels:
         testing.upbound.io/example-name: pool
     protocolPort: 8080
@@ -33,9 +33,9 @@ spec:
     - ${var.availability_zone}
     ipTargetEnable: true
     name: loadbalancer_1
-    networkIdsRefs:
+    networkRef:
     - name: opentelekomcloud_vpc_subnet_v1
-    routerIdSelector:
+    vpcSelector:
       matchLabels:
         testing.upbound.io/example-name: opentelekomcloud_vpc_subnet_v1
 
@@ -53,7 +53,7 @@ metadata:
 spec:
   forProvider:
     lbAlgorithm: ROUND_ROBIN
-    loadbalancerIdSelector:
+    loadBalancerSelector:
       matchLabels:
         testing.upbound.io/example-name: lb
     name: pool_1

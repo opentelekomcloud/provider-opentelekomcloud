@@ -16,14 +16,20 @@ func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("opentelekomcloud_lb_loadbalancer_v3", func(r *config.Resource) {
 		r.UseAsync = true
 		r.References["router_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_vpc_v1",
+			TerraformName:     "opentelekomcloud_vpc_v1",
+			SelectorFieldName: "VpcSelector",
+			RefFieldName:      "VpcRef",
 		}
 		r.References["network_ids"] = config.Reference{
-			TerraformName: "opentelekomcloud_vpc_subnet_v1",
-			Extractor:     common.NetworkIDExtractor,
+			TerraformName:     "opentelekomcloud_vpc_subnet_v1",
+			Extractor:         common.NetworkIDExtractor,
+			SelectorFieldName: "NetworkSelector",
+			RefFieldName:      "NetworkRef",
 		}
 		r.References["subnet_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_vpc_subnet_v1",
+			TerraformName:     "opentelekomcloud_vpc_subnet_v1",
+			SelectorFieldName: "SubnetSelector",
+			RefFieldName:      "SubnetRef",
 		}
 		r.References["public_ip.id"] = config.Reference{
 			TerraformName: "opentelekomcloud_vpc_eip_v1",
@@ -32,19 +38,25 @@ func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("opentelekomcloud_lb_listener_v3", func(r *config.Resource) {
 		r.UseAsync = true
 		r.References["loadbalancer_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_lb_loadbalancer_v3",
+			TerraformName:     "opentelekomcloud_lb_loadbalancer_v3",
+			SelectorFieldName: "LoadBalancerSelector",
+			RefFieldName:      "LoadBalancerRef",
 		}
 		r.References["default_tls_container_ref"] = config.Reference{
 			TerraformName: "opentelekomcloud_lb_certificate_v3",
 		}
 		r.References["default_pool_id"] = config.Reference{
-			TerraformName: tfLbPoolV3,
+			TerraformName:     tfLbPoolV3,
+			SelectorFieldName: "DefaultPoolSelector",
+			RefFieldName:      "DefaultPoolRef",
 		}
 		r.References["ip_group.id"] = config.Reference{
 			TerraformName: "opentelekomcloud_lb_ipgroup_v3",
 		}
 		r.References["security_policy_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_lb_security_policy_v3",
+			TerraformName:     "opentelekomcloud_lb_security_policy_v3",
+			SelectorFieldName: "SecurityPolicySelector",
+			RefFieldName:      "SecurityPolicyRef",
 		}
 	})
 	p.AddResourceConfigurator("opentelekomcloud_lb_pool_v3", func(r *config.Resource) {
@@ -53,13 +65,19 @@ func Configure(p *config.Provider) {
 			TerraformName: tfIdentityProjectV3,
 		}
 		r.References["listener_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_lb_listener_v3",
+			TerraformName:     "opentelekomcloud_lb_listener_v3",
+			SelectorFieldName: "ListenerSelector",
+			RefFieldName:      "ListenerRef",
 		}
 		r.References["loadbalancer_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_lb_loadbalancer_v3",
+			TerraformName:     "opentelekomcloud_lb_loadbalancer_v3",
+			SelectorFieldName: "LoadBalancerSelector",
+			RefFieldName:      "LoadBalancerRef",
 		}
 		r.References["vpc_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_vpc_v1",
+			TerraformName:     "opentelekomcloud_vpc_v1",
+			SelectorFieldName: "VpcSelector",
+			RefFieldName:      "VpcRef",
 		}
 	})
 	p.AddResourceConfigurator("opentelekomcloud_lb_member_v3", func(r *config.Resource) {
@@ -68,10 +86,14 @@ func Configure(p *config.Provider) {
 			TerraformName: tfIdentityProjectV3,
 		}
 		r.References["pool_id"] = config.Reference{
-			TerraformName: tfLbPoolV3,
+			TerraformName:     tfLbPoolV3,
+			SelectorFieldName: "PoolSelector",
+			RefFieldName:      "PoolRef",
 		}
 		r.References["subnet_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_vpc_subnet_v1",
+			TerraformName:     "opentelekomcloud_vpc_subnet_v1",
+			SelectorFieldName: "SubnetSelector",
+			RefFieldName:      "SubnetRef",
 		}
 	})
 	p.AddResourceConfigurator("opentelekomcloud_lb_ipgroup_v3", func(r *config.Resource) {
@@ -87,7 +109,9 @@ func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("opentelekomcloud_lb_monitor_v3", func(r *config.Resource) {
 		r.UseAsync = true
 		r.References["pool_id"] = config.Reference{
-			TerraformName: tfLbPoolV3,
+			TerraformName:     tfLbPoolV3,
+			SelectorFieldName: "PoolSelector",
+			RefFieldName:      "PoolRef",
 		}
 		r.References["project_id"] = config.Reference{
 			TerraformName: tfIdentityProjectV3,
@@ -99,22 +123,32 @@ func Configure(p *config.Provider) {
 			TerraformName: tfIdentityProjectV3,
 		}
 		r.References["listener_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_lb_listener_v3",
+			TerraformName:     "opentelekomcloud_lb_listener_v3",
+			SelectorFieldName: "ListenerSelector",
+			RefFieldName:      "ListenerRef",
 		}
 		r.References["redirect_listener_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_lb_listener_v3",
+			TerraformName:     "opentelekomcloud_lb_listener_v3",
+			SelectorFieldName: "RedirectListenerSelector",
+			RefFieldName:      "RedirectListenerRef",
 		}
 		r.References["redirect_pool_id"] = config.Reference{
-			TerraformName: tfLbPoolV3,
+			TerraformName:     tfLbPoolV3,
+			SelectorFieldName: "RedirectPoolSelector",
+			RefFieldName:      "RedirectPoolRef",
 		}
 		r.References["redirect_pools_config.pool_id"] = config.Reference{
-			TerraformName: tfLbPoolV3,
+			TerraformName:     tfLbPoolV3,
+			SelectorFieldName: "PoolsSelector",
+			RefFieldName:      "PoolsRef",
 		}
 	})
 	p.AddResourceConfigurator("opentelekomcloud_lb_rule_v3", func(r *config.Resource) {
 		r.UseAsync = true
 		r.References["policy_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_lb_policy_v3",
+			TerraformName:     "opentelekomcloud_lb_policy_v3",
+			SelectorFieldName: "PolicySelector",
+			RefFieldName:      "PolicyRef",
 		}
 		r.References["project_id"] = config.Reference{
 			TerraformName: tfIdentityProjectV3,
@@ -126,7 +160,9 @@ func Configure(p *config.Provider) {
 			TerraformName: tfIdentityProjectV3,
 		}
 		r.References["listener_ids"] = config.Reference{
-			TerraformName: "opentelekomcloud_lb_listener_v3",
+			TerraformName:     "opentelekomcloud_lb_listener_v3",
+			SelectorFieldName: "ListenerSelector",
+			RefFieldName:      "ListenerRef",
 		}
 	})
 }

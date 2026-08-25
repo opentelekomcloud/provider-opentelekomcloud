@@ -27,7 +27,7 @@ spec:
       version: "16"
     flavor: rds.pg.n1.large.4
     name: terraform_test_rds_instance
-    subnetIdSelector:
+    subnetSelector:
       matchLabels:
         testing.upbound.io/example-name: example
     tags:
@@ -36,7 +36,7 @@ spec:
     volume:
     - size: 100
       type: CLOUDSSD
-    vpcIdSelector:
+    vpcSelector:
       matchLabels:
         testing.upbound.io/example-name: example
 

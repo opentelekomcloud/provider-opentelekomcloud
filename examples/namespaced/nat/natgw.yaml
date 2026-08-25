@@ -29,7 +29,7 @@ spec:
     gatewayIp: "192.168.0.1"
     name: crossplane-subnet
     ntpAddresses: "10.100.0.33,10.100.0.34"
-    vpcIdSelector:
+    vpcSelector:
       matchLabels:
         testing.upbound.io/example-name: sample-instance
     tags:
@@ -48,11 +48,11 @@ metadata:
 spec:
   forProvider:
     description: NAT GW created by crossplane
-    internalNetworkIdSelector:
+    internalNetworkSelector:
       matchLabels:
         testing.upbound.io/example-name: sample-instance
     name: crossplane-nat
-    routerIdSelector:
+    vpcSelector:
       matchLabels:
         testing.upbound.io/example-name: sample-instance
     spec: "1"
@@ -113,10 +113,10 @@ spec:
   forProvider:
     externalServicePort: 80
     internalServicePort: 80
-    floatingIpIdSelector:
+    floatingIpSelector:
       matchLabels:
         testing.upbound.io/example-name: sample-eip-01
-    natGatewayIdSelector:
+    natGatewaySelector:
       matchLabels:
         testing.upbound.io/example-name: sample-instance
     protocol: tcp
@@ -135,10 +135,10 @@ metadata:
 spec:
   forProvider:
     cidr: 192.168.0.0/24
-    floatingIpIdSelector:
+    floatingIpSelector:
       matchLabels:
         testing.upbound.io/example-name: sample-eip-02
-    natGatewayIdSelector:
+    natGatewaySelector:
       matchLabels:
         testing.upbound.io/example-name: sample-instance
     sourceType: 0

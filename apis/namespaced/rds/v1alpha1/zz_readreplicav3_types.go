@@ -69,15 +69,17 @@ type ReadReplicaV3InitParameters struct {
 
 	// Specifies ID of the replicated instance. Changing this parameter will create a new resource.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/rds/v1alpha1.InstanceV3
+	// +crossplane:generate:reference:refFieldName=ReplicaOfRef
+	// +crossplane:generate:reference:selectorFieldName=ReplicaOfSelector
 	ReplicaOfID *string `json:"replicaOfId,omitempty" tf:"replica_of_id,omitempty"`
 
 	// Reference to a InstanceV3 in rds to populate replicaOfId.
 	// +kubebuilder:validation:Optional
-	ReplicaOfIDRef *v1.NamespacedReference `json:"replicaOfIdRef,omitempty" tf:"-"`
+	ReplicaOfRef *v1.NamespacedReference `json:"replicaOfRef,omitempty" tf:"-"`
 
 	// Selector for a InstanceV3 in rds to populate replicaOfId.
 	// +kubebuilder:validation:Optional
-	ReplicaOfIDSelector *v1.NamespacedSelector `json:"replicaOfIdSelector,omitempty" tf:"-"`
+	ReplicaOfSelector *v1.NamespacedSelector `json:"replicaOfSelector,omitempty" tf:"-"`
 
 	// Specifies whether SSL should be enabled for MySql instances.
 	SSLEnable *bool `json:"sslEnable,omitempty" tf:"ssl_enable,omitempty"`
@@ -175,16 +177,18 @@ type ReadReplicaV3Parameters struct {
 
 	// Specifies ID of the replicated instance. Changing this parameter will create a new resource.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/rds/v1alpha1.InstanceV3
+	// +crossplane:generate:reference:refFieldName=ReplicaOfRef
+	// +crossplane:generate:reference:selectorFieldName=ReplicaOfSelector
 	// +kubebuilder:validation:Optional
 	ReplicaOfID *string `json:"replicaOfId,omitempty" tf:"replica_of_id,omitempty"`
 
 	// Reference to a InstanceV3 in rds to populate replicaOfId.
 	// +kubebuilder:validation:Optional
-	ReplicaOfIDRef *v1.NamespacedReference `json:"replicaOfIdRef,omitempty" tf:"-"`
+	ReplicaOfRef *v1.NamespacedReference `json:"replicaOfRef,omitempty" tf:"-"`
 
 	// Selector for a InstanceV3 in rds to populate replicaOfId.
 	// +kubebuilder:validation:Optional
-	ReplicaOfIDSelector *v1.NamespacedSelector `json:"replicaOfIdSelector,omitempty" tf:"-"`
+	ReplicaOfSelector *v1.NamespacedSelector `json:"replicaOfSelector,omitempty" tf:"-"`
 
 	// Specifies whether SSL should be enabled for MySql instances.
 	// +kubebuilder:validation:Optional

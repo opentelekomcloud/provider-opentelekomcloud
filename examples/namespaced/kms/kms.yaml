@@ -47,7 +47,7 @@ spec:
     granteePrincipalSelector:
       matchLabels:
         testing.upbound.io/example-name: user_test
-    keyIdSelector:
+    keySelector:
       matchLabels:
         testing.upbound.io/example-name: key_test
     name: my_grant

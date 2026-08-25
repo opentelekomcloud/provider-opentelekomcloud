@@ -18,15 +18,17 @@ type AddonV3InitParameters struct {
 
 	// ID of cluster to install the add-on on.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/cce/v1alpha1.ClusterV3
+	// +crossplane:generate:reference:refFieldName=ClusterRef
+	// +crossplane:generate:reference:selectorFieldName=ClusterSelector
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
 
 	// Reference to a ClusterV3 in cce to populate clusterId.
 	// +kubebuilder:validation:Optional
-	ClusterIDRef *v1.NamespacedReference `json:"clusterIdRef,omitempty" tf:"-"`
+	ClusterRef *v1.NamespacedReference `json:"clusterRef,omitempty" tf:"-"`
 
 	// Selector for a ClusterV3 in cce to populate clusterId.
 	// +kubebuilder:validation:Optional
-	ClusterIDSelector *v1.NamespacedSelector `json:"clusterIdSelector,omitempty" tf:"-"`
+	ClusterSelector *v1.NamespacedSelector `json:"clusterSelector,omitempty" tf:"-"`
 
 	// Name of the add-on template to be installed, for example, coredns.
 	TemplateName *string `json:"templateName,omitempty" tf:"template_name,omitempty"`
@@ -65,16 +67,18 @@ type AddonV3Parameters struct {
 
 	// ID of cluster to install the add-on on.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/cce/v1alpha1.ClusterV3
+	// +crossplane:generate:reference:refFieldName=ClusterRef
+	// +crossplane:generate:reference:selectorFieldName=ClusterSelector
 	// +kubebuilder:validation:Optional
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
 
 	// Reference to a ClusterV3 in cce to populate clusterId.
 	// +kubebuilder:validation:Optional
-	ClusterIDRef *v1.NamespacedReference `json:"clusterIdRef,omitempty" tf:"-"`
+	ClusterRef *v1.NamespacedReference `json:"clusterRef,omitempty" tf:"-"`
 
 	// Selector for a ClusterV3 in cce to populate clusterId.
 	// +kubebuilder:validation:Optional
-	ClusterIDSelector *v1.NamespacedSelector `json:"clusterIdSelector,omitempty" tf:"-"`
+	ClusterSelector *v1.NamespacedSelector `json:"clusterSelector,omitempty" tf:"-"`
 
 	// Name of the add-on template to be installed, for example, coredns.
 	// +kubebuilder:validation:Optional

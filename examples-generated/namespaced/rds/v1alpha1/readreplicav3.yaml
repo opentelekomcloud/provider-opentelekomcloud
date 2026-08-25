@@ -12,7 +12,7 @@ spec:
     availabilityZone: ${var.az_replica}
     flavorRef: rds.pg.n1.large.4
     name: test-replica
-    replicaOfIdSelector:
+    replicaOfSelector:
       matchLabels:
         testing.upbound.io/example-name: instance
     volume:
@@ -47,7 +47,7 @@ spec:
       version: "16"
     flavor: rds.pg.n1.medium.4.rr
     name: test-instance
-    subnetIdSelector:
+    subnetSelector:
       matchLabels:
         testing.upbound.io/example-name: example
     tag:
@@ -55,6 +55,6 @@ spec:
     volume:
     - size: 40
       type: CLOUDSSD
-    vpcIdSelector:
+    vpcSelector:
       matchLabels:
         testing.upbound.io/example-name: example

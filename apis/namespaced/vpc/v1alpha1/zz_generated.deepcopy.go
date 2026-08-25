@@ -935,13 +935,13 @@ func (in *FlowLogV1InitParameters) DeepCopyInto(out *FlowLogV1InitParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.LogGroupIDRef != nil {
-		in, out := &in.LogGroupIDRef, &out.LogGroupIDRef
+	if in.LogGroupRef != nil {
+		in, out := &in.LogGroupRef, &out.LogGroupRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.LogGroupIDSelector != nil {
-		in, out := &in.LogGroupIDSelector, &out.LogGroupIDSelector
+	if in.LogGroupSelector != nil {
+		in, out := &in.LogGroupSelector, &out.LogGroupSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -950,13 +950,13 @@ func (in *FlowLogV1InitParameters) DeepCopyInto(out *FlowLogV1InitParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.LogTopicIDRef != nil {
-		in, out := &in.LogTopicIDRef, &out.LogTopicIDRef
+	if in.LogTopicRef != nil {
+		in, out := &in.LogTopicRef, &out.LogTopicRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.LogTopicIDSelector != nil {
-		in, out := &in.LogTopicIDSelector, &out.LogTopicIDSelector
+	if in.LogTopicSelector != nil {
+		in, out := &in.LogTopicSelector, &out.LogTopicSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -970,13 +970,13 @@ func (in *FlowLogV1InitParameters) DeepCopyInto(out *FlowLogV1InitParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.ResourceIDRef != nil {
-		in, out := &in.ResourceIDRef, &out.ResourceIDRef
+	if in.ResourceRef != nil {
+		in, out := &in.ResourceRef, &out.ResourceRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.ResourceIDSelector != nil {
-		in, out := &in.ResourceIDSelector, &out.ResourceIDSelector
+	if in.ResourceSelector != nil {
+		in, out := &in.ResourceSelector, &out.ResourceSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -1122,13 +1122,13 @@ func (in *FlowLogV1Parameters) DeepCopyInto(out *FlowLogV1Parameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.LogGroupIDRef != nil {
-		in, out := &in.LogGroupIDRef, &out.LogGroupIDRef
+	if in.LogGroupRef != nil {
+		in, out := &in.LogGroupRef, &out.LogGroupRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.LogGroupIDSelector != nil {
-		in, out := &in.LogGroupIDSelector, &out.LogGroupIDSelector
+	if in.LogGroupSelector != nil {
+		in, out := &in.LogGroupSelector, &out.LogGroupSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -1137,13 +1137,13 @@ func (in *FlowLogV1Parameters) DeepCopyInto(out *FlowLogV1Parameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.LogTopicIDRef != nil {
-		in, out := &in.LogTopicIDRef, &out.LogTopicIDRef
+	if in.LogTopicRef != nil {
+		in, out := &in.LogTopicRef, &out.LogTopicRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.LogTopicIDSelector != nil {
-		in, out := &in.LogTopicIDSelector, &out.LogTopicIDSelector
+	if in.LogTopicSelector != nil {
+		in, out := &in.LogTopicSelector, &out.LogTopicSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -1157,13 +1157,13 @@ func (in *FlowLogV1Parameters) DeepCopyInto(out *FlowLogV1Parameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.ResourceIDRef != nil {
-		in, out := &in.ResourceIDRef, &out.ResourceIDRef
+	if in.ResourceRef != nil {
+		in, out := &in.ResourceRef, &out.ResourceRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.ResourceIDSelector != nil {
-		in, out := &in.ResourceIDSelector, &out.ResourceIDSelector
+	if in.ResourceSelector != nil {
+		in, out := &in.ResourceSelector, &out.ResourceSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -1632,13 +1632,13 @@ func (in *PeeringConnectionAccepterV2InitParameters) DeepCopyInto(out *PeeringCo
 		*out = new(string)
 		**out = **in
 	}
-	if in.VPCPeeringConnectionIDRef != nil {
-		in, out := &in.VPCPeeringConnectionIDRef, &out.VPCPeeringConnectionIDRef
+	if in.VPCPeeringConnectionRef != nil {
+		in, out := &in.VPCPeeringConnectionRef, &out.VPCPeeringConnectionRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.VPCPeeringConnectionIDSelector != nil {
-		in, out := &in.VPCPeeringConnectionIDSelector, &out.VPCPeeringConnectionIDSelector
+	if in.VPCPeeringConnectionSelector != nil {
+		in, out := &in.VPCPeeringConnectionSelector, &out.VPCPeeringConnectionSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -1764,13 +1764,13 @@ func (in *PeeringConnectionAccepterV2Parameters) DeepCopyInto(out *PeeringConnec
 		*out = new(string)
 		**out = **in
 	}
-	if in.VPCPeeringConnectionIDRef != nil {
-		in, out := &in.VPCPeeringConnectionIDRef, &out.VPCPeeringConnectionIDRef
+	if in.VPCPeeringConnectionRef != nil {
+		in, out := &in.VPCPeeringConnectionRef, &out.VPCPeeringConnectionRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.VPCPeeringConnectionIDSelector != nil {
-		in, out := &in.VPCPeeringConnectionIDSelector, &out.VPCPeeringConnectionIDSelector
+	if in.VPCPeeringConnectionSelector != nil {
+		in, out := &in.VPCPeeringConnectionSelector, &out.VPCPeeringConnectionSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -1871,13 +1871,13 @@ func (in *PeeringConnectionV2InitParameters) DeepCopyInto(out *PeeringConnection
 		*out = new(string)
 		**out = **in
 	}
-	if in.PeerVPCIDRef != nil {
-		in, out := &in.PeerVPCIDRef, &out.PeerVPCIDRef
+	if in.PeerVPCRef != nil {
+		in, out := &in.PeerVPCRef, &out.PeerVPCRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.PeerVPCIDSelector != nil {
-		in, out := &in.PeerVPCIDSelector, &out.PeerVPCIDSelector
+	if in.PeerVPCSelector != nil {
+		in, out := &in.PeerVPCSelector, &out.PeerVPCSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -1891,13 +1891,13 @@ func (in *PeeringConnectionV2InitParameters) DeepCopyInto(out *PeeringConnection
 		*out = new(string)
 		**out = **in
 	}
-	if in.VPCIDRef != nil {
-		in, out := &in.VPCIDRef, &out.VPCIDRef
+	if in.VPCRef != nil {
+		in, out := &in.VPCRef, &out.VPCRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.VPCIDSelector != nil {
-		in, out := &in.VPCIDSelector, &out.VPCIDSelector
+	if in.VPCSelector != nil {
+		in, out := &in.VPCSelector, &out.VPCSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -2023,13 +2023,13 @@ func (in *PeeringConnectionV2Parameters) DeepCopyInto(out *PeeringConnectionV2Pa
 		*out = new(string)
 		**out = **in
 	}
-	if in.PeerVPCIDRef != nil {
-		in, out := &in.PeerVPCIDRef, &out.PeerVPCIDRef
+	if in.PeerVPCRef != nil {
+		in, out := &in.PeerVPCRef, &out.PeerVPCRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.PeerVPCIDSelector != nil {
-		in, out := &in.PeerVPCIDSelector, &out.PeerVPCIDSelector
+	if in.PeerVPCSelector != nil {
+		in, out := &in.PeerVPCSelector, &out.PeerVPCSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -2043,13 +2043,13 @@ func (in *PeeringConnectionV2Parameters) DeepCopyInto(out *PeeringConnectionV2Pa
 		*out = new(string)
 		**out = **in
 	}
-	if in.VPCIDRef != nil {
-		in, out := &in.VPCIDRef, &out.VPCIDRef
+	if in.VPCRef != nil {
+		in, out := &in.VPCRef, &out.VPCRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.VPCIDSelector != nil {
-		in, out := &in.VPCIDSelector, &out.VPCIDSelector
+	if in.VPCSelector != nil {
+		in, out := &in.VPCSelector, &out.VPCSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -2378,13 +2378,13 @@ func (in *RouteTableV1InitParameters) DeepCopyInto(out *RouteTableV1InitParamete
 		*out = new(string)
 		**out = **in
 	}
-	if in.VPCIDRef != nil {
-		in, out := &in.VPCIDRef, &out.VPCIDRef
+	if in.VPCRef != nil {
+		in, out := &in.VPCRef, &out.VPCRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.VPCIDSelector != nil {
-		in, out := &in.VPCIDSelector, &out.VPCIDSelector
+	if in.VPCSelector != nil {
+		in, out := &in.VPCSelector, &out.VPCSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -2541,13 +2541,13 @@ func (in *RouteTableV1Parameters) DeepCopyInto(out *RouteTableV1Parameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.VPCIDRef != nil {
-		in, out := &in.VPCIDRef, &out.VPCIDRef
+	if in.VPCRef != nil {
+		in, out := &in.VPCRef, &out.VPCRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.VPCIDSelector != nil {
-		in, out := &in.VPCIDSelector, &out.VPCIDSelector
+	if in.VPCSelector != nil {
+		in, out := &in.VPCSelector, &out.VPCSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -2658,13 +2658,13 @@ func (in *RouteV2InitParameters) DeepCopyInto(out *RouteV2InitParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.VPCIDRef != nil {
-		in, out := &in.VPCIDRef, &out.VPCIDRef
+	if in.VPCRef != nil {
+		in, out := &in.VPCRef, &out.VPCRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.VPCIDSelector != nil {
-		in, out := &in.VPCIDSelector, &out.VPCIDSelector
+	if in.VPCSelector != nil {
+		in, out := &in.VPCSelector, &out.VPCSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -2795,13 +2795,13 @@ func (in *RouteV2Parameters) DeepCopyInto(out *RouteV2Parameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.VPCIDRef != nil {
-		in, out := &in.VPCIDRef, &out.VPCIDRef
+	if in.VPCRef != nil {
+		in, out := &in.VPCRef, &out.VPCRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.VPCIDSelector != nil {
-		in, out := &in.VPCIDSelector, &out.VPCIDSelector
+	if in.VPCSelector != nil {
+		in, out := &in.VPCSelector, &out.VPCSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -2937,13 +2937,13 @@ func (in *SecgroupRuleV3InitParameters) DeepCopyInto(out *SecgroupRuleV3InitPara
 		*out = new(string)
 		**out = **in
 	}
-	if in.SecurityGroupIDRef != nil {
-		in, out := &in.SecurityGroupIDRef, &out.SecurityGroupIDRef
+	if in.SecurityGroupRef != nil {
+		in, out := &in.SecurityGroupRef, &out.SecurityGroupRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.SecurityGroupIDSelector != nil {
-		in, out := &in.SecurityGroupIDSelector, &out.SecurityGroupIDSelector
+	if in.SecurityGroupSelector != nil {
+		in, out := &in.SecurityGroupSelector, &out.SecurityGroupSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -3139,13 +3139,13 @@ func (in *SecgroupRuleV3Parameters) DeepCopyInto(out *SecgroupRuleV3Parameters) 
 		*out = new(string)
 		**out = **in
 	}
-	if in.SecurityGroupIDRef != nil {
-		in, out := &in.SecurityGroupIDRef, &out.SecurityGroupIDRef
+	if in.SecurityGroupRef != nil {
+		in, out := &in.SecurityGroupRef, &out.SecurityGroupRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.SecurityGroupIDSelector != nil {
-		in, out := &in.SecurityGroupIDSelector, &out.SecurityGroupIDSelector
+	if in.SecurityGroupSelector != nil {
+		in, out := &in.SecurityGroupSelector, &out.SecurityGroupSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -3494,13 +3494,13 @@ func (in *SecondaryCidrV3InitParameters) DeepCopyInto(out *SecondaryCidrV3InitPa
 		*out = new(string)
 		**out = **in
 	}
-	if in.VPCIDRef != nil {
-		in, out := &in.VPCIDRef, &out.VPCIDRef
+	if in.VPCRef != nil {
+		in, out := &in.VPCRef, &out.VPCRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.VPCIDSelector != nil {
-		in, out := &in.VPCIDSelector, &out.VPCIDSelector
+	if in.VPCSelector != nil {
+		in, out := &in.VPCSelector, &out.VPCSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -3608,13 +3608,13 @@ func (in *SecondaryCidrV3Parameters) DeepCopyInto(out *SecondaryCidrV3Parameters
 		*out = new(string)
 		**out = **in
 	}
-	if in.VPCIDRef != nil {
-		in, out := &in.VPCIDRef, &out.VPCIDRef
+	if in.VPCRef != nil {
+		in, out := &in.VPCRef, &out.VPCRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.VPCIDSelector != nil {
-		in, out := &in.VPCIDSelector, &out.VPCIDSelector
+	if in.VPCSelector != nil {
+		in, out := &in.VPCSelector, &out.VPCSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -3782,13 +3782,13 @@ func (in *SubnetV1InitParameters) DeepCopyInto(out *SubnetV1InitParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.VPCIDRef != nil {
-		in, out := &in.VPCIDRef, &out.VPCIDRef
+	if in.VPCRef != nil {
+		in, out := &in.VPCRef, &out.VPCRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.VPCIDSelector != nil {
-		in, out := &in.VPCIDSelector, &out.VPCIDSelector
+	if in.VPCSelector != nil {
+		in, out := &in.VPCSelector, &out.VPCSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -4063,13 +4063,13 @@ func (in *SubnetV1Parameters) DeepCopyInto(out *SubnetV1Parameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.VPCIDRef != nil {
-		in, out := &in.VPCIDRef, &out.VPCIDRef
+	if in.VPCRef != nil {
+		in, out := &in.VPCRef, &out.VPCRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.VPCIDSelector != nil {
-		in, out := &in.VPCIDSelector, &out.VPCIDSelector
+	if in.VPCSelector != nil {
+		in, out := &in.VPCSelector, &out.VPCSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}

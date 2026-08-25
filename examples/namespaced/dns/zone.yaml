@@ -30,7 +30,7 @@ spec:
     email: crossplane@priv-example.com
     name: crossplane.priv-example.com.
     router:
-      - routerIdSelector:
+      - vpcSelector:
           matchLabels:
             testing.upbound.io/example-name: sample-dns-instance
         routerRegion: eu-de
@@ -77,7 +77,7 @@ spec:
       - 10.0.0.1
     ttl: 3000
     type: A
-    zoneIdSelector:
+    zoneSelector:
       matchLabels:
         testing.upbound.io/example-name: sample-dns-zone-public
 
@@ -99,6 +99,6 @@ spec:
       - "v=spf1 include:my.example.try.com -all"
     ttl: 300
     type: TXT
-    zoneIdSelector:
+    zoneSelector:
       matchLabels:
         testing.upbound.io/example-name: sample-dns-zone-public
