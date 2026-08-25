@@ -5,11 +5,11 @@ metadata:
     meta.upbound.io/example-id: identity/v1alpha1/userv3
   labels:
     testing.upbound.io/example-name: user_1
-  name: user-1
+  name: iam-usr-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
-    name: xp-test-${Rand.RFC1123Subdomain}
+    name: iam-usr-${Rand.RFC1123Subdomain}
     passwordSecretRef:
       key: example-key
       name: example-secret

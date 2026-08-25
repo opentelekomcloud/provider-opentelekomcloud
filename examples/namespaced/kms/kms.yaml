@@ -5,11 +5,11 @@ metadata:
     meta.upbound.io/example-id: identity/v1alpha1/userv3
   labels:
     testing.upbound.io/example-name: user_test
-  name: user-test
+  name: kms-usr-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
-    name: xp-test-${Rand.RFC1123Subdomain}
+    name: kms-usr-${Rand.RFC1123Subdomain}
     passwordSecretRef:
       key: example-key
       name: example-secret
@@ -21,12 +21,12 @@ metadata:
     meta.upbound.io/example-id: kms/v1alpha1/keyv1
   labels:
     testing.upbound.io/example-name: key_test
-  name: key-test
+  name: kms-key-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     isEnabled: true
-    keyAlias: key_test-${Rand.RFC1123Subdomain}
+    keyAlias: kms-key-${Rand.RFC1123Subdomain}
     keyDescription: first test key
     pendingDays: "7"
     realm: eu-de

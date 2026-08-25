@@ -27,11 +27,11 @@ metadata:
     meta.upbound.io/example-id: identity/v1alpha1/roleassignmentv3
   labels:
     testing.upbound.io/example-name: group_1
-  name: group-1
+  name: iam-grp-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
-    name: xp-test-${Rand.RFC1123Subdomain}
+    name: iam-grp-${Rand.RFC1123Subdomain}
 
 ---
 apiVersion: identity.opentelekomcloud.m.crossplane.io/v1alpha1
@@ -41,11 +41,11 @@ metadata:
     meta.upbound.io/example-id: identity/v1alpha1/roleassignmentv3
   labels:
     testing.upbound.io/example-name: project_1
-  name: project-1
+  name: iam-proj-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
-    name: eu-de_${Rand.RFC1123Subdomain}
+    name: iam-proj-${Rand.RFC1123Subdomain}
 
 ---
 apiVersion: identity.opentelekomcloud.m.crossplane.io/v1alpha1
@@ -55,13 +55,13 @@ metadata:
     meta.upbound.io/example-id: identity/v1alpha1/rolev3
   labels:
     testing.upbound.io/example-name: role_1
-  name: role
+  name: iam-role-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     description: role
     displayLayer: domain
-    displayName: xp-test-${Rand.RFC1123Subdomain}
+    displayName: iam-role-${Rand.RFC1123Subdomain}
     statement:
       - action:
           - obs:bucket:GetBucketAcl
@@ -86,3 +86,5 @@ spec:
           - obs:bucket:ListBucketMultipartUploads
           - obs:bucket:ListBucket
         effect: Allow
+        resource:
+          - OBS:*:*:bucket:test-bucket

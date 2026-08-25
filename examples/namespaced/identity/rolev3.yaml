@@ -5,13 +5,13 @@ metadata:
     meta.upbound.io/example-id: identity/v1alpha1/rolev3
   labels:
     testing.upbound.io/example-name: role
-  name: role
+  name: iam-role-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     description: role
     displayLayer: domain
-    displayName: xp-test-${Rand.RFC1123Subdomain}
+    displayName: iam-role-${Rand.RFC1123Subdomain}
     statement:
       - action:
           - obs:bucket:GetBucketAcl
@@ -36,3 +36,5 @@ spec:
           - obs:bucket:ListBucketMultipartUploads
           - obs:bucket:ListBucket
         effect: Allow
+        resource:
+          - OBS:*:*:bucket:test-bucket

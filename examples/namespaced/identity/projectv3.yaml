@@ -5,9 +5,9 @@ metadata:
     meta.upbound.io/example-id: identity/v1alpha1/projectv3
   labels:
     testing.upbound.io/example-name: project_1
-  name: project-1
+  name: iam-proj-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     description: crossplane
-    name: eu-de_${Rand.RFC1123Subdomain}
+    name: iam-proj-${Rand.RFC1123Subdomain}

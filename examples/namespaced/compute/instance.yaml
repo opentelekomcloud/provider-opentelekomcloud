@@ -5,12 +5,12 @@ metadata:
     meta.upbound.io/example-id: networking/v1alpha1/routerinterfacev2
   labels:
     testing.upbound.io/example-name: sample-network
-  name: sample-network
+  name: com-net-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     adminStateUp: "true"
-    name: xp-test-${Rand.RFC1123Subdomain}
+    name: com-net-${Rand.RFC1123Subdomain}
 ---
 apiVersion: networking.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: RouterV2
@@ -19,11 +19,11 @@ metadata:
     meta.upbound.io/example-id: networking/v1alpha1/routerinterfacev2
   labels:
     testing.upbound.io/example-name: sample-router
-  name: sample-router
+  name: com-rtr-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
-    name: xp-test-${Rand.RFC1123Subdomain}
+    name: com-rtr-${Rand.RFC1123Subdomain}
 
 ---
 apiVersion: networking.opentelekomcloud.m.crossplane.io/v1alpha1
@@ -33,11 +33,11 @@ metadata:
     meta.upbound.io/example-id: networking/v1alpha1/routerinterfacev2
   labels:
     testing.upbound.io/example-name: sample-subnet
-  name: sample-subnet
+  name: com-stn-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
-    name: xp-test-${Rand.RFC1123Subdomain}
+    name: com-stn-${Rand.RFC1123Subdomain}
     cidr: 192.168.199.0/24
     ipVersion: 4
     networkSelector:
@@ -89,13 +89,13 @@ metadata:
     meta.upbound.io/example-id: compute/v1alpha1/floatingipassociatev2
   labels:
     testing.upbound.io/example-name: instance_1
-  name: instance-1
+  name: com-vm-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     flavorId: s2.large.2
     imageId: 765aeae4-7c4a-4bc7-93ff-ad1daa9c2fda
-    name: xp-test-${Rand.RFC1123Subdomain}
+    name: com-vm-${Rand.RFC1123Subdomain}
     network:
       - nameSelector:
           matchLabels:

@@ -27,12 +27,12 @@ metadata:
     meta.upbound.io/example-id: sfs/v1alpha1/shareaccessrulesv2
   labels:
     testing.upbound.io/example-name: sfs_1
-  name: sfs-1
+  name: sfs-fs-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     description: xp-test
-    name: xp-test-${Rand.RFC1123Subdomain}
+    name: sfs-fs-${Rand.RFC1123Subdomain}
     shareProto: NFS
     size: 50
 
@@ -44,9 +44,9 @@ metadata:
     meta.upbound.io/example-id: sfs/v1alpha1/shareaccessrulesv2
   labels:
     testing.upbound.io/example-name: vpc_1
-  name: vpc-1
+  name: sfs-vpc-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     cidr: 192.168.0.0/16
-    name: xp-test-${Rand.RFC1123Subdomain}
+    name: sfs-vpc-${Rand.RFC1123Subdomain}

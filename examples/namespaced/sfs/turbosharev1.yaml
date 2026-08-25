@@ -5,12 +5,12 @@ metadata:
     meta.upbound.io/example-id: vpc/v1alpha1/v1
   labels:
     testing.upbound.io/example-name: example-vpc
-  name: xp-test-vpc1212
+  name: sfs-vpc-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     cidr: "192.168.0.0/16"
-    name: xp-test-${Rand.RFC1123Subdomain}
+    name: sfs-vpc-${Rand.RFC1123Subdomain}
     tags:
       managed-by: crossplane
 ---
@@ -21,13 +21,13 @@ metadata:
     meta.upbound.io/example-id: vpc/v1alpha1/subnetv1
   labels:
     testing.upbound.io/example-name: example-subnet
-  name: xp-test-subnet-1212
+  name: sfs-stn-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     cidr: "192.168.0.0/16"
     gatewayIp: "192.168.0.1"
-    name: xp-test-${Rand.RFC1123Subdomain}
+    name: sfs-stn-${Rand.RFC1123Subdomain}
     ntpAddresses: "10.100.0.33,10.100.0.34"
     vpcSelector:
       matchLabels:
@@ -42,12 +42,12 @@ metadata:
     meta.upbound.io/example-id: vpc/v1alpha1/secgroupv3
   labels:
     testing.upbound.io/example-name: example-sg
-  name: secgroup-1
+  name: sfs-sg-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     description: My VPC security group
-    name: xp-test-${Rand.RFC1123Subdomain}
+    name: sfs-sg-${Rand.RFC1123Subdomain}
 
 ---
 apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
@@ -79,12 +79,12 @@ metadata:
     meta.upbound.io/example-id: sfs/v1alpha1/turbosharev1
   labels:
     testing.upbound.io/example-name: sfs-turbo
-  name: sfs-turbo
+  name: sfs-tbo-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     availabilityZone: eu-de-01
-    name: xp-test-${Rand.RFC1123Subdomain}
+    name: sfs-tbo-${Rand.RFC1123Subdomain}
     secgroupSelector:
       matchLabels:
         testing.upbound.io/example-name: example-sg

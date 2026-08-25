@@ -4,6 +4,9 @@ import "github.com/crossplane/upjet/v2/pkg/config"
 
 const (
 	tfVpcV1 = "opentelekomcloud_vpc_v1"
+
+	VPCSelector = "VPCSelector"
+	VPCRef      = "VPCRef"
 )
 
 // Configure configures individual resources by adding custom ResourceConfigurators.
@@ -12,8 +15,8 @@ func Configure(p *config.Provider) {
 		r.UseAsync = true
 		r.References["vpc_id"] = config.Reference{
 			TerraformName:     tfVpcV1,
-			SelectorFieldName: "VPCSelector",
-			RefFieldName:      "VPCRef",
+			SelectorFieldName: VPCSelector,
+			RefFieldName:      VPCRef,
 		}
 	})
 	p.AddResourceConfigurator("opentelekomcloud_vpc_v1", func(r *config.Resource) {
@@ -51,8 +54,8 @@ func Configure(p *config.Provider) {
 		r.UseAsync = true
 		r.References["vpc_id"] = config.Reference{
 			TerraformName:     tfVpcV1,
-			SelectorFieldName: "VPCSelector",
-			RefFieldName:      "VPCRef",
+			SelectorFieldName: VPCSelector,
+			RefFieldName:      VPCRef,
 		}
 		r.References["peer_vpc_id"] = config.Reference{
 			TerraformName:     tfVpcV1,
@@ -72,24 +75,24 @@ func Configure(p *config.Provider) {
 		r.UseAsync = true
 		r.References["vpc_id"] = config.Reference{
 			TerraformName:     tfVpcV1,
-			SelectorFieldName: "VPCSelector",
-			RefFieldName:      "VPCRef",
+			SelectorFieldName: VPCSelector,
+			RefFieldName:      VPCRef,
 		}
 	})
 	p.AddResourceConfigurator("opentelekomcloud_vpc_route_table_v1", func(r *config.Resource) {
 		r.UseAsync = true
 		r.References["vpc_id"] = config.Reference{
 			TerraformName:     tfVpcV1,
-			SelectorFieldName: "VPCSelector",
-			RefFieldName:      "VPCRef",
+			SelectorFieldName: VPCSelector,
+			RefFieldName:      VPCRef,
 		}
 	})
 	p.AddResourceConfigurator("opentelekomcloud_vpc_secondary_cidr_v3", func(r *config.Resource) {
 		r.UseAsync = true
 		r.References["vpc_id"] = config.Reference{
 			TerraformName:     tfVpcV1,
-			SelectorFieldName: "VPCSelector",
-			RefFieldName:      "VPCRef",
+			SelectorFieldName: VPCSelector,
+			RefFieldName:      VPCRef,
 		}
 	})
 	p.AddResourceConfigurator("opentelekomcloud_vpc_secgroup_rule_v3", func(r *config.Resource) {

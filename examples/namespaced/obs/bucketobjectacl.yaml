@@ -49,11 +49,11 @@ metadata:
     meta.upbound.io/example-id: obs/v1alpha1/bucket
   labels:
     testing.upbound.io/example-name: b
-  name: xp-bucket-object-acl-bucket
+  name: obs-bkt-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
-    bucket: xp-bucket-${Rand.RFC1123Subdomain}
+    bucket: obs-bkt-${Rand.RFC1123Subdomain}
     tags:
       Env: Test
       foo: bar

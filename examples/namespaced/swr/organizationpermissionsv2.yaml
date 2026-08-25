@@ -28,8 +28,8 @@ metadata:
     meta.upbound.io/example-id: identity/v1alpha1/userv3
   labels:
     testing.upbound.io/example-name: swr_op
-  name: swr-op
+  name: swr-usr-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
-    name: xp-test-${Rand.RFC1123Subdomain}
+    name: swr-usr-${Rand.RFC1123Subdomain}

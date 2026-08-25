@@ -5,12 +5,12 @@ metadata:
     meta.upbound.io/example-id: vpc/v1alpha1/v1
   labels:
     testing.upbound.io/example-name: sample-lb
-  name: sample-lb
+  name: lb-vpc-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     cidr: "192.168.0.0/16"
-    name: xp-test-${Rand.RFC1123Subdomain}
+    name: lb-vpc-${Rand.RFC1123Subdomain}
     tags:
       managed-by: crossplane
 ---
@@ -21,13 +21,13 @@ metadata:
     meta.upbound.io/example-id: vpc/v1alpha1/subnetv1
   labels:
     testing.upbound.io/example-name: sample-lb
-  name: sample-lb
+  name: lb-stn-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     cidr: "192.168.0.0/16"
     gatewayIp: "192.168.0.1"
-    name: xp-test-${Rand.RFC1123Subdomain}
+    name: lb-stn-${Rand.RFC1123Subdomain}
     ntpAddresses: "10.100.0.33,10.100.0.34"
     vpcSelector:
       matchLabels:
@@ -43,16 +43,16 @@ metadata:
     meta.upbound.io/example-id: lb/v1alpha1/loadbalancerv3
   labels:
     testing.upbound.io/example-name: sample-lb
-  name: sample-lb
+  name: lb-lb-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
-    name: xp-test-${Rand.RFC1123Subdomain}
+    name: lb-lb-${Rand.RFC1123Subdomain}
     availabilityZones:
       - eu-de-01
     networkRef:
       - name: sample-lb
-    vpcSelector:
+    routerSelector:
       matchLabels:
         testing.upbound.io/example-name: sample-lb
     tags:
@@ -66,11 +66,11 @@ metadata:
     meta.upbound.io/example-id: lb/v1alpha1/listenerv3
   labels:
     testing.upbound.io/example-name: sample-lb
-  name: sample-lb
+  name: lb-lis-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
-    name: xp-test-${Rand.RFC1123Subdomain}
+    name: lb-lis-${Rand.RFC1123Subdomain}
     loadbalancerSelector:
       matchLabels:
         testing.upbound.io/example-name: sample-lb
@@ -87,7 +87,7 @@ metadata:
     meta.upbound.io/example-id: lb/v1alpha1/memberv3
   labels:
     testing.upbound.io/example-name: sample-lb
-  name: sample-lb
+  name: lb-psl-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
@@ -95,7 +95,7 @@ spec:
     loadbalancerSelector:
       matchLabels:
         testing.upbound.io/example-name: sample-lb
-    name: xp-test-${Rand.RFC1123Subdomain}
+    name: lb-psl-${Rand.RFC1123Subdomain}
     protocol: HTTP
 
 ---

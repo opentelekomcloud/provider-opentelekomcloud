@@ -36,8 +36,8 @@ metadata:
     meta.upbound.io/example-id: obs/v1alpha1/bucketinventory
   labels:
     testing.upbound.io/example-name: bucket
-  name: xp-bucket-inventory-bucket
+  name: obs-bkt-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
-    bucket: bucket-${Rand.RFC1123Subdomain}
+    bucket: obs-bkt-${Rand.RFC1123Subdomain}

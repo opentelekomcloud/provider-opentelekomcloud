@@ -5,12 +5,12 @@ metadata:
     meta.upbound.io/example-id: networking/v1alpha1/routerinterfacev2
   labels:
     testing.upbound.io/example-name: sample-network
-  name: sample-network
+  name: ntw-net-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     adminStateUp: "true"
-    name: xp-test-${Rand.RFC1123Subdomain}
+    name: ntw-net-${Rand.RFC1123Subdomain}
 
 ---
 apiVersion: networking.opentelekomcloud.m.crossplane.io/v1alpha1
@@ -20,11 +20,11 @@ metadata:
     meta.upbound.io/example-id: networking/v1alpha1/routerinterfacev2
   labels:
     testing.upbound.io/example-name: sample-router
-  name: sample-router
+  name: ntw-rtr-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
-    name: xp-test-${Rand.RFC1123Subdomain}
+    name: ntw-rtr-${Rand.RFC1123Subdomain}
 
 ---
 apiVersion: networking.opentelekomcloud.m.crossplane.io/v1alpha1
@@ -34,11 +34,11 @@ metadata:
     meta.upbound.io/example-id: networking/v1alpha1/routerinterfacev2
   labels:
     testing.upbound.io/example-name: sample-subnet
-  name: sample-subnet
+  name: ntw-stn-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
-    name: xp-test-${Rand.RFC1123Subdomain}
+    name: ntw-stn-${Rand.RFC1123Subdomain}
     cidr: 192.168.199.0/24
     ipVersion: 4
     networkSelector:

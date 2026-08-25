@@ -5,9 +5,9 @@ metadata:
     meta.upbound.io/example-id: identity/v1alpha1/groupv3
   labels:
     testing.upbound.io/example-name: group_1
-  name: group-1
+  name: iam-grp-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     description: crossplane
-    name: xp-test-${Rand.RFC1123Subdomain}
+    name: iam-grp-${Rand.RFC1123Subdomain}
