@@ -12,8 +12,8 @@ func Configure(p *config.Provider) {
 		r.UseAsync = true
 		r.References["vpc_id"] = config.Reference{
 			TerraformName:     tfVpcV1,
-			SelectorFieldName: "VpcSelector",
-			RefFieldName:      "VpcRef",
+			SelectorFieldName: "VPCSelector",
+			RefFieldName:      "VPCRef",
 		}
 	})
 	p.AddResourceConfigurator("opentelekomcloud_vpc_v1", func(r *config.Resource) {
@@ -51,45 +51,45 @@ func Configure(p *config.Provider) {
 		r.UseAsync = true
 		r.References["vpc_id"] = config.Reference{
 			TerraformName:     tfVpcV1,
-			SelectorFieldName: "VpcSelector",
-			RefFieldName:      "VpcRef",
+			SelectorFieldName: "VPCSelector",
+			RefFieldName:      "VPCRef",
 		}
 		r.References["peer_vpc_id"] = config.Reference{
 			TerraformName:     tfVpcV1,
-			SelectorFieldName: "PeerVpcSelector",
-			RefFieldName:      "PeerVpcRef",
+			SelectorFieldName: "PeerVPCSelector",
+			RefFieldName:      "PeerVPCRef",
 		}
 	})
 	p.AddResourceConfigurator("opentelekomcloud_vpc_peering_connection_accepter_v2", func(r *config.Resource) {
 		r.UseAsync = true
 		r.References["vpc_peering_connection_id"] = config.Reference{
 			TerraformName:     "opentelekomcloud_vpc_peering_connection_v2",
-			SelectorFieldName: "VpcPeeringConnectionSelector",
-			RefFieldName:      "VpcPeeringConnectionRef",
+			SelectorFieldName: "VPCPeeringConnectionSelector",
+			RefFieldName:      "VPCPeeringConnectionRef",
 		}
 	})
 	p.AddResourceConfigurator("opentelekomcloud_vpc_route_v2", func(r *config.Resource) {
 		r.UseAsync = true
 		r.References["vpc_id"] = config.Reference{
 			TerraformName:     tfVpcV1,
-			SelectorFieldName: "VpcSelector",
-			RefFieldName:      "VpcRef",
+			SelectorFieldName: "VPCSelector",
+			RefFieldName:      "VPCRef",
 		}
 	})
 	p.AddResourceConfigurator("opentelekomcloud_vpc_route_table_v1", func(r *config.Resource) {
 		r.UseAsync = true
 		r.References["vpc_id"] = config.Reference{
 			TerraformName:     tfVpcV1,
-			SelectorFieldName: "VpcSelector",
-			RefFieldName:      "VpcRef",
+			SelectorFieldName: "VPCSelector",
+			RefFieldName:      "VPCRef",
 		}
 	})
 	p.AddResourceConfigurator("opentelekomcloud_vpc_secondary_cidr_v3", func(r *config.Resource) {
 		r.UseAsync = true
 		r.References["vpc_id"] = config.Reference{
 			TerraformName:     tfVpcV1,
-			SelectorFieldName: "VpcSelector",
-			RefFieldName:      "VpcRef",
+			SelectorFieldName: "VPCSelector",
+			RefFieldName:      "VPCRef",
 		}
 	})
 	p.AddResourceConfigurator("opentelekomcloud_vpc_secgroup_rule_v3", func(r *config.Resource) {

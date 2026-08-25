@@ -25,8 +25,8 @@ func (mg *PtrrecordV2) ResolveReferences(ctx context.Context, c client.Reader) e
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.FloatingipID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.ForProvider.FloatingIpRef,
-		Selector:     mg.Spec.ForProvider.FloatingIpSelector,
+		Reference:    mg.Spec.ForProvider.FloatingIPRef,
+		Selector:     mg.Spec.ForProvider.FloatingIPSelector,
 		To: reference.To{
 			List:    &v1alpha1.EIPV1List{},
 			Managed: &v1alpha1.EIPV1{},
@@ -36,14 +36,14 @@ func (mg *PtrrecordV2) ResolveReferences(ctx context.Context, c client.Reader) e
 		return errors.Wrap(err, "mg.Spec.ForProvider.FloatingipID")
 	}
 	mg.Spec.ForProvider.FloatingipID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.FloatingIpRef = rsp.ResolvedReference
+	mg.Spec.ForProvider.FloatingIPRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.FloatingipID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.InitProvider.FloatingIpRef,
-		Selector:     mg.Spec.InitProvider.FloatingIpSelector,
+		Reference:    mg.Spec.InitProvider.FloatingIPRef,
+		Selector:     mg.Spec.InitProvider.FloatingIPSelector,
 		To: reference.To{
 			List:    &v1alpha1.EIPV1List{},
 			Managed: &v1alpha1.EIPV1{},
@@ -53,7 +53,7 @@ func (mg *PtrrecordV2) ResolveReferences(ctx context.Context, c client.Reader) e
 		return errors.Wrap(err, "mg.Spec.InitProvider.FloatingipID")
 	}
 	mg.Spec.InitProvider.FloatingipID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.FloatingIpRef = rsp.ResolvedReference
+	mg.Spec.InitProvider.FloatingIPRef = rsp.ResolvedReference
 
 	return nil
 }
@@ -114,8 +114,8 @@ func (mg *ZoneV2) ResolveReferences(ctx context.Context, c client.Reader) error 
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Router[i3].RouterID),
 			Extract:      reference.ExternalName(),
 			Namespace:    mg.GetNamespace(),
-			Reference:    mg.Spec.ForProvider.Router[i3].VpcRef,
-			Selector:     mg.Spec.ForProvider.Router[i3].VpcSelector,
+			Reference:    mg.Spec.ForProvider.Router[i3].VPCRef,
+			Selector:     mg.Spec.ForProvider.Router[i3].VPCSelector,
 			To: reference.To{
 				List:    &v1alpha1.VpcV1List{},
 				Managed: &v1alpha1.VpcV1{},
@@ -125,7 +125,7 @@ func (mg *ZoneV2) ResolveReferences(ctx context.Context, c client.Reader) error 
 			return errors.Wrap(err, "mg.Spec.ForProvider.Router[i3].RouterID")
 		}
 		mg.Spec.ForProvider.Router[i3].RouterID = reference.ToPtrValue(rsp.ResolvedValue)
-		mg.Spec.ForProvider.Router[i3].VpcRef = rsp.ResolvedReference
+		mg.Spec.ForProvider.Router[i3].VPCRef = rsp.ResolvedReference
 
 	}
 	for i3 := 0; i3 < len(mg.Spec.InitProvider.Router); i3++ {
@@ -133,8 +133,8 @@ func (mg *ZoneV2) ResolveReferences(ctx context.Context, c client.Reader) error 
 			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Router[i3].RouterID),
 			Extract:      reference.ExternalName(),
 			Namespace:    mg.GetNamespace(),
-			Reference:    mg.Spec.InitProvider.Router[i3].VpcRef,
-			Selector:     mg.Spec.InitProvider.Router[i3].VpcSelector,
+			Reference:    mg.Spec.InitProvider.Router[i3].VPCRef,
+			Selector:     mg.Spec.InitProvider.Router[i3].VPCSelector,
 			To: reference.To{
 				List:    &v1alpha1.VpcV1List{},
 				Managed: &v1alpha1.VpcV1{},
@@ -144,7 +144,7 @@ func (mg *ZoneV2) ResolveReferences(ctx context.Context, c client.Reader) error 
 			return errors.Wrap(err, "mg.Spec.InitProvider.Router[i3].RouterID")
 		}
 		mg.Spec.InitProvider.Router[i3].RouterID = reference.ToPtrValue(rsp.ResolvedValue)
-		mg.Spec.InitProvider.Router[i3].VpcRef = rsp.ResolvedReference
+		mg.Spec.InitProvider.Router[i3].VPCRef = rsp.ResolvedReference
 
 	}
 

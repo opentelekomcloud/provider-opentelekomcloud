@@ -216,8 +216,8 @@ func (mg *PeeringConnectionAccepterV2) ResolveReferences(ctx context.Context, c 
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.VPCPeeringConnectionID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.ForProvider.VpcPeeringConnectionRef,
-		Selector:     mg.Spec.ForProvider.VpcPeeringConnectionSelector,
+		Reference:    mg.Spec.ForProvider.VPCPeeringConnectionRef,
+		Selector:     mg.Spec.ForProvider.VPCPeeringConnectionSelector,
 		To: reference.To{
 			List:    &PeeringConnectionV2List{},
 			Managed: &PeeringConnectionV2{},
@@ -227,14 +227,14 @@ func (mg *PeeringConnectionAccepterV2) ResolveReferences(ctx context.Context, c 
 		return errors.Wrap(err, "mg.Spec.ForProvider.VPCPeeringConnectionID")
 	}
 	mg.Spec.ForProvider.VPCPeeringConnectionID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.VpcPeeringConnectionRef = rsp.ResolvedReference
+	mg.Spec.ForProvider.VPCPeeringConnectionRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.VPCPeeringConnectionID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.InitProvider.VpcPeeringConnectionRef,
-		Selector:     mg.Spec.InitProvider.VpcPeeringConnectionSelector,
+		Reference:    mg.Spec.InitProvider.VPCPeeringConnectionRef,
+		Selector:     mg.Spec.InitProvider.VPCPeeringConnectionSelector,
 		To: reference.To{
 			List:    &PeeringConnectionV2List{},
 			Managed: &PeeringConnectionV2{},
@@ -244,7 +244,7 @@ func (mg *PeeringConnectionAccepterV2) ResolveReferences(ctx context.Context, c 
 		return errors.Wrap(err, "mg.Spec.InitProvider.VPCPeeringConnectionID")
 	}
 	mg.Spec.InitProvider.VPCPeeringConnectionID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.VpcPeeringConnectionRef = rsp.ResolvedReference
+	mg.Spec.InitProvider.VPCPeeringConnectionRef = rsp.ResolvedReference
 
 	return nil
 }
@@ -260,8 +260,8 @@ func (mg *PeeringConnectionV2) ResolveReferences(ctx context.Context, c client.R
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.PeerVPCID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.ForProvider.PeerVpcRef,
-		Selector:     mg.Spec.ForProvider.PeerVpcSelector,
+		Reference:    mg.Spec.ForProvider.PeerVPCRef,
+		Selector:     mg.Spec.ForProvider.PeerVPCSelector,
 		To: reference.To{
 			List:    &VpcV1List{},
 			Managed: &VpcV1{},
@@ -271,14 +271,14 @@ func (mg *PeeringConnectionV2) ResolveReferences(ctx context.Context, c client.R
 		return errors.Wrap(err, "mg.Spec.ForProvider.PeerVPCID")
 	}
 	mg.Spec.ForProvider.PeerVPCID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.PeerVpcRef = rsp.ResolvedReference
+	mg.Spec.ForProvider.PeerVPCRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.VPCID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.ForProvider.VpcRef,
-		Selector:     mg.Spec.ForProvider.VpcSelector,
+		Reference:    mg.Spec.ForProvider.VPCRef,
+		Selector:     mg.Spec.ForProvider.VPCSelector,
 		To: reference.To{
 			List:    &VpcV1List{},
 			Managed: &VpcV1{},
@@ -288,14 +288,14 @@ func (mg *PeeringConnectionV2) ResolveReferences(ctx context.Context, c client.R
 		return errors.Wrap(err, "mg.Spec.ForProvider.VPCID")
 	}
 	mg.Spec.ForProvider.VPCID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.VpcRef = rsp.ResolvedReference
+	mg.Spec.ForProvider.VPCRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.PeerVPCID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.InitProvider.PeerVpcRef,
-		Selector:     mg.Spec.InitProvider.PeerVpcSelector,
+		Reference:    mg.Spec.InitProvider.PeerVPCRef,
+		Selector:     mg.Spec.InitProvider.PeerVPCSelector,
 		To: reference.To{
 			List:    &VpcV1List{},
 			Managed: &VpcV1{},
@@ -305,14 +305,14 @@ func (mg *PeeringConnectionV2) ResolveReferences(ctx context.Context, c client.R
 		return errors.Wrap(err, "mg.Spec.InitProvider.PeerVPCID")
 	}
 	mg.Spec.InitProvider.PeerVPCID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.PeerVpcRef = rsp.ResolvedReference
+	mg.Spec.InitProvider.PeerVPCRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.VPCID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.InitProvider.VpcRef,
-		Selector:     mg.Spec.InitProvider.VpcSelector,
+		Reference:    mg.Spec.InitProvider.VPCRef,
+		Selector:     mg.Spec.InitProvider.VPCSelector,
 		To: reference.To{
 			List:    &VpcV1List{},
 			Managed: &VpcV1{},
@@ -322,7 +322,7 @@ func (mg *PeeringConnectionV2) ResolveReferences(ctx context.Context, c client.R
 		return errors.Wrap(err, "mg.Spec.InitProvider.VPCID")
 	}
 	mg.Spec.InitProvider.VPCID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.VpcRef = rsp.ResolvedReference
+	mg.Spec.InitProvider.VPCRef = rsp.ResolvedReference
 
 	return nil
 }
@@ -338,8 +338,8 @@ func (mg *RouteTableV1) ResolveReferences(ctx context.Context, c client.Reader) 
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.VPCID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.ForProvider.VpcRef,
-		Selector:     mg.Spec.ForProvider.VpcSelector,
+		Reference:    mg.Spec.ForProvider.VPCRef,
+		Selector:     mg.Spec.ForProvider.VPCSelector,
 		To: reference.To{
 			List:    &VpcV1List{},
 			Managed: &VpcV1{},
@@ -349,14 +349,14 @@ func (mg *RouteTableV1) ResolveReferences(ctx context.Context, c client.Reader) 
 		return errors.Wrap(err, "mg.Spec.ForProvider.VPCID")
 	}
 	mg.Spec.ForProvider.VPCID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.VpcRef = rsp.ResolvedReference
+	mg.Spec.ForProvider.VPCRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.VPCID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.InitProvider.VpcRef,
-		Selector:     mg.Spec.InitProvider.VpcSelector,
+		Reference:    mg.Spec.InitProvider.VPCRef,
+		Selector:     mg.Spec.InitProvider.VPCSelector,
 		To: reference.To{
 			List:    &VpcV1List{},
 			Managed: &VpcV1{},
@@ -366,7 +366,7 @@ func (mg *RouteTableV1) ResolveReferences(ctx context.Context, c client.Reader) 
 		return errors.Wrap(err, "mg.Spec.InitProvider.VPCID")
 	}
 	mg.Spec.InitProvider.VPCID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.VpcRef = rsp.ResolvedReference
+	mg.Spec.InitProvider.VPCRef = rsp.ResolvedReference
 
 	return nil
 }
@@ -382,8 +382,8 @@ func (mg *RouteV2) ResolveReferences(ctx context.Context, c client.Reader) error
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.VPCID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.ForProvider.VpcRef,
-		Selector:     mg.Spec.ForProvider.VpcSelector,
+		Reference:    mg.Spec.ForProvider.VPCRef,
+		Selector:     mg.Spec.ForProvider.VPCSelector,
 		To: reference.To{
 			List:    &VpcV1List{},
 			Managed: &VpcV1{},
@@ -393,14 +393,14 @@ func (mg *RouteV2) ResolveReferences(ctx context.Context, c client.Reader) error
 		return errors.Wrap(err, "mg.Spec.ForProvider.VPCID")
 	}
 	mg.Spec.ForProvider.VPCID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.VpcRef = rsp.ResolvedReference
+	mg.Spec.ForProvider.VPCRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.VPCID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.InitProvider.VpcRef,
-		Selector:     mg.Spec.InitProvider.VpcSelector,
+		Reference:    mg.Spec.InitProvider.VPCRef,
+		Selector:     mg.Spec.InitProvider.VPCSelector,
 		To: reference.To{
 			List:    &VpcV1List{},
 			Managed: &VpcV1{},
@@ -410,7 +410,7 @@ func (mg *RouteV2) ResolveReferences(ctx context.Context, c client.Reader) error
 		return errors.Wrap(err, "mg.Spec.InitProvider.VPCID")
 	}
 	mg.Spec.InitProvider.VPCID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.VpcRef = rsp.ResolvedReference
+	mg.Spec.InitProvider.VPCRef = rsp.ResolvedReference
 
 	return nil
 }
@@ -470,8 +470,8 @@ func (mg *SecondaryCidrV3) ResolveReferences(ctx context.Context, c client.Reade
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.VPCID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.ForProvider.VpcRef,
-		Selector:     mg.Spec.ForProvider.VpcSelector,
+		Reference:    mg.Spec.ForProvider.VPCRef,
+		Selector:     mg.Spec.ForProvider.VPCSelector,
 		To: reference.To{
 			List:    &VpcV1List{},
 			Managed: &VpcV1{},
@@ -481,14 +481,14 @@ func (mg *SecondaryCidrV3) ResolveReferences(ctx context.Context, c client.Reade
 		return errors.Wrap(err, "mg.Spec.ForProvider.VPCID")
 	}
 	mg.Spec.ForProvider.VPCID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.VpcRef = rsp.ResolvedReference
+	mg.Spec.ForProvider.VPCRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.VPCID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.InitProvider.VpcRef,
-		Selector:     mg.Spec.InitProvider.VpcSelector,
+		Reference:    mg.Spec.InitProvider.VPCRef,
+		Selector:     mg.Spec.InitProvider.VPCSelector,
 		To: reference.To{
 			List:    &VpcV1List{},
 			Managed: &VpcV1{},
@@ -498,7 +498,7 @@ func (mg *SecondaryCidrV3) ResolveReferences(ctx context.Context, c client.Reade
 		return errors.Wrap(err, "mg.Spec.InitProvider.VPCID")
 	}
 	mg.Spec.InitProvider.VPCID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.VpcRef = rsp.ResolvedReference
+	mg.Spec.InitProvider.VPCRef = rsp.ResolvedReference
 
 	return nil
 }
@@ -514,8 +514,8 @@ func (mg *SubnetV1) ResolveReferences(ctx context.Context, c client.Reader) erro
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.VPCID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.ForProvider.VpcRef,
-		Selector:     mg.Spec.ForProvider.VpcSelector,
+		Reference:    mg.Spec.ForProvider.VPCRef,
+		Selector:     mg.Spec.ForProvider.VPCSelector,
 		To: reference.To{
 			List:    &VpcV1List{},
 			Managed: &VpcV1{},
@@ -525,14 +525,14 @@ func (mg *SubnetV1) ResolveReferences(ctx context.Context, c client.Reader) erro
 		return errors.Wrap(err, "mg.Spec.ForProvider.VPCID")
 	}
 	mg.Spec.ForProvider.VPCID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.VpcRef = rsp.ResolvedReference
+	mg.Spec.ForProvider.VPCRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.VPCID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.InitProvider.VpcRef,
-		Selector:     mg.Spec.InitProvider.VpcSelector,
+		Reference:    mg.Spec.InitProvider.VPCRef,
+		Selector:     mg.Spec.InitProvider.VPCSelector,
 		To: reference.To{
 			List:    &VpcV1List{},
 			Managed: &VpcV1{},
@@ -542,7 +542,7 @@ func (mg *SubnetV1) ResolveReferences(ctx context.Context, c client.Reader) erro
 		return errors.Wrap(err, "mg.Spec.InitProvider.VPCID")
 	}
 	mg.Spec.InitProvider.VPCID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.VpcRef = rsp.ResolvedReference
+	mg.Spec.InitProvider.VPCRef = rsp.ResolvedReference
 
 	return nil
 }

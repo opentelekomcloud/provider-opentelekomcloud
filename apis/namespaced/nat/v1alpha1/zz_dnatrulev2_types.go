@@ -27,8 +27,8 @@ type DnatRuleV2InitParameters struct {
 	// Specifies the ID of the floating IP address.
 	// Changing this creates a new resource.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.EIPV1
-	// +crossplane:generate:reference:refFieldName=FloatingIpRef
-	// +crossplane:generate:reference:selectorFieldName=FloatingIpSelector
+	// +crossplane:generate:reference:refFieldName=FloatingIPRef
+	// +crossplane:generate:reference:selectorFieldName=FloatingIPSelector
 	FloatingIPID *string `json:"floatingIpId,omitempty" tf:"floating_ip_id,omitempty"`
 
 	// Reference to a EIPV1 in vpc to populate floatingIpId.
@@ -46,8 +46,8 @@ type DnatRuleV2InitParameters struct {
 	// ID of the NAT gateway this DNAT rule belongs to.
 	// Changing this creates a new DNAT rule.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/nat/v1alpha1.GatewayV2
-	// +crossplane:generate:reference:refFieldName=NatGatewayRef
-	// +crossplane:generate:reference:selectorFieldName=NatGatewaySelector
+	// +crossplane:generate:reference:refFieldName=NATGatewayRef
+	// +crossplane:generate:reference:selectorFieldName=NATGatewaySelector
 	NATGatewayID *string `json:"natGatewayId,omitempty" tf:"nat_gateway_id,omitempty"`
 
 	// Reference to a GatewayV2 in nat to populate natGatewayId.
@@ -149,8 +149,8 @@ type DnatRuleV2Parameters struct {
 	// Specifies the ID of the floating IP address.
 	// Changing this creates a new resource.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.EIPV1
-	// +crossplane:generate:reference:refFieldName=FloatingIpRef
-	// +crossplane:generate:reference:selectorFieldName=FloatingIpSelector
+	// +crossplane:generate:reference:refFieldName=FloatingIPRef
+	// +crossplane:generate:reference:selectorFieldName=FloatingIPSelector
 	// +kubebuilder:validation:Optional
 	FloatingIPID *string `json:"floatingIpId,omitempty" tf:"floating_ip_id,omitempty"`
 
@@ -170,8 +170,8 @@ type DnatRuleV2Parameters struct {
 	// ID of the NAT gateway this DNAT rule belongs to.
 	// Changing this creates a new DNAT rule.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/nat/v1alpha1.GatewayV2
-	// +crossplane:generate:reference:refFieldName=NatGatewayRef
-	// +crossplane:generate:reference:selectorFieldName=NatGatewaySelector
+	// +crossplane:generate:reference:refFieldName=NATGatewayRef
+	// +crossplane:generate:reference:selectorFieldName=NATGatewaySelector
 	// +kubebuilder:validation:Optional
 	NATGatewayID *string `json:"natGatewayId,omitempty" tf:"nat_gateway_id,omitempty"`
 

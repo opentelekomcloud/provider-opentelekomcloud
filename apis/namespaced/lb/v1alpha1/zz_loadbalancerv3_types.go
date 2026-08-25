@@ -67,8 +67,8 @@ type LoadbalancerV3InitParameters struct {
 	// ID of the router (or VPC) this LoadBalancer belongs to. Changing
 	// this creates a new LoadBalancer.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.VpcV1
-	// +crossplane:generate:reference:refFieldName=VpcRef
-	// +crossplane:generate:reference:selectorFieldName=VpcSelector
+	// +crossplane:generate:reference:refFieldName=VPCRef
+	// +crossplane:generate:reference:selectorFieldName=VPCSelector
 	RouterID *string `json:"routerId,omitempty" tf:"router_id,omitempty"`
 
 	// The ID of the subnet to which the LoadBalancer belongs. Required when using vip_address.
@@ -229,8 +229,8 @@ type LoadbalancerV3Parameters struct {
 	// ID of the router (or VPC) this LoadBalancer belongs to. Changing
 	// this creates a new LoadBalancer.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.VpcV1
-	// +crossplane:generate:reference:refFieldName=VpcRef
-	// +crossplane:generate:reference:selectorFieldName=VpcSelector
+	// +crossplane:generate:reference:refFieldName=VPCRef
+	// +crossplane:generate:reference:selectorFieldName=VPCSelector
 	// +kubebuilder:validation:Optional
 	RouterID *string `json:"routerId,omitempty" tf:"router_id,omitempty"`
 

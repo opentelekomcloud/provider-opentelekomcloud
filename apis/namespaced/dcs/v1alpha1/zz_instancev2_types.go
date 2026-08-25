@@ -257,8 +257,8 @@ type InstanceV2InitParameters struct {
 	// The ID of VPC which the instance belongs to.
 	// Changing this creates a new instance resource.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.VpcV1
-	// +crossplane:generate:reference:refFieldName=VpcRef
-	// +crossplane:generate:reference:selectorFieldName=VpcSelector
+	// +crossplane:generate:reference:refFieldName=VPCRef
+	// +crossplane:generate:reference:selectorFieldName=VPCSelector
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
 
 	// Reference to a VpcV1 in vpc to populate vpcId.
@@ -613,8 +613,8 @@ type InstanceV2Parameters struct {
 	// The ID of VPC which the instance belongs to.
 	// Changing this creates a new instance resource.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.VpcV1
-	// +crossplane:generate:reference:refFieldName=VpcRef
-	// +crossplane:generate:reference:selectorFieldName=VpcSelector
+	// +crossplane:generate:reference:refFieldName=VPCRef
+	// +crossplane:generate:reference:selectorFieldName=VPCSelector
 	// +kubebuilder:validation:Optional
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
 

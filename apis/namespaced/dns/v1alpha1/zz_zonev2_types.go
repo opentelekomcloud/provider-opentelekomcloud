@@ -18,8 +18,8 @@ type RouterInitParameters struct {
 
 	// The Router(VPC) ID. which VPC network will assicate with.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.VpcV1
-	// +crossplane:generate:reference:refFieldName=VpcRef
-	// +crossplane:generate:reference:selectorFieldName=VpcSelector
+	// +crossplane:generate:reference:refFieldName=VPCRef
+	// +crossplane:generate:reference:selectorFieldName=VPCSelector
 	RouterID *string `json:"routerId,omitempty" tf:"router_id,omitempty"`
 
 	// The Region name for this private zone.
@@ -47,8 +47,8 @@ type RouterParameters struct {
 
 	// The Router(VPC) ID. which VPC network will assicate with.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.VpcV1
-	// +crossplane:generate:reference:refFieldName=VpcRef
-	// +crossplane:generate:reference:selectorFieldName=VpcSelector
+	// +crossplane:generate:reference:refFieldName=VPCRef
+	// +crossplane:generate:reference:selectorFieldName=VPCSelector
 	// +kubebuilder:validation:Optional
 	RouterID *string `json:"routerId,omitempty" tf:"router_id,omitempty"`
 

@@ -18,16 +18,16 @@ func Configure(p *config.Provider) {
 		}
 		r.References["router_id"] = config.Reference{
 			TerraformName:     "opentelekomcloud_vpc_v1",
-			SelectorFieldName: "VpcSelector",
-			RefFieldName:      "VpcRef",
+			SelectorFieldName: "VPCSelector",
+			RefFieldName:      "VPCRef",
 		}
 	})
 	p.AddResourceConfigurator("opentelekomcloud_nat_dnat_rule_v2", func(r *config.Resource) {
 		r.UseAsync = true
 		r.References["floating_ip_id"] = config.Reference{
 			TerraformName:     "opentelekomcloud_vpc_eip_v1",
-			SelectorFieldName: "FloatingIpSelector",
-			RefFieldName:      "FloatingIpRef",
+			SelectorFieldName: "FloatingIPSelector",
+			RefFieldName:      "FloatingIPRef",
 		}
 		r.References["port_id"] = config.Reference{
 			TerraformName:     "opentelekomcloud_networking_port_v2",
@@ -36,16 +36,16 @@ func Configure(p *config.Provider) {
 		}
 		r.References["nat_gateway_id"] = config.Reference{
 			TerraformName:     "opentelekomcloud_nat_gateway_v2",
-			SelectorFieldName: "NatGatewaySelector",
-			RefFieldName:      "NatGatewayRef",
+			SelectorFieldName: "NATGatewaySelector",
+			RefFieldName:      "NATGatewayRef",
 		}
 	})
 	p.AddResourceConfigurator("opentelekomcloud_nat_snat_rule_v2", func(r *config.Resource) {
 		r.UseAsync = true
 		r.References["floating_ip_id"] = config.Reference{
 			TerraformName:     "opentelekomcloud_vpc_eip_v1",
-			SelectorFieldName: "FloatingIpSelector",
-			RefFieldName:      "FloatingIpRef",
+			SelectorFieldName: "FloatingIPSelector",
+			RefFieldName:      "FloatingIPRef",
 		}
 		r.References["network_id"] = config.Reference{
 			TerraformName:     "opentelekomcloud_vpc_subnet_v1",
@@ -55,8 +55,8 @@ func Configure(p *config.Provider) {
 		}
 		r.References["nat_gateway_id"] = config.Reference{
 			TerraformName:     "opentelekomcloud_nat_gateway_v2",
-			SelectorFieldName: "NatGatewaySelector",
-			RefFieldName:      "NatGatewayRef",
+			SelectorFieldName: "NATGatewaySelector",
+			RefFieldName:      "NATGatewayRef",
 		}
 	})
 }

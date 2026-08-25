@@ -8,8 +8,8 @@ func Configure(p *config.Provider) {
 		r.UseAsync = true
 		r.References["router.router_id"] = config.Reference{
 			TerraformName:     "opentelekomcloud_vpc_v1",
-			SelectorFieldName: "VpcSelector",
-			RefFieldName:      "VpcRef",
+			SelectorFieldName: "VPCSelector",
+			RefFieldName:      "VPCRef",
 		}
 	})
 	p.AddResourceConfigurator("opentelekomcloud_dns_recordset_v2", func(r *config.Resource) {
@@ -24,8 +24,8 @@ func Configure(p *config.Provider) {
 		r.UseAsync = true
 		r.References["floatingip_id"] = config.Reference{
 			TerraformName:     "opentelekomcloud_vpc_eip_v1",
-			SelectorFieldName: "FloatingIpSelector",
-			RefFieldName:      "FloatingIpRef",
+			SelectorFieldName: "FloatingIPSelector",
+			RefFieldName:      "FloatingIPRef",
 		}
 	})
 }

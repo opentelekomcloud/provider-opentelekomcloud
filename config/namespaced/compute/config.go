@@ -42,8 +42,8 @@ func Configure(p *config.Provider) {
 		}
 		r.References["vpc_id"] = config.Reference{
 			TerraformName:     "opentelekomcloud_vpc_v1",
-			SelectorFieldName: "VpcSelector",
-			RefFieldName:      "VpcRef",
+			SelectorFieldName: "VPCSelector",
+			RefFieldName:      "VPCRef",
 		}
 		r.References["nics.network_id"] = config.Reference{
 			TerraformName:     "opentelekomcloud_vpc_subnet_v1",

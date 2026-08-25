@@ -169,8 +169,8 @@ type NodeV3InitParameters struct {
 
 	// List of existing elastic IP IDs.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.EIPV1
-	// +crossplane:generate:reference:refFieldName=EipRef
-	// +crossplane:generate:reference:selectorFieldName=EipSelector
+	// +crossplane:generate:reference:refFieldName=EIPRef
+	// +crossplane:generate:reference:selectorFieldName=EIPSelector
 	// +listType=set
 	EIPIds []*string `json:"eipIds,omitempty" tf:"eip_ids,omitempty"`
 
@@ -481,8 +481,8 @@ type NodeV3Parameters struct {
 
 	// List of existing elastic IP IDs.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.EIPV1
-	// +crossplane:generate:reference:refFieldName=EipRef
-	// +crossplane:generate:reference:selectorFieldName=EipSelector
+	// +crossplane:generate:reference:refFieldName=EIPRef
+	// +crossplane:generate:reference:selectorFieldName=EIPSelector
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	EIPIds []*string `json:"eipIds,omitempty" tf:"eip_ids,omitempty"`
