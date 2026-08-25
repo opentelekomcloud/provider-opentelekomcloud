@@ -5,7 +5,7 @@ metadata:
     meta.upbound.io/example-id: obs/v1alpha1/bucketacl
   labels:
     testing.upbound.io/example-name: test
-  name: xp-bucket-object-acl
+  name: obs-oacl-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
@@ -20,40 +20,3 @@ spec:
           - READ_ACP
         accessToObject:
           - READ
----
-apiVersion: obs.opentelekomcloud.m.crossplane.io/v1alpha1
-kind: BucketObject
-metadata:
-  annotations:
-    meta.upbound.io/example-id: obs/v1alpha1/bucketobject
-  labels:
-    testing.upbound.io/example-name: object
-  name: xp-bucket-object
-  namespace: test
-spec:
-  forProvider:
-    bucketSelector:
-      matchLabels:
-        testing.upbound.io/example-name: b
-    content: |
-      {"provider_name": "t_cloud_public"}
-    contentType: application/json
-    key: test_index_json
-    encryption: true
-
----
-apiVersion: obs.opentelekomcloud.m.crossplane.io/v1alpha1
-kind: Bucket
-metadata:
-  annotations:
-    meta.upbound.io/example-id: obs/v1alpha1/bucket
-  labels:
-    testing.upbound.io/example-name: b
-  name: obs-bkt-${Rand.RFC1123Subdomain}
-  namespace: test
-spec:
-  forProvider:
-    bucket: obs-bkt-${Rand.RFC1123Subdomain}
-    tags:
-      Env: Test
-      foo: bar

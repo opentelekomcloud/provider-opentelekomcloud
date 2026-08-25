@@ -5,13 +5,13 @@ metadata:
     meta.upbound.io/example-id: vpc/v1alpha1/eipv1
   labels:
     testing.upbound.io/example-name: sample-ptr-instance
-  name: sample-ptr-instance
+  name: dns-eip-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     bandwidth:
       - chargeMode: traffic
-        name: crossplane-ptr-instance
+        name: dns-eip-${Rand.RFC1123Subdomain}
         shareType: PER
         size: 8
     publicip:
@@ -25,7 +25,7 @@ metadata:
     meta.upbound.io/example-id: dns/v1alpha1/ptrrecordv2
   labels:
     testing.upbound.io/example-name: sample-ptr-instance
-  name: sample-ptr-instance
+  name: dns-pr-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:

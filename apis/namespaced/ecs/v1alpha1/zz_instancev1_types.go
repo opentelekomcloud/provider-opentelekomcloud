@@ -108,11 +108,11 @@ type InstanceV1InitParameters struct {
 
 	// References to SecgroupV2 in compute to populate securityGroups.
 	// +kubebuilder:validation:Optional
-	ComputeSecurityGroupIDRefs []v1.NamespacedReference `json:"computeSecurityGroupIdRefs,omitempty" tf:"-"`
+	ComputeSecurityGroupRefs []v1.NamespacedReference `json:"computeSecurityGroupRefs,omitempty" tf:"-"`
 
 	// Selector for a list of SecgroupV2 in compute to populate securityGroups.
 	// +kubebuilder:validation:Optional
-	ComputeSecurityGroupIDSelector *v1.NamespacedSelector `json:"computeSecurityGroupIdSelector,omitempty" tf:"-"`
+	ComputeSecurityGroupSelector *v1.NamespacedSelector `json:"computeSecurityGroupSelector,omitempty" tf:"-"`
 
 	// An array of one or more data disks to attach to the
 	// instance. The data_disks object structure is documented below. Changing this
@@ -172,8 +172,8 @@ type InstanceV1InitParameters struct {
 	// to associate with the server. If this parameter is left blank, the default
 	// security group is bound to the ECS by default.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/compute/v1alpha1.SecgroupV2
-	// +crossplane:generate:reference:refFieldName=ComputeSecurityGroupIDRefs
-	// +crossplane:generate:reference:selectorFieldName=ComputeSecurityGroupIDSelector
+	// +crossplane:generate:reference:refFieldName=ComputeSecurityGroupRefs
+	// +crossplane:generate:reference:selectorFieldName=ComputeSecurityGroupSelector
 	// +listType=set
 	SecurityGroups []*string `json:"securityGroups,omitempty" tf:"security_groups,omitempty"`
 
@@ -329,11 +329,11 @@ type InstanceV1Parameters struct {
 
 	// References to SecgroupV2 in compute to populate securityGroups.
 	// +kubebuilder:validation:Optional
-	ComputeSecurityGroupIDRefs []v1.NamespacedReference `json:"computeSecurityGroupIdRefs,omitempty" tf:"-"`
+	ComputeSecurityGroupRefs []v1.NamespacedReference `json:"computeSecurityGroupRefs,omitempty" tf:"-"`
 
 	// Selector for a list of SecgroupV2 in compute to populate securityGroups.
 	// +kubebuilder:validation:Optional
-	ComputeSecurityGroupIDSelector *v1.NamespacedSelector `json:"computeSecurityGroupIdSelector,omitempty" tf:"-"`
+	ComputeSecurityGroupSelector *v1.NamespacedSelector `json:"computeSecurityGroupSelector,omitempty" tf:"-"`
 
 	// An array of one or more data disks to attach to the
 	// instance. The data_disks object structure is documented below. Changing this
@@ -405,8 +405,8 @@ type InstanceV1Parameters struct {
 	// to associate with the server. If this parameter is left blank, the default
 	// security group is bound to the ECS by default.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/compute/v1alpha1.SecgroupV2
-	// +crossplane:generate:reference:refFieldName=ComputeSecurityGroupIDRefs
-	// +crossplane:generate:reference:selectorFieldName=ComputeSecurityGroupIDSelector
+	// +crossplane:generate:reference:refFieldName=ComputeSecurityGroupRefs
+	// +crossplane:generate:reference:selectorFieldName=ComputeSecurityGroupSelector
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	SecurityGroups []*string `json:"securityGroups,omitempty" tf:"security_groups,omitempty"`

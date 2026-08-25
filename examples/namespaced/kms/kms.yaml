@@ -1,38 +1,3 @@
-apiVersion: identity.opentelekomcloud.m.crossplane.io/v1alpha1
-kind: UserV3
-metadata:
-  annotations:
-    meta.upbound.io/example-id: identity/v1alpha1/userv3
-  labels:
-    testing.upbound.io/example-name: user_test
-  name: kms-usr-${Rand.RFC1123Subdomain}
-  namespace: test
-spec:
-  forProvider:
-    name: kms-usr-${Rand.RFC1123Subdomain}
-    passwordSecretRef:
-      key: example-key
-      name: example-secret
----
-apiVersion: kms.opentelekomcloud.m.crossplane.io/v1alpha1
-kind: KeyV1
-metadata:
-  annotations:
-    meta.upbound.io/example-id: kms/v1alpha1/keyv1
-  labels:
-    testing.upbound.io/example-name: key_test
-  name: kms-key-${Rand.RFC1123Subdomain}
-  namespace: test
-spec:
-  forProvider:
-    isEnabled: true
-    keyAlias: kms-key-${Rand.RFC1123Subdomain}
-    keyDescription: first test key
-    pendingDays: "7"
-    realm: eu-de
-    tags:
-      muh: kuh
----
 apiVersion: kms.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: GrantV1
 metadata:
@@ -40,7 +5,7 @@ metadata:
     meta.upbound.io/example-id: kms/v1alpha1/grantv1
   labels:
     testing.upbound.io/example-name: grant_1
-  name: grant-1
+  name: kms-grt-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:

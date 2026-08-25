@@ -182,11 +182,11 @@ type InstanceV3InitParameters struct {
 
 	// Reference to a SecgroupV2 in compute to populate securityGroupId.
 	// +kubebuilder:validation:Optional
-	ComputeSecurityGroupIDRefs *v1.NamespacedReference `json:"computeSecurityGroupIdRefs,omitempty" tf:"-"`
+	ComputeSecurityGroupRefs *v1.NamespacedReference `json:"computeSecurityGroupRefs,omitempty" tf:"-"`
 
 	// Selector for a SecgroupV2 in compute to populate securityGroupId.
 	// +kubebuilder:validation:Optional
-	ComputeSecurityGroupIDSelector *v1.NamespacedSelector `json:"computeSecurityGroupIdSelector,omitempty" tf:"-"`
+	ComputeSecurityGroupSelector *v1.NamespacedSelector `json:"computeSecurityGroupSelector,omitempty" tf:"-"`
 
 	// Specifies the database information. Structure is documented below. Changing this parameter will create a new resource.
 	DB []DBInitParameters `json:"db,omitempty" tf:"db,omitempty"`
@@ -268,8 +268,8 @@ type InstanceV3InitParameters struct {
 	// Specifies the security group which the RDS DB instance belongs to.
 	// Changing this parameter will create a new resource.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/compute/v1alpha1.SecgroupV2
-	// +crossplane:generate:reference:refFieldName=ComputeSecurityGroupIDRefs
-	// +crossplane:generate:reference:selectorFieldName=ComputeSecurityGroupIDSelector
+	// +crossplane:generate:reference:refFieldName=ComputeSecurityGroupRefs
+	// +crossplane:generate:reference:selectorFieldName=ComputeSecurityGroupSelector
 	SecurityGroupID *string `json:"securityGroupId,omitempty" tf:"security_group_id,omitempty"`
 
 	// Specifies the subnet id. Changing this parameter will create a new resource.
@@ -449,11 +449,11 @@ type InstanceV3Parameters struct {
 
 	// Reference to a SecgroupV2 in compute to populate securityGroupId.
 	// +kubebuilder:validation:Optional
-	ComputeSecurityGroupIDRefs *v1.NamespacedReference `json:"computeSecurityGroupIdRefs,omitempty" tf:"-"`
+	ComputeSecurityGroupRefs *v1.NamespacedReference `json:"computeSecurityGroupRefs,omitempty" tf:"-"`
 
 	// Selector for a SecgroupV2 in compute to populate securityGroupId.
 	// +kubebuilder:validation:Optional
-	ComputeSecurityGroupIDSelector *v1.NamespacedSelector `json:"computeSecurityGroupIdSelector,omitempty" tf:"-"`
+	ComputeSecurityGroupSelector *v1.NamespacedSelector `json:"computeSecurityGroupSelector,omitempty" tf:"-"`
 
 	// Specifies the database information. Structure is documented below. Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
@@ -548,8 +548,8 @@ type InstanceV3Parameters struct {
 	// Specifies the security group which the RDS DB instance belongs to.
 	// Changing this parameter will create a new resource.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/compute/v1alpha1.SecgroupV2
-	// +crossplane:generate:reference:refFieldName=ComputeSecurityGroupIDRefs
-	// +crossplane:generate:reference:selectorFieldName=ComputeSecurityGroupIDSelector
+	// +crossplane:generate:reference:refFieldName=ComputeSecurityGroupRefs
+	// +crossplane:generate:reference:selectorFieldName=ComputeSecurityGroupSelector
 	// +kubebuilder:validation:Optional
 	SecurityGroupID *string `json:"securityGroupId,omitempty" tf:"security_group_id,omitempty"`
 

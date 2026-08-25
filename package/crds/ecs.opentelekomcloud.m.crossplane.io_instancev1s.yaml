@@ -65,7 +65,7 @@ spec:
                   availabilityZone:
                     description: The availability zone in which to create the server.
                     type: string
-                  computeSecurityGroupIdRefs:
+                  computeSecurityGroupRefs:
                     description: References to SecgroupV2 in compute to populate securityGroups.
                     items:
                       description: A NamespacedReference to a named object.
@@ -105,7 +105,7 @@ spec:
                       - name
                       type: object
                     type: array
-                  computeSecurityGroupIdSelector:
+                  computeSecurityGroupSelector:
                     description: Selector for a list of SecgroupV2 in compute to populate
                       securityGroups.
                     properties:
@@ -739,7 +739,7 @@ spec:
                   availabilityZone:
                     description: The availability zone in which to create the server.
                     type: string
-                  computeSecurityGroupIdRefs:
+                  computeSecurityGroupRefs:
                     description: References to SecgroupV2 in compute to populate securityGroups.
                     items:
                       description: A NamespacedReference to a named object.
@@ -779,7 +779,7 @@ spec:
                       - name
                       type: object
                     type: array
-                  computeSecurityGroupIdSelector:
+                  computeSecurityGroupSelector:
                     description: Selector for a list of SecgroupV2 in compute to populate
                       securityGroups.
                     properties:

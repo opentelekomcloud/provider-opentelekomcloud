@@ -5,7 +5,7 @@ metadata:
     meta.upbound.io/example-id: vpc/v1alpha1/secondarycidrv3
   labels:
     testing.upbound.io/example-name: secondary
-  name: secondary
+  name: vpc-sc-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
@@ -25,9 +25,9 @@ metadata:
     meta.upbound.io/example-id: vpc/v1alpha1/secondarycidrv3
   labels:
     testing.upbound.io/example-name: vpc
-  name: vpc
+  name: vpc-vpc-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     cidr: 192.168.0.0/16
-    name: crossplane-vpc
+    name: vpc-vpc-${Rand.RFC1123Subdomain}

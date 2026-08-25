@@ -183,15 +183,15 @@ func (in *InstanceV1InitParameters) DeepCopyInto(out *InstanceV1InitParameters) 
 		*out = new(string)
 		**out = **in
 	}
-	if in.ComputeSecurityGroupIDRefs != nil {
-		in, out := &in.ComputeSecurityGroupIDRefs, &out.ComputeSecurityGroupIDRefs
+	if in.ComputeSecurityGroupRefs != nil {
+		in, out := &in.ComputeSecurityGroupRefs, &out.ComputeSecurityGroupRefs
 		*out = make([]v1.NamespacedReference, len(*in))
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
-	if in.ComputeSecurityGroupIDSelector != nil {
-		in, out := &in.ComputeSecurityGroupIDSelector, &out.ComputeSecurityGroupIDSelector
+	if in.ComputeSecurityGroupSelector != nil {
+		in, out := &in.ComputeSecurityGroupSelector, &out.ComputeSecurityGroupSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -569,15 +569,15 @@ func (in *InstanceV1Parameters) DeepCopyInto(out *InstanceV1Parameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.ComputeSecurityGroupIDRefs != nil {
-		in, out := &in.ComputeSecurityGroupIDRefs, &out.ComputeSecurityGroupIDRefs
+	if in.ComputeSecurityGroupRefs != nil {
+		in, out := &in.ComputeSecurityGroupRefs, &out.ComputeSecurityGroupRefs
 		*out = make([]v1.NamespacedReference, len(*in))
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
-	if in.ComputeSecurityGroupIDSelector != nil {
-		in, out := &in.ComputeSecurityGroupIDSelector, &out.ComputeSecurityGroupIDSelector
+	if in.ComputeSecurityGroupSelector != nil {
+		in, out := &in.ComputeSecurityGroupSelector, &out.ComputeSecurityGroupSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}

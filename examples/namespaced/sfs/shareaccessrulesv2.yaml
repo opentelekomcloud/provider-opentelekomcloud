@@ -5,7 +5,7 @@ metadata:
     meta.upbound.io/example-id: sfs/v1alpha1/shareaccessrulesv2
   labels:
     testing.upbound.io/example-name: sfs_rules
-  name: sfs-rules
+  name: sfs-ar-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:

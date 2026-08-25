@@ -5,7 +5,7 @@ metadata:
     meta.upbound.io/example-id: vpc/v1alpha1/ipaddressgroupv3
   labels:
     testing.upbound.io/example-name: group_1
-  name: group-1
+  name: vpc-ig-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:

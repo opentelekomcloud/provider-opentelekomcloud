@@ -5,12 +5,12 @@ metadata:
     meta.upbound.io/example-id: vpc/v1alpha1/v1
   labels:
     testing.upbound.io/example-name: sample-instance
-  name: sample-instance
+  name: nat-vpc-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     cidr: "192.168.0.0/16"
-    name: crossplane-vpc
+    name: nat-vpc-${Rand.RFC1123Subdomain}
     tags:
       managed-by: crossplane
 ---
@@ -21,13 +21,13 @@ metadata:
     meta.upbound.io/example-id: vpc/v1alpha1/subnetv1
   labels:
     testing.upbound.io/example-name: sample-instance
-  name: sample-instance
+  name: nat-stn-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     cidr: "192.168.0.0/16"
     gatewayIp: "192.168.0.1"
-    name: crossplane-subnet
+    name: nat-stn-${Rand.RFC1123Subdomain}
     ntpAddresses: "10.100.0.33,10.100.0.34"
     vpcSelector:
       matchLabels:
@@ -43,7 +43,7 @@ metadata:
     meta.upbound.io/example-id: nat/v1alpha1/gatewayv2
   labels:
     testing.upbound.io/example-name: sample-instance
-  name: sample-instance
+  name: nat-gw-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
@@ -51,7 +51,7 @@ spec:
     internalNetworkSelector:
       matchLabels:
         testing.upbound.io/example-name: sample-instance
-    name: crossplane-nat
+    name: nat-gw-${Rand.RFC1123Subdomain}
     vpcSelector:
       matchLabels:
         testing.upbound.io/example-name: sample-instance
@@ -67,13 +67,13 @@ metadata:
     meta.upbound.io/example-id: vpc/v1alpha1/eipv1
   labels:
     testing.upbound.io/example-name: sample-eip-01
-  name: sample-eip-01
+  name: nat-eip-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     bandwidth:
       - chargeMode: traffic
-        name: crossplane-eip-01
+        name: nat-eip-${Rand.RFC1123Subdomain}
         shareType: PER
         size: 8
     publicip:
@@ -87,13 +87,13 @@ metadata:
     meta.upbound.io/example-id: vpc/v1alpha1/eipv1
   labels:
     testing.upbound.io/example-name: sample-eip-02
-  name: sample-eip-02
+  name: nat-eip-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     bandwidth:
       - chargeMode: traffic
-        name: crossplane-eip-01
+        name: nat-eip-${Rand.RFC1123Subdomain}
         shareType: PER
         size: 8
     publicip:
@@ -107,7 +107,7 @@ metadata:
     meta.upbound.io/example-id: nat/v1alpha1/dnatrulev2
   labels:
     testing.upbound.io/example-name: sample-dnat-rule
-  name: sample-dnat-rule
+  name: nat-dnat-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
@@ -130,7 +130,7 @@ metadata:
     meta.upbound.io/example-id: nat/v1alpha1/snatrulev2
   labels:
     testing.upbound.io/example-name: sample-snat-rule
-  name: sample-snat-rule
+  name: nat-snat-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:

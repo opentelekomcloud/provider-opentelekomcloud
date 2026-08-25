@@ -15,7 +15,7 @@ spec:
     - keepDays: 1
       period: 1,2,3,4,5
       startTime: 08:00-09:00
-    computeSecurityGroupIdSelector:
+    computeSecurityGroupSelector:
       matchLabels:
         testing.upbound.io/example-name: secgroup
     db:

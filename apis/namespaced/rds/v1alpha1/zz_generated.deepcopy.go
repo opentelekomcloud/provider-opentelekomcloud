@@ -655,13 +655,13 @@ func (in *InstanceV3InitParameters) DeepCopyInto(out *InstanceV3InitParameters) 
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
-	if in.ComputeSecurityGroupIDRefs != nil {
-		in, out := &in.ComputeSecurityGroupIDRefs, &out.ComputeSecurityGroupIDRefs
+	if in.ComputeSecurityGroupRefs != nil {
+		in, out := &in.ComputeSecurityGroupRefs, &out.ComputeSecurityGroupRefs
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.ComputeSecurityGroupIDSelector != nil {
-		in, out := &in.ComputeSecurityGroupIDSelector, &out.ComputeSecurityGroupIDSelector
+	if in.ComputeSecurityGroupSelector != nil {
+		in, out := &in.ComputeSecurityGroupSelector, &out.ComputeSecurityGroupSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -1153,13 +1153,13 @@ func (in *InstanceV3Parameters) DeepCopyInto(out *InstanceV3Parameters) {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
-	if in.ComputeSecurityGroupIDRefs != nil {
-		in, out := &in.ComputeSecurityGroupIDRefs, &out.ComputeSecurityGroupIDRefs
+	if in.ComputeSecurityGroupRefs != nil {
+		in, out := &in.ComputeSecurityGroupRefs, &out.ComputeSecurityGroupRefs
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.ComputeSecurityGroupIDSelector != nil {
-		in, out := &in.ComputeSecurityGroupIDSelector, &out.ComputeSecurityGroupIDSelector
+	if in.ComputeSecurityGroupSelector != nil {
+		in, out := &in.ComputeSecurityGroupSelector, &out.ComputeSecurityGroupSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}

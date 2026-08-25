@@ -5,7 +5,7 @@ metadata:
     meta.upbound.io/example-id: swr/v1alpha1/domainv2
   labels:
     testing.upbound.io/example-name: domain_1
-  name: domain-1
+  name: swr-dom-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:

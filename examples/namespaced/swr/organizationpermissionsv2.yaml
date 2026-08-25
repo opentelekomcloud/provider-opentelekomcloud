@@ -5,7 +5,7 @@ metadata:
     meta.upbound.io/example-id: swr/v1alpha1/organizationpermissionsv2
   labels:
     testing.upbound.io/example-name: user_1
-  name: user-1
+  name: swr-op-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:

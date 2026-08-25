@@ -84,8 +84,8 @@ func (mg *InstanceV1) ResolveReferences(ctx context.Context, c client.Reader) er
 		CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.SecurityGroups),
 		Extract:       reference.ExternalName(),
 		Namespace:     mg.GetNamespace(),
-		References:    mg.Spec.ForProvider.ComputeSecurityGroupIDRefs,
-		Selector:      mg.Spec.ForProvider.ComputeSecurityGroupIDSelector,
+		References:    mg.Spec.ForProvider.ComputeSecurityGroupRefs,
+		Selector:      mg.Spec.ForProvider.ComputeSecurityGroupSelector,
 		To: reference.To{
 			List:    &v1alpha11.SecgroupV2List{},
 			Managed: &v1alpha11.SecgroupV2{},
@@ -95,7 +95,7 @@ func (mg *InstanceV1) ResolveReferences(ctx context.Context, c client.Reader) er
 		return errors.Wrap(err, "mg.Spec.ForProvider.SecurityGroups")
 	}
 	mg.Spec.ForProvider.SecurityGroups = reference.ToPtrValues(mrsp.ResolvedValues)
-	mg.Spec.ForProvider.ComputeSecurityGroupIDRefs = mrsp.ResolvedReferences
+	mg.Spec.ForProvider.ComputeSecurityGroupRefs = mrsp.ResolvedReferences
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.SystemDiskKMSID),
@@ -190,8 +190,8 @@ func (mg *InstanceV1) ResolveReferences(ctx context.Context, c client.Reader) er
 		CurrentValues: reference.FromPtrValues(mg.Spec.InitProvider.SecurityGroups),
 		Extract:       reference.ExternalName(),
 		Namespace:     mg.GetNamespace(),
-		References:    mg.Spec.InitProvider.ComputeSecurityGroupIDRefs,
-		Selector:      mg.Spec.InitProvider.ComputeSecurityGroupIDSelector,
+		References:    mg.Spec.InitProvider.ComputeSecurityGroupRefs,
+		Selector:      mg.Spec.InitProvider.ComputeSecurityGroupSelector,
 		To: reference.To{
 			List:    &v1alpha11.SecgroupV2List{},
 			Managed: &v1alpha11.SecgroupV2{},
@@ -201,7 +201,7 @@ func (mg *InstanceV1) ResolveReferences(ctx context.Context, c client.Reader) er
 		return errors.Wrap(err, "mg.Spec.InitProvider.SecurityGroups")
 	}
 	mg.Spec.InitProvider.SecurityGroups = reference.ToPtrValues(mrsp.ResolvedValues)
-	mg.Spec.InitProvider.ComputeSecurityGroupIDRefs = mrsp.ResolvedReferences
+	mg.Spec.InitProvider.ComputeSecurityGroupRefs = mrsp.ResolvedReferences
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.SystemDiskKMSID),

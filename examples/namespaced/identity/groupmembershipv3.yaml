@@ -5,7 +5,7 @@ metadata:
     meta.upbound.io/example-id: identity/v1alpha1/groupmembershipv3
   labels:
     testing.upbound.io/example-name: membership_1
-  name: membership-1
+  name: iam-gm-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
@@ -15,64 +15,3 @@ spec:
     usersSelector:
       matchLabels:
         testing.upbound.io/example-name: user_group_1
-
----
-apiVersion: identity.opentelekomcloud.m.crossplane.io/v1alpha1
-kind: GroupV3
-metadata:
-  annotations:
-    meta.upbound.io/example-id: identity/v1alpha1/groupmembershipv3
-  labels:
-    testing.upbound.io/example-name: group_1
-  name: iam-grp-${Rand.RFC1123Subdomain}
-  namespace: test
-spec:
-  forProvider:
-    description: crossplane
-    name: iam-grp-${Rand.RFC1123Subdomain}
-
----
-apiVersion: identity.opentelekomcloud.m.crossplane.io/v1alpha1
-kind: UserV3
-metadata:
-  annotations:
-    meta.upbound.io/example-id: identity/v1alpha1/groupmembershipv3
-  labels:
-    testing.upbound.io/example-name: user_group_1
-  name: iam-usr-${Rand.RFC1123Subdomain}
-  namespace: test
-spec:
-  forProvider:
-    enabled: true
-    name: iam-usr-${Rand.RFC1123Subdomain}
-    passwordSecretRef:
-      key: example-key
-      name: example-secret
-
----
-apiVersion: identity.opentelekomcloud.m.crossplane.io/v1alpha1
-kind: UserV3
-metadata:
-  annotations:
-    meta.upbound.io/example-id: identity/v1alpha1/groupmembershipv3
-  labels:
-    testing.upbound.io/example-name: user_group_1
-  name: iam-usr-${Rand.RFC1123Subdomain}
-  namespace: test
-spec:
-  forProvider:
-    enabled: true
-    name: iam-usr-${Rand.RFC1123Subdomain}
-    passwordSecretRef:
-      key: example-key
-      name: example-secret
-
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: example-secret
-  namespace: test
-type: Opaque
-data:
-  example-key: ${data.userKey}

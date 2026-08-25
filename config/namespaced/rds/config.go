@@ -13,8 +13,8 @@ func Configure(p *config.Provider) {
 		r.UseAsync = true
 		r.References["security_group_id"] = config.Reference{
 			TerraformName:     "opentelekomcloud_compute_secgroup_v2",
-			RefFieldName:      "ComputeSecurityGroupIDRefs",
-			SelectorFieldName: "ComputeSecurityGroupIDSelector",
+			RefFieldName:      "ComputeSecurityGroupRefs",
+			SelectorFieldName: "ComputeSecurityGroupSelector",
 		}
 		r.References["vpc_id"] = config.Reference{
 			TerraformName:     "opentelekomcloud_vpc_v1",

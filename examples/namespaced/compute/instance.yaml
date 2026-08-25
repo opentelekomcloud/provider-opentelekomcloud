@@ -52,7 +52,7 @@ metadata:
     meta.upbound.io/example-id: networking/v1alpha1/routerinterfacev2
   labels:
     testing.upbound.io/example-name: router_interface
-  name: router-interface
+  name: com-ri-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
@@ -71,7 +71,7 @@ metadata:
     meta.upbound.io/example-id: compute/v1alpha1/floatingipassociatev2
   labels:
     testing.upbound.io/example-name: fip_1
-  name: fip-1
+  name: com-fip-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
@@ -109,7 +109,7 @@ metadata:
     meta.upbound.io/example-id: compute/v1alpha1/floatingipassociatev2
   labels:
     testing.upbound.io/example-name: fip_1
-  name: fip-1
+  name: com-fip-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:

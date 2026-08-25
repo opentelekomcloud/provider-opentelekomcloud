@@ -96,7 +96,7 @@ spec:
                           type: string
                       type: object
                     type: array
-                  computeSecurityGroupIdRefs:
+                  computeSecurityGroupRefs:
                     description: Reference to a SecgroupV2 in compute to populate
                       securityGroupId.
                     properties:
@@ -134,7 +134,7 @@ spec:
                     required:
                     - name
                     type: object
-                  computeSecurityGroupIdSelector:
+                  computeSecurityGroupSelector:
                     description: Selector for a SecgroupV2 in compute to populate
                       securityGroupId.
                     properties:
@@ -768,7 +768,7 @@ spec:
                           type: string
                       type: object
                     type: array
-                  computeSecurityGroupIdRefs:
+                  computeSecurityGroupRefs:
                     description: Reference to a SecgroupV2 in compute to populate
                       securityGroupId.
                     properties:
@@ -806,7 +806,7 @@ spec:
                     required:
                     - name
                     type: object
-                  computeSecurityGroupIdSelector:
+                  computeSecurityGroupSelector:
                     description: Selector for a SecgroupV2 in compute to populate
                       securityGroupId.
                     properties:

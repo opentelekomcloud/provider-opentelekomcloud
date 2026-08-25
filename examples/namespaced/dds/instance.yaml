@@ -15,12 +15,12 @@ metadata:
     meta.upbound.io/example-id: vpc/v1alpha1/v1
   labels:
     testing.upbound.io/example-name: sample-dds-instance
-  name: sample-dds-instance
+  name: dds-vpc-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     cidr: "192.168.0.0/16"
-    name: crossplane-vpc
+    name: dds-vpc-${Rand.RFC1123Subdomain}
     tags:
       managed-by: crossplane
 ---
@@ -31,13 +31,13 @@ metadata:
     meta.upbound.io/example-id: vpc/v1alpha1/subnetv1
   labels:
     testing.upbound.io/example-name: sample-dds-instance
-  name: sample-dds-instance
+  name: dds-stn-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     cidr: "192.168.0.0/16"
     gatewayIp: "192.168.0.1"
-    name: crossplane-subnet
+    name: dds-stn-${Rand.RFC1123Subdomain}
     ntpAddresses: "10.100.0.33,10.100.0.34"
     vpcSelector:
       matchLabels:
@@ -53,12 +53,12 @@ metadata:
     meta.upbound.io/example-id: compute/v1alpha1/secgroupv2
   labels:
     testing.upbound.io/example-name: sample-dds-instance
-  name: sample-dds-instance
+  name: dds-sg-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     description: crossplane security group
-    name: crossplane-sg
+    name: dds-sg-${Rand.RFC1123Subdomain}
     rule:
       - cidr: 0.0.0.0/0
         fromPort: 22
@@ -81,7 +81,7 @@ metadata:
     meta.upbound.io/example-id: dds/v1alpha1/instancev3
   labels:
     testing.upbound.io/example-name: sample-dds-instance
-  name: sample-dds-instance
+  name: dds-ins-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
@@ -97,7 +97,7 @@ spec:
         storage: ULTRAHIGH
         type: replica
     mode: ReplicaSet
-    name: crossplane-dds-instance
+    name: dds-ins-${Rand.RFC1123Subdomain}
     passwordSecretRef:
       key: example-dds-key
       name: example-dds-password
@@ -121,11 +121,11 @@ metadata:
     meta.upbound.io/example-id: dds/v1alpha1/backupv3
   labels:
     testing.upbound.io/example-name: sample-dds-backup
-  name: sample-dds-backup
+  name: dds-bkp-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     instanceSelector:
       matchLabels:
         testing.upbound.io/example-name: sample-dds-instance
-    name: crossplane-dds-backup
+    name: dds-bkp-${Rand.RFC1123Subdomain}

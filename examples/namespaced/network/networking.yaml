@@ -1,59 +1,11 @@
 apiVersion: networking.opentelekomcloud.m.crossplane.io/v1alpha1
-kind: NetworkV2
-metadata:
-  annotations:
-    meta.upbound.io/example-id: networking/v1alpha1/routerinterfacev2
-  labels:
-    testing.upbound.io/example-name: sample-network
-  name: ntw-net-${Rand.RFC1123Subdomain}
-  namespace: test
-spec:
-  forProvider:
-    adminStateUp: "true"
-    name: ntw-net-${Rand.RFC1123Subdomain}
-
----
-apiVersion: networking.opentelekomcloud.m.crossplane.io/v1alpha1
-kind: RouterV2
-metadata:
-  annotations:
-    meta.upbound.io/example-id: networking/v1alpha1/routerinterfacev2
-  labels:
-    testing.upbound.io/example-name: sample-router
-  name: ntw-rtr-${Rand.RFC1123Subdomain}
-  namespace: test
-spec:
-  forProvider:
-    name: ntw-rtr-${Rand.RFC1123Subdomain}
-
----
-apiVersion: networking.opentelekomcloud.m.crossplane.io/v1alpha1
-kind: SubnetV2
-metadata:
-  annotations:
-    meta.upbound.io/example-id: networking/v1alpha1/routerinterfacev2
-  labels:
-    testing.upbound.io/example-name: sample-subnet
-  name: ntw-stn-${Rand.RFC1123Subdomain}
-  namespace: test
-spec:
-  forProvider:
-    name: ntw-stn-${Rand.RFC1123Subdomain}
-    cidr: 192.168.199.0/24
-    ipVersion: 4
-    networkSelector:
-      matchLabels:
-        testing.upbound.io/example-name: sample-network
-
----
-apiVersion: networking.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: RouterInterfaceV2
 metadata:
   annotations:
     meta.upbound.io/example-id: networking/v1alpha1/routerinterfacev2
   labels:
     testing.upbound.io/example-name: router_interface
-  name: router-interface
+  name: ntw-ri-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
