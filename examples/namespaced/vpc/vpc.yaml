@@ -7,15 +7,15 @@ metadata:
     testing.upbound.io/example-name: vpc-vpc-secondary
   name: vpc-sc-${Rand.RFC1123Subdomain}
   namespace: test
-  spec:
-    forProvider:
-      cidrs:
-        - 23.9.0.0/16
-        - 23.10.0.0/16
-        - 23.11.0.0/16
-      vpcSelector:
-        matchLabels:
-          testing.upbound.io/example-name: vpc-vpc-main
+spec:
+  forProvider:
+    cidrs:
+      - 23.9.0.0/16
+      - 23.10.0.0/16
+      - 23.11.0.0/16
+    vpcSelector:
+      matchLabels:
+        testing.upbound.io/example-name: vpc-vpc-main
 
 ---
 apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
@@ -31,3 +31,4 @@ spec:
   forProvider:
     cidr: 192.168.0.0/16
     name: vpc-vpc-${Rand.RFC1123Subdomain}
+
