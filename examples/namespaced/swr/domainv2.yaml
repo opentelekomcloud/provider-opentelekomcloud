@@ -11,11 +11,45 @@ spec:
   forProvider:
     organizationSelector:
       matchLabels:
-        testing.upbound.io/example-name: swr-org
+        testing.upbound.io/example-name: swr-dom-org
     repositorySelector:
       matchLabels:
-        testing.upbound.io/example-name: swr-repo
+        testing.upbound.io/example-name: swr-dom-repo
     accessDomain: ${data.swrAccessDomain}
     permission: read
     deadline: forever
     description: "crossplane managed domainv2"
+
+---
+apiVersion: swr.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: RepositoryV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: swr/v1alpha1/repositoryv2
+  labels:
+    testing.upbound.io/example-name: swr-dom-repo
+  name: swr-rep-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    organizationSelector:
+      matchLabels:
+        testing.upbound.io/example-name: swr-dom-org
+    name: swr-rep-${Rand.RFC1123Subdomain}
+    isPublic: false
+    description: "crossplane managed repositoryv2"
+    category: linux
+
+---
+apiVersion: swr.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: OrganizationV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: swr/v1alpha1/organizationv2
+  labels:
+    testing.upbound.io/example-name: swr-dom-org
+  name: swr-org-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    name: swr-org-${Rand.RFC1123Subdomain}
