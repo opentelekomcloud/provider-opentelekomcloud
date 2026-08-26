@@ -119,7 +119,7 @@ spec:
         version: "15"
     flavor: rds.pg.n1.large.2
     name: rds-ins-${Rand.RFC1123Subdomain}
-    computeSecurityGroupIDSelector:
+    computeSecurityGroupSelector:
       matchLabels:
         testing.upbound.io/example-name: sample-rds-instance
     subnetSelector:
@@ -136,3 +136,4 @@ spec:
     publicIpsSelector:
       matchLabels:
         testing.upbound.io/example-name: sample-rds-instance
+
