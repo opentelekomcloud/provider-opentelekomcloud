@@ -57,7 +57,7 @@ metadata:
   namespace: test
 spec:
   forProvider:
-    vpcSelector:
+    routerSelector:
       matchLabels:
         testing.upbound.io/example-name: net-router
     subnetSelector:
