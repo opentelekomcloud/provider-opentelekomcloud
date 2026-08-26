@@ -51,8 +51,9 @@ spec:
     ipTargetEnable: true
     availabilityZones:
       - eu-de-01
-    networkRef:
-      - name: sample-lb
+    networkSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sample-lb
     vpcSelector:
       matchLabels:
         testing.upbound.io/example-name: sample-lb

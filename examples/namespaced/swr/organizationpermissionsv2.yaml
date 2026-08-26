@@ -12,9 +12,6 @@ spec:
     organizationSelector:
       matchLabels:
         testing.upbound.io/example-name: test-org-1
-    usernameSelector:
-      matchLabels:
-        testing.upbound.io/example-name: swr_op
     userSelector:
       matchLabels:
         testing.upbound.io/example-name: swr_op
@@ -33,3 +30,4 @@ metadata:
 spec:
   forProvider:
     name: swr-usr-${Rand.RFC1123Subdomain}
+
