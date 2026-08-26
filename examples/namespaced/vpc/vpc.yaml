@@ -4,18 +4,18 @@ metadata:
   annotations:
     meta.upbound.io/example-id: vpc/v1alpha1/secondarycidrv3
   labels:
-    testing.upbound.io/example-name: secondary
+    testing.upbound.io/example-name: vpc-vpc-secondary
   name: vpc-sc-${Rand.RFC1123Subdomain}
   namespace: test
-spec:
-  forProvider:
-    cidrs:
-      - 23.9.0.0/16
-      - 23.10.0.0/16
-      - 23.11.0.0/16
-    vpcSelector:
-      matchLabels:
-        testing.upbound.io/example-name: vpc
+  spec:
+    forProvider:
+      cidrs:
+        - 23.9.0.0/16
+        - 23.10.0.0/16
+        - 23.11.0.0/16
+      vpcSelector:
+        matchLabels:
+          testing.upbound.io/example-name: vpc-vpc-main
 
 ---
 apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
@@ -24,7 +24,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: vpc/v1alpha1/secondarycidrv3
   labels:
-    testing.upbound.io/example-name: vpc
+    testing.upbound.io/example-name: vpc-vpc-main
   name: vpc-vpc-${Rand.RFC1123Subdomain}
   namespace: test
 spec:

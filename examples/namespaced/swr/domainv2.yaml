@@ -4,17 +4,17 @@ metadata:
   annotations:
     meta.upbound.io/example-id: swr/v1alpha1/domainv2
   labels:
-    testing.upbound.io/example-name: domain_1
+    testing.upbound.io/example-name: swr-domain
   name: swr-dom-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     organizationSelector:
       matchLabels:
-        testing.upbound.io/example-name: test-org-1
+        testing.upbound.io/example-name: swr-org
     repositorySelector:
       matchLabels:
-        testing.upbound.io/example-name: test-repo_1
+        testing.upbound.io/example-name: swr-repo
     accessDomain: ${data.swrAccessDomain}
     permission: read
     deadline: forever

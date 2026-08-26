@@ -4,7 +4,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: identity/v1alpha1/userv3
   labels:
-    testing.upbound.io/example-name: user_1
+    testing.upbound.io/example-name: identity-user
   name: iam-usr-${Rand.RFC1123Subdomain}
   namespace: test
 spec:

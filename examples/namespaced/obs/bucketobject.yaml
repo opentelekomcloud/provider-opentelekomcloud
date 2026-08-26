@@ -4,14 +4,14 @@ metadata:
   annotations:
     meta.upbound.io/example-id: obs/v1alpha1/bucketobject
   labels:
-    testing.upbound.io/example-name: object
+    testing.upbound.io/example-name: obs-object
   name: obs-bobj-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     bucketSelector:
       matchLabels:
-        testing.upbound.io/example-name: b
+        testing.upbound.io/example-name: obs-object-bucket
     content: |
       {"provider_name": "t_cloud_public"}
     contentType: application/json
@@ -25,7 +25,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: obs/v1alpha1/bucket
   labels:
-    testing.upbound.io/example-name: b
+    testing.upbound.io/example-name: obs-object-bucket
   name: obs-bkt-${Rand.RFC1123Subdomain}
   namespace: test
 spec:

@@ -4,7 +4,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: vpc/v1alpha1/v1
   labels:
-    testing.upbound.io/example-name: sample-lb
+    testing.upbound.io/example-name: lb-lb-vpc
   name: lb-vpc-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
@@ -20,7 +20,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: vpc/v1alpha1/subnetv1
   labels:
-    testing.upbound.io/example-name: sample-lb
+    testing.upbound.io/example-name: lb-lb-subnet
   name: lb-stn-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
@@ -31,7 +31,7 @@ spec:
     ntpAddresses: "10.100.0.33,10.100.0.34"
     vpcSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-lb
+        testing.upbound.io/example-name: lb-lb-vpc
     tags:
       managed-by: crossplane
 
@@ -42,7 +42,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: vpc/v1alpha1/eipv1
   labels:
-    testing.upbound.io/example-name: sample-lb
+    testing.upbound.io/example-name: lb-lb-eip
   name: lb-eip-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
@@ -62,7 +62,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: lb/v1alpha1/loadbalancerv3
   labels:
-    testing.upbound.io/example-name: sample-lb
+    testing.upbound.io/example-name: lb-lb
   name: lb-lb-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
@@ -72,13 +72,13 @@ spec:
       - eu-de-01
     networkSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-lb
+        testing.upbound.io/example-name: lb-lb-subnet
     vpcSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-lb
+        testing.upbound.io/example-name: lb-lb-vpc
     publicIp:
       - idSelector:
           matchLabels:
-            testing.upbound.io/example-name: sample-lb
+            testing.upbound.io/example-name: lb-lb-eip
     tags:
       managed-by: crossplane

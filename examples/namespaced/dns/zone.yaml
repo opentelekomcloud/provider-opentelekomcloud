@@ -4,7 +4,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: vpc/v1alpha1/v1
   labels:
-    testing.upbound.io/example-name: sample-dns-instance
+    testing.upbound.io/example-name: dns-vpc
   name: dns-vpc-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
@@ -21,7 +21,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: dns/v1alpha1/zonev2
   labels:
-    testing.upbound.io/example-name: sample-dns-zone-private
+    testing.upbound.io/example-name: dns-zone-private
   name: dns-zn-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
@@ -32,7 +32,7 @@ spec:
     router:
       - vpcSelector:
           matchLabels:
-            testing.upbound.io/example-name: sample-dns-instance
+            testing.upbound.io/example-name: dns-vpc
         routerRegion: eu-de
     tags:
       managed-by: crossplane
@@ -46,12 +46,12 @@ metadata:
   annotations:
     meta.upbound.io/example-id: dns/v1alpha1/zonev2
   labels:
-    testing.upbound.io/example-name: sample-dns-zone-public
+    testing.upbound.io/example-name: dns-zone-public
   name: dns-zn-${Rand.RFC1123Subdomain}
   namespace: test
-spec:
-  forProvider:
-    description: Crossplane example for public zone
+  spec:
+    forProvider:
+      description: Crossplane example for public zone
     email: crossplane@pub-example.com
     name: crossplane.pub-example.com.
     tags:
@@ -66,7 +66,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: dns/v1alpha1/recordsetv2
   labels:
-    testing.upbound.io/example-name: sample-a-record
+    testing.upbound.io/example-name: dns-record-a
   name: dns-rs-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
@@ -79,7 +79,7 @@ spec:
     type: A
     zoneSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-dns-zone-public
+        testing.upbound.io/example-name: dns-zone-public
 
 ---
 apiVersion: dns.opentelekomcloud.m.crossplane.io/v1alpha1
@@ -88,7 +88,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: dns/v1alpha1/recordsetv2
   labels:
-    testing.upbound.io/example-name: sample-txt-record
+    testing.upbound.io/example-name: dns-record-txt
   name: dns-rs-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
@@ -101,4 +101,4 @@ spec:
     type: TXT
     zoneSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-dns-zone-public
+        testing.upbound.io/example-name: dns-zone-public

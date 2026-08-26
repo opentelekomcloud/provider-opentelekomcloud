@@ -4,7 +4,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: obs/v1alpha1/bucket
   labels:
-    testing.upbound.io/example-name: b
+    testing.upbound.io/example-name: obs-log-bucket
   name: obs-bkt-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
@@ -16,7 +16,7 @@ spec:
     logging:
       - targetBucketSelector:
           matchLabels:
-            testing.upbound.io/example-name: logging
+            testing.upbound.io/example-name: obs-log-target
 ---
 apiVersion: obs.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: Bucket
@@ -24,7 +24,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: obs/v1alpha1/bucket
   labels:
-    testing.upbound.io/example-name: logging
+    testing.upbound.io/example-name: obs-log-target
   name: obs-bkl-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
@@ -42,14 +42,14 @@ metadata:
   annotations:
     meta.upbound.io/example-id: obs/v1alpha1/bucketacl
   labels:
-    testing.upbound.io/example-name: test
+    testing.upbound.io/example-name: obs-log-acl
   name: obs-bacl-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     bucketSelector:
       matchLabels:
-        testing.upbound.io/example-name: logging
+        testing.upbound.io/example-name: obs-log-target
     logDeliveryUserPermission:
       - accessToAcl:
           - READ_ACP

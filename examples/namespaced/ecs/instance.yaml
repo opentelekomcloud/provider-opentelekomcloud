@@ -4,7 +4,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: compute/v1alpha1/keypairv2
   labels:
-    testing.upbound.io/example-name: sample-instance
+    testing.upbound.io/example-name: ecs-key
   name: ecs-key-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
@@ -19,7 +19,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: vpc/v1alpha1/v1
   labels:
-    testing.upbound.io/example-name: sample-instance
+    testing.upbound.io/example-name: ecs-vpc
   name: ecs-vpc-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
@@ -35,7 +35,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: vpc/v1alpha1/subnetv1
   labels:
-    testing.upbound.io/example-name: sample-instance
+    testing.upbound.io/example-name: ecs-subnet
   name: ecs-stn-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
@@ -46,7 +46,7 @@ spec:
     ntpAddresses: "10.100.0.33,10.100.0.34"
     vpcSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-instance
+        testing.upbound.io/example-name: ecs-vpc
     tags:
       managed-by: crossplane
 
@@ -57,7 +57,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: compute/v1alpha1/secgroupv2
   labels:
-    testing.upbound.io/example-name: sample-instance
+    testing.upbound.io/example-name: ecs-sg
   name: ecs-sg-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
@@ -81,7 +81,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: ecs/v1alpha1/instancev1
   labels:
-    testing.upbound.io/example-name: sample-instance
+    testing.upbound.io/example-name: ecs-instance
   name: ecs-vm-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
@@ -91,17 +91,17 @@ spec:
     imageId: 54c617ad-5c85-4426-b721-494a9c7719c2
     keyNameSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-instance
+        testing.upbound.io/example-name: ecs-key
     computeSecurityGroupSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-instance
+        testing.upbound.io/example-name: ecs-sg
     name: ecs-vm-${Rand.RFC1123Subdomain}
     nics:
       - networkSelector:
           matchLabels:
-            testing.upbound.io/example-name: sample-instance
+            testing.upbound.io/example-name: ecs-subnet
     tags:
       managed-by: crossplane
     vpcSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-instance
+        testing.upbound.io/example-name: ecs-vpc

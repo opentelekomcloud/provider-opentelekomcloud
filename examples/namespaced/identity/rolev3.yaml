@@ -4,7 +4,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: identity/v1alpha1/rolev3
   labels:
-    testing.upbound.io/example-name: role
+    testing.upbound.io/example-name: identity-role
   name: iam-role-${Rand.RFC1123Subdomain}
   namespace: test
 spec:

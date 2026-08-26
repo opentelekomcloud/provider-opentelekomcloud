@@ -4,7 +4,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: networking/v1alpha1/routerinterfacev2
   labels:
-    testing.upbound.io/example-name: sample-network
+    testing.upbound.io/example-name: net-network
   name: sample-network
   namespace: test
 spec:
@@ -19,7 +19,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: networking/v1alpha1/routerinterfacev2
   labels:
-    testing.upbound.io/example-name: sample-router
+    testing.upbound.io/example-name: net-router
   name: sample-router
   namespace: test
 spec:
@@ -33,7 +33,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: networking/v1alpha1/routerinterfacev2
   labels:
-    testing.upbound.io/example-name: sample-subnet
+    testing.upbound.io/example-name: net-subnet
   name: sample-subnet
   namespace: test
 spec:
@@ -43,7 +43,7 @@ spec:
     ipVersion: 4
     networkSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-network
+        testing.upbound.io/example-name: net-network
 
 ---
 apiVersion: networking.opentelekomcloud.m.crossplane.io/v1alpha1
@@ -52,14 +52,14 @@ metadata:
   annotations:
     meta.upbound.io/example-id: networking/v1alpha1/routerinterfacev2
   labels:
-    testing.upbound.io/example-name: router_interface
+    testing.upbound.io/example-name: net-router-interface
   name: router-interface
   namespace: test
 spec:
   forProvider:
-    routerSelector:
+    vpcSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-router
+        testing.upbound.io/example-name: net-router
     subnetSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-subnet
+        testing.upbound.io/example-name: net-subnet

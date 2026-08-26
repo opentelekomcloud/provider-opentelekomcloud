@@ -4,7 +4,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: vpc/v1alpha1/ipaddressgroupv3
   labels:
-    testing.upbound.io/example-name: group_1
+    testing.upbound.io/example-name: vpc-ipgroup
   name: vpc-ig-${Rand.RFC1123Subdomain}
   namespace: test
 spec:

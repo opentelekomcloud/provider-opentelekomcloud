@@ -4,7 +4,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: evs/v1alpha1/snapshotv2
   labels:
-    testing.upbound.io/example-name: test
+    testing.upbound.io/example-name: evs-snapshot
   name: evs-snp-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
@@ -15,7 +15,7 @@ spec:
     name: evs-snp-${Rand.RFC1123Subdomain}
     volumeSelector:
       matchLabels:
-        testing.upbound.io/example-name: test
+        testing.upbound.io/example-name: evs-snapshot-volume
 
 ---
 apiVersion: evs.opentelekomcloud.m.crossplane.io/v1alpha1
@@ -24,7 +24,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: evs/v1alpha1/snapshotv2
   labels:
-    testing.upbound.io/example-name: test
+    testing.upbound.io/example-name: evs-snapshot-volume
   name: evs-vol-${Rand.RFC1123Subdomain}
   namespace: test
 spec:

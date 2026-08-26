@@ -4,7 +4,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: vpc/v1alpha1/eipv1
   labels:
-    testing.upbound.io/example-name: sample-ptr-instance
+    testing.upbound.io/example-name: dns-ptr-eip
   name: dns-eip-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
@@ -24,7 +24,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: dns/v1alpha1/ptrrecordv2
   labels:
-    testing.upbound.io/example-name: sample-ptr-instance
+    testing.upbound.io/example-name: dns-ptr-record
   name: dns-pr-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
@@ -32,7 +32,7 @@ spec:
     description: Crossplane example PTR record
     floatingIpSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-ptr-instance
+        testing.upbound.io/example-name: dns-ptr-eip
     name: ptr.crossplane.com.
     tags:
       foo: bar

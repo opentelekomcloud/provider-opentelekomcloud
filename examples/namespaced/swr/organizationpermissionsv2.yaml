@@ -4,17 +4,17 @@ metadata:
   annotations:
     meta.upbound.io/example-id: swr/v1alpha1/organizationpermissionsv2
   labels:
-    testing.upbound.io/example-name: user_1
+    testing.upbound.io/example-name: swr-org-permissions
   name: swr-op-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     organizationSelector:
       matchLabels:
-        testing.upbound.io/example-name: test-org-1
+        testing.upbound.io/example-name: swr-org-permissions-org
     userSelector:
       matchLabels:
-        testing.upbound.io/example-name: swr_op
+        testing.upbound.io/example-name: swr-org-permissions-user
     auth: 3
 
 ---
@@ -24,7 +24,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: identity/v1alpha1/userv3
   labels:
-    testing.upbound.io/example-name: swr_op
+    testing.upbound.io/example-name: swr-org-permissions-user
   name: swr-usr-${Rand.RFC1123Subdomain}
   namespace: test
 spec:

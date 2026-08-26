@@ -4,20 +4,20 @@ metadata:
   annotations:
     meta.upbound.io/example-id: identity/v1alpha1/roleassignmentv3
   labels:
-    testing.upbound.io/example-name: role_assignment_1
+    testing.upbound.io/example-name: identity-role-assignment
   name: iam-rlas-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     groupSelector:
       matchLabels:
-        testing.upbound.io/example-name: group_1
+        testing.upbound.io/example-name: identity-role-assn-group
     projectSelector:
       matchLabels:
-        testing.upbound.io/example-name: project_1
+        testing.upbound.io/example-name: identity-role-assn-project
     roleSelector:
       matchLabels:
-        testing.upbound.io/example-name: role_1
+        testing.upbound.io/example-name: identity-role-assn-role
 
 ---
 apiVersion: identity.opentelekomcloud.m.crossplane.io/v1alpha1
@@ -26,7 +26,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: identity/v1alpha1/roleassignmentv3
   labels:
-    testing.upbound.io/example-name: group_1
+    testing.upbound.io/example-name: identity-role-assn-group
   name: iam-grp-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
@@ -40,7 +40,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: identity/v1alpha1/roleassignmentv3
   labels:
-    testing.upbound.io/example-name: project_1
+    testing.upbound.io/example-name: identity-role-assn-project
   name: iam-proj-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
@@ -54,7 +54,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: identity/v1alpha1/rolev3
   labels:
-    testing.upbound.io/example-name: role_1
+    testing.upbound.io/example-name: identity-role-assn-role
   name: iam-role-${Rand.RFC1123Subdomain}
   namespace: test
 spec:

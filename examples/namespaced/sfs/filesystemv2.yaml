@@ -4,7 +4,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: sfs/v1alpha1/filesystemv2
   labels:
-    testing.upbound.io/example-name: share-file
+    testing.upbound.io/example-name: sfs-file
   name: sfs-fs-${Rand.RFC1123Subdomain}
   namespace: test
 spec:

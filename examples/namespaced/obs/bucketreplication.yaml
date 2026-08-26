@@ -4,20 +4,20 @@ metadata:
   annotations:
     meta.upbound.io/example-id: obs/v1alpha1/bucketreplication
   labels:
-    testing.upbound.io/example-name: test
+    testing.upbound.io/example-name: obs-repl
   name: obs-brep-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     agencySelector:
       matchLabels:
-        testing.upbound.io/example-name: repl-agency
+        testing.upbound.io/example-name: obs-repl-agency
     bucketSelector:
       matchLabels:
-        testing.upbound.io/example-name: repl-source
+        testing.upbound.io/example-name: obs-repl-source
     destinationBucketSelector:
       matchLabels:
-        testing.upbound.io/example-name: repl-dest
+        testing.upbound.io/example-name: obs-repl-dest
     rule:
       - deleteData: false
         historyEnabled: false
@@ -29,7 +29,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: obs/v1alpha1/bucket
   labels:
-    testing.upbound.io/example-name: repl-source
+    testing.upbound.io/example-name: obs-repl-source
   name: obs-bkt-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
@@ -47,7 +47,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: obs/v1alpha1/bucket
   labels:
-    testing.upbound.io/example-name: repl-dest
+    testing.upbound.io/example-name: obs-repl-dest
   name: obs-bkl-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
@@ -68,7 +68,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: identity/v1alpha1/agencyv3
   labels:
-    testing.upbound.io/example-name: repl-agency
+    testing.upbound.io/example-name: obs-repl-agency
   name: obs-agc-${Rand.RFC1123Subdomain}
   namespace: test
 spec:

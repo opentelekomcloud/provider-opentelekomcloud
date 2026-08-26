@@ -14,7 +14,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: vpc/v1alpha1/v1
   labels:
-    testing.upbound.io/example-name: sample-dds-instance
+    testing.upbound.io/example-name: dds-vpc
   name: dds-vpc-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
@@ -30,7 +30,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: vpc/v1alpha1/subnetv1
   labels:
-    testing.upbound.io/example-name: sample-dds-instance
+    testing.upbound.io/example-name: dds-subnet
   name: dds-stn-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
@@ -41,7 +41,7 @@ spec:
     ntpAddresses: "10.100.0.33,10.100.0.34"
     vpcSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-dds-instance
+        testing.upbound.io/example-name: dds-vpc
     tags:
       managed-by: crossplane
 
@@ -52,7 +52,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: compute/v1alpha1/secgroupv2
   labels:
-    testing.upbound.io/example-name: sample-dds-instance
+    testing.upbound.io/example-name: dds-sg
   name: dds-sg-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
@@ -80,7 +80,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: dds/v1alpha1/instancev3
   labels:
-    testing.upbound.io/example-name: sample-dds-instance
+    testing.upbound.io/example-name: dds-instance
   name: dds-ins-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
@@ -103,13 +103,13 @@ spec:
       name: example-dds-password
     subnetSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-dds-instance
+        testing.upbound.io/example-name: dds-subnet
     vpcSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-dds-instance
+        testing.upbound.io/example-name: dds-vpc
     securityGroupSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-dds-instance
+        testing.upbound.io/example-name: dds-sg
     tags:
       managed-by: crossplane
 
@@ -120,12 +120,12 @@ metadata:
   annotations:
     meta.upbound.io/example-id: dds/v1alpha1/backupv3
   labels:
-    testing.upbound.io/example-name: sample-dds-backup
+    testing.upbound.io/example-name: dds-backup
   name: dds-bkp-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     instanceSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-dds-instance
+        testing.upbound.io/example-name: dds-instance
     name: dds-bkp-${Rand.RFC1123Subdomain}

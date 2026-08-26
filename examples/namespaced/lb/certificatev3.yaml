@@ -4,7 +4,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: lb/v1alpha1/certificatev3
   labels:
-    testing.upbound.io/example-name: certificate_1
+    testing.upbound.io/example-name: lb-certificate
   name: certificate-1
   namespace: test
 spec:

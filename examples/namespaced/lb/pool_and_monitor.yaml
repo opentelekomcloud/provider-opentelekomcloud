@@ -4,7 +4,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: vpc/v1alpha1/v1
   labels:
-    testing.upbound.io/example-name: sample-lb
+    testing.upbound.io/example-name: lb-poolmon-vpc
   name: sample-lb
   namespace: test
 spec:
@@ -20,7 +20,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: vpc/v1alpha1/subnetv1
   labels:
-    testing.upbound.io/example-name: sample-lb
+    testing.upbound.io/example-name: lb-poolmon-subnet
   name: sample-lb
   namespace: test
 spec:
@@ -31,7 +31,7 @@ spec:
     ntpAddresses: "10.100.0.33,10.100.0.34"
     vpcSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-lb
+        testing.upbound.io/example-name: lb-poolmon-vpc
     tags:
       managed-by: crossplane
 
@@ -42,7 +42,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: lb/v1alpha1/loadbalancerv3
   labels:
-    testing.upbound.io/example-name: sample-lb
+    testing.upbound.io/example-name: lb-poolmon-lb
   name: sample-lb
   namespace: test
 spec:
@@ -53,10 +53,10 @@ spec:
       - eu-de-01
     networkSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-lb
+        testing.upbound.io/example-name: lb-poolmon-subnet
     vpcSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-lb
+        testing.upbound.io/example-name: lb-poolmon-vpc
     tags:
       managed-by: crossplane
 
@@ -67,7 +67,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: lb/v1alpha1/memberv3
   labels:
-    testing.upbound.io/example-name: sample-lb
+    testing.upbound.io/example-name: lb-poolmon-pool
   name: sample-lb
   namespace: test
 spec:
@@ -75,7 +75,7 @@ spec:
     lbAlgorithm: ROUND_ROBIN
     loadbalancerSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-lb
+        testing.upbound.io/example-name: lb-poolmon-lb
     name: lb-psl-${Rand.RFC1123Subdomain}
     protocol: TCP
 
@@ -86,7 +86,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: lb/v1alpha1/monitorv3
   labels:
-    testing.upbound.io/example-name: sample-lb
+    testing.upbound.io/example-name: lb-poolmon-monitor
   name: sample-lb
   namespace: test
 spec:
@@ -97,7 +97,7 @@ spec:
     monitorPort: 8080
     poolSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-lb
+        testing.upbound.io/example-name: lb-poolmon-pool
     timeout: 30
     type: HTTP
 
@@ -108,7 +108,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: lb/v1alpha1/memberv3
   labels:
-    testing.upbound.io/example-name: sample-lb
+    testing.upbound.io/example-name: lb-poolmon-member
   name: sample-lb
   namespace: test
 spec:
@@ -117,5 +117,5 @@ spec:
     name: lb-mbr-${Rand.RFC1123Subdomain}
     poolSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-lb
+        testing.upbound.io/example-name: lb-poolmon-pool
     protocolPort: 8080

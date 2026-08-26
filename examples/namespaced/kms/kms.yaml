@@ -4,7 +4,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: identity/v1alpha1/userv3
   labels:
-    testing.upbound.io/example-name: user_test
+    testing.upbound.io/example-name: kms-user
   name: user-test
   namespace: test
 spec:
@@ -20,7 +20,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: kms/v1alpha1/keyv1
   labels:
-    testing.upbound.io/example-name: key_test
+    testing.upbound.io/example-name: kms-key
   name: key-test
   namespace: test
 spec:
@@ -39,17 +39,17 @@ metadata:
   annotations:
     meta.upbound.io/example-id: kms/v1alpha1/grantv1
   labels:
-    testing.upbound.io/example-name: grant_1
+    testing.upbound.io/example-name: kms-grant
   name: grant-1
   namespace: test
 spec:
   forProvider:
     granteePrincipalSelector:
       matchLabels:
-        testing.upbound.io/example-name: user_test
+        testing.upbound.io/example-name: kms-user
     keySelector:
       matchLabels:
-        testing.upbound.io/example-name: key_test
+        testing.upbound.io/example-name: kms-key
     name: my_grant
     operations:
       - describe-key

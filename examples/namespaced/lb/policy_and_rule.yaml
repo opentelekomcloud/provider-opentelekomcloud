@@ -4,7 +4,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: vpc/v1alpha1/v1
   labels:
-    testing.upbound.io/example-name: sample-lb
+    testing.upbound.io/example-name: lb-policy-vpc
   name: sample-lb
   namespace: test
 spec:
@@ -20,7 +20,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: vpc/v1alpha1/subnetv1
   labels:
-    testing.upbound.io/example-name: sample-lb
+    testing.upbound.io/example-name: lb-policy-subnet
   name: sample-lb
   namespace: test
 spec:
@@ -31,7 +31,7 @@ spec:
     ntpAddresses: "10.100.0.33,10.100.0.34"
     vpcSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-lb
+        testing.upbound.io/example-name: lb-policy-vpc
     tags:
       managed-by: crossplane
 
@@ -42,7 +42,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: lb/v1alpha1/loadbalancerv3
   labels:
-    testing.upbound.io/example-name: sample-lb
+    testing.upbound.io/example-name: lb-policy-lb
   name: sample-lb
   namespace: test
 spec:
@@ -52,10 +52,10 @@ spec:
       - eu-de-01
     networkSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-lb
+        testing.upbound.io/example-name: lb-policy-subnet
     vpcSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-lb
+        testing.upbound.io/example-name: lb-policy-vpc
     tags:
       managed-by: crossplane
 
@@ -66,7 +66,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: lb/v1alpha1/listenerv3
   labels:
-    testing.upbound.io/example-name: sample-lb
+    testing.upbound.io/example-name: lb-policy-listener
   name: sample-lb
   namespace: test
 spec:
@@ -74,7 +74,7 @@ spec:
     name: lb-lis-${Rand.RFC1123Subdomain}
     loadbalancerSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-lb
+        testing.upbound.io/example-name: lb-policy-lb
     protocol: HTTP
     protocolPort: 8080
     tags:
@@ -87,7 +87,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: lb/v1alpha1/memberv3
   labels:
-    testing.upbound.io/example-name: sample-lb
+    testing.upbound.io/example-name: lb-policy-pool
   name: sample-lb
   namespace: test
 spec:
@@ -95,7 +95,7 @@ spec:
     lbAlgorithm: ROUND_ROBIN
     loadbalancerSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-lb
+        testing.upbound.io/example-name: lb-policy-lb
     name: lb-psl-${Rand.RFC1123Subdomain}
     protocol: HTTP
 
@@ -106,7 +106,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: lb/v1alpha1/policyv3
   labels:
-    testing.upbound.io/example-name: sample-lb
+    testing.upbound.io/example-name: lb-policy
   name: sample-lb
   namespace: test
 spec:
@@ -114,11 +114,11 @@ spec:
     action: REDIRECT_TO_POOL
     listenerSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-lb
+        testing.upbound.io/example-name: lb-policy-listener
     position: 37
     redirectPoolSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-lb
+        testing.upbound.io/example-name: lb-policy-pool
 
 ---
 apiVersion: lb.opentelekomcloud.m.crossplane.io/v1alpha1
@@ -127,7 +127,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: lb/v1alpha1/rulev3
   labels:
-    testing.upbound.io/example-name: sample-lb
+    testing.upbound.io/example-name: lb-rule
   name: sample-lb
   namespace: test
 spec:
@@ -135,6 +135,6 @@ spec:
     compareType: REGEX
     policySelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-lb
+        testing.upbound.io/example-name: lb-policy
     type: PATH
     value: ^.+$

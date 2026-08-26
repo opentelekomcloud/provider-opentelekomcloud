@@ -4,7 +4,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: vpc/v1alpha1/v1
   labels:
-    testing.upbound.io/example-name: sample-instance
+    testing.upbound.io/example-name: nat-vpc
   name: nat-vpc-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
@@ -20,7 +20,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: vpc/v1alpha1/subnetv1
   labels:
-    testing.upbound.io/example-name: sample-instance
+    testing.upbound.io/example-name: nat-subnet
   name: nat-stn-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
@@ -31,7 +31,7 @@ spec:
     ntpAddresses: "10.100.0.33,10.100.0.34"
     vpcSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-instance
+        testing.upbound.io/example-name: nat-vpc
     tags:
       managed-by: crossplane
 
@@ -42,7 +42,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: nat/v1alpha1/gatewayv2
   labels:
-    testing.upbound.io/example-name: sample-instance
+    testing.upbound.io/example-name: nat-gateway
   name: nat-gw-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
@@ -50,11 +50,11 @@ spec:
     description: NAT GW created by crossplane
     internalNetworkSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-instance
+        testing.upbound.io/example-name: nat-subnet
     name: nat-gw-${Rand.RFC1123Subdomain}
     vpcSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-instance
+        testing.upbound.io/example-name: nat-vpc
     spec: "1"
     tags:
       managed-by: crossplane
@@ -66,7 +66,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: vpc/v1alpha1/eipv1
   labels:
-    testing.upbound.io/example-name: sample-eip-01
+    testing.upbound.io/example-name: nat-eip-1
   name: nat-eip-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
@@ -86,7 +86,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: vpc/v1alpha1/eipv1
   labels:
-    testing.upbound.io/example-name: sample-eip-02
+    testing.upbound.io/example-name: nat-eip-2
   name: nat-eip-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
@@ -106,7 +106,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: nat/v1alpha1/dnatrulev2
   labels:
-    testing.upbound.io/example-name: sample-dnat-rule
+    testing.upbound.io/example-name: nat-dnat
   name: nat-dnat-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
@@ -115,10 +115,10 @@ spec:
     internalServicePort: 80
     floatingIpSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-eip-01
+        testing.upbound.io/example-name: nat-eip-1
     natGatewaySelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-instance
+        testing.upbound.io/example-name: nat-gateway
     protocol: tcp
     privateIp: "192.168.100.10"
 
@@ -129,7 +129,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: nat/v1alpha1/snatrulev2
   labels:
-    testing.upbound.io/example-name: sample-snat-rule
+    testing.upbound.io/example-name: nat-snat
   name: nat-snat-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
@@ -137,8 +137,8 @@ spec:
     cidr: 192.168.0.0/24
     floatingIpSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-eip-02
+        testing.upbound.io/example-name: nat-eip-2
     natGatewaySelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-instance
+        testing.upbound.io/example-name: nat-gateway
     sourceType: 0

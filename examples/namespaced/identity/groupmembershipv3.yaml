@@ -4,17 +4,17 @@ metadata:
   annotations:
     meta.upbound.io/example-id: identity/v1alpha1/groupmembershipv3
   labels:
-    testing.upbound.io/example-name: membership_1
+    testing.upbound.io/example-name: identity-group-membership
   name: iam-grpm-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     groupSelector:
       matchLabels:
-        testing.upbound.io/example-name: group_1
+        testing.upbound.io/example-name: identity-group-membership-group
     usersSelector:
       matchLabels:
-        testing.upbound.io/example-name: user_group_1
+        testing.upbound.io/example-name: identity-group-membership-user
 
 ---
 apiVersion: identity.opentelekomcloud.m.crossplane.io/v1alpha1
@@ -23,7 +23,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: identity/v1alpha1/groupmembershipv3
   labels:
-    testing.upbound.io/example-name: group_1
+    testing.upbound.io/example-name: identity-group-membership-group
   name: iam-grp-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
@@ -38,7 +38,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: identity/v1alpha1/groupmembershipv3
   labels:
-    testing.upbound.io/example-name: user_group_1
+    testing.upbound.io/example-name: identity-group-membership-user
   name: iam-usr-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
@@ -56,7 +56,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: identity/v1alpha1/groupmembershipv3
   labels:
-    testing.upbound.io/example-name: user_group_1
+    testing.upbound.io/example-name: identity-group-membership-user
   name: iam-usr-${Rand.RFC1123Subdomain}
   namespace: test
 spec:

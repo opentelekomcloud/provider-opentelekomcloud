@@ -14,7 +14,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: vpc/v1alpha1/v1
   labels:
-    testing.upbound.io/example-name: sample-dcs-instance-v2
+    testing.upbound.io/example-name: dcs-vpc
   name: dcs-vpc-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
@@ -30,7 +30,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: vpc/v1alpha1/subnetv1
   labels:
-    testing.upbound.io/example-name: sample-dcs-instance-v2
+    testing.upbound.io/example-name: dcs-subnet
   name: dcs-stn-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
@@ -41,7 +41,7 @@ spec:
     ntpAddresses: "10.100.0.33,10.100.0.34"
     vpcSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-dcs-instance-v2
+        testing.upbound.io/example-name: dcs-vpc
     tags:
       managed-by: crossplane
 
@@ -52,7 +52,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: dcs/v1alpha1/instancev2
   labels:
-    testing.upbound.io/example-name: sample-dcs-instance-v2
+    testing.upbound.io/example-name: dcs-instance
   name: dcs-ins-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
@@ -79,9 +79,9 @@ spec:
       name: example-dcs-password
     subnetSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-dcs-instance-v2
+        testing.upbound.io/example-name: dcs-subnet
     vpcSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-dcs-instance-v2
+        testing.upbound.io/example-name: dcs-vpc
     tags:
       managed-by: crossplane
