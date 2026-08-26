@@ -5,7 +5,7 @@ metadata:
     meta.upbound.io/example-id: identity/v1alpha1/roleassignmentv3
   labels:
     testing.upbound.io/example-name: role_assignment_1
-  name: iam-ra-${Rand.RFC1123Subdomain}
+  name: iam-rlas-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
@@ -18,3 +18,71 @@ spec:
     roleSelector:
       matchLabels:
         testing.upbound.io/example-name: role_1
+
+---
+apiVersion: identity.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: GroupV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: identity/v1alpha1/roleassignmentv3
+  labels:
+    testing.upbound.io/example-name: group_1
+  name: iam-grp-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    name: iam-grp-${Rand.RFC1123Subdomain}
+
+---
+apiVersion: identity.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: ProjectV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: identity/v1alpha1/roleassignmentv3
+  labels:
+    testing.upbound.io/example-name: project_1
+  name: iam-proj-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    name: eu-de_iam-proj-${Rand.RFC1123Subdomain}
+
+---
+apiVersion: identity.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: RoleV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: identity/v1alpha1/rolev3
+  labels:
+    testing.upbound.io/example-name: role_1
+  name: iam-role-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    description: role
+    displayLayer: domain
+    displayName: iam-role-${Rand.RFC1123Subdomain}
+    statement:
+      - action:
+          - obs:bucket:GetBucketAcl
+        condition: |2
+            {
+              "StringStartWith": {
+                  "g:ProjectName": [
+                      "eu-de"
+                  ]
+              },
+              "StringNotEqualsIgnoreCase": {
+                  "g:ServiceName": [
+                      "iam"
+                  ]
+              }
+            }
+        effect: Allow
+        resource:
+          - OBS:*:*:bucket:test-bucket
+      - action:
+          - obs:bucket:HeadBucket
+          - obs:bucket:ListBucketMultipartUploads
+          - obs:bucket:ListBucket
+        effect: Allow

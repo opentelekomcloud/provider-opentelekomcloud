@@ -5,7 +5,7 @@ metadata:
     meta.upbound.io/example-id: identity/v1alpha1/protocolv3
   labels:
     testing.upbound.io/example-name: saml
-  name: saml
+  name: iam-prot-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
@@ -25,7 +25,7 @@ metadata:
     meta.upbound.io/example-id: identity/v1alpha1/protocolv3
   labels:
     testing.upbound.io/example-name: mapping
-  name: mapping
+  name: iam-map-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
@@ -63,3 +63,4 @@ spec:
     description: This is simple identity provider
     enabled: true
     name: iam-idp-${Rand.RFC1123Subdomain}
+

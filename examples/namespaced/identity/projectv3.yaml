@@ -10,4 +10,5 @@ metadata:
 spec:
   forProvider:
     description: crossplane
-    name: iam-proj-${Rand.RFC1123Subdomain}
+    name: eu-de_iam-proj-${Rand.RFC1123Subdomain}
+

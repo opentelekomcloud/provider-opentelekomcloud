@@ -1,7 +1,7 @@
 apiVersion: obs.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: BucketPolicy
 metadata:
-  name: xp-bucket-policy-static
+  name: obs-bpol-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:

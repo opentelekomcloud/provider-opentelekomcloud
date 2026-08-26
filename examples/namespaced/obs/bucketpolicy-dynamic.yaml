@@ -1,7 +1,7 @@
 apiVersion: obs.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: BucketPolicy
 metadata:
-  name: obs-pol-${Rand.RFC1123Subdomain}
+  name: obs-bpol-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
@@ -17,3 +17,20 @@ spec:
           "Resource": ["${this.bucket}/*"]
         }]
       }
+
+---
+apiVersion: obs.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: Bucket
+metadata:
+  annotations:
+    meta.upbound.io/example-id: obs/v1alpha1/bucket
+  labels:
+    testing.upbound.io/example-name: b
+  name: obs-bkt-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    bucket: obs-bkt-${Rand.RFC1123Subdomain}
+    tags:
+      Env: Test
+      foo: bar

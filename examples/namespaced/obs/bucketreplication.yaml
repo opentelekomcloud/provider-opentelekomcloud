@@ -5,7 +5,7 @@ metadata:
     meta.upbound.io/example-id: obs/v1alpha1/bucketreplication
   labels:
     testing.upbound.io/example-name: test
-  name: obs-rpl-${Rand.RFC1123Subdomain}
+  name: obs-brep-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
@@ -21,3 +21,64 @@ spec:
     rule:
       - deleteData: false
         historyEnabled: false
+
+---
+apiVersion: obs.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: Bucket
+metadata:
+  annotations:
+    meta.upbound.io/example-id: obs/v1alpha1/bucket
+  labels:
+    testing.upbound.io/example-name: repl-source
+  name: obs-bkt-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    region: eu-de
+    bucket: obs-bkt-${Rand.RFC1123Subdomain}
+    tags:
+      Env: Test
+      foo: bar
+
+---
+apiVersion: obs.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: Bucket
+metadata:
+  annotations:
+    meta.upbound.io/example-id: obs/v1alpha1/bucket
+  labels:
+    testing.upbound.io/example-name: repl-dest
+  name: obs-bkl-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    bucket: obs-bkl-${Rand.RFC1123Subdomain}
+    region: eu-nl
+    tags:
+      Env: Test
+      foo: bar
+  providerConfigRef:
+    name: default-nl
+    kind: ClusterProviderConfig
+
+---
+apiVersion: identity.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: AgencyV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: identity/v1alpha1/agencyv3
+  labels:
+    testing.upbound.io/example-name: repl-agency
+  name: obs-agc-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    delegatedDomainName: op_svc_obs
+    description: test agency
+    domainRoles:
+      - OBS Administrator
+    projectRole:
+      - allProjects: true
+        roles:
+          - OBS Administrator
+    name: obs-agc-${Rand.RFC1123Subdomain}

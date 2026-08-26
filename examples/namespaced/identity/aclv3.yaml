@@ -5,7 +5,7 @@ metadata:
     meta.upbound.io/example-id: identity/v1alpha1/aclv3
   labels:
     testing.upbound.io/example-name: acl
-  name: acl
+  name: iam-acl-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:

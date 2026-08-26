@@ -1,11 +1,49 @@
 apiVersion: obs.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: Bucket
+metadata:
+  annotations:
+    meta.upbound.io/example-id: obs/v1alpha1/bucket
+  labels:
+    testing.upbound.io/example-name: b
+  name: obs-bkt-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    bucket: obs-bkt-${Rand.RFC1123Subdomain}
+    tags:
+      Env: Test
+      foo: bar
+    logging:
+      - targetBucketSelector:
+          matchLabels:
+            testing.upbound.io/example-name: logging
+---
+apiVersion: obs.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: Bucket
+metadata:
+  annotations:
+    meta.upbound.io/example-id: obs/v1alpha1/bucket
+  labels:
+    testing.upbound.io/example-name: logging
+  name: obs-bkl-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    bucket: obs-bkl-${Rand.RFC1123Subdomain}
+    forceDestroy: true
+    tags:
+      Env: Test
+      foo: bar
+
+---
+apiVersion: obs.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: BucketACL
 metadata:
   annotations:
     meta.upbound.io/example-id: obs/v1alpha1/bucketacl
   labels:
     testing.upbound.io/example-name: test
-  name: obs-acl-${Rand.RFC1123Subdomain}
+  name: obs-bacl-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
