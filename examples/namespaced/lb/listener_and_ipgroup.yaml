@@ -91,7 +91,7 @@ metadata:
 spec:
   forProvider:
     name: lb-lis-${Rand.RFC1123Subdomain}
-    loadbalancerSelector:
+    loadBalancerSelector:
       matchLabels:
         testing.upbound.io/example-name: lb-listener-lb
     protocol: HTTP

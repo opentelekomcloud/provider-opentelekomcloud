@@ -72,7 +72,7 @@ metadata:
 spec:
   forProvider:
     name: lb-lis-${Rand.RFC1123Subdomain}
-    loadbalancerSelector:
+    loadBalancerSelector:
       matchLabels:
         testing.upbound.io/example-name: lb-policy-lb
     protocol: HTTP
@@ -93,7 +93,7 @@ metadata:
 spec:
   forProvider:
     lbAlgorithm: ROUND_ROBIN
-    loadbalancerSelector:
+    loadBalancerSelector:
       matchLabels:
         testing.upbound.io/example-name: lb-policy-lb
     name: lb-psl-${Rand.RFC1123Subdomain}

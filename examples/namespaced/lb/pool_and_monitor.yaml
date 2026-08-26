@@ -73,7 +73,7 @@ metadata:
 spec:
   forProvider:
     lbAlgorithm: ROUND_ROBIN
-    loadbalancerSelector:
+    loadBalancerSelector:
       matchLabels:
         testing.upbound.io/example-name: lb-poolmon-lb
     name: lb-psl-${Rand.RFC1123Subdomain}
