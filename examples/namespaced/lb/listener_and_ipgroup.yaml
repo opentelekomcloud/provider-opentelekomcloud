@@ -53,7 +53,7 @@ spec:
       - eu-de-01
     networkRef:
       - name: sample-lb
-    routerSelector:
+    vpcSelector:
       matchLabels:
         testing.upbound.io/example-name: sample-lb
     tags:
@@ -101,3 +101,4 @@ spec:
             testing.upbound.io/example-name: sample-lb
     tags:
       managed-by: crossplane
+
