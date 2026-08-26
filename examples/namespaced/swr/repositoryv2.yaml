@@ -16,3 +16,17 @@ spec:
     isPublic: false
     description: "crossplane managed repositoryv2"
     category: linux
+
+---
+apiVersion: swr.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: OrganizationV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: swr/v1alpha1/organizationv2
+  labels:
+    testing.upbound.io/example-name: test-org-1
+  name: swr-org-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    name: swr-org-${Rand.RFC1123Subdomain}
