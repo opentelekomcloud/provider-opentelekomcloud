@@ -107,7 +107,7 @@ spec:
     vpcSelector:
       matchLabels:
         testing.upbound.io/example-name: dds-vpc
-    securityGroupSelector:
+    computeSecurityGroupSelector:
       matchLabels:
         testing.upbound.io/example-name: dds-sg
     tags:

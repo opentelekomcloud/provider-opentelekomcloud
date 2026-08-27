@@ -12,6 +12,9 @@ spec:
     organizationSelector:
       matchLabels:
         testing.upbound.io/example-name: swr-org-permissions-org
+    usernameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: swr-org-permissions-user
     userSelector:
       matchLabels:
         testing.upbound.io/example-name: swr-org-permissions-user

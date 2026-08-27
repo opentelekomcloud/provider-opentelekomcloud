@@ -23,8 +23,8 @@ func Configure(p *config.Provider) {
 		}
 		r.References["security_group_id"] = config.Reference{
 			TerraformName:     "opentelekomcloud_compute_secgroup_v2",
-			SelectorFieldName: "SecurityGroupSelector",
-			RefFieldName:      "SecurityGroupRef",
+			SelectorFieldName: "ComputeSecurityGroupSelector",
+			RefFieldName:      "ComputeSecurityGroupRefs",
 		}
 	})
 }

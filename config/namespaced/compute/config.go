@@ -14,7 +14,9 @@ func Configure(p *config.Provider) {
 			TerraformName: "opentelekomcloud_compute_keypair_v2",
 		}
 		r.References["security_groups"] = config.Reference{
-			TerraformName: "opentelekomcloud_compute_secgroup_v2",
+			TerraformName:     "opentelekomcloud_compute_secgroup_v2",
+			RefFieldName:      "ComputeSecurityGroupRefs",
+			SelectorFieldName: "ComputeSecurityGroupSelector",
 		}
 		r.References["block_device.uuid"] = config.Reference{
 			TerraformName: "opentelekomcloud_blockstorage_volume_v2",
