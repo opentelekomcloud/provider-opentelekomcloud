@@ -27,8 +27,8 @@ func (mg *InstanceV2) ResolveReferences(ctx context.Context, c client.Reader) er
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.SecurityGroupID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.ForProvider.SecurityGroupRef,
-		Selector:     mg.Spec.ForProvider.SecurityGroupSelector,
+		Reference:    mg.Spec.ForProvider.ComputeSecurityGroupRefs,
+		Selector:     mg.Spec.ForProvider.ComputeSecurityGroupSelector,
 		To: reference.To{
 			List:    &v1alpha1.SecgroupV2List{},
 			Managed: &v1alpha1.SecgroupV2{},
@@ -38,7 +38,7 @@ func (mg *InstanceV2) ResolveReferences(ctx context.Context, c client.Reader) er
 		return errors.Wrap(err, "mg.Spec.ForProvider.SecurityGroupID")
 	}
 	mg.Spec.ForProvider.SecurityGroupID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.SecurityGroupRef = rsp.ResolvedReference
+	mg.Spec.ForProvider.ComputeSecurityGroupRefs = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.SubnetID),
@@ -78,8 +78,8 @@ func (mg *InstanceV2) ResolveReferences(ctx context.Context, c client.Reader) er
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.SecurityGroupID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.InitProvider.SecurityGroupRef,
-		Selector:     mg.Spec.InitProvider.SecurityGroupSelector,
+		Reference:    mg.Spec.InitProvider.ComputeSecurityGroupRefs,
+		Selector:     mg.Spec.InitProvider.ComputeSecurityGroupSelector,
 		To: reference.To{
 			List:    &v1alpha1.SecgroupV2List{},
 			Managed: &v1alpha1.SecgroupV2{},
@@ -89,7 +89,7 @@ func (mg *InstanceV2) ResolveReferences(ctx context.Context, c client.Reader) er
 		return errors.Wrap(err, "mg.Spec.InitProvider.SecurityGroupID")
 	}
 	mg.Spec.InitProvider.SecurityGroupID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.SecurityGroupRef = rsp.ResolvedReference
+	mg.Spec.InitProvider.ComputeSecurityGroupRefs = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.SubnetID),

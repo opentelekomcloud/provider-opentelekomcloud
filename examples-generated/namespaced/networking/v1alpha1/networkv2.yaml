@@ -25,11 +25,11 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
+    computeSecurityGroupRefs:
+    - name: secgroup_1
     name: instance_1
     network:
     - port: ${opentelekomcloud_networking_port_v2.port_1.id}
-    securityGroupsRefs:
-    - name: secgroup_1
 
 ---
 

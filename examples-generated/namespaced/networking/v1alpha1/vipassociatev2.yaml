@@ -29,11 +29,11 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
+    computeSecurityGroupRefs:
+    - name: example
     name: instance_1
     network:
     - port: ${opentelekomcloud_networking_port_v2.port_1.id}
-    securityGroupsRefs:
-    - name: example
 
 ---
 
@@ -48,11 +48,11 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
+    computeSecurityGroupRefs:
+    - name: example
     name: instance_2
     network:
     - port: ${opentelekomcloud_networking_port_v2.port_1.id}
-    securityGroupsRefs:
-    - name: example
 
 ---
 

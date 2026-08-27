@@ -708,6 +708,18 @@ func (in *InstanceV2InitParameters) DeepCopyInto(out *InstanceV2InitParameters) 
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.ComputeSecurityGroupRefs != nil {
+		in, out := &in.ComputeSecurityGroupRefs, &out.ComputeSecurityGroupRefs
+		*out = make([]v1.NamespacedReference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.ComputeSecurityGroupSelector != nil {
+		in, out := &in.ComputeSecurityGroupSelector, &out.ComputeSecurityGroupSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.ConfigDrive != nil {
 		in, out := &in.ConfigDrive, &out.ConfigDrive
 		*out = new(bool)
@@ -813,18 +825,6 @@ func (in *InstanceV2InitParameters) DeepCopyInto(out *InstanceV2InitParameters) 
 				**out = **in
 			}
 		}
-	}
-	if in.SecurityGroupsRefs != nil {
-		in, out := &in.SecurityGroupsRefs, &out.SecurityGroupsRefs
-		*out = make([]v1.NamespacedReference, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
-	}
-	if in.SecurityGroupsSelector != nil {
-		in, out := &in.SecurityGroupsSelector, &out.SecurityGroupsSelector
-		*out = new(v1.NamespacedSelector)
-		(*in).DeepCopyInto(*out)
 	}
 	if in.StopBeforeDestroy != nil {
 		in, out := &in.StopBeforeDestroy, &out.StopBeforeDestroy
@@ -1118,6 +1118,18 @@ func (in *InstanceV2Parameters) DeepCopyInto(out *InstanceV2Parameters) {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.ComputeSecurityGroupRefs != nil {
+		in, out := &in.ComputeSecurityGroupRefs, &out.ComputeSecurityGroupRefs
+		*out = make([]v1.NamespacedReference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.ComputeSecurityGroupSelector != nil {
+		in, out := &in.ComputeSecurityGroupSelector, &out.ComputeSecurityGroupSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.ConfigDrive != nil {
 		in, out := &in.ConfigDrive, &out.ConfigDrive
 		*out = new(bool)
@@ -1223,18 +1235,6 @@ func (in *InstanceV2Parameters) DeepCopyInto(out *InstanceV2Parameters) {
 				**out = **in
 			}
 		}
-	}
-	if in.SecurityGroupsRefs != nil {
-		in, out := &in.SecurityGroupsRefs, &out.SecurityGroupsRefs
-		*out = make([]v1.NamespacedReference, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
-	}
-	if in.SecurityGroupsSelector != nil {
-		in, out := &in.SecurityGroupsSelector, &out.SecurityGroupsSelector
-		*out = new(v1.NamespacedSelector)
-		(*in).DeepCopyInto(*out)
 	}
 	if in.StopBeforeDestroy != nil {
 		in, out := &in.StopBeforeDestroy, &out.StopBeforeDestroy

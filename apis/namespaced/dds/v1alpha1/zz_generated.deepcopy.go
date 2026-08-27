@@ -666,6 +666,16 @@ func (in *InstanceV3InitParameters) DeepCopyInto(out *InstanceV3InitParameters) 
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.ComputeSecurityGroupRefs != nil {
+		in, out := &in.ComputeSecurityGroupRefs, &out.ComputeSecurityGroupRefs
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ComputeSecurityGroupSelector != nil {
+		in, out := &in.ComputeSecurityGroupSelector, &out.ComputeSecurityGroupSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Datastore != nil {
 		in, out := &in.Datastore, &out.Datastore
 		*out = make([]InstanceV3DatastoreInitParameters, len(*in))
@@ -725,16 +735,6 @@ func (in *InstanceV3InitParameters) DeepCopyInto(out *InstanceV3InitParameters) 
 		in, out := &in.SecurityGroupID, &out.SecurityGroupID
 		*out = new(string)
 		**out = **in
-	}
-	if in.SecurityGroupRef != nil {
-		in, out := &in.SecurityGroupRef, &out.SecurityGroupRef
-		*out = new(v1.NamespacedReference)
-		(*in).DeepCopyInto(*out)
-	}
-	if in.SecurityGroupSelector != nil {
-		in, out := &in.SecurityGroupSelector, &out.SecurityGroupSelector
-		*out = new(v1.NamespacedSelector)
-		(*in).DeepCopyInto(*out)
 	}
 	if in.SubnetID != nil {
 		in, out := &in.SubnetID, &out.SubnetID
@@ -995,6 +995,16 @@ func (in *InstanceV3Parameters) DeepCopyInto(out *InstanceV3Parameters) {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.ComputeSecurityGroupRefs != nil {
+		in, out := &in.ComputeSecurityGroupRefs, &out.ComputeSecurityGroupRefs
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ComputeSecurityGroupSelector != nil {
+		in, out := &in.ComputeSecurityGroupSelector, &out.ComputeSecurityGroupSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Datastore != nil {
 		in, out := &in.Datastore, &out.Datastore
 		*out = make([]InstanceV3DatastoreParameters, len(*in))
@@ -1054,16 +1064,6 @@ func (in *InstanceV3Parameters) DeepCopyInto(out *InstanceV3Parameters) {
 		in, out := &in.SecurityGroupID, &out.SecurityGroupID
 		*out = new(string)
 		**out = **in
-	}
-	if in.SecurityGroupRef != nil {
-		in, out := &in.SecurityGroupRef, &out.SecurityGroupRef
-		*out = new(v1.NamespacedReference)
-		(*in).DeepCopyInto(*out)
-	}
-	if in.SecurityGroupSelector != nil {
-		in, out := &in.SecurityGroupSelector, &out.SecurityGroupSelector
-		*out = new(v1.NamespacedSelector)
-		(*in).DeepCopyInto(*out)
 	}
 	if in.SubnetID != nil {
 		in, out := &in.SubnetID, &out.SubnetID

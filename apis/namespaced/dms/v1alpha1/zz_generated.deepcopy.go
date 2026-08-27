@@ -1463,6 +1463,16 @@ func (in *InstanceV1InitParameters) DeepCopyInto(out *InstanceV1InitParameters) 
 			}
 		}
 	}
+	if in.ComputeSecurityGroupRefs != nil {
+		in, out := &in.ComputeSecurityGroupRefs, &out.ComputeSecurityGroupRefs
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ComputeSecurityGroupSelector != nil {
+		in, out := &in.ComputeSecurityGroupSelector, &out.ComputeSecurityGroupSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Description != nil {
 		in, out := &in.Description, &out.Description
 		*out = new(string)
@@ -1517,16 +1527,6 @@ func (in *InstanceV1InitParameters) DeepCopyInto(out *InstanceV1InitParameters) 
 		in, out := &in.SecurityGroupID, &out.SecurityGroupID
 		*out = new(string)
 		**out = **in
-	}
-	if in.SecurityGroupRef != nil {
-		in, out := &in.SecurityGroupRef, &out.SecurityGroupRef
-		*out = new(v1.NamespacedReference)
-		(*in).DeepCopyInto(*out)
-	}
-	if in.SecurityGroupSelector != nil {
-		in, out := &in.SecurityGroupSelector, &out.SecurityGroupSelector
-		*out = new(v1.NamespacedSelector)
-		(*in).DeepCopyInto(*out)
 	}
 	if in.Specification != nil {
 		in, out := &in.Specification, &out.Specification
@@ -1812,6 +1812,16 @@ func (in *InstanceV1Parameters) DeepCopyInto(out *InstanceV1Parameters) {
 			}
 		}
 	}
+	if in.ComputeSecurityGroupRefs != nil {
+		in, out := &in.ComputeSecurityGroupRefs, &out.ComputeSecurityGroupRefs
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ComputeSecurityGroupSelector != nil {
+		in, out := &in.ComputeSecurityGroupSelector, &out.ComputeSecurityGroupSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Description != nil {
 		in, out := &in.Description, &out.Description
 		*out = new(string)
@@ -1866,16 +1876,6 @@ func (in *InstanceV1Parameters) DeepCopyInto(out *InstanceV1Parameters) {
 		in, out := &in.SecurityGroupID, &out.SecurityGroupID
 		*out = new(string)
 		**out = **in
-	}
-	if in.SecurityGroupRef != nil {
-		in, out := &in.SecurityGroupRef, &out.SecurityGroupRef
-		*out = new(v1.NamespacedReference)
-		(*in).DeepCopyInto(*out)
-	}
-	if in.SecurityGroupSelector != nil {
-		in, out := &in.SecurityGroupSelector, &out.SecurityGroupSelector
-		*out = new(v1.NamespacedSelector)
-		(*in).DeepCopyInto(*out)
 	}
 	if in.Specification != nil {
 		in, out := &in.Specification, &out.Specification

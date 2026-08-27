@@ -181,6 +181,14 @@ type InstanceV3InitParameters struct {
 	// described below.
 	BackupStrategy []BackupStrategyInitParameters `json:"backupStrategy,omitempty" tf:"backup_strategy,omitempty"`
 
+	// Reference to a SecgroupV2 in compute to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	ComputeSecurityGroupRefs *v1.NamespacedReference `json:"computeSecurityGroupRefs,omitempty" tf:"-"`
+
+	// Selector for a SecgroupV2 in compute to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	ComputeSecurityGroupSelector *v1.NamespacedSelector `json:"computeSecurityGroupSelector,omitempty" tf:"-"`
+
 	// Specifies database information. The structure is described
 	// below.
 	Datastore []InstanceV3DatastoreInitParameters `json:"datastore,omitempty" tf:"datastore,omitempty"`
@@ -225,17 +233,9 @@ type InstanceV3InitParameters struct {
 
 	// Specifies the security group ID of the DDS instance.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/compute/v1alpha1.SecgroupV2
-	// +crossplane:generate:reference:refFieldName=SecurityGroupRef
-	// +crossplane:generate:reference:selectorFieldName=SecurityGroupSelector
+	// +crossplane:generate:reference:refFieldName=ComputeSecurityGroupRefs
+	// +crossplane:generate:reference:selectorFieldName=ComputeSecurityGroupSelector
 	SecurityGroupID *string `json:"securityGroupId,omitempty" tf:"security_group_id,omitempty"`
-
-	// Reference to a SecgroupV2 in compute to populate securityGroupId.
-	// +kubebuilder:validation:Optional
-	SecurityGroupRef *v1.NamespacedReference `json:"securityGroupRef,omitempty" tf:"-"`
-
-	// Selector for a SecgroupV2 in compute to populate securityGroupId.
-	// +kubebuilder:validation:Optional
-	SecurityGroupSelector *v1.NamespacedSelector `json:"securityGroupSelector,omitempty" tf:"-"`
 
 	// Specifies the subnet Network ID.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.SubnetV1
@@ -370,6 +370,14 @@ type InstanceV3Parameters struct {
 	// +kubebuilder:validation:Optional
 	BackupStrategy []BackupStrategyParameters `json:"backupStrategy,omitempty" tf:"backup_strategy,omitempty"`
 
+	// Reference to a SecgroupV2 in compute to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	ComputeSecurityGroupRefs *v1.NamespacedReference `json:"computeSecurityGroupRefs,omitempty" tf:"-"`
+
+	// Selector for a SecgroupV2 in compute to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	ComputeSecurityGroupSelector *v1.NamespacedSelector `json:"computeSecurityGroupSelector,omitempty" tf:"-"`
+
 	// Specifies database information. The structure is described
 	// below.
 	// +kubebuilder:validation:Optional
@@ -425,18 +433,10 @@ type InstanceV3Parameters struct {
 
 	// Specifies the security group ID of the DDS instance.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/compute/v1alpha1.SecgroupV2
-	// +crossplane:generate:reference:refFieldName=SecurityGroupRef
-	// +crossplane:generate:reference:selectorFieldName=SecurityGroupSelector
+	// +crossplane:generate:reference:refFieldName=ComputeSecurityGroupRefs
+	// +crossplane:generate:reference:selectorFieldName=ComputeSecurityGroupSelector
 	// +kubebuilder:validation:Optional
 	SecurityGroupID *string `json:"securityGroupId,omitempty" tf:"security_group_id,omitempty"`
-
-	// Reference to a SecgroupV2 in compute to populate securityGroupId.
-	// +kubebuilder:validation:Optional
-	SecurityGroupRef *v1.NamespacedReference `json:"securityGroupRef,omitempty" tf:"-"`
-
-	// Selector for a SecgroupV2 in compute to populate securityGroupId.
-	// +kubebuilder:validation:Optional
-	SecurityGroupSelector *v1.NamespacedSelector `json:"securityGroupSelector,omitempty" tf:"-"`
 
 	// Specifies the subnet Network ID.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.SubnetV1

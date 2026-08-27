@@ -180,8 +180,8 @@ func (mg *InstanceV2) ResolveReferences(ctx context.Context, c client.Reader) er
 		CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.SecurityGroups),
 		Extract:       reference.ExternalName(),
 		Namespace:     mg.GetNamespace(),
-		References:    mg.Spec.ForProvider.SecurityGroupsRefs,
-		Selector:      mg.Spec.ForProvider.SecurityGroupsSelector,
+		References:    mg.Spec.ForProvider.ComputeSecurityGroupRefs,
+		Selector:      mg.Spec.ForProvider.ComputeSecurityGroupSelector,
 		To: reference.To{
 			List:    &SecgroupV2List{},
 			Managed: &SecgroupV2{},
@@ -191,7 +191,7 @@ func (mg *InstanceV2) ResolveReferences(ctx context.Context, c client.Reader) er
 		return errors.Wrap(err, "mg.Spec.ForProvider.SecurityGroups")
 	}
 	mg.Spec.ForProvider.SecurityGroups = reference.ToPtrValues(mrsp.ResolvedValues)
-	mg.Spec.ForProvider.SecurityGroupsRefs = mrsp.ResolvedReferences
+	mg.Spec.ForProvider.ComputeSecurityGroupRefs = mrsp.ResolvedReferences
 
 	for i3 := 0; i3 < len(mg.Spec.InitProvider.BlockDevice); i3++ {
 		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
@@ -271,8 +271,8 @@ func (mg *InstanceV2) ResolveReferences(ctx context.Context, c client.Reader) er
 		CurrentValues: reference.FromPtrValues(mg.Spec.InitProvider.SecurityGroups),
 		Extract:       reference.ExternalName(),
 		Namespace:     mg.GetNamespace(),
-		References:    mg.Spec.InitProvider.SecurityGroupsRefs,
-		Selector:      mg.Spec.InitProvider.SecurityGroupsSelector,
+		References:    mg.Spec.InitProvider.ComputeSecurityGroupRefs,
+		Selector:      mg.Spec.InitProvider.ComputeSecurityGroupSelector,
 		To: reference.To{
 			List:    &SecgroupV2List{},
 			Managed: &SecgroupV2{},
@@ -282,7 +282,7 @@ func (mg *InstanceV2) ResolveReferences(ctx context.Context, c client.Reader) er
 		return errors.Wrap(err, "mg.Spec.InitProvider.SecurityGroups")
 	}
 	mg.Spec.InitProvider.SecurityGroups = reference.ToPtrValues(mrsp.ResolvedValues)
-	mg.Spec.InitProvider.SecurityGroupsRefs = mrsp.ResolvedReferences
+	mg.Spec.InitProvider.ComputeSecurityGroupRefs = mrsp.ResolvedReferences
 
 	return nil
 }

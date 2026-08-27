@@ -144,6 +144,14 @@ type InstanceV2InitParameters struct {
 	// Specifies the cache capacity. Unit: GB.
 	Capacity *float64 `json:"capacity,omitempty" tf:"capacity,omitempty"`
 
+	// Reference to a SecgroupV2 in compute to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	ComputeSecurityGroupRefs *v1.NamespacedReference `json:"computeSecurityGroupRefs,omitempty" tf:"-"`
+
+	// Selector for a SecgroupV2 in compute to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	ComputeSecurityGroupSelector *v1.NamespacedSelector `json:"computeSecurityGroupSelector,omitempty" tf:"-"`
+
 	// Specifies the ID of the replica to delete. This parameter is mandatory when
 	// you delete replicas of a master/standby DCS Redis 4.0 or 5.0 instance. Currently, only one replica can be deleted
 	// at a time.
@@ -218,17 +226,9 @@ type InstanceV2InitParameters struct {
 	// The ID of the security group which the instance belongs to.
 	// This parameter is mandatory for Memcached and Redis 3.0 version.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/compute/v1alpha1.SecgroupV2
-	// +crossplane:generate:reference:refFieldName=SecurityGroupRef
-	// +crossplane:generate:reference:selectorFieldName=SecurityGroupSelector
+	// +crossplane:generate:reference:refFieldName=ComputeSecurityGroupRefs
+	// +crossplane:generate:reference:selectorFieldName=ComputeSecurityGroupSelector
 	SecurityGroupID *string `json:"securityGroupId,omitempty" tf:"security_group_id,omitempty"`
-
-	// Reference to a SecgroupV2 in compute to populate securityGroupId.
-	// +kubebuilder:validation:Optional
-	SecurityGroupRef *v1.NamespacedReference `json:"securityGroupRef,omitempty" tf:"-"`
-
-	// Selector for a SecgroupV2 in compute to populate securityGroupId.
-	// +kubebuilder:validation:Optional
-	SecurityGroupSelector *v1.NamespacedSelector `json:"securityGroupSelector,omitempty" tf:"-"`
 
 	// The ID of subnet (Network ID) which the instance belongs to.
 	// Changing this creates a new instance resource.
@@ -480,6 +480,14 @@ type InstanceV2Parameters struct {
 	// +kubebuilder:validation:Optional
 	Capacity *float64 `json:"capacity,omitempty" tf:"capacity,omitempty"`
 
+	// Reference to a SecgroupV2 in compute to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	ComputeSecurityGroupRefs *v1.NamespacedReference `json:"computeSecurityGroupRefs,omitempty" tf:"-"`
+
+	// Selector for a SecgroupV2 in compute to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	ComputeSecurityGroupSelector *v1.NamespacedSelector `json:"computeSecurityGroupSelector,omitempty" tf:"-"`
+
 	// Specifies the ID of the replica to delete. This parameter is mandatory when
 	// you delete replicas of a master/standby DCS Redis 4.0 or 5.0 instance. Currently, only one replica can be deleted
 	// at a time.
@@ -570,18 +578,10 @@ type InstanceV2Parameters struct {
 	// The ID of the security group which the instance belongs to.
 	// This parameter is mandatory for Memcached and Redis 3.0 version.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/compute/v1alpha1.SecgroupV2
-	// +crossplane:generate:reference:refFieldName=SecurityGroupRef
-	// +crossplane:generate:reference:selectorFieldName=SecurityGroupSelector
+	// +crossplane:generate:reference:refFieldName=ComputeSecurityGroupRefs
+	// +crossplane:generate:reference:selectorFieldName=ComputeSecurityGroupSelector
 	// +kubebuilder:validation:Optional
 	SecurityGroupID *string `json:"securityGroupId,omitempty" tf:"security_group_id,omitempty"`
-
-	// Reference to a SecgroupV2 in compute to populate securityGroupId.
-	// +kubebuilder:validation:Optional
-	SecurityGroupRef *v1.NamespacedReference `json:"securityGroupRef,omitempty" tf:"-"`
-
-	// Selector for a SecgroupV2 in compute to populate securityGroupId.
-	// +kubebuilder:validation:Optional
-	SecurityGroupSelector *v1.NamespacedSelector `json:"securityGroupSelector,omitempty" tf:"-"`
 
 	// The ID of subnet (Network ID) which the instance belongs to.
 	// Changing this creates a new instance resource.
