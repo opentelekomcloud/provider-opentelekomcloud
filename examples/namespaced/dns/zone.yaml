@@ -52,12 +52,12 @@ metadata:
 spec:
   forProvider:
     description: Crossplane example for public zone
-  email: crossplane@pub-example.com
-  name: crossplane.pub-example.com.
-  tags:
-    managed-by: crossplane
-  ttl: 3000
-  type: public
+    email: crossplane@pub-example.com
+    name: crossplane.pub-example.com.
+    tags:
+      managed-by: crossplane
+    ttl: 3000
+    type: public
 
 ---
 apiVersion: dns.opentelekomcloud.m.crossplane.io/v1alpha1
@@ -102,4 +102,3 @@ spec:
     zoneSelector:
       matchLabels:
         testing.upbound.io/example-name: dns-zone-public
-
