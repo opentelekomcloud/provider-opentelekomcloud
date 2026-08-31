@@ -1,7 +1,26 @@
+# v1.0.0
+
+## What's Changed
+* tests: nightly automated testing by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/141
+* Add AI Assisted Badge to README by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/145
+* introduce new vars for multiregion-tests by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/147
+* chore: upgrade golangci-lint@v2.12.2 and add constants for repeated tf resource names by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/149
+* feat: OBS implementation + e2e testing by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/142
+* fix nameSelector and e2e for `instancev2.compute` by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/153
+* fix(linter): golangci-lint `goconst` errors in OBS conf by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/154
+* upgrade go v1.26.5 by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/151
+* chore(deps): bump golang.org/x/net from 0.48.0 to 0.55.0 in the go_modules group across 1 directory by @dependabot[bot] in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/128
+* feat: `sfs` implementation and e2e testing. by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/156
+* Breaking(fix): Consistent field names for selectors and refs by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/157
+
+
+**Full Changelog**: https://github.com/opentelekomcloud/provider-opentelekomcloud/compare/v0.10.1...v1.0.0
+
 # v0.10.1
 
 ## What's Changed
 * feat: add `vpc_ip_address_group_v3` - chore: regen provider with `1.37.1` by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/137
+* release notes for v0.10.1 by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/139
 
 
 **Full Changelog**: https://github.com/opentelekomcloud/provider-opentelekomcloud/compare/v0.10.0...v0.10.1
