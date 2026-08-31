@@ -11,10 +11,10 @@ spec:
   forProvider:
     availabilityZone: ${var.az_replica}
     flavorRef: rds.pg.n1.large.4
-    name: test-replica
-    replicaOfSelector:
+    instanceSelector:
       matchLabels:
         testing.upbound.io/example-name: instance
+    name: test-replica
     volume:
     - type: CLOUDSSD
 

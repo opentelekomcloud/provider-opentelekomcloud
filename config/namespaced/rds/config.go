@@ -57,8 +57,8 @@ func Configure(p *config.Provider) {
 		r.UseAsync = true
 		r.References["replica_of_id"] = config.Reference{
 			TerraformName:     "opentelekomcloud_rds_instance_v3",
-			SelectorFieldName: "ReplicaOfSelector",
-			RefFieldName:      "ReplicaOfRef",
+			SelectorFieldName: "InstanceSelector",
+			RefFieldName:      "InstanceRef",
 		}
 		r.References["public_ips"] = config.Reference{
 			TerraformName:     "opentelekomcloud_vpc_eip_v1",

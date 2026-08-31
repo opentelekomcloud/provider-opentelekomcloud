@@ -25,33 +25,33 @@ type FlowLogV1InitParameters struct {
 
 	// Specifies the log group ID.
 	// Changing this creates a new VPC flow log.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/logtank/v1alpha1.GroupV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lts/v1alpha1.GroupV2
 	// +crossplane:generate:reference:refFieldName=LogGroupRef
 	// +crossplane:generate:reference:selectorFieldName=LogGroupSelector
 	LogGroupID *string `json:"logGroupId,omitempty" tf:"log_group_id,omitempty"`
 
-	// Reference to a GroupV2 in logtank to populate logGroupId.
+	// Reference to a GroupV2 in lts to populate logGroupId.
 	// +kubebuilder:validation:Optional
 	LogGroupRef *v1.NamespacedReference `json:"logGroupRef,omitempty" tf:"-"`
 
-	// Selector for a GroupV2 in logtank to populate logGroupId.
+	// Selector for a GroupV2 in lts to populate logGroupId.
 	// +kubebuilder:validation:Optional
 	LogGroupSelector *v1.NamespacedSelector `json:"logGroupSelector,omitempty" tf:"-"`
 
+	// Reference to a StreamV2 in lts to populate logTopicId.
+	// +kubebuilder:validation:Optional
+	LogSteamRef *v1.NamespacedReference `json:"logSteamRef,omitempty" tf:"-"`
+
+	// Selector for a StreamV2 in lts to populate logTopicId.
+	// +kubebuilder:validation:Optional
+	LogStreamSelector *v1.NamespacedSelector `json:"logStreamSelector,omitempty" tf:"-"`
+
 	// Specifies the log topic ID.
 	// Changing this creates a new VPC flow log.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/logtank/v1alpha1.TopicV2
-	// +crossplane:generate:reference:refFieldName=LogTopicRef
-	// +crossplane:generate:reference:selectorFieldName=LogTopicSelector
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lts/v1alpha1.StreamV2
+	// +crossplane:generate:reference:refFieldName=LogSteamRef
+	// +crossplane:generate:reference:selectorFieldName=LogStreamSelector
 	LogTopicID *string `json:"logTopicId,omitempty" tf:"log_topic_id,omitempty"`
-
-	// Reference to a TopicV2 in logtank to populate logTopicId.
-	// +kubebuilder:validation:Optional
-	LogTopicRef *v1.NamespacedReference `json:"logTopicRef,omitempty" tf:"-"`
-
-	// Selector for a TopicV2 in logtank to populate logTopicId.
-	// +kubebuilder:validation:Optional
-	LogTopicSelector *v1.NamespacedSelector `json:"logTopicSelector,omitempty" tf:"-"`
 
 	// Specifies the flow log name.
 	// The value is a string of 1 to 64 characters that can contain letters, digits, underscores (_), hyphens (-) and periods (.).
@@ -139,35 +139,35 @@ type FlowLogV1Parameters struct {
 
 	// Specifies the log group ID.
 	// Changing this creates a new VPC flow log.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/logtank/v1alpha1.GroupV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lts/v1alpha1.GroupV2
 	// +crossplane:generate:reference:refFieldName=LogGroupRef
 	// +crossplane:generate:reference:selectorFieldName=LogGroupSelector
 	// +kubebuilder:validation:Optional
 	LogGroupID *string `json:"logGroupId,omitempty" tf:"log_group_id,omitempty"`
 
-	// Reference to a GroupV2 in logtank to populate logGroupId.
+	// Reference to a GroupV2 in lts to populate logGroupId.
 	// +kubebuilder:validation:Optional
 	LogGroupRef *v1.NamespacedReference `json:"logGroupRef,omitempty" tf:"-"`
 
-	// Selector for a GroupV2 in logtank to populate logGroupId.
+	// Selector for a GroupV2 in lts to populate logGroupId.
 	// +kubebuilder:validation:Optional
 	LogGroupSelector *v1.NamespacedSelector `json:"logGroupSelector,omitempty" tf:"-"`
 
+	// Reference to a StreamV2 in lts to populate logTopicId.
+	// +kubebuilder:validation:Optional
+	LogSteamRef *v1.NamespacedReference `json:"logSteamRef,omitempty" tf:"-"`
+
+	// Selector for a StreamV2 in lts to populate logTopicId.
+	// +kubebuilder:validation:Optional
+	LogStreamSelector *v1.NamespacedSelector `json:"logStreamSelector,omitempty" tf:"-"`
+
 	// Specifies the log topic ID.
 	// Changing this creates a new VPC flow log.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/logtank/v1alpha1.TopicV2
-	// +crossplane:generate:reference:refFieldName=LogTopicRef
-	// +crossplane:generate:reference:selectorFieldName=LogTopicSelector
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lts/v1alpha1.StreamV2
+	// +crossplane:generate:reference:refFieldName=LogSteamRef
+	// +crossplane:generate:reference:selectorFieldName=LogStreamSelector
 	// +kubebuilder:validation:Optional
 	LogTopicID *string `json:"logTopicId,omitempty" tf:"log_topic_id,omitempty"`
-
-	// Reference to a TopicV2 in logtank to populate logTopicId.
-	// +kubebuilder:validation:Optional
-	LogTopicRef *v1.NamespacedReference `json:"logTopicRef,omitempty" tf:"-"`
-
-	// Selector for a TopicV2 in logtank to populate logTopicId.
-	// +kubebuilder:validation:Optional
-	LogTopicSelector *v1.NamespacedSelector `json:"logTopicSelector,omitempty" tf:"-"`
 
 	// Specifies the flow log name.
 	// The value is a string of 1 to 64 characters that can contain letters, digits, underscores (_), hyphens (-) and periods (.).

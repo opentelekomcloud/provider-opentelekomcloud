@@ -9,7 +9,7 @@ package v1alpha1
 import (
 	"context"
 	reference "github.com/crossplane/crossplane-runtime/v2/pkg/reference"
-	v1alpha1 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/logtank/v1alpha1"
+	v1alpha1 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lts/v1alpha1"
 	errors "github.com/pkg/errors"
 	client "sigs.k8s.io/controller-runtime/pkg/client"
 )
@@ -121,18 +121,18 @@ func (mg *FlowLogV1) ResolveReferences(ctx context.Context, c client.Reader) err
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.LogTopicID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.ForProvider.LogTopicRef,
-		Selector:     mg.Spec.ForProvider.LogTopicSelector,
+		Reference:    mg.Spec.ForProvider.LogSteamRef,
+		Selector:     mg.Spec.ForProvider.LogStreamSelector,
 		To: reference.To{
-			List:    &v1alpha1.TopicV2List{},
-			Managed: &v1alpha1.TopicV2{},
+			List:    &v1alpha1.StreamV2List{},
+			Managed: &v1alpha1.StreamV2{},
 		},
 	})
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.ForProvider.LogTopicID")
 	}
 	mg.Spec.ForProvider.LogTopicID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.LogTopicRef = rsp.ResolvedReference
+	mg.Spec.ForProvider.LogSteamRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ResourceID),
@@ -172,18 +172,18 @@ func (mg *FlowLogV1) ResolveReferences(ctx context.Context, c client.Reader) err
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.LogTopicID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.InitProvider.LogTopicRef,
-		Selector:     mg.Spec.InitProvider.LogTopicSelector,
+		Reference:    mg.Spec.InitProvider.LogSteamRef,
+		Selector:     mg.Spec.InitProvider.LogStreamSelector,
 		To: reference.To{
-			List:    &v1alpha1.TopicV2List{},
-			Managed: &v1alpha1.TopicV2{},
+			List:    &v1alpha1.StreamV2List{},
+			Managed: &v1alpha1.StreamV2{},
 		},
 	})
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.InitProvider.LogTopicID")
 	}
 	mg.Spec.InitProvider.LogTopicID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.LogTopicRef = rsp.ResolvedReference
+	mg.Spec.InitProvider.LogSteamRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ResourceID),

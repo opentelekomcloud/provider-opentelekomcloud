@@ -270,8 +270,8 @@ func (mg *ReadReplicaV3) ResolveReferences(ctx context.Context, c client.Reader)
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ReplicaOfID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.ForProvider.ReplicaOfRef,
-		Selector:     mg.Spec.ForProvider.ReplicaOfSelector,
+		Reference:    mg.Spec.ForProvider.InstanceRef,
+		Selector:     mg.Spec.ForProvider.InstanceSelector,
 		To: reference.To{
 			List:    &InstanceV3List{},
 			Managed: &InstanceV3{},
@@ -281,7 +281,7 @@ func (mg *ReadReplicaV3) ResolveReferences(ctx context.Context, c client.Reader)
 		return errors.Wrap(err, "mg.Spec.ForProvider.ReplicaOfID")
 	}
 	mg.Spec.ForProvider.ReplicaOfID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.ReplicaOfRef = rsp.ResolvedReference
+	mg.Spec.ForProvider.InstanceRef = rsp.ResolvedReference
 
 	mrsp, err = r.ResolveMultiple(ctx, reference.MultiNamespacedResolutionRequest{
 		CurrentValues: reference.FromPtrValues(mg.Spec.InitProvider.PublicIps),
@@ -304,8 +304,8 @@ func (mg *ReadReplicaV3) ResolveReferences(ctx context.Context, c client.Reader)
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ReplicaOfID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.InitProvider.ReplicaOfRef,
-		Selector:     mg.Spec.InitProvider.ReplicaOfSelector,
+		Reference:    mg.Spec.InitProvider.InstanceRef,
+		Selector:     mg.Spec.InitProvider.InstanceSelector,
 		To: reference.To{
 			List:    &InstanceV3List{},
 			Managed: &InstanceV3{},
@@ -315,7 +315,7 @@ func (mg *ReadReplicaV3) ResolveReferences(ctx context.Context, c client.Reader)
 		return errors.Wrap(err, "mg.Spec.InitProvider.ReplicaOfID")
 	}
 	mg.Spec.InitProvider.ReplicaOfID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.ReplicaOfRef = rsp.ResolvedReference
+	mg.Spec.InitProvider.InstanceRef = rsp.ResolvedReference
 
 	return nil
 }

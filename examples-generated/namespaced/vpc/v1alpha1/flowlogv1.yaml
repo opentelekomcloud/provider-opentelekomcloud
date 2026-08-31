@@ -13,7 +13,7 @@ spec:
     logGroupSelector:
       matchLabels:
         testing.upbound.io/example-name: log_group1
-    logTopicSelector:
+    logStreamSelector:
       matchLabels:
         testing.upbound.io/example-name: log_topic1
     name: ${var.flow_log_name}

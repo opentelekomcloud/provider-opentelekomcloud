@@ -40,14 +40,14 @@ func Configure(p *config.Provider) {
 			RefFieldName:      "ResourceRef",
 		}
 		r.References["log_group_id"] = config.Reference{
-			TerraformName:     "opentelekomcloud_logtank_group_v2",
+			TerraformName:     "opentelekomcloud_lts_group_v2",
 			SelectorFieldName: "LogGroupSelector",
 			RefFieldName:      "LogGroupRef",
 		}
 		r.References["log_topic_id"] = config.Reference{
-			TerraformName:     "opentelekomcloud_logtank_topic_v2",
-			SelectorFieldName: "LogTopicSelector",
-			RefFieldName:      "LogTopicRef",
+			TerraformName:     "opentelekomcloud_lts_stream_v2",
+			SelectorFieldName: "LogStreamSelector",
+			RefFieldName:      "LogSteamRef",
 		}
 	})
 	p.AddResourceConfigurator("opentelekomcloud_vpc_peering_connection_v2", func(r *config.Resource) {

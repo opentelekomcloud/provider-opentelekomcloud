@@ -945,20 +945,20 @@ func (in *FlowLogV1InitParameters) DeepCopyInto(out *FlowLogV1InitParameters) {
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
+	if in.LogSteamRef != nil {
+		in, out := &in.LogSteamRef, &out.LogSteamRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.LogStreamSelector != nil {
+		in, out := &in.LogStreamSelector, &out.LogStreamSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.LogTopicID != nil {
 		in, out := &in.LogTopicID, &out.LogTopicID
 		*out = new(string)
 		**out = **in
-	}
-	if in.LogTopicRef != nil {
-		in, out := &in.LogTopicRef, &out.LogTopicRef
-		*out = new(v1.NamespacedReference)
-		(*in).DeepCopyInto(*out)
-	}
-	if in.LogTopicSelector != nil {
-		in, out := &in.LogTopicSelector, &out.LogTopicSelector
-		*out = new(v1.NamespacedSelector)
-		(*in).DeepCopyInto(*out)
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
@@ -1132,20 +1132,20 @@ func (in *FlowLogV1Parameters) DeepCopyInto(out *FlowLogV1Parameters) {
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
+	if in.LogSteamRef != nil {
+		in, out := &in.LogSteamRef, &out.LogSteamRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.LogStreamSelector != nil {
+		in, out := &in.LogStreamSelector, &out.LogStreamSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.LogTopicID != nil {
 		in, out := &in.LogTopicID, &out.LogTopicID
 		*out = new(string)
 		**out = **in
-	}
-	if in.LogTopicRef != nil {
-		in, out := &in.LogTopicRef, &out.LogTopicRef
-		*out = new(v1.NamespacedReference)
-		(*in).DeepCopyInto(*out)
-	}
-	if in.LogTopicSelector != nil {
-		in, out := &in.LogTopicSelector, &out.LogTopicSelector
-		*out = new(v1.NamespacedSelector)
-		(*in).DeepCopyInto(*out)
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name

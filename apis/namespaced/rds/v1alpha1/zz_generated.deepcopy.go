@@ -2212,6 +2212,16 @@ func (in *ReadReplicaV3InitParameters) DeepCopyInto(out *ReadReplicaV3InitParame
 		*out = new(string)
 		**out = **in
 	}
+	if in.InstanceRef != nil {
+		in, out := &in.InstanceRef, &out.InstanceRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceSelector != nil {
+		in, out := &in.InstanceSelector, &out.InstanceSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)
@@ -2249,16 +2259,6 @@ func (in *ReadReplicaV3InitParameters) DeepCopyInto(out *ReadReplicaV3InitParame
 		in, out := &in.ReplicaOfID, &out.ReplicaOfID
 		*out = new(string)
 		**out = **in
-	}
-	if in.ReplicaOfRef != nil {
-		in, out := &in.ReplicaOfRef, &out.ReplicaOfRef
-		*out = new(v1.NamespacedReference)
-		(*in).DeepCopyInto(*out)
-	}
-	if in.ReplicaOfSelector != nil {
-		in, out := &in.ReplicaOfSelector, &out.ReplicaOfSelector
-		*out = new(v1.NamespacedSelector)
-		(*in).DeepCopyInto(*out)
 	}
 	if in.SSLEnable != nil {
 		in, out := &in.SSLEnable, &out.SSLEnable
@@ -2430,6 +2430,16 @@ func (in *ReadReplicaV3Parameters) DeepCopyInto(out *ReadReplicaV3Parameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.InstanceRef != nil {
+		in, out := &in.InstanceRef, &out.InstanceRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceSelector != nil {
+		in, out := &in.InstanceSelector, &out.InstanceSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)
@@ -2467,16 +2477,6 @@ func (in *ReadReplicaV3Parameters) DeepCopyInto(out *ReadReplicaV3Parameters) {
 		in, out := &in.ReplicaOfID, &out.ReplicaOfID
 		*out = new(string)
 		**out = **in
-	}
-	if in.ReplicaOfRef != nil {
-		in, out := &in.ReplicaOfRef, &out.ReplicaOfRef
-		*out = new(v1.NamespacedReference)
-		(*in).DeepCopyInto(*out)
-	}
-	if in.ReplicaOfSelector != nil {
-		in, out := &in.ReplicaOfSelector, &out.ReplicaOfSelector
-		*out = new(v1.NamespacedSelector)
-		(*in).DeepCopyInto(*out)
 	}
 	if in.SSLEnable != nil {
 		in, out := &in.SSLEnable, &out.SSLEnable
