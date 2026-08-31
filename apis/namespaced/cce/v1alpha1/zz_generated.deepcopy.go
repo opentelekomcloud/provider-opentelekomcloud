@@ -48,13 +48,13 @@ func (in *AddonV3InitParameters) DeepCopyInto(out *AddonV3InitParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.ClusterIDRef != nil {
-		in, out := &in.ClusterIDRef, &out.ClusterIDRef
+	if in.ClusterRef != nil {
+		in, out := &in.ClusterRef, &out.ClusterRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.ClusterIDSelector != nil {
-		in, out := &in.ClusterIDSelector, &out.ClusterIDSelector
+	if in.ClusterSelector != nil {
+		in, out := &in.ClusterSelector, &out.ClusterSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -179,13 +179,13 @@ func (in *AddonV3Parameters) DeepCopyInto(out *AddonV3Parameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.ClusterIDRef != nil {
-		in, out := &in.ClusterIDRef, &out.ClusterIDRef
+	if in.ClusterRef != nil {
+		in, out := &in.ClusterRef, &out.ClusterRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.ClusterIDSelector != nil {
-		in, out := &in.ClusterIDSelector, &out.ClusterIDSelector
+	if in.ClusterSelector != nil {
+		in, out := &in.ClusterSelector, &out.ClusterSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -670,13 +670,13 @@ func (in *ClusterV3InitParameters) DeepCopyInto(out *ClusterV3InitParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.EniSubnetIDRef != nil {
-		in, out := &in.EniSubnetIDRef, &out.EniSubnetIDRef
+	if in.EniSubnetRef != nil {
+		in, out := &in.EniSubnetRef, &out.EniSubnetRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.EniSubnetIDSelector != nil {
-		in, out := &in.EniSubnetIDSelector, &out.EniSubnetIDSelector
+	if in.EniSubnetSelector != nil {
+		in, out := &in.EniSubnetSelector, &out.EniSubnetSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -706,13 +706,13 @@ func (in *ClusterV3InitParameters) DeepCopyInto(out *ClusterV3InitParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.HighwaySubnetIDRef != nil {
-		in, out := &in.HighwaySubnetIDRef, &out.HighwaySubnetIDRef
+	if in.HighwaySubnetRef != nil {
+		in, out := &in.HighwaySubnetRef, &out.HighwaySubnetRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.HighwaySubnetIDSelector != nil {
-		in, out := &in.HighwaySubnetIDSelector, &out.HighwaySubnetIDSelector
+	if in.HighwaySubnetSelector != nil {
+		in, out := &in.HighwaySubnetSelector, &out.HighwaySubnetSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -799,13 +799,13 @@ func (in *ClusterV3InitParameters) DeepCopyInto(out *ClusterV3InitParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.SubnetIDRef != nil {
-		in, out := &in.SubnetIDRef, &out.SubnetIDRef
+	if in.SubnetRef != nil {
+		in, out := &in.SubnetRef, &out.SubnetRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.SubnetIDSelector != nil {
-		in, out := &in.SubnetIDSelector, &out.SubnetIDSelector
+	if in.SubnetSelector != nil {
+		in, out := &in.SubnetSelector, &out.SubnetSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -824,13 +824,13 @@ func (in *ClusterV3InitParameters) DeepCopyInto(out *ClusterV3InitParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.VPCIDRef != nil {
-		in, out := &in.VPCIDRef, &out.VPCIDRef
+	if in.VPCRef != nil {
+		in, out := &in.VPCRef, &out.VPCRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.VPCIDSelector != nil {
-		in, out := &in.VPCIDSelector, &out.VPCIDSelector
+	if in.VPCSelector != nil {
+		in, out := &in.VPCSelector, &out.VPCSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -1414,13 +1414,13 @@ func (in *ClusterV3Parameters) DeepCopyInto(out *ClusterV3Parameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.EniSubnetIDRef != nil {
-		in, out := &in.EniSubnetIDRef, &out.EniSubnetIDRef
+	if in.EniSubnetRef != nil {
+		in, out := &in.EniSubnetRef, &out.EniSubnetRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.EniSubnetIDSelector != nil {
-		in, out := &in.EniSubnetIDSelector, &out.EniSubnetIDSelector
+	if in.EniSubnetSelector != nil {
+		in, out := &in.EniSubnetSelector, &out.EniSubnetSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -1450,13 +1450,13 @@ func (in *ClusterV3Parameters) DeepCopyInto(out *ClusterV3Parameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.HighwaySubnetIDRef != nil {
-		in, out := &in.HighwaySubnetIDRef, &out.HighwaySubnetIDRef
+	if in.HighwaySubnetRef != nil {
+		in, out := &in.HighwaySubnetRef, &out.HighwaySubnetRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.HighwaySubnetIDSelector != nil {
-		in, out := &in.HighwaySubnetIDSelector, &out.HighwaySubnetIDSelector
+	if in.HighwaySubnetSelector != nil {
+		in, out := &in.HighwaySubnetSelector, &out.HighwaySubnetSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -1543,13 +1543,13 @@ func (in *ClusterV3Parameters) DeepCopyInto(out *ClusterV3Parameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.SubnetIDRef != nil {
-		in, out := &in.SubnetIDRef, &out.SubnetIDRef
+	if in.SubnetRef != nil {
+		in, out := &in.SubnetRef, &out.SubnetRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.SubnetIDSelector != nil {
-		in, out := &in.SubnetIDSelector, &out.SubnetIDSelector
+	if in.SubnetSelector != nil {
+		in, out := &in.SubnetSelector, &out.SubnetSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -1568,13 +1568,13 @@ func (in *ClusterV3Parameters) DeepCopyInto(out *ClusterV3Parameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.VPCIDRef != nil {
-		in, out := &in.VPCIDRef, &out.VPCIDRef
+	if in.VPCRef != nil {
+		in, out := &in.VPCRef, &out.VPCRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.VPCIDSelector != nil {
-		in, out := &in.VPCIDSelector, &out.VPCIDSelector
+	if in.VPCSelector != nil {
+		in, out := &in.VPCSelector, &out.VPCSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -2653,13 +2653,13 @@ func (in *NodePoolV3DataVolumesInitParameters) DeepCopyInto(out *NodePoolV3DataV
 		*out = new(string)
 		**out = **in
 	}
-	if in.KMSIDRef != nil {
-		in, out := &in.KMSIDRef, &out.KMSIDRef
+	if in.KMSRef != nil {
+		in, out := &in.KMSRef, &out.KMSRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.KMSIDSelector != nil {
-		in, out := &in.KMSIDSelector, &out.KMSIDSelector
+	if in.KMSSelector != nil {
+		in, out := &in.KMSSelector, &out.KMSSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -2765,13 +2765,13 @@ func (in *NodePoolV3DataVolumesParameters) DeepCopyInto(out *NodePoolV3DataVolum
 		*out = new(string)
 		**out = **in
 	}
-	if in.KMSIDRef != nil {
-		in, out := &in.KMSIDRef, &out.KMSIDRef
+	if in.KMSRef != nil {
+		in, out := &in.KMSRef, &out.KMSRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.KMSIDSelector != nil {
-		in, out := &in.KMSIDSelector, &out.KMSIDSelector
+	if in.KMSSelector != nil {
+		in, out := &in.KMSSelector, &out.KMSSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -2825,13 +2825,13 @@ func (in *NodePoolV3InitParameters) DeepCopyInto(out *NodePoolV3InitParameters) 
 		*out = new(string)
 		**out = **in
 	}
-	if in.ClusterIDRef != nil {
-		in, out := &in.ClusterIDRef, &out.ClusterIDRef
+	if in.ClusterRef != nil {
+		in, out := &in.ClusterRef, &out.ClusterRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.ClusterIDSelector != nil {
-		in, out := &in.ClusterIDSelector, &out.ClusterIDSelector
+	if in.ClusterSelector != nil {
+		in, out := &in.ClusterSelector, &out.ClusterSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -2986,13 +2986,13 @@ func (in *NodePoolV3InitParameters) DeepCopyInto(out *NodePoolV3InitParameters) 
 		*out = new(string)
 		**out = **in
 	}
-	if in.SubnetIDRef != nil {
-		in, out := &in.SubnetIDRef, &out.SubnetIDRef
+	if in.SubnetRef != nil {
+		in, out := &in.SubnetRef, &out.SubnetRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.SubnetIDSelector != nil {
-		in, out := &in.SubnetIDSelector, &out.SubnetIDSelector
+	if in.SubnetSelector != nil {
+		in, out := &in.SubnetSelector, &out.SubnetSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -3290,13 +3290,13 @@ func (in *NodePoolV3Parameters) DeepCopyInto(out *NodePoolV3Parameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.ClusterIDRef != nil {
-		in, out := &in.ClusterIDRef, &out.ClusterIDRef
+	if in.ClusterRef != nil {
+		in, out := &in.ClusterRef, &out.ClusterRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.ClusterIDSelector != nil {
-		in, out := &in.ClusterIDSelector, &out.ClusterIDSelector
+	if in.ClusterSelector != nil {
+		in, out := &in.ClusterSelector, &out.ClusterSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -3451,13 +3451,13 @@ func (in *NodePoolV3Parameters) DeepCopyInto(out *NodePoolV3Parameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.SubnetIDRef != nil {
-		in, out := &in.SubnetIDRef, &out.SubnetIDRef
+	if in.SubnetRef != nil {
+		in, out := &in.SubnetRef, &out.SubnetRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.SubnetIDSelector != nil {
-		in, out := &in.SubnetIDSelector, &out.SubnetIDSelector
+	if in.SubnetSelector != nil {
+		in, out := &in.SubnetSelector, &out.SubnetSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -3525,13 +3525,13 @@ func (in *NodePoolV3RootVolumeInitParameters) DeepCopyInto(out *NodePoolV3RootVo
 		*out = new(string)
 		**out = **in
 	}
-	if in.KMSIDRef != nil {
-		in, out := &in.KMSIDRef, &out.KMSIDRef
+	if in.KMSRef != nil {
+		in, out := &in.KMSRef, &out.KMSRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.KMSIDSelector != nil {
-		in, out := &in.KMSIDSelector, &out.KMSIDSelector
+	if in.KMSSelector != nil {
+		in, out := &in.KMSSelector, &out.KMSSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -3637,13 +3637,13 @@ func (in *NodePoolV3RootVolumeParameters) DeepCopyInto(out *NodePoolV3RootVolume
 		*out = new(string)
 		**out = **in
 	}
-	if in.KMSIDRef != nil {
-		in, out := &in.KMSIDRef, &out.KMSIDRef
+	if in.KMSRef != nil {
+		in, out := &in.KMSRef, &out.KMSRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.KMSIDSelector != nil {
-		in, out := &in.KMSIDSelector, &out.KMSIDSelector
+	if in.KMSSelector != nil {
+		in, out := &in.KMSSelector, &out.KMSSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -3850,13 +3850,13 @@ func (in *NodeV3DataVolumesInitParameters) DeepCopyInto(out *NodeV3DataVolumesIn
 		*out = new(string)
 		**out = **in
 	}
-	if in.KMSIDRef != nil {
-		in, out := &in.KMSIDRef, &out.KMSIDRef
+	if in.KMSRef != nil {
+		in, out := &in.KMSRef, &out.KMSRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.KMSIDSelector != nil {
-		in, out := &in.KMSIDSelector, &out.KMSIDSelector
+	if in.KMSSelector != nil {
+		in, out := &in.KMSSelector, &out.KMSSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -3962,13 +3962,13 @@ func (in *NodeV3DataVolumesParameters) DeepCopyInto(out *NodeV3DataVolumesParame
 		*out = new(string)
 		**out = **in
 	}
-	if in.KMSIDRef != nil {
-		in, out := &in.KMSIDRef, &out.KMSIDRef
+	if in.KMSRef != nil {
+		in, out := &in.KMSRef, &out.KMSRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.KMSIDSelector != nil {
-		in, out := &in.KMSIDSelector, &out.KMSIDSelector
+	if in.KMSSelector != nil {
+		in, out := &in.KMSSelector, &out.KMSSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -4053,13 +4053,13 @@ func (in *NodeV3InitParameters) DeepCopyInto(out *NodeV3InitParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.ClusterIDRef != nil {
-		in, out := &in.ClusterIDRef, &out.ClusterIDRef
+	if in.ClusterRef != nil {
+		in, out := &in.ClusterRef, &out.ClusterRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.ClusterIDSelector != nil {
-		in, out := &in.ClusterIDSelector, &out.ClusterIDSelector
+	if in.ClusterSelector != nil {
+		in, out := &in.ClusterSelector, &out.ClusterSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -4101,15 +4101,15 @@ func (in *NodeV3InitParameters) DeepCopyInto(out *NodeV3InitParameters) {
 			}
 		}
 	}
-	if in.EIPIdsRefs != nil {
-		in, out := &in.EIPIdsRefs, &out.EIPIdsRefs
+	if in.EIPRef != nil {
+		in, out := &in.EIPRef, &out.EIPRef
 		*out = make([]v1.NamespacedReference, len(*in))
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
-	if in.EIPIdsSelector != nil {
-		in, out := &in.EIPIdsSelector, &out.EIPIdsSelector
+	if in.EIPSelector != nil {
+		in, out := &in.EIPSelector, &out.EIPSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -4649,13 +4649,13 @@ func (in *NodeV3Parameters) DeepCopyInto(out *NodeV3Parameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.ClusterIDRef != nil {
-		in, out := &in.ClusterIDRef, &out.ClusterIDRef
+	if in.ClusterRef != nil {
+		in, out := &in.ClusterRef, &out.ClusterRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.ClusterIDSelector != nil {
-		in, out := &in.ClusterIDSelector, &out.ClusterIDSelector
+	if in.ClusterSelector != nil {
+		in, out := &in.ClusterSelector, &out.ClusterSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -4697,15 +4697,15 @@ func (in *NodeV3Parameters) DeepCopyInto(out *NodeV3Parameters) {
 			}
 		}
 	}
-	if in.EIPIdsRefs != nil {
-		in, out := &in.EIPIdsRefs, &out.EIPIdsRefs
+	if in.EIPRef != nil {
+		in, out := &in.EIPRef, &out.EIPRef
 		*out = make([]v1.NamespacedReference, len(*in))
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
-	if in.EIPIdsSelector != nil {
-		in, out := &in.EIPIdsSelector, &out.EIPIdsSelector
+	if in.EIPSelector != nil {
+		in, out := &in.EIPSelector, &out.EIPSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -4912,13 +4912,13 @@ func (in *NodeV3RootVolumeInitParameters) DeepCopyInto(out *NodeV3RootVolumeInit
 		*out = new(string)
 		**out = **in
 	}
-	if in.KMSIDRef != nil {
-		in, out := &in.KMSIDRef, &out.KMSIDRef
+	if in.KMSRef != nil {
+		in, out := &in.KMSRef, &out.KMSRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.KMSIDSelector != nil {
-		in, out := &in.KMSIDSelector, &out.KMSIDSelector
+	if in.KMSSelector != nil {
+		in, out := &in.KMSSelector, &out.KMSSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -5024,13 +5024,13 @@ func (in *NodeV3RootVolumeParameters) DeepCopyInto(out *NodeV3RootVolumeParamete
 		*out = new(string)
 		**out = **in
 	}
-	if in.KMSIDRef != nil {
-		in, out := &in.KMSIDRef, &out.KMSIDRef
+	if in.KMSRef != nil {
+		in, out := &in.KMSRef, &out.KMSRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.KMSIDSelector != nil {
-		in, out := &in.KMSIDSelector, &out.KMSIDSelector
+	if in.KMSSelector != nil {
+		in, out := &in.KMSSelector, &out.KMSSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}

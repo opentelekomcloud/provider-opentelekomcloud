@@ -4,19 +4,19 @@ metadata:
   annotations:
     meta.upbound.io/example-id: obs/v1alpha1/bucket
   labels:
-    testing.upbound.io/example-name: b
-  name: xp-bucket-logging-source
+    testing.upbound.io/example-name: obs-log-bucket
+  name: obs-bkt-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
-    bucket: xp-bucket-${Rand.RFC1123Subdomain}
+    bucket: obs-bkt-${Rand.RFC1123Subdomain}
     tags:
       Env: Test
       foo: bar
     logging:
       - targetBucketSelector:
           matchLabels:
-            testing.upbound.io/example-name: logging
+            testing.upbound.io/example-name: obs-log-target
 ---
 apiVersion: obs.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: Bucket
@@ -24,12 +24,12 @@ metadata:
   annotations:
     meta.upbound.io/example-id: obs/v1alpha1/bucket
   labels:
-    testing.upbound.io/example-name: logging
-  name: xp-bucket-logging-dest
+    testing.upbound.io/example-name: obs-log-target
+  name: obs-bkl-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
-    bucket: xp-bucketlog-${Rand.RFC1123Subdomain}
+    bucket: obs-bkl-${Rand.RFC1123Subdomain}
     forceDestroy: true
     tags:
       Env: Test
@@ -42,14 +42,14 @@ metadata:
   annotations:
     meta.upbound.io/example-id: obs/v1alpha1/bucketacl
   labels:
-    testing.upbound.io/example-name: test
-  name: xp-bucket-logging-acl
+    testing.upbound.io/example-name: obs-log-acl
+  name: obs-bacl-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     bucketSelector:
       matchLabels:
-        testing.upbound.io/example-name: logging
+        testing.upbound.io/example-name: obs-log-target
     logDeliveryUserPermission:
       - accessToAcl:
           - READ_ACP

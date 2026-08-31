@@ -382,7 +382,7 @@ spec:
                       a CCE Turbo cluster. Changing this parameter will create a new
                       cluster resource.'
                     type: string
-                  eniSubnetIdRef:
+                  eniSubnetRef:
                     description: Reference to a SubnetV1 in vpc to populate eniSubnetId.
                     properties:
                       name:
@@ -419,7 +419,7 @@ spec:
                     required:
                     - name
                     type: object
-                  eniSubnetIdSelector:
+                  eniSubnetSelector:
                     description: Selector for a SubnetV1 in vpc to populate eniSubnetId.
                     properties:
                       matchControllerRef:
@@ -479,7 +479,7 @@ spec:
                       metal nodes. Changing this parameter will create a new cluster
                       resource.
                     type: string
-                  highwaySubnetIdRef:
+                  highwaySubnetRef:
                     description: Reference to a SubnetV1 in vpc to populate highwaySubnetId.
                     properties:
                       name:
@@ -516,7 +516,7 @@ spec:
                     required:
                     - name
                     type: object
-                  highwaySubnetIdSelector:
+                  highwaySubnetSelector:
                     description: Selector for a SubnetV1 in vpc to populate highwaySubnetId.
                     properties:
                       matchControllerRef:
@@ -629,7 +629,7 @@ spec:
                     description: The Network ID of the subnet used to create the node.
                       Changing this parameter will create a new cluster resource.
                     type: string
-                  subnetIdRef:
+                  subnetRef:
                     description: Reference to a SubnetV1 in vpc to populate subnetId.
                     properties:
                       name:
@@ -666,7 +666,7 @@ spec:
                     required:
                     - name
                     type: object
-                  subnetIdSelector:
+                  subnetSelector:
                     description: Selector for a SubnetV1 in vpc to populate subnetId.
                     properties:
                       matchControllerRef:
@@ -720,7 +720,7 @@ spec:
                     description: The ID of the VPC used to create the node. Changing
                       this parameter will create a new cluster resource.
                     type: string
-                  vpcIdRef:
+                  vpcRef:
                     description: Reference to a VpcV1 in vpc to populate vpcId.
                     properties:
                       name:
@@ -757,7 +757,7 @@ spec:
                     required:
                     - name
                     type: object
-                  vpcIdSelector:
+                  vpcSelector:
                     description: Selector for a VpcV1 in vpc to populate vpcId.
                     properties:
                       matchControllerRef:
@@ -1137,7 +1137,7 @@ spec:
                       a CCE Turbo cluster. Changing this parameter will create a new
                       cluster resource.'
                     type: string
-                  eniSubnetIdRef:
+                  eniSubnetRef:
                     description: Reference to a SubnetV1 in vpc to populate eniSubnetId.
                     properties:
                       name:
@@ -1174,7 +1174,7 @@ spec:
                     required:
                     - name
                     type: object
-                  eniSubnetIdSelector:
+                  eniSubnetSelector:
                     description: Selector for a SubnetV1 in vpc to populate eniSubnetId.
                     properties:
                       matchControllerRef:
@@ -1234,7 +1234,7 @@ spec:
                       metal nodes. Changing this parameter will create a new cluster
                       resource.
                     type: string
-                  highwaySubnetIdRef:
+                  highwaySubnetRef:
                     description: Reference to a SubnetV1 in vpc to populate highwaySubnetId.
                     properties:
                       name:
@@ -1271,7 +1271,7 @@ spec:
                     required:
                     - name
                     type: object
-                  highwaySubnetIdSelector:
+                  highwaySubnetSelector:
                     description: Selector for a SubnetV1 in vpc to populate highwaySubnetId.
                     properties:
                       matchControllerRef:
@@ -1384,7 +1384,7 @@ spec:
                     description: The Network ID of the subnet used to create the node.
                       Changing this parameter will create a new cluster resource.
                     type: string
-                  subnetIdRef:
+                  subnetRef:
                     description: Reference to a SubnetV1 in vpc to populate subnetId.
                     properties:
                       name:
@@ -1421,7 +1421,7 @@ spec:
                     required:
                     - name
                     type: object
-                  subnetIdSelector:
+                  subnetSelector:
                     description: Selector for a SubnetV1 in vpc to populate subnetId.
                     properties:
                       matchControllerRef:
@@ -1475,7 +1475,7 @@ spec:
                     description: The ID of the VPC used to create the node. Changing
                       this parameter will create a new cluster resource.
                     type: string
-                  vpcIdRef:
+                  vpcRef:
                     description: Reference to a VpcV1 in vpc to populate vpcId.
                     properties:
                       name:
@@ -1512,7 +1512,7 @@ spec:
                     required:
                     - name
                     type: object
-                  vpcIdSelector:
+                  vpcSelector:
                     description: Selector for a VpcV1 in vpc to populate vpcId.
                     properties:
                       matchControllerRef:

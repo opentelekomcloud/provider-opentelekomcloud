@@ -178,6 +178,14 @@ type InstanceV2InitParameters struct {
 	// for more information.
 	BlockDevice []BlockDeviceInitParameters `json:"blockDevice,omitempty" tf:"block_device,omitempty"`
 
+	// References to SecgroupV2 in compute to populate securityGroups.
+	// +kubebuilder:validation:Optional
+	ComputeSecurityGroupRefs []v1.NamespacedReference `json:"computeSecurityGroupRefs,omitempty" tf:"-"`
+
+	// Selector for a list of SecgroupV2 in compute to populate securityGroups.
+	// +kubebuilder:validation:Optional
+	ComputeSecurityGroupSelector *v1.NamespacedSelector `json:"computeSecurityGroupSelector,omitempty" tf:"-"`
+
 	// Whether to use the config_drive feature to configure the instance. Changing this creates a
 	// new server.
 	ConfigDrive *bool `json:"configDrive,omitempty" tf:"config_drive,omitempty"`
@@ -240,16 +248,10 @@ type InstanceV2InitParameters struct {
 	// An array of one or more security group names to associate with the server. Changing
 	// this results in adding/removing security groups from the existing server.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/compute/v1alpha1.SecgroupV2
+	// +crossplane:generate:reference:refFieldName=ComputeSecurityGroupRefs
+	// +crossplane:generate:reference:selectorFieldName=ComputeSecurityGroupSelector
 	// +listType=set
 	SecurityGroups []*string `json:"securityGroups,omitempty" tf:"security_groups,omitempty"`
-
-	// References to SecgroupV2 in compute to populate securityGroups.
-	// +kubebuilder:validation:Optional
-	SecurityGroupsRefs []v1.NamespacedReference `json:"securityGroupsRefs,omitempty" tf:"-"`
-
-	// Selector for a list of SecgroupV2 in compute to populate securityGroups.
-	// +kubebuilder:validation:Optional
-	SecurityGroupsSelector *v1.NamespacedSelector `json:"securityGroupsSelector,omitempty" tf:"-"`
 
 	// Whether to try stop instance gracefully before destroying it, thus giving chance
 	// for guest OS daemons to stop correctly. If instance doesn't stop within a timeout, it will be destroyed anyway.
@@ -387,6 +389,14 @@ type InstanceV2Parameters struct {
 	// +kubebuilder:validation:Optional
 	BlockDevice []BlockDeviceParameters `json:"blockDevice,omitempty" tf:"block_device,omitempty"`
 
+	// References to SecgroupV2 in compute to populate securityGroups.
+	// +kubebuilder:validation:Optional
+	ComputeSecurityGroupRefs []v1.NamespacedReference `json:"computeSecurityGroupRefs,omitempty" tf:"-"`
+
+	// Selector for a list of SecgroupV2 in compute to populate securityGroups.
+	// +kubebuilder:validation:Optional
+	ComputeSecurityGroupSelector *v1.NamespacedSelector `json:"computeSecurityGroupSelector,omitempty" tf:"-"`
+
 	// Whether to use the config_drive feature to configure the instance. Changing this creates a
 	// new server.
 	// +kubebuilder:validation:Optional
@@ -463,17 +473,11 @@ type InstanceV2Parameters struct {
 	// An array of one or more security group names to associate with the server. Changing
 	// this results in adding/removing security groups from the existing server.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/compute/v1alpha1.SecgroupV2
+	// +crossplane:generate:reference:refFieldName=ComputeSecurityGroupRefs
+	// +crossplane:generate:reference:selectorFieldName=ComputeSecurityGroupSelector
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	SecurityGroups []*string `json:"securityGroups,omitempty" tf:"security_groups,omitempty"`
-
-	// References to SecgroupV2 in compute to populate securityGroups.
-	// +kubebuilder:validation:Optional
-	SecurityGroupsRefs []v1.NamespacedReference `json:"securityGroupsRefs,omitempty" tf:"-"`
-
-	// Selector for a list of SecgroupV2 in compute to populate securityGroups.
-	// +kubebuilder:validation:Optional
-	SecurityGroupsSelector *v1.NamespacedSelector `json:"securityGroupsSelector,omitempty" tf:"-"`
 
 	// Whether to try stop instance gracefully before destroying it, thus giving chance
 	// for guest OS daemons to stop correctly. If instance doesn't stop within a timeout, it will be destroyed anyway.

@@ -30,8 +30,8 @@ func (mg *InstanceV1) ResolveReferences(ctx context.Context, c client.Reader) er
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.DataDisks[i3].KMSID),
 			Extract:      reference.ExternalName(),
 			Namespace:    mg.GetNamespace(),
-			Reference:    mg.Spec.ForProvider.DataDisks[i3].KMSIDRef,
-			Selector:     mg.Spec.ForProvider.DataDisks[i3].KMSIDSelector,
+			Reference:    mg.Spec.ForProvider.DataDisks[i3].KMSRef,
+			Selector:     mg.Spec.ForProvider.DataDisks[i3].KMSSelector,
 			To: reference.To{
 				List:    &v1alpha1.KeyV1List{},
 				Managed: &v1alpha1.KeyV1{},
@@ -41,7 +41,7 @@ func (mg *InstanceV1) ResolveReferences(ctx context.Context, c client.Reader) er
 			return errors.Wrap(err, "mg.Spec.ForProvider.DataDisks[i3].KMSID")
 		}
 		mg.Spec.ForProvider.DataDisks[i3].KMSID = reference.ToPtrValue(rsp.ResolvedValue)
-		mg.Spec.ForProvider.DataDisks[i3].KMSIDRef = rsp.ResolvedReference
+		mg.Spec.ForProvider.DataDisks[i3].KMSRef = rsp.ResolvedReference
 
 	}
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
@@ -66,8 +66,8 @@ func (mg *InstanceV1) ResolveReferences(ctx context.Context, c client.Reader) er
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Nics[i3].NetworkID),
 			Extract:      common.ExtractNetworkID(),
 			Namespace:    mg.GetNamespace(),
-			Reference:    mg.Spec.ForProvider.Nics[i3].NetworkIDRef,
-			Selector:     mg.Spec.ForProvider.Nics[i3].NetworkIDSelector,
+			Reference:    mg.Spec.ForProvider.Nics[i3].NetworkRef,
+			Selector:     mg.Spec.ForProvider.Nics[i3].NetworkSelector,
 			To: reference.To{
 				List:    &v1alpha12.SubnetV1List{},
 				Managed: &v1alpha12.SubnetV1{},
@@ -77,15 +77,15 @@ func (mg *InstanceV1) ResolveReferences(ctx context.Context, c client.Reader) er
 			return errors.Wrap(err, "mg.Spec.ForProvider.Nics[i3].NetworkID")
 		}
 		mg.Spec.ForProvider.Nics[i3].NetworkID = reference.ToPtrValue(rsp.ResolvedValue)
-		mg.Spec.ForProvider.Nics[i3].NetworkIDRef = rsp.ResolvedReference
+		mg.Spec.ForProvider.Nics[i3].NetworkRef = rsp.ResolvedReference
 
 	}
 	mrsp, err = r.ResolveMultiple(ctx, reference.MultiNamespacedResolutionRequest{
 		CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.SecurityGroups),
 		Extract:       reference.ExternalName(),
 		Namespace:     mg.GetNamespace(),
-		References:    mg.Spec.ForProvider.ComputeSecurityGroupIDRefs,
-		Selector:      mg.Spec.ForProvider.ComputeSecurityGroupIDSelector,
+		References:    mg.Spec.ForProvider.ComputeSecurityGroupRefs,
+		Selector:      mg.Spec.ForProvider.ComputeSecurityGroupSelector,
 		To: reference.To{
 			List:    &v1alpha11.SecgroupV2List{},
 			Managed: &v1alpha11.SecgroupV2{},
@@ -95,14 +95,14 @@ func (mg *InstanceV1) ResolveReferences(ctx context.Context, c client.Reader) er
 		return errors.Wrap(err, "mg.Spec.ForProvider.SecurityGroups")
 	}
 	mg.Spec.ForProvider.SecurityGroups = reference.ToPtrValues(mrsp.ResolvedValues)
-	mg.Spec.ForProvider.ComputeSecurityGroupIDRefs = mrsp.ResolvedReferences
+	mg.Spec.ForProvider.ComputeSecurityGroupRefs = mrsp.ResolvedReferences
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.SystemDiskKMSID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.ForProvider.SystemDiskKMSIDRef,
-		Selector:     mg.Spec.ForProvider.SystemDiskKMSIDSelector,
+		Reference:    mg.Spec.ForProvider.SystemDiskKMSRef,
+		Selector:     mg.Spec.ForProvider.SystemDiskKMSSelector,
 		To: reference.To{
 			List:    &v1alpha1.KeyV1List{},
 			Managed: &v1alpha1.KeyV1{},
@@ -112,14 +112,14 @@ func (mg *InstanceV1) ResolveReferences(ctx context.Context, c client.Reader) er
 		return errors.Wrap(err, "mg.Spec.ForProvider.SystemDiskKMSID")
 	}
 	mg.Spec.ForProvider.SystemDiskKMSID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.SystemDiskKMSIDRef = rsp.ResolvedReference
+	mg.Spec.ForProvider.SystemDiskKMSRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.VPCID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.ForProvider.VPCIDRef,
-		Selector:     mg.Spec.ForProvider.VPCIDSelector,
+		Reference:    mg.Spec.ForProvider.VPCRef,
+		Selector:     mg.Spec.ForProvider.VPCSelector,
 		To: reference.To{
 			List:    &v1alpha12.VpcV1List{},
 			Managed: &v1alpha12.VpcV1{},
@@ -129,15 +129,15 @@ func (mg *InstanceV1) ResolveReferences(ctx context.Context, c client.Reader) er
 		return errors.Wrap(err, "mg.Spec.ForProvider.VPCID")
 	}
 	mg.Spec.ForProvider.VPCID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.VPCIDRef = rsp.ResolvedReference
+	mg.Spec.ForProvider.VPCRef = rsp.ResolvedReference
 
 	for i3 := 0; i3 < len(mg.Spec.InitProvider.DataDisks); i3++ {
 		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.DataDisks[i3].KMSID),
 			Extract:      reference.ExternalName(),
 			Namespace:    mg.GetNamespace(),
-			Reference:    mg.Spec.InitProvider.DataDisks[i3].KMSIDRef,
-			Selector:     mg.Spec.InitProvider.DataDisks[i3].KMSIDSelector,
+			Reference:    mg.Spec.InitProvider.DataDisks[i3].KMSRef,
+			Selector:     mg.Spec.InitProvider.DataDisks[i3].KMSSelector,
 			To: reference.To{
 				List:    &v1alpha1.KeyV1List{},
 				Managed: &v1alpha1.KeyV1{},
@@ -147,7 +147,7 @@ func (mg *InstanceV1) ResolveReferences(ctx context.Context, c client.Reader) er
 			return errors.Wrap(err, "mg.Spec.InitProvider.DataDisks[i3].KMSID")
 		}
 		mg.Spec.InitProvider.DataDisks[i3].KMSID = reference.ToPtrValue(rsp.ResolvedValue)
-		mg.Spec.InitProvider.DataDisks[i3].KMSIDRef = rsp.ResolvedReference
+		mg.Spec.InitProvider.DataDisks[i3].KMSRef = rsp.ResolvedReference
 
 	}
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
@@ -172,8 +172,8 @@ func (mg *InstanceV1) ResolveReferences(ctx context.Context, c client.Reader) er
 			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Nics[i3].NetworkID),
 			Extract:      common.ExtractNetworkID(),
 			Namespace:    mg.GetNamespace(),
-			Reference:    mg.Spec.InitProvider.Nics[i3].NetworkIDRef,
-			Selector:     mg.Spec.InitProvider.Nics[i3].NetworkIDSelector,
+			Reference:    mg.Spec.InitProvider.Nics[i3].NetworkRef,
+			Selector:     mg.Spec.InitProvider.Nics[i3].NetworkSelector,
 			To: reference.To{
 				List:    &v1alpha12.SubnetV1List{},
 				Managed: &v1alpha12.SubnetV1{},
@@ -183,15 +183,15 @@ func (mg *InstanceV1) ResolveReferences(ctx context.Context, c client.Reader) er
 			return errors.Wrap(err, "mg.Spec.InitProvider.Nics[i3].NetworkID")
 		}
 		mg.Spec.InitProvider.Nics[i3].NetworkID = reference.ToPtrValue(rsp.ResolvedValue)
-		mg.Spec.InitProvider.Nics[i3].NetworkIDRef = rsp.ResolvedReference
+		mg.Spec.InitProvider.Nics[i3].NetworkRef = rsp.ResolvedReference
 
 	}
 	mrsp, err = r.ResolveMultiple(ctx, reference.MultiNamespacedResolutionRequest{
 		CurrentValues: reference.FromPtrValues(mg.Spec.InitProvider.SecurityGroups),
 		Extract:       reference.ExternalName(),
 		Namespace:     mg.GetNamespace(),
-		References:    mg.Spec.InitProvider.ComputeSecurityGroupIDRefs,
-		Selector:      mg.Spec.InitProvider.ComputeSecurityGroupIDSelector,
+		References:    mg.Spec.InitProvider.ComputeSecurityGroupRefs,
+		Selector:      mg.Spec.InitProvider.ComputeSecurityGroupSelector,
 		To: reference.To{
 			List:    &v1alpha11.SecgroupV2List{},
 			Managed: &v1alpha11.SecgroupV2{},
@@ -201,14 +201,14 @@ func (mg *InstanceV1) ResolveReferences(ctx context.Context, c client.Reader) er
 		return errors.Wrap(err, "mg.Spec.InitProvider.SecurityGroups")
 	}
 	mg.Spec.InitProvider.SecurityGroups = reference.ToPtrValues(mrsp.ResolvedValues)
-	mg.Spec.InitProvider.ComputeSecurityGroupIDRefs = mrsp.ResolvedReferences
+	mg.Spec.InitProvider.ComputeSecurityGroupRefs = mrsp.ResolvedReferences
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.SystemDiskKMSID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.InitProvider.SystemDiskKMSIDRef,
-		Selector:     mg.Spec.InitProvider.SystemDiskKMSIDSelector,
+		Reference:    mg.Spec.InitProvider.SystemDiskKMSRef,
+		Selector:     mg.Spec.InitProvider.SystemDiskKMSSelector,
 		To: reference.To{
 			List:    &v1alpha1.KeyV1List{},
 			Managed: &v1alpha1.KeyV1{},
@@ -218,14 +218,14 @@ func (mg *InstanceV1) ResolveReferences(ctx context.Context, c client.Reader) er
 		return errors.Wrap(err, "mg.Spec.InitProvider.SystemDiskKMSID")
 	}
 	mg.Spec.InitProvider.SystemDiskKMSID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.SystemDiskKMSIDRef = rsp.ResolvedReference
+	mg.Spec.InitProvider.SystemDiskKMSRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.VPCID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.InitProvider.VPCIDRef,
-		Selector:     mg.Spec.InitProvider.VPCIDSelector,
+		Reference:    mg.Spec.InitProvider.VPCRef,
+		Selector:     mg.Spec.InitProvider.VPCSelector,
 		To: reference.To{
 			List:    &v1alpha12.VpcV1List{},
 			Managed: &v1alpha12.VpcV1{},
@@ -235,7 +235,7 @@ func (mg *InstanceV1) ResolveReferences(ctx context.Context, c client.Reader) er
 		return errors.Wrap(err, "mg.Spec.InitProvider.VPCID")
 	}
 	mg.Spec.InitProvider.VPCID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.VPCIDRef = rsp.ResolvedReference
+	mg.Spec.InitProvider.VPCRef = rsp.ResolvedReference
 
 	return nil
 }

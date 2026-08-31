@@ -4,13 +4,13 @@ metadata:
   annotations:
     meta.upbound.io/example-id: networking/v1alpha1/routerinterfacev2
   labels:
-    testing.upbound.io/example-name: sample-network
+    testing.upbound.io/example-name: net-network
   name: sample-network
   namespace: test
 spec:
   forProvider:
     adminStateUp: "true"
-    name: xp-test-${Rand.RFC1123Subdomain}
+    name: ntw-net-${Rand.RFC1123Subdomain}
 
 ---
 apiVersion: networking.opentelekomcloud.m.crossplane.io/v1alpha1
@@ -19,12 +19,12 @@ metadata:
   annotations:
     meta.upbound.io/example-id: networking/v1alpha1/routerinterfacev2
   labels:
-    testing.upbound.io/example-name: sample-router
+    testing.upbound.io/example-name: net-router
   name: sample-router
   namespace: test
 spec:
   forProvider:
-    name: xp-test-${Rand.RFC1123Subdomain}
+    name: ntw-rtr-${Rand.RFC1123Subdomain}
 
 ---
 apiVersion: networking.opentelekomcloud.m.crossplane.io/v1alpha1
@@ -33,17 +33,17 @@ metadata:
   annotations:
     meta.upbound.io/example-id: networking/v1alpha1/routerinterfacev2
   labels:
-    testing.upbound.io/example-name: sample-subnet
+    testing.upbound.io/example-name: net-subnet
   name: sample-subnet
   namespace: test
 spec:
   forProvider:
-    name: xp-test-${Rand.RFC1123Subdomain}
+    name: ntw-stn-${Rand.RFC1123Subdomain}
     cidr: 192.168.199.0/24
     ipVersion: 4
-    networkIdSelector:
+    networkSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-network
+        testing.upbound.io/example-name: net-network
 
 ---
 apiVersion: networking.opentelekomcloud.m.crossplane.io/v1alpha1
@@ -52,14 +52,14 @@ metadata:
   annotations:
     meta.upbound.io/example-id: networking/v1alpha1/routerinterfacev2
   labels:
-    testing.upbound.io/example-name: router_interface
+    testing.upbound.io/example-name: net-router-interface
   name: router-interface
   namespace: test
 spec:
   forProvider:
-    routerIdSelector:
+    routerSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-router
-    subnetIdSelector:
+        testing.upbound.io/example-name: net-router
+    subnetSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-subnet
+        testing.upbound.io/example-name: net-subnet

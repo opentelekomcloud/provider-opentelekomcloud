@@ -27,15 +27,17 @@ type DnatRuleV2InitParameters struct {
 	// Specifies the ID of the floating IP address.
 	// Changing this creates a new resource.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.EIPV1
+	// +crossplane:generate:reference:refFieldName=FloatingIPRef
+	// +crossplane:generate:reference:selectorFieldName=FloatingIPSelector
 	FloatingIPID *string `json:"floatingIpId,omitempty" tf:"floating_ip_id,omitempty"`
 
 	// Reference to a EIPV1 in vpc to populate floatingIpId.
 	// +kubebuilder:validation:Optional
-	FloatingIPIDRef *v1.NamespacedReference `json:"floatingIpIdRef,omitempty" tf:"-"`
+	FloatingIPRef *v1.NamespacedReference `json:"floatingIpRef,omitempty" tf:"-"`
 
 	// Selector for a EIPV1 in vpc to populate floatingIpId.
 	// +kubebuilder:validation:Optional
-	FloatingIPIDSelector *v1.NamespacedSelector `json:"floatingIpIdSelector,omitempty" tf:"-"`
+	FloatingIPSelector *v1.NamespacedSelector `json:"floatingIpSelector,omitempty" tf:"-"`
 
 	// Specifies port used by ECSs or BMSs
 	// to provide services for external systems. Changing this creates a new resource.
@@ -44,29 +46,33 @@ type DnatRuleV2InitParameters struct {
 	// ID of the NAT gateway this DNAT rule belongs to.
 	// Changing this creates a new DNAT rule.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/nat/v1alpha1.GatewayV2
+	// +crossplane:generate:reference:refFieldName=NATGatewayRef
+	// +crossplane:generate:reference:selectorFieldName=NATGatewaySelector
 	NATGatewayID *string `json:"natGatewayId,omitempty" tf:"nat_gateway_id,omitempty"`
 
 	// Reference to a GatewayV2 in nat to populate natGatewayId.
 	// +kubebuilder:validation:Optional
-	NATGatewayIDRef *v1.NamespacedReference `json:"natGatewayIdRef,omitempty" tf:"-"`
+	NATGatewayRef *v1.NamespacedReference `json:"natGatewayRef,omitempty" tf:"-"`
 
 	// Selector for a GatewayV2 in nat to populate natGatewayId.
 	// +kubebuilder:validation:Optional
-	NATGatewayIDSelector *v1.NamespacedSelector `json:"natGatewayIdSelector,omitempty" tf:"-"`
+	NATGatewaySelector *v1.NamespacedSelector `json:"natGatewaySelector,omitempty" tf:"-"`
 
 	// Specifies the port ID of an ECS or a BMS.
 	// This parameter and private_ip are alternative. Changing this creates a
 	// new DNAT rule.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/networking/v1alpha1.PortV2
+	// +crossplane:generate:reference:refFieldName=PortRef
+	// +crossplane:generate:reference:selectorFieldName=PortSelector
 	PortID *string `json:"portId,omitempty" tf:"port_id,omitempty"`
 
 	// Reference to a PortV2 in networking to populate portId.
 	// +kubebuilder:validation:Optional
-	PortIDRef *v1.NamespacedReference `json:"portIdRef,omitempty" tf:"-"`
+	PortRef *v1.NamespacedReference `json:"portRef,omitempty" tf:"-"`
 
 	// Selector for a PortV2 in networking to populate portId.
 	// +kubebuilder:validation:Optional
-	PortIDSelector *v1.NamespacedSelector `json:"portIdSelector,omitempty" tf:"-"`
+	PortSelector *v1.NamespacedSelector `json:"portSelector,omitempty" tf:"-"`
 
 	// Specifies the private IP address of a
 	// user, for example, the IP address of a VPC for dedicated connection.
@@ -143,16 +149,18 @@ type DnatRuleV2Parameters struct {
 	// Specifies the ID of the floating IP address.
 	// Changing this creates a new resource.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.EIPV1
+	// +crossplane:generate:reference:refFieldName=FloatingIPRef
+	// +crossplane:generate:reference:selectorFieldName=FloatingIPSelector
 	// +kubebuilder:validation:Optional
 	FloatingIPID *string `json:"floatingIpId,omitempty" tf:"floating_ip_id,omitempty"`
 
 	// Reference to a EIPV1 in vpc to populate floatingIpId.
 	// +kubebuilder:validation:Optional
-	FloatingIPIDRef *v1.NamespacedReference `json:"floatingIpIdRef,omitempty" tf:"-"`
+	FloatingIPRef *v1.NamespacedReference `json:"floatingIpRef,omitempty" tf:"-"`
 
 	// Selector for a EIPV1 in vpc to populate floatingIpId.
 	// +kubebuilder:validation:Optional
-	FloatingIPIDSelector *v1.NamespacedSelector `json:"floatingIpIdSelector,omitempty" tf:"-"`
+	FloatingIPSelector *v1.NamespacedSelector `json:"floatingIpSelector,omitempty" tf:"-"`
 
 	// Specifies port used by ECSs or BMSs
 	// to provide services for external systems. Changing this creates a new resource.
@@ -162,31 +170,35 @@ type DnatRuleV2Parameters struct {
 	// ID of the NAT gateway this DNAT rule belongs to.
 	// Changing this creates a new DNAT rule.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/nat/v1alpha1.GatewayV2
+	// +crossplane:generate:reference:refFieldName=NATGatewayRef
+	// +crossplane:generate:reference:selectorFieldName=NATGatewaySelector
 	// +kubebuilder:validation:Optional
 	NATGatewayID *string `json:"natGatewayId,omitempty" tf:"nat_gateway_id,omitempty"`
 
 	// Reference to a GatewayV2 in nat to populate natGatewayId.
 	// +kubebuilder:validation:Optional
-	NATGatewayIDRef *v1.NamespacedReference `json:"natGatewayIdRef,omitempty" tf:"-"`
+	NATGatewayRef *v1.NamespacedReference `json:"natGatewayRef,omitempty" tf:"-"`
 
 	// Selector for a GatewayV2 in nat to populate natGatewayId.
 	// +kubebuilder:validation:Optional
-	NATGatewayIDSelector *v1.NamespacedSelector `json:"natGatewayIdSelector,omitempty" tf:"-"`
+	NATGatewaySelector *v1.NamespacedSelector `json:"natGatewaySelector,omitempty" tf:"-"`
 
 	// Specifies the port ID of an ECS or a BMS.
 	// This parameter and private_ip are alternative. Changing this creates a
 	// new DNAT rule.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/networking/v1alpha1.PortV2
+	// +crossplane:generate:reference:refFieldName=PortRef
+	// +crossplane:generate:reference:selectorFieldName=PortSelector
 	// +kubebuilder:validation:Optional
 	PortID *string `json:"portId,omitempty" tf:"port_id,omitempty"`
 
 	// Reference to a PortV2 in networking to populate portId.
 	// +kubebuilder:validation:Optional
-	PortIDRef *v1.NamespacedReference `json:"portIdRef,omitempty" tf:"-"`
+	PortRef *v1.NamespacedReference `json:"portRef,omitempty" tf:"-"`
 
 	// Selector for a PortV2 in networking to populate portId.
 	// +kubebuilder:validation:Optional
-	PortIDSelector *v1.NamespacedSelector `json:"portIdSelector,omitempty" tf:"-"`
+	PortSelector *v1.NamespacedSelector `json:"portSelector,omitempty" tf:"-"`
 
 	// Specifies the private IP address of a
 	// user, for example, the IP address of a VPC for dedicated connection.

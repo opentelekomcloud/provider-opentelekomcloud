@@ -69,7 +69,7 @@ spec:
                   instanceId:
                     description: The ID of the RDS instance to which the backup belongs.
                     type: string
-                  instanceIdRef:
+                  instanceRef:
                     description: Reference to a InstanceV3 in rds to populate instanceId.
                     properties:
                       name:
@@ -106,7 +106,7 @@ spec:
                     required:
                     - name
                     type: object
-                  instanceIdSelector:
+                  instanceSelector:
                     description: Selector for a InstanceV3 in rds to populate instanceId.
                     properties:
                       matchControllerRef:
@@ -176,7 +176,7 @@ spec:
                   instanceId:
                     description: The ID of the RDS instance to which the backup belongs.
                     type: string
-                  instanceIdRef:
+                  instanceRef:
                     description: Reference to a InstanceV3 in rds to populate instanceId.
                     properties:
                       name:
@@ -213,7 +213,7 @@ spec:
                     required:
                     - name
                     type: object
-                  instanceIdSelector:
+                  instanceSelector:
                     description: Selector for a InstanceV3 in rds to populate instanceId.
                     properties:
                       matchControllerRef:

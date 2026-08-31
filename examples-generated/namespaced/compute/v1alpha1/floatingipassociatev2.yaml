@@ -12,7 +12,7 @@ spec:
     floatingIpSelector:
       matchLabels:
         testing.upbound.io/example-name: fip_1
-    instanceIdSelector:
+    instanceSelector:
       matchLabels:
         testing.upbound.io/example-name: instance_1
 
@@ -29,14 +29,14 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
+    computeSecurityGroupRefs:
+    - name: example
     flavorId: 3
     imageId: ad091b52-742f-469e-8f3c-fd81cadf0743
     keyPairSelector:
       matchLabels:
         testing.upbound.io/example-name: example
     name: instance_1
-    securityGroupsRefs:
-    - name: example
 
 ---
 

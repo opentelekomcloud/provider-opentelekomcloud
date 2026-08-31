@@ -4,14 +4,14 @@ metadata:
   annotations:
     meta.upbound.io/example-id: obs/v1alpha1/bucketacl
   labels:
-    testing.upbound.io/example-name: test
-  name: xp-bucket-acl
+    testing.upbound.io/example-name: obs-acl
+  name: obs-bacl-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     bucketSelector:
       matchLabels:
-        testing.upbound.io/example-name: b
+        testing.upbound.io/example-name: obs-acl-bucket
     ownerPermission:
       - accessToAcl:
           - READ_ACP
@@ -27,12 +27,12 @@ metadata:
   annotations:
     meta.upbound.io/example-id: obs/v1alpha1/bucket
   labels:
-    testing.upbound.io/example-name: b
-  name: xp-bucket-acl-bucket
+    testing.upbound.io/example-name: obs-acl-bucket
+  name: obs-bkt-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
-    bucket: bucket-${Rand.RFC1123Subdomain}
+    bucket: obs-bkt-${Rand.RFC1123Subdomain}
     tags:
       Env: Test
       foo: bar

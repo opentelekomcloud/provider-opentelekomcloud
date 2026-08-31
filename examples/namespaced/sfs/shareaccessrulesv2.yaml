@@ -4,8 +4,8 @@ metadata:
   annotations:
     meta.upbound.io/example-id: sfs/v1alpha1/shareaccessrulesv2
   labels:
-    testing.upbound.io/example-name: sfs_rules
-  name: sfs-rules
+    testing.upbound.io/example-name: sfs-access-rules
+  name: sfs-ar-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
@@ -13,11 +13,11 @@ spec:
       - accessLevel: rw
         accessToSelector:
           matchLabels:
-            testing.upbound.io/example-name: vpc_1
+            testing.upbound.io/example-name: sfs-access-vpc
         accessType: cert
     shareSelector:
       matchLabels:
-        testing.upbound.io/example-name: sfs_1
+        testing.upbound.io/example-name: sfs-access-sfs
 
 ---
 apiVersion: sfs.opentelekomcloud.m.crossplane.io/v1alpha1
@@ -26,13 +26,13 @@ metadata:
   annotations:
     meta.upbound.io/example-id: sfs/v1alpha1/shareaccessrulesv2
   labels:
-    testing.upbound.io/example-name: sfs_1
-  name: sfs-1
+    testing.upbound.io/example-name: sfs-access-sfs
+  name: sfs-fs-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     description: xp-test
-    name: xp-test-${Rand.RFC1123Subdomain}
+    name: sfs-fs-${Rand.RFC1123Subdomain}
     shareProto: NFS
     size: 50
 
@@ -43,10 +43,10 @@ metadata:
   annotations:
     meta.upbound.io/example-id: sfs/v1alpha1/shareaccessrulesv2
   labels:
-    testing.upbound.io/example-name: vpc_1
-  name: vpc-1
+    testing.upbound.io/example-name: sfs-access-vpc
+  name: sfs-vpc-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     cidr: 192.168.0.0/16
-    name: xp-test-${Rand.RFC1123Subdomain}
+    name: sfs-vpc-${Rand.RFC1123Subdomain}

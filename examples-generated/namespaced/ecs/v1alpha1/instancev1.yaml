@@ -17,11 +17,11 @@ spec:
         testing.upbound.io/example-name: example
     name: server_1
     nics:
-    - networkIdSelector:
+    - networkSelector:
         matchLabels:
           testing.upbound.io/example-name: example
     tags:
       muh: kuh
-    vpcIdSelector:
+    vpcSelector:
       matchLabels:
         testing.upbound.io/example-name: example

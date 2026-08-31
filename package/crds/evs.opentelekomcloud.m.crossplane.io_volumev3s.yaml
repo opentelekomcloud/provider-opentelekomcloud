@@ -92,7 +92,7 @@ spec:
                       The Encryption KMS ID to create the volume.
                       Changing this creates a new volume.
                     type: string
-                  kmsIdRef:
+                  kmsRef:
                     description: Reference to a KeyV1 in kms to populate kmsId.
                     properties:
                       name:
@@ -129,7 +129,7 @@ spec:
                     required:
                     - name
                     type: object
-                  kmsIdSelector:
+                  kmsSelector:
                     description: Selector for a KeyV1 in kms to populate kmsId.
                     properties:
                       matchControllerRef:
@@ -252,7 +252,7 @@ spec:
                       The Encryption KMS ID to create the volume.
                       Changing this creates a new volume.
                     type: string
-                  kmsIdRef:
+                  kmsRef:
                     description: Reference to a KeyV1 in kms to populate kmsId.
                     properties:
                       name:
@@ -289,7 +289,7 @@ spec:
                     required:
                     - name
                     type: object
-                  kmsIdSelector:
+                  kmsSelector:
                     description: Selector for a KeyV1 in kms to populate kmsId.
                     properties:
                       matchControllerRef:

@@ -58,13 +58,13 @@ func (in *DnatRuleV2InitParameters) DeepCopyInto(out *DnatRuleV2InitParameters) 
 		*out = new(string)
 		**out = **in
 	}
-	if in.FloatingIPIDRef != nil {
-		in, out := &in.FloatingIPIDRef, &out.FloatingIPIDRef
+	if in.FloatingIPRef != nil {
+		in, out := &in.FloatingIPRef, &out.FloatingIPRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.FloatingIPIDSelector != nil {
-		in, out := &in.FloatingIPIDSelector, &out.FloatingIPIDSelector
+	if in.FloatingIPSelector != nil {
+		in, out := &in.FloatingIPSelector, &out.FloatingIPSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -78,13 +78,13 @@ func (in *DnatRuleV2InitParameters) DeepCopyInto(out *DnatRuleV2InitParameters) 
 		*out = new(string)
 		**out = **in
 	}
-	if in.NATGatewayIDRef != nil {
-		in, out := &in.NATGatewayIDRef, &out.NATGatewayIDRef
+	if in.NATGatewayRef != nil {
+		in, out := &in.NATGatewayRef, &out.NATGatewayRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.NATGatewayIDSelector != nil {
-		in, out := &in.NATGatewayIDSelector, &out.NATGatewayIDSelector
+	if in.NATGatewaySelector != nil {
+		in, out := &in.NATGatewaySelector, &out.NATGatewaySelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -93,13 +93,13 @@ func (in *DnatRuleV2InitParameters) DeepCopyInto(out *DnatRuleV2InitParameters) 
 		*out = new(string)
 		**out = **in
 	}
-	if in.PortIDRef != nil {
-		in, out := &in.PortIDRef, &out.PortIDRef
+	if in.PortRef != nil {
+		in, out := &in.PortRef, &out.PortRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.PortIDSelector != nil {
-		in, out := &in.PortIDSelector, &out.PortIDSelector
+	if in.PortSelector != nil {
+		in, out := &in.PortSelector, &out.PortSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -255,13 +255,13 @@ func (in *DnatRuleV2Parameters) DeepCopyInto(out *DnatRuleV2Parameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.FloatingIPIDRef != nil {
-		in, out := &in.FloatingIPIDRef, &out.FloatingIPIDRef
+	if in.FloatingIPRef != nil {
+		in, out := &in.FloatingIPRef, &out.FloatingIPRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.FloatingIPIDSelector != nil {
-		in, out := &in.FloatingIPIDSelector, &out.FloatingIPIDSelector
+	if in.FloatingIPSelector != nil {
+		in, out := &in.FloatingIPSelector, &out.FloatingIPSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -275,13 +275,13 @@ func (in *DnatRuleV2Parameters) DeepCopyInto(out *DnatRuleV2Parameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.NATGatewayIDRef != nil {
-		in, out := &in.NATGatewayIDRef, &out.NATGatewayIDRef
+	if in.NATGatewayRef != nil {
+		in, out := &in.NATGatewayRef, &out.NATGatewayRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.NATGatewayIDSelector != nil {
-		in, out := &in.NATGatewayIDSelector, &out.NATGatewayIDSelector
+	if in.NATGatewaySelector != nil {
+		in, out := &in.NATGatewaySelector, &out.NATGatewaySelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -290,13 +290,13 @@ func (in *DnatRuleV2Parameters) DeepCopyInto(out *DnatRuleV2Parameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.PortIDRef != nil {
-		in, out := &in.PortIDRef, &out.PortIDRef
+	if in.PortRef != nil {
+		in, out := &in.PortRef, &out.PortRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.PortIDSelector != nil {
-		in, out := &in.PortIDSelector, &out.PortIDSelector
+	if in.PortSelector != nil {
+		in, out := &in.PortSelector, &out.PortSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -397,13 +397,13 @@ func (in *GatewayV2InitParameters) DeepCopyInto(out *GatewayV2InitParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.InternalNetworkIDRef != nil {
-		in, out := &in.InternalNetworkIDRef, &out.InternalNetworkIDRef
+	if in.InternalNetworkRef != nil {
+		in, out := &in.InternalNetworkRef, &out.InternalNetworkRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.InternalNetworkIDSelector != nil {
-		in, out := &in.InternalNetworkIDSelector, &out.InternalNetworkIDSelector
+	if in.InternalNetworkSelector != nil {
+		in, out := &in.InternalNetworkSelector, &out.InternalNetworkSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -421,16 +421,6 @@ func (in *GatewayV2InitParameters) DeepCopyInto(out *GatewayV2InitParameters) {
 		in, out := &in.RouterID, &out.RouterID
 		*out = new(string)
 		**out = **in
-	}
-	if in.RouterIDRef != nil {
-		in, out := &in.RouterIDRef, &out.RouterIDRef
-		*out = new(v1.NamespacedReference)
-		(*in).DeepCopyInto(*out)
-	}
-	if in.RouterIDSelector != nil {
-		in, out := &in.RouterIDSelector, &out.RouterIDSelector
-		*out = new(v1.NamespacedSelector)
-		(*in).DeepCopyInto(*out)
 	}
 	if in.Spec != nil {
 		in, out := &in.Spec, &out.Spec
@@ -457,6 +447,16 @@ func (in *GatewayV2InitParameters) DeepCopyInto(out *GatewayV2InitParameters) {
 		in, out := &in.TenantID, &out.TenantID
 		*out = new(string)
 		**out = **in
+	}
+	if in.VPCRef != nil {
+		in, out := &in.VPCRef, &out.VPCRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.VPCSelector != nil {
+		in, out := &in.VPCSelector, &out.VPCSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -586,13 +586,13 @@ func (in *GatewayV2Parameters) DeepCopyInto(out *GatewayV2Parameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.InternalNetworkIDRef != nil {
-		in, out := &in.InternalNetworkIDRef, &out.InternalNetworkIDRef
+	if in.InternalNetworkRef != nil {
+		in, out := &in.InternalNetworkRef, &out.InternalNetworkRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.InternalNetworkIDSelector != nil {
-		in, out := &in.InternalNetworkIDSelector, &out.InternalNetworkIDSelector
+	if in.InternalNetworkSelector != nil {
+		in, out := &in.InternalNetworkSelector, &out.InternalNetworkSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -610,16 +610,6 @@ func (in *GatewayV2Parameters) DeepCopyInto(out *GatewayV2Parameters) {
 		in, out := &in.RouterID, &out.RouterID
 		*out = new(string)
 		**out = **in
-	}
-	if in.RouterIDRef != nil {
-		in, out := &in.RouterIDRef, &out.RouterIDRef
-		*out = new(v1.NamespacedReference)
-		(*in).DeepCopyInto(*out)
-	}
-	if in.RouterIDSelector != nil {
-		in, out := &in.RouterIDSelector, &out.RouterIDSelector
-		*out = new(v1.NamespacedSelector)
-		(*in).DeepCopyInto(*out)
 	}
 	if in.Spec != nil {
 		in, out := &in.Spec, &out.Spec
@@ -646,6 +636,16 @@ func (in *GatewayV2Parameters) DeepCopyInto(out *GatewayV2Parameters) {
 		in, out := &in.TenantID, &out.TenantID
 		*out = new(string)
 		**out = **in
+	}
+	if in.VPCRef != nil {
+		in, out := &in.VPCRef, &out.VPCRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.VPCSelector != nil {
+		in, out := &in.VPCSelector, &out.VPCSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -739,13 +739,13 @@ func (in *SnatRuleV2InitParameters) DeepCopyInto(out *SnatRuleV2InitParameters) 
 		*out = new(string)
 		**out = **in
 	}
-	if in.FloatingIPIDRef != nil {
-		in, out := &in.FloatingIPIDRef, &out.FloatingIPIDRef
+	if in.FloatingIPRef != nil {
+		in, out := &in.FloatingIPRef, &out.FloatingIPRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.FloatingIPIDSelector != nil {
-		in, out := &in.FloatingIPIDSelector, &out.FloatingIPIDSelector
+	if in.FloatingIPSelector != nil {
+		in, out := &in.FloatingIPSelector, &out.FloatingIPSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -754,13 +754,13 @@ func (in *SnatRuleV2InitParameters) DeepCopyInto(out *SnatRuleV2InitParameters) 
 		*out = new(string)
 		**out = **in
 	}
-	if in.NATGatewayIDRef != nil {
-		in, out := &in.NATGatewayIDRef, &out.NATGatewayIDRef
+	if in.NATGatewayRef != nil {
+		in, out := &in.NATGatewayRef, &out.NATGatewayRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.NATGatewayIDSelector != nil {
-		in, out := &in.NATGatewayIDSelector, &out.NATGatewayIDSelector
+	if in.NATGatewaySelector != nil {
+		in, out := &in.NATGatewaySelector, &out.NATGatewaySelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -769,13 +769,13 @@ func (in *SnatRuleV2InitParameters) DeepCopyInto(out *SnatRuleV2InitParameters) 
 		*out = new(string)
 		**out = **in
 	}
-	if in.NetworkIDRef != nil {
-		in, out := &in.NetworkIDRef, &out.NetworkIDRef
+	if in.NetworkRef != nil {
+		in, out := &in.NetworkRef, &out.NetworkRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.NetworkIDSelector != nil {
-		in, out := &in.NetworkIDSelector, &out.NetworkIDSelector
+	if in.NetworkSelector != nil {
+		in, out := &in.NetworkSelector, &out.NetworkSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -906,13 +906,13 @@ func (in *SnatRuleV2Parameters) DeepCopyInto(out *SnatRuleV2Parameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.FloatingIPIDRef != nil {
-		in, out := &in.FloatingIPIDRef, &out.FloatingIPIDRef
+	if in.FloatingIPRef != nil {
+		in, out := &in.FloatingIPRef, &out.FloatingIPRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.FloatingIPIDSelector != nil {
-		in, out := &in.FloatingIPIDSelector, &out.FloatingIPIDSelector
+	if in.FloatingIPSelector != nil {
+		in, out := &in.FloatingIPSelector, &out.FloatingIPSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -921,13 +921,13 @@ func (in *SnatRuleV2Parameters) DeepCopyInto(out *SnatRuleV2Parameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.NATGatewayIDRef != nil {
-		in, out := &in.NATGatewayIDRef, &out.NATGatewayIDRef
+	if in.NATGatewayRef != nil {
+		in, out := &in.NATGatewayRef, &out.NATGatewayRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.NATGatewayIDSelector != nil {
-		in, out := &in.NATGatewayIDSelector, &out.NATGatewayIDSelector
+	if in.NATGatewaySelector != nil {
+		in, out := &in.NATGatewaySelector, &out.NATGatewaySelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -936,13 +936,13 @@ func (in *SnatRuleV2Parameters) DeepCopyInto(out *SnatRuleV2Parameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.NetworkIDRef != nil {
-		in, out := &in.NetworkIDRef, &out.NetworkIDRef
+	if in.NetworkRef != nil {
+		in, out := &in.NetworkRef, &out.NetworkRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.NetworkIDSelector != nil {
-		in, out := &in.NetworkIDSelector, &out.NetworkIDSelector
+	if in.NetworkSelector != nil {
+		in, out := &in.NetworkSelector, &out.NetworkSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}

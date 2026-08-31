@@ -4,20 +4,20 @@ metadata:
   annotations:
     meta.upbound.io/example-id: swr/v1alpha1/organizationpermissionsv2
   labels:
-    testing.upbound.io/example-name: user_1
-  name: user-1
+    testing.upbound.io/example-name: swr-org-permissions
+  name: swr-op-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     organizationSelector:
       matchLabels:
-        testing.upbound.io/example-name: test-org-1
+        testing.upbound.io/example-name: swr-org-permissions-org
     usernameSelector:
       matchLabels:
-        testing.upbound.io/example-name: swr_op
-    userIdSelector:
+        testing.upbound.io/example-name: swr-org-permissions-user
+    userSelector:
       matchLabels:
-        testing.upbound.io/example-name: swr_op
+        testing.upbound.io/example-name: swr-org-permissions-user
     auth: 3
 
 ---
@@ -27,9 +27,23 @@ metadata:
   annotations:
     meta.upbound.io/example-id: identity/v1alpha1/userv3
   labels:
-    testing.upbound.io/example-name: swr_op
-  name: swr-op
+    testing.upbound.io/example-name: swr-org-permissions-user
+  name: swr-usr-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
-    name: xp-test-${Rand.RFC1123Subdomain}
+    name: swr-usr-${Rand.RFC1123Subdomain}
+
+---
+apiVersion: swr.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: OrganizationV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: swr/v1alpha1/organizationv2
+  labels:
+    testing.upbound.io/example-name: swr-org-permissions-org
+  name: swr-org-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    name: swr-org-${Rand.RFC1123Subdomain}

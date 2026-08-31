@@ -67,7 +67,7 @@ spec:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
-                  portIdsRefs:
+                  portRef:
                     description: References to PortV2 in networking to populate portIds.
                     items:
                       description: A NamespacedReference to a named object.
@@ -107,7 +107,7 @@ spec:
                       - name
                       type: object
                     type: array
-                  portIdsSelector:
+                  portSelector:
                     description: Selector for a list of PortV2 in networking to populate
                       portIds.
                     properties:
@@ -156,7 +156,7 @@ spec:
                       The ID of vip to attach the port to.
                       Changing this creates a new vip associate.
                     type: string
-                  vipIdRef:
+                  vipRef:
                     description: Reference to a VipV2 in networking to populate vipId.
                     properties:
                       name:
@@ -193,7 +193,7 @@ spec:
                     required:
                     - name
                     type: object
-                  vipIdSelector:
+                  vipSelector:
                     description: Selector for a VipV2 in networking to populate vipId.
                     properties:
                       matchControllerRef:
@@ -258,7 +258,7 @@ spec:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
-                  portIdsRefs:
+                  portRef:
                     description: References to PortV2 in networking to populate portIds.
                     items:
                       description: A NamespacedReference to a named object.
@@ -298,7 +298,7 @@ spec:
                       - name
                       type: object
                     type: array
-                  portIdsSelector:
+                  portSelector:
                     description: Selector for a list of PortV2 in networking to populate
                       portIds.
                     properties:
@@ -347,7 +347,7 @@ spec:
                       The ID of vip to attach the port to.
                       Changing this creates a new vip associate.
                     type: string
-                  vipIdRef:
+                  vipRef:
                     description: Reference to a VipV2 in networking to populate vipId.
                     properties:
                       name:
@@ -384,7 +384,7 @@ spec:
                     required:
                     - name
                     type: object
-                  vipIdSelector:
+                  vipSelector:
                     description: Selector for a VipV2 in networking to populate vipId.
                     properties:
                       matchControllerRef:

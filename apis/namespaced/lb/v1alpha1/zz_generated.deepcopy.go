@@ -1053,13 +1053,13 @@ func (in *ListenerV3InitParameters) DeepCopyInto(out *ListenerV3InitParameters) 
 		*out = new(string)
 		**out = **in
 	}
-	if in.DefaultPoolIDRef != nil {
-		in, out := &in.DefaultPoolIDRef, &out.DefaultPoolIDRef
+	if in.DefaultPoolRef != nil {
+		in, out := &in.DefaultPoolRef, &out.DefaultPoolRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.DefaultPoolIDSelector != nil {
-		in, out := &in.DefaultPoolIDSelector, &out.DefaultPoolIDSelector
+	if in.DefaultPoolSelector != nil {
+		in, out := &in.DefaultPoolSelector, &out.DefaultPoolSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -1107,20 +1107,20 @@ func (in *ListenerV3InitParameters) DeepCopyInto(out *ListenerV3InitParameters) 
 		*out = new(float64)
 		**out = **in
 	}
+	if in.LoadBalancerRef != nil {
+		in, out := &in.LoadBalancerRef, &out.LoadBalancerRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.LoadBalancerSelector != nil {
+		in, out := &in.LoadBalancerSelector, &out.LoadBalancerSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.LoadbalancerID != nil {
 		in, out := &in.LoadbalancerID, &out.LoadbalancerID
 		*out = new(string)
 		**out = **in
-	}
-	if in.LoadbalancerIDRef != nil {
-		in, out := &in.LoadbalancerIDRef, &out.LoadbalancerIDRef
-		*out = new(v1.NamespacedReference)
-		(*in).DeepCopyInto(*out)
-	}
-	if in.LoadbalancerIDSelector != nil {
-		in, out := &in.LoadbalancerIDSelector, &out.LoadbalancerIDSelector
-		*out = new(v1.NamespacedSelector)
-		(*in).DeepCopyInto(*out)
 	}
 	if in.MemberRetryEnable != nil {
 		in, out := &in.MemberRetryEnable, &out.MemberRetryEnable
@@ -1152,13 +1152,13 @@ func (in *ListenerV3InitParameters) DeepCopyInto(out *ListenerV3InitParameters) 
 		*out = new(string)
 		**out = **in
 	}
-	if in.SecurityPolicyIDRef != nil {
-		in, out := &in.SecurityPolicyIDRef, &out.SecurityPolicyIDRef
+	if in.SecurityPolicyRef != nil {
+		in, out := &in.SecurityPolicyRef, &out.SecurityPolicyRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.SecurityPolicyIDSelector != nil {
-		in, out := &in.SecurityPolicyIDSelector, &out.SecurityPolicyIDSelector
+	if in.SecurityPolicySelector != nil {
+		in, out := &in.SecurityPolicySelector, &out.SecurityPolicySelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -1432,13 +1432,13 @@ func (in *ListenerV3Parameters) DeepCopyInto(out *ListenerV3Parameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.DefaultPoolIDRef != nil {
-		in, out := &in.DefaultPoolIDRef, &out.DefaultPoolIDRef
+	if in.DefaultPoolRef != nil {
+		in, out := &in.DefaultPoolRef, &out.DefaultPoolRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.DefaultPoolIDSelector != nil {
-		in, out := &in.DefaultPoolIDSelector, &out.DefaultPoolIDSelector
+	if in.DefaultPoolSelector != nil {
+		in, out := &in.DefaultPoolSelector, &out.DefaultPoolSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -1486,20 +1486,20 @@ func (in *ListenerV3Parameters) DeepCopyInto(out *ListenerV3Parameters) {
 		*out = new(float64)
 		**out = **in
 	}
+	if in.LoadBalancerRef != nil {
+		in, out := &in.LoadBalancerRef, &out.LoadBalancerRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.LoadBalancerSelector != nil {
+		in, out := &in.LoadBalancerSelector, &out.LoadBalancerSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.LoadbalancerID != nil {
 		in, out := &in.LoadbalancerID, &out.LoadbalancerID
 		*out = new(string)
 		**out = **in
-	}
-	if in.LoadbalancerIDRef != nil {
-		in, out := &in.LoadbalancerIDRef, &out.LoadbalancerIDRef
-		*out = new(v1.NamespacedReference)
-		(*in).DeepCopyInto(*out)
-	}
-	if in.LoadbalancerIDSelector != nil {
-		in, out := &in.LoadbalancerIDSelector, &out.LoadbalancerIDSelector
-		*out = new(v1.NamespacedSelector)
-		(*in).DeepCopyInto(*out)
 	}
 	if in.MemberRetryEnable != nil {
 		in, out := &in.MemberRetryEnable, &out.MemberRetryEnable
@@ -1531,13 +1531,13 @@ func (in *ListenerV3Parameters) DeepCopyInto(out *ListenerV3Parameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.SecurityPolicyIDRef != nil {
-		in, out := &in.SecurityPolicyIDRef, &out.SecurityPolicyIDRef
+	if in.SecurityPolicyRef != nil {
+		in, out := &in.SecurityPolicyRef, &out.SecurityPolicyRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.SecurityPolicyIDSelector != nil {
-		in, out := &in.SecurityPolicyIDSelector, &out.SecurityPolicyIDSelector
+	if in.SecurityPolicySelector != nil {
+		in, out := &in.SecurityPolicySelector, &out.SecurityPolicySelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -1712,15 +1712,15 @@ func (in *LoadbalancerV3InitParameters) DeepCopyInto(out *LoadbalancerV3InitPara
 			}
 		}
 	}
-	if in.NetworkIdsRefs != nil {
-		in, out := &in.NetworkIdsRefs, &out.NetworkIdsRefs
+	if in.NetworkRef != nil {
+		in, out := &in.NetworkRef, &out.NetworkRef
 		*out = make([]v1.NamespacedReference, len(*in))
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
-	if in.NetworkIdsSelector != nil {
-		in, out := &in.NetworkIdsSelector, &out.NetworkIdsSelector
+	if in.NetworkSelector != nil {
+		in, out := &in.NetworkSelector, &out.NetworkSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -1736,28 +1736,18 @@ func (in *LoadbalancerV3InitParameters) DeepCopyInto(out *LoadbalancerV3InitPara
 		*out = new(string)
 		**out = **in
 	}
-	if in.RouterIDRef != nil {
-		in, out := &in.RouterIDRef, &out.RouterIDRef
-		*out = new(v1.NamespacedReference)
-		(*in).DeepCopyInto(*out)
-	}
-	if in.RouterIDSelector != nil {
-		in, out := &in.RouterIDSelector, &out.RouterIDSelector
-		*out = new(v1.NamespacedSelector)
-		(*in).DeepCopyInto(*out)
-	}
 	if in.SubnetID != nil {
 		in, out := &in.SubnetID, &out.SubnetID
 		*out = new(string)
 		**out = **in
 	}
-	if in.SubnetIDRef != nil {
-		in, out := &in.SubnetIDRef, &out.SubnetIDRef
+	if in.SubnetRef != nil {
+		in, out := &in.SubnetRef, &out.SubnetRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.SubnetIDSelector != nil {
-		in, out := &in.SubnetIDSelector, &out.SubnetIDSelector
+	if in.SubnetSelector != nil {
+		in, out := &in.SubnetSelector, &out.SubnetSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -1776,6 +1766,16 @@ func (in *LoadbalancerV3InitParameters) DeepCopyInto(out *LoadbalancerV3InitPara
 			}
 			(*out)[key] = outVal
 		}
+	}
+	if in.VPCRef != nil {
+		in, out := &in.VPCRef, &out.VPCRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.VPCSelector != nil {
+		in, out := &in.VPCSelector, &out.VPCSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.VipAddress != nil {
 		in, out := &in.VipAddress, &out.VipAddress
@@ -2016,15 +2016,15 @@ func (in *LoadbalancerV3Parameters) DeepCopyInto(out *LoadbalancerV3Parameters) 
 			}
 		}
 	}
-	if in.NetworkIdsRefs != nil {
-		in, out := &in.NetworkIdsRefs, &out.NetworkIdsRefs
+	if in.NetworkRef != nil {
+		in, out := &in.NetworkRef, &out.NetworkRef
 		*out = make([]v1.NamespacedReference, len(*in))
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
-	if in.NetworkIdsSelector != nil {
-		in, out := &in.NetworkIdsSelector, &out.NetworkIdsSelector
+	if in.NetworkSelector != nil {
+		in, out := &in.NetworkSelector, &out.NetworkSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -2040,28 +2040,18 @@ func (in *LoadbalancerV3Parameters) DeepCopyInto(out *LoadbalancerV3Parameters) 
 		*out = new(string)
 		**out = **in
 	}
-	if in.RouterIDRef != nil {
-		in, out := &in.RouterIDRef, &out.RouterIDRef
-		*out = new(v1.NamespacedReference)
-		(*in).DeepCopyInto(*out)
-	}
-	if in.RouterIDSelector != nil {
-		in, out := &in.RouterIDSelector, &out.RouterIDSelector
-		*out = new(v1.NamespacedSelector)
-		(*in).DeepCopyInto(*out)
-	}
 	if in.SubnetID != nil {
 		in, out := &in.SubnetID, &out.SubnetID
 		*out = new(string)
 		**out = **in
 	}
-	if in.SubnetIDRef != nil {
-		in, out := &in.SubnetIDRef, &out.SubnetIDRef
+	if in.SubnetRef != nil {
+		in, out := &in.SubnetRef, &out.SubnetRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.SubnetIDSelector != nil {
-		in, out := &in.SubnetIDSelector, &out.SubnetIDSelector
+	if in.SubnetSelector != nil {
+		in, out := &in.SubnetSelector, &out.SubnetSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -2080,6 +2070,16 @@ func (in *LoadbalancerV3Parameters) DeepCopyInto(out *LoadbalancerV3Parameters) 
 			}
 			(*out)[key] = outVal
 		}
+	}
+	if in.VPCRef != nil {
+		in, out := &in.VPCRef, &out.VPCRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.VPCSelector != nil {
+		in, out := &in.VPCSelector, &out.VPCSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.VipAddress != nil {
 		in, out := &in.VipAddress, &out.VipAddress
@@ -2372,13 +2372,13 @@ func (in *MemberV3InitParameters) DeepCopyInto(out *MemberV3InitParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.PoolIDRef != nil {
-		in, out := &in.PoolIDRef, &out.PoolIDRef
+	if in.PoolRef != nil {
+		in, out := &in.PoolRef, &out.PoolRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.PoolIDSelector != nil {
-		in, out := &in.PoolIDSelector, &out.PoolIDSelector
+	if in.PoolSelector != nil {
+		in, out := &in.PoolSelector, &out.PoolSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -2407,13 +2407,13 @@ func (in *MemberV3InitParameters) DeepCopyInto(out *MemberV3InitParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.SubnetIDRef != nil {
-		in, out := &in.SubnetIDRef, &out.SubnetIDRef
+	if in.SubnetRef != nil {
+		in, out := &in.SubnetRef, &out.SubnetRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.SubnetIDSelector != nil {
-		in, out := &in.SubnetIDSelector, &out.SubnetIDSelector
+	if in.SubnetSelector != nil {
+		in, out := &in.SubnetSelector, &out.SubnetSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -2554,13 +2554,13 @@ func (in *MemberV3Parameters) DeepCopyInto(out *MemberV3Parameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.PoolIDRef != nil {
-		in, out := &in.PoolIDRef, &out.PoolIDRef
+	if in.PoolRef != nil {
+		in, out := &in.PoolRef, &out.PoolRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.PoolIDSelector != nil {
-		in, out := &in.PoolIDSelector, &out.PoolIDSelector
+	if in.PoolSelector != nil {
+		in, out := &in.PoolSelector, &out.PoolSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -2589,13 +2589,13 @@ func (in *MemberV3Parameters) DeepCopyInto(out *MemberV3Parameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.SubnetIDRef != nil {
-		in, out := &in.SubnetIDRef, &out.SubnetIDRef
+	if in.SubnetRef != nil {
+		in, out := &in.SubnetRef, &out.SubnetRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.SubnetIDSelector != nil {
-		in, out := &in.SubnetIDSelector, &out.SubnetIDSelector
+	if in.SubnetSelector != nil {
+		in, out := &in.SubnetSelector, &out.SubnetSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -2731,13 +2731,13 @@ func (in *MonitorV3InitParameters) DeepCopyInto(out *MonitorV3InitParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.PoolIDRef != nil {
-		in, out := &in.PoolIDRef, &out.PoolIDRef
+	if in.PoolRef != nil {
+		in, out := &in.PoolRef, &out.PoolRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.PoolIDSelector != nil {
-		in, out := &in.PoolIDSelector, &out.PoolIDSelector
+	if in.PoolSelector != nil {
+		in, out := &in.PoolSelector, &out.PoolSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -2958,13 +2958,13 @@ func (in *MonitorV3Parameters) DeepCopyInto(out *MonitorV3Parameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.PoolIDRef != nil {
-		in, out := &in.PoolIDRef, &out.PoolIDRef
+	if in.PoolRef != nil {
+		in, out := &in.PoolRef, &out.PoolRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.PoolIDSelector != nil {
-		in, out := &in.PoolIDSelector, &out.PoolIDSelector
+	if in.PoolSelector != nil {
+		in, out := &in.PoolSelector, &out.PoolSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -3097,13 +3097,13 @@ func (in *PolicyV3InitParameters) DeepCopyInto(out *PolicyV3InitParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.ListenerIDRef != nil {
-		in, out := &in.ListenerIDRef, &out.ListenerIDRef
+	if in.ListenerRef != nil {
+		in, out := &in.ListenerRef, &out.ListenerRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.ListenerIDSelector != nil {
-		in, out := &in.ListenerIDSelector, &out.ListenerIDSelector
+	if in.ListenerSelector != nil {
+		in, out := &in.ListenerSelector, &out.ListenerSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -3142,13 +3142,13 @@ func (in *PolicyV3InitParameters) DeepCopyInto(out *PolicyV3InitParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.RedirectListenerIDRef != nil {
-		in, out := &in.RedirectListenerIDRef, &out.RedirectListenerIDRef
+	if in.RedirectListenerRef != nil {
+		in, out := &in.RedirectListenerRef, &out.RedirectListenerRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.RedirectListenerIDSelector != nil {
-		in, out := &in.RedirectListenerIDSelector, &out.RedirectListenerIDSelector
+	if in.RedirectListenerSelector != nil {
+		in, out := &in.RedirectListenerSelector, &out.RedirectListenerSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -3157,13 +3157,13 @@ func (in *PolicyV3InitParameters) DeepCopyInto(out *PolicyV3InitParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.RedirectPoolIDRef != nil {
-		in, out := &in.RedirectPoolIDRef, &out.RedirectPoolIDRef
+	if in.RedirectPoolRef != nil {
+		in, out := &in.RedirectPoolRef, &out.RedirectPoolRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.RedirectPoolIDSelector != nil {
-		in, out := &in.RedirectPoolIDSelector, &out.RedirectPoolIDSelector
+	if in.RedirectPoolSelector != nil {
+		in, out := &in.RedirectPoolSelector, &out.RedirectPoolSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -3365,13 +3365,13 @@ func (in *PolicyV3Parameters) DeepCopyInto(out *PolicyV3Parameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.ListenerIDRef != nil {
-		in, out := &in.ListenerIDRef, &out.ListenerIDRef
+	if in.ListenerRef != nil {
+		in, out := &in.ListenerRef, &out.ListenerRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.ListenerIDSelector != nil {
-		in, out := &in.ListenerIDSelector, &out.ListenerIDSelector
+	if in.ListenerSelector != nil {
+		in, out := &in.ListenerSelector, &out.ListenerSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -3410,13 +3410,13 @@ func (in *PolicyV3Parameters) DeepCopyInto(out *PolicyV3Parameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.RedirectListenerIDRef != nil {
-		in, out := &in.RedirectListenerIDRef, &out.RedirectListenerIDRef
+	if in.RedirectListenerRef != nil {
+		in, out := &in.RedirectListenerRef, &out.RedirectListenerRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.RedirectListenerIDSelector != nil {
-		in, out := &in.RedirectListenerIDSelector, &out.RedirectListenerIDSelector
+	if in.RedirectListenerSelector != nil {
+		in, out := &in.RedirectListenerSelector, &out.RedirectListenerSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -3425,13 +3425,13 @@ func (in *PolicyV3Parameters) DeepCopyInto(out *PolicyV3Parameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.RedirectPoolIDRef != nil {
-		in, out := &in.RedirectPoolIDRef, &out.RedirectPoolIDRef
+	if in.RedirectPoolRef != nil {
+		in, out := &in.RedirectPoolRef, &out.RedirectPoolRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.RedirectPoolIDSelector != nil {
-		in, out := &in.RedirectPoolIDSelector, &out.RedirectPoolIDSelector
+	if in.RedirectPoolSelector != nil {
+		in, out := &in.RedirectPoolSelector, &out.RedirectPoolSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -3553,13 +3553,23 @@ func (in *PoolV3InitParameters) DeepCopyInto(out *PoolV3InitParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.ListenerIDRef != nil {
-		in, out := &in.ListenerIDRef, &out.ListenerIDRef
+	if in.ListenerRef != nil {
+		in, out := &in.ListenerRef, &out.ListenerRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.ListenerIDSelector != nil {
-		in, out := &in.ListenerIDSelector, &out.ListenerIDSelector
+	if in.ListenerSelector != nil {
+		in, out := &in.ListenerSelector, &out.ListenerSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.LoadBalancerRef != nil {
+		in, out := &in.LoadBalancerRef, &out.LoadBalancerRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.LoadBalancerSelector != nil {
+		in, out := &in.LoadBalancerSelector, &out.LoadBalancerSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -3567,16 +3577,6 @@ func (in *PoolV3InitParameters) DeepCopyInto(out *PoolV3InitParameters) {
 		in, out := &in.LoadbalancerID, &out.LoadbalancerID
 		*out = new(string)
 		**out = **in
-	}
-	if in.LoadbalancerIDRef != nil {
-		in, out := &in.LoadbalancerIDRef, &out.LoadbalancerIDRef
-		*out = new(v1.NamespacedReference)
-		(*in).DeepCopyInto(*out)
-	}
-	if in.LoadbalancerIDSelector != nil {
-		in, out := &in.LoadbalancerIDSelector, &out.LoadbalancerIDSelector
-		*out = new(v1.NamespacedSelector)
-		(*in).DeepCopyInto(*out)
 	}
 	if in.MemberDeletionProtection != nil {
 		in, out := &in.MemberDeletionProtection, &out.MemberDeletionProtection
@@ -3625,13 +3625,13 @@ func (in *PoolV3InitParameters) DeepCopyInto(out *PoolV3InitParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.VPCIDRef != nil {
-		in, out := &in.VPCIDRef, &out.VPCIDRef
+	if in.VPCRef != nil {
+		in, out := &in.VPCRef, &out.VPCRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.VPCIDSelector != nil {
-		in, out := &in.VPCIDSelector, &out.VPCIDSelector
+	if in.VPCSelector != nil {
+		in, out := &in.VPCSelector, &out.VPCSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -3779,13 +3779,23 @@ func (in *PoolV3Parameters) DeepCopyInto(out *PoolV3Parameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.ListenerIDRef != nil {
-		in, out := &in.ListenerIDRef, &out.ListenerIDRef
+	if in.ListenerRef != nil {
+		in, out := &in.ListenerRef, &out.ListenerRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.ListenerIDSelector != nil {
-		in, out := &in.ListenerIDSelector, &out.ListenerIDSelector
+	if in.ListenerSelector != nil {
+		in, out := &in.ListenerSelector, &out.ListenerSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.LoadBalancerRef != nil {
+		in, out := &in.LoadBalancerRef, &out.LoadBalancerRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.LoadBalancerSelector != nil {
+		in, out := &in.LoadBalancerSelector, &out.LoadBalancerSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -3793,16 +3803,6 @@ func (in *PoolV3Parameters) DeepCopyInto(out *PoolV3Parameters) {
 		in, out := &in.LoadbalancerID, &out.LoadbalancerID
 		*out = new(string)
 		**out = **in
-	}
-	if in.LoadbalancerIDRef != nil {
-		in, out := &in.LoadbalancerIDRef, &out.LoadbalancerIDRef
-		*out = new(v1.NamespacedReference)
-		(*in).DeepCopyInto(*out)
-	}
-	if in.LoadbalancerIDSelector != nil {
-		in, out := &in.LoadbalancerIDSelector, &out.LoadbalancerIDSelector
-		*out = new(v1.NamespacedSelector)
-		(*in).DeepCopyInto(*out)
 	}
 	if in.MemberDeletionProtection != nil {
 		in, out := &in.MemberDeletionProtection, &out.MemberDeletionProtection
@@ -3851,13 +3851,13 @@ func (in *PoolV3Parameters) DeepCopyInto(out *PoolV3Parameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.VPCIDRef != nil {
-		in, out := &in.VPCIDRef, &out.VPCIDRef
+	if in.VPCRef != nil {
+		in, out := &in.VPCRef, &out.VPCRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.VPCIDSelector != nil {
-		in, out := &in.VPCIDSelector, &out.VPCIDSelector
+	if in.VPCSelector != nil {
+		in, out := &in.VPCSelector, &out.VPCSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -4081,13 +4081,13 @@ func (in *RedirectPoolsConfigInitParameters) DeepCopyInto(out *RedirectPoolsConf
 		*out = new(string)
 		**out = **in
 	}
-	if in.PoolIDRef != nil {
-		in, out := &in.PoolIDRef, &out.PoolIDRef
+	if in.PoolsRef != nil {
+		in, out := &in.PoolsRef, &out.PoolsRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.PoolIDSelector != nil {
-		in, out := &in.PoolIDSelector, &out.PoolIDSelector
+	if in.PoolsSelector != nil {
+		in, out := &in.PoolsSelector, &out.PoolsSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -4141,13 +4141,13 @@ func (in *RedirectPoolsConfigParameters) DeepCopyInto(out *RedirectPoolsConfigPa
 		*out = new(string)
 		**out = **in
 	}
-	if in.PoolIDRef != nil {
-		in, out := &in.PoolIDRef, &out.PoolIDRef
+	if in.PoolsRef != nil {
+		in, out := &in.PoolsRef, &out.PoolsRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.PoolIDSelector != nil {
-		in, out := &in.PoolIDSelector, &out.PoolIDSelector
+	if in.PoolsSelector != nil {
+		in, out := &in.PoolsSelector, &out.PoolsSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -4350,13 +4350,13 @@ func (in *RuleV3InitParameters) DeepCopyInto(out *RuleV3InitParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.PolicyIDRef != nil {
-		in, out := &in.PolicyIDRef, &out.PolicyIDRef
+	if in.PolicyRef != nil {
+		in, out := &in.PolicyRef, &out.PolicyRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.PolicyIDSelector != nil {
-		in, out := &in.PolicyIDSelector, &out.PolicyIDSelector
+	if in.PolicySelector != nil {
+		in, out := &in.PolicySelector, &out.PolicySelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -4506,13 +4506,13 @@ func (in *RuleV3Parameters) DeepCopyInto(out *RuleV3Parameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.PolicyIDRef != nil {
-		in, out := &in.PolicyIDRef, &out.PolicyIDRef
+	if in.PolicyRef != nil {
+		in, out := &in.PolicyRef, &out.PolicyRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.PolicyIDSelector != nil {
-		in, out := &in.PolicyIDSelector, &out.PolicyIDSelector
+	if in.PolicySelector != nil {
+		in, out := &in.PolicySelector, &out.PolicySelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}

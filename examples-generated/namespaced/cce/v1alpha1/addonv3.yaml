@@ -9,7 +9,7 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    clusterIdSelector:
+    clusterSelector:
       matchLabels:
         testing.upbound.io/example-name: cluster_1
     templateName: metrics-server
@@ -40,9 +40,9 @@ spec:
     flavorId: ${var.flavor_id}
     kubernetesSvcIpRange: 10.247.0.0/16
     name: cce-cluster-1
-    subnetIdSelector:
+    subnetSelector:
       matchLabels:
         testing.upbound.io/example-name: example
-    vpcIdSelector:
+    vpcSelector:
       matchLabels:
         testing.upbound.io/example-name: example

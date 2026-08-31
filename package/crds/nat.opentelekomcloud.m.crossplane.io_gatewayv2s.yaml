@@ -67,7 +67,7 @@ spec:
                       ID of the network this NAT Gateway connects to.
                       Changing this creates a new NAT Gateway.
                     type: string
-                  internalNetworkIdRef:
+                  internalNetworkRef:
                     description: Reference to a SubnetV1 in vpc to populate internalNetworkId.
                     properties:
                       name:
@@ -104,7 +104,7 @@ spec:
                     required:
                     - name
                     type: object
-                  internalNetworkIdSelector:
+                  internalNetworkSelector:
                     description: Selector for a SubnetV1 in vpc to populate internalNetworkId.
                     properties:
                       matchControllerRef:
@@ -157,7 +157,22 @@ spec:
                       ID of the router (or VPC) this NAT Gateway belongs to. Changing
                       this creates a new NAT Gateway.
                     type: string
-                  routerIdRef:
+                  spec:
+                    description: The specification of the NAT Gateway, valid values
+                      are "0","1", "2", "3", "4".
+                    type: string
+                  tags:
+                    additionalProperties:
+                      type: string
+                    description: Tags key/value pairs to associate with the NAT Gateway.
+                    type: object
+                    x-kubernetes-map-type: granular
+                  tenantId:
+                    description: |-
+                      The target tenant ID in which to allocate the NAT
+                      Gateway. Changing this creates a new NAT Gateway.
+                    type: string
+                  vpcRef:
                     description: Reference to a VpcV1 in vpc to populate routerId.
                     properties:
                       name:
@@ -194,7 +209,7 @@ spec:
                     required:
                     - name
                     type: object
-                  routerIdSelector:
+                  vpcSelector:
                     description: Selector for a VpcV1 in vpc to populate routerId.
                     properties:
                       matchControllerRef:
@@ -237,21 +252,6 @@ spec:
                             type: string
                         type: object
                     type: object
-                  spec:
-                    description: The specification of the NAT Gateway, valid values
-                      are "0","1", "2", "3", "4".
-                    type: string
-                  tags:
-                    additionalProperties:
-                      type: string
-                    description: Tags key/value pairs to associate with the NAT Gateway.
-                    type: object
-                    x-kubernetes-map-type: granular
-                  tenantId:
-                    description: |-
-                      The target tenant ID in which to allocate the NAT
-                      Gateway. Changing this creates a new NAT Gateway.
-                    type: string
                 type: object
               initProvider:
                 description: |-
@@ -274,7 +274,7 @@ spec:
                       ID of the network this NAT Gateway connects to.
                       Changing this creates a new NAT Gateway.
                     type: string
-                  internalNetworkIdRef:
+                  internalNetworkRef:
                     description: Reference to a SubnetV1 in vpc to populate internalNetworkId.
                     properties:
                       name:
@@ -311,7 +311,7 @@ spec:
                     required:
                     - name
                     type: object
-                  internalNetworkIdSelector:
+                  internalNetworkSelector:
                     description: Selector for a SubnetV1 in vpc to populate internalNetworkId.
                     properties:
                       matchControllerRef:
@@ -364,7 +364,22 @@ spec:
                       ID of the router (or VPC) this NAT Gateway belongs to. Changing
                       this creates a new NAT Gateway.
                     type: string
-                  routerIdRef:
+                  spec:
+                    description: The specification of the NAT Gateway, valid values
+                      are "0","1", "2", "3", "4".
+                    type: string
+                  tags:
+                    additionalProperties:
+                      type: string
+                    description: Tags key/value pairs to associate with the NAT Gateway.
+                    type: object
+                    x-kubernetes-map-type: granular
+                  tenantId:
+                    description: |-
+                      The target tenant ID in which to allocate the NAT
+                      Gateway. Changing this creates a new NAT Gateway.
+                    type: string
+                  vpcRef:
                     description: Reference to a VpcV1 in vpc to populate routerId.
                     properties:
                       name:
@@ -401,7 +416,7 @@ spec:
                     required:
                     - name
                     type: object
-                  routerIdSelector:
+                  vpcSelector:
                     description: Selector for a VpcV1 in vpc to populate routerId.
                     properties:
                       matchControllerRef:
@@ -444,21 +459,6 @@ spec:
                             type: string
                         type: object
                     type: object
-                  spec:
-                    description: The specification of the NAT Gateway, valid values
-                      are "0","1", "2", "3", "4".
-                    type: string
-                  tags:
-                    additionalProperties:
-                      type: string
-                    description: Tags key/value pairs to associate with the NAT Gateway.
-                    type: object
-                    x-kubernetes-map-type: granular
-                  tenantId:
-                    description: |-
-                      The target tenant ID in which to allocate the NAT
-                      Gateway. Changing this creates a new NAT Gateway.
-                    type: string
                 type: object
               managementPolicies:
                 default:

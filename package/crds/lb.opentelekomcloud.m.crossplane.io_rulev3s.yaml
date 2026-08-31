@@ -84,7 +84,7 @@ spec:
                   policyId:
                     description: ID of the policy.
                     type: string
-                  policyIdRef:
+                  policyRef:
                     description: Reference to a PolicyV3 in lb to populate policyId.
                     properties:
                       name:
@@ -121,7 +121,7 @@ spec:
                     required:
                     - name
                     type: object
-                  policyIdSelector:
+                  policySelector:
                     description: Selector for a PolicyV3 in lb to populate policyId.
                     properties:
                       matchControllerRef:
@@ -300,7 +300,7 @@ spec:
                   policyId:
                     description: ID of the policy.
                     type: string
-                  policyIdRef:
+                  policyRef:
                     description: Reference to a PolicyV3 in lb to populate policyId.
                     properties:
                       name:
@@ -337,7 +337,7 @@ spec:
                     required:
                     - name
                     type: object
-                  policyIdSelector:
+                  policySelector:
                     description: Selector for a PolicyV3 in lb to populate policyId.
                     properties:
                       matchControllerRef:

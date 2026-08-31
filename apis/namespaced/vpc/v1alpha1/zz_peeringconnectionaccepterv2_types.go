@@ -23,15 +23,17 @@ type PeeringConnectionAccepterV2InitParameters struct {
 
 	// The VPC Peering Connection ID to manage. Changing this creates a new VPC peering connection accepter.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.PeeringConnectionV2
+	// +crossplane:generate:reference:refFieldName=VPCPeeringConnectionRef
+	// +crossplane:generate:reference:selectorFieldName=VPCPeeringConnectionSelector
 	VPCPeeringConnectionID *string `json:"vpcPeeringConnectionId,omitempty" tf:"vpc_peering_connection_id,omitempty"`
 
 	// Reference to a PeeringConnectionV2 in vpc to populate vpcPeeringConnectionId.
 	// +kubebuilder:validation:Optional
-	VPCPeeringConnectionIDRef *v1.NamespacedReference `json:"vpcPeeringConnectionIdRef,omitempty" tf:"-"`
+	VPCPeeringConnectionRef *v1.NamespacedReference `json:"vpcPeeringConnectionRef,omitempty" tf:"-"`
 
 	// Selector for a PeeringConnectionV2 in vpc to populate vpcPeeringConnectionId.
 	// +kubebuilder:validation:Optional
-	VPCPeeringConnectionIDSelector *v1.NamespacedSelector `json:"vpcPeeringConnectionIdSelector,omitempty" tf:"-"`
+	VPCPeeringConnectionSelector *v1.NamespacedSelector `json:"vpcPeeringConnectionSelector,omitempty" tf:"-"`
 }
 
 type PeeringConnectionAccepterV2Observation struct {
@@ -74,16 +76,18 @@ type PeeringConnectionAccepterV2Parameters struct {
 
 	// The VPC Peering Connection ID to manage. Changing this creates a new VPC peering connection accepter.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.PeeringConnectionV2
+	// +crossplane:generate:reference:refFieldName=VPCPeeringConnectionRef
+	// +crossplane:generate:reference:selectorFieldName=VPCPeeringConnectionSelector
 	// +kubebuilder:validation:Optional
 	VPCPeeringConnectionID *string `json:"vpcPeeringConnectionId,omitempty" tf:"vpc_peering_connection_id,omitempty"`
 
 	// Reference to a PeeringConnectionV2 in vpc to populate vpcPeeringConnectionId.
 	// +kubebuilder:validation:Optional
-	VPCPeeringConnectionIDRef *v1.NamespacedReference `json:"vpcPeeringConnectionIdRef,omitempty" tf:"-"`
+	VPCPeeringConnectionRef *v1.NamespacedReference `json:"vpcPeeringConnectionRef,omitempty" tf:"-"`
 
 	// Selector for a PeeringConnectionV2 in vpc to populate vpcPeeringConnectionId.
 	// +kubebuilder:validation:Optional
-	VPCPeeringConnectionIDSelector *v1.NamespacedSelector `json:"vpcPeeringConnectionIdSelector,omitempty" tf:"-"`
+	VPCPeeringConnectionSelector *v1.NamespacedSelector `json:"vpcPeeringConnectionSelector,omitempty" tf:"-"`
 }
 
 // PeeringConnectionAccepterV2Spec defines the desired state of PeeringConnectionAccepterV2

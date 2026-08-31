@@ -62,10 +62,7 @@ spec:
                   description:
                     description: Description of the PTR record.
                     type: string
-                  floatingipId:
-                    description: The ID of the FloatingIP/EIP.
-                    type: string
-                  floatingipIdRef:
+                  floatingIpRef:
                     description: Reference to a EIPV1 in vpc to populate floatingipId.
                     properties:
                       name:
@@ -102,7 +99,7 @@ spec:
                     required:
                     - name
                     type: object
-                  floatingipIdSelector:
+                  floatingIpSelector:
                     description: Selector for a EIPV1 in vpc to populate floatingipId.
                     properties:
                       matchControllerRef:
@@ -145,6 +142,9 @@ spec:
                             type: string
                         type: object
                     type: object
+                  floatingipId:
+                    description: The ID of the FloatingIP/EIP.
+                    type: string
                   name:
                     description: |-
                       Domain name of the PTR record. A domain name is case insensitive.
@@ -178,10 +178,7 @@ spec:
                   description:
                     description: Description of the PTR record.
                     type: string
-                  floatingipId:
-                    description: The ID of the FloatingIP/EIP.
-                    type: string
-                  floatingipIdRef:
+                  floatingIpRef:
                     description: Reference to a EIPV1 in vpc to populate floatingipId.
                     properties:
                       name:
@@ -218,7 +215,7 @@ spec:
                     required:
                     - name
                     type: object
-                  floatingipIdSelector:
+                  floatingIpSelector:
                     description: Selector for a EIPV1 in vpc to populate floatingipId.
                     properties:
                       matchControllerRef:
@@ -261,6 +258,9 @@ spec:
                             type: string
                         type: object
                     type: object
+                  floatingipId:
+                    description: The ID of the FloatingIP/EIP.
+                    type: string
                   name:
                     description: |-
                       Domain name of the PTR record. A domain name is case insensitive.

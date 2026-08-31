@@ -13,7 +13,7 @@ spec:
     gatewayIp: ${var.subnet_gateway_ip}
     name: ${var.subnet_name}
     ntpAddresses: 10.100.0.33,10.100.0.34
-    vpcIdSelector:
+    vpcSelector:
       matchLabels:
         testing.upbound.io/example-name: vpc_v1
 

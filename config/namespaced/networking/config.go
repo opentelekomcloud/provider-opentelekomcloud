@@ -10,7 +10,9 @@ import (
 func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("opentelekomcloud_networking_subnet_v2", func(r *config.Resource) {
 		r.References["network_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_networking_network_v2",
+			TerraformName:     "opentelekomcloud_networking_network_v2",
+			SelectorFieldName: "NetworkSelector",
+			RefFieldName:      "NetworkRef",
 		}
 		r.LateInitializer = config.LateInitializer{
 			IgnoredFields: []string{"allocation_pools"},
@@ -18,10 +20,14 @@ func Configure(p *config.Provider) {
 	})
 	p.AddResourceConfigurator("opentelekomcloud_networking_router_interface_v2", func(r *config.Resource) {
 		r.References["router_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_networking_router_v2",
+			TerraformName:     "opentelekomcloud_networking_router_v2",
+			SelectorFieldName: "RouterSelector",
+			RefFieldName:      "RouterRef",
 		}
 		r.References["subnet_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_networking_subnet_v2",
+			TerraformName:     "opentelekomcloud_networking_subnet_v2",
+			SelectorFieldName: "SubnetSelector",
+			RefFieldName:      "SubnetRef",
 		}
 	})
 	p.AddResourceConfigurator("opentelekomcloud_networking_router_v2", func(r *config.Resource) {
@@ -32,7 +38,9 @@ func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("opentelekomcloud_networking_floatingip_associate_v2", func(r *config.Resource) {
 		r.UseAsync = true
 		r.References["port_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_networking_port_v2",
+			TerraformName:     "opentelekomcloud_networking_port_v2",
+			SelectorFieldName: "PortSelector",
+			RefFieldName:      "PortRef",
 		}
 		r.References["floating_ip"] = config.Reference{
 			TerraformName: "opentelekomcloud_networking_floatingip_v2",
@@ -42,62 +50,88 @@ func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("opentelekomcloud_networking_port_v2", func(r *config.Resource) {
 		r.UseAsync = true
 		r.References["network_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_networking_network_v2",
+			TerraformName:     "opentelekomcloud_networking_network_v2",
+			SelectorFieldName: "NetworkSelector",
+			RefFieldName:      "NetworkRef",
 		}
 		r.References["fixed_ip.subnet_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_networking_subnet_v2",
+			TerraformName:     "opentelekomcloud_networking_subnet_v2",
+			SelectorFieldName: "SubnetSelector",
+			RefFieldName:      "SubnetRef",
 		}
 		r.References["security_group_ids"] = config.Reference{
-			TerraformName: "opentelekomcloud_networking_secgroup_v2",
+			TerraformName:     "opentelekomcloud_networking_secgroup_v2",
+			SelectorFieldName: "SecurityGroupSelector",
+			RefFieldName:      "SecurityGroupRef",
 		}
 	})
 	p.AddResourceConfigurator("opentelekomcloud_networking_port_secgroup_associate_v2", func(r *config.Resource) {
 		r.UseAsync = true
 		r.References["port_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_networking_port_v2",
+			TerraformName:     "opentelekomcloud_networking_port_v2",
+			SelectorFieldName: "PortSelector",
+			RefFieldName:      "PortRef",
 		}
 		r.References["security_group_ids"] = config.Reference{
-			TerraformName: "opentelekomcloud_networking_secgroup_v2",
+			TerraformName:     "opentelekomcloud_networking_secgroup_v2",
+			SelectorFieldName: "SecurityGroupSelector",
+			RefFieldName:      "SecurityGroupRef",
 		}
 	})
 	p.AddResourceConfigurator("opentelekomcloud_networking_router_interface_v2", func(r *config.Resource) {
 		r.UseAsync = true
 		r.References["router_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_networking_router_v2",
+			TerraformName:     "opentelekomcloud_networking_router_v2",
+			SelectorFieldName: "RouterSelector",
+			RefFieldName:      "RouterRef",
 		}
 		r.References["subnet_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_networking_subnet_v2",
+			TerraformName:     "opentelekomcloud_networking_subnet_v2",
+			SelectorFieldName: "SubnetSelector",
+			RefFieldName:      "SubnetRef",
 		}
 	})
 	p.AddResourceConfigurator("opentelekomcloud_networking_router_route_v2", func(r *config.Resource) {
 		r.UseAsync = true
 		r.References["router_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_networking_router_v2",
+			TerraformName:     "opentelekomcloud_networking_router_v2",
+			SelectorFieldName: "RouterSelector",
+			RefFieldName:      "RouterRef",
 		}
 	})
 	p.AddResourceConfigurator("opentelekomcloud_networking_secgroup_rule_v2", func(r *config.Resource) {
 		r.UseAsync = true
 		r.MetaResource.ArgumentDocs["security_group_id"] = `Configuration block defining a security_group for the rule. Only opentelekomcloud_networking_secgroup_v2 (secgroupv2s.networking.opentelekomcloud.m.crossplane.io) is supported for cross resource reference configuration.`
 		r.References["security_group_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_networking_secgroup_v2",
+			TerraformName:     "opentelekomcloud_networking_secgroup_v2",
+			SelectorFieldName: "SecurityGroupSelector",
+			RefFieldName:      "SecurityGroupRef",
 		}
 	})
 	p.AddResourceConfigurator("opentelekomcloud_networking_vip_v2", func(r *config.Resource) {
 		r.UseAsync = true
 		r.References["network_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_networking_network_v2",
+			TerraformName:     "opentelekomcloud_networking_network_v2",
+			SelectorFieldName: "NetworkSelector",
+			RefFieldName:      "NetworkRef",
 		}
 		r.References["subnet_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_networking_subnet_v2",
+			TerraformName:     "opentelekomcloud_networking_subnet_v2",
+			SelectorFieldName: "SubnetSelector",
+			RefFieldName:      "SubnetRef",
 		}
 	})
 	p.AddResourceConfigurator("opentelekomcloud_networking_vip_associate_v2", func(r *config.Resource) {
 		r.UseAsync = true
 		r.References["vip_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_networking_vip_v2",
+			TerraformName:     "opentelekomcloud_networking_vip_v2",
+			SelectorFieldName: "VipSelector",
+			RefFieldName:      "VipRef",
 		}
 		r.References["port_ids"] = config.Reference{
-			TerraformName: "opentelekomcloud_networking_port_v2",
+			TerraformName:     "opentelekomcloud_networking_port_v2",
+			SelectorFieldName: "PortSelector",
+			RefFieldName:      "PortRef",
 		}
 	})
 }

@@ -4,8 +4,8 @@ metadata:
   annotations:
     meta.upbound.io/example-id: identity/v1alpha1/agencyv3
   labels:
-    testing.upbound.io/example-name: agency
-  name: agency
+    testing.upbound.io/example-name: identity-agency
+  name: iam-agnc-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:

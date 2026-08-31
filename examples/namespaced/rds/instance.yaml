@@ -14,13 +14,13 @@ metadata:
   annotations:
     meta.upbound.io/example-id: vpc/v1alpha1/v1
   labels:
-    testing.upbound.io/example-name: sample-rds-instance
-  name: sample-rds-instance
+    testing.upbound.io/example-name: rds-vpc
+  name: rds-vpc-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     cidr: "192.168.0.0/16"
-    name: crossplane-rds-vpc
+    name: rds-vpc-${Rand.RFC1123Subdomain}
     tags:
       managed-by: crossplane
 ---
@@ -30,18 +30,18 @@ metadata:
   annotations:
     meta.upbound.io/example-id: vpc/v1alpha1/subnetv1
   labels:
-    testing.upbound.io/example-name: sample-rds-instance
-  name: sample-rds-instance
+    testing.upbound.io/example-name: rds-subnet
+  name: rds-stn-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     cidr: "192.168.0.0/16"
     gatewayIp: "192.168.0.1"
-    name: crossplane-rds-subnet
+    name: rds-stn-${Rand.RFC1123Subdomain}
     ntpAddresses: "10.100.0.33,10.100.0.34"
-    vpcIdSelector:
+    vpcSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-rds-instance
+        testing.upbound.io/example-name: rds-vpc
     tags:
       managed-by: crossplane
 
@@ -52,13 +52,13 @@ metadata:
   annotations:
     meta.upbound.io/example-id: compute/v1alpha1/secgroupv2
   labels:
-    testing.upbound.io/example-name: sample-rds-instance
-  name: sample-rds-instance
+    testing.upbound.io/example-name: rds-sg
+  name: rds-sg-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     description: crossplane security group
-    name: crossplane-rds-sg
+    name: rds-sg-${Rand.RFC1123Subdomain}
     rule:
       - cidr: 0.0.0.0/0
         fromPort: 8635
@@ -80,14 +80,14 @@ metadata:
   annotations:
     meta.upbound.io/example-id: vpc/v1alpha1/eipv1
   labels:
-    testing.upbound.io/example-name: sample-rds-instance
-  name: sample-rds-instance
+    testing.upbound.io/example-name: rds-eip
+  name: rds-eip-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     bandwidth:
       - chargeMode: traffic
-        name: crossplane-rds-instance
+        name: rds-eip-${Rand.RFC1123Subdomain}
         shareType: PER
         size: 8
     publicip:
@@ -100,8 +100,8 @@ metadata:
   annotations:
     meta.upbound.io/example-id: rds/v1alpha1/instancev3
   labels:
-    testing.upbound.io/example-name: sample-rds-instance
-  name: sample-rds-instance
+    testing.upbound.io/example-name: rds-instance
+  name: rds-ins-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
@@ -118,21 +118,21 @@ spec:
         type: PostgreSQL
         version: "15"
     flavor: rds.pg.n1.large.2
-    name: crossplane-rds-instance
-    computeSecurityGroupIdSelector:
+    name: rds-ins-${Rand.RFC1123Subdomain}
+    computeSecurityGroupSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-rds-instance
-    subnetIdSelector:
+        testing.upbound.io/example-name: rds-sg
+    subnetSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-rds-instance
+        testing.upbound.io/example-name: rds-subnet
     tags:
       managed-by: crossplane
     volume:
       - size: 100
         type: CLOUDSSD
-    vpcIdSelector:
+    vpcSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-rds-instance
+        testing.upbound.io/example-name: rds-vpc
     publicIpsSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-rds-instance
+        testing.upbound.io/example-name: rds-eip

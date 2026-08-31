@@ -182,11 +182,11 @@ type InstanceV3InitParameters struct {
 
 	// Reference to a SecgroupV2 in compute to populate securityGroupId.
 	// +kubebuilder:validation:Optional
-	ComputeSecurityGroupIDRefs *v1.NamespacedReference `json:"computeSecurityGroupIdRefs,omitempty" tf:"-"`
+	ComputeSecurityGroupRefs *v1.NamespacedReference `json:"computeSecurityGroupRefs,omitempty" tf:"-"`
 
 	// Selector for a SecgroupV2 in compute to populate securityGroupId.
 	// +kubebuilder:validation:Optional
-	ComputeSecurityGroupIDSelector *v1.NamespacedSelector `json:"computeSecurityGroupIdSelector,omitempty" tf:"-"`
+	ComputeSecurityGroupSelector *v1.NamespacedSelector `json:"computeSecurityGroupSelector,omitempty" tf:"-"`
 
 	// Specifies the database information. Structure is documented below. Changing this parameter will create a new resource.
 	DB []DBInitParameters `json:"db,omitempty" tf:"db,omitempty"`
@@ -214,15 +214,17 @@ type InstanceV3InitParameters struct {
 
 	// Specifies the parameter group ID.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/rds/v1alpha1.ParametergroupV3
+	// +crossplane:generate:reference:refFieldName=ParameterGroupRef
+	// +crossplane:generate:reference:selectorFieldName=ParameterGroupSelector
 	ParamGroupID *string `json:"paramGroupId,omitempty" tf:"param_group_id,omitempty"`
 
 	// Reference to a ParametergroupV3 in rds to populate paramGroupId.
 	// +kubebuilder:validation:Optional
-	ParamGroupIDRef *v1.NamespacedReference `json:"paramGroupIdRef,omitempty" tf:"-"`
+	ParameterGroupRef *v1.NamespacedReference `json:"parameterGroupRef,omitempty" tf:"-"`
 
 	// Selector for a ParametergroupV3 in rds to populate paramGroupId.
 	// +kubebuilder:validation:Optional
-	ParamGroupIDSelector *v1.NamespacedSelector `json:"paramGroupIdSelector,omitempty" tf:"-"`
+	ParameterGroupSelector *v1.NamespacedSelector `json:"parameterGroupSelector,omitempty" tf:"-"`
 
 	// Map of additional configuration parameters. Values should be strings. Parameters set here
 	// overrides values from configuration template (parameter group).
@@ -266,22 +268,24 @@ type InstanceV3InitParameters struct {
 	// Specifies the security group which the RDS DB instance belongs to.
 	// Changing this parameter will create a new resource.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/compute/v1alpha1.SecgroupV2
-	// +crossplane:generate:reference:refFieldName=ComputeSecurityGroupIDRefs
-	// +crossplane:generate:reference:selectorFieldName=ComputeSecurityGroupIDSelector
+	// +crossplane:generate:reference:refFieldName=ComputeSecurityGroupRefs
+	// +crossplane:generate:reference:selectorFieldName=ComputeSecurityGroupSelector
 	SecurityGroupID *string `json:"securityGroupId,omitempty" tf:"security_group_id,omitempty"`
 
 	// Specifies the subnet id. Changing this parameter will create a new resource.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.SubnetV1
 	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractNetworkID()
+	// +crossplane:generate:reference:refFieldName=SubnetRef
+	// +crossplane:generate:reference:selectorFieldName=SubnetSelector
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 
 	// Reference to a SubnetV1 in vpc to populate subnetId.
 	// +kubebuilder:validation:Optional
-	SubnetIDRef *v1.NamespacedReference `json:"subnetIdRef,omitempty" tf:"-"`
+	SubnetRef *v1.NamespacedReference `json:"subnetRef,omitempty" tf:"-"`
 
 	// Selector for a SubnetV1 in vpc to populate subnetId.
 	// +kubebuilder:validation:Optional
-	SubnetIDSelector *v1.NamespacedSelector `json:"subnetIdSelector,omitempty" tf:"-"`
+	SubnetSelector *v1.NamespacedSelector `json:"subnetSelector,omitempty" tf:"-"`
 
 	// Tags key/value pairs to associate with the instance. Deprecated, please use
 	// the tags instead.
@@ -300,15 +304,17 @@ type InstanceV3InitParameters struct {
 
 	// Specifies the VPC ID. Changing this parameter will create a new resource.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.VpcV1
+	// +crossplane:generate:reference:refFieldName=VPCRef
+	// +crossplane:generate:reference:selectorFieldName=VPCSelector
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
 
 	// Reference to a VpcV1 in vpc to populate vpcId.
 	// +kubebuilder:validation:Optional
-	VPCIDRef *v1.NamespacedReference `json:"vpcIdRef,omitempty" tf:"-"`
+	VPCRef *v1.NamespacedReference `json:"vpcRef,omitempty" tf:"-"`
 
 	// Selector for a VpcV1 in vpc to populate vpcId.
 	// +kubebuilder:validation:Optional
-	VPCIDSelector *v1.NamespacedSelector `json:"vpcIdSelector,omitempty" tf:"-"`
+	VPCSelector *v1.NamespacedSelector `json:"vpcSelector,omitempty" tf:"-"`
 
 	// Specifies the volume information. Structure is documented below.
 	Volume []VolumeInitParameters `json:"volume,omitempty" tf:"volume,omitempty"`
@@ -443,11 +449,11 @@ type InstanceV3Parameters struct {
 
 	// Reference to a SecgroupV2 in compute to populate securityGroupId.
 	// +kubebuilder:validation:Optional
-	ComputeSecurityGroupIDRefs *v1.NamespacedReference `json:"computeSecurityGroupIdRefs,omitempty" tf:"-"`
+	ComputeSecurityGroupRefs *v1.NamespacedReference `json:"computeSecurityGroupRefs,omitempty" tf:"-"`
 
 	// Selector for a SecgroupV2 in compute to populate securityGroupId.
 	// +kubebuilder:validation:Optional
-	ComputeSecurityGroupIDSelector *v1.NamespacedSelector `json:"computeSecurityGroupIdSelector,omitempty" tf:"-"`
+	ComputeSecurityGroupSelector *v1.NamespacedSelector `json:"computeSecurityGroupSelector,omitempty" tf:"-"`
 
 	// Specifies the database information. Structure is documented below. Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
@@ -480,16 +486,18 @@ type InstanceV3Parameters struct {
 
 	// Specifies the parameter group ID.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/rds/v1alpha1.ParametergroupV3
+	// +crossplane:generate:reference:refFieldName=ParameterGroupRef
+	// +crossplane:generate:reference:selectorFieldName=ParameterGroupSelector
 	// +kubebuilder:validation:Optional
 	ParamGroupID *string `json:"paramGroupId,omitempty" tf:"param_group_id,omitempty"`
 
 	// Reference to a ParametergroupV3 in rds to populate paramGroupId.
 	// +kubebuilder:validation:Optional
-	ParamGroupIDRef *v1.NamespacedReference `json:"paramGroupIdRef,omitempty" tf:"-"`
+	ParameterGroupRef *v1.NamespacedReference `json:"parameterGroupRef,omitempty" tf:"-"`
 
 	// Selector for a ParametergroupV3 in rds to populate paramGroupId.
 	// +kubebuilder:validation:Optional
-	ParamGroupIDSelector *v1.NamespacedSelector `json:"paramGroupIdSelector,omitempty" tf:"-"`
+	ParameterGroupSelector *v1.NamespacedSelector `json:"parameterGroupSelector,omitempty" tf:"-"`
 
 	// Map of additional configuration parameters. Values should be strings. Parameters set here
 	// overrides values from configuration template (parameter group).
@@ -540,24 +548,26 @@ type InstanceV3Parameters struct {
 	// Specifies the security group which the RDS DB instance belongs to.
 	// Changing this parameter will create a new resource.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/compute/v1alpha1.SecgroupV2
-	// +crossplane:generate:reference:refFieldName=ComputeSecurityGroupIDRefs
-	// +crossplane:generate:reference:selectorFieldName=ComputeSecurityGroupIDSelector
+	// +crossplane:generate:reference:refFieldName=ComputeSecurityGroupRefs
+	// +crossplane:generate:reference:selectorFieldName=ComputeSecurityGroupSelector
 	// +kubebuilder:validation:Optional
 	SecurityGroupID *string `json:"securityGroupId,omitempty" tf:"security_group_id,omitempty"`
 
 	// Specifies the subnet id. Changing this parameter will create a new resource.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.SubnetV1
 	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractNetworkID()
+	// +crossplane:generate:reference:refFieldName=SubnetRef
+	// +crossplane:generate:reference:selectorFieldName=SubnetSelector
 	// +kubebuilder:validation:Optional
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 
 	// Reference to a SubnetV1 in vpc to populate subnetId.
 	// +kubebuilder:validation:Optional
-	SubnetIDRef *v1.NamespacedReference `json:"subnetIdRef,omitempty" tf:"-"`
+	SubnetRef *v1.NamespacedReference `json:"subnetRef,omitempty" tf:"-"`
 
 	// Selector for a SubnetV1 in vpc to populate subnetId.
 	// +kubebuilder:validation:Optional
-	SubnetIDSelector *v1.NamespacedSelector `json:"subnetIdSelector,omitempty" tf:"-"`
+	SubnetSelector *v1.NamespacedSelector `json:"subnetSelector,omitempty" tf:"-"`
 
 	// Tags key/value pairs to associate with the instance. Deprecated, please use
 	// the tags instead.
@@ -579,16 +589,18 @@ type InstanceV3Parameters struct {
 
 	// Specifies the VPC ID. Changing this parameter will create a new resource.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.VpcV1
+	// +crossplane:generate:reference:refFieldName=VPCRef
+	// +crossplane:generate:reference:selectorFieldName=VPCSelector
 	// +kubebuilder:validation:Optional
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
 
 	// Reference to a VpcV1 in vpc to populate vpcId.
 	// +kubebuilder:validation:Optional
-	VPCIDRef *v1.NamespacedReference `json:"vpcIdRef,omitempty" tf:"-"`
+	VPCRef *v1.NamespacedReference `json:"vpcRef,omitempty" tf:"-"`
 
 	// Selector for a VpcV1 in vpc to populate vpcId.
 	// +kubebuilder:validation:Optional
-	VPCIDSelector *v1.NamespacedSelector `json:"vpcIdSelector,omitempty" tf:"-"`
+	VPCSelector *v1.NamespacedSelector `json:"vpcSelector,omitempty" tf:"-"`
 
 	// Specifies the volume information. Structure is documented below.
 	// +kubebuilder:validation:Optional

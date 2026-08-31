@@ -4,20 +4,20 @@ metadata:
   annotations:
     meta.upbound.io/example-id: obs/v1alpha1/bucketreplication
   labels:
-    testing.upbound.io/example-name: test
-  name: xp-bucket-replication
+    testing.upbound.io/example-name: obs-repl
+  name: obs-brep-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     agencySelector:
       matchLabels:
-        testing.upbound.io/example-name: repl-agency
+        testing.upbound.io/example-name: obs-repl-agency
     bucketSelector:
       matchLabels:
-        testing.upbound.io/example-name: repl-source
+        testing.upbound.io/example-name: obs-repl-source
     destinationBucketSelector:
       matchLabels:
-        testing.upbound.io/example-name: repl-dest
+        testing.upbound.io/example-name: obs-repl-dest
     rule:
       - deleteData: false
         historyEnabled: false
@@ -29,13 +29,13 @@ metadata:
   annotations:
     meta.upbound.io/example-id: obs/v1alpha1/bucket
   labels:
-    testing.upbound.io/example-name: repl-source
-  name: xp-bucket-replication-source
+    testing.upbound.io/example-name: obs-repl-source
+  name: obs-bkt-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     region: eu-de
-    bucket: xp-source-${Rand.RFC1123Subdomain}
+    bucket: obs-bkt-${Rand.RFC1123Subdomain}
     tags:
       Env: Test
       foo: bar
@@ -47,12 +47,12 @@ metadata:
   annotations:
     meta.upbound.io/example-id: obs/v1alpha1/bucket
   labels:
-    testing.upbound.io/example-name: repl-dest
-  name: xp-bucket-replication-dest
+    testing.upbound.io/example-name: obs-repl-dest
+  name: obs-bkl-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
-    bucket: xp-dest-${Rand.RFC1123Subdomain}
+    bucket: obs-bkl-${Rand.RFC1123Subdomain}
     region: eu-nl
     tags:
       Env: Test
@@ -68,8 +68,8 @@ metadata:
   annotations:
     meta.upbound.io/example-id: identity/v1alpha1/agencyv3
   labels:
-    testing.upbound.io/example-name: repl-agency
-  name: xp-bucket-replication-agency
+    testing.upbound.io/example-name: obs-repl-agency
+  name: obs-agc-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
@@ -81,4 +81,4 @@ spec:
       - allProjects: true
         roles:
           - OBS Administrator
-    name: xp-agency-${Rand.RFC1123Subdomain}
+    name: obs-agc-${Rand.RFC1123Subdomain}

@@ -63,13 +63,13 @@ func (in *GrantV1InitParameters) DeepCopyInto(out *GrantV1InitParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.KeyIDRef != nil {
-		in, out := &in.KeyIDRef, &out.KeyIDRef
+	if in.KeyRef != nil {
+		in, out := &in.KeyRef, &out.KeyRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.KeyIDSelector != nil {
-		in, out := &in.KeyIDSelector, &out.KeyIDSelector
+	if in.KeySelector != nil {
+		in, out := &in.KeySelector, &out.KeySelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -222,13 +222,13 @@ func (in *GrantV1Parameters) DeepCopyInto(out *GrantV1Parameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.KeyIDRef != nil {
-		in, out := &in.KeyIDRef, &out.KeyIDRef
+	if in.KeyRef != nil {
+		in, out := &in.KeyRef, &out.KeyRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.KeyIDSelector != nil {
-		in, out := &in.KeyIDSelector, &out.KeyIDSelector
+	if in.KeySelector != nil {
+		in, out := &in.KeySelector, &out.KeySelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}

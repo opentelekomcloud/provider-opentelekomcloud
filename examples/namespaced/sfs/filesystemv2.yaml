@@ -4,13 +4,13 @@ metadata:
   annotations:
     meta.upbound.io/example-id: sfs/v1alpha1/filesystemv2
   labels:
-    testing.upbound.io/example-name: share-file
-  name: share-file
+    testing.upbound.io/example-name: sfs-file
+  name: sfs-fs-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     description: xptest
-    name: xp-test-${Rand.RFC1123Subdomain}
+    name: sfs-fs-${Rand.RFC1123Subdomain}
     shareProto: NFS
     size: 50
     tags:

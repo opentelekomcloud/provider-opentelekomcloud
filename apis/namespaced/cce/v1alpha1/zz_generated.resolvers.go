@@ -29,8 +29,8 @@ func (mg *AddonV3) ResolveReferences(ctx context.Context, c client.Reader) error
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ClusterID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.ForProvider.ClusterIDRef,
-		Selector:     mg.Spec.ForProvider.ClusterIDSelector,
+		Reference:    mg.Spec.ForProvider.ClusterRef,
+		Selector:     mg.Spec.ForProvider.ClusterSelector,
 		To: reference.To{
 			List:    &ClusterV3List{},
 			Managed: &ClusterV3{},
@@ -40,14 +40,14 @@ func (mg *AddonV3) ResolveReferences(ctx context.Context, c client.Reader) error
 		return errors.Wrap(err, "mg.Spec.ForProvider.ClusterID")
 	}
 	mg.Spec.ForProvider.ClusterID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.ClusterIDRef = rsp.ResolvedReference
+	mg.Spec.ForProvider.ClusterRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ClusterID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.InitProvider.ClusterIDRef,
-		Selector:     mg.Spec.InitProvider.ClusterIDSelector,
+		Reference:    mg.Spec.InitProvider.ClusterRef,
+		Selector:     mg.Spec.InitProvider.ClusterSelector,
 		To: reference.To{
 			List:    &ClusterV3List{},
 			Managed: &ClusterV3{},
@@ -57,7 +57,7 @@ func (mg *AddonV3) ResolveReferences(ctx context.Context, c client.Reader) error
 		return errors.Wrap(err, "mg.Spec.InitProvider.ClusterID")
 	}
 	mg.Spec.InitProvider.ClusterID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.ClusterIDRef = rsp.ResolvedReference
+	mg.Spec.InitProvider.ClusterRef = rsp.ResolvedReference
 
 	return nil
 }
@@ -107,8 +107,8 @@ func (mg *ClusterV3) ResolveReferences(ctx context.Context, c client.Reader) err
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.EniSubnetID),
 		Extract:      common.ExtractSubnetID(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.ForProvider.EniSubnetIDRef,
-		Selector:     mg.Spec.ForProvider.EniSubnetIDSelector,
+		Reference:    mg.Spec.ForProvider.EniSubnetRef,
+		Selector:     mg.Spec.ForProvider.EniSubnetSelector,
 		To: reference.To{
 			List:    &v1alpha1.SubnetV1List{},
 			Managed: &v1alpha1.SubnetV1{},
@@ -118,14 +118,14 @@ func (mg *ClusterV3) ResolveReferences(ctx context.Context, c client.Reader) err
 		return errors.Wrap(err, "mg.Spec.ForProvider.EniSubnetID")
 	}
 	mg.Spec.ForProvider.EniSubnetID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.EniSubnetIDRef = rsp.ResolvedReference
+	mg.Spec.ForProvider.EniSubnetRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.HighwaySubnetID),
 		Extract:      common.ExtractNetworkID(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.ForProvider.HighwaySubnetIDRef,
-		Selector:     mg.Spec.ForProvider.HighwaySubnetIDSelector,
+		Reference:    mg.Spec.ForProvider.HighwaySubnetRef,
+		Selector:     mg.Spec.ForProvider.HighwaySubnetSelector,
 		To: reference.To{
 			List:    &v1alpha1.SubnetV1List{},
 			Managed: &v1alpha1.SubnetV1{},
@@ -135,14 +135,14 @@ func (mg *ClusterV3) ResolveReferences(ctx context.Context, c client.Reader) err
 		return errors.Wrap(err, "mg.Spec.ForProvider.HighwaySubnetID")
 	}
 	mg.Spec.ForProvider.HighwaySubnetID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.HighwaySubnetIDRef = rsp.ResolvedReference
+	mg.Spec.ForProvider.HighwaySubnetRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.SubnetID),
 		Extract:      common.ExtractNetworkID(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.ForProvider.SubnetIDRef,
-		Selector:     mg.Spec.ForProvider.SubnetIDSelector,
+		Reference:    mg.Spec.ForProvider.SubnetRef,
+		Selector:     mg.Spec.ForProvider.SubnetSelector,
 		To: reference.To{
 			List:    &v1alpha1.SubnetV1List{},
 			Managed: &v1alpha1.SubnetV1{},
@@ -152,14 +152,14 @@ func (mg *ClusterV3) ResolveReferences(ctx context.Context, c client.Reader) err
 		return errors.Wrap(err, "mg.Spec.ForProvider.SubnetID")
 	}
 	mg.Spec.ForProvider.SubnetID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.SubnetIDRef = rsp.ResolvedReference
+	mg.Spec.ForProvider.SubnetRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.VPCID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.ForProvider.VPCIDRef,
-		Selector:     mg.Spec.ForProvider.VPCIDSelector,
+		Reference:    mg.Spec.ForProvider.VPCRef,
+		Selector:     mg.Spec.ForProvider.VPCSelector,
 		To: reference.To{
 			List:    &v1alpha1.VpcV1List{},
 			Managed: &v1alpha1.VpcV1{},
@@ -169,7 +169,7 @@ func (mg *ClusterV3) ResolveReferences(ctx context.Context, c client.Reader) err
 		return errors.Wrap(err, "mg.Spec.ForProvider.VPCID")
 	}
 	mg.Spec.ForProvider.VPCID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.VPCIDRef = rsp.ResolvedReference
+	mg.Spec.ForProvider.VPCRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.EIP),
@@ -209,8 +209,8 @@ func (mg *ClusterV3) ResolveReferences(ctx context.Context, c client.Reader) err
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.EniSubnetID),
 		Extract:      common.ExtractSubnetID(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.InitProvider.EniSubnetIDRef,
-		Selector:     mg.Spec.InitProvider.EniSubnetIDSelector,
+		Reference:    mg.Spec.InitProvider.EniSubnetRef,
+		Selector:     mg.Spec.InitProvider.EniSubnetSelector,
 		To: reference.To{
 			List:    &v1alpha1.SubnetV1List{},
 			Managed: &v1alpha1.SubnetV1{},
@@ -220,14 +220,14 @@ func (mg *ClusterV3) ResolveReferences(ctx context.Context, c client.Reader) err
 		return errors.Wrap(err, "mg.Spec.InitProvider.EniSubnetID")
 	}
 	mg.Spec.InitProvider.EniSubnetID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.EniSubnetIDRef = rsp.ResolvedReference
+	mg.Spec.InitProvider.EniSubnetRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.HighwaySubnetID),
 		Extract:      common.ExtractNetworkID(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.InitProvider.HighwaySubnetIDRef,
-		Selector:     mg.Spec.InitProvider.HighwaySubnetIDSelector,
+		Reference:    mg.Spec.InitProvider.HighwaySubnetRef,
+		Selector:     mg.Spec.InitProvider.HighwaySubnetSelector,
 		To: reference.To{
 			List:    &v1alpha1.SubnetV1List{},
 			Managed: &v1alpha1.SubnetV1{},
@@ -237,14 +237,14 @@ func (mg *ClusterV3) ResolveReferences(ctx context.Context, c client.Reader) err
 		return errors.Wrap(err, "mg.Spec.InitProvider.HighwaySubnetID")
 	}
 	mg.Spec.InitProvider.HighwaySubnetID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.HighwaySubnetIDRef = rsp.ResolvedReference
+	mg.Spec.InitProvider.HighwaySubnetRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.SubnetID),
 		Extract:      common.ExtractNetworkID(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.InitProvider.SubnetIDRef,
-		Selector:     mg.Spec.InitProvider.SubnetIDSelector,
+		Reference:    mg.Spec.InitProvider.SubnetRef,
+		Selector:     mg.Spec.InitProvider.SubnetSelector,
 		To: reference.To{
 			List:    &v1alpha1.SubnetV1List{},
 			Managed: &v1alpha1.SubnetV1{},
@@ -254,14 +254,14 @@ func (mg *ClusterV3) ResolveReferences(ctx context.Context, c client.Reader) err
 		return errors.Wrap(err, "mg.Spec.InitProvider.SubnetID")
 	}
 	mg.Spec.InitProvider.SubnetID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.SubnetIDRef = rsp.ResolvedReference
+	mg.Spec.InitProvider.SubnetRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.VPCID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.InitProvider.VPCIDRef,
-		Selector:     mg.Spec.InitProvider.VPCIDSelector,
+		Reference:    mg.Spec.InitProvider.VPCRef,
+		Selector:     mg.Spec.InitProvider.VPCSelector,
 		To: reference.To{
 			List:    &v1alpha1.VpcV1List{},
 			Managed: &v1alpha1.VpcV1{},
@@ -271,7 +271,7 @@ func (mg *ClusterV3) ResolveReferences(ctx context.Context, c client.Reader) err
 		return errors.Wrap(err, "mg.Spec.InitProvider.VPCID")
 	}
 	mg.Spec.InitProvider.VPCID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.VPCIDRef = rsp.ResolvedReference
+	mg.Spec.InitProvider.VPCRef = rsp.ResolvedReference
 
 	return nil
 }
@@ -304,8 +304,8 @@ func (mg *NodePoolV3) ResolveReferences(ctx context.Context, c client.Reader) er
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ClusterID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.ForProvider.ClusterIDRef,
-		Selector:     mg.Spec.ForProvider.ClusterIDSelector,
+		Reference:    mg.Spec.ForProvider.ClusterRef,
+		Selector:     mg.Spec.ForProvider.ClusterSelector,
 		To: reference.To{
 			List:    &ClusterV3List{},
 			Managed: &ClusterV3{},
@@ -315,15 +315,15 @@ func (mg *NodePoolV3) ResolveReferences(ctx context.Context, c client.Reader) er
 		return errors.Wrap(err, "mg.Spec.ForProvider.ClusterID")
 	}
 	mg.Spec.ForProvider.ClusterID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.ClusterIDRef = rsp.ResolvedReference
+	mg.Spec.ForProvider.ClusterRef = rsp.ResolvedReference
 
 	for i3 := 0; i3 < len(mg.Spec.ForProvider.DataVolumes); i3++ {
 		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.DataVolumes[i3].KMSID),
 			Extract:      reference.ExternalName(),
 			Namespace:    mg.GetNamespace(),
-			Reference:    mg.Spec.ForProvider.DataVolumes[i3].KMSIDRef,
-			Selector:     mg.Spec.ForProvider.DataVolumes[i3].KMSIDSelector,
+			Reference:    mg.Spec.ForProvider.DataVolumes[i3].KMSRef,
+			Selector:     mg.Spec.ForProvider.DataVolumes[i3].KMSSelector,
 			To: reference.To{
 				List:    &v1alpha12.KeyV1List{},
 				Managed: &v1alpha12.KeyV1{},
@@ -333,7 +333,7 @@ func (mg *NodePoolV3) ResolveReferences(ctx context.Context, c client.Reader) er
 			return errors.Wrap(err, "mg.Spec.ForProvider.DataVolumes[i3].KMSID")
 		}
 		mg.Spec.ForProvider.DataVolumes[i3].KMSID = reference.ToPtrValue(rsp.ResolvedValue)
-		mg.Spec.ForProvider.DataVolumes[i3].KMSIDRef = rsp.ResolvedReference
+		mg.Spec.ForProvider.DataVolumes[i3].KMSRef = rsp.ResolvedReference
 
 	}
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
@@ -358,8 +358,8 @@ func (mg *NodePoolV3) ResolveReferences(ctx context.Context, c client.Reader) er
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.RootVolume[i3].KMSID),
 			Extract:      reference.ExternalName(),
 			Namespace:    mg.GetNamespace(),
-			Reference:    mg.Spec.ForProvider.RootVolume[i3].KMSIDRef,
-			Selector:     mg.Spec.ForProvider.RootVolume[i3].KMSIDSelector,
+			Reference:    mg.Spec.ForProvider.RootVolume[i3].KMSRef,
+			Selector:     mg.Spec.ForProvider.RootVolume[i3].KMSSelector,
 			To: reference.To{
 				List:    &v1alpha12.KeyV1List{},
 				Managed: &v1alpha12.KeyV1{},
@@ -369,15 +369,15 @@ func (mg *NodePoolV3) ResolveReferences(ctx context.Context, c client.Reader) er
 			return errors.Wrap(err, "mg.Spec.ForProvider.RootVolume[i3].KMSID")
 		}
 		mg.Spec.ForProvider.RootVolume[i3].KMSID = reference.ToPtrValue(rsp.ResolvedValue)
-		mg.Spec.ForProvider.RootVolume[i3].KMSIDRef = rsp.ResolvedReference
+		mg.Spec.ForProvider.RootVolume[i3].KMSRef = rsp.ResolvedReference
 
 	}
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.SubnetID),
 		Extract:      common.ExtractNetworkID(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.ForProvider.SubnetIDRef,
-		Selector:     mg.Spec.ForProvider.SubnetIDSelector,
+		Reference:    mg.Spec.ForProvider.SubnetRef,
+		Selector:     mg.Spec.ForProvider.SubnetSelector,
 		To: reference.To{
 			List:    &v1alpha1.SubnetV1List{},
 			Managed: &v1alpha1.SubnetV1{},
@@ -387,7 +387,7 @@ func (mg *NodePoolV3) ResolveReferences(ctx context.Context, c client.Reader) er
 		return errors.Wrap(err, "mg.Spec.ForProvider.SubnetID")
 	}
 	mg.Spec.ForProvider.SubnetID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.SubnetIDRef = rsp.ResolvedReference
+	mg.Spec.ForProvider.SubnetRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.AgencyName),
@@ -410,8 +410,8 @@ func (mg *NodePoolV3) ResolveReferences(ctx context.Context, c client.Reader) er
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ClusterID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.InitProvider.ClusterIDRef,
-		Selector:     mg.Spec.InitProvider.ClusterIDSelector,
+		Reference:    mg.Spec.InitProvider.ClusterRef,
+		Selector:     mg.Spec.InitProvider.ClusterSelector,
 		To: reference.To{
 			List:    &ClusterV3List{},
 			Managed: &ClusterV3{},
@@ -421,15 +421,15 @@ func (mg *NodePoolV3) ResolveReferences(ctx context.Context, c client.Reader) er
 		return errors.Wrap(err, "mg.Spec.InitProvider.ClusterID")
 	}
 	mg.Spec.InitProvider.ClusterID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.ClusterIDRef = rsp.ResolvedReference
+	mg.Spec.InitProvider.ClusterRef = rsp.ResolvedReference
 
 	for i3 := 0; i3 < len(mg.Spec.InitProvider.DataVolumes); i3++ {
 		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.DataVolumes[i3].KMSID),
 			Extract:      reference.ExternalName(),
 			Namespace:    mg.GetNamespace(),
-			Reference:    mg.Spec.InitProvider.DataVolumes[i3].KMSIDRef,
-			Selector:     mg.Spec.InitProvider.DataVolumes[i3].KMSIDSelector,
+			Reference:    mg.Spec.InitProvider.DataVolumes[i3].KMSRef,
+			Selector:     mg.Spec.InitProvider.DataVolumes[i3].KMSSelector,
 			To: reference.To{
 				List:    &v1alpha12.KeyV1List{},
 				Managed: &v1alpha12.KeyV1{},
@@ -439,7 +439,7 @@ func (mg *NodePoolV3) ResolveReferences(ctx context.Context, c client.Reader) er
 			return errors.Wrap(err, "mg.Spec.InitProvider.DataVolumes[i3].KMSID")
 		}
 		mg.Spec.InitProvider.DataVolumes[i3].KMSID = reference.ToPtrValue(rsp.ResolvedValue)
-		mg.Spec.InitProvider.DataVolumes[i3].KMSIDRef = rsp.ResolvedReference
+		mg.Spec.InitProvider.DataVolumes[i3].KMSRef = rsp.ResolvedReference
 
 	}
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
@@ -464,8 +464,8 @@ func (mg *NodePoolV3) ResolveReferences(ctx context.Context, c client.Reader) er
 			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.RootVolume[i3].KMSID),
 			Extract:      reference.ExternalName(),
 			Namespace:    mg.GetNamespace(),
-			Reference:    mg.Spec.InitProvider.RootVolume[i3].KMSIDRef,
-			Selector:     mg.Spec.InitProvider.RootVolume[i3].KMSIDSelector,
+			Reference:    mg.Spec.InitProvider.RootVolume[i3].KMSRef,
+			Selector:     mg.Spec.InitProvider.RootVolume[i3].KMSSelector,
 			To: reference.To{
 				List:    &v1alpha12.KeyV1List{},
 				Managed: &v1alpha12.KeyV1{},
@@ -475,15 +475,15 @@ func (mg *NodePoolV3) ResolveReferences(ctx context.Context, c client.Reader) er
 			return errors.Wrap(err, "mg.Spec.InitProvider.RootVolume[i3].KMSID")
 		}
 		mg.Spec.InitProvider.RootVolume[i3].KMSID = reference.ToPtrValue(rsp.ResolvedValue)
-		mg.Spec.InitProvider.RootVolume[i3].KMSIDRef = rsp.ResolvedReference
+		mg.Spec.InitProvider.RootVolume[i3].KMSRef = rsp.ResolvedReference
 
 	}
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.SubnetID),
 		Extract:      common.ExtractNetworkID(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.InitProvider.SubnetIDRef,
-		Selector:     mg.Spec.InitProvider.SubnetIDSelector,
+		Reference:    mg.Spec.InitProvider.SubnetRef,
+		Selector:     mg.Spec.InitProvider.SubnetSelector,
 		To: reference.To{
 			List:    &v1alpha1.SubnetV1List{},
 			Managed: &v1alpha1.SubnetV1{},
@@ -493,7 +493,7 @@ func (mg *NodePoolV3) ResolveReferences(ctx context.Context, c client.Reader) er
 		return errors.Wrap(err, "mg.Spec.InitProvider.SubnetID")
 	}
 	mg.Spec.InitProvider.SubnetID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.SubnetIDRef = rsp.ResolvedReference
+	mg.Spec.InitProvider.SubnetRef = rsp.ResolvedReference
 
 	return nil
 }
@@ -527,8 +527,8 @@ func (mg *NodeV3) ResolveReferences(ctx context.Context, c client.Reader) error 
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ClusterID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.ForProvider.ClusterIDRef,
-		Selector:     mg.Spec.ForProvider.ClusterIDSelector,
+		Reference:    mg.Spec.ForProvider.ClusterRef,
+		Selector:     mg.Spec.ForProvider.ClusterSelector,
 		To: reference.To{
 			List:    &ClusterV3List{},
 			Managed: &ClusterV3{},
@@ -538,15 +538,15 @@ func (mg *NodeV3) ResolveReferences(ctx context.Context, c client.Reader) error 
 		return errors.Wrap(err, "mg.Spec.ForProvider.ClusterID")
 	}
 	mg.Spec.ForProvider.ClusterID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.ClusterIDRef = rsp.ResolvedReference
+	mg.Spec.ForProvider.ClusterRef = rsp.ResolvedReference
 
 	for i3 := 0; i3 < len(mg.Spec.ForProvider.DataVolumes); i3++ {
 		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.DataVolumes[i3].KMSID),
 			Extract:      reference.ExternalName(),
 			Namespace:    mg.GetNamespace(),
-			Reference:    mg.Spec.ForProvider.DataVolumes[i3].KMSIDRef,
-			Selector:     mg.Spec.ForProvider.DataVolumes[i3].KMSIDSelector,
+			Reference:    mg.Spec.ForProvider.DataVolumes[i3].KMSRef,
+			Selector:     mg.Spec.ForProvider.DataVolumes[i3].KMSSelector,
 			To: reference.To{
 				List:    &v1alpha12.KeyV1List{},
 				Managed: &v1alpha12.KeyV1{},
@@ -556,15 +556,15 @@ func (mg *NodeV3) ResolveReferences(ctx context.Context, c client.Reader) error 
 			return errors.Wrap(err, "mg.Spec.ForProvider.DataVolumes[i3].KMSID")
 		}
 		mg.Spec.ForProvider.DataVolumes[i3].KMSID = reference.ToPtrValue(rsp.ResolvedValue)
-		mg.Spec.ForProvider.DataVolumes[i3].KMSIDRef = rsp.ResolvedReference
+		mg.Spec.ForProvider.DataVolumes[i3].KMSRef = rsp.ResolvedReference
 
 	}
 	mrsp, err = r.ResolveMultiple(ctx, reference.MultiNamespacedResolutionRequest{
 		CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.EIPIds),
 		Extract:       reference.ExternalName(),
 		Namespace:     mg.GetNamespace(),
-		References:    mg.Spec.ForProvider.EIPIdsRefs,
-		Selector:      mg.Spec.ForProvider.EIPIdsSelector,
+		References:    mg.Spec.ForProvider.EIPRef,
+		Selector:      mg.Spec.ForProvider.EIPSelector,
 		To: reference.To{
 			List:    &v1alpha1.EIPV1List{},
 			Managed: &v1alpha1.EIPV1{},
@@ -574,7 +574,7 @@ func (mg *NodeV3) ResolveReferences(ctx context.Context, c client.Reader) error 
 		return errors.Wrap(err, "mg.Spec.ForProvider.EIPIds")
 	}
 	mg.Spec.ForProvider.EIPIds = reference.ToPtrValues(mrsp.ResolvedValues)
-	mg.Spec.ForProvider.EIPIdsRefs = mrsp.ResolvedReferences
+	mg.Spec.ForProvider.EIPRef = mrsp.ResolvedReferences
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.KeyPair),
@@ -598,8 +598,8 @@ func (mg *NodeV3) ResolveReferences(ctx context.Context, c client.Reader) error 
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.RootVolume[i3].KMSID),
 			Extract:      reference.ExternalName(),
 			Namespace:    mg.GetNamespace(),
-			Reference:    mg.Spec.ForProvider.RootVolume[i3].KMSIDRef,
-			Selector:     mg.Spec.ForProvider.RootVolume[i3].KMSIDSelector,
+			Reference:    mg.Spec.ForProvider.RootVolume[i3].KMSRef,
+			Selector:     mg.Spec.ForProvider.RootVolume[i3].KMSSelector,
 			To: reference.To{
 				List:    &v1alpha12.KeyV1List{},
 				Managed: &v1alpha12.KeyV1{},
@@ -609,7 +609,7 @@ func (mg *NodeV3) ResolveReferences(ctx context.Context, c client.Reader) error 
 			return errors.Wrap(err, "mg.Spec.ForProvider.RootVolume[i3].KMSID")
 		}
 		mg.Spec.ForProvider.RootVolume[i3].KMSID = reference.ToPtrValue(rsp.ResolvedValue)
-		mg.Spec.ForProvider.RootVolume[i3].KMSIDRef = rsp.ResolvedReference
+		mg.Spec.ForProvider.RootVolume[i3].KMSRef = rsp.ResolvedReference
 
 	}
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
@@ -633,8 +633,8 @@ func (mg *NodeV3) ResolveReferences(ctx context.Context, c client.Reader) error 
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ClusterID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.InitProvider.ClusterIDRef,
-		Selector:     mg.Spec.InitProvider.ClusterIDSelector,
+		Reference:    mg.Spec.InitProvider.ClusterRef,
+		Selector:     mg.Spec.InitProvider.ClusterSelector,
 		To: reference.To{
 			List:    &ClusterV3List{},
 			Managed: &ClusterV3{},
@@ -644,15 +644,15 @@ func (mg *NodeV3) ResolveReferences(ctx context.Context, c client.Reader) error 
 		return errors.Wrap(err, "mg.Spec.InitProvider.ClusterID")
 	}
 	mg.Spec.InitProvider.ClusterID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.ClusterIDRef = rsp.ResolvedReference
+	mg.Spec.InitProvider.ClusterRef = rsp.ResolvedReference
 
 	for i3 := 0; i3 < len(mg.Spec.InitProvider.DataVolumes); i3++ {
 		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.DataVolumes[i3].KMSID),
 			Extract:      reference.ExternalName(),
 			Namespace:    mg.GetNamespace(),
-			Reference:    mg.Spec.InitProvider.DataVolumes[i3].KMSIDRef,
-			Selector:     mg.Spec.InitProvider.DataVolumes[i3].KMSIDSelector,
+			Reference:    mg.Spec.InitProvider.DataVolumes[i3].KMSRef,
+			Selector:     mg.Spec.InitProvider.DataVolumes[i3].KMSSelector,
 			To: reference.To{
 				List:    &v1alpha12.KeyV1List{},
 				Managed: &v1alpha12.KeyV1{},
@@ -662,15 +662,15 @@ func (mg *NodeV3) ResolveReferences(ctx context.Context, c client.Reader) error 
 			return errors.Wrap(err, "mg.Spec.InitProvider.DataVolumes[i3].KMSID")
 		}
 		mg.Spec.InitProvider.DataVolumes[i3].KMSID = reference.ToPtrValue(rsp.ResolvedValue)
-		mg.Spec.InitProvider.DataVolumes[i3].KMSIDRef = rsp.ResolvedReference
+		mg.Spec.InitProvider.DataVolumes[i3].KMSRef = rsp.ResolvedReference
 
 	}
 	mrsp, err = r.ResolveMultiple(ctx, reference.MultiNamespacedResolutionRequest{
 		CurrentValues: reference.FromPtrValues(mg.Spec.InitProvider.EIPIds),
 		Extract:       reference.ExternalName(),
 		Namespace:     mg.GetNamespace(),
-		References:    mg.Spec.InitProvider.EIPIdsRefs,
-		Selector:      mg.Spec.InitProvider.EIPIdsSelector,
+		References:    mg.Spec.InitProvider.EIPRef,
+		Selector:      mg.Spec.InitProvider.EIPSelector,
 		To: reference.To{
 			List:    &v1alpha1.EIPV1List{},
 			Managed: &v1alpha1.EIPV1{},
@@ -680,7 +680,7 @@ func (mg *NodeV3) ResolveReferences(ctx context.Context, c client.Reader) error 
 		return errors.Wrap(err, "mg.Spec.InitProvider.EIPIds")
 	}
 	mg.Spec.InitProvider.EIPIds = reference.ToPtrValues(mrsp.ResolvedValues)
-	mg.Spec.InitProvider.EIPIdsRefs = mrsp.ResolvedReferences
+	mg.Spec.InitProvider.EIPRef = mrsp.ResolvedReferences
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.KeyPair),
@@ -704,8 +704,8 @@ func (mg *NodeV3) ResolveReferences(ctx context.Context, c client.Reader) error 
 			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.RootVolume[i3].KMSID),
 			Extract:      reference.ExternalName(),
 			Namespace:    mg.GetNamespace(),
-			Reference:    mg.Spec.InitProvider.RootVolume[i3].KMSIDRef,
-			Selector:     mg.Spec.InitProvider.RootVolume[i3].KMSIDSelector,
+			Reference:    mg.Spec.InitProvider.RootVolume[i3].KMSRef,
+			Selector:     mg.Spec.InitProvider.RootVolume[i3].KMSSelector,
 			To: reference.To{
 				List:    &v1alpha12.KeyV1List{},
 				Managed: &v1alpha12.KeyV1{},
@@ -715,7 +715,7 @@ func (mg *NodeV3) ResolveReferences(ctx context.Context, c client.Reader) error 
 			return errors.Wrap(err, "mg.Spec.InitProvider.RootVolume[i3].KMSID")
 		}
 		mg.Spec.InitProvider.RootVolume[i3].KMSID = reference.ToPtrValue(rsp.ResolvedValue)
-		mg.Spec.InitProvider.RootVolume[i3].KMSIDRef = rsp.ResolvedReference
+		mg.Spec.InitProvider.RootVolume[i3].KMSRef = rsp.ResolvedReference
 
 	}
 

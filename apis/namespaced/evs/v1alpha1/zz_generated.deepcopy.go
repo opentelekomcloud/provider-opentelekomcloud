@@ -139,13 +139,13 @@ func (in *SnapshotV2InitParameters) DeepCopyInto(out *SnapshotV2InitParameters) 
 		*out = new(string)
 		**out = **in
 	}
-	if in.VolumeIDRef != nil {
-		in, out := &in.VolumeIDRef, &out.VolumeIDRef
+	if in.VolumeRef != nil {
+		in, out := &in.VolumeRef, &out.VolumeRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.VolumeIDSelector != nil {
-		in, out := &in.VolumeIDSelector, &out.VolumeIDSelector
+	if in.VolumeSelector != nil {
+		in, out := &in.VolumeSelector, &out.VolumeSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -313,13 +313,13 @@ func (in *SnapshotV2Parameters) DeepCopyInto(out *SnapshotV2Parameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.VolumeIDRef != nil {
-		in, out := &in.VolumeIDRef, &out.VolumeIDRef
+	if in.VolumeRef != nil {
+		in, out := &in.VolumeRef, &out.VolumeRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.VolumeIDSelector != nil {
-		in, out := &in.VolumeIDSelector, &out.VolumeIDSelector
+	if in.VolumeSelector != nil {
+		in, out := &in.VolumeSelector, &out.VolumeSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -435,13 +435,13 @@ func (in *VolumeV3InitParameters) DeepCopyInto(out *VolumeV3InitParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.KMSIDRef != nil {
-		in, out := &in.KMSIDRef, &out.KMSIDRef
+	if in.KMSRef != nil {
+		in, out := &in.KMSRef, &out.KMSRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.KMSIDSelector != nil {
-		in, out := &in.KMSIDSelector, &out.KMSIDSelector
+	if in.KMSSelector != nil {
+		in, out := &in.KMSSelector, &out.KMSSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -676,13 +676,13 @@ func (in *VolumeV3Parameters) DeepCopyInto(out *VolumeV3Parameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.KMSIDRef != nil {
-		in, out := &in.KMSIDRef, &out.KMSIDRef
+	if in.KMSRef != nil {
+		in, out := &in.KMSRef, &out.KMSRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.KMSIDSelector != nil {
-		in, out := &in.KMSIDSelector, &out.KMSIDSelector
+	if in.KMSSelector != nil {
+		in, out := &in.KMSSelector, &out.KMSSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}

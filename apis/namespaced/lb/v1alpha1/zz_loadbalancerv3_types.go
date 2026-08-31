@@ -47,16 +47,18 @@ type LoadbalancerV3InitParameters struct {
 	// Specifies the subnet Network ID.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.SubnetV1
 	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractNetworkID()
+	// +crossplane:generate:reference:refFieldName=NetworkRef
+	// +crossplane:generate:reference:selectorFieldName=NetworkSelector
 	// +listType=set
 	NetworkIds []*string `json:"networkIds,omitempty" tf:"network_ids,omitempty"`
 
 	// References to SubnetV1 in vpc to populate networkIds.
 	// +kubebuilder:validation:Optional
-	NetworkIdsRefs []v1.NamespacedReference `json:"networkIdsRefs,omitempty" tf:"-"`
+	NetworkRef []v1.NamespacedReference `json:"networkRef,omitempty" tf:"-"`
 
 	// Selector for a list of SubnetV1 in vpc to populate networkIds.
 	// +kubebuilder:validation:Optional
-	NetworkIdsSelector *v1.NamespacedSelector `json:"networkIdsSelector,omitempty" tf:"-"`
+	NetworkSelector *v1.NamespacedSelector `json:"networkSelector,omitempty" tf:"-"`
 
 	// The elastic IP address of the instance. The public_ip structure
 	// is described below. Changing this creates a new LoadBalancer.
@@ -65,31 +67,35 @@ type LoadbalancerV3InitParameters struct {
 	// ID of the router (or VPC) this LoadBalancer belongs to. Changing
 	// this creates a new LoadBalancer.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.VpcV1
+	// +crossplane:generate:reference:refFieldName=VPCRef
+	// +crossplane:generate:reference:selectorFieldName=VPCSelector
 	RouterID *string `json:"routerId,omitempty" tf:"router_id,omitempty"`
-
-	// Reference to a VpcV1 in vpc to populate routerId.
-	// +kubebuilder:validation:Optional
-	RouterIDRef *v1.NamespacedReference `json:"routerIdRef,omitempty" tf:"-"`
-
-	// Selector for a VpcV1 in vpc to populate routerId.
-	// +kubebuilder:validation:Optional
-	RouterIDSelector *v1.NamespacedSelector `json:"routerIdSelector,omitempty" tf:"-"`
 
 	// The ID of the subnet to which the LoadBalancer belongs. Required when using vip_address.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.SubnetV1
+	// +crossplane:generate:reference:refFieldName=SubnetRef
+	// +crossplane:generate:reference:selectorFieldName=SubnetSelector
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 
 	// Reference to a SubnetV1 in vpc to populate subnetId.
 	// +kubebuilder:validation:Optional
-	SubnetIDRef *v1.NamespacedReference `json:"subnetIdRef,omitempty" tf:"-"`
+	SubnetRef *v1.NamespacedReference `json:"subnetRef,omitempty" tf:"-"`
 
 	// Selector for a SubnetV1 in vpc to populate subnetId.
 	// +kubebuilder:validation:Optional
-	SubnetIDSelector *v1.NamespacedSelector `json:"subnetIdSelector,omitempty" tf:"-"`
+	SubnetSelector *v1.NamespacedSelector `json:"subnetSelector,omitempty" tf:"-"`
 
 	// Tags key/value pairs to associate with the load balancer.
 	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
+
+	// Reference to a VpcV1 in vpc to populate routerId.
+	// +kubebuilder:validation:Optional
+	VPCRef *v1.NamespacedReference `json:"vpcRef,omitempty" tf:"-"`
+
+	// Selector for a VpcV1 in vpc to populate routerId.
+	// +kubebuilder:validation:Optional
+	VPCSelector *v1.NamespacedSelector `json:"vpcSelector,omitempty" tf:"-"`
 
 	// The ip address of the LoadBalancer. Changing this creates a new LoadBalancer.
 	VipAddress *string `json:"vipAddress,omitempty" tf:"vip_address,omitempty"`
@@ -201,17 +207,19 @@ type LoadbalancerV3Parameters struct {
 	// Specifies the subnet Network ID.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.SubnetV1
 	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractNetworkID()
+	// +crossplane:generate:reference:refFieldName=NetworkRef
+	// +crossplane:generate:reference:selectorFieldName=NetworkSelector
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	NetworkIds []*string `json:"networkIds,omitempty" tf:"network_ids,omitempty"`
 
 	// References to SubnetV1 in vpc to populate networkIds.
 	// +kubebuilder:validation:Optional
-	NetworkIdsRefs []v1.NamespacedReference `json:"networkIdsRefs,omitempty" tf:"-"`
+	NetworkRef []v1.NamespacedReference `json:"networkRef,omitempty" tf:"-"`
 
 	// Selector for a list of SubnetV1 in vpc to populate networkIds.
 	// +kubebuilder:validation:Optional
-	NetworkIdsSelector *v1.NamespacedSelector `json:"networkIdsSelector,omitempty" tf:"-"`
+	NetworkSelector *v1.NamespacedSelector `json:"networkSelector,omitempty" tf:"-"`
 
 	// The elastic IP address of the instance. The public_ip structure
 	// is described below. Changing this creates a new LoadBalancer.
@@ -221,34 +229,38 @@ type LoadbalancerV3Parameters struct {
 	// ID of the router (or VPC) this LoadBalancer belongs to. Changing
 	// this creates a new LoadBalancer.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.VpcV1
+	// +crossplane:generate:reference:refFieldName=VPCRef
+	// +crossplane:generate:reference:selectorFieldName=VPCSelector
 	// +kubebuilder:validation:Optional
 	RouterID *string `json:"routerId,omitempty" tf:"router_id,omitempty"`
 
-	// Reference to a VpcV1 in vpc to populate routerId.
-	// +kubebuilder:validation:Optional
-	RouterIDRef *v1.NamespacedReference `json:"routerIdRef,omitempty" tf:"-"`
-
-	// Selector for a VpcV1 in vpc to populate routerId.
-	// +kubebuilder:validation:Optional
-	RouterIDSelector *v1.NamespacedSelector `json:"routerIdSelector,omitempty" tf:"-"`
-
 	// The ID of the subnet to which the LoadBalancer belongs. Required when using vip_address.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.SubnetV1
+	// +crossplane:generate:reference:refFieldName=SubnetRef
+	// +crossplane:generate:reference:selectorFieldName=SubnetSelector
 	// +kubebuilder:validation:Optional
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 
 	// Reference to a SubnetV1 in vpc to populate subnetId.
 	// +kubebuilder:validation:Optional
-	SubnetIDRef *v1.NamespacedReference `json:"subnetIdRef,omitempty" tf:"-"`
+	SubnetRef *v1.NamespacedReference `json:"subnetRef,omitempty" tf:"-"`
 
 	// Selector for a SubnetV1 in vpc to populate subnetId.
 	// +kubebuilder:validation:Optional
-	SubnetIDSelector *v1.NamespacedSelector `json:"subnetIdSelector,omitempty" tf:"-"`
+	SubnetSelector *v1.NamespacedSelector `json:"subnetSelector,omitempty" tf:"-"`
 
 	// Tags key/value pairs to associate with the load balancer.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
+
+	// Reference to a VpcV1 in vpc to populate routerId.
+	// +kubebuilder:validation:Optional
+	VPCRef *v1.NamespacedReference `json:"vpcRef,omitempty" tf:"-"`
+
+	// Selector for a VpcV1 in vpc to populate routerId.
+	// +kubebuilder:validation:Optional
+	VPCSelector *v1.NamespacedSelector `json:"vpcSelector,omitempty" tf:"-"`
 
 	// The ip address of the LoadBalancer. Changing this creates a new LoadBalancer.
 	// +kubebuilder:validation:Optional

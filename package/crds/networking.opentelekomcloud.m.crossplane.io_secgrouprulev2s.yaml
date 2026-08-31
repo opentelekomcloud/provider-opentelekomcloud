@@ -102,7 +102,7 @@ spec:
                       the rule. Only opentelekomcloud_networking_secgroup_v2 (secgroupv2s.networking.opentelekomcloud.m.crossplane.io)
                       is supported for cross resource reference configuration.
                     type: string
-                  securityGroupIdRef:
+                  securityGroupRef:
                     description: Reference to a SecgroupV2 in networking to populate
                       securityGroupId.
                     properties:
@@ -140,7 +140,7 @@ spec:
                     required:
                     - name
                     type: object
-                  securityGroupIdSelector:
+                  securityGroupSelector:
                     description: Selector for a SecgroupV2 in networking to populate
                       securityGroupId.
                     properties:
@@ -247,7 +247,7 @@ spec:
                       the rule. Only opentelekomcloud_networking_secgroup_v2 (secgroupv2s.networking.opentelekomcloud.m.crossplane.io)
                       is supported for cross resource reference configuration.
                     type: string
-                  securityGroupIdRef:
+                  securityGroupRef:
                     description: Reference to a SecgroupV2 in networking to populate
                       securityGroupId.
                     properties:
@@ -285,7 +285,7 @@ spec:
                     required:
                     - name
                     type: object
-                  securityGroupIdSelector:
+                  securityGroupSelector:
                     description: Selector for a SecgroupV2 in networking to populate
                       securityGroupId.
                     properties:

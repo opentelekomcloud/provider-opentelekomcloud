@@ -51,15 +51,17 @@ type MonitorV3InitParameters struct {
 	// Specifies the ID of the backend server group for which the health check is configured.
 	// Changing this creates a new monitor.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lb/v1alpha1.PoolV3
+	// +crossplane:generate:reference:refFieldName=PoolRef
+	// +crossplane:generate:reference:selectorFieldName=PoolSelector
 	PoolID *string `json:"poolId,omitempty" tf:"pool_id,omitempty"`
 
 	// Reference to a PoolV3 in lb to populate poolId.
 	// +kubebuilder:validation:Optional
-	PoolIDRef *v1.NamespacedReference `json:"poolIdRef,omitempty" tf:"-"`
+	PoolRef *v1.NamespacedReference `json:"poolRef,omitempty" tf:"-"`
 
 	// Selector for a PoolV3 in lb to populate poolId.
 	// +kubebuilder:validation:Optional
-	PoolIDSelector *v1.NamespacedSelector `json:"poolIdSelector,omitempty" tf:"-"`
+	PoolSelector *v1.NamespacedSelector `json:"poolSelector,omitempty" tf:"-"`
 
 	// Specifies the project ID. Changing this creates a new monitor.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/identity/v1alpha1.ProjectV3
@@ -185,16 +187,18 @@ type MonitorV3Parameters struct {
 	// Specifies the ID of the backend server group for which the health check is configured.
 	// Changing this creates a new monitor.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lb/v1alpha1.PoolV3
+	// +crossplane:generate:reference:refFieldName=PoolRef
+	// +crossplane:generate:reference:selectorFieldName=PoolSelector
 	// +kubebuilder:validation:Optional
 	PoolID *string `json:"poolId,omitempty" tf:"pool_id,omitempty"`
 
 	// Reference to a PoolV3 in lb to populate poolId.
 	// +kubebuilder:validation:Optional
-	PoolIDRef *v1.NamespacedReference `json:"poolIdRef,omitempty" tf:"-"`
+	PoolRef *v1.NamespacedReference `json:"poolRef,omitempty" tf:"-"`
 
 	// Selector for a PoolV3 in lb to populate poolId.
 	// +kubebuilder:validation:Optional
-	PoolIDSelector *v1.NamespacedSelector `json:"poolIdSelector,omitempty" tf:"-"`
+	PoolSelector *v1.NamespacedSelector `json:"poolSelector,omitempty" tf:"-"`
 
 	// Specifies the project ID. Changing this creates a new monitor.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/identity/v1alpha1.ProjectV3

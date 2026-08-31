@@ -4,13 +4,13 @@ metadata:
   annotations:
     meta.upbound.io/example-id: vpc/v1alpha1/v1
   labels:
-    testing.upbound.io/example-name: sample-lb
+    testing.upbound.io/example-name: lb-poolmon-vpc
   name: sample-lb
   namespace: test
 spec:
   forProvider:
     cidr: "192.168.0.0/16"
-    name: xp-test-${Rand.RFC1123Subdomain}
+    name: lb-vpc-${Rand.RFC1123Subdomain}
     tags:
       managed-by: crossplane
 ---
@@ -20,18 +20,18 @@ metadata:
   annotations:
     meta.upbound.io/example-id: vpc/v1alpha1/subnetv1
   labels:
-    testing.upbound.io/example-name: sample-lb
+    testing.upbound.io/example-name: lb-poolmon-subnet
   name: sample-lb
   namespace: test
 spec:
   forProvider:
     cidr: "192.168.0.0/16"
     gatewayIp: "192.168.0.1"
-    name: xp-test-${Rand.RFC1123Subdomain}
+    name: lb-stn-${Rand.RFC1123Subdomain}
     ntpAddresses: "10.100.0.33,10.100.0.34"
-    vpcIdSelector:
+    vpcSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-lb
+        testing.upbound.io/example-name: lb-poolmon-vpc
     tags:
       managed-by: crossplane
 
@@ -42,20 +42,21 @@ metadata:
   annotations:
     meta.upbound.io/example-id: lb/v1alpha1/loadbalancerv3
   labels:
-    testing.upbound.io/example-name: sample-lb
+    testing.upbound.io/example-name: lb-poolmon-lb
   name: sample-lb
   namespace: test
 spec:
   forProvider:
-    name: xp-test-${Rand.RFC1123Subdomain}
+    name: lb-lb-${Rand.RFC1123Subdomain}
     ipTargetEnable: true
     availabilityZones:
       - eu-de-01
-    networkIdsRefs:
-      - name: sample-lb
-    routerIdSelector:
+    networkSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-lb
+        testing.upbound.io/example-name: lb-poolmon-subnet
+    vpcSelector:
+      matchLabels:
+        testing.upbound.io/example-name: lb-poolmon-vpc
     tags:
       managed-by: crossplane
 
@@ -66,16 +67,16 @@ metadata:
   annotations:
     meta.upbound.io/example-id: lb/v1alpha1/memberv3
   labels:
-    testing.upbound.io/example-name: sample-lb
+    testing.upbound.io/example-name: lb-poolmon-pool
   name: sample-lb
   namespace: test
 spec:
   forProvider:
     lbAlgorithm: ROUND_ROBIN
-    loadbalancerIdSelector:
+    loadBalancerSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-lb
-    name: xp-test-${Rand.RFC1123Subdomain}
+        testing.upbound.io/example-name: lb-poolmon-lb
+    name: lb-psl-${Rand.RFC1123Subdomain}
     protocol: TCP
 
 ---
@@ -85,7 +86,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: lb/v1alpha1/monitorv3
   labels:
-    testing.upbound.io/example-name: sample-lb
+    testing.upbound.io/example-name: lb-poolmon-monitor
   name: sample-lb
   namespace: test
 spec:
@@ -94,9 +95,9 @@ spec:
     maxRetries: 5
     maxRetriesDown: 1
     monitorPort: 8080
-    poolIdSelector:
+    poolSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-lb
+        testing.upbound.io/example-name: lb-poolmon-pool
     timeout: 30
     type: HTTP
 
@@ -107,14 +108,14 @@ metadata:
   annotations:
     meta.upbound.io/example-id: lb/v1alpha1/memberv3
   labels:
-    testing.upbound.io/example-name: sample-lb
+    testing.upbound.io/example-name: lb-poolmon-member
   name: sample-lb
   namespace: test
 spec:
   forProvider:
     address: "192.168.0.100"
-    name: xp-test-${Rand.RFC1123Subdomain}
-    poolIdSelector:
+    name: lb-mbr-${Rand.RFC1123Subdomain}
+    poolSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-lb
+        testing.upbound.io/example-name: lb-poolmon-pool
     protocolPort: 8080

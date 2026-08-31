@@ -4,17 +4,17 @@ metadata:
   annotations:
     meta.upbound.io/example-id: obs/v1alpha1/bucketacl
   labels:
-    testing.upbound.io/example-name: test
-  name: xp-bucket-object-acl
+    testing.upbound.io/example-name: obs-object-acl
+  name: obs-boac-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     bucketSelector:
       matchLabels:
-        testing.upbound.io/example-name: b
+        testing.upbound.io/example-name: obs-object-acl-bucket
     keySelector:
       matchLabels:
-        testing.upbound.io/example-name: object
+        testing.upbound.io/example-name: obs-object-acl-object
     publicPermission:
       - accessToAcl:
           - READ_ACP
@@ -27,14 +27,14 @@ metadata:
   annotations:
     meta.upbound.io/example-id: obs/v1alpha1/bucketobject
   labels:
-    testing.upbound.io/example-name: object
-  name: xp-bucket-object
+    testing.upbound.io/example-name: obs-object-acl-object
+  name: obs-bobj-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     bucketSelector:
       matchLabels:
-        testing.upbound.io/example-name: b
+        testing.upbound.io/example-name: obs-object-acl-bucket
     content: |
       {"provider_name": "t_cloud_public"}
     contentType: application/json
@@ -48,12 +48,12 @@ metadata:
   annotations:
     meta.upbound.io/example-id: obs/v1alpha1/bucket
   labels:
-    testing.upbound.io/example-name: b
-  name: xp-bucket-object-acl-bucket
+    testing.upbound.io/example-name: obs-object-acl-bucket
+  name: obs-bkt-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
-    bucket: xp-bucket-${Rand.RFC1123Subdomain}
+    bucket: obs-bkt-${Rand.RFC1123Subdomain}
     tags:
       Env: Test
       foo: bar

@@ -4,13 +4,13 @@ metadata:
   annotations:
     meta.upbound.io/example-id: vpc/v1alpha1/v1
   labels:
-    testing.upbound.io/example-name: sample-lb
-  name: sample-lb
+    testing.upbound.io/example-name: lb-lb-vpc
+  name: lb-vpc-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     cidr: "192.168.0.0/16"
-    name: xp-test-${Rand.RFC1123Subdomain}
+    name: lb-vpc-${Rand.RFC1123Subdomain}
     tags:
       managed-by: crossplane
 ---
@@ -20,18 +20,18 @@ metadata:
   annotations:
     meta.upbound.io/example-id: vpc/v1alpha1/subnetv1
   labels:
-    testing.upbound.io/example-name: sample-lb
-  name: sample-lb
+    testing.upbound.io/example-name: lb-lb-subnet
+  name: lb-stn-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     cidr: "192.168.0.0/16"
     gatewayIp: "192.168.0.1"
-    name: xp-test-${Rand.RFC1123Subdomain}
+    name: lb-stn-${Rand.RFC1123Subdomain}
     ntpAddresses: "10.100.0.33,10.100.0.34"
-    vpcIdSelector:
+    vpcSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-lb
+        testing.upbound.io/example-name: lb-lb-vpc
     tags:
       managed-by: crossplane
 
@@ -42,14 +42,14 @@ metadata:
   annotations:
     meta.upbound.io/example-id: vpc/v1alpha1/eipv1
   labels:
-    testing.upbound.io/example-name: sample-lb
-  name: sample-lb
+    testing.upbound.io/example-name: lb-lb-eip
+  name: lb-eip-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     bandwidth:
       - chargeMode: traffic
-        name: xp-test-${Rand.RFC1123Subdomain}
+        name: lb-eip-${Rand.RFC1123Subdomain}
         shareType: PER
         size: 8
     publicip:
@@ -62,22 +62,23 @@ metadata:
   annotations:
     meta.upbound.io/example-id: lb/v1alpha1/loadbalancerv3
   labels:
-    testing.upbound.io/example-name: sample-lb
-  name: sample-lb
+    testing.upbound.io/example-name: lb-lb
+  name: lb-lb-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
-    name: xp-test-${Rand.RFC1123Subdomain}
+    name: lb-lb-${Rand.RFC1123Subdomain}
     availabilityZones:
       - eu-de-01
-    networkIdsRefs:
-      - name: sample-lb
-    routerIdSelector:
+    networkSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-lb
+        testing.upbound.io/example-name: lb-lb-subnet
+    vpcSelector:
+      matchLabels:
+        testing.upbound.io/example-name: lb-lb-vpc
     publicIp:
       - idSelector:
           matchLabels:
-            testing.upbound.io/example-name: sample-lb
+            testing.upbound.io/example-name: lb-lb-eip
     tags:
       managed-by: crossplane

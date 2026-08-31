@@ -11,10 +11,10 @@ spec:
   forProvider:
     availabilityZone: ${var.az_replica}
     flavorRef: rds.pg.n1.large.4
-    name: test-replica
-    replicaOfIdSelector:
+    instanceSelector:
       matchLabels:
         testing.upbound.io/example-name: instance
+    name: test-replica
     volume:
     - type: CLOUDSSD
 
@@ -35,7 +35,7 @@ spec:
     backupStrategy:
     - keepDays: 1
       startTime: 08:00-09:00
-    computeSecurityGroupIdSelector:
+    computeSecurityGroupSelector:
       matchLabels:
         testing.upbound.io/example-name: example
     db:
@@ -47,7 +47,7 @@ spec:
       version: "16"
     flavor: rds.pg.n1.medium.4.rr
     name: test-instance
-    subnetIdSelector:
+    subnetSelector:
       matchLabels:
         testing.upbound.io/example-name: example
     tag:
@@ -55,6 +55,6 @@ spec:
     volume:
     - size: 40
       type: CLOUDSSD
-    vpcIdSelector:
+    vpcSelector:
       matchLabels:
         testing.upbound.io/example-name: example

@@ -13,7 +13,7 @@ spec:
       matchLabels:
         testing.upbound.io/example-name: example
     availabilityZone: ${var.availability_zone}
-    clusterIdSelector:
+    clusterSelector:
       matchLabels:
         testing.upbound.io/example-name: example
     dataVolumes:

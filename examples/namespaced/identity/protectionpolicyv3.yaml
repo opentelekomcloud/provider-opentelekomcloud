@@ -4,8 +4,8 @@ metadata:
   annotations:
     meta.upbound.io/example-id: identity/v1alpha1/protectionpolicyv3
   labels:
-    testing.upbound.io/example-name: policy_1
-  name: policy-1
+    testing.upbound.io/example-name: identity-protection-policy
+  name: iam-prpl-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:

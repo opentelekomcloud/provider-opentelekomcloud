@@ -50,15 +50,17 @@ type SecgroupRuleV2InitParameters struct {
 
 	// Configuration block defining a security_group for the rule. Only opentelekomcloud_networking_secgroup_v2 (secgroupv2s.networking.opentelekomcloud.m.crossplane.io) is supported for cross resource reference configuration.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/networking/v1alpha1.SecgroupV2
+	// +crossplane:generate:reference:refFieldName=SecurityGroupRef
+	// +crossplane:generate:reference:selectorFieldName=SecurityGroupSelector
 	SecurityGroupID *string `json:"securityGroupId,omitempty" tf:"security_group_id,omitempty"`
 
 	// Reference to a SecgroupV2 in networking to populate securityGroupId.
 	// +kubebuilder:validation:Optional
-	SecurityGroupIDRef *v1.NamespacedReference `json:"securityGroupIdRef,omitempty" tf:"-"`
+	SecurityGroupRef *v1.NamespacedReference `json:"securityGroupRef,omitempty" tf:"-"`
 
 	// Selector for a SecgroupV2 in networking to populate securityGroupId.
 	// +kubebuilder:validation:Optional
-	SecurityGroupIDSelector *v1.NamespacedSelector `json:"securityGroupIdSelector,omitempty" tf:"-"`
+	SecurityGroupSelector *v1.NamespacedSelector `json:"securityGroupSelector,omitempty" tf:"-"`
 
 	// The owner of the security group. Required if admin
 	// wants to create a port for another tenant. Changing this creates a new
@@ -156,16 +158,18 @@ type SecgroupRuleV2Parameters struct {
 
 	// Configuration block defining a security_group for the rule. Only opentelekomcloud_networking_secgroup_v2 (secgroupv2s.networking.opentelekomcloud.m.crossplane.io) is supported for cross resource reference configuration.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/networking/v1alpha1.SecgroupV2
+	// +crossplane:generate:reference:refFieldName=SecurityGroupRef
+	// +crossplane:generate:reference:selectorFieldName=SecurityGroupSelector
 	// +kubebuilder:validation:Optional
 	SecurityGroupID *string `json:"securityGroupId,omitempty" tf:"security_group_id,omitempty"`
 
 	// Reference to a SecgroupV2 in networking to populate securityGroupId.
 	// +kubebuilder:validation:Optional
-	SecurityGroupIDRef *v1.NamespacedReference `json:"securityGroupIdRef,omitempty" tf:"-"`
+	SecurityGroupRef *v1.NamespacedReference `json:"securityGroupRef,omitempty" tf:"-"`
 
 	// Selector for a SecgroupV2 in networking to populate securityGroupId.
 	// +kubebuilder:validation:Optional
-	SecurityGroupIDSelector *v1.NamespacedSelector `json:"securityGroupIdSelector,omitempty" tf:"-"`
+	SecurityGroupSelector *v1.NamespacedSelector `json:"securityGroupSelector,omitempty" tf:"-"`
 
 	// The owner of the security group. Required if admin
 	// wants to create a port for another tenant. Changing this creates a new

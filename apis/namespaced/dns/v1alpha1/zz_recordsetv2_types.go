@@ -47,15 +47,17 @@ type RecordsetV2InitParameters struct {
 	// The ID of the zone in which to create the record set.
 	// Changing this creates a new DNS  record set.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/dns/v1alpha1.ZoneV2
+	// +crossplane:generate:reference:refFieldName=ZoneRef
+	// +crossplane:generate:reference:selectorFieldName=ZoneSelector
 	ZoneID *string `json:"zoneId,omitempty" tf:"zone_id,omitempty"`
 
 	// Reference to a ZoneV2 in dns to populate zoneId.
 	// +kubebuilder:validation:Optional
-	ZoneIDRef *v1.NamespacedReference `json:"zoneIdRef,omitempty" tf:"-"`
+	ZoneRef *v1.NamespacedReference `json:"zoneRef,omitempty" tf:"-"`
 
 	// Selector for a ZoneV2 in dns to populate zoneId.
 	// +kubebuilder:validation:Optional
-	ZoneIDSelector *v1.NamespacedSelector `json:"zoneIdSelector,omitempty" tf:"-"`
+	ZoneSelector *v1.NamespacedSelector `json:"zoneSelector,omitempty" tf:"-"`
 }
 
 type RecordsetV2Observation struct {
@@ -138,16 +140,18 @@ type RecordsetV2Parameters struct {
 	// The ID of the zone in which to create the record set.
 	// Changing this creates a new DNS  record set.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/dns/v1alpha1.ZoneV2
+	// +crossplane:generate:reference:refFieldName=ZoneRef
+	// +crossplane:generate:reference:selectorFieldName=ZoneSelector
 	// +kubebuilder:validation:Optional
 	ZoneID *string `json:"zoneId,omitempty" tf:"zone_id,omitempty"`
 
 	// Reference to a ZoneV2 in dns to populate zoneId.
 	// +kubebuilder:validation:Optional
-	ZoneIDRef *v1.NamespacedReference `json:"zoneIdRef,omitempty" tf:"-"`
+	ZoneRef *v1.NamespacedReference `json:"zoneRef,omitempty" tf:"-"`
 
 	// Selector for a ZoneV2 in dns to populate zoneId.
 	// +kubebuilder:validation:Optional
-	ZoneIDSelector *v1.NamespacedSelector `json:"zoneIdSelector,omitempty" tf:"-"`
+	ZoneSelector *v1.NamespacedSelector `json:"zoneSelector,omitempty" tf:"-"`
 }
 
 // RecordsetV2Spec defines the desired state of RecordsetV2

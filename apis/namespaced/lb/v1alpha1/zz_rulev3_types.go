@@ -59,15 +59,17 @@ type RuleV3InitParameters struct {
 
 	// ID of the policy.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lb/v1alpha1.PolicyV3
+	// +crossplane:generate:reference:refFieldName=PolicyRef
+	// +crossplane:generate:reference:selectorFieldName=PolicySelector
 	PolicyID *string `json:"policyId,omitempty" tf:"policy_id,omitempty"`
 
 	// Reference to a PolicyV3 in lb to populate policyId.
 	// +kubebuilder:validation:Optional
-	PolicyIDRef *v1.NamespacedReference `json:"policyIdRef,omitempty" tf:"-"`
+	PolicyRef *v1.NamespacedReference `json:"policyRef,omitempty" tf:"-"`
 
 	// Selector for a PolicyV3 in lb to populate policyId.
 	// +kubebuilder:validation:Optional
-	PolicyIDSelector *v1.NamespacedSelector `json:"policyIdSelector,omitempty" tf:"-"`
+	PolicySelector *v1.NamespacedSelector `json:"policySelector,omitempty" tf:"-"`
 
 	// Required for admins. The UUID of the tenant who owns
 	// the Policy. Only administrative users can specify a tenant UUID other than
@@ -138,16 +140,18 @@ type RuleV3Parameters struct {
 
 	// ID of the policy.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lb/v1alpha1.PolicyV3
+	// +crossplane:generate:reference:refFieldName=PolicyRef
+	// +crossplane:generate:reference:selectorFieldName=PolicySelector
 	// +kubebuilder:validation:Optional
 	PolicyID *string `json:"policyId,omitempty" tf:"policy_id,omitempty"`
 
 	// Reference to a PolicyV3 in lb to populate policyId.
 	// +kubebuilder:validation:Optional
-	PolicyIDRef *v1.NamespacedReference `json:"policyIdRef,omitempty" tf:"-"`
+	PolicyRef *v1.NamespacedReference `json:"policyRef,omitempty" tf:"-"`
 
 	// Selector for a PolicyV3 in lb to populate policyId.
 	// +kubebuilder:validation:Optional
-	PolicyIDSelector *v1.NamespacedSelector `json:"policyIdSelector,omitempty" tf:"-"`
+	PolicySelector *v1.NamespacedSelector `json:"policySelector,omitempty" tf:"-"`
 
 	// Required for admins. The UUID of the tenant who owns
 	// the Policy. Only administrative users can specify a tenant UUID other than

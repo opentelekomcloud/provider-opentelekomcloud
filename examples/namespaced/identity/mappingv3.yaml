@@ -4,8 +4,8 @@ metadata:
   annotations:
     meta.upbound.io/example-id: identity/v1alpha1/mappingv3
   labels:
-    testing.upbound.io/example-name: mapping
-  name: mapping
+    testing.upbound.io/example-name: identity-mapping
+  name: iam-map-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:

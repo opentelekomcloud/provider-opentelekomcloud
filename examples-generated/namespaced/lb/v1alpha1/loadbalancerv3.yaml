@@ -11,10 +11,10 @@ spec:
   forProvider:
     availabilityZones:
     - ${var.az}
-    networkIdsRefs:
+    networkRef:
     - name: example
-    routerIdSelector:
-      matchLabels:
-        testing.upbound.io/example-name: example
     tags:
       muh: kuh
+    vpcSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example

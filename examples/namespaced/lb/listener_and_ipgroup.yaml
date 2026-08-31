@@ -4,13 +4,13 @@ metadata:
   annotations:
     meta.upbound.io/example-id: vpc/v1alpha1/v1
   labels:
-    testing.upbound.io/example-name: sample-lb
-  name: sample-lb
+    testing.upbound.io/example-name: lb-listener-vpc
+  name: lb-vpc-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     cidr: "192.168.0.0/16"
-    name: xp-test-${Rand.RFC1123Subdomain}
+    name: lb-vpc-${Rand.RFC1123Subdomain}
     tags:
       managed-by: crossplane
 ---
@@ -20,18 +20,18 @@ metadata:
   annotations:
     meta.upbound.io/example-id: vpc/v1alpha1/subnetv1
   labels:
-    testing.upbound.io/example-name: sample-lb
-  name: sample-lb
+    testing.upbound.io/example-name: lb-listener-subnet
+  name: lb-stn-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     cidr: "192.168.0.0/16"
     gatewayIp: "192.168.0.1"
-    name: xp-test-${Rand.RFC1123Subdomain}
+    name: lb-stn-${Rand.RFC1123Subdomain}
     ntpAddresses: "10.100.0.33,10.100.0.34"
-    vpcIdSelector:
+    vpcSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-lb
+        testing.upbound.io/example-name: lb-listener-vpc
     tags:
       managed-by: crossplane
 
@@ -42,19 +42,21 @@ metadata:
   annotations:
     meta.upbound.io/example-id: lb/v1alpha1/loadbalancerv3
   labels:
-    testing.upbound.io/example-name: sample-lb
-  name: sample-lb
+    testing.upbound.io/example-name: lb-listener-lb
+  name: lb-lb-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
-    name: xp-test-${Rand.RFC1123Subdomain}
+    name: lb-lb-${Rand.RFC1123Subdomain}
+    ipTargetEnable: true
     availabilityZones:
       - eu-de-01
-    networkIdsRefs:
-      - name: sample-lb
-    routerIdSelector:
+    networkSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-lb
+        testing.upbound.io/example-name: lb-listener-subnet
+    vpcSelector:
+      matchLabels:
+        testing.upbound.io/example-name: lb-listener-vpc
     tags:
       managed-by: crossplane
 
@@ -65,8 +67,8 @@ metadata:
   annotations:
     meta.upbound.io/example-id: lb/v1alpha1/ipgroupv3
   labels:
-    testing.upbound.io/example-name: sample-lb
-  name: sample-lb
+    testing.upbound.io/example-name: lb-listener-ipgroup
+  name: lb-ipg-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
@@ -74,7 +76,7 @@ spec:
     ipList:
       - description: first
         ip: "192.168.10.11"
-    name: xp-test-${Rand.RFC1123Subdomain}
+    name: lb-ipg-${Rand.RFC1123Subdomain}
 
 ---
 apiVersion: lb.opentelekomcloud.m.crossplane.io/v1alpha1
@@ -83,20 +85,20 @@ metadata:
   annotations:
     meta.upbound.io/example-id: lb/v1alpha1/listenerv3
   labels:
-    testing.upbound.io/example-name: sample-lb
-  name: sample-lb
+    testing.upbound.io/example-name: lb-listener
+  name: lb-lis-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
-    name: xp-test-${Rand.RFC1123Subdomain}
-    loadbalancerIdSelector:
+    name: lb-lis-${Rand.RFC1123Subdomain}
+    loadBalancerSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-lb
+        testing.upbound.io/example-name: lb-listener-lb
     protocol: HTTP
     protocolPort: 8080
     ipGroup:
       - idSelector:
           matchLabels:
-            testing.upbound.io/example-name: sample-lb
+            testing.upbound.io/example-name: lb-listener-ipgroup
     tags:
       managed-by: crossplane

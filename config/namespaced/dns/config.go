@@ -7,19 +7,25 @@ func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("opentelekomcloud_dns_zone_v2", func(r *config.Resource) {
 		r.UseAsync = true
 		r.References["router.router_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_vpc_v1",
+			TerraformName:     "opentelekomcloud_vpc_v1",
+			SelectorFieldName: "VPCSelector",
+			RefFieldName:      "VPCRef",
 		}
 	})
 	p.AddResourceConfigurator("opentelekomcloud_dns_recordset_v2", func(r *config.Resource) {
 		r.UseAsync = true
 		r.References["zone_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_dns_zone_v2",
+			TerraformName:     "opentelekomcloud_dns_zone_v2",
+			SelectorFieldName: "ZoneSelector",
+			RefFieldName:      "ZoneRef",
 		}
 	})
 	p.AddResourceConfigurator("opentelekomcloud_dns_ptrrecord_v2", func(r *config.Resource) {
 		r.UseAsync = true
 		r.References["floatingip_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_vpc_eip_v1",
+			TerraformName:     "opentelekomcloud_vpc_eip_v1",
+			SelectorFieldName: "FloatingIPSelector",
+			RefFieldName:      "FloatingIPRef",
 		}
 	})
 }

@@ -9,7 +9,7 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    loadbalancerIdSelector:
+    loadBalancerSelector:
       matchLabels:
         testing.upbound.io/example-name: example
     protocol: HTTP

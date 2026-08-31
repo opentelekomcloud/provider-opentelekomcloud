@@ -26,29 +26,33 @@ type VolumeAttachV2InitParameters struct {
 
 	// The ID of the Instance to attach the Volume to.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/compute/v1alpha1.InstanceV2
+	// +crossplane:generate:reference:refFieldName=InstanceRef
+	// +crossplane:generate:reference:selectorFieldName=InstanceSelector
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
 
 	// Reference to a InstanceV2 in compute to populate instanceId.
 	// +kubebuilder:validation:Optional
-	InstanceIDRef *v1.NamespacedReference `json:"instanceIdRef,omitempty" tf:"-"`
+	InstanceRef *v1.NamespacedReference `json:"instanceRef,omitempty" tf:"-"`
 
 	// Selector for a InstanceV2 in compute to populate instanceId.
 	// +kubebuilder:validation:Optional
-	InstanceIDSelector *v1.NamespacedSelector `json:"instanceIdSelector,omitempty" tf:"-"`
+	InstanceSelector *v1.NamespacedSelector `json:"instanceSelector,omitempty" tf:"-"`
 
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
 	// The ID of the Volume to attach to an Instance.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/blockstorage/v1alpha1.VolumeV2
+	// +crossplane:generate:reference:refFieldName=VolumeRef
+	// +crossplane:generate:reference:selectorFieldName=VolumeSelector
 	VolumeID *string `json:"volumeId,omitempty" tf:"volume_id,omitempty"`
 
 	// Reference to a VolumeV2 in blockstorage to populate volumeId.
 	// +kubebuilder:validation:Optional
-	VolumeIDRef *v1.NamespacedReference `json:"volumeIdRef,omitempty" tf:"-"`
+	VolumeRef *v1.NamespacedReference `json:"volumeRef,omitempty" tf:"-"`
 
 	// Selector for a VolumeV2 in blockstorage to populate volumeId.
 	// +kubebuilder:validation:Optional
-	VolumeIDSelector *v1.NamespacedSelector `json:"volumeIdSelector,omitempty" tf:"-"`
+	VolumeSelector *v1.NamespacedSelector `json:"volumeSelector,omitempty" tf:"-"`
 }
 
 type VolumeAttachV2Observation struct {
@@ -86,32 +90,36 @@ type VolumeAttachV2Parameters struct {
 
 	// The ID of the Instance to attach the Volume to.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/compute/v1alpha1.InstanceV2
+	// +crossplane:generate:reference:refFieldName=InstanceRef
+	// +crossplane:generate:reference:selectorFieldName=InstanceSelector
 	// +kubebuilder:validation:Optional
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
 
 	// Reference to a InstanceV2 in compute to populate instanceId.
 	// +kubebuilder:validation:Optional
-	InstanceIDRef *v1.NamespacedReference `json:"instanceIdRef,omitempty" tf:"-"`
+	InstanceRef *v1.NamespacedReference `json:"instanceRef,omitempty" tf:"-"`
 
 	// Selector for a InstanceV2 in compute to populate instanceId.
 	// +kubebuilder:validation:Optional
-	InstanceIDSelector *v1.NamespacedSelector `json:"instanceIdSelector,omitempty" tf:"-"`
+	InstanceSelector *v1.NamespacedSelector `json:"instanceSelector,omitempty" tf:"-"`
 
 	// +kubebuilder:validation:Optional
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
 	// The ID of the Volume to attach to an Instance.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/blockstorage/v1alpha1.VolumeV2
+	// +crossplane:generate:reference:refFieldName=VolumeRef
+	// +crossplane:generate:reference:selectorFieldName=VolumeSelector
 	// +kubebuilder:validation:Optional
 	VolumeID *string `json:"volumeId,omitempty" tf:"volume_id,omitempty"`
 
 	// Reference to a VolumeV2 in blockstorage to populate volumeId.
 	// +kubebuilder:validation:Optional
-	VolumeIDRef *v1.NamespacedReference `json:"volumeIdRef,omitempty" tf:"-"`
+	VolumeRef *v1.NamespacedReference `json:"volumeRef,omitempty" tf:"-"`
 
 	// Selector for a VolumeV2 in blockstorage to populate volumeId.
 	// +kubebuilder:validation:Optional
-	VolumeIDSelector *v1.NamespacedSelector `json:"volumeIdSelector,omitempty" tf:"-"`
+	VolumeSelector *v1.NamespacedSelector `json:"volumeSelector,omitempty" tf:"-"`
 }
 
 // VolumeAttachV2Spec defines the desired state of VolumeAttachV2

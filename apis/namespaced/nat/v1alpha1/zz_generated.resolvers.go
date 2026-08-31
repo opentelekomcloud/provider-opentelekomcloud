@@ -27,8 +27,8 @@ func (mg *DnatRuleV2) ResolveReferences(ctx context.Context, c client.Reader) er
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.FloatingIPID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.ForProvider.FloatingIPIDRef,
-		Selector:     mg.Spec.ForProvider.FloatingIPIDSelector,
+		Reference:    mg.Spec.ForProvider.FloatingIPRef,
+		Selector:     mg.Spec.ForProvider.FloatingIPSelector,
 		To: reference.To{
 			List:    &v1alpha1.EIPV1List{},
 			Managed: &v1alpha1.EIPV1{},
@@ -38,14 +38,14 @@ func (mg *DnatRuleV2) ResolveReferences(ctx context.Context, c client.Reader) er
 		return errors.Wrap(err, "mg.Spec.ForProvider.FloatingIPID")
 	}
 	mg.Spec.ForProvider.FloatingIPID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.FloatingIPIDRef = rsp.ResolvedReference
+	mg.Spec.ForProvider.FloatingIPRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.NATGatewayID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.ForProvider.NATGatewayIDRef,
-		Selector:     mg.Spec.ForProvider.NATGatewayIDSelector,
+		Reference:    mg.Spec.ForProvider.NATGatewayRef,
+		Selector:     mg.Spec.ForProvider.NATGatewaySelector,
 		To: reference.To{
 			List:    &GatewayV2List{},
 			Managed: &GatewayV2{},
@@ -55,14 +55,14 @@ func (mg *DnatRuleV2) ResolveReferences(ctx context.Context, c client.Reader) er
 		return errors.Wrap(err, "mg.Spec.ForProvider.NATGatewayID")
 	}
 	mg.Spec.ForProvider.NATGatewayID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.NATGatewayIDRef = rsp.ResolvedReference
+	mg.Spec.ForProvider.NATGatewayRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.PortID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.ForProvider.PortIDRef,
-		Selector:     mg.Spec.ForProvider.PortIDSelector,
+		Reference:    mg.Spec.ForProvider.PortRef,
+		Selector:     mg.Spec.ForProvider.PortSelector,
 		To: reference.To{
 			List:    &v1alpha11.PortV2List{},
 			Managed: &v1alpha11.PortV2{},
@@ -72,14 +72,14 @@ func (mg *DnatRuleV2) ResolveReferences(ctx context.Context, c client.Reader) er
 		return errors.Wrap(err, "mg.Spec.ForProvider.PortID")
 	}
 	mg.Spec.ForProvider.PortID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.PortIDRef = rsp.ResolvedReference
+	mg.Spec.ForProvider.PortRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.FloatingIPID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.InitProvider.FloatingIPIDRef,
-		Selector:     mg.Spec.InitProvider.FloatingIPIDSelector,
+		Reference:    mg.Spec.InitProvider.FloatingIPRef,
+		Selector:     mg.Spec.InitProvider.FloatingIPSelector,
 		To: reference.To{
 			List:    &v1alpha1.EIPV1List{},
 			Managed: &v1alpha1.EIPV1{},
@@ -89,14 +89,14 @@ func (mg *DnatRuleV2) ResolveReferences(ctx context.Context, c client.Reader) er
 		return errors.Wrap(err, "mg.Spec.InitProvider.FloatingIPID")
 	}
 	mg.Spec.InitProvider.FloatingIPID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.FloatingIPIDRef = rsp.ResolvedReference
+	mg.Spec.InitProvider.FloatingIPRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.NATGatewayID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.InitProvider.NATGatewayIDRef,
-		Selector:     mg.Spec.InitProvider.NATGatewayIDSelector,
+		Reference:    mg.Spec.InitProvider.NATGatewayRef,
+		Selector:     mg.Spec.InitProvider.NATGatewaySelector,
 		To: reference.To{
 			List:    &GatewayV2List{},
 			Managed: &GatewayV2{},
@@ -106,14 +106,14 @@ func (mg *DnatRuleV2) ResolveReferences(ctx context.Context, c client.Reader) er
 		return errors.Wrap(err, "mg.Spec.InitProvider.NATGatewayID")
 	}
 	mg.Spec.InitProvider.NATGatewayID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.NATGatewayIDRef = rsp.ResolvedReference
+	mg.Spec.InitProvider.NATGatewayRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.PortID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.InitProvider.PortIDRef,
-		Selector:     mg.Spec.InitProvider.PortIDSelector,
+		Reference:    mg.Spec.InitProvider.PortRef,
+		Selector:     mg.Spec.InitProvider.PortSelector,
 		To: reference.To{
 			List:    &v1alpha11.PortV2List{},
 			Managed: &v1alpha11.PortV2{},
@@ -123,7 +123,7 @@ func (mg *DnatRuleV2) ResolveReferences(ctx context.Context, c client.Reader) er
 		return errors.Wrap(err, "mg.Spec.InitProvider.PortID")
 	}
 	mg.Spec.InitProvider.PortID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.PortIDRef = rsp.ResolvedReference
+	mg.Spec.InitProvider.PortRef = rsp.ResolvedReference
 
 	return nil
 }
@@ -139,8 +139,8 @@ func (mg *GatewayV2) ResolveReferences(ctx context.Context, c client.Reader) err
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.InternalNetworkID),
 		Extract:      common.ExtractNetworkID(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.ForProvider.InternalNetworkIDRef,
-		Selector:     mg.Spec.ForProvider.InternalNetworkIDSelector,
+		Reference:    mg.Spec.ForProvider.InternalNetworkRef,
+		Selector:     mg.Spec.ForProvider.InternalNetworkSelector,
 		To: reference.To{
 			List:    &v1alpha1.SubnetV1List{},
 			Managed: &v1alpha1.SubnetV1{},
@@ -150,14 +150,14 @@ func (mg *GatewayV2) ResolveReferences(ctx context.Context, c client.Reader) err
 		return errors.Wrap(err, "mg.Spec.ForProvider.InternalNetworkID")
 	}
 	mg.Spec.ForProvider.InternalNetworkID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.InternalNetworkIDRef = rsp.ResolvedReference
+	mg.Spec.ForProvider.InternalNetworkRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.RouterID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.ForProvider.RouterIDRef,
-		Selector:     mg.Spec.ForProvider.RouterIDSelector,
+		Reference:    mg.Spec.ForProvider.VPCRef,
+		Selector:     mg.Spec.ForProvider.VPCSelector,
 		To: reference.To{
 			List:    &v1alpha1.VpcV1List{},
 			Managed: &v1alpha1.VpcV1{},
@@ -167,14 +167,14 @@ func (mg *GatewayV2) ResolveReferences(ctx context.Context, c client.Reader) err
 		return errors.Wrap(err, "mg.Spec.ForProvider.RouterID")
 	}
 	mg.Spec.ForProvider.RouterID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.RouterIDRef = rsp.ResolvedReference
+	mg.Spec.ForProvider.VPCRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.InternalNetworkID),
 		Extract:      common.ExtractNetworkID(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.InitProvider.InternalNetworkIDRef,
-		Selector:     mg.Spec.InitProvider.InternalNetworkIDSelector,
+		Reference:    mg.Spec.InitProvider.InternalNetworkRef,
+		Selector:     mg.Spec.InitProvider.InternalNetworkSelector,
 		To: reference.To{
 			List:    &v1alpha1.SubnetV1List{},
 			Managed: &v1alpha1.SubnetV1{},
@@ -184,14 +184,14 @@ func (mg *GatewayV2) ResolveReferences(ctx context.Context, c client.Reader) err
 		return errors.Wrap(err, "mg.Spec.InitProvider.InternalNetworkID")
 	}
 	mg.Spec.InitProvider.InternalNetworkID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.InternalNetworkIDRef = rsp.ResolvedReference
+	mg.Spec.InitProvider.InternalNetworkRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.RouterID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.InitProvider.RouterIDRef,
-		Selector:     mg.Spec.InitProvider.RouterIDSelector,
+		Reference:    mg.Spec.InitProvider.VPCRef,
+		Selector:     mg.Spec.InitProvider.VPCSelector,
 		To: reference.To{
 			List:    &v1alpha1.VpcV1List{},
 			Managed: &v1alpha1.VpcV1{},
@@ -201,7 +201,7 @@ func (mg *GatewayV2) ResolveReferences(ctx context.Context, c client.Reader) err
 		return errors.Wrap(err, "mg.Spec.InitProvider.RouterID")
 	}
 	mg.Spec.InitProvider.RouterID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.RouterIDRef = rsp.ResolvedReference
+	mg.Spec.InitProvider.VPCRef = rsp.ResolvedReference
 
 	return nil
 }
@@ -217,8 +217,8 @@ func (mg *SnatRuleV2) ResolveReferences(ctx context.Context, c client.Reader) er
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.FloatingIPID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.ForProvider.FloatingIPIDRef,
-		Selector:     mg.Spec.ForProvider.FloatingIPIDSelector,
+		Reference:    mg.Spec.ForProvider.FloatingIPRef,
+		Selector:     mg.Spec.ForProvider.FloatingIPSelector,
 		To: reference.To{
 			List:    &v1alpha1.EIPV1List{},
 			Managed: &v1alpha1.EIPV1{},
@@ -228,14 +228,14 @@ func (mg *SnatRuleV2) ResolveReferences(ctx context.Context, c client.Reader) er
 		return errors.Wrap(err, "mg.Spec.ForProvider.FloatingIPID")
 	}
 	mg.Spec.ForProvider.FloatingIPID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.FloatingIPIDRef = rsp.ResolvedReference
+	mg.Spec.ForProvider.FloatingIPRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.NATGatewayID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.ForProvider.NATGatewayIDRef,
-		Selector:     mg.Spec.ForProvider.NATGatewayIDSelector,
+		Reference:    mg.Spec.ForProvider.NATGatewayRef,
+		Selector:     mg.Spec.ForProvider.NATGatewaySelector,
 		To: reference.To{
 			List:    &GatewayV2List{},
 			Managed: &GatewayV2{},
@@ -245,14 +245,14 @@ func (mg *SnatRuleV2) ResolveReferences(ctx context.Context, c client.Reader) er
 		return errors.Wrap(err, "mg.Spec.ForProvider.NATGatewayID")
 	}
 	mg.Spec.ForProvider.NATGatewayID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.NATGatewayIDRef = rsp.ResolvedReference
+	mg.Spec.ForProvider.NATGatewayRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.NetworkID),
 		Extract:      common.ExtractNetworkID(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.ForProvider.NetworkIDRef,
-		Selector:     mg.Spec.ForProvider.NetworkIDSelector,
+		Reference:    mg.Spec.ForProvider.NetworkRef,
+		Selector:     mg.Spec.ForProvider.NetworkSelector,
 		To: reference.To{
 			List:    &v1alpha1.SubnetV1List{},
 			Managed: &v1alpha1.SubnetV1{},
@@ -262,14 +262,14 @@ func (mg *SnatRuleV2) ResolveReferences(ctx context.Context, c client.Reader) er
 		return errors.Wrap(err, "mg.Spec.ForProvider.NetworkID")
 	}
 	mg.Spec.ForProvider.NetworkID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.NetworkIDRef = rsp.ResolvedReference
+	mg.Spec.ForProvider.NetworkRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.FloatingIPID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.InitProvider.FloatingIPIDRef,
-		Selector:     mg.Spec.InitProvider.FloatingIPIDSelector,
+		Reference:    mg.Spec.InitProvider.FloatingIPRef,
+		Selector:     mg.Spec.InitProvider.FloatingIPSelector,
 		To: reference.To{
 			List:    &v1alpha1.EIPV1List{},
 			Managed: &v1alpha1.EIPV1{},
@@ -279,14 +279,14 @@ func (mg *SnatRuleV2) ResolveReferences(ctx context.Context, c client.Reader) er
 		return errors.Wrap(err, "mg.Spec.InitProvider.FloatingIPID")
 	}
 	mg.Spec.InitProvider.FloatingIPID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.FloatingIPIDRef = rsp.ResolvedReference
+	mg.Spec.InitProvider.FloatingIPRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.NATGatewayID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.InitProvider.NATGatewayIDRef,
-		Selector:     mg.Spec.InitProvider.NATGatewayIDSelector,
+		Reference:    mg.Spec.InitProvider.NATGatewayRef,
+		Selector:     mg.Spec.InitProvider.NATGatewaySelector,
 		To: reference.To{
 			List:    &GatewayV2List{},
 			Managed: &GatewayV2{},
@@ -296,14 +296,14 @@ func (mg *SnatRuleV2) ResolveReferences(ctx context.Context, c client.Reader) er
 		return errors.Wrap(err, "mg.Spec.InitProvider.NATGatewayID")
 	}
 	mg.Spec.InitProvider.NATGatewayID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.NATGatewayIDRef = rsp.ResolvedReference
+	mg.Spec.InitProvider.NATGatewayRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.NetworkID),
 		Extract:      common.ExtractNetworkID(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.InitProvider.NetworkIDRef,
-		Selector:     mg.Spec.InitProvider.NetworkIDSelector,
+		Reference:    mg.Spec.InitProvider.NetworkRef,
+		Selector:     mg.Spec.InitProvider.NetworkSelector,
 		To: reference.To{
 			List:    &v1alpha1.SubnetV1List{},
 			Managed: &v1alpha1.SubnetV1{},
@@ -313,7 +313,7 @@ func (mg *SnatRuleV2) ResolveReferences(ctx context.Context, c client.Reader) er
 		return errors.Wrap(err, "mg.Spec.InitProvider.NetworkID")
 	}
 	mg.Spec.InitProvider.NetworkID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.NetworkIDRef = rsp.ResolvedReference
+	mg.Spec.InitProvider.NetworkRef = rsp.ResolvedReference
 
 	return nil
 }

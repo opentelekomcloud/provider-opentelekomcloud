@@ -9,7 +9,7 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    instanceIdSelector:
+    instanceSelector:
       matchLabels:
         testing.upbound.io/example-name: example
     name: ${var.name}

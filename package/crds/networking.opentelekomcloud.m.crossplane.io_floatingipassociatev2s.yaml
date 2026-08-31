@@ -149,7 +149,7 @@ spec:
                       ID of an existing port with at least one IP address to
                       associate with this floating IP.
                     type: string
-                  portIdRef:
+                  portRef:
                     description: Reference to a PortV2 in networking to populate portId.
                     properties:
                       name:
@@ -186,7 +186,7 @@ spec:
                     required:
                     - name
                     type: object
-                  portIdSelector:
+                  portSelector:
                     description: Selector for a PortV2 in networking to populate portId.
                     properties:
                       matchControllerRef:
@@ -335,7 +335,7 @@ spec:
                       ID of an existing port with at least one IP address to
                       associate with this floating IP.
                     type: string
-                  portIdRef:
+                  portRef:
                     description: Reference to a PortV2 in networking to populate portId.
                     properties:
                       name:
@@ -372,7 +372,7 @@ spec:
                     required:
                     - name
                     type: object
-                  portIdSelector:
+                  portSelector:
                     description: Selector for a PortV2 in networking to populate portId.
                     properties:
                       matchControllerRef:

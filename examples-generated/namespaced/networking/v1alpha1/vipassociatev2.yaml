@@ -9,10 +9,10 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    portIdsRefs:
+    portRef:
     - name: port_1
     - name: port_2
-    vipIdSelector:
+    vipSelector:
       matchLabels:
         testing.upbound.io/example-name: vip_1
 
@@ -29,11 +29,11 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
+    computeSecurityGroupRefs:
+    - name: example
     name: instance_1
     network:
     - port: ${opentelekomcloud_networking_port_v2.port_1.id}
-    securityGroupsRefs:
-    - name: example
 
 ---
 
@@ -48,11 +48,11 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
+    computeSecurityGroupRefs:
+    - name: example
     name: instance_2
     network:
     - port: ${opentelekomcloud_networking_port_v2.port_1.id}
-    securityGroupsRefs:
-    - name: example
 
 ---
 
@@ -85,11 +85,11 @@ spec:
   forProvider:
     adminStateUp: "true"
     fixedIp:
-    - subnetIdSelector:
+    - subnetSelector:
         matchLabels:
           testing.upbound.io/example-name: subnet_1
     name: port_1
-    networkIdSelector:
+    networkSelector:
       matchLabels:
         testing.upbound.io/example-name: network_1
 
@@ -108,11 +108,11 @@ spec:
   forProvider:
     adminStateUp: "true"
     fixedIp:
-    - subnetIdSelector:
+    - subnetSelector:
         matchLabels:
           testing.upbound.io/example-name: subnet_1
     name: port_2
-    networkIdSelector:
+    networkSelector:
       matchLabels:
         testing.upbound.io/example-name: network_1
 
@@ -129,10 +129,10 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    routerIdSelector:
+    routerSelector:
       matchLabels:
         testing.upbound.io/example-name: router_1
-    subnetIdSelector:
+    subnetSelector:
       matchLabels:
         testing.upbound.io/example-name: subnet_1
 
@@ -168,7 +168,7 @@ spec:
     cidr: 192.168.199.0/24
     ipVersion: 4
     name: subnet_1
-    networkIdSelector:
+    networkSelector:
       matchLabels:
         testing.upbound.io/example-name: network_1
 
@@ -185,9 +185,9 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    networkIdSelector:
+    networkSelector:
       matchLabels:
         testing.upbound.io/example-name: network_1
-    subnetIdSelector:
+    subnetSelector:
       matchLabels:
         testing.upbound.io/example-name: subnet_1

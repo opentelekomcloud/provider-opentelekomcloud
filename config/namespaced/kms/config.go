@@ -12,7 +12,9 @@ func Configure(p *config.Provider) {
 			TerraformName: "opentelekomcloud_identity_user_v3",
 		}
 		r.References["key_id"] = config.Reference{
-			TerraformName: "opentelekomcloud_kms_key_v1",
+			TerraformName:     "opentelekomcloud_kms_key_v1",
+			SelectorFieldName: "KeySelector",
+			RefFieldName:      "KeyRef",
 		}
 	})
 	// TODO add support for import CMK

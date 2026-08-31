@@ -10,10 +10,10 @@ metadata:
 spec:
   forProvider:
     cidr: 192.168.0.0/24
-    floatingIpIdSelector:
+    floatingIpSelector:
       matchLabels:
         testing.upbound.io/example-name: fip_1
-    natGatewayIdSelector:
+    natGatewaySelector:
       matchLabels:
         testing.upbound.io/example-name: nat_1
     sourceType: 0
@@ -32,14 +32,14 @@ metadata:
 spec:
   forProvider:
     description: test for terraform
-    internalNetworkIdSelector:
+    internalNetworkSelector:
       matchLabels:
         testing.upbound.io/example-name: example
     name: nat_1
-    routerIdSelector:
+    spec: "1"
+    vpcSelector:
       matchLabels:
         testing.upbound.io/example-name: example
-    spec: "1"
 
 ---
 

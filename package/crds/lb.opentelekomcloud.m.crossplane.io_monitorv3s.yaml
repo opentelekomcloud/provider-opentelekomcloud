@@ -103,7 +103,7 @@ spec:
                       Specifies the ID of the backend server group for which the health check is configured.
                       Changing this creates a new monitor.
                     type: string
-                  poolIdRef:
+                  poolRef:
                     description: Reference to a PoolV3 in lb to populate poolId.
                     properties:
                       name:
@@ -140,7 +140,7 @@ spec:
                     required:
                     - name
                     type: object
-                  poolIdSelector:
+                  poolSelector:
                     description: Selector for a PoolV3 in lb to populate poolId.
                     properties:
                       matchControllerRef:
@@ -338,7 +338,7 @@ spec:
                       Specifies the ID of the backend server group for which the health check is configured.
                       Changing this creates a new monitor.
                     type: string
-                  poolIdRef:
+                  poolRef:
                     description: Reference to a PoolV3 in lb to populate poolId.
                     properties:
                       name:
@@ -375,7 +375,7 @@ spec:
                     required:
                     - name
                     type: object
-                  poolIdSelector:
+                  poolSelector:
                     description: Selector for a PoolV3 in lb to populate poolId.
                     properties:
                       matchControllerRef:

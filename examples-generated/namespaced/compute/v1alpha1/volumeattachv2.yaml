@@ -9,10 +9,10 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    instanceIdSelector:
+    instanceSelector:
       matchLabels:
         testing.upbound.io/example-name: instance_1
-    volumeIdSelector:
+    volumeSelector:
       matchLabels:
         testing.upbound.io/example-name: volume_1
 
@@ -45,6 +45,6 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    name: instance_1
-    securityGroupsRefs:
+    computeSecurityGroupRefs:
     - name: example
+    name: instance_1

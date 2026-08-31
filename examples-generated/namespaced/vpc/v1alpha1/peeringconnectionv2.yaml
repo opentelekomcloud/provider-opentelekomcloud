@@ -10,9 +10,9 @@ metadata:
 spec:
   forProvider:
     name: ${var.peer_conn_name}
-    peerVpcIdSelector:
+    peerVpcSelector:
       matchLabels:
         testing.upbound.io/example-name: example
-    vpcIdSelector:
+    vpcSelector:
       matchLabels:
         testing.upbound.io/example-name: example

@@ -18,18 +18,20 @@ type RouterInitParameters struct {
 
 	// The Router(VPC) ID. which VPC network will assicate with.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.VpcV1
+	// +crossplane:generate:reference:refFieldName=VPCRef
+	// +crossplane:generate:reference:selectorFieldName=VPCSelector
 	RouterID *string `json:"routerId,omitempty" tf:"router_id,omitempty"`
-
-	// Reference to a VpcV1 in vpc to populate routerId.
-	// +kubebuilder:validation:Optional
-	RouterIDRef *v1.NamespacedReference `json:"routerIdRef,omitempty" tf:"-"`
-
-	// Selector for a VpcV1 in vpc to populate routerId.
-	// +kubebuilder:validation:Optional
-	RouterIDSelector *v1.NamespacedSelector `json:"routerIdSelector,omitempty" tf:"-"`
 
 	// The Region name for this private zone.
 	RouterRegion *string `json:"routerRegion,omitempty" tf:"router_region,omitempty"`
+
+	// Reference to a VpcV1 in vpc to populate routerId.
+	// +kubebuilder:validation:Optional
+	VPCRef *v1.NamespacedReference `json:"vpcRef,omitempty" tf:"-"`
+
+	// Selector for a VpcV1 in vpc to populate routerId.
+	// +kubebuilder:validation:Optional
+	VPCSelector *v1.NamespacedSelector `json:"vpcSelector,omitempty" tf:"-"`
 }
 
 type RouterObservation struct {
@@ -45,20 +47,22 @@ type RouterParameters struct {
 
 	// The Router(VPC) ID. which VPC network will assicate with.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.VpcV1
+	// +crossplane:generate:reference:refFieldName=VPCRef
+	// +crossplane:generate:reference:selectorFieldName=VPCSelector
 	// +kubebuilder:validation:Optional
 	RouterID *string `json:"routerId,omitempty" tf:"router_id,omitempty"`
-
-	// Reference to a VpcV1 in vpc to populate routerId.
-	// +kubebuilder:validation:Optional
-	RouterIDRef *v1.NamespacedReference `json:"routerIdRef,omitempty" tf:"-"`
-
-	// Selector for a VpcV1 in vpc to populate routerId.
-	// +kubebuilder:validation:Optional
-	RouterIDSelector *v1.NamespacedSelector `json:"routerIdSelector,omitempty" tf:"-"`
 
 	// The Region name for this private zone.
 	// +kubebuilder:validation:Optional
 	RouterRegion *string `json:"routerRegion" tf:"router_region,omitempty"`
+
+	// Reference to a VpcV1 in vpc to populate routerId.
+	// +kubebuilder:validation:Optional
+	VPCRef *v1.NamespacedReference `json:"vpcRef,omitempty" tf:"-"`
+
+	// Selector for a VpcV1 in vpc to populate routerId.
+	// +kubebuilder:validation:Optional
+	VPCSelector *v1.NamespacedSelector `json:"vpcSelector,omitempty" tf:"-"`
 }
 
 type ZoneV2InitParameters struct {

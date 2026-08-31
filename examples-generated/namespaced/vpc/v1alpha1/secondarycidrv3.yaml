@@ -13,7 +13,7 @@ spec:
     - 23.9.0.0/16
     - 23.10.0.0/16
     - 23.11.0.0/16
-    vpcIdSelector:
+    vpcSelector:
       matchLabels:
         testing.upbound.io/example-name: vpc
 

@@ -96,7 +96,7 @@ spec:
                           type: string
                       type: object
                     type: array
-                  computeSecurityGroupIdRefs:
+                  computeSecurityGroupRefs:
                     description: Reference to a SecgroupV2 in compute to populate
                       securityGroupId.
                     properties:
@@ -134,7 +134,7 @@ spec:
                     required:
                     - name
                     type: object
-                  computeSecurityGroupIdSelector:
+                  computeSecurityGroupSelector:
                     description: Selector for a SecgroupV2 in compute to populate
                       securityGroupId.
                     properties:
@@ -251,7 +251,7 @@ spec:
                   paramGroupId:
                     description: Specifies the parameter group ID.
                     type: string
-                  paramGroupIdRef:
+                  parameterGroupRef:
                     description: Reference to a ParametergroupV3 in rds to populate
                       paramGroupId.
                     properties:
@@ -289,7 +289,7 @@ spec:
                     required:
                     - name
                     type: object
-                  paramGroupIdSelector:
+                  parameterGroupSelector:
                     description: Selector for a ParametergroupV3 in rds to populate
                       paramGroupId.
                     properties:
@@ -498,7 +498,7 @@ spec:
                     description: Specifies the subnet id. Changing this parameter
                       will create a new resource.
                     type: string
-                  subnetIdRef:
+                  subnetRef:
                     description: Reference to a SubnetV1 in vpc to populate subnetId.
                     properties:
                       name:
@@ -535,7 +535,7 @@ spec:
                     required:
                     - name
                     type: object
-                  subnetIdSelector:
+                  subnetSelector:
                     description: Selector for a SubnetV1 in vpc to populate subnetId.
                     properties:
                       matchControllerRef:
@@ -637,7 +637,7 @@ spec:
                     description: Specifies the VPC ID. Changing this parameter will
                       create a new resource.
                     type: string
-                  vpcIdRef:
+                  vpcRef:
                     description: Reference to a VpcV1 in vpc to populate vpcId.
                     properties:
                       name:
@@ -674,7 +674,7 @@ spec:
                     required:
                     - name
                     type: object
-                  vpcIdSelector:
+                  vpcSelector:
                     description: Selector for a VpcV1 in vpc to populate vpcId.
                     properties:
                       matchControllerRef:
@@ -768,7 +768,7 @@ spec:
                           type: string
                       type: object
                     type: array
-                  computeSecurityGroupIdRefs:
+                  computeSecurityGroupRefs:
                     description: Reference to a SecgroupV2 in compute to populate
                       securityGroupId.
                     properties:
@@ -806,7 +806,7 @@ spec:
                     required:
                     - name
                     type: object
-                  computeSecurityGroupIdSelector:
+                  computeSecurityGroupSelector:
                     description: Selector for a SecgroupV2 in compute to populate
                       securityGroupId.
                     properties:
@@ -925,7 +925,7 @@ spec:
                   paramGroupId:
                     description: Specifies the parameter group ID.
                     type: string
-                  paramGroupIdRef:
+                  parameterGroupRef:
                     description: Reference to a ParametergroupV3 in rds to populate
                       paramGroupId.
                     properties:
@@ -963,7 +963,7 @@ spec:
                     required:
                     - name
                     type: object
-                  paramGroupIdSelector:
+                  parameterGroupSelector:
                     description: Selector for a ParametergroupV3 in rds to populate
                       paramGroupId.
                     properties:
@@ -1172,7 +1172,7 @@ spec:
                     description: Specifies the subnet id. Changing this parameter
                       will create a new resource.
                     type: string
-                  subnetIdRef:
+                  subnetRef:
                     description: Reference to a SubnetV1 in vpc to populate subnetId.
                     properties:
                       name:
@@ -1209,7 +1209,7 @@ spec:
                     required:
                     - name
                     type: object
-                  subnetIdSelector:
+                  subnetSelector:
                     description: Selector for a SubnetV1 in vpc to populate subnetId.
                     properties:
                       matchControllerRef:
@@ -1311,7 +1311,7 @@ spec:
                     description: Specifies the VPC ID. Changing this parameter will
                       create a new resource.
                     type: string
-                  vpcIdRef:
+                  vpcRef:
                     description: Reference to a VpcV1 in vpc to populate vpcId.
                     properties:
                       name:
@@ -1348,7 +1348,7 @@ spec:
                     required:
                     - name
                     type: object
-                  vpcIdSelector:
+                  vpcSelector:
                     description: Selector for a VpcV1 in vpc to populate vpcId.
                     properties:
                       matchControllerRef:

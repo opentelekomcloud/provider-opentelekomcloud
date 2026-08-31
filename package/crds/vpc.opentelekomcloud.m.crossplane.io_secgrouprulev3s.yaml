@@ -116,7 +116,7 @@ spec:
                       the rule. Only opentelekomcloud_vpc_secgroup_v3 (secgroupv3s.vpc.opentelekomcloud.m.crossplane.io)
                       is supported for cross resource reference configuration.
                     type: string
-                  securityGroupIdRef:
+                  securityGroupRef:
                     description: Reference to a SecgroupV3 in vpc to populate securityGroupId.
                     properties:
                       name:
@@ -153,7 +153,7 @@ spec:
                     required:
                     - name
                     type: object
-                  securityGroupIdSelector:
+                  securityGroupSelector:
                     description: Selector for a SecgroupV3 in vpc to populate securityGroupId.
                     properties:
                       matchControllerRef:
@@ -267,7 +267,7 @@ spec:
                       the rule. Only opentelekomcloud_vpc_secgroup_v3 (secgroupv3s.vpc.opentelekomcloud.m.crossplane.io)
                       is supported for cross resource reference configuration.
                     type: string
-                  securityGroupIdRef:
+                  securityGroupRef:
                     description: Reference to a SecgroupV3 in vpc to populate securityGroupId.
                     properties:
                       name:
@@ -304,7 +304,7 @@ spec:
                     required:
                     - name
                     type: object
-                  securityGroupIdSelector:
+                  securityGroupSelector:
                     description: Selector for a SecgroupV3 in vpc to populate securityGroupId.
                     properties:
                       matchControllerRef:

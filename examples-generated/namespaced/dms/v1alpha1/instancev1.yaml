@@ -12,6 +12,9 @@ spec:
     accessUser: ${var.access_user}
     availableZones:
     - ${data.opentelekomcloud_dms_az_v1.az_1.id}
+    computeSecurityGroupSelector:
+      matchLabels:
+        testing.upbound.io/example-name: secgroup_1
     engine: kafka
     engineVersion: ${data.opentelekomcloud_dms_product_v1.product_1.version}
     name: kafka-test
@@ -20,16 +23,13 @@ spec:
       key: example-key
       name: example-secret
     productId: ${data.opentelekomcloud_dms_product_v1.product_1.id}
-    securityGroupIdSelector:
-      matchLabels:
-        testing.upbound.io/example-name: secgroup_1
     specification: ${data.opentelekomcloud_dms_product_v1.product_1.bandwidth}
     storageSpace: ${data.opentelekomcloud_dms_product_v1.product_1.storage}
     storageSpecCode: ${data.opentelekomcloud_dms_product_v1.product_1.storage_spec_code}
-    subnetIdSelector:
+    subnetSelector:
       matchLabels:
         testing.upbound.io/example-name: example
-    vpcIdSelector:
+    vpcSelector:
       matchLabels:
         testing.upbound.io/example-name: example
 

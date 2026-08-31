@@ -21,15 +21,17 @@ type BackupV3InitParameters struct {
 
 	// Specifies the ID of a DDS instance.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/dds/v1alpha1.InstanceV3
+	// +crossplane:generate:reference:refFieldName=InstanceRef
+	// +crossplane:generate:reference:selectorFieldName=InstanceSelector
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
 
 	// Reference to a InstanceV3 in dds to populate instanceId.
 	// +kubebuilder:validation:Optional
-	InstanceIDRef *v1.NamespacedReference `json:"instanceIdRef,omitempty" tf:"-"`
+	InstanceRef *v1.NamespacedReference `json:"instanceRef,omitempty" tf:"-"`
 
 	// Selector for a InstanceV3 in dds to populate instanceId.
 	// +kubebuilder:validation:Optional
-	InstanceIDSelector *v1.NamespacedSelector `json:"instanceIdSelector,omitempty" tf:"-"`
+	InstanceSelector *v1.NamespacedSelector `json:"instanceSelector,omitempty" tf:"-"`
 
 	// Specifies the manual backup name.
 	// The value must be 4 to 64 characters in length and start with a letter (from A to Z or from a to z).
@@ -87,16 +89,18 @@ type BackupV3Parameters struct {
 
 	// Specifies the ID of a DDS instance.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/dds/v1alpha1.InstanceV3
+	// +crossplane:generate:reference:refFieldName=InstanceRef
+	// +crossplane:generate:reference:selectorFieldName=InstanceSelector
 	// +kubebuilder:validation:Optional
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
 
 	// Reference to a InstanceV3 in dds to populate instanceId.
 	// +kubebuilder:validation:Optional
-	InstanceIDRef *v1.NamespacedReference `json:"instanceIdRef,omitempty" tf:"-"`
+	InstanceRef *v1.NamespacedReference `json:"instanceRef,omitempty" tf:"-"`
 
 	// Selector for a InstanceV3 in dds to populate instanceId.
 	// +kubebuilder:validation:Optional
-	InstanceIDSelector *v1.NamespacedSelector `json:"instanceIdSelector,omitempty" tf:"-"`
+	InstanceSelector *v1.NamespacedSelector `json:"instanceSelector,omitempty" tf:"-"`
 
 	// Specifies the manual backup name.
 	// The value must be 4 to 64 characters in length and start with a letter (from A to Z or from a to z).

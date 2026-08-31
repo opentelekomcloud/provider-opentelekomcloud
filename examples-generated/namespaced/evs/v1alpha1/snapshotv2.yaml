@@ -13,7 +13,7 @@ spec:
     metadata:
       foo: bar
     name: snapshot-001
-    volumeIdSelector:
+    volumeSelector:
       matchLabels:
         testing.upbound.io/example-name: test
 

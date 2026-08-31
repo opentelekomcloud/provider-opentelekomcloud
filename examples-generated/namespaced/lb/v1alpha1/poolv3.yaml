@@ -10,7 +10,7 @@ metadata:
 spec:
   forProvider:
     lbAlgorithm: ROUND_ROBIN
-    loadbalancerIdSelector:
+    loadBalancerSelector:
       matchLabels:
         testing.upbound.io/example-name: lb
     name: pool_1
@@ -35,8 +35,8 @@ spec:
     availabilityZones:
     - ${var.availability_zone}
     name: loadbalancer_1
-    networkIdsRefs:
+    networkRef:
     - name: example
-    routerIdSelector:
+    vpcSelector:
       matchLabels:
         testing.upbound.io/example-name: example

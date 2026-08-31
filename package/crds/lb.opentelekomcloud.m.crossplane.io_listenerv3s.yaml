@@ -83,7 +83,7 @@ spec:
                       Specifies the ID of the default backend server group. If there is no
                       matched forwarding policy, requests are forwarded to the default backend server for processing.
                     type: string
-                  defaultPoolIdRef:
+                  defaultPoolRef:
                     description: Reference to a PoolV3 in lb to populate defaultPoolId.
                     properties:
                       name:
@@ -120,7 +120,7 @@ spec:
                     required:
                     - name
                     type: object
-                  defaultPoolIdSelector:
+                  defaultPoolSelector:
                     description: Selector for a PoolV3 in lb to populate defaultPoolId.
                     properties:
                       matchControllerRef:
@@ -398,11 +398,7 @@ spec:
                   keepAliveTimeout:
                     description: Specifies the idle timeout duration, in seconds.
                     type: number
-                  loadbalancerId:
-                    description: Specifies the ID of the load balancer that the listener
-                      is added to.
-                    type: string
-                  loadbalancerIdRef:
+                  loadBalancerRef:
                     description: Reference to a LoadbalancerV3 in lb to populate loadbalancerId.
                     properties:
                       name:
@@ -439,7 +435,7 @@ spec:
                     required:
                     - name
                     type: object
-                  loadbalancerIdSelector:
+                  loadBalancerSelector:
                     description: Selector for a LoadbalancerV3 in lb to populate loadbalancerId.
                     properties:
                       matchControllerRef:
@@ -482,6 +478,10 @@ spec:
                             type: string
                         type: object
                     type: object
+                  loadbalancerId:
+                    description: Specifies the ID of the load balancer that the listener
+                      is added to.
+                    type: string
                   memberRetryEnable:
                     description: |-
                       Specifies whether to enable health check retries for backend servers.
@@ -510,7 +510,7 @@ spec:
                   securityPolicyId:
                     description: Specifies the ID of the custom security policy.
                     type: string
-                  securityPolicyIdRef:
+                  securityPolicyRef:
                     description: Reference to a SecurityPolicyV3 in lb to populate
                       securityPolicyId.
                     properties:
@@ -548,7 +548,7 @@ spec:
                     required:
                     - name
                     type: object
-                  securityPolicyIdSelector:
+                  securityPolicySelector:
                     description: Selector for a SecurityPolicyV3 in lb to populate
                       securityPolicyId.
                     properties:
@@ -658,7 +658,7 @@ spec:
                       Specifies the ID of the default backend server group. If there is no
                       matched forwarding policy, requests are forwarded to the default backend server for processing.
                     type: string
-                  defaultPoolIdRef:
+                  defaultPoolRef:
                     description: Reference to a PoolV3 in lb to populate defaultPoolId.
                     properties:
                       name:
@@ -695,7 +695,7 @@ spec:
                     required:
                     - name
                     type: object
-                  defaultPoolIdSelector:
+                  defaultPoolSelector:
                     description: Selector for a PoolV3 in lb to populate defaultPoolId.
                     properties:
                       matchControllerRef:
@@ -973,11 +973,7 @@ spec:
                   keepAliveTimeout:
                     description: Specifies the idle timeout duration, in seconds.
                     type: number
-                  loadbalancerId:
-                    description: Specifies the ID of the load balancer that the listener
-                      is added to.
-                    type: string
-                  loadbalancerIdRef:
+                  loadBalancerRef:
                     description: Reference to a LoadbalancerV3 in lb to populate loadbalancerId.
                     properties:
                       name:
@@ -1014,7 +1010,7 @@ spec:
                     required:
                     - name
                     type: object
-                  loadbalancerIdSelector:
+                  loadBalancerSelector:
                     description: Selector for a LoadbalancerV3 in lb to populate loadbalancerId.
                     properties:
                       matchControllerRef:
@@ -1057,6 +1053,10 @@ spec:
                             type: string
                         type: object
                     type: object
+                  loadbalancerId:
+                    description: Specifies the ID of the load balancer that the listener
+                      is added to.
+                    type: string
                   memberRetryEnable:
                     description: |-
                       Specifies whether to enable health check retries for backend servers.
@@ -1085,7 +1085,7 @@ spec:
                   securityPolicyId:
                     description: Specifies the ID of the custom security policy.
                     type: string
-                  securityPolicyIdRef:
+                  securityPolicyRef:
                     description: Reference to a SecurityPolicyV3 in lb to populate
                       securityPolicyId.
                     properties:
@@ -1123,7 +1123,7 @@ spec:
                     required:
                     - name
                     type: object
-                  securityPolicyIdSelector:
+                  securityPolicySelector:
                     description: Selector for a SecurityPolicyV3 in lb to populate
                       securityPolicyId.
                     properties:

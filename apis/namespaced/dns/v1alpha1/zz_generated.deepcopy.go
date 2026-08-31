@@ -48,20 +48,20 @@ func (in *PtrrecordV2InitParameters) DeepCopyInto(out *PtrrecordV2InitParameters
 		*out = new(string)
 		**out = **in
 	}
+	if in.FloatingIPRef != nil {
+		in, out := &in.FloatingIPRef, &out.FloatingIPRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.FloatingIPSelector != nil {
+		in, out := &in.FloatingIPSelector, &out.FloatingIPSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.FloatingipID != nil {
 		in, out := &in.FloatingipID, &out.FloatingipID
 		*out = new(string)
 		**out = **in
-	}
-	if in.FloatingipIDRef != nil {
-		in, out := &in.FloatingipIDRef, &out.FloatingipIDRef
-		*out = new(v1.NamespacedReference)
-		(*in).DeepCopyInto(*out)
-	}
-	if in.FloatingipIDSelector != nil {
-		in, out := &in.FloatingipIDSelector, &out.FloatingipIDSelector
-		*out = new(v1.NamespacedSelector)
-		(*in).DeepCopyInto(*out)
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
@@ -202,20 +202,20 @@ func (in *PtrrecordV2Parameters) DeepCopyInto(out *PtrrecordV2Parameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.FloatingIPRef != nil {
+		in, out := &in.FloatingIPRef, &out.FloatingIPRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.FloatingIPSelector != nil {
+		in, out := &in.FloatingIPSelector, &out.FloatingIPSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.FloatingipID != nil {
 		in, out := &in.FloatingipID, &out.FloatingipID
 		*out = new(string)
 		**out = **in
-	}
-	if in.FloatingipIDRef != nil {
-		in, out := &in.FloatingipIDRef, &out.FloatingipIDRef
-		*out = new(v1.NamespacedReference)
-		(*in).DeepCopyInto(*out)
-	}
-	if in.FloatingipIDSelector != nil {
-		in, out := &in.FloatingipIDSelector, &out.FloatingipIDSelector
-		*out = new(v1.NamespacedSelector)
-		(*in).DeepCopyInto(*out)
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
@@ -393,13 +393,13 @@ func (in *RecordsetV2InitParameters) DeepCopyInto(out *RecordsetV2InitParameters
 		*out = new(string)
 		**out = **in
 	}
-	if in.ZoneIDRef != nil {
-		in, out := &in.ZoneIDRef, &out.ZoneIDRef
+	if in.ZoneRef != nil {
+		in, out := &in.ZoneRef, &out.ZoneRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.ZoneIDSelector != nil {
-		in, out := &in.ZoneIDSelector, &out.ZoneIDSelector
+	if in.ZoneSelector != nil {
+		in, out := &in.ZoneSelector, &out.ZoneSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -621,13 +621,13 @@ func (in *RecordsetV2Parameters) DeepCopyInto(out *RecordsetV2Parameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.ZoneIDRef != nil {
-		in, out := &in.ZoneIDRef, &out.ZoneIDRef
+	if in.ZoneRef != nil {
+		in, out := &in.ZoneRef, &out.ZoneRef
 		*out = new(v1.NamespacedReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.ZoneIDSelector != nil {
-		in, out := &in.ZoneIDSelector, &out.ZoneIDSelector
+	if in.ZoneSelector != nil {
+		in, out := &in.ZoneSelector, &out.ZoneSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -686,20 +686,20 @@ func (in *RouterInitParameters) DeepCopyInto(out *RouterInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.RouterIDRef != nil {
-		in, out := &in.RouterIDRef, &out.RouterIDRef
-		*out = new(v1.NamespacedReference)
-		(*in).DeepCopyInto(*out)
-	}
-	if in.RouterIDSelector != nil {
-		in, out := &in.RouterIDSelector, &out.RouterIDSelector
-		*out = new(v1.NamespacedSelector)
-		(*in).DeepCopyInto(*out)
-	}
 	if in.RouterRegion != nil {
 		in, out := &in.RouterRegion, &out.RouterRegion
 		*out = new(string)
 		**out = **in
+	}
+	if in.VPCRef != nil {
+		in, out := &in.VPCRef, &out.VPCRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.VPCSelector != nil {
+		in, out := &in.VPCSelector, &out.VPCSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -746,20 +746,20 @@ func (in *RouterParameters) DeepCopyInto(out *RouterParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.RouterIDRef != nil {
-		in, out := &in.RouterIDRef, &out.RouterIDRef
-		*out = new(v1.NamespacedReference)
-		(*in).DeepCopyInto(*out)
-	}
-	if in.RouterIDSelector != nil {
-		in, out := &in.RouterIDSelector, &out.RouterIDSelector
-		*out = new(v1.NamespacedSelector)
-		(*in).DeepCopyInto(*out)
-	}
 	if in.RouterRegion != nil {
 		in, out := &in.RouterRegion, &out.RouterRegion
 		*out = new(string)
 		**out = **in
+	}
+	if in.VPCRef != nil {
+		in, out := &in.VPCRef, &out.VPCRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.VPCSelector != nil {
+		in, out := &in.VPCSelector, &out.VPCSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 

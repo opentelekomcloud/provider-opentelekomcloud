@@ -13,7 +13,7 @@ spec:
     organizationSelector:
       matchLabels:
         testing.upbound.io/example-name: org_1
-    userIdSelector:
+    userSelector:
       matchLabels:
         testing.upbound.io/example-name: example
     usernameSelector:

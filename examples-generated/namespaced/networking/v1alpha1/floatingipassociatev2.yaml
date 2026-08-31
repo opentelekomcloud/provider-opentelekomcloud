@@ -12,7 +12,7 @@ spec:
     floatingIpSelector:
       matchLabels:
         testing.upbound.io/example-name: example
-    portIdSelector:
+    portSelector:
       matchLabels:
         testing.upbound.io/example-name: port_1
 
@@ -29,6 +29,6 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    networkIdSelector:
+    networkSelector:
       matchLabels:
         testing.upbound.io/example-name: example

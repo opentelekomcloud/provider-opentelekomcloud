@@ -1,13 +1,13 @@
 apiVersion: obs.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: BucketPolicy
 metadata:
-  name: xp-bucket-policy-static
+  name: obs-bpol-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     bucketSelector:
       matchLabels:
-        testing.upbound.io/example-name: b
+        testing.upbound.io/example-name: obs-bucketpolicy-static-bucket
     policy: |
       {
         "Statement": [{
@@ -25,7 +25,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: obs/v1alpha1/bucket
   labels:
-    testing.upbound.io/example-name: b
+    testing.upbound.io/example-name: obs-bucketpolicy-static-bucket
   name: xp-bucket-policy-static-bucket
   namespace: test
 spec:

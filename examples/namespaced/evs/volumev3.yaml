@@ -4,22 +4,22 @@ metadata:
   annotations:
     meta.upbound.io/example-id: evs/v1alpha1/volumev3
   labels:
-    testing.upbound.io/example-name: volume_1
-  name: volume-1
+    testing.upbound.io/example-name: evs-volume
+  name: evs-vol-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     availabilityZone: eu-de-01
     description: crossplane
-    name: xp-test-${Rand.RFC1123Subdomain}
+    name: evs-vol-${Rand.RFC1123Subdomain}
     size: 20
     tags:
       foo: bar
       key: value
     volumeType: SAS
-    kmsIdSelector:
+    kmsSelector:
       matchLabels:
-        testing.upbound.io/example-name: key_1
+        testing.upbound.io/example-name: evs-volume-key
 ---
 apiVersion: kms.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: KeyV1
@@ -27,13 +27,13 @@ metadata:
   annotations:
     meta.upbound.io/example-id: kms/v1alpha1/keyv1
   labels:
-    testing.upbound.io/example-name: key_1
-  name: key-1
+    testing.upbound.io/example-name: evs-volume-key
+  name: evs-key-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     isEnabled: true
-    keyAlias: xp-test-${Rand.RFC1123Subdomain}
+    keyAlias: evs-key-${Rand.RFC1123Subdomain}
     keyDescription: crossplane
     pendingDays: "7"
     realm: eu-de

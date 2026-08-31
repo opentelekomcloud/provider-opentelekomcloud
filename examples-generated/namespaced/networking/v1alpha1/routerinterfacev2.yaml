@@ -9,10 +9,10 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    routerIdSelector:
+    routerSelector:
       matchLabels:
         testing.upbound.io/example-name: router_1
-    subnetIdSelector:
+    subnetSelector:
       matchLabels:
         testing.upbound.io/example-name: subnet_1
 
@@ -63,6 +63,6 @@ spec:
   forProvider:
     cidr: 192.168.199.0/24
     ipVersion: 4
-    networkIdSelector:
+    networkSelector:
       matchLabels:
         testing.upbound.io/example-name: network_1

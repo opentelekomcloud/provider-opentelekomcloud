@@ -4,12 +4,12 @@ metadata:
   annotations:
     meta.upbound.io/example-id: compute/v1alpha1/keypairv2
   labels:
-    testing.upbound.io/example-name: sample-instance
-  name: sample-instance
+    testing.upbound.io/example-name: cce-key
+  name: cce-key-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
-    name: xp-test-${Rand.RFC1123Subdomain}
+    name: cce-key-${Rand.RFC1123Subdomain}
     publicKey: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDTUED6lEQhwmmpqypHQLqGu8xoUzvT8/uHb9c/uSTNq/qk5GN7gOeK8bs9DvPf4BIYBj5CPzhaidVDue+poqfL9su0mZ1K+eldWoGwkmjOB22kiA9vYmKDEG5u+S3S2UxsM+k09Qh8WGGMuvmCRF7KyNf8rlSJns3bsyG0vDjKuo3hdoCQi5RW950VtaAaefRXfQqgk1y8SR2xZKM0e24yICHd1C40tb5RgiNx7s45VHfVY6XMO+eESeHyDEJMr1AoJhkuiziE1feYmLIC2C02wpRXdLxqu2DbrJfqaPWe0J5mZKTXAFzpr/kdReDDp0lgJhjcralcLSZVa1JhQ1iX4n7+v0YKa6WHInnjmeN4PLz8gBanE40OpkZI/DVIWbhX/CrYi+tpZKzYc9ZGdd9UDGPNUNwIMMvat73zp/arAhh9n2nl68/iqM/Xhs8BQ8PYYSuMkhEAZksmSN3Qr6PuE3OpmoHRt+nWwtap751O3JwI8Kmt2iH+I4EOD5cx2CPNjFEOnLLSRqcnQ6CszDfDxDfEAT3wNT/4spM7xqDcvUD523b91fJb1N5NjgmxAmksOxJlrJzTUbVLwLh+RcPd/Lz8kB/NX/peZhcUFLdRbdAUIIgKuEOPBTbFm39Hgj5YVSnSQIkXp6hwO7FSh88ps+8fTPgW01IKr8MG4GhiWQ==
 
 ---
@@ -19,13 +19,13 @@ metadata:
   annotations:
     meta.upbound.io/example-id: vpc/v1alpha1/v1
   labels:
-    testing.upbound.io/example-name: sample-instance
-  name: sample-instance
+    testing.upbound.io/example-name: cce-vpc
+  name: cce-vpc-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     cidr: "192.168.0.0/16"
-    name: xp-test-${Rand.RFC1123Subdomain}
+    name: cce-vpc-${Rand.RFC1123Subdomain}
     tags:
       managed-by: crossplane
 ---
@@ -35,18 +35,18 @@ metadata:
   annotations:
     meta.upbound.io/example-id: vpc/v1alpha1/subnetv1
   labels:
-    testing.upbound.io/example-name: sample-instance
-  name: sample-instance
+    testing.upbound.io/example-name: cce-subnet
+  name: cce-stn-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     cidr: "192.168.0.0/16"
     gatewayIp: "192.168.0.1"
-    name: xp-test-${Rand.RFC1123Subdomain}
+    name: cce-stn-${Rand.RFC1123Subdomain}
     ntpAddresses: "10.100.0.33,10.100.0.34"
-    vpcIdSelector:
+    vpcSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-instance
+        testing.upbound.io/example-name: cce-vpc
     tags:
       managed-by: crossplane
 
@@ -57,8 +57,8 @@ metadata:
   annotations:
     meta.upbound.io/example-id: cce/v1alpha1/clusterv3
   labels:
-    testing.upbound.io/example-name: sample-crossplane-cluster
-  name: sample-crossplane-cluster
+    testing.upbound.io/example-name: cce-cluster
+  name: cce-cls-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
@@ -67,13 +67,13 @@ spec:
     description: crossplane
     flavorId: cce.s1.small
     containerNetworkType: vpc-router
-    name: xp-test-${Rand.RFC1123Subdomain}
-    subnetIdSelector:
+    name: cce-cls-${Rand.RFC1123Subdomain}
+    subnetSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-instance
-    vpcIdSelector:
+        testing.upbound.io/example-name: cce-subnet
+    vpcSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-instance
+        testing.upbound.io/example-name: cce-vpc
 
 ---
 apiVersion: cce.opentelekomcloud.m.crossplane.io/v1alpha1
@@ -82,16 +82,16 @@ metadata:
   annotations:
     meta.upbound.io/example-id: cce/v1alpha1/nodev3
   labels:
-    testing.upbound.io/example-name: sample-instance
-  name: sample-instance
+    testing.upbound.io/example-name: cce-node
+  name: cce-nde-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     availabilityZone: eu-de-01
     bandwidthSize: 100
-    clusterIdSelector:
+    clusterSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-crossplane-cluster
+        testing.upbound.io/example-name: cce-cluster
     dataVolumes:
       - size: 100
         volumetype: SSD
@@ -102,8 +102,8 @@ spec:
     flavorId: s2.large.2
     keyPairSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-instance
-    name: xp-test-${Rand.RFC1123Subdomain}
+        testing.upbound.io/example-name: cce-key
+    name: cce-nde-${Rand.RFC1123Subdomain}
     os: HCE OS 2.0
     rootVolume:
       - size: 40
@@ -117,15 +117,15 @@ metadata:
   annotations:
     meta.upbound.io/example-id: cce/v1alpha1/nodepoolv3
   labels:
-    testing.upbound.io/example-name: sample-node-pool
-  name: sample-node-pool
+    testing.upbound.io/example-name: cce-nodepool
+  name: cce-npl-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     availabilityZone: eu-de-01
-    clusterIdSelector:
+    clusterSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-crossplane-cluster
+        testing.upbound.io/example-name: cce-cluster
     dataVolumes:
       - size: 100
         volumetype: SSD
@@ -137,10 +137,10 @@ spec:
     initialNodeCount: 1
     keyPairSelector:
       matchLabels:
-        testing.upbound.io/example-name: sample-instance
+        testing.upbound.io/example-name: cce-key
     maxNodeCount: 9
     minNodeCount: 1
-    name: xp-test-${Rand.RFC1123Subdomain}
+    name: cce-npl-${Rand.RFC1123Subdomain}
     os: HCE OS 2.0
     priority: 1
     rootVolume:

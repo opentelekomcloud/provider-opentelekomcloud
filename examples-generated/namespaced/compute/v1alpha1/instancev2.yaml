@@ -9,6 +9,8 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
+    computeSecurityGroupRefs:
+    - name: example
     flavorId: s2.large.4
     imageId: ${var.image_id}
     keyPairSelector:
@@ -21,7 +23,5 @@ spec:
     - nameSelector:
         matchLabels:
           testing.upbound.io/example-name: example
-    securityGroupsRefs:
-    - name: example
     tags:
       muh: kuh

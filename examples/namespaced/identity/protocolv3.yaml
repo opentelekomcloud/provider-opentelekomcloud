@@ -4,18 +4,18 @@ metadata:
   annotations:
     meta.upbound.io/example-id: identity/v1alpha1/protocolv3
   labels:
-    testing.upbound.io/example-name: saml
-  name: saml
+    testing.upbound.io/example-name: identity-saml
+  name: iam-prot-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     mappingSelector:
       matchLabels:
-        testing.upbound.io/example-name: mapping
+        testing.upbound.io/example-name: identity-protocol-mapping
     protocol: saml
     providerSelector:
       matchLabels:
-        testing.upbound.io/example-name: provider
+        testing.upbound.io/example-name: identity-protocol-provider
 
 ---
 apiVersion: identity.opentelekomcloud.m.crossplane.io/v1alpha1
@@ -24,8 +24,8 @@ metadata:
   annotations:
     meta.upbound.io/example-id: identity/v1alpha1/protocolv3
   labels:
-    testing.upbound.io/example-name: mapping
-  name: mapping
+    testing.upbound.io/example-name: identity-protocol-mapping
+  name: iam-map-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
@@ -55,11 +55,12 @@ metadata:
   annotations:
     meta.upbound.io/example-id: identity/v1alpha1/protocolv3
   labels:
-    testing.upbound.io/example-name: provider
-  name: provider
+    testing.upbound.io/example-name: identity-protocol-provider
+  name: iam-idp-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
     description: This is simple identity provider
     enabled: true
-    name: ACME-${Rand.RFC1123Subdomain}
+    name: iam-idp-${Rand.RFC1123Subdomain}
+

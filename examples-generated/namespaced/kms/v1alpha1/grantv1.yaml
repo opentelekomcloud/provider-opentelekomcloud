@@ -12,7 +12,7 @@ spec:
     granteePrincipalSelector:
       matchLabels:
         testing.upbound.io/example-name: example
-    keyIdSelector:
+    keySelector:
       matchLabels:
         testing.upbound.io/example-name: example
     name: my_grant

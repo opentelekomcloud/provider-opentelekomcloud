@@ -33,15 +33,17 @@ type SnapshotV2InitParameters struct {
 	// The ID of the snapshot's source disk. Changing this parameter creates a new
 	// snapshot.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/evs/v1alpha1.VolumeV3
+	// +crossplane:generate:reference:refFieldName=VolumeRef
+	// +crossplane:generate:reference:selectorFieldName=VolumeSelector
 	VolumeID *string `json:"volumeId,omitempty" tf:"volume_id,omitempty"`
 
 	// Reference to a VolumeV3 in evs to populate volumeId.
 	// +kubebuilder:validation:Optional
-	VolumeIDRef *v1.NamespacedReference `json:"volumeIdRef,omitempty" tf:"-"`
+	VolumeRef *v1.NamespacedReference `json:"volumeRef,omitempty" tf:"-"`
 
 	// Selector for a VolumeV3 in evs to populate volumeId.
 	// +kubebuilder:validation:Optional
-	VolumeIDSelector *v1.NamespacedSelector `json:"volumeIdSelector,omitempty" tf:"-"`
+	VolumeSelector *v1.NamespacedSelector `json:"volumeSelector,omitempty" tf:"-"`
 }
 
 type SnapshotV2Observation struct {
@@ -106,16 +108,18 @@ type SnapshotV2Parameters struct {
 	// The ID of the snapshot's source disk. Changing this parameter creates a new
 	// snapshot.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/evs/v1alpha1.VolumeV3
+	// +crossplane:generate:reference:refFieldName=VolumeRef
+	// +crossplane:generate:reference:selectorFieldName=VolumeSelector
 	// +kubebuilder:validation:Optional
 	VolumeID *string `json:"volumeId,omitempty" tf:"volume_id,omitempty"`
 
 	// Reference to a VolumeV3 in evs to populate volumeId.
 	// +kubebuilder:validation:Optional
-	VolumeIDRef *v1.NamespacedReference `json:"volumeIdRef,omitempty" tf:"-"`
+	VolumeRef *v1.NamespacedReference `json:"volumeRef,omitempty" tf:"-"`
 
 	// Selector for a VolumeV3 in evs to populate volumeId.
 	// +kubebuilder:validation:Optional
-	VolumeIDSelector *v1.NamespacedSelector `json:"volumeIdSelector,omitempty" tf:"-"`
+	VolumeSelector *v1.NamespacedSelector `json:"volumeSelector,omitempty" tf:"-"`
 }
 
 // SnapshotV2Spec defines the desired state of SnapshotV2

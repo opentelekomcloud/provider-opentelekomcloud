@@ -185,15 +185,17 @@ type ListenerV3InitParameters struct {
 	// Specifies the ID of the default backend server group. If there is no
 	// matched forwarding policy, requests are forwarded to the default backend server for processing.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lb/v1alpha1.PoolV3
+	// +crossplane:generate:reference:refFieldName=DefaultPoolRef
+	// +crossplane:generate:reference:selectorFieldName=DefaultPoolSelector
 	DefaultPoolID *string `json:"defaultPoolId,omitempty" tf:"default_pool_id,omitempty"`
 
 	// Reference to a PoolV3 in lb to populate defaultPoolId.
 	// +kubebuilder:validation:Optional
-	DefaultPoolIDRef *v1.NamespacedReference `json:"defaultPoolIdRef,omitempty" tf:"-"`
+	DefaultPoolRef *v1.NamespacedReference `json:"defaultPoolRef,omitempty" tf:"-"`
 
 	// Selector for a PoolV3 in lb to populate defaultPoolId.
 	// +kubebuilder:validation:Optional
-	DefaultPoolIDSelector *v1.NamespacedSelector `json:"defaultPoolIdSelector,omitempty" tf:"-"`
+	DefaultPoolSelector *v1.NamespacedSelector `json:"defaultPoolSelector,omitempty" tf:"-"`
 
 	// Specifies the ID of the server certificate used by the listener.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lb/v1alpha1.CertificateV3
@@ -225,17 +227,19 @@ type ListenerV3InitParameters struct {
 	// Specifies the idle timeout duration, in seconds.
 	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitempty" tf:"keep_alive_timeout,omitempty"`
 
-	// Specifies the ID of the load balancer that the listener is added to.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lb/v1alpha1.LoadbalancerV3
-	LoadbalancerID *string `json:"loadbalancerId,omitempty" tf:"loadbalancer_id,omitempty"`
-
 	// Reference to a LoadbalancerV3 in lb to populate loadbalancerId.
 	// +kubebuilder:validation:Optional
-	LoadbalancerIDRef *v1.NamespacedReference `json:"loadbalancerIdRef,omitempty" tf:"-"`
+	LoadBalancerRef *v1.NamespacedReference `json:"loadBalancerRef,omitempty" tf:"-"`
 
 	// Selector for a LoadbalancerV3 in lb to populate loadbalancerId.
 	// +kubebuilder:validation:Optional
-	LoadbalancerIDSelector *v1.NamespacedSelector `json:"loadbalancerIdSelector,omitempty" tf:"-"`
+	LoadBalancerSelector *v1.NamespacedSelector `json:"loadBalancerSelector,omitempty" tf:"-"`
+
+	// Specifies the ID of the load balancer that the listener is added to.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lb/v1alpha1.LoadbalancerV3
+	// +crossplane:generate:reference:refFieldName=LoadBalancerRef
+	// +crossplane:generate:reference:selectorFieldName=LoadBalancerSelector
+	LoadbalancerID *string `json:"loadbalancerId,omitempty" tf:"loadbalancer_id,omitempty"`
 
 	// Specifies whether to enable health check retries for backend servers.
 	// This parameter is available only for HTTP and HTTPS listeners. An error will be returned if you configure
@@ -260,15 +264,17 @@ type ListenerV3InitParameters struct {
 
 	// Specifies the ID of the custom security policy.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lb/v1alpha1.SecurityPolicyV3
+	// +crossplane:generate:reference:refFieldName=SecurityPolicyRef
+	// +crossplane:generate:reference:selectorFieldName=SecurityPolicySelector
 	SecurityPolicyID *string `json:"securityPolicyId,omitempty" tf:"security_policy_id,omitempty"`
 
 	// Reference to a SecurityPolicyV3 in lb to populate securityPolicyId.
 	// +kubebuilder:validation:Optional
-	SecurityPolicyIDRef *v1.NamespacedReference `json:"securityPolicyIdRef,omitempty" tf:"-"`
+	SecurityPolicyRef *v1.NamespacedReference `json:"securityPolicyRef,omitempty" tf:"-"`
 
 	// Selector for a SecurityPolicyV3 in lb to populate securityPolicyId.
 	// +kubebuilder:validation:Optional
-	SecurityPolicyIDSelector *v1.NamespacedSelector `json:"securityPolicyIdSelector,omitempty" tf:"-"`
+	SecurityPolicySelector *v1.NamespacedSelector `json:"securityPolicySelector,omitempty" tf:"-"`
 
 	// Lists the IDs of SNI certificates (server certificates with domain names) used by the listener.
 	// Each SNI certificate can have up to 30 domain names, and each domain name in the SNI certificate must be unique.
@@ -418,16 +424,18 @@ type ListenerV3Parameters struct {
 	// Specifies the ID of the default backend server group. If there is no
 	// matched forwarding policy, requests are forwarded to the default backend server for processing.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lb/v1alpha1.PoolV3
+	// +crossplane:generate:reference:refFieldName=DefaultPoolRef
+	// +crossplane:generate:reference:selectorFieldName=DefaultPoolSelector
 	// +kubebuilder:validation:Optional
 	DefaultPoolID *string `json:"defaultPoolId,omitempty" tf:"default_pool_id,omitempty"`
 
 	// Reference to a PoolV3 in lb to populate defaultPoolId.
 	// +kubebuilder:validation:Optional
-	DefaultPoolIDRef *v1.NamespacedReference `json:"defaultPoolIdRef,omitempty" tf:"-"`
+	DefaultPoolRef *v1.NamespacedReference `json:"defaultPoolRef,omitempty" tf:"-"`
 
 	// Selector for a PoolV3 in lb to populate defaultPoolId.
 	// +kubebuilder:validation:Optional
-	DefaultPoolIDSelector *v1.NamespacedSelector `json:"defaultPoolIdSelector,omitempty" tf:"-"`
+	DefaultPoolSelector *v1.NamespacedSelector `json:"defaultPoolSelector,omitempty" tf:"-"`
 
 	// Specifies the ID of the server certificate used by the listener.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lb/v1alpha1.CertificateV3
@@ -465,18 +473,20 @@ type ListenerV3Parameters struct {
 	// +kubebuilder:validation:Optional
 	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitempty" tf:"keep_alive_timeout,omitempty"`
 
-	// Specifies the ID of the load balancer that the listener is added to.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lb/v1alpha1.LoadbalancerV3
-	// +kubebuilder:validation:Optional
-	LoadbalancerID *string `json:"loadbalancerId,omitempty" tf:"loadbalancer_id,omitempty"`
-
 	// Reference to a LoadbalancerV3 in lb to populate loadbalancerId.
 	// +kubebuilder:validation:Optional
-	LoadbalancerIDRef *v1.NamespacedReference `json:"loadbalancerIdRef,omitempty" tf:"-"`
+	LoadBalancerRef *v1.NamespacedReference `json:"loadBalancerRef,omitempty" tf:"-"`
 
 	// Selector for a LoadbalancerV3 in lb to populate loadbalancerId.
 	// +kubebuilder:validation:Optional
-	LoadbalancerIDSelector *v1.NamespacedSelector `json:"loadbalancerIdSelector,omitempty" tf:"-"`
+	LoadBalancerSelector *v1.NamespacedSelector `json:"loadBalancerSelector,omitempty" tf:"-"`
+
+	// Specifies the ID of the load balancer that the listener is added to.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lb/v1alpha1.LoadbalancerV3
+	// +crossplane:generate:reference:refFieldName=LoadBalancerRef
+	// +crossplane:generate:reference:selectorFieldName=LoadBalancerSelector
+	// +kubebuilder:validation:Optional
+	LoadbalancerID *string `json:"loadbalancerId,omitempty" tf:"loadbalancer_id,omitempty"`
 
 	// Specifies whether to enable health check retries for backend servers.
 	// This parameter is available only for HTTP and HTTPS listeners. An error will be returned if you configure
@@ -506,16 +516,18 @@ type ListenerV3Parameters struct {
 
 	// Specifies the ID of the custom security policy.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lb/v1alpha1.SecurityPolicyV3
+	// +crossplane:generate:reference:refFieldName=SecurityPolicyRef
+	// +crossplane:generate:reference:selectorFieldName=SecurityPolicySelector
 	// +kubebuilder:validation:Optional
 	SecurityPolicyID *string `json:"securityPolicyId,omitempty" tf:"security_policy_id,omitempty"`
 
 	// Reference to a SecurityPolicyV3 in lb to populate securityPolicyId.
 	// +kubebuilder:validation:Optional
-	SecurityPolicyIDRef *v1.NamespacedReference `json:"securityPolicyIdRef,omitempty" tf:"-"`
+	SecurityPolicyRef *v1.NamespacedReference `json:"securityPolicyRef,omitempty" tf:"-"`
 
 	// Selector for a SecurityPolicyV3 in lb to populate securityPolicyId.
 	// +kubebuilder:validation:Optional
-	SecurityPolicyIDSelector *v1.NamespacedSelector `json:"securityPolicyIdSelector,omitempty" tf:"-"`
+	SecurityPolicySelector *v1.NamespacedSelector `json:"securityPolicySelector,omitempty" tf:"-"`
 
 	// Lists the IDs of SNI certificates (server certificates with domain names) used by the listener.
 	// Each SNI certificate can have up to 30 domain names, and each domain name in the SNI certificate must be unique.

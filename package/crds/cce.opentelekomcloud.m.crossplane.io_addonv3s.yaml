@@ -62,7 +62,7 @@ spec:
                   clusterId:
                     description: ID of cluster to install the add-on on.
                     type: string
-                  clusterIdRef:
+                  clusterRef:
                     description: Reference to a ClusterV3 in cce to populate clusterId.
                     properties:
                       name:
@@ -99,7 +99,7 @@ spec:
                     required:
                     - name
                     type: object
-                  clusterIdSelector:
+                  clusterSelector:
                     description: Selector for a ClusterV3 in cce to populate clusterId.
                     properties:
                       matchControllerRef:
@@ -208,7 +208,7 @@ spec:
                   clusterId:
                     description: ID of cluster to install the add-on on.
                     type: string
-                  clusterIdRef:
+                  clusterRef:
                     description: Reference to a ClusterV3 in cce to populate clusterId.
                     properties:
                       name:
@@ -245,7 +245,7 @@ spec:
                     required:
                     - name
                     type: object
-                  clusterIdSelector:
+                  clusterSelector:
                     description: Selector for a ClusterV3 in cce to populate clusterId.
                     properties:
                       matchControllerRef:

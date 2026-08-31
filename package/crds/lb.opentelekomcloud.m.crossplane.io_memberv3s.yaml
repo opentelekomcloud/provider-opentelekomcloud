@@ -68,7 +68,7 @@ spec:
                     type: string
                   poolId:
                     type: string
-                  poolIdRef:
+                  poolRef:
                     description: Reference to a PoolV3 in lb to populate poolId.
                     properties:
                       name:
@@ -105,7 +105,7 @@ spec:
                     required:
                     - name
                     type: object
-                  poolIdSelector:
+                  poolSelector:
                     description: Selector for a PoolV3 in lb to populate poolId.
                     properties:
                       matchControllerRef:
@@ -241,7 +241,7 @@ spec:
                   subnetId:
                     description: ', for example, 192.168.3.11.'
                     type: string
-                  subnetIdRef:
+                  subnetRef:
                     description: Reference to a SubnetV1 in vpc to populate subnetId.
                     properties:
                       name:
@@ -278,7 +278,7 @@ spec:
                     required:
                     - name
                     type: object
-                  subnetIdSelector:
+                  subnetSelector:
                     description: Selector for a SubnetV1 in vpc to populate subnetId.
                     properties:
                       matchControllerRef:
@@ -347,7 +347,7 @@ spec:
                     type: string
                   poolId:
                     type: string
-                  poolIdRef:
+                  poolRef:
                     description: Reference to a PoolV3 in lb to populate poolId.
                     properties:
                       name:
@@ -384,7 +384,7 @@ spec:
                     required:
                     - name
                     type: object
-                  poolIdSelector:
+                  poolSelector:
                     description: Selector for a PoolV3 in lb to populate poolId.
                     properties:
                       matchControllerRef:
@@ -520,7 +520,7 @@ spec:
                   subnetId:
                     description: ', for example, 192.168.3.11.'
                     type: string
-                  subnetIdRef:
+                  subnetRef:
                     description: Reference to a SubnetV1 in vpc to populate subnetId.
                     properties:
                       name:
@@ -557,7 +557,7 @@ spec:
                     required:
                     - name
                     type: object
-                  subnetIdSelector:
+                  subnetSelector:
                     description: Selector for a SubnetV1 in vpc to populate subnetId.
                     properties:
                       matchControllerRef:

@@ -70,7 +70,7 @@ spec:
                     description: The VPC Peering Connection ID to manage. Changing
                       this creates a new VPC peering connection accepter.
                     type: string
-                  vpcPeeringConnectionIdRef:
+                  vpcPeeringConnectionRef:
                     description: Reference to a PeeringConnectionV2 in vpc to populate
                       vpcPeeringConnectionId.
                     properties:
@@ -108,7 +108,7 @@ spec:
                     required:
                     - name
                     type: object
-                  vpcPeeringConnectionIdSelector:
+                  vpcPeeringConnectionSelector:
                     description: Selector for a PeeringConnectionV2 in vpc to populate
                       vpcPeeringConnectionId.
                     properties:
@@ -176,7 +176,7 @@ spec:
                     description: The VPC Peering Connection ID to manage. Changing
                       this creates a new VPC peering connection accepter.
                     type: string
-                  vpcPeeringConnectionIdRef:
+                  vpcPeeringConnectionRef:
                     description: Reference to a PeeringConnectionV2 in vpc to populate
                       vpcPeeringConnectionId.
                     properties:
@@ -214,7 +214,7 @@ spec:
                     required:
                     - name
                     type: object
-                  vpcPeeringConnectionIdSelector:
+                  vpcPeeringConnectionSelector:
                     description: Selector for a PeeringConnectionV2 in vpc to populate
                       vpcPeeringConnectionId.
                     properties:

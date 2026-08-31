@@ -29,15 +29,17 @@ type RouterRouteV2InitParameters struct {
 	// ID of the router this routing entry belongs to. Changing
 	// this creates a new routing entry.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/networking/v1alpha1.RouterV2
+	// +crossplane:generate:reference:refFieldName=RouterRef
+	// +crossplane:generate:reference:selectorFieldName=RouterSelector
 	RouterID *string `json:"routerId,omitempty" tf:"router_id,omitempty"`
 
 	// Reference to a RouterV2 in networking to populate routerId.
 	// +kubebuilder:validation:Optional
-	RouterIDRef *v1.NamespacedReference `json:"routerIdRef,omitempty" tf:"-"`
+	RouterRef *v1.NamespacedReference `json:"routerRef,omitempty" tf:"-"`
 
 	// Selector for a RouterV2 in networking to populate routerId.
 	// +kubebuilder:validation:Optional
-	RouterIDSelector *v1.NamespacedSelector `json:"routerIdSelector,omitempty" tf:"-"`
+	RouterSelector *v1.NamespacedSelector `json:"routerSelector,omitempty" tf:"-"`
 }
 
 type RouterRouteV2Observation struct {
@@ -77,16 +79,18 @@ type RouterRouteV2Parameters struct {
 	// ID of the router this routing entry belongs to. Changing
 	// this creates a new routing entry.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/networking/v1alpha1.RouterV2
+	// +crossplane:generate:reference:refFieldName=RouterRef
+	// +crossplane:generate:reference:selectorFieldName=RouterSelector
 	// +kubebuilder:validation:Optional
 	RouterID *string `json:"routerId,omitempty" tf:"router_id,omitempty"`
 
 	// Reference to a RouterV2 in networking to populate routerId.
 	// +kubebuilder:validation:Optional
-	RouterIDRef *v1.NamespacedReference `json:"routerIdRef,omitempty" tf:"-"`
+	RouterRef *v1.NamespacedReference `json:"routerRef,omitempty" tf:"-"`
 
 	// Selector for a RouterV2 in networking to populate routerId.
 	// +kubebuilder:validation:Optional
-	RouterIDSelector *v1.NamespacedSelector `json:"routerIdSelector,omitempty" tf:"-"`
+	RouterSelector *v1.NamespacedSelector `json:"routerSelector,omitempty" tf:"-"`
 }
 
 // RouterRouteV2Spec defines the desired state of RouterRouteV2

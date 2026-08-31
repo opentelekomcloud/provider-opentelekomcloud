@@ -25,11 +25,11 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
+    computeSecurityGroupRefs:
+    - name: secgroup_1
     name: instance_1
     network:
     - port: ${opentelekomcloud_networking_port_v2.port_1.id}
-    securityGroupsRefs:
-    - name: secgroup_1
 
 ---
 
@@ -68,14 +68,14 @@ spec:
     adminStateUp: "true"
     fixedIp:
     - ipAddress: 192.168.199.10
-      subnetIdSelector:
+      subnetSelector:
         matchLabels:
           testing.upbound.io/example-name: subnet_1
     name: port_1
-    networkIdSelector:
+    networkSelector:
       matchLabels:
         testing.upbound.io/example-name: network_1
-    securityGroupIdsRefs:
+    securityGroupRef:
     - name: secgroup_1
 
 ---
@@ -94,6 +94,6 @@ spec:
     cidr: 192.168.199.0/24
     ipVersion: 4
     name: subnet_1
-    networkIdSelector:
+    networkSelector:
       matchLabels:
         testing.upbound.io/example-name: network_1

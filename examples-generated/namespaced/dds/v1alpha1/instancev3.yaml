@@ -10,6 +10,9 @@ metadata:
 spec:
   forProvider:
     availabilityZone: ${var.availability_zone}
+    computeSecurityGroupSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     datastore:
     - storageEngine: wiredTiger
       type: DDS-Community
@@ -27,15 +30,12 @@ spec:
     passwordSecretRef:
       key: example-key
       name: example-secret
-    securityGroupIdSelector:
-      matchLabels:
-        testing.upbound.io/example-name: example
-    subnetIdSelector:
+    subnetSelector:
       matchLabels:
         testing.upbound.io/example-name: example
     tags:
       foo: bar
       new_test: new_test2
-    vpcIdSelector:
+    vpcSelector:
       matchLabels:
         testing.upbound.io/example-name: example

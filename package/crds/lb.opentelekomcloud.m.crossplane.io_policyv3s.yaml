@@ -95,7 +95,7 @@ spec:
                       The Listener on which the Policy will be associated with.
                       Changing this creates a new Policy.
                     type: string
-                  listenerIdRef:
+                  listenerRef:
                     description: Reference to a ListenerV3 in lb to populate listenerId.
                     properties:
                       name:
@@ -132,7 +132,7 @@ spec:
                     required:
                     - name
                     type: object
-                  listenerIdSelector:
+                  listenerSelector:
                     description: Selector for a ListenerV3 in lb to populate listenerId.
                     properties:
                       matchControllerRef:
@@ -284,7 +284,7 @@ spec:
                       Requests matching this policy will be redirected to the listener with this ID.
                       Only valid if action is REDIRECT_TO_LISTENER.
                     type: string
-                  redirectListenerIdRef:
+                  redirectListenerRef:
                     description: Reference to a ListenerV3 in lb to populate redirectListenerId.
                     properties:
                       name:
@@ -321,7 +321,7 @@ spec:
                     required:
                     - name
                     type: object
-                  redirectListenerIdSelector:
+                  redirectListenerSelector:
                     description: Selector for a ListenerV3 in lb to populate redirectListenerId.
                     properties:
                       matchControllerRef:
@@ -369,7 +369,7 @@ spec:
                       Requests matching this policy will be redirected to the pool with this ID.
                       Only valid if action is REDIRECT_TO_POOL.
                     type: string
-                  redirectPoolIdRef:
+                  redirectPoolRef:
                     description: Reference to a PoolV3 in lb to populate redirectPoolId.
                     properties:
                       name:
@@ -406,7 +406,7 @@ spec:
                     required:
                     - name
                     type: object
-                  redirectPoolIdSelector:
+                  redirectPoolSelector:
                     description: Selector for a PoolV3 in lb to populate redirectPoolId.
                     properties:
                       matchControllerRef:
@@ -458,7 +458,7 @@ spec:
                         poolId:
                           description: '- Specifies the ID of the backend server group.'
                           type: string
-                        poolIdRef:
+                        poolsRef:
                           description: Reference to a PoolV3 in lb to populate poolId.
                           properties:
                             name:
@@ -495,7 +495,7 @@ spec:
                           required:
                           - name
                           type: object
-                        poolIdSelector:
+                        poolsSelector:
                           description: Selector for a PoolV3 in lb to populate poolId.
                           properties:
                             matchControllerRef:
@@ -660,7 +660,7 @@ spec:
                       The Listener on which the Policy will be associated with.
                       Changing this creates a new Policy.
                     type: string
-                  listenerIdRef:
+                  listenerRef:
                     description: Reference to a ListenerV3 in lb to populate listenerId.
                     properties:
                       name:
@@ -697,7 +697,7 @@ spec:
                     required:
                     - name
                     type: object
-                  listenerIdSelector:
+                  listenerSelector:
                     description: Selector for a ListenerV3 in lb to populate listenerId.
                     properties:
                       matchControllerRef:
@@ -849,7 +849,7 @@ spec:
                       Requests matching this policy will be redirected to the listener with this ID.
                       Only valid if action is REDIRECT_TO_LISTENER.
                     type: string
-                  redirectListenerIdRef:
+                  redirectListenerRef:
                     description: Reference to a ListenerV3 in lb to populate redirectListenerId.
                     properties:
                       name:
@@ -886,7 +886,7 @@ spec:
                     required:
                     - name
                     type: object
-                  redirectListenerIdSelector:
+                  redirectListenerSelector:
                     description: Selector for a ListenerV3 in lb to populate redirectListenerId.
                     properties:
                       matchControllerRef:
@@ -934,7 +934,7 @@ spec:
                       Requests matching this policy will be redirected to the pool with this ID.
                       Only valid if action is REDIRECT_TO_POOL.
                     type: string
-                  redirectPoolIdRef:
+                  redirectPoolRef:
                     description: Reference to a PoolV3 in lb to populate redirectPoolId.
                     properties:
                       name:
@@ -971,7 +971,7 @@ spec:
                     required:
                     - name
                     type: object
-                  redirectPoolIdSelector:
+                  redirectPoolSelector:
                     description: Selector for a PoolV3 in lb to populate redirectPoolId.
                     properties:
                       matchControllerRef:
@@ -1023,7 +1023,7 @@ spec:
                         poolId:
                           description: '- Specifies the ID of the backend server group.'
                           type: string
-                        poolIdRef:
+                        poolsRef:
                           description: Reference to a PoolV3 in lb to populate poolId.
                           properties:
                             name:
@@ -1060,7 +1060,7 @@ spec:
                           required:
                           - name
                           type: object
-                        poolIdSelector:
+                        poolsSelector:
                           description: Selector for a PoolV3 in lb to populate poolId.
                           properties:
                             matchControllerRef:
