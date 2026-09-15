@@ -22,3 +22,7 @@ encryption operations on the key.
 | `realm: eu-de` | KeyV1 `spec.forProvider.realm` | Change to the region where the key should be created |
 | `operations` | GrantV1 `spec.forProvider.operations` | Adjust to the key operations you want to grant (`describe-key`, `create-datakey`, `encrypt-datakey`) |
 | `namespace: test` | all resources | All resources are created in the `test` namespace - adjust if needed |
+
+## Prerequisites
+
+This example requires a configured `ClusterProviderConfig` - see [providerconfig](../providerconfig/README.md).

@@ -25,3 +25,7 @@ a password from a Kubernetes secret.
 | `availabilityZones: [eu-de-01]` | InstanceV2 | Change to an AZ in your region |
 | `capacity: 0.125` | InstanceV2 | Adjust storage capacity (GB) |
 | `namespace: test` | VpcV1, SubnetV1, InstanceV2 | All resources are created in the `test` namespace - adjust if needed |
+
+## Prerequisites
+
+This example requires a configured `ClusterProviderConfig` - see [providerconfig](../providerconfig/README.md).

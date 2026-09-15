@@ -41,3 +41,7 @@ Test case: `snapshotv2.yaml` - creates an EVS volume and a snapshot of it.
 | `availabilityZone: eu-de-01` | VolumeV3 `spec.forProvider.availabilityZone` | Change to an AZ in your region |
 | `size: 12` / `volumeType: SAS` | VolumeV3 | Adjust size and volume type to what you need |
 | `namespace: test` | all resources | All resources are created in the `test` namespace - adjust if needed |
+
+## Prerequisites
+
+This example requires a configured `ClusterProviderConfig` - see [providerconfig](../providerconfig/README.md).

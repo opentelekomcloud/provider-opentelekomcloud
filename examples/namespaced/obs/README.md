@@ -206,3 +206,7 @@ full owner permissions.
 |------|-------|-----------|
 | `${Rand.RFC1123Subdomain}` | names of BucketACL, Bucket | Replace with a unique, globally-unique bucket name and suffix |
 | `namespace: test` | all resources | All resources are created in the `test` namespace - adjust if needed |
+
+## Prerequisites
+
+This example requires a configured `ClusterProviderConfig` - see [providerconfig](../providerconfig/README.md).

@@ -27,3 +27,7 @@ subnet, router interface, and a floating IP associated to the instance.
 | `pool: admin_external_net` | FloatingipV2 `spec.forProvider.pool` | Replace with the external network pool of your project |
 | `cidr: 192.168.199.0/24` | SubnetV2 | Adjust to a CIDR that does not conflict with existing networks |
 | `namespace: test` | all resources | All resources are created in the `test` namespace - adjust if needed |
+
+## Prerequisites
+
+This example requires a configured `ClusterProviderConfig` - see [providerconfig](../providerconfig/README.md).

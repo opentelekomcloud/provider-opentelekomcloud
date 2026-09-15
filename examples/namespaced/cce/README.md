@@ -27,3 +27,7 @@ one dedicated node, and an auto-scaling node pool.
 | `availabilityZone: eu-de-01` | NodeV3, NodePoolV3 | Change to an AZ in your region |
 | `os: HCE OS 2.0` | NodeV3, NodePoolV3 | Change to the OS image available in your region |
 | `namespace: test` | all resources | All resources are created in the `test` namespace - adjust if needed |
+
+## Prerequisites
+
+This example requires a configured `ClusterProviderConfig` - see [providerconfig](../providerconfig/README.md).

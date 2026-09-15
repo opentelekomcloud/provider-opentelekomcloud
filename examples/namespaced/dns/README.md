@@ -44,3 +44,7 @@ Test case: `ptrrecord.yaml` - creates an EIP and a PTR record pointing at it.
 | `name: ptr.crossplane.com.` | PtrrecordV2 `spec.forProvider.name` | Replace with the PTR domain name you want (must be in a domain you control) |
 | `bandwidth: size: 8` | EIPV1 `spec.forProvider.bandwidth` | Adjust the bandwidth size if needed |
 | `namespace: test` | all resources | All resources are created in the `test` namespace - adjust if needed |
+
+## Prerequisites
+
+This example requires a configured `ClusterProviderConfig` - see [providerconfig](../providerconfig/README.md).

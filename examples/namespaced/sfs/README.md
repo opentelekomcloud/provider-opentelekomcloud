@@ -64,3 +64,7 @@ share with a VPC, subnet, security group, and security group rule.
 | `size: 500` | TurboShareV1 `spec.forProvider.size` | Adjust the share size (GB) |
 | `multiPort: "1-60000"` | SecgroupRuleV3 `spec.forProvider.multiPort` | Adjust the port range for the security rule |
 | `namespace: test` | all resources | All resources are created in the `test` namespace - adjust if needed |
+
+## Prerequisites
+
+This example requires a configured `ClusterProviderConfig` - see [providerconfig](../providerconfig/README.md).

@@ -292,3 +292,7 @@ Test case: `userv3.yaml` - creates an IAM user with a password from a Kubernetes
 | `${Rand.RFC1123Subdomain}` | name, `spec.forProvider.name` | Replace with a unique RFC1123-compatible suffix (or leave for the example generator to substitute) |
 | `${data.userKey}` | Secret `example-secret`, key `example-key` | Replace with the base64-encoded user password (e.g. `base64 <<< '<password>'`) |
 | `namespace: test` | all resources | All resources are created in the `test` namespace - adjust if needed |
+
+## Prerequisites
+
+This example requires a configured `ClusterProviderConfig` - see [providerconfig](../providerconfig/README.md).

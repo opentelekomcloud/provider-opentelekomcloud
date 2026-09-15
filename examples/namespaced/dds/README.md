@@ -27,3 +27,7 @@ VPC, subnet, security group, password secret, and a backup.
 | `availabilityZone: eu-de-01` | InstanceV3 | Change to an AZ in your region |
 | `security group rules` (ports 22/8080/27017 from 0.0.0.0/0) | SecgroupV2 `spec.forProvider.rule` | Restrict the CIDR and ports to what you actually need |
 | `namespace: test` | all resources | All resources are created in the `test` namespace - adjust if needed |
+
+## Prerequisites
+
+This example requires a configured `ClusterProviderConfig` - see [providerconfig](../providerconfig/README.md).

@@ -59,3 +59,7 @@ security group rules to reference a set of IPs).
 | `${Rand.RFC1123Subdomain}` | metadata name | Replace with a unique RFC1123-compatible suffix (or leave for the example generator to substitute) |
 | `ipVersion: 4` | `spec.forProvider.ipVersion` | Change to `6` if you need an IPv6 address group |
 | `namespace: test` | all resources | All resources are created in the `test` namespace - adjust if needed |
+
+## Prerequisites
+
+This example requires a configured `ClusterProviderConfig` - see [providerconfig](../providerconfig/README.md).

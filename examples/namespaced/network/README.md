@@ -21,3 +21,7 @@ connects the router to the subnet via a router interface.
 | `${Rand.RFC1123Subdomain}` | `spec.forProvider.name` of NetworkV2, RouterV2, SubnetV2 | Replace with a unique RFC1123-compatible suffix (or leave for the example generator to substitute) |
 | `cidr: 192.168.199.0/24` | SubnetV2 `spec.forProvider.cidr` | Adjust to a CIDR that does not conflict with existing networks |
 | `namespace: test` | all resources | All resources are created in the `test` namespace - adjust if needed |
+
+## Prerequisites
+
+This example requires a configured `ClusterProviderConfig` - see [providerconfig](../providerconfig/README.md).

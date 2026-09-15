@@ -80,3 +80,7 @@ IAM user, and grants the user admin permissions (auth: 3) on the organization.
 | `${Rand.RFC1123Subdomain}` | names of all resources, `spec.forProvider.name` fields | Replace with a unique RFC1123-compatible suffix (or leave for the example generator to substitute) |
 | `auth: 3` | OrganizationPermissionsV2 `spec.forProvider.auth` | Change to `1` (read-only) or `2` (read-write) depending on the access level you need |
 | `namespace: test` | all resources | All resources are created in the `test` namespace - adjust if needed |
+
+## Prerequisites
+
+This example requires a configured `ClusterProviderConfig` - see [providerconfig](../providerconfig/README.md).

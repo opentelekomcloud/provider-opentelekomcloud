@@ -123,3 +123,7 @@ listener, pool, L7 policy with a redirect-to-pool action, and a regex rule.
 | `position: 37` | PolicyV3 `spec.forProvider.position` | Adjust the policy evaluation order if needed |
 | `availabilityZones: [eu-de-01]` | LoadbalancerV3 | Change to an AZ in your region |
 | `namespace: test` | all resources | All resources are created in the `test` namespace - adjust if needed |
+
+## Prerequisites
+
+This example requires a configured `ClusterProviderConfig` - see [providerconfig](../providerconfig/README.md).
