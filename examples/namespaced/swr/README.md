@@ -2,7 +2,7 @@
 
 ## organizationsv2.yaml
 
-Test case: `organizationsv2.yaml` - creates an SWR (SoftWare Repository) organization.
+Test case: `organizationsv2.yaml` - creates an SWR organization.
 
 ### APIs used
 

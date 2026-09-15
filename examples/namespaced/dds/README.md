@@ -2,7 +2,7 @@
 
 ## instance.yaml
 
-Test case: `instance.yaml` - creates a DDS (MongoDB) replica set instance with a
+Test case: `instance.yaml` - creates a DDS replica set instance with a
 VPC, subnet, security group, password secret, and a backup.
 
 ### APIs used

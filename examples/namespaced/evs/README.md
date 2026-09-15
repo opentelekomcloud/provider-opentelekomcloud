@@ -2,7 +2,7 @@
 
 ## volumev3.yaml
 
-Test case: `volumev3.yaml` - creates an EVS (Elastic Volume Storage) volume
+Test case: `volumev3.yaml` - creates an EVS (Elastic Volume Service) volume
 encrypted with a KMS key.
 
 ### APIs used

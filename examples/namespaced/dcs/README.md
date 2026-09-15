@@ -2,7 +2,7 @@
 
 ## instance.yaml
 
-Test case: `instance.yaml` - creates a DCS (Redis) instance in a VPC/subnet with
+Test case: `instance.yaml` - creates a DCS instance in a VPC/subnet with
 a password from a Kubernetes secret.
 
 ### APIs used

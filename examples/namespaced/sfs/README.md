@@ -2,7 +2,7 @@
 
 ## filesystemv2.yaml
 
-Test case: `filesystemv2.yaml` - creates a basic SFS (Shared File System) NFS share.
+Test case: `filesystemv2.yaml` - creates a basic SFS NFS share.
 
 ### APIs used
 
