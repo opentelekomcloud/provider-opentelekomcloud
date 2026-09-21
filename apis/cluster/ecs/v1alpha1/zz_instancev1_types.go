@@ -42,6 +42,8 @@ type DataDisksInitParameters struct {
 }
 
 type DataDisksObservation struct {
+
+	// The ID of an existing shared bandwidth.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// The Encryption KMS ID of the data disk. Changing this
@@ -91,6 +93,25 @@ type DataDisksParameters struct {
 	// Changing this creates a new server. Options are limited depending on AZ. Available options are:
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type" tf:"type,omitempty"`
+}
+
+type IPv6BandwidthInitParameters struct {
+
+	// The ID of an existing shared bandwidth.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+}
+
+type IPv6BandwidthObservation struct {
+
+	// The ID of an existing shared bandwidth.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+}
+
+type IPv6BandwidthParameters struct {
+
+	// The ID of an existing shared bandwidth.
+	// +kubebuilder:validation:Optional
+	ID *string `json:"id" tf:"id,omitempty"`
 }
 
 type InstanceV1InitParameters struct {
@@ -242,6 +263,7 @@ type InstanceV1Observation struct {
 	// The name of the desired flavor for the server.
 	Flavor *string `json:"flavor,omitempty" tf:"flavor,omitempty"`
 
+	// The ID of an existing shared bandwidth.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// The ID of the desired image for the server. Changing this creates a new server.
@@ -480,6 +502,10 @@ type NicsInitParameters struct {
 	// network. Changing this creates a new server.
 	IPAddress *string `json:"ipAddress,omitempty" tf:"ip_address,omitempty"`
 
+	// The shared bandwidth to associate with the NIC's IPv6 address.
+	// This argument requires ipv6_enable = true. The structure is documented below.
+	IPv6Bandwidth []IPv6BandwidthInitParameters `json:"ipv6Bandwidth,omitempty" tf:"ipv6_bandwidth,omitempty"`
+
 	// Specifies whether to support IPv6 addresses. If this parameter is set to true, the NIC supports IPv6 addresses.
 	IPv6Enable *bool `json:"ipv6Enable,omitempty" tf:"ipv6_enable,omitempty"`
 
@@ -505,6 +531,10 @@ type NicsObservation struct {
 
 	IPv6Address *string `json:"ipv6Address,omitempty" tf:"ipv6_address,omitempty"`
 
+	// The shared bandwidth to associate with the NIC's IPv6 address.
+	// This argument requires ipv6_enable = true. The structure is documented below.
+	IPv6Bandwidth []IPv6BandwidthObservation `json:"ipv6Bandwidth,omitempty" tf:"ipv6_bandwidth,omitempty"`
+
 	// Specifies whether to support IPv6 addresses. If this parameter is set to true, the NIC supports IPv6 addresses.
 	IPv6Enable *bool `json:"ipv6Enable,omitempty" tf:"ipv6_enable,omitempty"`
 
@@ -526,6 +556,11 @@ type NicsParameters struct {
 	// network. Changing this creates a new server.
 	// +kubebuilder:validation:Optional
 	IPAddress *string `json:"ipAddress,omitempty" tf:"ip_address,omitempty"`
+
+	// The shared bandwidth to associate with the NIC's IPv6 address.
+	// This argument requires ipv6_enable = true. The structure is documented below.
+	// +kubebuilder:validation:Optional
+	IPv6Bandwidth []IPv6BandwidthParameters `json:"ipv6Bandwidth,omitempty" tf:"ipv6_bandwidth,omitempty"`
 
 	// Specifies whether to support IPv6 addresses. If this parameter is set to true, the NIC supports IPv6 addresses.
 	// +kubebuilder:validation:Optional
@@ -589,6 +624,8 @@ type VolumesAttachedInitParameters struct {
 }
 
 type VolumesAttachedObservation struct {
+
+	// The ID of an existing shared bandwidth.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// The Encryption KMS ID of the data disk. Changing this

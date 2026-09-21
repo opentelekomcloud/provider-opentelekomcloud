@@ -28,6 +28,7 @@ type SecgroupRuleV3InitParameters struct {
 	// Specifies the IP version. Supported values: IPv4, IPv6. Default: IPv4 .
 	EtherType *string `json:"etherType,omitempty" tf:"ether_type,omitempty"`
 
+	// Specifies the port or port range. The value can be a single port, e.g. 80, a port range, e.g. 1-30, or inconsecutive ports separated by commas, e.g. 22,3389,80.
 	MultiPort *string `json:"multiPort,omitempty" tf:"multi_port,omitempty"`
 
 	// Specifies the rule priority in a security group. The value is from 1 to 100. The value 1 indicates the highest priority. Default value: 1.
@@ -80,6 +81,7 @@ type SecgroupRuleV3Observation struct {
 	// Security Group Rule ID.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// Specifies the port or port range. The value can be a single port, e.g. 80, a port range, e.g. 1-30, or inconsecutive ports separated by commas, e.g. 22,3389,80.
 	MultiPort *string `json:"multiPort,omitempty" tf:"multi_port,omitempty"`
 
 	// Specifies the rule priority in a security group. The value is from 1 to 100. The value 1 indicates the highest priority. Default value: 1.
@@ -125,6 +127,7 @@ type SecgroupRuleV3Parameters struct {
 	// +kubebuilder:validation:Optional
 	EtherType *string `json:"etherType,omitempty" tf:"ether_type,omitempty"`
 
+	// Specifies the port or port range. The value can be a single port, e.g. 80, a port range, e.g. 1-30, or inconsecutive ports separated by commas, e.g. 22,3389,80.
 	// +kubebuilder:validation:Optional
 	MultiPort *string `json:"multiPort,omitempty" tf:"multi_port,omitempty"`
 

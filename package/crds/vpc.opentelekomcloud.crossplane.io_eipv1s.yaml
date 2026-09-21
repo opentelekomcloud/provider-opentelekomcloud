@@ -106,6 +106,9 @@ spec:
                           type: number
                       type: object
                     type: array
+                  enterpriseProjectId:
+                    description: The enterprise project associated with the EIP.
+                    type: string
                   publicip:
                     description: The elastic IP address object.
                     items:
@@ -115,6 +118,11 @@ spec:
                             The value must be a valid IP address in the available
                             IP address segment. Changing this creates a new eip.
                           type: string
+                        ipVersion:
+                          description: |-
+                            Specifies the EIP version. Valid values are 4 and 6.
+                            Changing this creates a new EIP. IPv6 EIPs are not currently supported.
+                          type: number
                         name:
                           description: The ip name, which is a string of 1 to 64 characters.
                           type: string
@@ -132,7 +140,7 @@ spec:
                     type: array
                   region:
                     description: |-
-                      The region in which to obtain the V1 Networking client.
+                      The region in which to obtain the VPC v1 client.
                       If omitted, the region argument of the provider is used. Changing this
                       creates a new service.
                     type: string
@@ -150,6 +158,9 @@ spec:
                   valueSpecs:
                     additionalProperties:
                       type: string
+                    description: |-
+                      Legacy additional creation parameters. This compatibility
+                      argument uses the legacy creation request when set.
                     type: object
                     x-kubernetes-map-type: granular
                 type: object
@@ -199,6 +210,9 @@ spec:
                           type: number
                       type: object
                     type: array
+                  enterpriseProjectId:
+                    description: The enterprise project associated with the EIP.
+                    type: string
                   publicip:
                     description: The elastic IP address object.
                     items:
@@ -208,6 +222,11 @@ spec:
                             The value must be a valid IP address in the available
                             IP address segment. Changing this creates a new eip.
                           type: string
+                        ipVersion:
+                          description: |-
+                            Specifies the EIP version. Valid values are 4 and 6.
+                            Changing this creates a new EIP. IPv6 EIPs are not currently supported.
+                          type: number
                         name:
                           description: The ip name, which is a string of 1 to 64 characters.
                           type: string
@@ -225,7 +244,7 @@ spec:
                     type: array
                   region:
                     description: |-
-                      The region in which to obtain the V1 Networking client.
+                      The region in which to obtain the VPC v1 client.
                       If omitted, the region argument of the provider is used. Changing this
                       creates a new service.
                     type: string
@@ -243,6 +262,9 @@ spec:
                   valueSpecs:
                     additionalProperties:
                       type: string
+                    description: |-
+                      Legacy additional creation parameters. This compatibility
+                      argument uses the legacy creation request when set.
                     type: object
                     x-kubernetes-map-type: granular
                 type: object
@@ -346,6 +368,12 @@ spec:
             properties:
               atProvider:
                 properties:
+                  allowShareBandwidthTypes:
+                    description: Shared-bandwidth types to which the EIP can be added.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
                   bandwidth:
                     description: The bandwidth object.
                     items:
@@ -379,8 +407,14 @@ spec:
                           type: number
                       type: object
                     type: array
+                  enterpriseProjectId:
+                    description: The enterprise project associated with the EIP.
+                    type: string
                   id:
                     description: The VPC EIP id.
+                    type: string
+                  publicBorderGroup:
+                    description: The EIP location, such as center or an edge site.
                     type: string
                   publicip:
                     description: The elastic IP address object.
@@ -391,6 +425,11 @@ spec:
                             The value must be a valid IP address in the available
                             IP address segment. Changing this creates a new eip.
                           type: string
+                        ipVersion:
+                          description: |-
+                            Specifies the EIP version. Valid values are 4 and 6.
+                            Changing this creates a new EIP. IPv6 EIPs are not currently supported.
+                          type: number
                         name:
                           description: The ip name, which is a string of 1 to 64 characters.
                           type: string
@@ -408,7 +447,7 @@ spec:
                     type: array
                   region:
                     description: |-
-                      The region in which to obtain the V1 Networking client.
+                      The region in which to obtain the VPC v1 client.
                       If omitted, the region argument of the provider is used. Changing this
                       creates a new service.
                     type: string
@@ -426,6 +465,9 @@ spec:
                   valueSpecs:
                     additionalProperties:
                       type: string
+                    description: |-
+                      Legacy additional creation parameters. This compatibility
+                      argument uses the legacy creation request when set.
                     type: object
                     x-kubernetes-map-type: granular
                 type: object

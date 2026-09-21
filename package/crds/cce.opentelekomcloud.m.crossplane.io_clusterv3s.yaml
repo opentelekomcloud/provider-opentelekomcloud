@@ -59,6 +59,14 @@ spec:
             properties:
               forProvider:
                 properties:
+                  agencyName:
+                    description: |-
+                      Name of the custom IAM agency to use for this cluster.
+                      The agency must be of the cloud service type, delegated to op_svc_cce,
+                      and have any available role assigned for the target project.
+                      Custom agencies are supported only in clusters of v1.27 or later (CCE Standard only).
+                      Changing this updates the agency on the running cluster without recreation.
+                    type: string
                   annotations:
                     additionalProperties:
                       type: string
@@ -814,6 +822,14 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
+                  agencyName:
+                    description: |-
+                      Name of the custom IAM agency to use for this cluster.
+                      The agency must be of the cloud service type, delegated to op_svc_cce,
+                      and have any available role assigned for the target project.
+                      Custom agencies are supported only in clusters of v1.27 or later (CCE Standard only).
+                      Changing this updates the agency on the running cluster without recreation.
+                    type: string
                   annotations:
                     additionalProperties:
                       type: string
@@ -1636,6 +1652,14 @@ spec:
             properties:
               atProvider:
                 properties:
+                  agencyName:
+                    description: |-
+                      Name of the custom IAM agency to use for this cluster.
+                      The agency must be of the cloud service type, delegated to op_svc_cce,
+                      and have any available role assigned for the target project.
+                      Custom agencies are supported only in clusters of v1.27 or later (CCE Standard only).
+                      Changing this updates the agency on the running cluster without recreation.
+                    type: string
                   annotations:
                     additionalProperties:
                       type: string

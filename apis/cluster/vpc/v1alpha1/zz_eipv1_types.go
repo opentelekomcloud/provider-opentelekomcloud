@@ -98,10 +98,13 @@ type EIPV1InitParameters struct {
 	// The bandwidth object.
 	Bandwidth []BandwidthInitParameters `json:"bandwidth,omitempty" tf:"bandwidth,omitempty"`
 
+	// The enterprise project associated with the EIP.
+	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
+
 	// The elastic IP address object.
 	Publicip []PublicipInitParameters `json:"publicip,omitempty" tf:"publicip,omitempty"`
 
-	// The region in which to obtain the V1 Networking client.
+	// The region in which to obtain the VPC v1 client.
 	// If omitted, the region argument of the provider is used. Changing this
 	// creates a new service.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
@@ -114,22 +117,34 @@ type EIPV1InitParameters struct {
 	// This parameter work only with already allocated resource.
 	UnbindPort *bool `json:"unbindPort,omitempty" tf:"unbind_port,omitempty"`
 
+	// Legacy additional creation parameters. This compatibility
+	// argument uses the legacy creation request when set.
 	// +mapType=granular
 	ValueSpecs map[string]*string `json:"valueSpecs,omitempty" tf:"value_specs,omitempty"`
 }
 
 type EIPV1Observation struct {
 
+	// Shared-bandwidth types to which the EIP can be added.
+	// +listType=set
+	AllowShareBandwidthTypes []*string `json:"allowShareBandwidthTypes,omitempty" tf:"allow_share_bandwidth_types,omitempty"`
+
 	// The bandwidth object.
 	Bandwidth []BandwidthObservation `json:"bandwidth,omitempty" tf:"bandwidth,omitempty"`
+
+	// The enterprise project associated with the EIP.
+	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
 
 	// The VPC EIP id.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// The EIP location, such as center or an edge site.
+	PublicBorderGroup *string `json:"publicBorderGroup,omitempty" tf:"public_border_group,omitempty"`
+
 	// The elastic IP address object.
 	Publicip []PublicipObservation `json:"publicip,omitempty" tf:"publicip,omitempty"`
 
-	// The region in which to obtain the V1 Networking client.
+	// The region in which to obtain the VPC v1 client.
 	// If omitted, the region argument of the provider is used. Changing this
 	// creates a new service.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
@@ -142,6 +157,8 @@ type EIPV1Observation struct {
 	// This parameter work only with already allocated resource.
 	UnbindPort *bool `json:"unbindPort,omitempty" tf:"unbind_port,omitempty"`
 
+	// Legacy additional creation parameters. This compatibility
+	// argument uses the legacy creation request when set.
 	// +mapType=granular
 	ValueSpecs map[string]*string `json:"valueSpecs,omitempty" tf:"value_specs,omitempty"`
 }
@@ -152,11 +169,15 @@ type EIPV1Parameters struct {
 	// +kubebuilder:validation:Optional
 	Bandwidth []BandwidthParameters `json:"bandwidth,omitempty" tf:"bandwidth,omitempty"`
 
+	// The enterprise project associated with the EIP.
+	// +kubebuilder:validation:Optional
+	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
+
 	// The elastic IP address object.
 	// +kubebuilder:validation:Optional
 	Publicip []PublicipParameters `json:"publicip,omitempty" tf:"publicip,omitempty"`
 
-	// The region in which to obtain the V1 Networking client.
+	// The region in which to obtain the VPC v1 client.
 	// If omitted, the region argument of the provider is used. Changing this
 	// creates a new service.
 	// +kubebuilder:validation:Optional
@@ -172,6 +193,8 @@ type EIPV1Parameters struct {
 	// +kubebuilder:validation:Optional
 	UnbindPort *bool `json:"unbindPort,omitempty" tf:"unbind_port,omitempty"`
 
+	// Legacy additional creation parameters. This compatibility
+	// argument uses the legacy creation request when set.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	ValueSpecs map[string]*string `json:"valueSpecs,omitempty" tf:"value_specs,omitempty"`
@@ -182,6 +205,10 @@ type PublicipInitParameters struct {
 	// The value must be a valid IP address in the available
 	// IP address segment. Changing this creates a new eip.
 	IPAddress *string `json:"ipAddress,omitempty" tf:"ip_address,omitempty"`
+
+	// Specifies the EIP version. Valid values are 4 and 6.
+	// Changing this creates a new EIP. IPv6 EIPs are not currently supported.
+	IPVersion *float64 `json:"ipVersion,omitempty" tf:"ip_version,omitempty"`
 
 	// The ip name, which is a string of 1 to 64 characters.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -201,6 +228,10 @@ type PublicipObservation struct {
 	// IP address segment. Changing this creates a new eip.
 	IPAddress *string `json:"ipAddress,omitempty" tf:"ip_address,omitempty"`
 
+	// Specifies the EIP version. Valid values are 4 and 6.
+	// Changing this creates a new EIP. IPv6 EIPs are not currently supported.
+	IPVersion *float64 `json:"ipVersion,omitempty" tf:"ip_version,omitempty"`
+
 	// The ip name, which is a string of 1 to 64 characters.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -219,6 +250,11 @@ type PublicipParameters struct {
 	// IP address segment. Changing this creates a new eip.
 	// +kubebuilder:validation:Optional
 	IPAddress *string `json:"ipAddress,omitempty" tf:"ip_address,omitempty"`
+
+	// Specifies the EIP version. Valid values are 4 and 6.
+	// Changing this creates a new EIP. IPv6 EIPs are not currently supported.
+	// +kubebuilder:validation:Optional
+	IPVersion *float64 `json:"ipVersion,omitempty" tf:"ip_version,omitempty"`
 
 	// The ip name, which is a string of 1 to 64 characters.
 	// +kubebuilder:validation:Optional

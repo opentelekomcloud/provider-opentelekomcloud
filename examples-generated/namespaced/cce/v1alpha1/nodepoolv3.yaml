@@ -31,7 +31,7 @@ spec:
     maxNodeCount: 9
     minNodeCount: 2
     name: opentelekomcloud-cce-node-pool-test
-    os: EulerOS 2.9
+    os: HCE OS 2.0
     priority: 1
     rootVolume:
     - size: 40

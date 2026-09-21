@@ -10,7 +10,7 @@ spec:
   forProvider:
     clusterId: ${var.cluster_id}
     keyPair: ${var.keypair_name}
-    os: EulerOS 2.5
+    os: HCE OS 2.0
     serverId: ${opentelekomcloud_ecs_instance_v1.instance_1.id}
     tags:
       foo: bar

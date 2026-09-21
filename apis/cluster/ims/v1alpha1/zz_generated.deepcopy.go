@@ -52,6 +52,11 @@ func (in *DataImageV2InitParameters) DeepCopyInto(out *DataImageV2InitParameters
 		*out = new(string)
 		**out = **in
 	}
+	if in.EnterpriseProjectID != nil {
+		in, out := &in.EnterpriseProjectID, &out.EnterpriseProjectID
+		*out = new(string)
+		**out = **in
+	}
 	if in.ImageURL != nil {
 		in, out := &in.ImageURL, &out.ImageURL
 		*out = new(string)
@@ -160,6 +165,11 @@ func (in *DataImageV2Observation) DeepCopyInto(out *DataImageV2Observation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.EnterpriseProjectID != nil {
+		in, out := &in.EnterpriseProjectID, &out.EnterpriseProjectID
+		*out = new(string)
+		**out = **in
+	}
 	if in.ID != nil {
 		in, out := &in.ID, &out.ID
 		*out = new(string)
@@ -238,6 +248,11 @@ func (in *DataImageV2Parameters) DeepCopyInto(out *DataImageV2Parameters) {
 	}
 	if in.Description != nil {
 		in, out := &in.Description, &out.Description
+		*out = new(string)
+		**out = **in
+	}
+	if in.EnterpriseProjectID != nil {
+		in, out := &in.EnterpriseProjectID, &out.EnterpriseProjectID
 		*out = new(string)
 		**out = **in
 	}
@@ -366,6 +381,11 @@ func (in *ImageV2InitParameters) DeepCopyInto(out *ImageV2InitParameters) {
 	}
 	if in.Description != nil {
 		in, out := &in.Description, &out.Description
+		*out = new(string)
+		**out = **in
+	}
+	if in.EnterpriseProjectID != nil {
+		in, out := &in.EnterpriseProjectID, &out.EnterpriseProjectID
 		*out = new(string)
 		**out = **in
 	}
@@ -507,6 +527,11 @@ func (in *ImageV2Observation) DeepCopyInto(out *ImageV2Observation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.EnterpriseProjectID != nil {
+		in, out := &in.EnterpriseProjectID, &out.EnterpriseProjectID
+		*out = new(string)
+		**out = **in
+	}
 	if in.File != nil {
 		in, out := &in.File, &out.File
 		*out = new(string)
@@ -620,6 +645,11 @@ func (in *ImageV2Parameters) DeepCopyInto(out *ImageV2Parameters) {
 	}
 	if in.Description != nil {
 		in, out := &in.Description, &out.Description
+		*out = new(string)
+		**out = **in
+	}
+	if in.EnterpriseProjectID != nil {
+		in, out := &in.EnterpriseProjectID, &out.EnterpriseProjectID
 		*out = new(string)
 		**out = **in
 	}

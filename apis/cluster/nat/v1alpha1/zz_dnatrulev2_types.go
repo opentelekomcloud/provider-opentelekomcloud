@@ -19,8 +19,7 @@ type DnatRuleV2InitParameters struct {
 	// Changing this creates a new DNAT rule.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// Specifies port used by ECSs or
-	// BMSs to provide services for external systems. Changing this creates a new DNAT rule.
+	// Specifies port used by ECSs to provide services for external systems. Changing this creates a new DNAT rule.
 	ExternalServicePort *float64 `json:"externalServicePort,omitempty" tf:"external_service_port,omitempty"`
 
 	// Specifies the ID of the floating IP address.
@@ -36,7 +35,7 @@ type DnatRuleV2InitParameters struct {
 	// +kubebuilder:validation:Optional
 	FloatingIPIDSelector *v1.Selector `json:"floatingIpIdSelector,omitempty" tf:"-"`
 
-	// Specifies port used by ECSs or BMSs
+	// Specifies port used by ECSs
 	// to provide services for external systems. Changing this creates a new resource.
 	InternalServicePort *float64 `json:"internalServicePort,omitempty" tf:"internal_service_port,omitempty"`
 
@@ -53,7 +52,7 @@ type DnatRuleV2InitParameters struct {
 	// +kubebuilder:validation:Optional
 	NATGatewayIDSelector *v1.Selector `json:"natGatewayIdSelector,omitempty" tf:"-"`
 
-	// Specifies the port ID of an ECS or a BMS.
+	// Specifies the port ID of an ECS.
 	// This parameter and private_ip are alternative. Changing this creates a
 	// new DNAT rule.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/networking/v1alpha1.PortV2
@@ -86,8 +85,7 @@ type DnatRuleV2Observation struct {
 	// Changing this creates a new DNAT rule.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// Specifies port used by ECSs or
-	// BMSs to provide services for external systems. Changing this creates a new DNAT rule.
+	// Specifies port used by ECSs to provide services for external systems. Changing this creates a new DNAT rule.
 	ExternalServicePort *float64 `json:"externalServicePort,omitempty" tf:"external_service_port,omitempty"`
 
 	// The actual floating IP address.
@@ -99,7 +97,7 @@ type DnatRuleV2Observation struct {
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// Specifies port used by ECSs or BMSs
+	// Specifies port used by ECSs
 	// to provide services for external systems. Changing this creates a new resource.
 	InternalServicePort *float64 `json:"internalServicePort,omitempty" tf:"internal_service_port,omitempty"`
 
@@ -107,7 +105,7 @@ type DnatRuleV2Observation struct {
 	// Changing this creates a new DNAT rule.
 	NATGatewayID *string `json:"natGatewayId,omitempty" tf:"nat_gateway_id,omitempty"`
 
-	// Specifies the port ID of an ECS or a BMS.
+	// Specifies the port ID of an ECS.
 	// This parameter and private_ip are alternative. Changing this creates a
 	// new DNAT rule.
 	PortID *string `json:"portId,omitempty" tf:"port_id,omitempty"`
@@ -134,8 +132,7 @@ type DnatRuleV2Parameters struct {
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// Specifies port used by ECSs or
-	// BMSs to provide services for external systems. Changing this creates a new DNAT rule.
+	// Specifies port used by ECSs to provide services for external systems. Changing this creates a new DNAT rule.
 	// +kubebuilder:validation:Optional
 	ExternalServicePort *float64 `json:"externalServicePort,omitempty" tf:"external_service_port,omitempty"`
 
@@ -153,7 +150,7 @@ type DnatRuleV2Parameters struct {
 	// +kubebuilder:validation:Optional
 	FloatingIPIDSelector *v1.Selector `json:"floatingIpIdSelector,omitempty" tf:"-"`
 
-	// Specifies port used by ECSs or BMSs
+	// Specifies port used by ECSs
 	// to provide services for external systems. Changing this creates a new resource.
 	// +kubebuilder:validation:Optional
 	InternalServicePort *float64 `json:"internalServicePort,omitempty" tf:"internal_service_port,omitempty"`
@@ -172,7 +169,7 @@ type DnatRuleV2Parameters struct {
 	// +kubebuilder:validation:Optional
 	NATGatewayIDSelector *v1.Selector `json:"natGatewayIdSelector,omitempty" tf:"-"`
 
-	// Specifies the port ID of an ECS or a BMS.
+	// Specifies the port ID of an ECS.
 	// This parameter and private_ip are alternative. Changing this creates a
 	// new DNAT rule.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/networking/v1alpha1.PortV2

@@ -221,6 +221,12 @@ spec:
                     type: boolean
                   region:
                     type: string
+                  tags:
+                    additionalProperties:
+                      type: string
+                    description: The key/value pairs to associate with the subnet.
+                    type: object
+                    x-kubernetes-map-type: granular
                   tenantId:
                     description: |-
                       The owner of the subnet. Required if admin wants to
@@ -408,6 +414,12 @@ spec:
                     type: boolean
                   region:
                     type: string
+                  tags:
+                    additionalProperties:
+                      type: string
+                    description: The key/value pairs to associate with the subnet.
+                    type: object
+                    x-kubernetes-map-type: granular
                   tenantId:
                     description: |-
                       The owner of the subnet. Required if admin wants to
@@ -570,6 +582,12 @@ spec:
                     type: boolean
                   region:
                     type: string
+                  tags:
+                    additionalProperties:
+                      type: string
+                    description: The key/value pairs to associate with the subnet.
+                    type: object
+                    x-kubernetes-map-type: granular
                   tenantId:
                     description: |-
                       The owner of the subnet. Required if admin wants to

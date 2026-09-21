@@ -28,7 +28,7 @@ spec:
       matchLabels:
         testing.upbound.io/example-name: example
     name: node1
-    os: EulerOS 2.9
+    os: HCE OS 2.0
     rootVolume:
     - size: 40
       volumetype: SAS

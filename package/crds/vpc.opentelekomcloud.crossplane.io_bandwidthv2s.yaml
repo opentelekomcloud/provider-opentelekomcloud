@@ -73,8 +73,19 @@ spec:
                 type: string
               forProvider:
                 properties:
+                  enterpriseProjectId:
+                    description: |-
+                      Specifies the enterprise project associated
+                      with the shared bandwidth. If omitted, the provider-level enterprise project or
+                      the default enterprise project (0) is used. Changing this creates a new resource.
+                    type: string
                   name:
                     description: Specifies the bandwidth name.
+                    type: string
+                  publicBorderGroup:
+                    description: |-
+                      Specifies whether the shared bandwidth is
+                      located at the central site or an edge site. Changing this creates a new resource.
                     type: string
                   size:
                     description: |-
@@ -95,8 +106,19 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
+                  enterpriseProjectId:
+                    description: |-
+                      Specifies the enterprise project associated
+                      with the shared bandwidth. If omitted, the provider-level enterprise project or
+                      the default enterprise project (0) is used. Changing this creates a new resource.
+                    type: string
                   name:
                     description: Specifies the bandwidth name.
+                    type: string
+                  publicBorderGroup:
+                    description: |-
+                      Specifies whether the shared bandwidth is
+                      located at the central site or an edge site. Changing this creates a new resource.
                     type: string
                   size:
                     description: |-
@@ -204,12 +226,61 @@ spec:
             properties:
               atProvider:
                 properties:
+                  bandwidthType:
+                    description: Specifies the bandwidth type.
+                    type: string
+                  billingInfo:
+                    description: Specifies yearly/monthly billing information, when
+                      applicable.
+                    type: string
+                  chargeMode:
+                    description: Specifies the bandwidth charging mode.
+                    type: string
+                  createdAt:
+                    description: Specifies when the bandwidth was created.
+                    type: string
+                  enterpriseProjectId:
+                    description: |-
+                      Specifies the enterprise project associated
+                      with the shared bandwidth. If omitted, the provider-level enterprise project or
+                      the default enterprise project (0) is used. Changing this creates a new resource.
+                    type: string
                   id:
                     description: Specifies the bandwidth ID, which uniquely identifies
                       the bandwidth.
                     type: string
                   name:
                     description: Specifies the bandwidth name.
+                    type: string
+                  publicBorderGroup:
+                    description: |-
+                      Specifies whether the shared bandwidth is
+                      located at the central site or an edge site. Changing this creates a new resource.
+                    type: string
+                  publicipInfo:
+                    description: 'Lists EIPs associated with the bandwidth:'
+                    items:
+                      properties:
+                        address:
+                          description: IPv4 address.
+                          type: string
+                        id:
+                          description: Specifies the bandwidth ID, which uniquely
+                            identifies the bandwidth.
+                          type: string
+                        ipVersion:
+                          description: IP address version.
+                          type: number
+                        ipv6Address:
+                          description: IPv6 address, when available.
+                          type: string
+                        type:
+                          description: EIP type.
+                          type: string
+                      type: object
+                    type: array
+                  shareType:
+                    description: Indicates whether the bandwidth is shared or dedicated.
                     type: string
                   size:
                     description: |-
@@ -218,6 +289,12 @@ spec:
                     type: number
                   status:
                     description: Specifies the bandwidth status.
+                    type: string
+                  tenantId:
+                    description: Specifies the project ID.
+                    type: string
+                  updatedAt:
+                    description: Specifies when the bandwidth was last updated.
                     type: string
                 type: object
               conditions:

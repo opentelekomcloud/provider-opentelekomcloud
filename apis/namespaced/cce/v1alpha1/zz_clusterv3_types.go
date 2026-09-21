@@ -95,6 +95,13 @@ type ClusterV3InitParameters struct {
 	// Changing this parameter will create a new cluster resource.
 	APIAccessTrustlist []*string `json:"apiAccessTrustlist,omitempty" tf:"api_access_trustlist,omitempty"`
 
+	// Name of the custom IAM agency to use for this cluster.
+	// The agency must be of the cloud service type, delegated to op_svc_cce,
+	// and have any available role assigned for the target project.
+	// Custom agencies are supported only in clusters of v1.27 or later (CCE Standard only).
+	// Changing this updates the agency on the running cluster without recreation.
+	AgencyName *string `json:"agencyName,omitempty" tf:"agency_name,omitempty"`
+
 	// Cluster annotation, key/value pair format. Changing this parameter will create a new cluster resource.
 	// +mapType=granular
 	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
@@ -327,6 +334,13 @@ type ClusterV3Observation struct {
 	// Changing this parameter will create a new cluster resource.
 	APIAccessTrustlist []*string `json:"apiAccessTrustlist,omitempty" tf:"api_access_trustlist,omitempty"`
 
+	// Name of the custom IAM agency to use for this cluster.
+	// The agency must be of the cloud service type, delegated to op_svc_cce,
+	// and have any available role assigned for the target project.
+	// Custom agencies are supported only in clusters of v1.27 or later (CCE Standard only).
+	// Changing this updates the agency on the running cluster without recreation.
+	AgencyName *string `json:"agencyName,omitempty" tf:"agency_name,omitempty"`
+
 	// Cluster annotation, key/value pair format. Changing this parameter will create a new cluster resource.
 	// +mapType=granular
 	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
@@ -521,6 +535,14 @@ type ClusterV3Parameters struct {
 	// Changing this parameter will create a new cluster resource.
 	// +kubebuilder:validation:Optional
 	APIAccessTrustlist []*string `json:"apiAccessTrustlist,omitempty" tf:"api_access_trustlist,omitempty"`
+
+	// Name of the custom IAM agency to use for this cluster.
+	// The agency must be of the cloud service type, delegated to op_svc_cce,
+	// and have any available role assigned for the target project.
+	// Custom agencies are supported only in clusters of v1.27 or later (CCE Standard only).
+	// Changing this updates the agency on the running cluster without recreation.
+	// +kubebuilder:validation:Optional
+	AgencyName *string `json:"agencyName,omitempty" tf:"agency_name,omitempty"`
 
 	// Cluster annotation, key/value pair format. Changing this parameter will create a new cluster resource.
 	// +kubebuilder:validation:Optional

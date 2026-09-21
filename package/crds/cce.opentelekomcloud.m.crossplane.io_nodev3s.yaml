@@ -373,6 +373,11 @@ spec:
                       ConfigMap of the Docker data disk.
                       Changing this parameter will create a new node.
                     type: string
+                  ecsGroupId:
+                    description: |-
+                      Specifies the ECS group ID. If this parameter is specified, the node is created in the specified ECS group.
+                      -> NOTE: This parameter is not supported when you add a node to a node pool or use CCE Turbo cluster.
+                    type: string
                   ecsPerformanceType:
                     description: Classification of cloud server specifications. Changing
                       this parameter will create a new cluster resource.
@@ -1097,6 +1102,11 @@ spec:
                       ConfigMap of the Docker data disk.
                       Changing this parameter will create a new node.
                     type: string
+                  ecsGroupId:
+                    description: |-
+                      Specifies the ECS group ID. If this parameter is specified, the node is created in the specified ECS group.
+                      -> NOTE: This parameter is not supported when you add a node to a node pool or use CCE Turbo cluster.
+                    type: string
                   ecsPerformanceType:
                     description: Classification of cloud server specifications. Changing
                       this parameter will create a new cluster resource.
@@ -1647,6 +1657,11 @@ spec:
                     description: |-
                       ConfigMap of the Docker data disk.
                       Changing this parameter will create a new node.
+                    type: string
+                  ecsGroupId:
+                    description: |-
+                      Specifies the ECS group ID. If this parameter is specified, the node is created in the specified ECS group.
+                      -> NOTE: This parameter is not supported when you add a node to a node pool or use CCE Turbo cluster.
                     type: string
                   ecsPerformanceType:
                     description: Classification of cloud server specifications. Changing

@@ -91,6 +91,9 @@ spec:
                       IPv6. Default: IPv4 .'
                     type: string
                   multiPort:
+                    description: Specifies the port or port range. The value can be
+                      a single port, e.g. 80, a port range, e.g. 1-30, or inconsecutive
+                      ports separated by commas, e.g. 22,3389,80.
                     type: string
                   priority:
                     description: 'Specifies the rule priority in a security group.
@@ -161,6 +164,9 @@ spec:
                       IPv6. Default: IPv4 .'
                     type: string
                   multiPort:
+                    description: Specifies the port or port range. The value can be
+                      a single port, e.g. 80, a port range, e.g. 1-30, or inconsecutive
+                      ports separated by commas, e.g. 22,3389,80.
                     type: string
                   priority:
                     description: 'Specifies the rule priority in a security group.
@@ -325,6 +331,9 @@ spec:
                     description: Security Group Rule ID.
                     type: string
                   multiPort:
+                    description: Specifies the port or port range. The value can be
+                      a single port, e.g. 80, a port range, e.g. 1-30, or inconsecutive
+                      ports separated by commas, e.g. 22,3389,80.
                     type: string
                   priority:
                     description: 'Specifies the rule priority in a security group.

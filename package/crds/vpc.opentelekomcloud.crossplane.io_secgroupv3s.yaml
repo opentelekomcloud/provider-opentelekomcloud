@@ -73,6 +73,10 @@ spec:
                 type: string
               forProvider:
                 properties:
+                  deleteDefaultRules:
+                    description: 'Specify whether to delete all default rules when
+                      security group is created. Default: false.'
+                    type: boolean
                   description:
                     description: Security group description.
                     type: string
@@ -103,6 +107,10 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
+                  deleteDefaultRules:
+                    description: 'Specify whether to delete all default rules when
+                      security group is created. Default: false.'
+                    type: boolean
                   description:
                     description: Security group description.
                     type: string
@@ -220,6 +228,10 @@ spec:
                     description: Indicates the time when the security group was created.
                       It is a UTC time in yyyy-MM-ddTHH:mm:ssZ format.
                     type: string
+                  deleteDefaultRules:
+                    description: 'Specify whether to delete all default rules when
+                      security group is created. Default: false.'
+                    type: boolean
                   description:
                     description: Security group description.
                     type: string
