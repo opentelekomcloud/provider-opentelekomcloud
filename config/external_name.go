@@ -91,9 +91,10 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"opentelekomcloud_ddm_schema_v1":   config.IdentifierFromProvider,
 
 	// DDS
-	"opentelekomcloud_dds_instance_v3": config.IdentifierFromProvider,
-	"opentelekomcloud_dds_backup_v3":   config.IdentifierFromProvider,
-	"opentelekomcloud_dds_lts_log_v3":  config.IdentifierFromProvider,
+	"opentelekomcloud_dds_instance_v3":            config.IdentifierFromProvider,
+	"opentelekomcloud_dds_backup_v3":              config.IdentifierFromProvider,
+	"opentelekomcloud_dds_lts_log_v3":             config.IdentifierFromProvider,
+	"opentelekomcloud_dds_public_ip_associate_v3": config.IdentifierFromProvider,
 
 	// DEH
 	"opentelekomcloud_deh_host_v1": config.IdentifierFromProvider,

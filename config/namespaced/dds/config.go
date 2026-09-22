@@ -35,4 +35,18 @@ func Configure(p *config.Provider) {
 			RefFieldName:      "InstanceRef",
 		}
 	})
+	p.AddResourceConfigurator("opentelekomcloud_dds_public_ip_associate_v3", func(r *config.Resource) {
+		r.UseAsync = true
+		r.References["public_ip"] = config.Reference{
+			TerraformName:     "opentelekomcloud_vpc_eip_v1",
+			SelectorFieldName: "PublicIPSelector",
+			RefFieldName:      "PublicIPSelectorRef",
+			Extractor:         common.EipAddressExtractor,
+		}
+		r.References["public_ip_id"] = config.Reference{
+			TerraformName:     "opentelekomcloud_vpc_eip_v1",
+			SelectorFieldName: "PublicIPSelectorByID",
+			RefFieldName:      "PublicIPSelectorByIDRef",
+		}
+	})
 }
