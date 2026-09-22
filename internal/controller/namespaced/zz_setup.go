@@ -192,6 +192,7 @@ import (
 	instancev3rds "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/rds/instancev3"
 	maintenancev3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/rds/maintenancev3"
 	parametergroupv3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/rds/parametergroupv3"
+	postgresextensionv3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/rds/postgresextensionv3"
 	publicipassociatev3rds "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/rds/publicipassociatev3"
 	readreplicav3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/rds/readreplicav3"
 	advancedqueryv1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/rms/advancedqueryv1"
@@ -447,6 +448,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		instancev3rds.Setup,
 		maintenancev3.Setup,
 		parametergroupv3.Setup,
+		postgresextensionv3.Setup,
 		publicipassociatev3rds.Setup,
 		readreplicav3.Setup,
 		advancedqueryv1.Setup,
@@ -708,6 +710,7 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		instancev3rds.SetupGated,
 		maintenancev3.SetupGated,
 		parametergroupv3.SetupGated,
+		postgresextensionv3.SetupGated,
 		publicipassociatev3rds.SetupGated,
 		readreplicav3.SetupGated,
 		advancedqueryv1.SetupGated,

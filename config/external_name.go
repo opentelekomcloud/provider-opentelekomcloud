@@ -273,6 +273,7 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"opentelekomcloud_rds_maintenance_v3":         config.IdentifierFromProvider,
 	"opentelekomcloud_rds_parametergroup_v3":      config.IdentifierFromProvider,
 	"opentelekomcloud_rds_read_replica_v3":        config.IdentifierFromProvider,
+	"opentelekomcloud_rds_postgres_extension_v3":  config.IdentifierFromProvider,
 
 	// RMS
 	"opentelekomcloud_rms_advanced_query_v1":             config.IdentifierFromProvider,

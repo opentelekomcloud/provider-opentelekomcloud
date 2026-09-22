@@ -19,6 +19,9 @@ func (tr *MaintenanceV3) Hub() {}
 func (tr *ParametergroupV3) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *PostgresExtensionV3) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *PublicIPAssociateV3) Hub() {}
 
 // Hub marks this type as a conversion hub.
