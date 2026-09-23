@@ -82,10 +82,16 @@ spec:
                   description:
                     description: A description of the VPC.
                     type: string
+                  enterpriseProjectId:
+                    description: |-
+                      The enterprise project ID associated with the VPC.
+                      Changing this creates a new VPC. If omitted, the provider-level enterprise project ID is used,
+                      or 0 for the default enterprise project.
+                    type: string
                   name:
                     description: |-
                       The name of the VPC. The name must be unique for a tenant. The value is a string of
-                      no more than 64 characters and can contain digits, letters, underscores (_), and hyphens (-).
+                      no more than 64 characters and can contain digits, letters, underscores (_), hyphens (-), and periods (.).
                     type: string
                   region:
                     type: string
@@ -131,10 +137,16 @@ spec:
                   description:
                     description: A description of the VPC.
                     type: string
+                  enterpriseProjectId:
+                    description: |-
+                      The enterprise project ID associated with the VPC.
+                      Changing this creates a new VPC. If omitted, the provider-level enterprise project ID is used,
+                      or 0 for the default enterprise project.
+                    type: string
                   name:
                     description: |-
                       The name of the VPC. The name must be unique for a tenant. The value is a string of
-                      no more than 64 characters and can contain digits, letters, underscores (_), and hyphens (-).
+                      no more than 64 characters and can contain digits, letters, underscores (_), hyphens (-), and periods (.).
                     type: string
                   region:
                     type: string
@@ -264,18 +276,39 @@ spec:
                       10.0.0.0/8 to 10.255.255.0/24, 172.16.0.0/12 to 172.31.255.0/24,
                       or 192.168.0.0/16 to 192.168.255.0/24.
                     type: string
+                  createdAt:
+                    description: The UTC creation timestamp.
+                    type: string
                   description:
                     description: A description of the VPC.
+                    type: string
+                  enterpriseProjectId:
+                    description: |-
+                      The enterprise project ID associated with the VPC.
+                      Changing this creates a new VPC. If omitted, the provider-level enterprise project ID is used,
+                      or 0 for the default enterprise project.
                     type: string
                   id:
                     type: string
                   name:
                     description: |-
                       The name of the VPC. The name must be unique for a tenant. The value is a string of
-                      no more than 64 characters and can contain digits, letters, underscores (_), and hyphens (-).
+                      no more than 64 characters and can contain digits, letters, underscores (_), hyphens (-), and periods (.).
                     type: string
                   region:
                     type: string
+                  routes:
+                    description: |-
+                      The VPC routes. Each entry contains destination and nexthop.
+                      Manage custom routes with the dedicated VPC route resources.
+                    items:
+                      properties:
+                        destination:
+                          type: string
+                        nexthop:
+                          type: string
+                      type: object
+                    type: array
                   secondaryCidr:
                     description: |-
                       DEPRECATED  Secondary CIDR block that can be added to VPCs.
@@ -300,6 +333,12 @@ spec:
                     description: The key/value pairs to associate with the VPC.
                     type: object
                     x-kubernetes-map-type: granular
+                  tenantId:
+                    description: The project ID that owns the VPC.
+                    type: string
+                  updatedAt:
+                    description: The UTC last-update timestamp.
+                    type: string
                 type: object
               conditions:
                 description: Conditions of the resource.

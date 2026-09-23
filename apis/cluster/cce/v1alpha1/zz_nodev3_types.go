@@ -173,6 +173,10 @@ type NodeV3InitParameters struct {
 	// +kubebuilder:validation:Optional
 	EIPIdsSelector *v1.Selector `json:"eipIdsSelector,omitempty" tf:"-"`
 
+	// Specifies the ECS group ID. If this parameter is specified, the node is created in the specified ECS group.
+	// -> NOTE: This parameter is not supported when you add a node to a node pool or use CCE Turbo cluster.
+	EcsGroupID *string `json:"ecsGroupId,omitempty" tf:"ecs_group_id,omitempty"`
+
 	// Classification of cloud server specifications. Changing this parameter will create a new cluster resource.
 	EcsPerformanceType *string `json:"ecsPerformanceType,omitempty" tf:"ecs_performance_type,omitempty"`
 
@@ -305,6 +309,10 @@ type NodeV3Observation struct {
 	// List of existing elastic IP IDs.
 	// +listType=set
 	EIPIds []*string `json:"eipIds,omitempty" tf:"eip_ids,omitempty"`
+
+	// Specifies the ECS group ID. If this parameter is specified, the node is created in the specified ECS group.
+	// -> NOTE: This parameter is not supported when you add a node to a node pool or use CCE Turbo cluster.
+	EcsGroupID *string `json:"ecsGroupId,omitempty" tf:"ecs_group_id,omitempty"`
 
 	// Classification of cloud server specifications. Changing this parameter will create a new cluster resource.
 	EcsPerformanceType *string `json:"ecsPerformanceType,omitempty" tf:"ecs_performance_type,omitempty"`
@@ -481,6 +489,11 @@ type NodeV3Parameters struct {
 	// Selector for a list of EIPV1 in vpc to populate eipIds.
 	// +kubebuilder:validation:Optional
 	EIPIdsSelector *v1.Selector `json:"eipIdsSelector,omitempty" tf:"-"`
+
+	// Specifies the ECS group ID. If this parameter is specified, the node is created in the specified ECS group.
+	// -> NOTE: This parameter is not supported when you add a node to a node pool or use CCE Turbo cluster.
+	// +kubebuilder:validation:Optional
+	EcsGroupID *string `json:"ecsGroupId,omitempty" tf:"ecs_group_id,omitempty"`
 
 	// Classification of cloud server specifications. Changing this parameter will create a new cluster resource.
 	// +kubebuilder:validation:Optional

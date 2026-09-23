@@ -15,12 +15,16 @@ import (
 
 type FlowLogV1InitParameters struct {
 
-	// Whether to enable the VPC flow log function.
-	AdminState *bool `json:"adminState,omitempty" tf:"admin_state,omitempty"`
-
-	// (Optinal) Provides supplementary information about the VPC flow log.
+	// Provides supplementary information about the VPC flow log.
 	// The value is a string of no more than 255 characters and cannot contain angle brackets (< or >).
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// Whether to enable the VPC flow log function. Defaults to true.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	// Whether to enable the log index. Defaults to false.
+	// Changing this creates a new VPC flow log.
+	IndexEnabled *bool `json:"indexEnabled,omitempty" tf:"index_enabled,omitempty"`
 
 	// Specifies the log group ID.
 	// Changing this creates a new VPC flow log.
@@ -69,9 +73,6 @@ type FlowLogV1InitParameters struct {
 	// The value can be port, vpc and network.
 	// Changing this creates a new VPC flow log.
 	ResourceType *string `json:"resourceType,omitempty" tf:"resource_type,omitempty"`
-
-	// The status of the flow log. The value can be ACTIVE, DOWN or ERROR.
-	Status *string `json:"status,omitempty" tf:"status,omitempty"`
 
 	// Specifies the type of traffic to log. The value can be all, accept and reject.
 	// Changing this creates a new VPC flow log.
@@ -80,15 +81,22 @@ type FlowLogV1InitParameters struct {
 
 type FlowLogV1Observation struct {
 
-	// Whether to enable the VPC flow log function.
-	AdminState *bool `json:"adminState,omitempty" tf:"admin_state,omitempty"`
+	// The time when the VPC flow log was created.
+	CreatedAt *string `json:"createdAt,omitempty" tf:"created_at,omitempty"`
 
-	// (Optinal) Provides supplementary information about the VPC flow log.
+	// Provides supplementary information about the VPC flow log.
 	// The value is a string of no more than 255 characters and cannot contain angle brackets (< or >).
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	// Whether to enable the VPC flow log function. Defaults to true.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
 	// The VPC flow log ID in UUID format.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// Whether to enable the log index. Defaults to false.
+	// Changing this creates a new VPC flow log.
+	IndexEnabled *bool `json:"indexEnabled,omitempty" tf:"index_enabled,omitempty"`
 
 	// Specifies the log group ID.
 	// Changing this creates a new VPC flow log.
@@ -114,21 +122,32 @@ type FlowLogV1Observation struct {
 	// The status of the flow log. The value can be ACTIVE, DOWN or ERROR.
 	Status *string `json:"status,omitempty" tf:"status,omitempty"`
 
+	// The project ID that owns the VPC flow log.
+	TenantID *string `json:"tenantId,omitempty" tf:"tenant_id,omitempty"`
+
 	// Specifies the type of traffic to log. The value can be all, accept and reject.
 	// Changing this creates a new VPC flow log.
 	TrafficType *string `json:"trafficType,omitempty" tf:"traffic_type,omitempty"`
+
+	// The time when the VPC flow log was last updated.
+	UpdatedAt *string `json:"updatedAt,omitempty" tf:"updated_at,omitempty"`
 }
 
 type FlowLogV1Parameters struct {
 
-	// Whether to enable the VPC flow log function.
-	// +kubebuilder:validation:Optional
-	AdminState *bool `json:"adminState,omitempty" tf:"admin_state,omitempty"`
-
-	// (Optinal) Provides supplementary information about the VPC flow log.
+	// Provides supplementary information about the VPC flow log.
 	// The value is a string of no more than 255 characters and cannot contain angle brackets (< or >).
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// Whether to enable the VPC flow log function. Defaults to true.
+	// +kubebuilder:validation:Optional
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	// Whether to enable the log index. Defaults to false.
+	// Changing this creates a new VPC flow log.
+	// +kubebuilder:validation:Optional
+	IndexEnabled *bool `json:"indexEnabled,omitempty" tf:"index_enabled,omitempty"`
 
 	// Specifies the log group ID.
 	// Changing this creates a new VPC flow log.
@@ -182,10 +201,6 @@ type FlowLogV1Parameters struct {
 	// Changing this creates a new VPC flow log.
 	// +kubebuilder:validation:Optional
 	ResourceType *string `json:"resourceType,omitempty" tf:"resource_type,omitempty"`
-
-	// The status of the flow log. The value can be ACTIVE, DOWN or ERROR.
-	// +kubebuilder:validation:Optional
-	Status *string `json:"status,omitempty" tf:"status,omitempty"`
 
 	// Specifies the type of traffic to log. The value can be all, accept and reject.
 	// Changing this creates a new VPC flow log.

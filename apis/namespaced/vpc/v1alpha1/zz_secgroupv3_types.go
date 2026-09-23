@@ -16,6 +16,9 @@ import (
 
 type SecgroupV3InitParameters struct {
 
+	// Specify whether to delete all default rules when security group is created. Default: false.
+	DeleteDefaultRules *bool `json:"deleteDefaultRules,omitempty" tf:"delete_default_rules,omitempty"`
+
 	// Security group description.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
@@ -34,6 +37,9 @@ type SecgroupV3Observation struct {
 
 	// Indicates the time when the security group was created. It is a UTC time in yyyy-MM-ddTHH:mm:ssZ format.
 	CreatedAt *string `json:"createdAt,omitempty" tf:"created_at,omitempty"`
+
+	// Specify whether to delete all default rules when security group is created. Default: false.
+	DeleteDefaultRules *bool `json:"deleteDefaultRules,omitempty" tf:"delete_default_rules,omitempty"`
 
 	// Security group description.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
@@ -59,6 +65,10 @@ type SecgroupV3Observation struct {
 }
 
 type SecgroupV3Parameters struct {
+
+	// Specify whether to delete all default rules when security group is created. Default: false.
+	// +kubebuilder:validation:Optional
+	DeleteDefaultRules *bool `json:"deleteDefaultRules,omitempty" tf:"delete_default_rules,omitempty"`
 
 	// Security group description.
 	// +kubebuilder:validation:Optional

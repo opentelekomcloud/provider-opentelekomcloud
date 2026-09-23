@@ -23,6 +23,12 @@ type DataImageV2InitParameters struct {
 	// A description of the image. Changing this creates a new image.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	// The ID of the enterprise project to which
+	// the image belongs. If omitted, the provider-level enterprise project ID is used. If neither is set,
+	// the image belongs to the default enterprise project. Required when only enterprise project authorization
+	// is used.
+	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
+
 	// The URL of the external image file in the OBS bucket.
 	// This parameter is mandatory when you create a private image from an external file
 	// uploaded to an OBS bucket. The format is OBS bucket name:Image file name.
@@ -67,6 +73,12 @@ type DataImageV2Observation struct {
 
 	// The image file format. The value can be vhd, zvhd, raw, zvhd2, or qcow2.
 	DiskFormat *string `json:"diskFormat,omitempty" tf:"disk_format,omitempty"`
+
+	// The ID of the enterprise project to which
+	// the image belongs. If omitted, the provider-level enterprise project ID is used. If neither is set,
+	// the image belongs to the default enterprise project. Required when only enterprise project authorization
+	// is used.
+	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
 
 	// A unique ID assigned by IMS.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -117,6 +129,13 @@ type DataImageV2Parameters struct {
 	// A description of the image. Changing this creates a new image.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// The ID of the enterprise project to which
+	// the image belongs. If omitted, the provider-level enterprise project ID is used. If neither is set,
+	// the image belongs to the default enterprise project. Required when only enterprise project authorization
+	// is used.
+	// +kubebuilder:validation:Optional
+	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
 
 	// The URL of the external image file in the OBS bucket.
 	// This parameter is mandatory when you create a private image from an external file

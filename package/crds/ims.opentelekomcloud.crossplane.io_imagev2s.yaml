@@ -82,6 +82,13 @@ spec:
                     description: A description of the image. Changing this creates
                       a new image.
                     type: string
+                  enterpriseProjectId:
+                    description: |-
+                      The ID of the enterprise project to which
+                      the image belongs. If omitted, the provider-level enterprise project ID is used. If neither is set,
+                      the image belongs to the default enterprise project. Required when only enterprise project authorization
+                      is used.
+                    type: string
                   hwFirmwareType:
                     description: Specifies the boot mode. The value can be bios or
                       uefi.
@@ -140,7 +147,7 @@ spec:
                     x-kubernetes-map-type: granular
                   type:
                     description: |-
-                      The image type. Must be one of ECS, FusionCompute, BMS,
+                      The image type. Must be one of ECS, FusionCompute,
                       Ironic or IsoImage. Changing this creates a new image.
                     type: string
                   volumeId:
@@ -172,6 +179,13 @@ spec:
                     description: A description of the image. Changing this creates
                       a new image.
                     type: string
+                  enterpriseProjectId:
+                    description: |-
+                      The ID of the enterprise project to which
+                      the image belongs. If omitted, the provider-level enterprise project ID is used. If neither is set,
+                      the image belongs to the default enterprise project. Required when only enterprise project authorization
+                      is used.
+                    type: string
                   hwFirmwareType:
                     description: Specifies the boot mode. The value can be bios or
                       uefi.
@@ -230,7 +244,7 @@ spec:
                     x-kubernetes-map-type: granular
                   type:
                     description: |-
-                      The image type. Must be one of ECS, FusionCompute, BMS,
+                      The image type. Must be one of ECS, FusionCompute,
                       Ironic or IsoImage. Changing this creates a new image.
                     type: string
                   volumeId:
@@ -353,6 +367,13 @@ spec:
                     description: The image file format. The value can be vhd, zvhd,
                       raw, zvhd2, or qcow2.
                     type: string
+                  enterpriseProjectId:
+                    description: |-
+                      The ID of the enterprise project to which
+                      the image belongs. If omitted, the provider-level enterprise project ID is used. If neither is set,
+                      the image belongs to the default enterprise project. Required when only enterprise project authorization
+                      is used.
+                    type: string
                   file:
                     description: The URL for uploading and downloading the image file.
                     type: string
@@ -420,7 +441,7 @@ spec:
                     x-kubernetes-map-type: granular
                   type:
                     description: |-
-                      The image type. Must be one of ECS, FusionCompute, BMS,
+                      The image type. Must be one of ECS, FusionCompute,
                       Ironic or IsoImage. Changing this creates a new image.
                     type: string
                   visibility:

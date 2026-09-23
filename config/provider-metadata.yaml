@@ -3288,28 +3288,29 @@ resources:
               manifest: |-
                 {
                   "cluster_id": "${opentelekomcloud_cce_cluster_v3.cluster_1.id}",
-                  "template_name": "coredns",
-                  "template_version": "1.28.4",
+                  "template_name": "${data.opentelekomcloud_cce_addon_template_v3.coredns.addon_name}",
+                  "template_version": "${data.opentelekomcloud_cce_addon_template_v3.coredns.addon_version}",
                   "values": [
                     {
                       "basic": {
-                        "swr_addr": "100.125.7.25:20202",
-                        "swr_user": "hwofficial"
+                        "cluster_ip": "${data.opentelekomcloud_cce_addon_template_v3.coredns.cluster_ip}",
+                        "image_version": "${data.opentelekomcloud_cce_addon_template_v3.coredns.image_version}",
+                        "swr_addr": "${data.opentelekomcloud_cce_addon_template_v3.coredns.swr_addr}",
+                        "swr_user": "${data.opentelekomcloud_cce_addon_template_v3.coredns.swr_user}"
                       },
-                      "custom": {
-                        "stub_domains": "{\"test\":[\"10.10.40.10\"], \"test2\":[\"10.10.40.20\"]}",
-                        "upstream_nameservers": "[\"8.8.8.8\",\"8.8.4.4\"]"
-                      }
+                      "custom_json": "${jsonencode({\n      stub_domains = {\n        test  = [\"10.10.40.10\"]\n        test2 = [\"10.10.40.20\"]\n      }\n      upstream_nameservers = [\"8.8.8.8\", \"8.8.4.4\"]\n    })}"
                     }
                   ]
                 }
               references:
                 cluster_id: opentelekomcloud_cce_cluster_v3.cluster_1.id
+                template_name: data.opentelekomcloud_cce_addon_template_v3.coredns.addon_name
+                template_version: data.opentelekomcloud_cce_addon_template_v3.coredns.addon_version
               dependencies:
                 opentelekomcloud_cce_cluster_v3.cluster_1: |-
                     {
                       "cluster_type": "VirtualMachine",
-                      "cluster_version": "v1.27",
+                      "cluster_version": "v1.34",
                       "container_network_type": "overlay_l2",
                       "flavor_id": "cce.s1.medium",
                       "kubernetes_svc_ip_range": "10.247.0.0/16",
@@ -3487,6 +3488,36 @@ resources:
                       },
                       "name": "cce_admin_trust"
                     }
+            - name: cluster_1
+              manifest: |-
+                {
+                  "agency_name": "${opentelekomcloud_identity_agency_v3.cce_agency.name}",
+                  "cluster_type": "VirtualMachine",
+                  "container_network_type": "overlay_l2",
+                  "flavor_id": "cce.s1.small",
+                  "name": "cluster-custom-agency",
+                  "subnet_id": "${var.subnet_id}",
+                  "vpc_id": "${var.vpc_id}"
+                }
+              references:
+                agency_name: opentelekomcloud_identity_agency_v3.cce_agency.name
+                subnet_id: var.subnet_id
+                vpc_id: var.vpc_id
+              dependencies:
+                opentelekomcloud_identity_agency_v3.cce_agency: |-
+                    {
+                      "delegated_domain_name": "op_svc_cce",
+                      "description": "Custom CCE agency",
+                      "name": "my_cce_agency",
+                      "project_role": [
+                        {
+                          "project": "eu-de",
+                          "roles": [
+                            "CCE Administrator"
+                          ]
+                        }
+                      ]
+                    }
             - name: cluster
               manifest: |-
                 {
@@ -3554,6 +3585,12 @@ resources:
                 subnet_id: var.network_id
                 vpc_id: var.vpc_id
         argumentDocs:
+            agency_name: |-
+                - (Optional, String) Name of the custom IAM agency to use for this cluster.
+                The agency must be of the cloud service type, delegated to op_svc_cce,
+                and have any available role assigned for the target project.
+                Custom agencies are supported only in clusters of v1.27 or later (CCE Standard only).
+                Changing this updates the agency on the running cluster without recreation.
             annotations: '- (Optional, Map, ForceNew) Cluster annotation, key/value pair format. Changing this parameter will create a new cluster resource.'
             api_access_trustlist: |-
                 - (Optional, List[String], ForceNew) Specifies the trustlist of network CIDRs that are allowed to access cluster APIs. Specified when creating a CCE cluster.
@@ -3689,6 +3726,7 @@ resources:
             support_istio: '- Whether Istio is supported in the cluster.'
             timezone: '- (Optional, String, ForceNew) Cluster timezone in string format. Changing this parameter will create a new cluster resource.'
             underlay_ipvlan: '- An underlay_ipvlan network built for bare metal servers by using ipvlan.'
+            update: '- Default is 10 minutes.'
             vpc-router: '- A vpc-router network built for containers by using ipvlan and custom VPC routes.'
             vpc_id: '- (Required, String, ForceNew) The ID of the VPC used to create the node. Changing this parameter will create a new cluster resource.'
             x509: ', rbac, and authenticating_proxy'
@@ -3705,7 +3743,7 @@ resources:
                 {
                   "cluster_id": "${var.cluster_id}",
                   "key_pair": "${var.keypair_name}",
-                  "os": "EulerOS 2.5",
+                  "os": "HCE OS 2.0",
                   "server_id": "${opentelekomcloud_ecs_instance_v1.instance_1.id}",
                   "tags": {
                     "foo": "bar",
@@ -3814,7 +3852,7 @@ resources:
             name: '- (Optional, String) Specifies the Node Name.'
             os: |-
                 - (Required, String) Specifies the operating System of the node. Changing this parameter will reset the node.
-                The value can be EulerOS 2.5, EulerOS 2.9, Ubuntu 22.04, or HCE OS 2.0. For more details,
+                The value can be Ubuntu 22.04 or HCE OS 2.0. For more details,
                 please see documentation.
             password: |-
                 - (Optional, String) Specifies the root password when logging in to select the password mode.
@@ -3963,7 +4001,7 @@ resources:
                   "max_node_count": 9,
                   "min_node_count": 2,
                   "name": "opentelekomcloud-cce-node-pool-test",
-                  "os": "EulerOS 2.9",
+                  "os": "HCE OS 2.0",
                   "priority": 1,
                   "root_volume": [
                     {
@@ -3996,7 +4034,7 @@ resources:
                   "key_pair": "${var.ssh_key}",
                   "max_pods": 16,
                   "name": "opentelekomcloud-cce-node-pool",
-                  "os": "EulerOS 2.9",
+                  "os": "HCE OS 2.0",
                   "root_volume": [
                     {
                       "size": 40,
@@ -4085,7 +4123,6 @@ resources:
             v1.30: |-
                 , v1.29, v1.28, v1.27 |
                 | Ubuntu 22.04 | v1.30, v1.29, v1.28, v1.27 |
-                | EulerOS release 2.9 | v1.30, v1.29, v1.28, v1.27 |
             value: '- (Required, String) A value must start with a letter or digit and can contain a maximum of 63 characters, including letters, digits, hyphens (-), underscores (_), and periods (.).'
             volumetype: '- (Required, String, ForceNew) Disk type.'
         importStatements: []
@@ -4118,7 +4155,7 @@ resources:
                   "flavor_id": "s2.large.2",
                   "key_pair": "${var.ssh_key}",
                   "name": "node1",
-                  "os": "EulerOS 2.9",
+                  "os": "HCE OS 2.0",
                   "root_volume": [
                     {
                       "size": 40,
@@ -4167,6 +4204,9 @@ resources:
                 - (Optional, ForceNew, String) ConfigMap of the Docker data disk.
                 Changing this parameter will create a new node.
             dockerThinpool: ': Docker space size, for example, vgpaas/60%VG.'
+            ecs_group_id: |-
+                - (Optional, ForceNew, String) Specifies the ECS group ID. If this parameter is specified, the node is created in the specified ECS group.
+                -> NOTE: This parameter is not supported when you add a node to a node pool or use CCE Turbo cluster.
             ecs_performance_type: '- (Optional, ForceNew, String) Classification of cloud server specifications. Changing this parameter will create a new cluster resource.'
             effect: '- (Optional, String) Available options are NoSchedule, PreferNoSchedule, and NoExecute.'
             eip_count: '- (Optional, Int) Number of elastic IPs to be dynamically created.'
@@ -4221,7 +4261,6 @@ resources:
             v1.30: |-
                 , v1.29, v1.28, v1.27 |
                 | Ubuntu 22.04 | v1.30, v1.29, v1.28, v1.27 |
-                | EulerOS release 2.9 | v1.30, v1.29, v1.28, v1.27 |
             value: '- (Required, String) A value must start with a letter or digit and can contain a maximum of 63 characters, including letters, digits, hyphens (-), underscores (_), and periods (.).'
             volumetype: '- (Required, ForceNew, String) Disk type.'
         importStatements: []
@@ -6439,159 +6478,6 @@ resources:
             service_set_type: '- Indicates the Service group type: 0 (user-defined service group), 1 (common web service), 2 (common remote login and ping), or 3 (common database).'
         importStatements:
             - terraform import opentelekomcloud_cfw_service_group_v1.group_1 b4cd6aeb0b7445d3bf271457c6941544in09
-    opentelekomcloud_compute_bms_server_v2:
-        subCategory: Bare Metal Server (BMS)
-        description: Manages a BMS Server resource within OpenTelekomCloud.
-        name: opentelekomcloud_compute_bms_server_v2
-        title: opentelekomcloud_compute_bms_server_v2
-        examples:
-            - name: basic
-              manifest: |-
-                {
-                  "availability_zone": "${var.availability_zone}",
-                  "flavor_id": "${var.flavor_id}",
-                  "image_id": "${var.image_id}",
-                  "key_pair": "${var.keypair_name}",
-                  "metadata": {
-                    "this": "that"
-                  },
-                  "name": "basic",
-                  "network": [
-                    {
-                      "uuid": "${var.network_id}"
-                    }
-                  ],
-                  "security_groups": [
-                    "default"
-                  ]
-                }
-              references:
-                availability_zone: var.availability_zone
-                flavor_id: var.flavor_id
-                image_id: var.image_id
-                key_pair: var.keypair_name
-                network.uuid: var.network_id
-            - name: basic
-              manifest: |-
-                {
-                  "availability_zone": "${var.availability_zone}",
-                  "block_device": [
-                    {
-                      "boot_index": 0,
-                      "delete_on_termination": true,
-                      "destination_type": "volume",
-                      "device_name": "/dev/sda",
-                      "source_type": "image",
-                      "uuid": "${var.image_id}",
-                      "volume_size": 100,
-                      "volume_type": "SATA"
-                    }
-                  ],
-                  "flavor_id": "${var.flavor_id}",
-                  "key_pair": "${var.keypair_name}",
-                  "metadata": {
-                    "this": "that"
-                  },
-                  "name": "basic",
-                  "network": [
-                    {
-                      "uuid": "${var.network_id}"
-                    }
-                  ],
-                  "security_groups": [
-                    "default"
-                  ]
-                }
-              references:
-                availability_zone: var.availability_zone
-                block_device.uuid: var.image_id
-                flavor_id: var.flavor_id
-                key_pair: var.keypair_name
-                network.uuid: var.network_id
-        argumentDocs:
-            admin_pass: |-
-                - (Optional) The administrative password to assign to the BMS server.
-                Changing this changes the root password on the existing server.
-            availability_zone: |-
-                - (Required) The availability zone in which to create
-                the BMS server.
-            config_drive: '- Whether to use the config_drive feature to configure the instance.'
-            flavor_id: |-
-                - (Optional; Required if flavor_name is empty) The flavor ID of
-                the desired flavor for the BMS server. Changing this resizes the existing BMS server.
-            flavor_name: |-
-                - (Optional; Required if flavor_id is empty) The name of the
-                desired flavor for the BMS server. Changing this resizes the existing BMS server.
-            host_status: '- The nova-compute status: UP, UNKNOWN, DOWN, MAINTENANCE and Null.'
-            id: '- The id of the BMS server.'
-            image_id: '- (Optional; Required if image_name is empty.) Changing this creates a new bms server.'
-            image_name: |-
-                - (Optional; Required if image_id is empty.) The name of the
-                desired image for the bms server. Changing this creates a new BMS server.
-            kernel_id: '- The UUID of the kernel image when the AMI image is used.'
-            key_pair: |-
-                - (Optional) The name of a key pair to put on the BMS server. The key
-                pair must already be created and associated with the tenant's account.
-                Changing this creates a new BMS server.
-            metadata: |-
-                - (Optional) Metadata key/value pairs to make available from
-                within the instance. Changing this updates the existing BMS server metadata.
-            name: '- (Required) The name of the BMS.'
-            network: |-
-                - (Optional) An array of one or more networks to attach to the
-                BMS instance. Changing this creates a new BMS server.
-            network.access_network: |-
-                - (Optional) Specifies if this network should be used for
-                provisioning access. Accepts true or false. Defaults to false.
-            network.fixed_ip_v4: |-
-                - (Optional) Specifies a fixed IPv4 address to be used on this
-                network. Changing this creates a new BMS server.
-            network.fixed_ip_v6: |-
-                - (Optional) Specifies a fixed IPv6 address to be used on this
-                network. Changing this creates a new BMS server.
-            network.name: |-
-                - (Required unless uuid or port is provided) The human-readable
-                name of the network. Changing this creates a new BMS server.
-            network.port: |-
-                - (Required unless uuid or name is provided) The port UUID of a
-                network to attach to the BMS server. Changing this creates a new server.
-            network.uuid: |-
-                - (Required unless port  or name is provided) The network UUID to
-                attach to the BMS server. Changing this creates a new BMS server.
-            security_groups: |-
-                - (Optional) An array of one or more security group names
-                to associate with the BMS server. Changing this results in adding/removing
-                security groups from the existing BMS server.
-            stop_before_destroy: |-
-                - (Optional) Whether to try stop instance gracefully
-                before destroying it, thus giving chance for guest OS daemons to stop correctly.
-                If instance doesn't stop within timeout, it will be destroyed anyway.
-            tags: '- (Optional) Tags key/value pairs to associate with the instance.'
-            user_data: |-
-                - (Optional) The user data to provide when launching the instance.
-                Changing this creates a new BMS server.
-            user_id: '- The ID of the user to which the BMS belongs.'
-        importStatements: []
-    opentelekomcloud_compute_bms_tags_v2:
-        subCategory: Bare Metal Server (BMS)
-        description: Manages a BMS Tags resource within OpenTelekomCloud.
-        name: opentelekomcloud_compute_bms_tags_v2
-        title: opentelekomcloud_compute_bms_tags_v2
-        examples:
-            - name: add_tags
-              manifest: |-
-                {
-                  "server_id": "${var.bms_id}",
-                  "tags": [
-                    "tags_type_baremetal"
-                  ]
-                }
-              references:
-                server_id: var.bms_id
-        argumentDocs:
-            server_id: '- (Required) The unique id of bare metal server.'
-            tags: '- (Required) The tags of a BMS. Changing this parameter creates a new resource.'
-        importStatements: []
     opentelekomcloud_compute_floatingip_associate_v2:
         subCategory: Elastic Cloud Server (ECS)
         description: Manages an EIP Associate resource within OpenTelekomCloud.
@@ -8051,7 +7937,7 @@ resources:
             - $ terraform import opentelekomcloud_cts_tracker_v1.tracker system
     opentelekomcloud_cts_tracker_v3:
         subCategory: Cloud Trace Service (CTS)
-        description: Manages a CTS Tracker v3 resource within OpenTelekomCloud.
+        description: Manages a CTS Tracker v3 resource within T Cloud Public (formerly OpenTelekomCloud).
         name: opentelekomcloud_cts_tracker_v3
         title: opentelekomcloud_cts_tracker_v3
         examples:
@@ -8066,23 +7952,27 @@ resources:
               references:
                 bucket_name: var.bucket_name
         argumentDocs:
-            bucket_name: '- (Optional) The OBS bucket name for a tracker.'
+            bucket_name: '- (Optional, String) The OBS bucket name for a tracker.'
             compress_type: |-
-                - (Optional) Specifies the compression type. Default value is gzip.
+                - (Optional, String) Specifies the compression type. Default value is gzip.
                 The valid values are as follows:
             detail: '- Specifies the cause of the abnormal status, and its value in case of errors.'
             domain_id: '- Specifies domain id of the tracker.'
-            file_prefix_name: '- (Optional) The prefix of a log that needs to be stored in an OBS bucket.'
+            file_prefix_name: '- (Optional, String) The prefix of a log that needs to be stored in an OBS bucket.'
             id: '- Specifies the tracker id.'
-            is_lts_enabled: '- (Optional) Specifies whether to enable trace analysis.'
-            is_obs_created: '- (Optional) Specifies whether the OBS bucket is automatically created by the tracker.'
+            is_lts_enabled: '- (Optional, Boolean) Specifies whether to enable trace analysis.'
+            is_obs_created: '- (Optional, Boolean) Specifies whether the OBS bucket is automatically created by the tracker.'
             is_sort_by_service: |-
-                - (Optional) Specifies whether to sort the path by cloud service. If this option is enabled,
-                the cloud service name is added to the transfer file path. Default: true.
+                - (Optional, Boolean) Specifies whether to sort the path by cloud service. If this option is enabled,
+                the cloud service name is added to the transfer file path. If omitted, the value currently set on the tracker is kept.
+            is_support_validate: |-
+                - (Optional, Boolean) Specifies whether trace file verification is enabled for trace transfer.
+                When this function is enabled, integrity verification will be performed to check whether trace files in OBS buckets
+                have been tampered with.
             log_group_name: '- Specifies LTS log group name.'
             log_topic_name: '- Specifies LTS log stream.'
             project_id: '- Specifies project id of the tracker.'
-            status: '- (Required) Specifies whether tracker is enabled or disabled.'
+            status: '- (Required, String) Specifies whether tracker is enabled or disabled.'
             tracker_name: '- The tracker name. Currently, only tracker system is available.'
             tracker_type: '- The tracker type. Currently, only tracker system is available.'
         importStatements:
@@ -9384,6 +9274,30 @@ resources:
             lts_stream_id: '- (Required, String) Specifies the ID of the LTS log stream.'
             region: '- The region in which created the LTS log resource.'
         importStatements: []
+    opentelekomcloud_dds_public_ip_associate_v3:
+        subCategory: Document Database Service (DDS)
+        description: Manages a DDS Public IP association v3 resource within T Cloud Public (formerly OpenTelekomCloud).
+        name: opentelekomcloud_dds_public_ip_associate_v3
+        title: opentelekomcloud_dds_public_ip_associate_v3
+        examples:
+            - name: public_ip
+              manifest: |-
+                {
+                  "node_id": "${var.node_id}",
+                  "public_ip": "${opentelekomcloud_compute_floatingip_v2.eip.address}",
+                  "public_ip_id": "${opentelekomcloud_compute_floatingip_v2.eip.id}"
+                }
+              references:
+                node_id: var.node_id
+                public_ip: opentelekomcloud_compute_floatingip_v2.eip.address
+                public_ip_id: opentelekomcloud_compute_floatingip_v2.eip.id
+              dependencies:
+                opentelekomcloud_compute_floatingip_v2.eip: '{}'
+        argumentDocs:
+            node_id: '- (Required, String, ForceNew) Specifies the DDS node ID.'
+            public_ip: '- (Required, String) Specifies the EIP to be bound. The value must be in the standard IP address format.'
+            public_ip_id: '- (Required, String) Specifies the EIP ID. The value must be in the standard UUID format.'
+        importStatements: []
     opentelekomcloud_deh_host_v1:
         subCategory: Dedicated Host (DEH)
         description: Manages a DEH Host resource within OpenTelekomCloud.
@@ -9409,8 +9323,8 @@ resources:
             available_vcpus: '- The number of available vCPUs for the Dedicated Host.'
             cores: '-  The number of host physical cores.'
             eu-ch2: ': s3.'
-            eu-de: ': c4, s2-medium, m3, c3 and s2.'
-            eu-nl: ': i3_pro, i3, m4, s3 and c4.'
+            eu-de: ': s2, s2-medium, c4, m4, s7n, c7n, m7n, c9, c9_pro, m9.'
+            eu-nl: ': s3, c4, m4, s7n, c7n, m7n, c9, c9_pro, m9, i3, i3m, i3_pro.'
             host_type: |-
                 - (Required, String, ForceNew) The Dedicated Host type.
                 Expected values are:
@@ -11202,6 +11116,35 @@ resources:
                     {
                       "pool": "admin_external_net"
                     }
+            - name: this
+              manifest: |-
+                {
+                  "availability_zone": "eu-de-01",
+                  "flavor": "s2.large.2",
+                  "image_id": "ad091b52-742f-469e-8f3c-fd81cadf0743",
+                  "key_name": "KeyPair-test",
+                  "name": "server_1",
+                  "nics": [
+                    {
+                      "ipv6_bandwidth": [
+                        {
+                          "id": "${opentelekomcloud_vpc_bandwidth_v2.ipv6.id}"
+                        }
+                      ],
+                      "ipv6_enable": true,
+                      "network_id": "55534eaa-533a-419d-9b40-ec427ea7195a"
+                    }
+                  ],
+                  "vpc_id": "8eed4fc7-e5e5-44a2-b5f2-23b3e5d46235"
+                }
+              references:
+                nics.ipv6_bandwidth.id: opentelekomcloud_vpc_bandwidth_v2.ipv6.id
+              dependencies:
+                opentelekomcloud_vpc_bandwidth_v2.ipv6: |-
+                    {
+                      "name": "ipv6-shared-bandwidth",
+                      "size": 5
+                    }
             - name: basic
               manifest: |-
                 {
@@ -11326,6 +11269,7 @@ resources:
                 The value consists of 0 to 85 characters. Angle brackets (<>) are not allowed.
             flavor: '- (Required, String) The name of the desired flavor for the server.'
             image_id: '- (Required, String, ForceNew) The ID of the desired image for the server. Changing this creates a new server.'
+            ipv6_bandwidth.id: '- (Required, String, ForceNew) The ID of an existing shared bandwidth.'
             key_name: |-
                 - (Optional, String, ForceNew) The name of a key pair to put on the server. The key
                 pair must already be created and associated with the tenant's account.
@@ -11340,6 +11284,9 @@ resources:
             nics.ip_address: |-
                 - (Optional, String, ForceNew) Specifies a fixed IPv4 address to be used on this
                 network. Changing this creates a new server.
+            nics.ipv6_bandwidth: |-
+                - (Optional, List, ForceNew) The shared bandwidth to associate with the NIC's IPv6 address.
+                This argument requires ipv6_enable = true. The structure is documented below.
             nics.ipv6_enable: '- (Optional, Bool, ForceNew) Specifies whether to support IPv6 addresses. If this parameter is set to true, the NIC supports IPv6 addresses.'
             nics.network_id: '- (Required, String, ForceNew) The network UUID to attach to the server. Changing this creates a new server.'
             nics/ipv6_address: '- (String) The IPV6 address of the NIC on that network.'
@@ -11379,6 +11326,32 @@ resources:
             vpc_id: '- (Required, String, ForceNew) The ID of the desired VPC for the server. Changing this creates a new server.'
         importStatements:
             - terraform import opentelekomcloud_ecs_instance_v1.instance_1 d90ce693-5ccf-4136-a0ed-152ce412b6b9
+    opentelekomcloud_enterprise_project_action_v1:
+        subCategory: Enterprise Project Management Service (EPS)
+        description: Use this resource to operate the enterprise project within T-Cloud Public (former OpenTelekomCloud).
+        name: opentelekomcloud_enterprise_project_action_v1
+        title: opentelekomcloud_enterprise_project_action_v1
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "action": "disable",
+                  "enterprise_project_id": "${var.enterprise_project_id}"
+                }
+              references:
+                enterprise_project_id: var.enterprise_project_id
+        argumentDocs:
+            action: |-
+                - (Required, String, NonUpdatable) Specifies the action type.
+                The valid values are as follows:
+            enable_force_new: |-
+                - (Optional, String) Controls how changes to enterprise_project_id or action are handled.
+                Set this argument to "true" to replace the resource and execute the new action. If set to "false", Terraform
+                returns an error when either non-updatable argument changes. If omitted, the provider-level enable_force_new
+                setting is used. Valid values are "true" and "false".
+            enterprise_project_id: '- (Required, String, NonUpdatable) Specifies the ID of enterprise project to be operated.'
+            id: '- A generated UUID used to track the action resource in Terraform state.'
+        importStatements: []
     opentelekomcloud_enterprise_project_v1:
         subCategory: Enterprise Project Management Service (EPS)
         description: Use this resource to manage an enterprise project within T-Cloud Public (former OpenTelekomCloud).
@@ -14570,6 +14543,11 @@ resources:
             data_origin: '- The image resource. The pattern can be ''instance,instance_id'' or ''file,image_url''.'
             description: '- (Optional) A description of the image. Changing this creates a new image.'
             disk_format: '- The image file format. The value can be vhd, zvhd, raw, zvhd2, or qcow2.'
+            enterprise_project_id: |-
+                - (Optional, String, ForceNew) The ID of the enterprise project to which
+                the image belongs. If omitted, the provider-level enterprise project ID is used. If neither is set,
+                the image belongs to the default enterprise project. Required when only enterprise project authorization
+                is used.
             id: '- A unique ID assigned by IMS.'
             image_size: '- The size(bytes) of the image file format.'
             image_url: |-
@@ -14690,6 +14668,11 @@ resources:
             data_origin: '- The image resource. The pattern can be ''instance,instance_id'' or ''file,image_url''.'
             description: '- (Optional, String, ForceNew) A description of the image. Changing this creates a new image.'
             disk_format: '- The image file format. The value can be vhd, zvhd, raw, zvhd2, or qcow2.'
+            enterprise_project_id: |-
+                - (Optional, String, ForceNew) The ID of the enterprise project to which
+                the image belongs. If omitted, the provider-level enterprise project ID is used. If neither is set,
+                the image belongs to the default enterprise project. Required when only enterprise project authorization
+                is used.
             file: '- The URL for uploading and downloading the image file.'
             hw_firmware_type: '- (Optional, String) Specifies the boot mode. The value can be bios or uefi.'
             id: '- A unique ID assigned by IMS.'
@@ -14726,7 +14709,7 @@ resources:
                 uploaded to an OBS bucket. Changing this creates a new image.
             tags: '- (Optional, List) The tags of the image.'
             type: |-
-                - (Optional, String, ForceNew) The image type. Must be one of ECS, FusionCompute, BMS,
+                - (Optional, String, ForceNew) The image type. Must be one of ECS, FusionCompute,
                 Ironic or IsoImage. Changing this creates a new image.
             visibility: '- Whether the image is visible to other tenants.'
             volume_id: |-
@@ -16166,7 +16149,6 @@ resources:
                 - (Optional) Specifies the configuration of the page that will be returned.
                 This parameter will take effect when advanced_forwarding is set to true.
                 If this parameter is passed and advanced_forwarding is set to false, an error will be returned.
-                Not available in eu-nl.
             host: |-
                 - (Optional) - Specifies the host name that requests are redirected to.
                 The value can contain only letters, digits, hyphens (-), and periods (.) and must start with a letter or digit.
@@ -16194,7 +16176,7 @@ resources:
                 A smaller value indicates a higher priority. The value must be unique for forwarding policies of the same listener.
                 This parameter will take effect only when advanced_forwarding is set to true.
                 If this parameter is passed and advanced_forwarding is set to false, an error will be returned.
-                This parameter is unsupported for shared load balancers and not available in eu-nl.
+                This parameter is unsupported for shared load balancers.
             project_id: |-
                 - (Optional) Required for admins. The UUID of the tenant who owns
                 the Policy. Only administrative users can specify a tenant UUID other than
@@ -16219,7 +16201,7 @@ resources:
             redirect_url_config: |-
                 - (Optional) Specifies the URL to which requests are forwarded.
                 For dedicated load balancers, This parameter will take effect when advanced_forwarding is set to true.
-                If it is passed when advanced_forwarding is set to false, an error will be returned. Not available in eu-nl.
+                If it is passed when advanced_forwarding is set to false, an error will be returned.
             rules: '- (Optional) Lists the forwarding rules in the forwarding policy.'
             status: '- Specifies the provisioning status of the forwarding policy.'
             status_code: |-
@@ -16407,7 +16389,6 @@ resources:
             conditions: |-
                 - (Optional) Specifies the matching conditions of the forwarding rule.
                 This parameter is available only when advanced_forwarding is set to true.
-                Not available in eu-nl.
             key: '- (Optional) Specifies the key of match item.'
             policy_id: '- (Required) ID of the policy.'
             project_id: |-
@@ -17373,6 +17354,85 @@ resources:
                 - (Optional, Int) Specifies the log expiration time (days).
                 The valid value is a non-zero integer from -1 to 365, defaults to -1 which means inherit the log group settings.
         importStatements: []
+    opentelekomcloud_lts_structuring_template_v3:
+        subCategory: Log Tank Service (LTS)
+        description: Manages a LTS Structuring configuration within T-Cloud Public (former OpenTelekomCloud).
+        name: opentelekomcloud_lts_structuring_template_v3
+        title: opentelekomcloud_lts_structuring_template_v3
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "log_group_id": "${var.log_group_id}",
+                  "log_stream_id": "${var.log_stream_id}",
+                  "template_name": "CTS",
+                  "template_type": "built_in"
+                }
+              references:
+                log_group_id: var.log_group_id
+                log_stream_id: var.log_stream_id
+            - name: test
+              manifest: |-
+                {
+                  "log_group_id": "${var.log_group_id}",
+                  "log_stream_id": "${var.log_stream_id}",
+                  "template_id": "${var.template_id}",
+                  "template_name": "${var.template_name}",
+                  "template_type": "custom"
+                }
+              references:
+                log_group_id: var.log_group_id
+                log_stream_id: var.log_stream_id
+                template_id: var.template_id
+                template_name: var.template_name
+            - name: test
+              manifest: |-
+                {
+                  "lifecycle": [
+                    {
+                      "ignore_changes": [
+                        "${template_type}",
+                        "${template_id}",
+                        "${demo_fields}",
+                        "${tag_fields}",
+                        "${quick_analysis}"
+                      ]
+                    }
+                  ]
+                }
+              references:
+                lifecycle.ignore_changes: template_type
+        argumentDocs:
+            demo_fields: |-
+                - (Optional, List) Specifies the example fields. Use to set quick analysis configurations for fields.
+                Only need to enter the fields whose status is different from that of is_analysis in the template.
+                The demo_fields structure is documented below.
+            demo_fields.field_name: '- (Required, String) Specifies the field name. The valid length is limited from 1 to 64.'
+            demo_fields.is_analysis: '- (Optional, Bool) Specifies whether quick analysis is enabled. Defaults to false.'
+            demo_log: '- The sample log event.'
+            id: '- The resource ID.'
+            is_analysis: |-
+                in demo_fields and tag_fields in the template determines
+                whether to enable quick analysis.
+            log_group_id: |-
+                - (Required, String, ForceNew) Specifies the log group ID.
+                Changing this parameter will create a new resource.
+            log_stream_id: |-
+                - (Required, String, ForceNew) Specifies the log stream ID.
+                Changing this parameter will create a new resource.
+            quick_analysis: '- (Optional, Bool) Specifies whether to enable demo_fields and tag_fields quick analysis.'
+            tag_fields: |-
+                - (Optional, List) Specifies the tag fields. Use to set quick analysis configurations for fields.
+                Only need to enter the fields whose status is different from that of is_analysis in the template.
+                The tag_fields structure is documented below.
+            template_id: |-
+                - (Optional, String) Specifies the template ID. The field is valid and required only when
+                template_type is set to custom.
+            template_name: |-
+                - (Required, String) Specifies the template name. When template_type is set to built_in,
+                valid values are:
+            template_type: '- (Required, String) Specifies the type of the template. The valid values are as follows:'
+        importStatements: []
     opentelekomcloud_lts_transfer_v2:
         subCategory: Log Tank Service (LTS)
         description: Manages a LTS Log Transfer resource within OpenTelekomCloud.
@@ -17784,21 +17844,19 @@ resources:
             description: |-
                 - (Optional) Provides supplementary information about the DNAT rule.
                 Changing this creates a new DNAT rule.
-            external_service_port: |-
-                - (Required) Specifies port used by ECSs or
-                BMSs to provide services for external systems. Changing this creates a new DNAT rule.
+            external_service_port: '- (Required) Specifies port used by ECSs to provide services for external systems. Changing this creates a new DNAT rule.'
             floating_ip_address: '- The actual floating IP address.'
             floating_ip_id: |-
                 - (Required) Specifies the ID of the floating IP address.
                 Changing this creates a new resource.
             internal_service_port: |-
-                - (Required) Specifies port used by ECSs or BMSs
+                - (Required) Specifies port used by ECSs
                 to provide services for external systems. Changing this creates a new resource.
             nat_gateway_id: |-
                 - (Required) ID of the NAT gateway this DNAT rule belongs to.
                 Changing this creates a new DNAT rule.
             port_id: |-
-                - (Optional) Specifies the port ID of an ECS or a BMS.
+                - (Optional) Specifies the port ID of an ECS.
                 This parameter and private_ip are alternative. Changing this creates a
                 new DNAT rule.
             private_ip: |-
@@ -18128,6 +18186,26 @@ resources:
                       "name": "subnet_1",
                       "network_id": "${opentelekomcloud_networking_network_v2.network_1.id}"
                     }
+            - name: port_ntp
+              manifest: |-
+                {
+                  "extra_dhcp_option": [
+                    {
+                      "name": "ntp-server",
+                      "value": "10.100.0.33"
+                    }
+                  ],
+                  "fixed_ip": [
+                    {
+                      "subnet_id": "${opentelekomcloud_networking_subnet_v2.subnet_1.id}"
+                    }
+                  ],
+                  "name": "port_ntp",
+                  "network_id": "${opentelekomcloud_networking_network_v2.network_1.id}"
+                }
+              references:
+                fixed_ip.subnet_id: opentelekomcloud_networking_subnet_v2.subnet_1.id
+                network_id: opentelekomcloud_networking_network_v2.network_1.id
         argumentDocs:
             admin_state_up: |-
                 - (Optional, Bool) Administrative up/down status for the port
@@ -18147,7 +18225,7 @@ resources:
                 - (Optional. String, ForceNew) The device owner of the Port. Changing this creates
                 a new port.
             extra_dhcp_option: |-
-                - (Optional, Map) Specifies the extended DHCP option. This is an extended attribute.
+                - (Optional, Set) Specifies the extended DHCP option. This is an extended attribute.
                 The extra_dhcp_option block supports:
             extra_dhcp_option.name: '- (Required, String) Specifies the option name.'
             extra_dhcp_option.value: '- (Required, String) Specifies the option value.'
@@ -18481,7 +18559,11 @@ resources:
               manifest: |-
                 {
                   "cidr": "192.168.199.0/24",
-                  "network_id": "${opentelekomcloud_networking_network_v2.network_1.id}"
+                  "network_id": "${opentelekomcloud_networking_network_v2.network_1.id}",
+                  "tags": {
+                    "foo": "bar",
+                    "key": "value"
+                  }
                 }
               references:
                 network_id: opentelekomcloud_networking_network_v2.network_1.id
@@ -18533,6 +18615,7 @@ resources:
             no_gateway: |-
                 - (Optional) Do not set a gateway IP on this subnet. Changing
                 this removes or adds a default gateway IP of the existing subnet.
+            tags: '- (Optional) The key/value pairs to associate with the subnet.'
             tenant_id: |-
                 - (Optional) The owner of the subnet. Required if admin wants to
                 create a subnet for another tenant. Changing this creates a new subnet.
@@ -20638,6 +20721,33 @@ resources:
             value: '- Indicates the parameter value.'
             value_range: '- Indicates the parameter value range.'
             values: '- (Optional) Parameter group values key/value pairs defined by users based on the default parameter groups.'
+        importStatements: []
+    opentelekomcloud_rds_postgres_extension_v3:
+        subCategory: Relational Database Service (RDS)
+        description: Manages an RDS Postgres extension v3 resource within T CLoud Public (formerly OpenTelekomCloud).
+        name: opentelekomcloud_rds_postgres_extension_v3
+        title: opentelekomcloud_rds_postgres_extension_v3
+        examples:
+            - name: extension
+              manifest: |-
+                {
+                  "database_name": "${var.database_name}",
+                  "extension_name": "hstore",
+                  "instance_id": "${var.instance_id}"
+                }
+              references:
+                database_name: var.database_name
+                instance_id: var.instance_id
+        argumentDocs:
+            database_name: '- (Required, String, ForceNew) Specifies the name of the database in which the extension is created.'
+            description: '- Specifies the description of the extension.'
+            enable_install: '- Specifies whether the extension can be installed..'
+            extension_name: '- (Required, String, ForceNew) Specifies the name of the extension.'
+            id: '- Specifies the resource ID, which is {instance_id}/{database_name}/{extension_name}.'
+            instance_id: '- (Required, String, ForceNew) Specifies the ID of the RDS PostgreSQL instance.'
+            shared_preload_libraries: '- Specifies the dependent preloaded library..'
+            version: '- Specifies the current version of the extension.'
+            version_update: '- Specifies the new version that the extension can be upgraded to. If the value of this parameter is different from that of version, the extension can be upgraded.'
         importStatements: []
     opentelekomcloud_rds_public_ip_associate_v3:
         subCategory: Relational Database Service (RDS)
@@ -22844,12 +22954,31 @@ resources:
                   "size": 100
                 }
         argumentDocs:
+            address: '- IPv4 address.'
+            bandwidth_type: '- Specifies the bandwidth type.'
+            billing_info: '- Specifies yearly/monthly billing information, when applicable.'
+            charge_mode: '- Specifies the bandwidth charging mode.'
+            created_at: '- Specifies when the bandwidth was created.'
+            enterprise_project_id: |-
+                - (Optional) Specifies the enterprise project associated
+                with the shared bandwidth. If omitted, the provider-level enterprise project or
+                the default enterprise project (0) is used. Changing this creates a new resource.
             id: '- Specifies the bandwidth ID, which uniquely identifies the bandwidth.'
+            ip_version: '- IP address version.'
+            ipv6_address: '- IPv6 address, when available.'
             name: '- (Required) Specifies the bandwidth name.'
+            public_border_group: |-
+                - (Optional) Specifies whether the shared bandwidth is
+                located at the central site or an edge site. Changing this creates a new resource.
+            publicip_info: '- Lists EIPs associated with the bandwidth:'
+            share_type: '- Indicates whether the bandwidth is shared or dedicated.'
             size: |-
                 - (Required) Specifies the bandwidth size.
                 The value ranges from 5 Mbit/s to 1000 Mbit/s by default.
             status: '- Specifies the bandwidth status.'
+            tenant_id: '- Specifies the project ID.'
+            type: '- EIP type.'
+            updated_at: '- Specifies when the bandwidth was last updated.'
         importStatements: []
     opentelekomcloud_vpc_eip_v1:
         subCategory: Virtual Private Cloud (VPC)
@@ -22916,11 +23045,16 @@ resources:
                       "size": 50
                     }
         argumentDocs:
+            allow_share_bandwidth_types: '- Shared-bandwidth types to which the EIP can be added.'
             bandwidth: '- (Required) The bandwidth object.'
             bandwidth.charge_mode: |-
                 - (Optional) This is a reserved field. If the system supports charging
                 by traffic and this field is specified, then you are charged by traffic for elastic
                 IP addresses. Changing this creates a new eip.
+            bandwidth.enterprise_project_id: |-
+                - (Optional) Specifies the enterprise project associated
+                with the EIP. If omitted, the provider-level enterprise project or 0 is used.
+                Changing this creates a new EIP.
             bandwidth.id: |-
                 - (Optional) An existing shared bandwidth ID to attach the EIP to. This
                 conflicts with name.
@@ -22938,16 +23072,24 @@ resources:
             bandwidth.unbind_port: |-
                 - (Optional) The value true indicates that port will be unassigned from EIP.
                 This parameter work only with already allocated resource.
+            bandwidth.value_specs: |-
+                - (Optional) Legacy additional creation parameters. This compatibility
+                argument uses the legacy creation request when set.
             bandwidth/charge_mode: '- See Argument Reference above.'
             bandwidth/id: '- See Argument Reference above.'
             bandwidth/name: '- See Argument Reference above.'
             bandwidth/share_type: '- See Argument Reference above.'
             bandwidth/size: '- See Argument Reference above.'
+            enterprise_project_id: '- The enterprise project associated with the EIP.'
             id: '- The VPC EIP id.'
+            public_border_group: '- The EIP location, such as center or an edge site.'
             publicip: '- (Required) The elastic IP address object.'
             publicip.ip_address: |-
                 - (Optional) The value must be a valid IP address in the available
                 IP address segment. Changing this creates a new eip.
+            publicip.ip_version: |-
+                - (Optional) Specifies the EIP version. Valid values are 4 and 6.
+                Changing this creates a new EIP. IPv6 EIPs are not currently supported.
             publicip.name: '- (Required) The ip name, which is a string of 1 to 64 characters.'
             publicip.port_id: |-
                 - (Optional) The port id which this eip will associate with. If the value
@@ -22956,11 +23098,12 @@ resources:
                 - (Required) The value must be a type supported by the system.
                 The value can be 5_bgp, 5_mailbgp and 5_gray. Changing this creates a new eip.
             publicip/ip_address: '- See Argument Reference above.'
+            publicip/ip_version: '- See Argument Reference above.'
             publicip/name: '- See Argument Reference above.'
             publicip/port_id: '- See Argument Reference above.'
             publicip/type: '- See Argument Reference above.'
             region: |-
-                - (Optional) The region in which to obtain the V1 Networking client.
+                - (Optional) The region in which to obtain the VPC v1 client.
                 If omitted, the region argument of the provider is used. Changing this
                 creates a new service.
             tags: '- See Argument Reference above.'
@@ -22975,6 +23118,8 @@ resources:
               manifest: |-
                 {
                   "description": "${var.flow_log_desc}",
+                  "enabled": true,
+                  "index_enabled": true,
                   "log_group_id": "${opentelekomcloud_logtank_group_v2.log_group1.id}",
                   "log_topic_id": "${opentelekomcloud_logtank_topic_v2.log_topic1.id}",
                   "name": "${var.flow_log_name}",
@@ -23004,11 +23149,15 @@ resources:
                       "name": "${var.vpc_name}"
                     }
         argumentDocs:
-            admin_state: '- Whether to enable the VPC flow log function.'
+            created_at: '- The time when the VPC flow log was created.'
             description: |-
-                - (Optinal) Provides supplementary information about the VPC flow log.
+                - (Optional) Provides supplementary information about the VPC flow log.
                 The value is a string of no more than 255 characters and cannot contain angle brackets (< or >).
+            enabled: '- (Optional) Whether to enable the VPC flow log function. Defaults to true.'
             id: '- The VPC flow log ID in UUID format.'
+            index_enabled: |-
+                - (Optional) Whether to enable the log index. Defaults to false.
+                Changing this creates a new VPC flow log.
             log_group_id: |-
                 - (Required) Specifies the log group ID.
                 Changing this creates a new VPC flow log.
@@ -23026,9 +23175,11 @@ resources:
                 The value can be port, vpc and network.
                 Changing this creates a new VPC flow log.
             status: '- The status of the flow log. The value can be ACTIVE, DOWN or ERROR.'
+            tenant_id: '- The project ID that owns the VPC flow log.'
             traffic_type: |-
                 - (Required) Specifies the type of traffic to log. The value can be all, accept and reject.
                 Changing this creates a new VPC flow log.
+            updated_at: '- The time when the VPC flow log was last updated.'
         importStatements: []
     opentelekomcloud_vpc_ip_address_group_v3:
         subCategory: Virtual Private Cloud (VPC)
@@ -23566,7 +23717,7 @@ resources:
             direction: '- (Required, String, ForceNew) Specifies inbound or outbound direction of a security group rule. Supported values: ingress (inbound direction), egress (outbound direction).'
             ether_type: '- (Required, String, ForceNew) Specifies the IP version. Supported values: IPv4, IPv6. Default: IPv4 .'
             id: '- Security Group Rule ID.'
-            multiport: '- (Optional, String, ForceNew) Specifies the port or port range. The value can be a single port, e.g. 80, a port range, e.g. 1-30, or inconsecutive ports separated by commas, e.g. 22,3389,80.'
+            multi_port: '- (Optional, String, ForceNew) Specifies the port or port range. The value can be a single port, e.g. 80, a port range, e.g. 1-30, or inconsecutive ports separated by commas, e.g. 22,3389,80.'
             priority: '- (Optional, Integer, ForceNew) Specifies the rule priority in a security group. The value is from 1 to 100. The value 1 indicates the highest priority. Default value: 1.'
             project_id: '- Indicates the project ID.'
             protocol: '- (Optional, String, ForceNew) Specifies the protocol type. The value can be icmp, tcp, udp, icmpv6 or an IP number (0 to 255). If the parameter is left blank, all protocols are supported. When the protocol is icmpv6, IP version should be IPv6. When the protocol is icmp, IP version should be IPv4.'
@@ -23588,8 +23739,22 @@ resources:
                   "description": "My VPC security group",
                   "name": "secgroup_1"
                 }
+            - name: group_1
+              manifest: |-
+                {
+                  "lifecycle": [
+                    {
+                      "ignore_changes": [
+                        "${delete_default_rules}"
+                      ]
+                    }
+                  ]
+                }
+              references:
+                lifecycle.ignore_changes: delete_default_rules
         argumentDocs:
             created_at: '- Indicates the time when the security group was created. It is a UTC time in yyyy-MM-ddTHH:mm:ssZ format.'
+            delete_default_rules: '- (Optional, Boolean, ForceNew) Specify whether to delete all default rules when security group is created. Default: false.'
             description: '- (Optional, String) Security group description.'
             enterprise_project_id: '- (Optional, String, ForceNew) ID of the enterprise project to which the security group belongs. Default: 0.'
             id: '- Security Group ID.'
@@ -23640,6 +23805,44 @@ resources:
                 - (Required, ForceNew) The ID of the VPC to which the secondary CIDR
                 blocks are attached. Changing this forces a new resource to be created.
         importStatements: []
+    opentelekomcloud_vpc_subnet_private_ip_v1:
+        subCategory: Virtual Private Cloud (VPC)
+        description: Manages a private IP address in an OpenTelekomCloud VPC subnet.
+        name: opentelekomcloud_vpc_subnet_private_ip_v1
+        title: opentelekomcloud_vpc_subnet_private_ip_v1
+        examples:
+            - name: private_ip
+              manifest: |-
+                {
+                  "subnet_id": "${opentelekomcloud_vpc_subnet_v1.example.network_id}"
+                }
+              references:
+                subnet_id: opentelekomcloud_vpc_subnet_v1.example.network_id
+            - name: private_ip
+              manifest: |-
+                {
+                  "ip_address": "192.168.10.10",
+                  "subnet_id": "${opentelekomcloud_vpc_subnet_v1.example.network_id}"
+                }
+              references:
+                subnet_id: opentelekomcloud_vpc_subnet_v1.example.network_id
+        argumentDocs:
+            device_owner: '- The resource using the private IP address. This is empty when the address is unused.'
+            id: '- The unique private IP address ID.'
+            ip_address: |-
+                - (Optional, ForceNew) Specifies an available IPv4 address in the subnet. If omitted,
+                OpenTelekomCloud automatically assigns an address. Changing this creates a new resource.
+            region: |-
+                - (Optional, ForceNew) Specifies the region in which to create the private IP address.
+                If omitted, the provider-level region is used. Changing this creates a new resource.
+            status: '- The private IP address status. The value is ACTIVE or DOWN.'
+            subnet_id: |-
+                - (Required, ForceNew) Specifies the network ID of the subnet from which the address
+                is assigned. Use the network_id attribute of opentelekomcloud_vpc_subnet_v1. Changing this
+                creates a new resource.
+            tenant_id: '- The project ID that owns the private IP address.'
+        importStatements:
+            - terraform import opentelekomcloud_vpc_subnet_private_ip_v1.private_ip <private-ip-id>
     opentelekomcloud_vpc_subnet_v1:
         subCategory: Virtual Private Cloud (VPC)
         description: Manages a VPC Subnet resource within OpenTelekomCloud.
@@ -23710,7 +23913,8 @@ resources:
                 - (Required) Specifies the network segment on which the subnet resides. The value must be in CIDR format.
                 The value must be within the CIDR block of the VPC. The subnet mask cannot be greater than 28.
                 Changing this creates a new Subnet.
-            cidr_v6: '- Specifies the IPv6 subnet CIDR block. If the subnet is an IPv4 subnet, this parameter is not returned.'
+            cidr_ipv6: '- Specifies the IPv6 subnet CIDR block. If the subnet is an IPv4 subnet, this parameter is not returned.'
+            created_at: '- The UTC creation timestamp.'
             description: '- (Optional) A description of the VPC subnet.'
             dhcp_enable: |-
                 - (Optional) Specifies whether the DHCP function is enabled for the subnet. The value can
@@ -23722,19 +23926,20 @@ resources:
             gateway_ip: |-
                 - (Required) Specifies the gateway of the subnet. The value must be a valid IP address.
                 The value must be an IP address in the subnet segment. Changing this creates a new Subnet.
-            gateway_ip_v6: '- Specifies the IPv6 subnet gateway. If the subnet is an IPv4 subnet, this parameter is not returned.'
+            gateway_ipv6: '- Specifies the IPv6 subnet gateway. If the subnet is an IPv4 subnet, this parameter is not returned.'
             id: '- Specifies a resource ID in UUID format. Same as OpenStack network ID (OS_NETWORK_ID).'
             ipv6_enable: |-
                 - (Optional) Specifies whether IPv6 is enabled. If IPv6 is enabled, you can use IPv6 CIDR blocks. The value can
                 be true or false. If this parameter is left blank, it is set to false by default.
             name: |-
                 - (Required) The subnet name. The value is a string of 1 to 64 characters that can contain letters,
-                digits, underscores (_), and hyphens (-).
+                digits, underscores (_), hyphens (-), and periods (.).
             network_id: '- Specifies the OpenStack network ID.'
             ntp_addresses: '- (Optional) Specifies the NTP server address configured for the subnet.'
             primary_dns: |-
                 - (Optional) Specifies the IP address of DNS server 1 on the subnet. The value must be a
                 valid IP address. Default is 100.125.4.25, OpenTelekomCloud internal DNS server.
+            scope: '- Specifies where the subnet is used in an edge-cloud scenario.'
             secondary_dns: |-
                 - (Optional) Specifies the IP address of DNS server 2 on the subnet. The value must be a
                 valid IP address. Default is 100.125.129.199, OpenTelekomCloud secondary internal DNS server.
@@ -23742,6 +23947,8 @@ resources:
             subnet_id: '- Specifies the OpenStack subnet ID.'
             subnet_id_v6: '- Specifies the OpenStack IPv6 subnet ID. Only returned if subnet is IPV6 enabled.'
             tags: '- (Optional) The key/value pairs to associate with the subnet.'
+            tenant_id: '- The project ID that owns the subnet.'
+            updated_at: '- The UTC last-update timestamp.'
             vpc_id: '- (Required) Specifies the ID of the VPC to which the subnet belongs. Changing this creates a new Subnet.'
         importStatements:
             - terraform import opentelekomcloud_vpc_subnet_v1.subnet_v1 4779ab1c-7c1a-44b1-a02e-93dfc361b32d
@@ -23778,10 +23985,18 @@ resources:
                 - (Required) The range of available subnets in the VPC. The value ranges from
                 10.0.0.0/8 to 10.255.255.0/24, 172.16.0.0/12 to 172.31.255.0/24,
                 or 192.168.0.0/16 to 192.168.255.0/24.
+            created_at: '- The UTC creation timestamp.'
             description: '- (Optional) A description of the VPC.'
+            enterprise_project_id: |-
+                - (Optional) The enterprise project ID associated with the VPC.
+                Changing this creates a new VPC. If omitted, the provider-level enterprise project ID is used,
+                or 0 for the default enterprise project.
             name: |-
                 - (Required) The name of the VPC. The name must be unique for a tenant. The value is a string of
-                no more than 64 characters and can contain digits, letters, underscores (_), and hyphens (-).
+                no more than 64 characters and can contain digits, letters, underscores (_), hyphens (-), and periods (.).
+            routes: |-
+                - The VPC routes. Each entry contains destination and nexthop.
+                Manage custom routes with the dedicated VPC route resources.
             secondary_cidr: |-
                 - DEPRECATED (Optional) Secondary CIDR block that can be added to VPCs.
                 The value cannot contain the following: 100.64.0.0/1, 214.0.0.0/7, 198.18.0.0/15, 169.254.0.0/16,
@@ -23795,6 +24010,8 @@ resources:
                 - The current status of the desired VPC. Can be either CREATING,
                 OK, DOWN, PENDING_UPDATE, PENDING_DELETE or ERROR.
             tags: '- (Optional) The key/value pairs to associate with the VPC.'
+            tenant_id: '- The project ID that owns the VPC.'
+            updated_at: '- The UTC last-update timestamp.'
         importStatements: []
     opentelekomcloud_vpcep_approval_v1:
         subCategory: VPC Endpoint (VPCEP)
@@ -24728,6 +24945,37 @@ resources:
                     {
                       "name": "policy_cc"
                     }
+            - name: rule_1
+              manifest: |-
+                {
+                  "action": [
+                    {
+                      "category": "log"
+                    }
+                  ],
+                  "conditions": [
+                    {
+                      "category": "url",
+                      "contents": [
+                        "/url"
+                      ],
+                      "logic_operation": "contain"
+                    }
+                  ],
+                  "description": "advanced log rule",
+                  "limit_num": 10,
+                  "limit_period": 60,
+                  "mode": 1,
+                  "policy_id": "${opentelekomcloud_waf_dedicated_policy_v1.policy_1.id}",
+                  "tag_type": "ip"
+                }
+              references:
+                policy_id: opentelekomcloud_waf_dedicated_policy_v1.policy_1.id
+              dependencies:
+                opentelekomcloud_waf_dedicated_policy_v1.policy_1: |-
+                    {
+                      "name": "policy_cc_advanced_log"
+                    }
         argumentDocs:
             "0": '- Standard. Only the protected paths of domain names can be specified.'
             "1": '- The path, IP address, cookie, header, and params fields can all be set.'
@@ -24740,7 +24988,8 @@ resources:
             block: ': WAF blocks the requests. When tag_type is set to other, the value can only be blocked.'
             captcha: ': Verification code. WAF requires visitors to enter a correct verification code to continue their access to requested page on your website.'
             conditions: |-
-                - (Optional, ForceNew, List) Rate limit conditions of the CC protection rule. Changing this creates a new rule.
+                - (Optional, ForceNew, List) Rate limit conditions of the CC protection rule. At least one block is required
+                when mode is set to 1. Changing this creates a new rule.
                 The conditions block supports:
             conditions.category: '- (Required, ForceNew, String) Field type. The value can be url, ip, params, cookie, or header.'
             conditions.contents: '- (Optional, ForceNew, List) Content of the conditions. This parameter is mandatory when the suffix of logic_operation is not any or all. Changing this creates a new rule.'
@@ -24773,7 +25022,9 @@ resources:
                 If tag_type is set to header, this parameter indicates header name.
             tag_type: '- (Required, ForceNew, String) Rate limit mode. Changing this creates a new rule. Valid Options are:'
             unlock_num: '- (Optional, ForceNew, Int) Allowable frequency based on the number of requests. The value ranges from 0 to 2,147,483,647. This parameter is required only when the protection action type is dynamic_block. Changing this creates a new rule.'
-            url: '- (Required, ForceNew, String) Path to be protected in the CC attack protection rule. Changing this creates a new rule.'
+            url: |-
+                - (Optional, ForceNew, String) Path to be protected in the CC attack protection rule. This parameter is required
+                when mode is set to 0. Changing this creates a new rule.
         importStatements: []
     opentelekomcloud_waf_dedicated_certificate_v1:
         subCategory: Dedicated Web Application Firewall (WAFD)

@@ -129,3 +129,42 @@ spec:
       matchLabels:
         testing.upbound.io/example-name: dds-instance
     name: dds-bkp-${Rand.RFC1123Subdomain}
+# ---
+# apiVersion: dds.opentelekomcloud.m.crossplane.io/v1alpha1
+# kind: PublicIPAssociateV3
+# metadata:
+#   annotations:
+#     meta.upbound.io/example-id: dds/v1alpha1/publicipassociatev3
+#   labels:
+#     testing.upbound.io/example-name: dds-eip
+#   name: dds-ipa-${Rand.RFC1123Subdomain}
+#   namespace: test
+# spec:
+#   forProvider:
+#     nodeI: yournodeid
+#     publicIpSelector:
+#       matchLabels:
+#         testing.upbound.io/example-name: dds-dds-eip
+#     publicIpSelectorById:
+#       matchLabels:
+#         testing.upbound.io/example-name: dds-dds-eip
+#
+# ---
+# apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
+# kind: EIPV1
+# metadata:
+#   annotations:
+#     meta.upbound.io/example-id: vpc/v1alpha1/eipv1
+#   labels:
+#     testing.upbound.io/example-name: dds-dds-eip
+#   name: dds-eip-${Rand.RFC1123Subdomain}
+#   namespace: test
+# spec:
+#   forProvider:
+#     bandwidth:
+#       - chargeMode: traffic
+#         name: dds-eip-${Rand.RFC1123Subdomain}
+#         shareType: PER
+#         size: 8
+#     publicip:
+#       - type: 5_bgp

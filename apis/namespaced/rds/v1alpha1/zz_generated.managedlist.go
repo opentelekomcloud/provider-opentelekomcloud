@@ -44,6 +44,15 @@ func (l *ParametergroupV3List) GetItems() []resource.Managed {
 	return items
 }
 
+// GetItems of this PostgresExtensionV3List.
+func (l *PostgresExtensionV3List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this PublicIPAssociateV3List.
 func (l *PublicIPAssociateV3List) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))

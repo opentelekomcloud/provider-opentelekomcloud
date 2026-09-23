@@ -653,6 +653,11 @@ func (in *TrackerV3InitParameters) DeepCopyInto(out *TrackerV3InitParameters) {
 		*out = new(bool)
 		**out = **in
 	}
+	if in.IsSupportValidate != nil {
+		in, out := &in.IsSupportValidate, &out.IsSupportValidate
+		*out = new(bool)
+		**out = **in
+	}
 	if in.Status != nil {
 		in, out := &in.Status, &out.Status
 		*out = new(string)
@@ -750,6 +755,11 @@ func (in *TrackerV3Observation) DeepCopyInto(out *TrackerV3Observation) {
 		*out = new(bool)
 		**out = **in
 	}
+	if in.IsSupportValidate != nil {
+		in, out := &in.IsSupportValidate, &out.IsSupportValidate
+		*out = new(bool)
+		**out = **in
+	}
 	if in.LogGroupName != nil {
 		in, out := &in.LogGroupName, &out.LogGroupName
 		*out = new(string)
@@ -822,6 +832,11 @@ func (in *TrackerV3Parameters) DeepCopyInto(out *TrackerV3Parameters) {
 	}
 	if in.IsSortByService != nil {
 		in, out := &in.IsSortByService, &out.IsSortByService
+		*out = new(bool)
+		**out = **in
+	}
+	if in.IsSupportValidate != nil {
+		in, out := &in.IsSupportValidate, &out.IsSupportValidate
 		*out = new(bool)
 		**out = **in
 	}

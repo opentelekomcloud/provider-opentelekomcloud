@@ -171,3 +171,81 @@ func (mg *InstanceV3) ResolveReferences(ctx context.Context, c client.Reader) er
 
 	return nil
 }
+
+// ResolveReferences of this PublicIPAssociateV3.
+func (mg *PublicIPAssociateV3) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var rsp reference.NamespacedResolutionResponse
+	var err error
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.PublicIP),
+		Extract:      common.ExtractEipAddress(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.PublicIPSelectorRef,
+		Selector:     mg.Spec.ForProvider.PublicIPSelector,
+		To: reference.To{
+			List:    &v1alpha11.EIPV1List{},
+			Managed: &v1alpha11.EIPV1{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.PublicIP")
+	}
+	mg.Spec.ForProvider.PublicIP = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.PublicIPSelectorRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.PublicIPID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.PublicIPSelectorByIDRef,
+		Selector:     mg.Spec.ForProvider.PublicIPSelectorByID,
+		To: reference.To{
+			List:    &v1alpha11.EIPV1List{},
+			Managed: &v1alpha11.EIPV1{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.PublicIPID")
+	}
+	mg.Spec.ForProvider.PublicIPID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.PublicIPSelectorByIDRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.PublicIP),
+		Extract:      common.ExtractEipAddress(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.PublicIPSelectorRef,
+		Selector:     mg.Spec.InitProvider.PublicIPSelector,
+		To: reference.To{
+			List:    &v1alpha11.EIPV1List{},
+			Managed: &v1alpha11.EIPV1{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.PublicIP")
+	}
+	mg.Spec.InitProvider.PublicIP = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.PublicIPSelectorRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.PublicIPID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.PublicIPSelectorByIDRef,
+		Selector:     mg.Spec.InitProvider.PublicIPSelectorByID,
+		To: reference.To{
+			List:    &v1alpha11.EIPV1List{},
+			Managed: &v1alpha11.EIPV1{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.PublicIPID")
+	}
+	mg.Spec.InitProvider.PublicIPID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.PublicIPSelectorByIDRef = rsp.ResolvedReference
+
+	return nil
+}

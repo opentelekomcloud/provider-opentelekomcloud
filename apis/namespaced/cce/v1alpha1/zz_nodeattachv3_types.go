@@ -145,7 +145,7 @@ type NodeAttachV3InitParameters struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Specifies the operating System of the node. Changing this parameter will reset the node.
-	// The value can be EulerOS 2.5, EulerOS 2.9, Ubuntu 22.04, or HCE OS 2.0. For more details,
+	// The value can be Ubuntu 22.04 or HCE OS 2.0. For more details,
 	// please see documentation.
 	Os *string `json:"os,omitempty" tf:"os,omitempty"`
 
@@ -240,7 +240,7 @@ type NodeAttachV3Observation struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Specifies the operating System of the node. Changing this parameter will reset the node.
-	// The value can be EulerOS 2.5, EulerOS 2.9, Ubuntu 22.04, or HCE OS 2.0. For more details,
+	// The value can be Ubuntu 22.04 or HCE OS 2.0. For more details,
 	// please see documentation.
 	Os *string `json:"os,omitempty" tf:"os,omitempty"`
 
@@ -336,7 +336,7 @@ type NodeAttachV3Parameters struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Specifies the operating System of the node. Changing this parameter will reset the node.
-	// The value can be EulerOS 2.5, EulerOS 2.9, Ubuntu 22.04, or HCE OS 2.0. For more details,
+	// The value can be Ubuntu 22.04 or HCE OS 2.0. For more details,
 	// please see documentation.
 	// +kubebuilder:validation:Optional
 	Os *string `json:"os,omitempty" tf:"os,omitempty"`

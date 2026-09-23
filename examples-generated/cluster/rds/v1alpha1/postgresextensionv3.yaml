@@ -1,0 +1,13 @@
+apiVersion: rds.opentelekomcloud.crossplane.io/v1alpha1
+kind: PostgresExtensionV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: rds/v1alpha1/postgresextensionv3
+  labels:
+    testing.upbound.io/example-name: extension
+  name: extension
+spec:
+  forProvider:
+    databaseName: ${var.database_name}
+    extensionName: hstore
+    instanceId: ${var.instance_id}

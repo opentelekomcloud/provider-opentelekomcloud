@@ -136,3 +136,21 @@ spec:
     publicIpsSelector:
       matchLabels:
         testing.upbound.io/example-name: rds-eip
+
+---
+apiVersion: rds.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: PostgresExtensionV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: rds/v1alpha1/postgresextensionv3
+  labels:
+    testing.upbound.io/example-name: rds-rds-ext
+  name: rds-rds-ext-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    databaseName: postgres
+    extensionName: hstore
+    instanceSelector:
+      matchLabels:
+        testing.upbound.io/example-name: rds-instance

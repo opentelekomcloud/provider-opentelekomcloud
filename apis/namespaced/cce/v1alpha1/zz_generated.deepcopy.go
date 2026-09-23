@@ -504,6 +504,11 @@ func (in *ClusterV3InitParameters) DeepCopyInto(out *ClusterV3InitParameters) {
 			}
 		}
 	}
+	if in.AgencyName != nil {
+		in, out := &in.AgencyName, &out.AgencyName
+		*out = new(string)
+		**out = **in
+	}
 	if in.Annotations != nil {
 		in, out := &in.Annotations, &out.Annotations
 		*out = make(map[string]*string, len(*in))
@@ -892,6 +897,11 @@ func (in *ClusterV3Observation) DeepCopyInto(out *ClusterV3Observation) {
 			}
 		}
 	}
+	if in.AgencyName != nil {
+		in, out := &in.AgencyName, &out.AgencyName
+		*out = new(string)
+		**out = **in
+	}
 	if in.Annotations != nil {
 		in, out := &in.Annotations, &out.Annotations
 		*out = make(map[string]*string, len(*in))
@@ -1247,6 +1257,11 @@ func (in *ClusterV3Parameters) DeepCopyInto(out *ClusterV3Parameters) {
 				**out = **in
 			}
 		}
+	}
+	if in.AgencyName != nil {
+		in, out := &in.AgencyName, &out.AgencyName
+		*out = new(string)
+		**out = **in
 	}
 	if in.Annotations != nil {
 		in, out := &in.Annotations, &out.Annotations
@@ -4113,6 +4128,11 @@ func (in *NodeV3InitParameters) DeepCopyInto(out *NodeV3InitParameters) {
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
+	if in.EcsGroupID != nil {
+		in, out := &in.EcsGroupID, &out.EcsGroupID
+		*out = new(string)
+		**out = **in
+	}
 	if in.EcsPerformanceType != nil {
 		in, out := &in.EcsPerformanceType, &out.EcsPerformanceType
 		*out = new(string)
@@ -4405,6 +4425,11 @@ func (in *NodeV3Observation) DeepCopyInto(out *NodeV3Observation) {
 				**out = **in
 			}
 		}
+	}
+	if in.EcsGroupID != nil {
+		in, out := &in.EcsGroupID, &out.EcsGroupID
+		*out = new(string)
+		**out = **in
 	}
 	if in.EcsPerformanceType != nil {
 		in, out := &in.EcsPerformanceType, &out.EcsPerformanceType
@@ -4708,6 +4733,11 @@ func (in *NodeV3Parameters) DeepCopyInto(out *NodeV3Parameters) {
 		in, out := &in.EIPSelector, &out.EIPSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
+	}
+	if in.EcsGroupID != nil {
+		in, out := &in.EcsGroupID, &out.EcsGroupID
+		*out = new(string)
+		**out = **in
 	}
 	if in.EcsPerformanceType != nil {
 		in, out := &in.EcsPerformanceType, &out.EcsPerformanceType

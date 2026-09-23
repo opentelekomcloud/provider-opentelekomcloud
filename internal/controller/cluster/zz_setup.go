@@ -68,6 +68,7 @@ import (
 	backupv3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/dds/backupv3"
 	instancev3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/dds/instancev3"
 	ltslogv3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/dds/ltslogv3"
+	publicipassociatev3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/dds/publicipassociatev3"
 	hostv1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/deh/hostv1"
 	consumergroupv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/dms/consumergroupv2"
 	dedicatedinstancev2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/dms/dedicatedinstancev2"
@@ -191,7 +192,8 @@ import (
 	instancev3rds "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/rds/instancev3"
 	maintenancev3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/rds/maintenancev3"
 	parametergroupv3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/rds/parametergroupv3"
-	publicipassociatev3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/rds/publicipassociatev3"
+	postgresextensionv3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/rds/postgresextensionv3"
+	publicipassociatev3rds "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/rds/publicipassociatev3"
 	readreplicav3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/rds/readreplicav3"
 	advancedqueryv1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/rms/advancedqueryv1"
 	policyassignmentevaluatev1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/rms/policyassignmentevaluatev1"
@@ -322,6 +324,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		backupv3.Setup,
 		instancev3.Setup,
 		ltslogv3.Setup,
+		publicipassociatev3.Setup,
 		hostv1.Setup,
 		consumergroupv2.Setup,
 		dedicatedinstancev2.Setup,
@@ -445,7 +448,8 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		instancev3rds.Setup,
 		maintenancev3.Setup,
 		parametergroupv3.Setup,
-		publicipassociatev3.Setup,
+		postgresextensionv3.Setup,
+		publicipassociatev3rds.Setup,
 		readreplicav3.Setup,
 		advancedqueryv1.Setup,
 		policyassignmentevaluatev1.Setup,
@@ -582,6 +586,7 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		backupv3.SetupGated,
 		instancev3.SetupGated,
 		ltslogv3.SetupGated,
+		publicipassociatev3.SetupGated,
 		hostv1.SetupGated,
 		consumergroupv2.SetupGated,
 		dedicatedinstancev2.SetupGated,
@@ -705,7 +710,8 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		instancev3rds.SetupGated,
 		maintenancev3.SetupGated,
 		parametergroupv3.SetupGated,
-		publicipassociatev3.SetupGated,
+		postgresextensionv3.SetupGated,
+		publicipassociatev3rds.SetupGated,
 		readreplicav3.SetupGated,
 		advancedqueryv1.SetupGated,
 		policyassignmentevaluatev1.SetupGated,
