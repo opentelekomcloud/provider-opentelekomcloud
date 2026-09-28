@@ -45,7 +45,7 @@ type SubnetV1InitParameters struct {
 	IPv6Enable *bool `json:"ipv6Enable,omitempty" tf:"ipv6_enable,omitempty"`
 
 	// The subnet name. The value is a string of 1 to 64 characters that can contain letters,
-	// digits, underscores (_), and hyphens (-).
+	// digits, underscores (_), hyphens (-), and periods (.).
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Specifies the NTP server address configured for the subnet.
@@ -89,7 +89,11 @@ type SubnetV1Observation struct {
 	// Changing this creates a new Subnet.
 	Cidr *string `json:"cidr,omitempty" tf:"cidr,omitempty"`
 
+	// Specifies the IPv6 subnet CIDR block. If the subnet is an IPv4 subnet, this parameter is not returned.
 	CidrIPv6 *string `json:"cidrIpv6,omitempty" tf:"cidr_ipv6,omitempty"`
+
+	// The UTC creation timestamp.
+	CreatedAt *string `json:"createdAt,omitempty" tf:"created_at,omitempty"`
 
 	// Specifies whether the DHCP function is enabled for the subnet. The value can
 	// be true or false. If this parameter is left blank, it is set to true by default.
@@ -107,6 +111,7 @@ type SubnetV1Observation struct {
 	// The value must be an IP address in the subnet segment. Changing this creates a new Subnet.
 	GatewayIP *string `json:"gatewayIp,omitempty" tf:"gateway_ip,omitempty"`
 
+	// Specifies the IPv6 subnet gateway. If the subnet is an IPv4 subnet, this parameter is not returned.
 	GatewayIPv6 *string `json:"gatewayIpv6,omitempty" tf:"gateway_ipv6,omitempty"`
 
 	// Specifies a resource ID in UUID format. Same as OpenStack network ID (OS_NETWORK_ID).
@@ -117,7 +122,7 @@ type SubnetV1Observation struct {
 	IPv6Enable *bool `json:"ipv6Enable,omitempty" tf:"ipv6_enable,omitempty"`
 
 	// The subnet name. The value is a string of 1 to 64 characters that can contain letters,
-	// digits, underscores (_), and hyphens (-).
+	// digits, underscores (_), hyphens (-), and periods (.).
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Specifies the OpenStack network ID.
@@ -131,6 +136,9 @@ type SubnetV1Observation struct {
 	PrimaryDNS *string `json:"primaryDns,omitempty" tf:"primary_dns,omitempty"`
 
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
+
+	// Specifies where the subnet is used in an edge-cloud scenario.
+	Scope *string `json:"scope,omitempty" tf:"scope,omitempty"`
 
 	// Specifies the IP address of DNS server 2 on the subnet. The value must be a
 	// valid IP address. Default is 100.125.129.199, OpenTelekomCloud secondary internal DNS server.
@@ -148,6 +156,12 @@ type SubnetV1Observation struct {
 	// The key/value pairs to associate with the subnet.
 	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
+
+	// The project ID that owns the subnet.
+	TenantID *string `json:"tenantId,omitempty" tf:"tenant_id,omitempty"`
+
+	// The UTC last-update timestamp.
+	UpdatedAt *string `json:"updatedAt,omitempty" tf:"updated_at,omitempty"`
 
 	// Specifies the ID of the VPC to which the subnet belongs. Changing this creates a new Subnet.
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
@@ -192,7 +206,7 @@ type SubnetV1Parameters struct {
 	IPv6Enable *bool `json:"ipv6Enable,omitempty" tf:"ipv6_enable,omitempty"`
 
 	// The subnet name. The value is a string of 1 to 64 characters that can contain letters,
-	// digits, underscores (_), and hyphens (-).
+	// digits, underscores (_), hyphens (-), and periods (.).
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 

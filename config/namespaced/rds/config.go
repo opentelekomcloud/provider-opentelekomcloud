@@ -67,4 +67,12 @@ func Configure(p *config.Provider) {
 			SelectorFieldName: "PublicIpsSelector",
 		}
 	})
+	p.AddResourceConfigurator("opentelekomcloud_rds_postgres_extension_v3", func(r *config.Resource) {
+		r.UseAsync = true
+		r.References["instance_id"] = config.Reference{
+			TerraformName:     "opentelekomcloud_rds_instance_v3",
+			SelectorFieldName: "InstanceSelector",
+			RefFieldName:      "InstanceSelectorRef",
+		}
+	})
 }

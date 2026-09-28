@@ -67,7 +67,6 @@ type PolicyV3InitParameters struct {
 	// Specifies the configuration of the page that will be returned.
 	// This parameter will take effect when advanced_forwarding is set to true.
 	// If this parameter is passed and advanced_forwarding is set to false, an error will be returned.
-	// Not available in eu-nl.
 	FixedResponseConfig []FixedResponseConfigInitParameters `json:"fixedResponseConfig,omitempty" tf:"fixed_response_config,omitempty"`
 
 	// The Listener on which the Policy will be associated with.
@@ -94,7 +93,7 @@ type PolicyV3InitParameters struct {
 	// A smaller value indicates a higher priority. The value must be unique for forwarding policies of the same listener.
 	// This parameter will take effect only when advanced_forwarding is set to true.
 	// If this parameter is passed and advanced_forwarding is set to false, an error will be returned.
-	// This parameter is unsupported for shared load balancers and not available in eu-nl.
+	// This parameter is unsupported for shared load balancers.
 	Priority *float64 `json:"priority,omitempty" tf:"priority,omitempty"`
 
 	// Required for admins. The UUID of the tenant who owns
@@ -146,7 +145,7 @@ type PolicyV3InitParameters struct {
 
 	// Specifies the URL to which requests are forwarded.
 	// For dedicated load balancers, This parameter will take effect when advanced_forwarding is set to true.
-	// If it is passed when advanced_forwarding is set to false, an error will be returned. Not available in eu-nl.
+	// If it is passed when advanced_forwarding is set to false, an error will be returned.
 	RedirectURLConfig []RedirectURLConfigInitParameters `json:"redirectUrlConfig,omitempty" tf:"redirect_url_config,omitempty"`
 
 	// Lists the forwarding rules in the forwarding policy.
@@ -165,7 +164,6 @@ type PolicyV3Observation struct {
 	// Specifies the configuration of the page that will be returned.
 	// This parameter will take effect when advanced_forwarding is set to true.
 	// If this parameter is passed and advanced_forwarding is set to false, an error will be returned.
-	// Not available in eu-nl.
 	FixedResponseConfig []FixedResponseConfigObservation `json:"fixedResponseConfig,omitempty" tf:"fixed_response_config,omitempty"`
 
 	// The unique ID for the policy.
@@ -186,7 +184,7 @@ type PolicyV3Observation struct {
 	// A smaller value indicates a higher priority. The value must be unique for forwarding policies of the same listener.
 	// This parameter will take effect only when advanced_forwarding is set to true.
 	// If this parameter is passed and advanced_forwarding is set to false, an error will be returned.
-	// This parameter is unsupported for shared load balancers and not available in eu-nl.
+	// This parameter is unsupported for shared load balancers.
 	Priority *float64 `json:"priority,omitempty" tf:"priority,omitempty"`
 
 	// Required for admins. The UUID of the tenant who owns
@@ -211,7 +209,7 @@ type PolicyV3Observation struct {
 
 	// Specifies the URL to which requests are forwarded.
 	// For dedicated load balancers, This parameter will take effect when advanced_forwarding is set to true.
-	// If it is passed when advanced_forwarding is set to false, an error will be returned. Not available in eu-nl.
+	// If it is passed when advanced_forwarding is set to false, an error will be returned.
 	RedirectURLConfig []RedirectURLConfigObservation `json:"redirectUrlConfig,omitempty" tf:"redirect_url_config,omitempty"`
 
 	// Lists the forwarding rules in the forwarding policy.
@@ -235,7 +233,6 @@ type PolicyV3Parameters struct {
 	// Specifies the configuration of the page that will be returned.
 	// This parameter will take effect when advanced_forwarding is set to true.
 	// If this parameter is passed and advanced_forwarding is set to false, an error will be returned.
-	// Not available in eu-nl.
 	// +kubebuilder:validation:Optional
 	FixedResponseConfig []FixedResponseConfigParameters `json:"fixedResponseConfig,omitempty" tf:"fixed_response_config,omitempty"`
 
@@ -266,7 +263,7 @@ type PolicyV3Parameters struct {
 	// A smaller value indicates a higher priority. The value must be unique for forwarding policies of the same listener.
 	// This parameter will take effect only when advanced_forwarding is set to true.
 	// If this parameter is passed and advanced_forwarding is set to false, an error will be returned.
-	// This parameter is unsupported for shared load balancers and not available in eu-nl.
+	// This parameter is unsupported for shared load balancers.
 	// +kubebuilder:validation:Optional
 	Priority *float64 `json:"priority,omitempty" tf:"priority,omitempty"`
 
@@ -324,7 +321,7 @@ type PolicyV3Parameters struct {
 
 	// Specifies the URL to which requests are forwarded.
 	// For dedicated load balancers, This parameter will take effect when advanced_forwarding is set to true.
-	// If it is passed when advanced_forwarding is set to false, an error will be returned. Not available in eu-nl.
+	// If it is passed when advanced_forwarding is set to false, an error will be returned.
 	// +kubebuilder:validation:Optional
 	RedirectURLConfig []RedirectURLConfigParameters `json:"redirectUrlConfig,omitempty" tf:"redirect_url_config,omitempty"`
 

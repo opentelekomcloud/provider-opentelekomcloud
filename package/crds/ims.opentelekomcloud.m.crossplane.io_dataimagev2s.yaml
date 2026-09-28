@@ -68,6 +68,13 @@ spec:
                     description: A description of the image. Changing this creates
                       a new image.
                     type: string
+                  enterpriseProjectId:
+                    description: |-
+                      The ID of the enterprise project to which
+                      the image belongs. If omitted, the provider-level enterprise project ID is used. If neither is set,
+                      the image belongs to the default enterprise project. Required when only enterprise project authorization
+                      is used.
+                    type: string
                   imageUrl:
                     description: |-
                       The URL of the external image file in the OBS bucket.
@@ -125,6 +132,13 @@ spec:
                   description:
                     description: A description of the image. Changing this creates
                       a new image.
+                    type: string
+                  enterpriseProjectId:
+                    description: |-
+                      The ID of the enterprise project to which
+                      the image belongs. If omitted, the provider-level enterprise project ID is used. If neither is set,
+                      the image belongs to the default enterprise project. Required when only enterprise project authorization
+                      is used.
                     type: string
                   imageUrl:
                     description: |-
@@ -246,6 +260,13 @@ spec:
                   diskFormat:
                     description: The image file format. The value can be vhd, zvhd,
                       raw, zvhd2, or qcow2.
+                    type: string
+                  enterpriseProjectId:
+                    description: |-
+                      The ID of the enterprise project to which
+                      the image belongs. If omitted, the provider-level enterprise project ID is used. If neither is set,
+                      the image belongs to the default enterprise project. Required when only enterprise project authorization
+                      is used.
                     type: string
                   id:
                     description: A unique ID assigned by IMS.

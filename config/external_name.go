@@ -91,9 +91,10 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"opentelekomcloud_ddm_schema_v1":   config.IdentifierFromProvider,
 
 	// DDS
-	"opentelekomcloud_dds_instance_v3": config.IdentifierFromProvider,
-	"opentelekomcloud_dds_backup_v3":   config.IdentifierFromProvider,
-	"opentelekomcloud_dds_lts_log_v3":  config.IdentifierFromProvider,
+	"opentelekomcloud_dds_instance_v3":            config.IdentifierFromProvider,
+	"opentelekomcloud_dds_backup_v3":              config.IdentifierFromProvider,
+	"opentelekomcloud_dds_lts_log_v3":             config.IdentifierFromProvider,
+	"opentelekomcloud_dds_public_ip_associate_v3": config.IdentifierFromProvider,
 
 	// DEH
 	"opentelekomcloud_deh_host_v1": config.IdentifierFromProvider,
@@ -272,6 +273,7 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"opentelekomcloud_rds_maintenance_v3":         config.IdentifierFromProvider,
 	"opentelekomcloud_rds_parametergroup_v3":      config.IdentifierFromProvider,
 	"opentelekomcloud_rds_read_replica_v3":        config.IdentifierFromProvider,
+	"opentelekomcloud_rds_postgres_extension_v3":  config.IdentifierFromProvider,
 
 	// RMS
 	"opentelekomcloud_rms_advanced_query_v1":             config.IdentifierFromProvider,

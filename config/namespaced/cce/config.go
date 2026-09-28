@@ -46,6 +46,10 @@ func Configure(p *config.Provider) {
 			TerraformName: "opentelekomcloud_vpc_eip_v1",
 			Extractor:     common.EipAddressExtractor,
 		}
+		r.References["agency_name"] = config.Reference{
+			TerraformName: "opentelekomcloud_identity_agency_v3",
+			Extractor:     common.AgencyNameExtractor,
+		}
 		r.TerraformCustomDiff = func(diff *terraform.InstanceDiff, _ *terraform.InstanceState, _ *terraform.ResourceConfig) (*terraform.InstanceDiff, error) {
 			if ipsDiff, ok := diff.Attributes["eip"]; ok && ipsDiff.New == "" {
 				delete(diff.Attributes, "eip")

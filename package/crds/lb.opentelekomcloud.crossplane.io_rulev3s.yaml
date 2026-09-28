@@ -82,7 +82,6 @@ spec:
                     description: |-
                       Specifies the matching conditions of the forwarding rule.
                       This parameter is available only when advanced_forwarding is set to true.
-                      Not available in eu-nl.
                     items:
                       properties:
                         key:
@@ -286,7 +285,6 @@ spec:
                     description: |-
                       Specifies the matching conditions of the forwarding rule.
                       This parameter is available only when advanced_forwarding is set to true.
-                      Not available in eu-nl.
                     items:
                       properties:
                         key:
@@ -581,7 +579,6 @@ spec:
                     description: |-
                       Specifies the matching conditions of the forwarding rule.
                       This parameter is available only when advanced_forwarding is set to true.
-                      Not available in eu-nl.
                     items:
                       properties:
                         key:

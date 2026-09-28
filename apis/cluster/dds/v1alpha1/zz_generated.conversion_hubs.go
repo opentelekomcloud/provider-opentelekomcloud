@@ -14,3 +14,6 @@ func (tr *InstanceV3) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *LtsLogV3) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *PublicIPAssociateV3) Hub() {}

@@ -35,7 +35,7 @@ spec:
     schema:
       openAPIV3Schema:
         description: TrackerV3 is the Schema for the TrackerV3s API. Manages a CTS
-          Tracker v3 resource within OpenTelekomCloud.
+          Tracker v3 resource within T Cloud Public (formerly OpenTelekomCloud).
         properties:
           apiVersion:
             description: |-
@@ -81,7 +81,13 @@ spec:
                   isSortByService:
                     description: |-
                       Specifies whether to sort the path by cloud service. If this option is enabled,
-                      the cloud service name is added to the transfer file path. Default: true.
+                      the cloud service name is added to the transfer file path. If omitted, the value currently set on the tracker is kept.
+                    type: boolean
+                  isSupportValidate:
+                    description: |-
+                      Specifies whether trace file verification is enabled for trace transfer.
+                      When this function is enabled, integrity verification will be performed to check whether trace files in OBS buckets
+                      have been tampered with.
                     type: boolean
                   status:
                     description: Specifies whether tracker is enabled or disabled.
@@ -122,7 +128,13 @@ spec:
                   isSortByService:
                     description: |-
                       Specifies whether to sort the path by cloud service. If this option is enabled,
-                      the cloud service name is added to the transfer file path. Default: true.
+                      the cloud service name is added to the transfer file path. If omitted, the value currently set on the tracker is kept.
+                    type: boolean
+                  isSupportValidate:
+                    description: |-
+                      Specifies whether trace file verification is enabled for trace transfer.
+                      When this function is enabled, integrity verification will be performed to check whether trace files in OBS buckets
+                      have been tampered with.
                     type: boolean
                   status:
                     description: Specifies whether tracker is enabled or disabled.
@@ -228,7 +240,13 @@ spec:
                   isSortByService:
                     description: |-
                       Specifies whether to sort the path by cloud service. If this option is enabled,
-                      the cloud service name is added to the transfer file path. Default: true.
+                      the cloud service name is added to the transfer file path. If omitted, the value currently set on the tracker is kept.
+                    type: boolean
+                  isSupportValidate:
+                    description: |-
+                      Specifies whether trace file verification is enabled for trace transfer.
+                      When this function is enabled, integrity verification will be performed to check whether trace files in OBS buckets
+                      have been tampered with.
                     type: boolean
                   logGroupName:
                     description: Specifies LTS log group name.

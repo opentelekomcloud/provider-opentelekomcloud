@@ -33,8 +33,13 @@ type TrackerV3InitParameters struct {
 	IsObsCreated *bool `json:"isObsCreated,omitempty" tf:"is_obs_created,omitempty"`
 
 	// Specifies whether to sort the path by cloud service. If this option is enabled,
-	// the cloud service name is added to the transfer file path. Default: true.
+	// the cloud service name is added to the transfer file path. If omitted, the value currently set on the tracker is kept.
 	IsSortByService *bool `json:"isSortByService,omitempty" tf:"is_sort_by_service,omitempty"`
+
+	// Specifies whether trace file verification is enabled for trace transfer.
+	// When this function is enabled, integrity verification will be performed to check whether trace files in OBS buckets
+	// have been tampered with.
+	IsSupportValidate *bool `json:"isSupportValidate,omitempty" tf:"is_support_validate,omitempty"`
 
 	// Specifies whether tracker is enabled or disabled.
 	Status *string `json:"status,omitempty" tf:"status,omitempty"`
@@ -68,8 +73,13 @@ type TrackerV3Observation struct {
 	IsObsCreated *bool `json:"isObsCreated,omitempty" tf:"is_obs_created,omitempty"`
 
 	// Specifies whether to sort the path by cloud service. If this option is enabled,
-	// the cloud service name is added to the transfer file path. Default: true.
+	// the cloud service name is added to the transfer file path. If omitted, the value currently set on the tracker is kept.
 	IsSortByService *bool `json:"isSortByService,omitempty" tf:"is_sort_by_service,omitempty"`
+
+	// Specifies whether trace file verification is enabled for trace transfer.
+	// When this function is enabled, integrity verification will be performed to check whether trace files in OBS buckets
+	// have been tampered with.
+	IsSupportValidate *bool `json:"isSupportValidate,omitempty" tf:"is_support_validate,omitempty"`
 
 	// Specifies LTS log group name.
 	LogGroupName *string `json:"logGroupName,omitempty" tf:"log_group_name,omitempty"`
@@ -114,9 +124,15 @@ type TrackerV3Parameters struct {
 	IsObsCreated *bool `json:"isObsCreated,omitempty" tf:"is_obs_created,omitempty"`
 
 	// Specifies whether to sort the path by cloud service. If this option is enabled,
-	// the cloud service name is added to the transfer file path. Default: true.
+	// the cloud service name is added to the transfer file path. If omitted, the value currently set on the tracker is kept.
 	// +kubebuilder:validation:Optional
 	IsSortByService *bool `json:"isSortByService,omitempty" tf:"is_sort_by_service,omitempty"`
+
+	// Specifies whether trace file verification is enabled for trace transfer.
+	// When this function is enabled, integrity verification will be performed to check whether trace files in OBS buckets
+	// have been tampered with.
+	// +kubebuilder:validation:Optional
+	IsSupportValidate *bool `json:"isSupportValidate,omitempty" tf:"is_support_validate,omitempty"`
 
 	// Specifies whether tracker is enabled or disabled.
 	// +kubebuilder:validation:Optional
@@ -150,7 +166,7 @@ type TrackerV3Status struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// TrackerV3 is the Schema for the TrackerV3s API. Manages a CTS Tracker v3 resource within OpenTelekomCloud.
+// TrackerV3 is the Schema for the TrackerV3s API. Manages a CTS Tracker v3 resource within T Cloud Public (formerly OpenTelekomCloud).
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

@@ -1,0 +1,32 @@
+apiVersion: dds.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: PublicIPAssociateV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dds/v1alpha1/publicipassociatev3
+  labels:
+    testing.upbound.io/example-name: public_ip
+  name: public-ip
+  namespace: upbound-system
+spec:
+  forProvider:
+    nodeId: ${var.node_id}
+    publicIpSelector:
+      matchLabels:
+        testing.upbound.io/example-name: eip
+    publicIpSelectorById:
+      matchLabels:
+        testing.upbound.io/example-name: eip
+
+---
+
+apiVersion: compute.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: FloatingipV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dds/v1alpha1/publicipassociatev3
+  labels:
+    testing.upbound.io/example-name: eip
+  name: eip
+  namespace: upbound-system
+spec:
+  forProvider: {}

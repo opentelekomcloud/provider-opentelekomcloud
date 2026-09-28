@@ -385,6 +385,17 @@ spec:
                             Specifies a fixed IPv4 address to be used on this
                             network. Changing this creates a new server.
                           type: string
+                        ipv6Bandwidth:
+                          description: |-
+                            The shared bandwidth to associate with the NIC's IPv6 address.
+                            This argument requires ipv6_enable = true. The structure is documented below.
+                          items:
+                            properties:
+                              id:
+                                description: The ID of an existing shared bandwidth.
+                                type: string
+                            type: object
+                          type: array
                         ipv6Enable:
                           description: Specifies whether to support IPv6 addresses.
                             If this parameter is set to true, the NIC supports IPv6
@@ -1059,6 +1070,17 @@ spec:
                             Specifies a fixed IPv4 address to be used on this
                             network. Changing this creates a new server.
                           type: string
+                        ipv6Bandwidth:
+                          description: |-
+                            The shared bandwidth to associate with the NIC's IPv6 address.
+                            This argument requires ipv6_enable = true. The structure is documented below.
+                          items:
+                            properties:
+                              id:
+                                description: The ID of an existing shared bandwidth.
+                                type: string
+                            type: object
+                          type: array
                         ipv6Enable:
                           description: Specifies whether to support IPv6 addresses.
                             If this parameter is set to true, the NIC supports IPv6
@@ -1488,6 +1510,7 @@ spec:
                     items:
                       properties:
                         id:
+                          description: The ID of an existing shared bandwidth.
                           type: string
                         kmsId:
                           description: |-
@@ -1525,6 +1548,7 @@ spec:
                     description: The name of the desired flavor for the server.
                     type: string
                   id:
+                    description: The ID of an existing shared bandwidth.
                     type: string
                   imageId:
                     description: The ID of the desired image for the server. Changing
@@ -1562,6 +1586,17 @@ spec:
                           type: string
                         ipv6Address:
                           type: string
+                        ipv6Bandwidth:
+                          description: |-
+                            The shared bandwidth to associate with the NIC's IPv6 address.
+                            This argument requires ipv6_enable = true. The structure is documented below.
+                          items:
+                            properties:
+                              id:
+                                description: The ID of an existing shared bandwidth.
+                                type: string
+                            type: object
+                          type: array
                         ipv6Enable:
                           description: Specifies whether to support IPv6 addresses.
                             If this parameter is set to true, the NIC supports IPv6
@@ -1652,6 +1687,7 @@ spec:
                     items:
                       properties:
                         id:
+                          description: The ID of an existing shared bandwidth.
                           type: string
                         kmsId:
                           description: |-

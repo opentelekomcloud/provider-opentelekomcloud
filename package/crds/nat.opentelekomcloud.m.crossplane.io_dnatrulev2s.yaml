@@ -65,9 +65,8 @@ spec:
                       Changing this creates a new DNAT rule.
                     type: string
                   externalServicePort:
-                    description: |-
-                      Specifies port used by ECSs or
-                      BMSs to provide services for external systems. Changing this creates a new DNAT rule.
+                    description: Specifies port used by ECSs to provide services for
+                      external systems. Changing this creates a new DNAT rule.
                     type: number
                   floatingIpId:
                     description: |-
@@ -156,7 +155,7 @@ spec:
                     type: object
                   internalServicePort:
                     description: |-
-                      Specifies port used by ECSs or BMSs
+                      Specifies port used by ECSs
                       to provide services for external systems. Changing this creates a new resource.
                     type: number
                   natGatewayId:
@@ -246,7 +245,7 @@ spec:
                     type: object
                   portId:
                     description: |-
-                      Specifies the port ID of an ECS or a BMS.
+                      Specifies the port ID of an ECS.
                       This parameter and private_ip are alternative. Changing this creates a
                       new DNAT rule.
                     type: string
@@ -361,9 +360,8 @@ spec:
                       Changing this creates a new DNAT rule.
                     type: string
                   externalServicePort:
-                    description: |-
-                      Specifies port used by ECSs or
-                      BMSs to provide services for external systems. Changing this creates a new DNAT rule.
+                    description: Specifies port used by ECSs to provide services for
+                      external systems. Changing this creates a new DNAT rule.
                     type: number
                   floatingIpId:
                     description: |-
@@ -452,7 +450,7 @@ spec:
                     type: object
                   internalServicePort:
                     description: |-
-                      Specifies port used by ECSs or BMSs
+                      Specifies port used by ECSs
                       to provide services for external systems. Changing this creates a new resource.
                     type: number
                   natGatewayId:
@@ -542,7 +540,7 @@ spec:
                     type: object
                   portId:
                     description: |-
-                      Specifies the port ID of an ECS or a BMS.
+                      Specifies the port ID of an ECS.
                       This parameter and private_ip are alternative. Changing this creates a
                       new DNAT rule.
                     type: string
@@ -723,9 +721,8 @@ spec:
                       Changing this creates a new DNAT rule.
                     type: string
                   externalServicePort:
-                    description: |-
-                      Specifies port used by ECSs or
-                      BMSs to provide services for external systems. Changing this creates a new DNAT rule.
+                    description: Specifies port used by ECSs to provide services for
+                      external systems. Changing this creates a new DNAT rule.
                     type: number
                   floatingIpAddress:
                     description: The actual floating IP address.
@@ -739,7 +736,7 @@ spec:
                     type: string
                   internalServicePort:
                     description: |-
-                      Specifies port used by ECSs or BMSs
+                      Specifies port used by ECSs
                       to provide services for external systems. Changing this creates a new resource.
                     type: number
                   natGatewayId:
@@ -749,7 +746,7 @@ spec:
                     type: string
                   portId:
                     description: |-
-                      Specifies the port ID of an ECS or a BMS.
+                      Specifies the port ID of an ECS.
                       This parameter and private_ip are alternative. Changing this creates a
                       new DNAT rule.
                     type: string

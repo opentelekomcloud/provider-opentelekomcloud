@@ -73,14 +73,20 @@ spec:
                 type: string
               forProvider:
                 properties:
-                  adminState:
-                    description: Whether to enable the VPC flow log function.
-                    type: boolean
                   description:
                     description: |-
-                      (Optinal) Provides supplementary information about the VPC flow log.
+                      Provides supplementary information about the VPC flow log.
                       The value is a string of no more than 255 characters and cannot contain angle brackets (< or >).
                     type: string
+                  enabled:
+                    description: Whether to enable the VPC flow log function. Defaults
+                      to true.
+                    type: boolean
+                  indexEnabled:
+                    description: |-
+                      Whether to enable the log index. Defaults to false.
+                      Changing this creates a new VPC flow log.
+                    type: boolean
                   logGroupId:
                     description: |-
                       Specifies the log group ID.
@@ -328,10 +334,6 @@ spec:
                       Specifies the type of resource on which to create the VPC flow log.
                       The value can be port, vpc and network.
                       Changing this creates a new VPC flow log.
-                    type: string
-                  status:
-                    description: The status of the flow log. The value can be ACTIVE,
-                      DOWN or ERROR.
                     type: string
                   trafficType:
                     description: |-
@@ -352,14 +354,20 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
-                  adminState:
-                    description: Whether to enable the VPC flow log function.
-                    type: boolean
                   description:
                     description: |-
-                      (Optinal) Provides supplementary information about the VPC flow log.
+                      Provides supplementary information about the VPC flow log.
                       The value is a string of no more than 255 characters and cannot contain angle brackets (< or >).
                     type: string
+                  enabled:
+                    description: Whether to enable the VPC flow log function. Defaults
+                      to true.
+                    type: boolean
+                  indexEnabled:
+                    description: |-
+                      Whether to enable the log index. Defaults to false.
+                      Changing this creates a new VPC flow log.
+                    type: boolean
                   logGroupId:
                     description: |-
                       Specifies the log group ID.
@@ -607,10 +615,6 @@ spec:
                       Specifies the type of resource on which to create the VPC flow log.
                       The value can be port, vpc and network.
                       Changing this creates a new VPC flow log.
-                    type: string
-                  status:
-                    description: The status of the flow log. The value can be ACTIVE,
-                      DOWN or ERROR.
                     type: string
                   trafficType:
                     description: |-
@@ -718,17 +722,26 @@ spec:
             properties:
               atProvider:
                 properties:
-                  adminState:
-                    description: Whether to enable the VPC flow log function.
-                    type: boolean
+                  createdAt:
+                    description: The time when the VPC flow log was created.
+                    type: string
                   description:
                     description: |-
-                      (Optinal) Provides supplementary information about the VPC flow log.
+                      Provides supplementary information about the VPC flow log.
                       The value is a string of no more than 255 characters and cannot contain angle brackets (< or >).
                     type: string
+                  enabled:
+                    description: Whether to enable the VPC flow log function. Defaults
+                      to true.
+                    type: boolean
                   id:
                     description: The VPC flow log ID in UUID format.
                     type: string
+                  indexEnabled:
+                    description: |-
+                      Whether to enable the log index. Defaults to false.
+                      Changing this creates a new VPC flow log.
+                    type: boolean
                   logGroupId:
                     description: |-
                       Specifies the log group ID.
@@ -759,10 +772,16 @@ spec:
                     description: The status of the flow log. The value can be ACTIVE,
                       DOWN or ERROR.
                     type: string
+                  tenantId:
+                    description: The project ID that owns the VPC flow log.
+                    type: string
                   trafficType:
                     description: |-
                       Specifies the type of traffic to log. The value can be all, accept and reject.
                       Changing this creates a new VPC flow log.
+                    type: string
+                  updatedAt:
+                    description: The time when the VPC flow log was last updated.
                     type: string
                 type: object
               conditions:

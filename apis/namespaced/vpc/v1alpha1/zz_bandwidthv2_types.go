@@ -16,8 +16,17 @@ import (
 
 type BandwidthV2InitParameters struct {
 
+	// Specifies the enterprise project associated
+	// with the shared bandwidth. If omitted, the provider-level enterprise project or
+	// the default enterprise project (0) is used. Changing this creates a new resource.
+	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
+
 	// Specifies the bandwidth name.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// Specifies whether the shared bandwidth is
+	// located at the central site or an edge site. Changing this creates a new resource.
+	PublicBorderGroup *string `json:"publicBorderGroup,omitempty" tf:"public_border_group,omitempty"`
 
 	// Specifies the bandwidth size.
 	// The value ranges from 5 Mbit/s to 1000 Mbit/s by default.
@@ -26,11 +35,38 @@ type BandwidthV2InitParameters struct {
 
 type BandwidthV2Observation struct {
 
+	// Specifies the bandwidth type.
+	BandwidthType *string `json:"bandwidthType,omitempty" tf:"bandwidth_type,omitempty"`
+
+	// Specifies yearly/monthly billing information, when applicable.
+	BillingInfo *string `json:"billingInfo,omitempty" tf:"billing_info,omitempty"`
+
+	// Specifies the bandwidth charging mode.
+	ChargeMode *string `json:"chargeMode,omitempty" tf:"charge_mode,omitempty"`
+
+	// Specifies when the bandwidth was created.
+	CreatedAt *string `json:"createdAt,omitempty" tf:"created_at,omitempty"`
+
+	// Specifies the enterprise project associated
+	// with the shared bandwidth. If omitted, the provider-level enterprise project or
+	// the default enterprise project (0) is used. Changing this creates a new resource.
+	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
+
 	// Specifies the bandwidth ID, which uniquely identifies the bandwidth.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// Specifies the bandwidth name.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// Specifies whether the shared bandwidth is
+	// located at the central site or an edge site. Changing this creates a new resource.
+	PublicBorderGroup *string `json:"publicBorderGroup,omitempty" tf:"public_border_group,omitempty"`
+
+	// Lists EIPs associated with the bandwidth:
+	PublicipInfo []PublicipInfoObservation `json:"publicipInfo,omitempty" tf:"publicip_info,omitempty"`
+
+	// Indicates whether the bandwidth is shared or dedicated.
+	ShareType *string `json:"shareType,omitempty" tf:"share_type,omitempty"`
 
 	// Specifies the bandwidth size.
 	// The value ranges from 5 Mbit/s to 1000 Mbit/s by default.
@@ -38,18 +74,59 @@ type BandwidthV2Observation struct {
 
 	// Specifies the bandwidth status.
 	Status *string `json:"status,omitempty" tf:"status,omitempty"`
+
+	// Specifies the project ID.
+	TenantID *string `json:"tenantId,omitempty" tf:"tenant_id,omitempty"`
+
+	// Specifies when the bandwidth was last updated.
+	UpdatedAt *string `json:"updatedAt,omitempty" tf:"updated_at,omitempty"`
 }
 
 type BandwidthV2Parameters struct {
+
+	// Specifies the enterprise project associated
+	// with the shared bandwidth. If omitted, the provider-level enterprise project or
+	// the default enterprise project (0) is used. Changing this creates a new resource.
+	// +kubebuilder:validation:Optional
+	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
 
 	// Specifies the bandwidth name.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// Specifies whether the shared bandwidth is
+	// located at the central site or an edge site. Changing this creates a new resource.
+	// +kubebuilder:validation:Optional
+	PublicBorderGroup *string `json:"publicBorderGroup,omitempty" tf:"public_border_group,omitempty"`
+
 	// Specifies the bandwidth size.
 	// The value ranges from 5 Mbit/s to 1000 Mbit/s by default.
 	// +kubebuilder:validation:Optional
 	Size *float64 `json:"size,omitempty" tf:"size,omitempty"`
+}
+
+type PublicipInfoInitParameters struct {
+}
+
+type PublicipInfoObservation struct {
+
+	// IPv4 address.
+	Address *string `json:"address,omitempty" tf:"address,omitempty"`
+
+	// Specifies the bandwidth ID, which uniquely identifies the bandwidth.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// IP address version.
+	IPVersion *float64 `json:"ipVersion,omitempty" tf:"ip_version,omitempty"`
+
+	// IPv6 address, when available.
+	IPv6Address *string `json:"ipv6Address,omitempty" tf:"ipv6_address,omitempty"`
+
+	// EIP type.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+}
+
+type PublicipInfoParameters struct {
 }
 
 // BandwidthV2Spec defines the desired state of BandwidthV2

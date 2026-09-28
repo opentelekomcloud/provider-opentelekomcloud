@@ -114,7 +114,7 @@ spec:
                   os:
                     description: |-
                       Specifies the operating System of the node. Changing this parameter will reset the node.
-                      The value can be EulerOS 2.5, EulerOS 2.9, Ubuntu 22.04, or HCE OS 2.0. For more details,
+                      The value can be Ubuntu 22.04 or HCE OS 2.0. For more details,
                       please see documentation.
                     type: string
                   passwordSecretRef:
@@ -386,7 +386,7 @@ spec:
                   os:
                     description: |-
                       Specifies the operating System of the node. Changing this parameter will reset the node.
-                      The value can be EulerOS 2.5, EulerOS 2.9, Ubuntu 22.04, or HCE OS 2.0. For more details,
+                      The value can be Ubuntu 22.04 or HCE OS 2.0. For more details,
                       please see documentation.
                     type: string
                   passwordSecretRef:
@@ -792,7 +792,7 @@ spec:
                   os:
                     description: |-
                       Specifies the operating System of the node. Changing this parameter will reset the node.
-                      The value can be EulerOS 2.5, EulerOS 2.9, Ubuntu 22.04, or HCE OS 2.0. For more details,
+                      The value can be Ubuntu 22.04 or HCE OS 2.0. For more details,
                       please see documentation.
                     type: string
                   postinstall:

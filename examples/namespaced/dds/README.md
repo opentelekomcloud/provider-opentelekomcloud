@@ -28,6 +28,23 @@ VPC, subnet, security group, password secret, and a backup.
 | `security group rules` (ports 22/8080/27017 from 0.0.0.0/0) | SecgroupV2 `spec.forProvider.rule` | Restrict the CIDR and ports to what you actually need |
 | `namespace: test` | all resources | All resources are created in the `test` namespace - adjust if needed |
 
+### PublicIPAssociateV3 (not tested in nightly tests)
+
+The following resources are commented out in `instance.yaml` because they are
+not covered by the nightly tests. They serve as an example of how to associate
+a public IP with a DDS node:
+
+| Kind | Full API name |
+|------|---------------|
+| PublicIPAssociateV3 | `publicipassociatev3s.dds.opentelekomcloud.m.crossplane.io` |
+| EIPV1 | `eipv1s.vpc.opentelekomcloud.m.crossplane.io` |
+
+To use them:
+
+1. Uncomment the `PublicIPAssociateV3` and `EIPV1` blocks at the bottom of `instance.yaml`
+2. Replace `nodeI: yournodeid` with the actual DDS node ID
+3. Replace the `publicIpSelector` and `publicIpSelectorById` matchLabels (`dds-dds-eip`) with the label of the EIP resource you created
+
 ## Prerequisites
 
 This example requires a configured `ClusterProviderConfig` - see [providerconfig](../providerconfig/README.md).

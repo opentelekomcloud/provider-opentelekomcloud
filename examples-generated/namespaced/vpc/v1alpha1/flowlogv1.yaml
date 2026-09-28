@@ -10,6 +10,8 @@ metadata:
 spec:
   forProvider:
     description: ${var.flow_log_desc}
+    enabled: true
+    indexEnabled: true
     logGroupSelector:
       matchLabels:
         testing.upbound.io/example-name: log_group1

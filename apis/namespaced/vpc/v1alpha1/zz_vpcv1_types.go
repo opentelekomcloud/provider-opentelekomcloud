@@ -14,6 +14,18 @@ import (
 	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
 )
 
+type RoutesInitParameters struct {
+}
+
+type RoutesObservation struct {
+	Destination *string `json:"destination,omitempty" tf:"destination,omitempty"`
+
+	Nexthop *string `json:"nexthop,omitempty" tf:"nexthop,omitempty"`
+}
+
+type RoutesParameters struct {
+}
+
 type VpcV1InitParameters struct {
 
 	// The range of available subnets in the VPC. The value ranges from
@@ -24,8 +36,13 @@ type VpcV1InitParameters struct {
 	// A description of the VPC.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	// The enterprise project ID associated with the VPC.
+	// Changing this creates a new VPC. If omitted, the provider-level enterprise project ID is used,
+	// or 0 for the default enterprise project.
+	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
+
 	// The name of the VPC. The name must be unique for a tenant. The value is a string of
-	// no more than 64 characters and can contain digits, letters, underscores (_), and hyphens (-).
+	// no more than 64 characters and can contain digits, letters, underscores (_), hyphens (-), and periods (.).
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
@@ -53,16 +70,28 @@ type VpcV1Observation struct {
 	// or 192.168.0.0/16 to 192.168.255.0/24.
 	Cidr *string `json:"cidr,omitempty" tf:"cidr,omitempty"`
 
+	// The UTC creation timestamp.
+	CreatedAt *string `json:"createdAt,omitempty" tf:"created_at,omitempty"`
+
 	// A description of the VPC.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// The enterprise project ID associated with the VPC.
+	// Changing this creates a new VPC. If omitted, the provider-level enterprise project ID is used,
+	// or 0 for the default enterprise project.
+	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// The name of the VPC. The name must be unique for a tenant. The value is a string of
-	// no more than 64 characters and can contain digits, letters, underscores (_), and hyphens (-).
+	// no more than 64 characters and can contain digits, letters, underscores (_), hyphens (-), and periods (.).
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
+
+	// The VPC routes. Each entry contains destination and nexthop.
+	// Manage custom routes with the dedicated VPC route resources.
+	Routes []RoutesObservation `json:"routes,omitempty" tf:"routes,omitempty"`
 
 	// DEPRECATED  Secondary CIDR block that can be added to VPCs.
 	// The value cannot contain the following: 100.64.0.0/1, 214.0.0.0/7, 198.18.0.0/15, 169.254.0.0/16,
@@ -82,6 +111,12 @@ type VpcV1Observation struct {
 	// The key/value pairs to associate with the VPC.
 	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
+
+	// The project ID that owns the VPC.
+	TenantID *string `json:"tenantId,omitempty" tf:"tenant_id,omitempty"`
+
+	// The UTC last-update timestamp.
+	UpdatedAt *string `json:"updatedAt,omitempty" tf:"updated_at,omitempty"`
 }
 
 type VpcV1Parameters struct {
@@ -96,8 +131,14 @@ type VpcV1Parameters struct {
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	// The enterprise project ID associated with the VPC.
+	// Changing this creates a new VPC. If omitted, the provider-level enterprise project ID is used,
+	// or 0 for the default enterprise project.
+	// +kubebuilder:validation:Optional
+	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
+
 	// The name of the VPC. The name must be unique for a tenant. The value is a string of
-	// no more than 64 characters and can contain digits, letters, underscores (_), and hyphens (-).
+	// no more than 64 characters and can contain digits, letters, underscores (_), hyphens (-), and periods (.).
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 

@@ -53,7 +53,6 @@ type RuleV3InitParameters struct {
 
 	// Specifies the matching conditions of the forwarding rule.
 	// This parameter is available only when advanced_forwarding is set to true.
-	// Not available in eu-nl.
 	Conditions []ConditionsInitParameters `json:"conditions,omitempty" tf:"conditions,omitempty"`
 
 	// ID of the policy.
@@ -98,7 +97,6 @@ type RuleV3Observation struct {
 
 	// Specifies the matching conditions of the forwarding rule.
 	// This parameter is available only when advanced_forwarding is set to true.
-	// Not available in eu-nl.
 	Conditions []ConditionsObservation `json:"conditions,omitempty" tf:"conditions,omitempty"`
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -131,7 +129,6 @@ type RuleV3Parameters struct {
 
 	// Specifies the matching conditions of the forwarding rule.
 	// This parameter is available only when advanced_forwarding is set to true.
-	// Not available in eu-nl.
 	// +kubebuilder:validation:Optional
 	Conditions []ConditionsParameters `json:"conditions,omitempty" tf:"conditions,omitempty"`
 

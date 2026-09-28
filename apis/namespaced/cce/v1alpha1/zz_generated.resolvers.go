@@ -10,9 +10,9 @@ import (
 	"context"
 	reference "github.com/crossplane/crossplane-runtime/v2/pkg/reference"
 	v1alpha13 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/compute/v1alpha1"
-	v1alpha11 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/identity/v1alpha1"
+	v1alpha1 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/identity/v1alpha1"
 	v1alpha12 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/kms/v1alpha1"
-	v1alpha1 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1"
+	v1alpha11 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1"
 	common "github.com/opentelekomcloud/provider-opentelekomcloud/config/common"
 	errors "github.com/pkg/errors"
 	client "sigs.k8s.io/controller-runtime/pkg/client"
@@ -70,14 +70,31 @@ func (mg *ClusterV3) ResolveReferences(ctx context.Context, c client.Reader) err
 	var err error
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.AgencyName),
+		Extract:      common.ExtractAgencyName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.AgencyNameRef,
+		Selector:     mg.Spec.ForProvider.AgencyNameSelector,
+		To: reference.To{
+			List:    &v1alpha1.AgencyV3List{},
+			Managed: &v1alpha1.AgencyV3{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.AgencyName")
+	}
+	mg.Spec.ForProvider.AgencyName = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.AgencyNameRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.EIP),
 		Extract:      common.ExtractEipAddress(),
 		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.ForProvider.EIPRef,
 		Selector:     mg.Spec.ForProvider.EIPSelector,
 		To: reference.To{
-			List:    &v1alpha1.EIPV1List{},
-			Managed: &v1alpha1.EIPV1{},
+			List:    &v1alpha11.EIPV1List{},
+			Managed: &v1alpha11.EIPV1{},
 		},
 	})
 	if err != nil {
@@ -93,8 +110,8 @@ func (mg *ClusterV3) ResolveReferences(ctx context.Context, c client.Reader) err
 		Reference:    mg.Spec.ForProvider.EniSubnetCidrRef,
 		Selector:     mg.Spec.ForProvider.EniSubnetCidrSelector,
 		To: reference.To{
-			List:    &v1alpha1.SubnetV1List{},
-			Managed: &v1alpha1.SubnetV1{},
+			List:    &v1alpha11.SubnetV1List{},
+			Managed: &v1alpha11.SubnetV1{},
 		},
 	})
 	if err != nil {
@@ -110,8 +127,8 @@ func (mg *ClusterV3) ResolveReferences(ctx context.Context, c client.Reader) err
 		Reference:    mg.Spec.ForProvider.EniSubnetRef,
 		Selector:     mg.Spec.ForProvider.EniSubnetSelector,
 		To: reference.To{
-			List:    &v1alpha1.SubnetV1List{},
-			Managed: &v1alpha1.SubnetV1{},
+			List:    &v1alpha11.SubnetV1List{},
+			Managed: &v1alpha11.SubnetV1{},
 		},
 	})
 	if err != nil {
@@ -127,8 +144,8 @@ func (mg *ClusterV3) ResolveReferences(ctx context.Context, c client.Reader) err
 		Reference:    mg.Spec.ForProvider.HighwaySubnetRef,
 		Selector:     mg.Spec.ForProvider.HighwaySubnetSelector,
 		To: reference.To{
-			List:    &v1alpha1.SubnetV1List{},
-			Managed: &v1alpha1.SubnetV1{},
+			List:    &v1alpha11.SubnetV1List{},
+			Managed: &v1alpha11.SubnetV1{},
 		},
 	})
 	if err != nil {
@@ -144,8 +161,8 @@ func (mg *ClusterV3) ResolveReferences(ctx context.Context, c client.Reader) err
 		Reference:    mg.Spec.ForProvider.SubnetRef,
 		Selector:     mg.Spec.ForProvider.SubnetSelector,
 		To: reference.To{
-			List:    &v1alpha1.SubnetV1List{},
-			Managed: &v1alpha1.SubnetV1{},
+			List:    &v1alpha11.SubnetV1List{},
+			Managed: &v1alpha11.SubnetV1{},
 		},
 	})
 	if err != nil {
@@ -161,8 +178,8 @@ func (mg *ClusterV3) ResolveReferences(ctx context.Context, c client.Reader) err
 		Reference:    mg.Spec.ForProvider.VPCRef,
 		Selector:     mg.Spec.ForProvider.VPCSelector,
 		To: reference.To{
-			List:    &v1alpha1.VpcV1List{},
-			Managed: &v1alpha1.VpcV1{},
+			List:    &v1alpha11.VpcV1List{},
+			Managed: &v1alpha11.VpcV1{},
 		},
 	})
 	if err != nil {
@@ -172,14 +189,31 @@ func (mg *ClusterV3) ResolveReferences(ctx context.Context, c client.Reader) err
 	mg.Spec.ForProvider.VPCRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.AgencyName),
+		Extract:      common.ExtractAgencyName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.AgencyNameRef,
+		Selector:     mg.Spec.InitProvider.AgencyNameSelector,
+		To: reference.To{
+			List:    &v1alpha1.AgencyV3List{},
+			Managed: &v1alpha1.AgencyV3{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.AgencyName")
+	}
+	mg.Spec.InitProvider.AgencyName = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.AgencyNameRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.EIP),
 		Extract:      common.ExtractEipAddress(),
 		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.InitProvider.EIPRef,
 		Selector:     mg.Spec.InitProvider.EIPSelector,
 		To: reference.To{
-			List:    &v1alpha1.EIPV1List{},
-			Managed: &v1alpha1.EIPV1{},
+			List:    &v1alpha11.EIPV1List{},
+			Managed: &v1alpha11.EIPV1{},
 		},
 	})
 	if err != nil {
@@ -195,8 +229,8 @@ func (mg *ClusterV3) ResolveReferences(ctx context.Context, c client.Reader) err
 		Reference:    mg.Spec.InitProvider.EniSubnetCidrRef,
 		Selector:     mg.Spec.InitProvider.EniSubnetCidrSelector,
 		To: reference.To{
-			List:    &v1alpha1.SubnetV1List{},
-			Managed: &v1alpha1.SubnetV1{},
+			List:    &v1alpha11.SubnetV1List{},
+			Managed: &v1alpha11.SubnetV1{},
 		},
 	})
 	if err != nil {
@@ -212,8 +246,8 @@ func (mg *ClusterV3) ResolveReferences(ctx context.Context, c client.Reader) err
 		Reference:    mg.Spec.InitProvider.EniSubnetRef,
 		Selector:     mg.Spec.InitProvider.EniSubnetSelector,
 		To: reference.To{
-			List:    &v1alpha1.SubnetV1List{},
-			Managed: &v1alpha1.SubnetV1{},
+			List:    &v1alpha11.SubnetV1List{},
+			Managed: &v1alpha11.SubnetV1{},
 		},
 	})
 	if err != nil {
@@ -229,8 +263,8 @@ func (mg *ClusterV3) ResolveReferences(ctx context.Context, c client.Reader) err
 		Reference:    mg.Spec.InitProvider.HighwaySubnetRef,
 		Selector:     mg.Spec.InitProvider.HighwaySubnetSelector,
 		To: reference.To{
-			List:    &v1alpha1.SubnetV1List{},
-			Managed: &v1alpha1.SubnetV1{},
+			List:    &v1alpha11.SubnetV1List{},
+			Managed: &v1alpha11.SubnetV1{},
 		},
 	})
 	if err != nil {
@@ -246,8 +280,8 @@ func (mg *ClusterV3) ResolveReferences(ctx context.Context, c client.Reader) err
 		Reference:    mg.Spec.InitProvider.SubnetRef,
 		Selector:     mg.Spec.InitProvider.SubnetSelector,
 		To: reference.To{
-			List:    &v1alpha1.SubnetV1List{},
-			Managed: &v1alpha1.SubnetV1{},
+			List:    &v1alpha11.SubnetV1List{},
+			Managed: &v1alpha11.SubnetV1{},
 		},
 	})
 	if err != nil {
@@ -263,8 +297,8 @@ func (mg *ClusterV3) ResolveReferences(ctx context.Context, c client.Reader) err
 		Reference:    mg.Spec.InitProvider.VPCRef,
 		Selector:     mg.Spec.InitProvider.VPCSelector,
 		To: reference.To{
-			List:    &v1alpha1.VpcV1List{},
-			Managed: &v1alpha1.VpcV1{},
+			List:    &v1alpha11.VpcV1List{},
+			Managed: &v1alpha11.VpcV1{},
 		},
 	})
 	if err != nil {
@@ -290,8 +324,8 @@ func (mg *NodePoolV3) ResolveReferences(ctx context.Context, c client.Reader) er
 		Reference:    mg.Spec.ForProvider.AgencyNameRef,
 		Selector:     mg.Spec.ForProvider.AgencyNameSelector,
 		To: reference.To{
-			List:    &v1alpha11.AgencyV3List{},
-			Managed: &v1alpha11.AgencyV3{},
+			List:    &v1alpha1.AgencyV3List{},
+			Managed: &v1alpha1.AgencyV3{},
 		},
 	})
 	if err != nil {
@@ -379,8 +413,8 @@ func (mg *NodePoolV3) ResolveReferences(ctx context.Context, c client.Reader) er
 		Reference:    mg.Spec.ForProvider.SubnetRef,
 		Selector:     mg.Spec.ForProvider.SubnetSelector,
 		To: reference.To{
-			List:    &v1alpha1.SubnetV1List{},
-			Managed: &v1alpha1.SubnetV1{},
+			List:    &v1alpha11.SubnetV1List{},
+			Managed: &v1alpha11.SubnetV1{},
 		},
 	})
 	if err != nil {
@@ -396,8 +430,8 @@ func (mg *NodePoolV3) ResolveReferences(ctx context.Context, c client.Reader) er
 		Reference:    mg.Spec.InitProvider.AgencyNameRef,
 		Selector:     mg.Spec.InitProvider.AgencyNameSelector,
 		To: reference.To{
-			List:    &v1alpha11.AgencyV3List{},
-			Managed: &v1alpha11.AgencyV3{},
+			List:    &v1alpha1.AgencyV3List{},
+			Managed: &v1alpha1.AgencyV3{},
 		},
 	})
 	if err != nil {
@@ -485,8 +519,8 @@ func (mg *NodePoolV3) ResolveReferences(ctx context.Context, c client.Reader) er
 		Reference:    mg.Spec.InitProvider.SubnetRef,
 		Selector:     mg.Spec.InitProvider.SubnetSelector,
 		To: reference.To{
-			List:    &v1alpha1.SubnetV1List{},
-			Managed: &v1alpha1.SubnetV1{},
+			List:    &v1alpha11.SubnetV1List{},
+			Managed: &v1alpha11.SubnetV1{},
 		},
 	})
 	if err != nil {
@@ -513,8 +547,8 @@ func (mg *NodeV3) ResolveReferences(ctx context.Context, c client.Reader) error 
 		Reference:    mg.Spec.ForProvider.AgencyNameRef,
 		Selector:     mg.Spec.ForProvider.AgencyNameSelector,
 		To: reference.To{
-			List:    &v1alpha11.AgencyV3List{},
-			Managed: &v1alpha11.AgencyV3{},
+			List:    &v1alpha1.AgencyV3List{},
+			Managed: &v1alpha1.AgencyV3{},
 		},
 	})
 	if err != nil {
@@ -566,8 +600,8 @@ func (mg *NodeV3) ResolveReferences(ctx context.Context, c client.Reader) error 
 		References:    mg.Spec.ForProvider.EIPRef,
 		Selector:      mg.Spec.ForProvider.EIPSelector,
 		To: reference.To{
-			List:    &v1alpha1.EIPV1List{},
-			Managed: &v1alpha1.EIPV1{},
+			List:    &v1alpha11.EIPV1List{},
+			Managed: &v1alpha11.EIPV1{},
 		},
 	})
 	if err != nil {
@@ -619,8 +653,8 @@ func (mg *NodeV3) ResolveReferences(ctx context.Context, c client.Reader) error 
 		Reference:    mg.Spec.InitProvider.AgencyNameRef,
 		Selector:     mg.Spec.InitProvider.AgencyNameSelector,
 		To: reference.To{
-			List:    &v1alpha11.AgencyV3List{},
-			Managed: &v1alpha11.AgencyV3{},
+			List:    &v1alpha1.AgencyV3List{},
+			Managed: &v1alpha1.AgencyV3{},
 		},
 	})
 	if err != nil {
@@ -672,8 +706,8 @@ func (mg *NodeV3) ResolveReferences(ctx context.Context, c client.Reader) error 
 		References:    mg.Spec.InitProvider.EIPRef,
 		Selector:      mg.Spec.InitProvider.EIPSelector,
 		To: reference.To{
-			List:    &v1alpha1.EIPV1List{},
-			Managed: &v1alpha1.EIPV1{},
+			List:    &v1alpha11.EIPV1List{},
+			Managed: &v1alpha11.EIPV1{},
 		},
 	})
 	if err != nil {

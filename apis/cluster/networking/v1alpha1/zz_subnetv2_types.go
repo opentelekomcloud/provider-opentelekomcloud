@@ -132,6 +132,10 @@ type SubnetV2InitParameters struct {
 
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
+	// The key/value pairs to associate with the subnet.
+	// +mapType=granular
+	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
+
 	// The owner of the subnet. Required if admin wants to
 	// create a subnet for another tenant. Changing this creates a new subnet.
 	TenantID *string `json:"tenantId,omitempty" tf:"tenant_id,omitempty"`
@@ -194,6 +198,10 @@ type SubnetV2Observation struct {
 	NoGateway *bool `json:"noGateway,omitempty" tf:"no_gateway,omitempty"`
 
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
+
+	// The key/value pairs to associate with the subnet.
+	// +mapType=granular
+	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// The owner of the subnet. Required if admin wants to
 	// create a subnet for another tenant. Changing this creates a new subnet.
@@ -275,6 +283,11 @@ type SubnetV2Parameters struct {
 
 	// +kubebuilder:validation:Optional
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
+
+	// The key/value pairs to associate with the subnet.
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// The owner of the subnet. Required if admin wants to
 	// create a subnet for another tenant. Changing this creates a new subnet.

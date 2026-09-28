@@ -118,7 +118,8 @@ type DedicatedCcRuleV1InitParameters struct {
 	// The conditions block supports:
 	Action []ActionInitParameters `json:"action,omitempty" tf:"action,omitempty"`
 
-	// Rate limit conditions of the CC protection rule. Changing this creates a new rule.
+	// Rate limit conditions of the CC protection rule. At least one block is required
+	// when mode is set to 1. Changing this creates a new rule.
 	// The conditions block supports:
 	Conditions []DedicatedCcRuleV1ConditionsInitParameters `json:"conditions,omitempty" tf:"conditions,omitempty"`
 
@@ -154,7 +155,8 @@ type DedicatedCcRuleV1InitParameters struct {
 	// Rate limit mode. Changing this creates a new rule. Valid Options are:
 	TagType *string `json:"tagType,omitempty" tf:"tag_type,omitempty"`
 
-	// Path to be protected in the CC attack protection rule. Changing this creates a new rule.
+	// Path to be protected in the CC attack protection rule. This parameter is required
+	// when mode is set to 0. Changing this creates a new rule.
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 
 	// Allowable frequency based on the number of requests. The value ranges from 0 to 2,147,483,647. This parameter is required only when the protection action type is dynamic_block. Changing this creates a new rule.
@@ -167,7 +169,8 @@ type DedicatedCcRuleV1Observation struct {
 	// The conditions block supports:
 	Action []ActionObservation `json:"action,omitempty" tf:"action,omitempty"`
 
-	// Rate limit conditions of the CC protection rule. Changing this creates a new rule.
+	// Rate limit conditions of the CC protection rule. At least one block is required
+	// when mode is set to 1. Changing this creates a new rule.
 	// The conditions block supports:
 	Conditions []DedicatedCcRuleV1ConditionsObservation `json:"conditions,omitempty" tf:"conditions,omitempty"`
 
@@ -212,7 +215,8 @@ type DedicatedCcRuleV1Observation struct {
 	// Rate limit mode. Changing this creates a new rule. Valid Options are:
 	TagType *string `json:"tagType,omitempty" tf:"tag_type,omitempty"`
 
-	// Path to be protected in the CC attack protection rule. Changing this creates a new rule.
+	// Path to be protected in the CC attack protection rule. This parameter is required
+	// when mode is set to 0. Changing this creates a new rule.
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 
 	// Allowable frequency based on the number of requests. The value ranges from 0 to 2,147,483,647. This parameter is required only when the protection action type is dynamic_block. Changing this creates a new rule.
@@ -226,7 +230,8 @@ type DedicatedCcRuleV1Parameters struct {
 	// +kubebuilder:validation:Optional
 	Action []ActionParameters `json:"action,omitempty" tf:"action,omitempty"`
 
-	// Rate limit conditions of the CC protection rule. Changing this creates a new rule.
+	// Rate limit conditions of the CC protection rule. At least one block is required
+	// when mode is set to 1. Changing this creates a new rule.
 	// The conditions block supports:
 	// +kubebuilder:validation:Optional
 	Conditions []DedicatedCcRuleV1ConditionsParameters `json:"conditions,omitempty" tf:"conditions,omitempty"`
@@ -273,7 +278,8 @@ type DedicatedCcRuleV1Parameters struct {
 	// +kubebuilder:validation:Optional
 	TagType *string `json:"tagType,omitempty" tf:"tag_type,omitempty"`
 
-	// Path to be protected in the CC attack protection rule. Changing this creates a new rule.
+	// Path to be protected in the CC attack protection rule. This parameter is required
+	// when mode is set to 0. Changing this creates a new rule.
 	// +kubebuilder:validation:Optional
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 
@@ -324,7 +330,6 @@ type DedicatedCcRuleV1 struct {
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.mode) || (has(self.initProvider) && has(self.initProvider.mode))",message="spec.forProvider.mode is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.policyId) || (has(self.initProvider) && has(self.initProvider.policyId))",message="spec.forProvider.policyId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.tagType) || (has(self.initProvider) && has(self.initProvider.tagType))",message="spec.forProvider.tagType is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.url) || (has(self.initProvider) && has(self.initProvider.url))",message="spec.forProvider.url is a required parameter"
 	Spec   DedicatedCcRuleV1Spec   `json:"spec"`
 	Status DedicatedCcRuleV1Status `json:"status,omitempty"`
 }
