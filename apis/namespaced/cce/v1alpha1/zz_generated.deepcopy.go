@@ -509,6 +509,16 @@ func (in *ClusterV3InitParameters) DeepCopyInto(out *ClusterV3InitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.AgencyNameRef != nil {
+		in, out := &in.AgencyNameRef, &out.AgencyNameRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.AgencyNameSelector != nil {
+		in, out := &in.AgencyNameSelector, &out.AgencyNameSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Annotations != nil {
 		in, out := &in.Annotations, &out.Annotations
 		*out = make(map[string]*string, len(*in))
@@ -1262,6 +1272,16 @@ func (in *ClusterV3Parameters) DeepCopyInto(out *ClusterV3Parameters) {
 		in, out := &in.AgencyName, &out.AgencyName
 		*out = new(string)
 		**out = **in
+	}
+	if in.AgencyNameRef != nil {
+		in, out := &in.AgencyNameRef, &out.AgencyNameRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.AgencyNameSelector != nil {
+		in, out := &in.AgencyNameSelector, &out.AgencyNameSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Annotations != nil {
 		in, out := &in.Annotations, &out.Annotations
