@@ -68,6 +68,7 @@ spec:
     flavorId: cce.s1.small
     containerNetworkType: vpc-router
     name: cce-cls-${Rand.RFC1123Subdomain}
+    kubeProxyMode: iptables
     subnetSelector:
       matchLabels:
         testing.upbound.io/example-name: cce-subnet
