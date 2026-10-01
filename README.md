@@ -1,7 +1,7 @@
 
 # T Cloud Public Crossplane provider
 > [!NOTE]
-> **T Cloud Public** is formerly known as **Open Telekom Cloud**. We are in the process of renaming, rewriting our codebases and documentations with the new name.
+> **T Cloud Public** is formerly known as **Open Telekom Cloud**.
 
 `provider-opentelekomcloud` is a [Crossplane](https://crossplane.io/) provider that is built using [Upjet](https://github.com/crossplane/upjet) code generation tools and exposes XRM-conformant managed resources for the **T Cloud Public** API. The provider has been upgraded to support Crossplane v2, which introduced a lot of changes and new features like namespaced [ManagedResouces](https://docs.crossplane.io/latest/managed-resources/managed-resources/). Cluster scoped MRs are now legacy APIs, thus we recommend using the modern `opentelekomcloud.m.crossplane.io` namespaced APIs instead. For more information please check [What’s New in v2?](https://docs.crossplane.io/latest/whats-new/)
 
@@ -14,7 +14,8 @@ You can find all supported resources bundled in the **T Cloud Public** provider 
 Please note that some services are not yet fully configured. While you can still provision and manage these services, dynamic value assignment is not configured for them. In such cases, cross-resource identifiers must be configured manually. You can check [this](https://github.com/opentelekomcloud/provider-opentelekomcloud/issues/7) issue tracker to see the status of the services.
 
 ## Getting Started
-
+> !NOTE
+> This is a quick start guide to get you up and running in minutes, for a comprehensive introduction and guide please see [Architecture Center](https://arch.otc-service.com/docs/blueprints/by-use-case/platform-engineering/crossplane/introduction-crossplane-provider).
 You will need some flavor of kubernetes to start using Crossplane. You can use [kind](https://github.com/kubernetes-sigs/kind) for testing or any managed kubernetes service.
 
 ```console
@@ -77,7 +78,7 @@ EOF
 
 ### Configure the provider
 
-`ClusterProviderConfig` setup with secret:
+[ClusterProviderConfig](https://github.com/opentelekomcloud/provider-opentelekomcloud/tree/main/examples/namespaced/providerconfig) setup with secret:
 
 ```console
 cat <<EOF | kubectl apply -f -
@@ -143,7 +144,7 @@ spec:
 Check the state of the managed resources:
 
 ```console
-kubectl get managed
+kubectl get bucket.obs.opentelekomcloud.m.crossplane.io
 ```
 
 ```console
