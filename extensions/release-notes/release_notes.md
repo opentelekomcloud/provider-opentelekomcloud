@@ -1,3 +1,13 @@
+# v1.0.1
+
+## What's Changed
+* docs: #162 add description for examples by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/163
+* chore(deps): bump google.golang.org/grpc from 1.79.3 to 1.83.2 in the go_modules group across 1 directory by @dependabot[bot] in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/160
+* chore(tf): regen provider with `v1.37.8` by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/164
+
+
+**Full Changelog**: https://github.com/opentelekomcloud/provider-opentelekomcloud/compare/v1.0.0...v1.0.1
+
 # v1.0.0
 
 ## What's Changed
@@ -12,6 +22,7 @@
 * chore(deps): bump golang.org/x/net from 0.48.0 to 0.55.0 in the go_modules group across 1 directory by @dependabot[bot] in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/128
 * feat: `sfs` implementation and e2e testing. by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/156
 * Breaking(fix): Consistent field names for selectors and refs by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/157
+* release notes for `v1.0.0` - stable by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/159
 
 
 **Full Changelog**: https://github.com/opentelekomcloud/provider-opentelekomcloud/compare/v0.10.1...v1.0.0
