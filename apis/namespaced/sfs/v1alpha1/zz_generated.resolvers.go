@@ -9,93 +9,11 @@ package v1alpha1
 import (
 	"context"
 	reference "github.com/crossplane/crossplane-runtime/v2/pkg/reference"
-	v1alpha11 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/kms/v1alpha1"
-	v1alpha1 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1"
+	v1alpha1 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/kms/v1alpha1"
+	v1alpha11 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1"
 	errors "github.com/pkg/errors"
 	client "sigs.k8s.io/controller-runtime/pkg/client"
 )
-
-// ResolveReferences of this ShareAccessRulesV2.
-func (mg *ShareAccessRulesV2) ResolveReferences(ctx context.Context, c client.Reader) error {
-	r := reference.NewAPINamespacedResolver(c, mg)
-
-	var rsp reference.NamespacedResolutionResponse
-	var err error
-
-	for i3 := 0; i3 < len(mg.Spec.ForProvider.AccessRule); i3++ {
-		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
-			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.AccessRule[i3].AccessTo),
-			Extract:      reference.ExternalName(),
-			Namespace:    mg.GetNamespace(),
-			Reference:    mg.Spec.ForProvider.AccessRule[i3].AccessToRef,
-			Selector:     mg.Spec.ForProvider.AccessRule[i3].AccessToSelector,
-			To: reference.To{
-				List:    &v1alpha1.VpcV1List{},
-				Managed: &v1alpha1.VpcV1{},
-			},
-		})
-		if err != nil {
-			return errors.Wrap(err, "mg.Spec.ForProvider.AccessRule[i3].AccessTo")
-		}
-		mg.Spec.ForProvider.AccessRule[i3].AccessTo = reference.ToPtrValue(rsp.ResolvedValue)
-		mg.Spec.ForProvider.AccessRule[i3].AccessToRef = rsp.ResolvedReference
-
-	}
-	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ShareID),
-		Extract:      reference.ExternalName(),
-		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.ForProvider.ShareSelectorRef,
-		Selector:     mg.Spec.ForProvider.ShareSelector,
-		To: reference.To{
-			List:    &FileSystemV2List{},
-			Managed: &FileSystemV2{},
-		},
-	})
-	if err != nil {
-		return errors.Wrap(err, "mg.Spec.ForProvider.ShareID")
-	}
-	mg.Spec.ForProvider.ShareID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.ShareSelectorRef = rsp.ResolvedReference
-
-	for i3 := 0; i3 < len(mg.Spec.InitProvider.AccessRule); i3++ {
-		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
-			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.AccessRule[i3].AccessTo),
-			Extract:      reference.ExternalName(),
-			Namespace:    mg.GetNamespace(),
-			Reference:    mg.Spec.InitProvider.AccessRule[i3].AccessToRef,
-			Selector:     mg.Spec.InitProvider.AccessRule[i3].AccessToSelector,
-			To: reference.To{
-				List:    &v1alpha1.VpcV1List{},
-				Managed: &v1alpha1.VpcV1{},
-			},
-		})
-		if err != nil {
-			return errors.Wrap(err, "mg.Spec.InitProvider.AccessRule[i3].AccessTo")
-		}
-		mg.Spec.InitProvider.AccessRule[i3].AccessTo = reference.ToPtrValue(rsp.ResolvedValue)
-		mg.Spec.InitProvider.AccessRule[i3].AccessToRef = rsp.ResolvedReference
-
-	}
-	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ShareID),
-		Extract:      reference.ExternalName(),
-		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.InitProvider.ShareSelectorRef,
-		Selector:     mg.Spec.InitProvider.ShareSelector,
-		To: reference.To{
-			List:    &FileSystemV2List{},
-			Managed: &FileSystemV2{},
-		},
-	})
-	if err != nil {
-		return errors.Wrap(err, "mg.Spec.InitProvider.ShareID")
-	}
-	mg.Spec.InitProvider.ShareID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.ShareSelectorRef = rsp.ResolvedReference
-
-	return nil
-}
 
 // ResolveReferences of this TurboShareV1.
 func (mg *TurboShareV1) ResolveReferences(ctx context.Context, c client.Reader) error {
@@ -111,8 +29,8 @@ func (mg *TurboShareV1) ResolveReferences(ctx context.Context, c client.Reader) 
 		Reference:    mg.Spec.ForProvider.KMSSelectorRef,
 		Selector:     mg.Spec.ForProvider.KMSSelector,
 		To: reference.To{
-			List:    &v1alpha11.KeyV1List{},
-			Managed: &v1alpha11.KeyV1{},
+			List:    &v1alpha1.KeyV1List{},
+			Managed: &v1alpha1.KeyV1{},
 		},
 	})
 	if err != nil {
@@ -128,8 +46,8 @@ func (mg *TurboShareV1) ResolveReferences(ctx context.Context, c client.Reader) 
 		Reference:    mg.Spec.ForProvider.SecgroupSelectorRef,
 		Selector:     mg.Spec.ForProvider.SecgroupSelector,
 		To: reference.To{
-			List:    &v1alpha1.SecgroupV3List{},
-			Managed: &v1alpha1.SecgroupV3{},
+			List:    &v1alpha11.SecgroupV3List{},
+			Managed: &v1alpha11.SecgroupV3{},
 		},
 	})
 	if err != nil {
@@ -145,8 +63,8 @@ func (mg *TurboShareV1) ResolveReferences(ctx context.Context, c client.Reader) 
 		Reference:    mg.Spec.ForProvider.SubnetSelectorRef,
 		Selector:     mg.Spec.ForProvider.SubnetSelector,
 		To: reference.To{
-			List:    &v1alpha1.SubnetV1List{},
-			Managed: &v1alpha1.SubnetV1{},
+			List:    &v1alpha11.SubnetV1List{},
+			Managed: &v1alpha11.SubnetV1{},
 		},
 	})
 	if err != nil {
@@ -162,8 +80,8 @@ func (mg *TurboShareV1) ResolveReferences(ctx context.Context, c client.Reader) 
 		Reference:    mg.Spec.ForProvider.VPCSelectorRef,
 		Selector:     mg.Spec.ForProvider.VPCSelector,
 		To: reference.To{
-			List:    &v1alpha1.VpcV1List{},
-			Managed: &v1alpha1.VpcV1{},
+			List:    &v1alpha11.VpcV1List{},
+			Managed: &v1alpha11.VpcV1{},
 		},
 	})
 	if err != nil {
@@ -179,8 +97,8 @@ func (mg *TurboShareV1) ResolveReferences(ctx context.Context, c client.Reader) 
 		Reference:    mg.Spec.InitProvider.KMSSelectorRef,
 		Selector:     mg.Spec.InitProvider.KMSSelector,
 		To: reference.To{
-			List:    &v1alpha11.KeyV1List{},
-			Managed: &v1alpha11.KeyV1{},
+			List:    &v1alpha1.KeyV1List{},
+			Managed: &v1alpha1.KeyV1{},
 		},
 	})
 	if err != nil {
@@ -196,8 +114,8 @@ func (mg *TurboShareV1) ResolveReferences(ctx context.Context, c client.Reader) 
 		Reference:    mg.Spec.InitProvider.SecgroupSelectorRef,
 		Selector:     mg.Spec.InitProvider.SecgroupSelector,
 		To: reference.To{
-			List:    &v1alpha1.SecgroupV3List{},
-			Managed: &v1alpha1.SecgroupV3{},
+			List:    &v1alpha11.SecgroupV3List{},
+			Managed: &v1alpha11.SecgroupV3{},
 		},
 	})
 	if err != nil {
@@ -213,8 +131,8 @@ func (mg *TurboShareV1) ResolveReferences(ctx context.Context, c client.Reader) 
 		Reference:    mg.Spec.InitProvider.SubnetSelectorRef,
 		Selector:     mg.Spec.InitProvider.SubnetSelector,
 		To: reference.To{
-			List:    &v1alpha1.SubnetV1List{},
-			Managed: &v1alpha1.SubnetV1{},
+			List:    &v1alpha11.SubnetV1List{},
+			Managed: &v1alpha11.SubnetV1{},
 		},
 	})
 	if err != nil {
@@ -230,8 +148,8 @@ func (mg *TurboShareV1) ResolveReferences(ctx context.Context, c client.Reader) 
 		Reference:    mg.Spec.InitProvider.VPCSelectorRef,
 		Selector:     mg.Spec.InitProvider.VPCSelector,
 		To: reference.To{
-			List:    &v1alpha1.VpcV1List{},
-			Managed: &v1alpha1.VpcV1{},
+			List:    &v1alpha11.VpcV1List{},
+			Managed: &v1alpha11.VpcV1{},
 		},
 	})
 	if err != nil {
