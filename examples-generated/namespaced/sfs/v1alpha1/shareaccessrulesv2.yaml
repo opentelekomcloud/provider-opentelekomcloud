@@ -11,18 +11,12 @@ spec:
   forProvider:
     accessRule:
     - accessLevel: rw
-      accessToSelector:
-        matchLabels:
-          testing.upbound.io/example-name: vpc_1
+      accessTo: ${opentelekomcloud_vpc_v1.vpc_1.id}
       accessType: cert
     - accessLevel: rw
-      accessToSelector:
-        matchLabels:
-          testing.upbound.io/example-name: vpc_2
+      accessTo: ${opentelekomcloud_vpc_v1.vpc_2.id}
       accessType: cert
-    shareSelector:
-      matchLabels:
-        testing.upbound.io/example-name: sfs_1
+    shareId: ${opentelekomcloud_sfs_file_system_v2.sfs_1.id}
 
 ---
 
