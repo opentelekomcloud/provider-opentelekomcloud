@@ -504,6 +504,10 @@ spec:
             properties:
               atProvider:
                 properties:
+                  createdAt:
+                    description: The UTC time when the VPC peering connection was
+                      created.
+                    type: string
                   description:
                     description: Specifies the description of the VPC peering connection.
                     type: string
@@ -528,9 +532,16 @@ spec:
                     description: The VPC peering connection status. The value can
                       be PENDING_ACCEPTANCE, REJECTED, EXPIRED, DELETED, or ACTIVE.
                     type: string
+                  updatedAt:
+                    description: The UTC time when the VPC peering connection was
+                      last updated.
+                    type: string
                   vpcId:
                     description: Specifies the ID of a VPC involved in a VPC peering
                       connection. Changing this creates a new VPC peering connection.
+                    type: string
+                  vpcTenantId:
+                    description: The project ID of the requester VPC.
                     type: string
                 type: object
               conditions:

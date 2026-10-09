@@ -509,6 +509,11 @@ func (in *BucketInitParameters) DeepCopyInto(out *BucketInitParameters) {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.EnterpriseProjectID != nil {
+		in, out := &in.EnterpriseProjectID, &out.EnterpriseProjectID
+		*out = new(string)
+		**out = **in
+	}
 	if in.EventNotifications != nil {
 		in, out := &in.EventNotifications, &out.EventNotifications
 		*out = make([]EventNotificationsInitParameters, len(*in))
@@ -1876,6 +1881,11 @@ func (in *BucketObservation) DeepCopyInto(out *BucketObservation) {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.EnterpriseProjectID != nil {
+		in, out := &in.EnterpriseProjectID, &out.EnterpriseProjectID
+		*out = new(string)
+		**out = **in
+	}
 	if in.EventNotifications != nil {
 		in, out := &in.EventNotifications, &out.EventNotifications
 		*out = make([]EventNotificationsObservation, len(*in))
@@ -2001,6 +2011,11 @@ func (in *BucketParameters) DeepCopyInto(out *BucketParameters) {
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.EnterpriseProjectID != nil {
+		in, out := &in.EnterpriseProjectID, &out.EnterpriseProjectID
+		*out = new(string)
+		**out = **in
 	}
 	if in.EventNotifications != nil {
 		in, out := &in.EventNotifications, &out.EventNotifications

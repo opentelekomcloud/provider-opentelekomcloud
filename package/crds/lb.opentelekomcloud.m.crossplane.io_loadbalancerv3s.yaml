@@ -71,6 +71,10 @@ spec:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
+                  chargeMode:
+                    description: The load balancer billing mode. Changing this creates
+                      a new load balancer.
+                    type: string
                   deletionProtection:
                     description: |-
                       Specifies whether to enable deletion protection for the load balancer.
@@ -81,9 +85,26 @@ spec:
                     description: Provides supplementary information about the load
                       balancer.
                     type: string
+                  enterpriseProjectId:
+                    description: The enterprise project ID. Changing this creates
+                      a new load balancer.
+                    type: string
+                  guaranteed:
+                    description: |-
+                      Whether the load balancer is a dedicated load balancer.
+                      Changing this creates a new load balancer.
+                    type: boolean
                   ipTargetEnable:
                     description: The value can be true (enabled) or false (disabled).
                     type: boolean
+                  ipv6BandwidthId:
+                    description: The ID of the shared bandwidth used by the public
+                      IPv6 address.
+                    type: string
+                  ipv6VipSubnetId:
+                    description: The ID of the IPv6 subnet where the load balancer
+                      resides.
+                    type: string
                   l4Flavor:
                     description: The ID of the Layer-4 flavor.
                     type: string
@@ -183,6 +204,12 @@ spec:
                             type: string
                         type: object
                     type: object
+                  protectionReason:
+                    description: The reason for enabling modification protection.
+                    type: string
+                  protectionStatus:
+                    description: The modification protection status.
+                    type: string
                   publicIp:
                     description: |-
                       The elastic IP address of the instance. The public_ip structure
@@ -501,6 +528,10 @@ spec:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
+                  chargeMode:
+                    description: The load balancer billing mode. Changing this creates
+                      a new load balancer.
+                    type: string
                   deletionProtection:
                     description: |-
                       Specifies whether to enable deletion protection for the load balancer.
@@ -511,9 +542,26 @@ spec:
                     description: Provides supplementary information about the load
                       balancer.
                     type: string
+                  enterpriseProjectId:
+                    description: The enterprise project ID. Changing this creates
+                      a new load balancer.
+                    type: string
+                  guaranteed:
+                    description: |-
+                      Whether the load balancer is a dedicated load balancer.
+                      Changing this creates a new load balancer.
+                    type: boolean
                   ipTargetEnable:
                     description: The value can be true (enabled) or false (disabled).
                     type: boolean
+                  ipv6BandwidthId:
+                    description: The ID of the shared bandwidth used by the public
+                      IPv6 address.
+                    type: string
+                  ipv6VipSubnetId:
+                    description: The ID of the IPv6 subnet where the load balancer
+                      resides.
+                    type: string
                   l4Flavor:
                     description: The ID of the Layer-4 flavor.
                     type: string
@@ -613,6 +661,12 @@ spec:
                             type: string
                         type: object
                     type: object
+                  protectionReason:
+                    description: The reason for enabling modification protection.
+                    type: string
+                  protectionStatus:
+                    description: The modification protection status.
+                    type: string
                   publicIp:
                     description: |-
                       The elastic IP address of the instance. The public_ip structure
@@ -978,6 +1032,16 @@ spec:
                     description: The administrative state of the LoadBalancer. A valid
                       value is only true (UP).
                     type: boolean
+                  autoscaling:
+                    description: Autoscaling information, including enable and min_l7_flavor_id.
+                    items:
+                      properties:
+                        enable:
+                          type: boolean
+                        minL7FlavorId:
+                          type: string
+                      type: object
+                    type: array
                   availabilityZones:
                     description: |-
                       Specifies the availability zones where the LoadBalancer will be located.
@@ -986,9 +1050,30 @@ spec:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
+                  billingInfo:
+                    description: Billing information for the load balancer.
+                    type: string
+                  chargeMode:
+                    description: The load balancer billing mode. Changing this creates
+                      a new load balancer.
+                    type: string
                   createdAt:
                     description: The time the LoadBalancer was created.
                     type: string
+                  customQosLimit:
+                    description: Custom Layer-4 and Layer-7 connection and CPS limits.
+                    items:
+                      properties:
+                        l4Connection:
+                          type: number
+                        l4Cps:
+                          type: number
+                        l7Connection:
+                          type: number
+                        l7Cps:
+                          type: number
+                      type: object
+                    type: array
                   deletionProtection:
                     description: |-
                       Specifies whether to enable deletion protection for the load balancer.
@@ -999,18 +1084,104 @@ spec:
                     description: Provides supplementary information about the load
                       balancer.
                     type: string
+                  eips:
+                    description: EIPs associated with the load balancer, including
+                      eip_id, eip_address, and ip_version.
+                    items:
+                      properties:
+                        eipAddress:
+                          type: string
+                        eipId:
+                          type: string
+                        ipVersion:
+                          type: number
+                      type: object
+                    type: array
+                  elbSubnetType:
+                    description: The IP version supported by the load balancer subnet.
+                    type: string
+                  enterpriseProjectId:
+                    description: The enterprise project ID. Changing this creates
+                      a new load balancer.
+                    type: string
+                  frozenScene:
+                    description: The scenario in which the load balancer was frozen.
+                    type: string
+                  gatewayFlavorId:
+                    description: The gateway flavor ID.
+                    type: string
+                  globalEips:
+                    description: |-
+                      Global EIPs associated with the load balancer, including global_eip_id,
+                      global_eip_address, and ip_version.
+                    items:
+                      properties:
+                        globalEipAddress:
+                          type: string
+                        globalEipId:
+                          type: string
+                        ipVersion:
+                          type: number
+                      type: object
+                    type: array
+                  guaranteed:
+                    description: |-
+                      Whether the load balancer is a dedicated load balancer.
+                      Changing this creates a new load balancer.
+                    type: boolean
                   id:
                     description: ID of an existing elastic IP. Required when using
                       existing EIP.
                     type: string
+                  instanceId:
+                    description: The load balancer instance ID.
+                    type: string
+                  instanceType:
+                    description: The load balancer instance type.
+                    type: string
                   ipTargetEnable:
                     description: The value can be true (enabled) or false (disabled).
                     type: boolean
+                  ipv6BandwidthId:
+                    description: The ID of the shared bandwidth used by the public
+                      IPv6 address.
+                    type: string
+                  ipv6VipAddress:
+                    description: The private IPv6 address of the load balancer.
+                    type: string
+                  ipv6VipPortId:
+                    description: The port ID associated with the private IPv6 address.
+                    type: string
+                  ipv6VipSubnetId:
+                    description: The ID of the IPv6 subnet where the load balancer
+                      resides.
+                    type: string
                   l4Flavor:
                     description: The ID of the Layer-4 flavor.
                     type: string
+                  l4ScaleFlavor:
+                    description: The ID of the Layer-4 elastic flavor.
+                    type: string
                   l7Flavor:
                     description: The ID of the Layer-7 flavor.
+                    type: string
+                  l7ScaleFlavor:
+                    description: The ID of the Layer-7 elastic flavor.
+                    type: string
+                  listeners:
+                    description: IDs of listeners associated with the load balancer.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  loadbalancerType:
+                    description: The load balancer type.
+                    type: string
+                  logGroupId:
+                    description: The LTS log group ID.
+                    type: string
+                  logTopicId:
+                    description: The LTS log stream ID.
                     type: string
                   name:
                     description: The LoadBalancer name.
@@ -1021,6 +1192,51 @@ spec:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
+                  operatingStatus:
+                    description: The operating status of the load balancer.
+                    type: string
+                  pools:
+                    description: IDs of backend server groups associated with the
+                      load balancer.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  projectId:
+                    description: The project ID of the load balancer.
+                    type: string
+                  protectionReason:
+                    description: The reason for enabling modification protection.
+                    type: string
+                  protectionStatus:
+                    description: The modification protection status.
+                    type: string
+                  providerName:
+                    description: The load balancer provider.
+                    type: string
+                  provisioningStatus:
+                    description: The provisioning status of the load balancer.
+                    type: string
+                  proxyProtocolExtensions:
+                    description: Proxy protocol extension endpoint information.
+                    items:
+                      properties:
+                        endpointId:
+                          type: string
+                        endpointServiceId:
+                          type: string
+                        ipv6VipAddress:
+                          description: The private IPv6 address of the load balancer.
+                          type: string
+                        vipAddress:
+                          description: The ip address of the LoadBalancer. Changing
+                            this creates a new LoadBalancer.
+                          type: string
+                      type: object
+                    type: array
+                  publicBorderGroup:
+                    description: The public border group of the load balancer.
+                    type: string
                   publicIp:
                     description: |-
                       The elastic IP address of the instance. The public_ip structure
@@ -1063,6 +1279,9 @@ spec:
                       ID of the router (or VPC) this LoadBalancer belongs to. Changing
                       this creates a new LoadBalancer.
                     type: string
+                  serviceLbMode:
+                    description: The service load balancer mode.
+                    type: string
                   subnetId:
                     description: The ID of the subnet to which the LoadBalancer belongs.
                       Required when using vip_address.
@@ -1082,6 +1301,9 @@ spec:
                     type: string
                   vipPortId:
                     description: The Port ID of the Load Balancer IP.
+                    type: string
+                  wafFailureAction:
+                    description: The action taken when WAF is unavailable.
                     type: string
                 type: object
               conditions:

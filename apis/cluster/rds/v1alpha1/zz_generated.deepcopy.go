@@ -2759,6 +2759,16 @@ func (in *ReadReplicaV3VolumeInitParameters) DeepCopyInto(out *ReadReplicaV3Volu
 		*out = new(string)
 		**out = **in
 	}
+	if in.Iops != nil {
+		in, out := &in.Iops, &out.Iops
+		*out = new(float64)
+		**out = **in
+	}
+	if in.Throughput != nil {
+		in, out := &in.Throughput, &out.Throughput
+		*out = new(float64)
+		**out = **in
+	}
 	if in.Type != nil {
 		in, out := &in.Type, &out.Type
 		*out = new(string)
@@ -2784,8 +2794,18 @@ func (in *ReadReplicaV3VolumeObservation) DeepCopyInto(out *ReadReplicaV3VolumeO
 		*out = new(string)
 		**out = **in
 	}
+	if in.Iops != nil {
+		in, out := &in.Iops, &out.Iops
+		*out = new(float64)
+		**out = **in
+	}
 	if in.Size != nil {
 		in, out := &in.Size, &out.Size
+		*out = new(float64)
+		**out = **in
+	}
+	if in.Throughput != nil {
+		in, out := &in.Throughput, &out.Throughput
 		*out = new(float64)
 		**out = **in
 	}
@@ -2812,6 +2832,16 @@ func (in *ReadReplicaV3VolumeParameters) DeepCopyInto(out *ReadReplicaV3VolumePa
 	if in.DiskEncryptionID != nil {
 		in, out := &in.DiskEncryptionID, &out.DiskEncryptionID
 		*out = new(string)
+		**out = **in
+	}
+	if in.Iops != nil {
+		in, out := &in.Iops, &out.Iops
+		*out = new(float64)
+		**out = **in
+	}
+	if in.Throughput != nil {
+		in, out := &in.Throughput, &out.Throughput
+		*out = new(float64)
 		**out = **in
 	}
 	if in.Type != nil {
@@ -3034,6 +3064,11 @@ func (in *VolumeInitParameters) DeepCopyInto(out *VolumeInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.Iops != nil {
+		in, out := &in.Iops, &out.Iops
+		*out = new(float64)
+		**out = **in
+	}
 	if in.LimitSize != nil {
 		in, out := &in.LimitSize, &out.LimitSize
 		*out = new(float64)
@@ -3041,6 +3076,11 @@ func (in *VolumeInitParameters) DeepCopyInto(out *VolumeInitParameters) {
 	}
 	if in.Size != nil {
 		in, out := &in.Size, &out.Size
+		*out = new(float64)
+		**out = **in
+	}
+	if in.Throughput != nil {
+		in, out := &in.Throughput, &out.Throughput
 		*out = new(float64)
 		**out = **in
 	}
@@ -3074,6 +3114,11 @@ func (in *VolumeObservation) DeepCopyInto(out *VolumeObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.Iops != nil {
+		in, out := &in.Iops, &out.Iops
+		*out = new(float64)
+		**out = **in
+	}
 	if in.LimitSize != nil {
 		in, out := &in.LimitSize, &out.LimitSize
 		*out = new(float64)
@@ -3081,6 +3126,11 @@ func (in *VolumeObservation) DeepCopyInto(out *VolumeObservation) {
 	}
 	if in.Size != nil {
 		in, out := &in.Size, &out.Size
+		*out = new(float64)
+		**out = **in
+	}
+	if in.Throughput != nil {
+		in, out := &in.Throughput, &out.Throughput
 		*out = new(float64)
 		**out = **in
 	}
@@ -3114,6 +3164,11 @@ func (in *VolumeParameters) DeepCopyInto(out *VolumeParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.Iops != nil {
+		in, out := &in.Iops, &out.Iops
+		*out = new(float64)
+		**out = **in
+	}
 	if in.LimitSize != nil {
 		in, out := &in.LimitSize, &out.LimitSize
 		*out = new(float64)
@@ -3121,6 +3176,11 @@ func (in *VolumeParameters) DeepCopyInto(out *VolumeParameters) {
 	}
 	if in.Size != nil {
 		in, out := &in.Size, &out.Size
+		*out = new(float64)
+		**out = **in
+	}
+	if in.Throughput != nil {
+		in, out := &in.Throughput, &out.Throughput
 		*out = new(float64)
 		**out = **in
 	}

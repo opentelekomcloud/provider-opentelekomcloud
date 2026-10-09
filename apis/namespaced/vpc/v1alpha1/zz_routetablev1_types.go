@@ -118,6 +118,9 @@ type RouteTableV1Observation struct {
 	// Specifies the time (UTC) when the route table is created.
 	CreatedAt *string `json:"createdAt,omitempty" tf:"created_at,omitempty"`
 
+	// Indicates whether the route table is the default route table.
+	Default *bool `json:"default,omitempty" tf:"default,omitempty"`
+
 	// Specifies the supplementary information about the route table.
 	// The value is a string of no more than 255 characters and cannot contain angle brackets (< or >).
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
@@ -140,6 +143,9 @@ type RouteTableV1Observation struct {
 	// Specifies an array of one or more subnets associating with the route table.
 	// +listType=set
 	Subnets []*string `json:"subnets,omitempty" tf:"subnets,omitempty"`
+
+	// The project ID to which the route table belongs.
+	TenantID *string `json:"tenantId,omitempty" tf:"tenant_id,omitempty"`
 
 	// Specifies the time (UTC) when the route table is updated.
 	UpdatedAt *string `json:"updatedAt,omitempty" tf:"updated_at,omitempty"`

@@ -26,6 +26,10 @@ type EndpointV1InitParameters struct {
 	// This parameter is available only if you create a VPC endpoint for connecting to an interface VPC endpoint service.
 	EnableWhitelist *bool `json:"enableWhitelist,omitempty" tf:"enable_whitelist,omitempty"`
 
+	// Specifies the enterprise project ID of the VPC endpoint.
+	// Changing this parameter creates a new resource.
+	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
+
 	PolicyStatement *string `json:"policyStatement,omitempty" tf:"policy_statement,omitempty"`
 
 	// Specifies the IP address for accessing the associated VPC endpoint service.
@@ -74,6 +78,10 @@ type EndpointV1Observation struct {
 	// Specifies whether to enable access control.
 	// This parameter is available only if you create a VPC endpoint for connecting to an interface VPC endpoint service.
 	EnableWhitelist *bool `json:"enableWhitelist,omitempty" tf:"enable_whitelist,omitempty"`
+
+	// Specifies the enterprise project ID of the VPC endpoint.
+	// Changing this parameter creates a new resource.
+	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
 
 	// ID of VPC endpoint.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -140,6 +148,11 @@ type EndpointV1Parameters struct {
 	// This parameter is available only if you create a VPC endpoint for connecting to an interface VPC endpoint service.
 	// +kubebuilder:validation:Optional
 	EnableWhitelist *bool `json:"enableWhitelist,omitempty" tf:"enable_whitelist,omitempty"`
+
+	// Specifies the enterprise project ID of the VPC endpoint.
+	// Changing this parameter creates a new resource.
+	// +kubebuilder:validation:Optional
+	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	PolicyStatement *string `json:"policyStatement,omitempty" tf:"policy_statement,omitempty"`

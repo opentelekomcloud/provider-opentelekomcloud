@@ -341,6 +341,11 @@ func (in *EndpointV1InitParameters) DeepCopyInto(out *EndpointV1InitParameters) 
 		*out = new(bool)
 		**out = **in
 	}
+	if in.EnterpriseProjectID != nil {
+		in, out := &in.EnterpriseProjectID, &out.EnterpriseProjectID
+		*out = new(string)
+		**out = **in
+	}
 	if in.PolicyStatement != nil {
 		in, out := &in.PolicyStatement, &out.PolicyStatement
 		*out = new(string)
@@ -477,6 +482,11 @@ func (in *EndpointV1Observation) DeepCopyInto(out *EndpointV1Observation) {
 		*out = new(bool)
 		**out = **in
 	}
+	if in.EnterpriseProjectID != nil {
+		in, out := &in.EnterpriseProjectID, &out.EnterpriseProjectID
+		*out = new(string)
+		**out = **in
+	}
 	if in.ID != nil {
 		in, out := &in.ID, &out.ID
 		*out = new(string)
@@ -598,6 +608,11 @@ func (in *EndpointV1Parameters) DeepCopyInto(out *EndpointV1Parameters) {
 	if in.EnableWhitelist != nil {
 		in, out := &in.EnableWhitelist, &out.EnableWhitelist
 		*out = new(bool)
+		**out = **in
+	}
+	if in.EnterpriseProjectID != nil {
+		in, out := &in.EnterpriseProjectID, &out.EnterpriseProjectID
+		*out = new(string)
 		**out = **in
 	}
 	if in.PolicyStatement != nil {
@@ -920,6 +935,11 @@ func (in *ServiceV1InitParameters) DeepCopyInto(out *ServiceV1InitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.EnterpriseProjectID != nil {
+		in, out := &in.EnterpriseProjectID, &out.EnterpriseProjectID
+		*out = new(string)
+		**out = **in
+	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)
@@ -1058,6 +1078,11 @@ func (in *ServiceV1Observation) DeepCopyInto(out *ServiceV1Observation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.EnterpriseProjectID != nil {
+		in, out := &in.EnterpriseProjectID, &out.EnterpriseProjectID
+		*out = new(string)
+		**out = **in
+	}
 	if in.ID != nil {
 		in, out := &in.ID, &out.ID
 		*out = new(string)
@@ -1164,6 +1189,11 @@ func (in *ServiceV1Parameters) DeepCopyInto(out *ServiceV1Parameters) {
 	}
 	if in.Description != nil {
 		in, out := &in.Description, &out.Description
+		*out = new(string)
+		**out = **in
+	}
+	if in.EnterpriseProjectID != nil {
+		in, out := &in.EnterpriseProjectID, &out.EnterpriseProjectID
 		*out = new(string)
 		**out = **in
 	}

@@ -921,6 +921,102 @@ resources:
                 The user data is used by APIGW to invoke the specified authentication function when accessing the backend service.
         importStatements:
             - $ terraform import opentelekomcloud_apigw_custom_authorizer_v2.test <gateway_id>/<name>
+    opentelekomcloud_apigw_domain_certificate_associate_v2:
+        subCategory: APIGW
+        description: Manages an APIGW domain certificate association resource within T-Cloud Public (formerly OpenTelekomCloud).
+        name: opentelekomcloud_apigw_domain_certificate_associate_v2
+        title: opentelekomcloud_apigw_domain_certificate_associate_v2
+        examples:
+            - name: assoc
+              manifest: |-
+                {
+                  "certificate_id": "${var.cert_id}",
+                  "domain_id": "${var.domain_id}",
+                  "gateway_id": "${var.gateway_id}",
+                  "group_id": "${var.group_id}"
+                }
+              references:
+                certificate_id: var.cert_id
+                domain_id: var.domain_id
+                gateway_id: var.gateway_id
+                group_id: var.group_id
+        argumentDocs:
+            bound: '- Indicates whether the certificate is currently bound to the domain.'
+            certificate_id: |-
+                - (Required, String, ForceNew) Specifies the ID of the SSL certificate to bind to the domain.
+                Changing this will create a new resource.
+            domain_id: |-
+                - (Required, String, ForceNew) Specifies the ID of the custom domain to bind the certificate to.
+                Changing this will create a new resource.
+            gateway_id: |-
+                - (Required, String, ForceNew) Specifies the ID of the dedicated gateway instance to which the
+                domain belongs.
+                Changing this will create a new resource.
+            group_id: |-
+                - (Required, String, ForceNew) Specifies the ID of the API group to which the domain belongs.
+                Changing this will create a new resource.
+            id: '- The ID of the association in the format <gateway_id>/<group_id>/<domain_id>/<certificate_id>.'
+        importStatements: []
+    opentelekomcloud_apigw_domain_v2:
+        subCategory: APIGW
+        description: Manages an APIGW domain resource within T-Cloud Public (formerly OpenTelekomCloud).
+        name: opentelekomcloud_apigw_domain_v2
+        title: opentelekomcloud_apigw_domain_v2
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "gateway_id": "${var.gateway_id}",
+                  "group_id": "${var.group_id}",
+                  "http_redirect_to_https": false,
+                  "min_ssl_version": "TLSv1.2",
+                  "name": "${var.domain_name}"
+                }
+              references:
+                gateway_id: var.gateway_id
+                group_id: var.group_id
+                name: var.domain_name
+            - name: test
+              manifest: |-
+                {
+                  "lifecycle": [
+                    {
+                      "ignore_changes": [
+                        "${name}",
+                        "${http_redirect_to_https}"
+                      ]
+                    }
+                  ]
+                }
+              references:
+                lifecycle.ignore_changes: name
+        argumentDocs:
+            "1": ': not resolved.'
+            "2": ': resolving.'
+            "3": ': resolved.'
+            "4": ': resolution failed.'
+            gateway_id: |-
+                - (Required, String, ForceNew) Specifies the ID of the dedicated gateway instance to which the
+                domain belongs.
+                Changing this will create a new resource.
+            group_id: |-
+                - (Required, String, ForceNew) Specifies the ID of the API group to which the domain belongs.
+                Changing this will create a new resource.
+            http_redirect_to_https: |-
+                - (Optional, Bool) Specifies whether to enable HTTP redirection to HTTPS.
+                The value false means disable and true means enable. The default value is false.
+            id: '- The ID of the custom domain.'
+            min_ssl_version: |-
+                - (Optional, String) Specifies the minimum SSL version.
+                The valid values are TLSv1.1 and TLSv1.2.
+            name: |-
+                - (Required, String, ForceNew) Specifies the custom domain name.
+                It can contain a maximum of 255 characters and must comply with domain name specifications.
+                Changing this will create a new resource.
+            status: |-
+                - The CNAME resolution status.
+                The valid values are as follows:
+        importStatements: []
     opentelekomcloud_apigw_environment_v2:
         subCategory: APIGW
         description: Manages a APIGW Environment resource within OpenTelekomCloud.
@@ -9966,6 +10062,170 @@ resources:
             throttle: '- (Optional, Integer, ForceNew) Specifies the reassignment threshold.'
             time_estimate: '- (Optional, Boolean, ForceNew) Specifies whether to perform time estimation or relabancing tasks. Set true to perform time estimation tasks and false to perform rebalancing tasks.'
         importStatements: []
+    opentelekomcloud_dms_rocketmq_instance_v2:
+        subCategory: Distributed Message Service (DMS)
+        description: Manages a DMS RocketMQ instance resource within OpenTelekomCloud.
+        name: opentelekomcloud_dms_rocketmq_instance_v2
+        title: opentelekomcloud_dms_rocketmq_instance_v2
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "available_zones": [
+                    "${data.opentelekomcloud_dms_az_v1.az_1.id}"
+                  ],
+                  "broker_num": 1,
+                  "configs": [
+                    {
+                      "name": "fileReservedTime",
+                      "value": "72"
+                    }
+                  ],
+                  "description": "rocketmq test",
+                  "engine_version": "5.x",
+                  "flavor_id": "rocketmq.b1.large.1",
+                  "name": "rocketmq_test",
+                  "security_group_id": "${var.security_group_id}",
+                  "storage_space": 300,
+                  "storage_spec_code": "dms.physical.storage.ultra.v2",
+                  "subnet_id": "${var.subnet_id}",
+                  "tags": {
+                    "foo": "bar"
+                  },
+                  "vpc_id": "${var.vpc_id}"
+                }
+              references:
+                available_zones: data.opentelekomcloud_dms_az_v1.az_1.id
+                security_group_id: var.security_group_id
+                subnet_id: var.subnet_id
+                vpc_id: var.vpc_id
+            - name: test
+              manifest: |-
+                {
+                  "available_zones": [
+                    "${data.opentelekomcloud_dms_az_v1.az_1.id}"
+                  ],
+                  "broker_num": 1,
+                  "enable_publicip": true,
+                  "engine_version": "5.x",
+                  "flavor_id": "rocketmq.b1.large.1",
+                  "name": "rocketmq_public",
+                  "publicip_id": [
+                    "${opentelekomcloud_networking_floatingip_v2.fip_1.id}"
+                  ],
+                  "security_group_id": "${var.security_group_id}",
+                  "storage_space": 300,
+                  "storage_spec_code": "dms.physical.storage.ultra.v2",
+                  "subnet_id": "${var.subnet_id}",
+                  "vpc_id": "${var.vpc_id}"
+                }
+              references:
+                available_zones: data.opentelekomcloud_dms_az_v1.az_1.id
+                publicip_id: opentelekomcloud_networking_floatingip_v2.fip_1.id
+                security_group_id: var.security_group_id
+                subnet_id: var.subnet_id
+                vpc_id: var.vpc_id
+              dependencies:
+                opentelekomcloud_networking_floatingip_v2.fip_1: '{}'
+            - name: test
+              manifest: |-
+                {
+                  "lifecycle": [
+                    {
+                      "ignore_changes": [
+                        "${configs}"
+                      ]
+                    }
+                  ]
+                }
+              references:
+                lifecycle.ignore_changes: configs
+        argumentDocs:
+            arch_type: |-
+                - (Optional, String, ForceNew) Specifies the CPU architecture. Value options: X86, ARM.
+                Changing this creates a new instance resource.
+            available_zones: |-
+                - (Required, Set, ForceNew) Specifies the IDs of the AZs where the brokers reside.
+                A RocketMQ instance can be deployed in 1 AZ or at least 3 AZs.
+                Changing this creates a new instance resource.
+            broker_address: '- Indicates the service data address.'
+            broker_num: |-
+                - (Required, Int) Specifies the number of brokers.
+                The broker number can't be changed separately, the instance can only be scaled via flavor_id.
+            configs: |-
+                - (Optional, Set) Specifies the RocketMQ configurations of the instance.
+                The configs structure is documented below.
+            configs.name: '- (Required, String) Specifies the configuration name, e.g. fileReservedTime.'
+            configs.value: '- (Required, String) Specifies the configuration value.'
+            create: '- Default is 50 minutes.'
+            created_at: '- Indicates the creation time, as a timestamp in milliseconds.'
+            cross_vpc_accesses: |-
+                - Indicates the cross-VPC access information.
+                The cross_vpc_accesses structure is documented below.
+            cross_vpc_accesses.advertised_ip: '- The advertised IP address or domain name.'
+            cross_vpc_accesses.listener_ip: '- The listener IP address.'
+            cross_vpc_accesses.port: '- The port number.'
+            cross_vpc_accesses.port_id: '- The port ID associated with the address.'
+            delete: '- Default is 15 minutes.'
+            description: |-
+                - (Optional, String) Specifies the description of the DMS RocketMQ instance.
+                It is a character string containing not more than 1,024 characters.
+            enable_acl: '- (Optional, Bool) Specifies whether access control is enabled.'
+            enable_publicip: '- (Optional, Bool) Specifies whether to enable public access. By default, public access is disabled.'
+            engine: '- Indicates the message engine.'
+            engine_version: |-
+                - (Required, String, ForceNew) Specifies the version of the RocketMQ engine. Value: 5.x.
+                Changing this creates a new instance resource.
+            enterprise_project_id: '- (Optional, String) Specifies the enterprise project ID of the instance.'
+            flavor_id: |-
+                - (Required, String) Specifies the RocketMQ flavor ID,
+                e.g. rocketmq.b1.large.1 (single-node) or rocketmq.b2.large.4 (cluster).
+                The flavor of a cluster instance can be changed, the flavor of a single-node instance can't.
+            grpc_address: '- Indicates the gRPC connection address.'
+            id: '- Specifies a resource ID in UUID format.'
+            ipv6_enable: '- Indicates whether IPv6 is enabled.'
+            maintain_begin: '- Indicates the time at which the maintenance window starts. The format is HH:mm:ss.'
+            maintain_end: '- Indicates the time at which the maintenance window ends. The format is HH:mm:ss.'
+            name: |-
+                - (Required, String) Specifies the name of the DMS RocketMQ instance. An instance name starts with a letter,
+                consists of 4 to 64 characters, and can contain only letters, digits, underscores (_) and hyphens (-).
+            namesrv_address: '- Indicates the metadata address.'
+            public_broker_address: '- Indicates the public network service data address.'
+            public_grpc_address: '- Indicates the public gRPC connection address.'
+            public_namesrv_address: '- Indicates the public network metadata address.'
+            publicip_address: '- Indicates the public IP address.'
+            publicip_id: |-
+                - (Optional, Set) Specifies the IDs of the EIPs bound to the instance.
+                This parameter is mandatory if public access is enabled.
+            region: '- The region in which the DMS RocketMQ instance is created.'
+            resource_spec_code: '- Indicates the resource specification.'
+            security_group_id: '- (Required, String) Specifies the ID of a security group.'
+            specification: '- Indicates the instance specification.'
+            ssl_enable: |-
+                - (Optional, Bool, ForceNew) Specifies whether to enable SSL-encrypted access. Defaults to false.
+                Changing this creates a new instance resource.
+            status: '- Indicates the status of the DMS RocketMQ instance.'
+            storage_space: |-
+                - (Required, Int) Specifies the message storage capacity, the unit is GB.
+                The supported range depends on the flavor, see min_storage_per_node and max_storage_per_node of the flavor.
+                The storage space can only be expanded, the storage space of each broker must be expanded by at least 100 GB.
+            storage_spec_code: |-
+                - (Required, String, ForceNew) Specifies the storage I/O specification.
+                Value options: dms.physical.storage.high.v2, dms.physical.storage.ultra.v2,
+                dms.physical.storage.general and dms.physical.storage.extreme.
+                Changing this creates a new instance resource.
+            subnet_id: |-
+                - (Required, String, ForceNew) Specifies the network ID of a subnet.
+                Changing this creates a new instance resource.
+            tags: '- (Optional, Map) The key/value pairs to associate with the instance. A maximum of 20 tags can be added.'
+            tls_mode: |-
+                - (Optional, String, ForceNew) Specifies the security protocol used by the instance.
+                Changing this creates a new instance resource.
+            type: '- Indicates the instance type. Values: single.basic, cluster.basic.'
+            update: '- Default is 50 minutes.'
+            used_storage_space: '- Indicates the used message storage space. Unit: GB.'
+            vpc_id: '- (Required, String, ForceNew) Specifies the ID of a VPC. Changing this creates a new instance resource.'
+        importStatements: []
     opentelekomcloud_dms_smart_connect_task_action_v2:
         subCategory: Distributed Message Service (DMS)
         description: Start or pause an up-to-date DMS Smart Connect Task v2 resource within OpenTelekomCloud.
@@ -11510,6 +11770,9 @@ resources:
                 - (Optional, Int) Specifies the interval for retransmitting DPD packets.
                 The value ranges from 2 to 60, in seconds. Defaults to 15.
             enable_nqa: '- (Optional, Bool) Whether to enable NQA check. Defaults to false.'
+            enterprise_project_id: |-
+                - (Optional, String, ForceNew) Specifies the enterprise project ID of the VPN connection.
+                Changing this parameter creates a new resource.
             gateway_id: '- (Required, String, ForceNew) The VPN gateway ID.'
             gateway_ip: '- (Required, String, ForceNew) The VPN gateway IP ID.'
             ha_role: |-
@@ -11808,6 +12071,9 @@ resources:
                 - (Optional, List, ForceNew) The master 2 IP in active-active VPN gateway or the slave IP
                 in active-standby VPN gateway. This parameter is mandatory when network_type is public or left empty.
                 The object structure is documented below.
+            enterprise_project_id: |-
+                - (Optional, String, ForceNew) Specifies the enterprise project ID of the VPN gateway.
+                Changing this parameter creates a new resource.
             er_attachment_id: '- The ER attachment ID.'
             er_id: |-
                 - (Optional, String, ForceNew) The enterprise router ID to attach with to VPN gateway.
@@ -11980,6 +12246,9 @@ resources:
             enable_default_propagation: |-
                 - (Optional, Bool) Whether to enable the propagation of the default route table.
                 The default value is false.
+            enterprise_project_id: |-
+                - (Optional, String, ForceNew) The enterprise project ID of the ER instance.
+                Changing this parameter creates a new resource.
             id: '- The resource ID.'
             name: |-
                 - (Required, String) The router name.
@@ -12271,6 +12540,47 @@ resources:
                 - (Required) The type of volume to create.
                 Currently, the value can be:
             wwn: '- Specifies the unique identifier used for mounting the EVS disk.'
+        importStatements: []
+    opentelekomcloud_fgs_alias_v2:
+        subCategory: FunctionGraph
+        description: Manages an FGS Alias resource within T-Cloud Public (formerly OpenTelekomCloud).
+        name: opentelekomcloud_fgs_alias_v2
+        title: opentelekomcloud_fgs_alias_v2
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "description": "test alias",
+                  "function_urn": "${var.function_urn}",
+                  "name": "test",
+                  "version": "${var.version}"
+                }
+              references:
+                function_urn: var.function_urn
+                version: var.version
+        argumentDocs:
+            additional_version_strategy: '- (Optional, List) Specifies the strategies of additional versions for traffic distribution. The object structure is documented below.'
+            additional_version_strategy.combine_type: '- (Optional, String) Specifies the rule aggregation mode. and: All rules are met. or: Any rule is met.'
+            additional_version_strategy.rules: |-
+                - (Optional, List) Specifies the rule of the strategy.
+                The object structure is documented below.
+            additional_version_strategy.version: '- (Required, String) Specifies the version to which the strategy applies.'
+            additional_version_weights: '- (Optional, Map[String]Integer) Specifies the weights of additional versions for traffic distribution. The key is the version and the value is the weight.'
+            alias_urn: '- Specifies the URN of the alias.'
+            description: '- (Optional, String) Specifies the description of the alias.'
+            function_urn: |-
+                - (Required, String, ForceNew) Specifies the URN of the function.
+                Changing this will create a new resource.
+            id: '- Specifies a resource ID in the format of function_urn/alias_name.'
+            last_modified: '- Specifies the last modified time of the alias.'
+            name: |-
+                - (Required, String, ForceNew) Specifies the alias. Can contain letters, digits, hyphens (-), and underscores (_). Must start with a letter, and end with a letter or digit. Length: 1 to 64.
+                Changing this will create a new resource.
+            rules.op: '- (Optional, String) Specifies the rule matching operator. Accepted values: =, in.'
+            rules.param: '- (Optional, String) Specifies the rule parameter name, which can contain only letters, digits, underscores (_), and hyphens (-).'
+            rules.rule_type: '- (Required, String) Specifies the rule type of the strategy. Accepted values: Header.'
+            rules.value: '- (Optional, String) Specifies the rule value. If op is set to in, the value is a multi-value character string separated by commas (,).'
+            version: '- (Required, String) Specifies the version corresponding to the alias.'
         importStatements: []
     opentelekomcloud_fgs_async_invoke_config_v2:
         subCategory: FunctionGraph
@@ -12818,6 +13128,34 @@ resources:
             versions.name: '- (Required, String) Specifies the version name.'
             vpc_id: '- (Optional, String) Specifies the ID of VPC.'
         importStatements: []
+    opentelekomcloud_fgs_publish_version_v2:
+        subCategory: FunctionGraph
+        description: Manages an FGS Publish Version resource within T-Cloud Public (formerly OpenTelekomCloud).
+        name: opentelekomcloud_fgs_publish_version_v2
+        title: opentelekomcloud_fgs_publish_version_v2
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "description": "test version",
+                  "function_urn": "${var.function_urn}"
+                }
+              references:
+                function_urn: var.function_urn
+        argumentDocs:
+            digest: |-
+                - (Optional, String, ForceNew) Specifies the digest of the function code.
+                Changing this will create a new resource.
+            func_name: '- Specifies the name of the function.'
+            function_urn: |-
+                - (Required, String, ForceNew) Specifies the URN of the function.
+                Changing this will create a new resource.
+            id: '- Specifies a resource ID in the format of function_urn/version.'
+            last_modified: '- Specifies the last modified time of the version.'
+            version: |-
+                - (Required, String, ForceNew) Specifies the version of the function.
+                Changing this will create a new resource.
+        importStatements: []
     opentelekomcloud_fgs_trigger_v2:
         subCategory: FunctionGraph
         description: Manages an FGS Trigger resource within OpenTelekomCloud.
@@ -13245,7 +13583,7 @@ resources:
                       "start_time": "03:00-04:00"
                     }
                   ],
-                  "flavor": "geminidb.cassandra.xlarge.4",
+                  "flavor": "geminidb.cassandra.xlarge.8",
                   "name": "gaussdb_cassandra_instance_1",
                   "password": "${var.password}",
                   "security_group_id": "${var.secgroup_id}",
@@ -13255,6 +13593,58 @@ resources:
                 }
               references:
                 availability_zone: var.availability_zone
+                password: var.password
+                security_group_id: var.secgroup_id
+                subnet_id: var.subnet_id
+                vpc_id: var.vpc_id
+            - name: influx_instance
+              manifest: |-
+                {
+                  "availability_zone": "${var.availability_zone}",
+                  "datastore": [
+                    {
+                      "engine": "influxdb",
+                      "storage_engine": "rocksDB",
+                      "version": "1.7"
+                    }
+                  ],
+                  "flavor": "geminidb.influxdb-geminifs.xlarge.4",
+                  "name": "gemini_influx_instance_1",
+                  "password": "${var.password}",
+                  "security_group_id": "${var.secgroup_id}",
+                  "subnet_id": "${var.subnet_id}",
+                  "volume_size": 100,
+                  "vpc_id": "${var.vpc_id}"
+                }
+              references:
+                availability_zone: var.availability_zone
+                password: var.password
+                security_group_id: var.secgroup_id
+                subnet_id: var.subnet_id
+                vpc_id: var.vpc_id
+            - name: instance_1
+              manifest: |-
+                {
+                  "availability_zone": "${var.availability_zone}",
+                  "datastore": [
+                    {
+                      "engine": "cassandra",
+                      "storage_engine": "rocksDB",
+                      "version": "3.11"
+                    }
+                  ],
+                  "enterprise_project_id": "${var.enterprise_project_id}",
+                  "flavor": "geminidb.cassandra.xlarge.8",
+                  "name": "gaussdb_cassandra_instance_1",
+                  "password": "${var.password}",
+                  "security_group_id": "${var.secgroup_id}",
+                  "subnet_id": "${var.subnet_id}",
+                  "volume_size": 100,
+                  "vpc_id": "${var.vpc_id}"
+                }
+              references:
+                availability_zone: var.availability_zone
+                enterprise_project_id: var.enterprise_project_id
                 password: var.password
                 security_group_id: var.secgroup_id
                 subnet_id: var.subnet_id
@@ -13293,21 +13683,33 @@ resources:
                 - (Optional, List, ForceNew) Specifies the database information. Structure is documented below. Changing
                 this parameter will create a new resource.
             datastore.engine: |-
-                - (Required, String, ForceNew) Specifies the database engine. Only "GeminiDB-Cassandra" is supported now.
-                Changing this parameter will create a new resource.
+                - (Required, String, ForceNew) Specifies the compatible API. The value can be cassandra for a
+                GeminiDB Cassandra instance or influxdb for a GeminiDB Influx instance. Defaults to cassandra when the
+                datastore block is omitted. Changing this parameter will create a new resource.
             datastore.storage_engine: |-
-                - (Required, String, ForceNew) Specifies the storage engine. Only "rocksDB" is supported now.
-                Changing this parameter will create a new resource.
+                - (Required, String, ForceNew) Specifies the storage engine. Only rocksDB is supported now,
+                for both compatible APIs. Changing this parameter will create a new resource.
             datastore.version: |-
-                - (Required, String, ForceNew) Specifies the database version.
+                - (Required, String, ForceNew) Specifies the database version. Use 3.11 for GeminiDB Cassandra and
+                1.7 for GeminiDB Influx. The versions actually available in your region can be queried with the
+                opentelekomcloud_gemini_datastores_v3 data source. Defaults to 3.11 when the datastore block is omitted.
                 Changing this parameter will create a new resource.
             db_user_name: '- Indicates the default username.'
             delete: '- Default is 30 minutes.'
+            enterprise_project_id: |-
+                - (Optional, String, ForceNew) Specifies the enterprise project ID the instance belongs
+                to. Leave it empty if the Enterprise Project Management Service is not enabled, otherwise the default enterprise
+                project is used when the value is not set. Changing this parameter will create a new resource.
             flavor: |-
-                - (Required, String) Specifies the instance specifications. For details,
-                see DB Instance Specifications.
+                - (Required, String) Specifies the instance specifications, for example
+                geminidb.cassandra.xlarge.8 or geminidb.influxdb-geminifs.xlarge.4. The flavor must match the engine
+                selected in the datastore block. The available values can be queried with the
+                opentelekomcloud_gemini_flavors_v3 data source, for details see
+                DB Instance Specifications.
             id: '- Indicates the DB instance ID.'
-            mode: '- Indicates the instance type.'
+            mode: |-
+                - Indicates the DB instance type. Cluster for GeminiDB Cassandra and CloudNativeCluster for
+                GeminiDB Influx.
             name: |-
                 - (Required, String) Specifies the instance name, which can be the same as an existing instance name. The value
                 must be 4 to 64 characters in length and start with a letter. It is case-sensitive and can contain only letters,
@@ -13339,9 +13741,9 @@ resources:
             tags: '- (Optional, Map) The key/value pairs to associate with the instance.'
             update: '- Default is 120 minutes.'
             volume_size: |-
-                - (Required, Int) Specifies the storage space in GB. The value must be a multiple of 10. For a GeminiDB
-                Cassandra DB instance, the minimum storage space is 100 GB, and the maximum storage space is related to the instance
-                performance specifications.
+                - (Required, Int) Specifies the storage space in GB. The value must be a multiple of 10. For both
+                GeminiDB Cassandra and GeminiDB Influx DB instances, the minimum storage space is 100 GB, and the maximum storage
+                space is related to the instance performance specifications.
             vpc_id: '- (Required, String, ForceNew) Specifies the VPC ID. Changing this parameter will create a new resource.'
         importStatements: []
     opentelekomcloud_gemini_template_v3:
@@ -15373,6 +15775,9 @@ resources:
             UDP: |-
                 listeners, this parameter is not available. An error will be returned if you
                 configure this parameter for UDP listeners.
+            access_log_customized_headers_config: |-
+                - (Optional, List) Specifies the custom headers to be recorded in
+                access logs. You can specify which headers to be or not to be recorded in the access logs of a load balancer.
             advanced_forwarding: |-
                 - (Optional, ForceNew, Bool) Specifies whether to enable advanced forwarding.
                 If advanced forwarding is enabled, more flexible forwarding policies and rules are supported.
@@ -15383,6 +15788,7 @@ resources:
                 - (Optional, Int) Specifies the timeout duration for waiting for a request from a client, in seconds.
                 This parameter is available only for HTTP and HTTPS listeners. The value ranges from 1 to 300, and
                 the default value is 60. An error will be returned if you configure this parameter for TCP and UDP listeners.
+            cps: '- Specifies the maximum number of new connections that a listener can handle per second.'
             created_at: '- Indicates the creation time.'
             default_pool_id: |-
                 - (Optional, String) Specifies the ID of the default backend server group. If there is no
@@ -15393,6 +15799,10 @@ resources:
                 - (Optional, Bool) Specifies whether to enable access control.
                 true: Access control will be enabled.
                 false (default): Access control will be disabled.
+            enable_quic_upgrade: '- Specifies whether QUIC upgrade is enabled.'
+            exclude_headers: |-
+                - (Optional, List) Specifies the headers that will not be recorded in access logs.
+                If this parameter is specified, the specified headers will not be recorded in access logs.
             forward_elb_ip: |-
                 - (Optional, Bool) Specifies whether to transparently transmit the load balancer EIP
                 to backend servers. If forward_elb_ip is set to true, the load balancer EIP will be stored in
@@ -15409,6 +15819,7 @@ resources:
                 - (Optional, Bool) Specifies whether to transparently transmit the listening port of
                 the load balancer to backend servers. If forwarded_port is set to true, the listening port of
                 the load balancer will be stored in the HTTP header and passed to backend servers.
+            gzip_enable: '- Specifies whether GZIP compression is enabled for the load balancer.'
             http2_enable: |-
                 - (Optional, Bool) Specifies whether to use HTTP/2. This parameter is available only for HTTPS
                 listeners. If you configure this parameter for other types of listeners, it will not take effect. Enable
@@ -15419,10 +15830,14 @@ resources:
                 Specifies the ID of the IP address group associated with the listener.
                 If ip_list in opentelekomcloud_lb_ipgroup_v3 is set to an empty array [] and type to whitelist, no IP addresses are allowed to access the listener.
                 If ip_list in opentelekomcloud_lb_ipgroup_v3 is set to an empty array [] and type to blacklist, any IP address is allowed to access the listener.
+            include_headers: |-
+                - (Optional, List) Specifies the custom headers that will be recorded in access logs.
+                If this parameter is specified, only the specified headers will be recorded in access logs.
             insert_headers: '- (Optional, List) Specifies the HTTP header fields.'
             ip_group: '- (Optional, List) Specifies the IP address group associated with the listener.'
             keep_alive_timeout: '- (Optional, Int) Specifies the idle timeout duration, in seconds.'
             loadbalancer_id: '- (Required, ForceNew, String) Specifies the ID of the load balancer that the listener is added to.'
+            max_connections: '- Specifies the maximum number of concurrent connections that a listener can handle per second.'
             member_retry_enable: |-
                 - (Optional, Bool) Specifies whether to enable health check retries for backend servers.
                 This parameter is available only for HTTP and HTTPS listeners. An error will be returned if you configure
@@ -15433,10 +15848,27 @@ resources:
                 The value ranges from 1 to 300, and the default value is 60. An error will be returned if
                 you configure this parameter for TCP and UDP listeners.
             name: '- (Optional, String) Specifies the listener name.'
+            nat64_enable: |-
+                - Specifies whether to translate between IPv4 and IPv6 addresses. This option allows a client
+                to access IPv4 or IPv6 backend servers by accessing the IPv4 or IPv6 address of a load balancer.
+            protection_reason: |-
+                - (Optional, String) Specifies why the modification protection is enabled. Valid only
+                when protection_status is set to consoleProtection. The value can contain a maximum of 255 Unicode
+                characters, excluding angle brackets (<>).
+            protection_status: |-
+                - (Optional, String) Specifies the protection status. Value options: nonProtection
+                (default, not protected), consoleProtection (modification protection is enabled on the console).
             protocol: |-
                 - (Required, ForceNew, String) The protocol - can either be TCP, HTTP, HTTPS or UDP.
                 Changing this creates a new Listener.
             protocol_port: '- (Required, ForceNew, Int) Specifies the port used by the listener. Changing this creates a new Listener.'
+            proxy_protocol_enable: |-
+                - Specifies whether ProxyProtocol is enabled to pass the source IP addresses of the
+                clients to backend servers.
+            quic_config: |-
+                - Specifies the QUIC configuration for the current listener. Valid only when protocol is
+                set to HTTPS.
+            quic_listener_id: '- Specifies the ID of the QUIC listener.'
             security_policy_id: '- (Optional, String) Specifies the ID of the custom security policy.'
             sni_container_refs: |-
                 - (Optional, List) Lists the IDs of SNI certificates (server certificates with domain names) used by the listener.
@@ -15451,6 +15883,15 @@ resources:
                 This parameter is available only for HTTPS listeners. An error will be returned if the protocol
                 of the listener is not HTTPS. Possible values are: tls-1-0, tls-1-1, tls-1-0-inherit, tls-1-2,
                 tls-1-2-strict, tls-1-2-fs, tls-1-0-with-1-3, tls-1-2-fs-with-1-3, hybrid-policy-1-0, tls-1-2-strict-no-cbc.
+            tracing_config: '- Specifies the open tracing configuration.'
+            tracing_enable: '- Specifies whether open tracing is enabled.'
+            tracing_sample: |-
+                - Specifies the sampling rate. Values between 1 and 10000 represent sampling rates
+                ranging from 0.01% to 100%.
+            tracing_strategy: |-
+                - Specifies the sampling mode. Value options: full (full sampling), ratio
+                (sampling by ratio).
+            tracing_type: '- Specifies the tracing type. Value: W3CTraceContext.'
             type: |-
                 - (Optional, String) Specifies how access to the listener is controlled.
                 white (default): A whitelist will be configured. Only IP addresses in the whitelist can access the listener.
@@ -15717,16 +16158,43 @@ resources:
                     }
         argumentDocs:
             admin_state_up: '- (Optional) The administrative state of the LoadBalancer. A valid value is only true (UP).'
+            autoscaling: '- Autoscaling information, including enable and min_l7_flavor_id.'
             availability_zones: |-
                 - (Required) Specifies the availability zones where the LoadBalancer will be located.
                 Changing this creates a new LoadBalancer.
+            billing_info: '- Billing information for the load balancer.'
             created_at: '- The time the LoadBalancer was created.'
+            custom_qos_limit: '- Custom Layer-4 and Layer-7 connection and CPS limits.'
             description: '- (Optional) Provides supplementary information about the load balancer.'
+            eips: '- EIPs associated with the load balancer, including eip_id, eip_address, and ip_version.'
+            elb_subnet_type: '- The IP version supported by the load balancer subnet.'
+            frozen_scene: '- The scenario in which the load balancer was frozen.'
+            gateway_flavor_id: '- The gateway flavor ID.'
+            global_eips: |-
+                - Global EIPs associated with the load balancer, including global_eip_id,
+                global_eip_address, and ip_version.
+            instance_id: '- The load balancer instance ID.'
+            instance_type: '- The load balancer instance type.'
             ip_target_enable: '- (Optional) The value can be true (enabled) or false (disabled).'
+            ipv6_vip_address: '- The private IPv6 address of the load balancer.'
+            ipv6_vip_port_id: '- The port ID associated with the private IPv6 address.'
             l4_flavor: '- (Optional) The ID of the Layer-4 flavor.'
+            l4_scale_flavor: '- The ID of the Layer-4 elastic flavor.'
             l7_flavor: '- (Optional) The ID of the Layer-7 flavor.'
+            l7_scale_flavor: '- The ID of the Layer-7 elastic flavor.'
+            listeners: '- IDs of listeners associated with the load balancer.'
+            loadbalancer_type: '- The load balancer type.'
+            log_group_id: '- The LTS log group ID.'
+            log_topic_id: '- The LTS log stream ID.'
             name: '- (Optional) The LoadBalancer name.'
             network_ids: '- (Required) Specifies the subnet Network ID.'
+            operating_status: '- The operating status of the load balancer.'
+            pools: '- IDs of backend server groups associated with the load balancer.'
+            project_id: '- The project ID of the load balancer.'
+            provider_name: '- The load balancer provider.'
+            provisioning_status: '- The provisioning status of the load balancer.'
+            proxy_protocol_extensions: '- Proxy protocol extension endpoint information.'
+            public_border_group: '- The public border group of the load balancer.'
             public_ip: |-
                 - (Optional) The elastic IP address of the instance. The public_ip structure
                 is described below. Changing this creates a new LoadBalancer.
@@ -15736,22 +16204,33 @@ resources:
                 - (Optional) Bandwidth sharing type. Possible values are: PER, WHOLE.
                 Required when creating a new EIP.
             public_ip.bandwidth_size: '- (Optional) Bandwidth size. Required when creating a new EIP.'
+            public_ip.charge_mode: '- (Optional) The load balancer billing mode. Changing this creates a new load balancer.'
             public_ip.deletion_protection: |-
                 - (Optional) Specifies whether to enable deletion protection for the load balancer.
                 true: Enable deletion protection.
                 false (default): Disable deletion protection.
+            public_ip.enterprise_project_id: '- (Optional) The enterprise project ID. Changing this creates a new load balancer.'
+            public_ip.guaranteed: |-
+                - (Optional) Whether the load balancer is a dedicated load balancer.
+                Changing this creates a new load balancer.
             public_ip.id: '- (Optional) ID of an existing elastic IP. Required when using existing EIP.'
             public_ip.ip_type: |-
                 - (Optional) Elastic IP type. The value can be 5_bgp or 5_mailbgp.
                 Required when creating a new EIP.
+            public_ip.ipv6_bandwidth_id: '- (Optional) The ID of the shared bandwidth used by the public IPv6 address.'
+            public_ip.ipv6_vip_subnet_id: '- (Optional) The ID of the IPv6 subnet where the load balancer resides.'
+            public_ip.protection_reason: '- (Optional) The reason for enabling modification protection.'
+            public_ip.protection_status: '- (Optional) The modification protection status.'
             public_ip.tags: '- (Optional, Map) Tags key/value pairs to associate with the load balancer.'
             router_id: |-
                 - (Optional) ID of the router (or VPC) this LoadBalancer belongs to. Changing
                 this creates a new LoadBalancer.
+            service_lb_mode: '- The service load balancer mode.'
             subnet_id: '- (Optional) The ID of the subnet to which the LoadBalancer belongs. Required when using vip_address.'
             updated_at: '- The time the LoadBalancer was last updated.'
             vip_address: '- (Optional) The ip address of the LoadBalancer. Changing this creates a new LoadBalancer.'
             vip_port_id: '- The Port ID of the Load Balancer IP.'
+            waf_failure_action: '- The action taken when WAF is unavailable.'
         importStatements: []
     opentelekomcloud_lb_lts_log_v3:
         subCategory: Dedicated Load Balancer (DLB)
@@ -16311,12 +16790,17 @@ resources:
             SOURCE_IP: ': source IP hash'
             TCP: listeners, the protocol of the backend server group must be TCP.
             UDP: listeners, the protocol of the backend server group must be UDP.
+            created_at: '- Specifies the time when the backend server group was created.'
             description: '- (Optional) Provides supplementary information about the backend server group.'
+            healthmonitor_id: '- Specifies the ID of the health monitor associated with the backend server group.'
             id: '- Specifies the backend server group ID.'
             ip_version: '- Specifies the IP version supported by the backend server group.'
             lb_algorithm: '- (Required) Specifies the load balancing algorithm used by the load balancer to route requests to backend servers.'
             listener_id: '- (Optional) Specifies the ID of the listener associated with the backend server group.'
+            listener_ids: '- Lists the IDs of listeners associated with the backend server group.'
             loadbalancer_id: '- (Optional) Specifies the ID of the associated load balancer.'
+            loadbalancer_ids: '- Lists the IDs of load balancers associated with the backend server group.'
+            member_ids: '- Lists the IDs of backend servers in the backend server group.'
             name: '- (Optional) Specifies the backend server group name.'
             project_id: '- (Optional) Specifies the project ID.'
             protocol: |-
@@ -16326,15 +16810,28 @@ resources:
             session_persistence.cookie_name: |-
                 - (Optional) Specifies the cookie name. This parameter will take effect only when type is set to APP_COOKIE.
                 The value can contain only letters, digits, hyphens (-), underscores (_), and periods (.).
-            session_persistence.member_deletion_protection: |-
-                - (Optional) Specifies whether to enable removal protection for the pool members.
-                true: Enable removal protection.
-                false (default): Disable removal protection.
             session_persistence.persistence_timeout: |-
                 - (Optional) Specifies the stickiness duration, in minutes.
                 This parameter will not take effect when type is set to APP_COOKIE.
+            session_persistence.slow_start: |-
+                - (Optional) Specifies the slow start configuration. This block is supported only for backend
+                server groups using the HTTP or HTTPS protocol.
             session_persistence.type: '- (Required) Specifies the sticky session type. The value can be SOURCE_IP, HTTP_COOKIE, or APP_COOKIE.'
-            session_persistence.vpc_id: '- (Optional) Specifies the ID of the VPC where the backend server group works.'
+            slow_start.duration: '- (Optional) Specifies the slow start duration, in seconds. The value ranges from 30 to 1200.'
+            slow_start.enable: '- (Optional) Specifies whether slow start is enabled.'
+            slow_start.member_deletion_protection: |-
+                - (Optional) Specifies whether to enable removal protection for the pool members.
+                true: Enable removal protection.
+                false (default): Disable removal protection.
+            slow_start.protection_reason: |-
+                - (Optional) Specifies why modification protection is enabled. This value is valid only when
+                protection_status is consoleProtection.
+            slow_start.protection_status: |-
+                - (Optional) Specifies the modification protection status. Valid values are nonProtection
+                and consoleProtection.
+            slow_start.type: '- (Optional) Specifies the type of the backend server group.'
+            slow_start.vpc_id: '- (Optional) Specifies the ID of the VPC where the backend server group works.'
+            updated_at: '- Specifies the time when the backend server group was last updated.'
         importStatements: []
     opentelekomcloud_lb_rule_v3:
         subCategory: Dedicated Load Balancer (DLB)
@@ -19258,6 +19755,11 @@ resources:
                 - (Optional) Default protection period, in days.
                 The value is from 1 to 36500.
             enabled: '- (Required) Specifies lifecycle rule status.'
+            enterprise_project_id: |-
+                - (Optional) Specifies the enterprise project ID of the bucket. Defaults to the
+                provider's enterprise project ID, or the default enterprise project (0) when none is configured.
+                Changing this value migrates the bucket to the target enterprise project through EPS without recreating it.
+                EPS permissions are required for updates. The timeouts.update setting defaults to 5 minutes.
             error_document: |-
                 - (Optional) Specifies the error page returned when an error occurs during static website access.
                 Only HTML, JPG, PNG, BMP, and WEBP files under the root directory are supported.
@@ -20509,6 +21011,7 @@ resources:
         argumentDocs:
             CLOUDSSD: ': indicates cloud SSD storage.'
             ESSD: ': indicates the extreme SSD type.'
+            GPSSD2: ': indicates the flexible SSD type (general-purpose SSD V2).'
             availability_zone: '- (Required, ForceNew) Specifies the AZ name. Changing this parameter will create a new resource.'
             availability_zones: '- Indicates the instance AZs.'
             backup: |-
@@ -20635,6 +21138,11 @@ resources:
                 In this mode restore_time is mandatory.
             volume: '- (Required, ForceNew) Specifies the volume information. Structure is documented below.'
             volume.disk_encryption_id: '- (Optional, ForceNew) Specifies the key ID for disk encryption. Changing this parameter will create a new resource.'
+            volume.iops: |-
+                - (Optional, Int, ForceNew) Specifies the IOPS of the volume. This parameter is available only
+                when type is set to GPSSD2, where it is mandatory. The value ranges from 3,000 to 128,000 and
+                must be no greater than 500 times the volume size.
+                Changing this parameter will create a new resource.
             volume.limit_size: |-
                 - (Optional, Int) Specifies the upper limit of automatic expansion of storage, in GB.
                 The value ranges from 40 GB to 4,000 GB and must be no less than the current storage of the instance.
@@ -20642,14 +21150,19 @@ resources:
             volume.size: |-
                 - (Required) Specifies the volume size. Its value range is from 40 GB to 4000
                 GB. The value must be a multiple of 10. Changing this resize the volume.
+            volume.throughput: |-
+                - (Optional, Int, ForceNew) Specifies the throughput of the volume, in MiB/s. This
+                parameter is available only when type is set to GPSSD2, where it is mandatory. The value ranges
+                from 125 to 1,000 and must be no greater than iops divided by 4.
+                Changing this parameter will create a new resource.
             volume.trigger_threshold: |-
                 - (Optional, Int) Specifies the threshold to trigger automatic expansion.
                 If this parameter is configured, limit_size is mandatory.
                 If the available storage drops to this threshold or 10 GB, the automatic expansion is triggered.
                 The valid values are as follows:
             volume.type: |-
-                - (Required, ForceNew) Specifies the volume type. Changing this resize the volume. Its value can be any of the following
-                and is case-sensitive:
+                - (Required, ForceNew) Specifies the volume type. Changing this parameter will create a new resource.
+                Its value can be any of the following and is case-sensitive:
             vpc_id: '- (Required, ForceNew) Specifies the VPC ID. Changing this parameter will create a new resource.'
         importStatements: []
     opentelekomcloud_rds_maintenance_v3:
@@ -20831,6 +21344,7 @@ resources:
         argumentDocs:
             CLOUDSSD: ': indicates cloud SSD storage.'
             ESSD: ': indicates the extreme SSD type.'
+            GPSSD2: ': indicates the flexible SSD type (general-purpose SSD V2).'
             db: '- Indicates the database information. Structure is documented below.'
             db.port: '- Indicates the database port information.'
             db.type: '- Indicates the DB engine. Value: MySQL, PostgreSQL, SQLServer'
@@ -20858,7 +21372,15 @@ resources:
             volume.disk_encryption_id: |-
                 - (Optional) Specifies the key ID for disk encryption. Changing this parameter will create a new
                 resource.
+            volume.iops: |-
+                - (Optional, Int) Specifies the IOPS of the volume. This parameter is available only when type is set to
+                GPSSD2, where it is mandatory. The value ranges from 3,000 to 128,000 and must be no greater than 500 times the
+                volume size. Changing this parameter will create a new resource.
             volume.size: '- Indicates the volume size. Same as replicated instance disk size.'
+            volume.throughput: |-
+                - (Optional, Int) Specifies the throughput of the volume, in MiB/s. This parameter is available only
+                when type is set to GPSSD2, where it is mandatory. The value ranges from 125 to 1,000 and must be no greater
+                than iops divided by 4. Changing this parameter will create a new resource.
             volume.type: |-
                 - Specifies the volume type. Changing this parameter will create a new resource. Its value can be any of the
                 following and is case-sensitive.
@@ -23272,13 +23794,17 @@ resources:
                     }
         argumentDocs:
             accept: '- (Optional)- Whether or not to accept the peering request. Defaults to false.'
+            created_at: '- The UTC time when the VPC peering connection was created.'
+            description: '- The VPC peering connection description.'
             id: '- The VPC peering connection ID.'
             name: "- \tThe VPC peering connection name."
             peer_tenant_id: '- The Tenant Id of the accepter tenant.'
             peer_vpc_id: '- The VPC ID of the accepter tenant.'
             status: '- The VPC peering connection status.'
+            updated_at: '- The UTC time when the VPC peering connection was last updated.'
             vpc_id: '- The ID of requester VPC involved in a VPC peering connection.'
             vpc_peering_connection_id: '- (Required) The VPC Peering Connection ID to manage. Changing this creates a new VPC peering connection accepter.'
+            vpc_tenant_id: '- The project ID of the requester VPC.'
         importStatements: []
     opentelekomcloud_vpc_peering_connection_v2:
         subCategory: Virtual Private Cloud (VPC)
@@ -23298,13 +23824,16 @@ resources:
                 peer_vpc_id: var.accepter_vpc_id
                 vpc_id: var.vpc_id
         argumentDocs:
+            created_at: '- The UTC time when the VPC peering connection was created.'
             description: '- (Optional, String) Specifies the description of the VPC peering connection.'
             id: '- The VPC peering connection ID.'
             name: '- (Required, String) Specifies the name of the VPC peering connection. The value can contain 1 to 64 characters.'
             peer_tenant_id: '- (Optional, String, ForceNew) Specified the Tenant Id of the accepter tenant. Changing this creates a new VPC peering connection.'
             peer_vpc_id: '- (Required, String, ForceNew) Specifies the VPC ID of the accepter tenant. Changing this creates a new VPC peering connection.'
             status: '- The VPC peering connection status. The value can be PENDING_ACCEPTANCE, REJECTED, EXPIRED, DELETED, or ACTIVE.'
+            updated_at: '- The UTC time when the VPC peering connection was last updated.'
             vpc_id: '- (Required, String, ForceNew) Specifies the ID of a VPC involved in a VPC peering connection. Changing this creates a new VPC peering connection.'
+            vpc_tenant_id: '- The project ID of the requester VPC.'
         importStatements: []
     opentelekomcloud_vpc_route_table_route_v1:
         subCategory: Virtual Private Cloud (VPC)
@@ -23634,6 +24163,7 @@ resources:
         argumentDocs:
             create: '- Default is 10 minutes.'
             created_at: '- Specifies the time (UTC) when the route table is created.'
+            default: '- Indicates whether the route table is the default route table.'
             delete: '- Default is 10 minutes.'
             description: |-
                 - (Optional, String) Specifies the supplementary information about the route table.
@@ -23660,6 +24190,7 @@ resources:
                 - (Required, String) Specifies the route type. Currently, the value can be:
                 ecs, eni, vip, nat, peering, vpn, dc, egw, er, subeni and local
             subnets: '- (Optional, List) Specifies an array of one or more subnets associating with the route table.'
+            tenant_id: '- The project ID to which the route table belongs.'
             updated_at: '- Specifies the time (UTC) when the route table is updated.'
             vpc_id: |-
                 - (Required, String, ForceNew) Specifies the VPC ID for which a route table is to be added.
@@ -24132,6 +24663,9 @@ resources:
             198.19.128.0/20.enable_whitelist: |-
                 - (Optional, Bool, ForceNew) Specifies whether to enable access control.
                 This parameter is available only if you create a VPC endpoint for connecting to an interface VPC endpoint service.
+            198.19.128.0/20.enterprise_project_id: |-
+                - (Optional, String, ForceNew) Specifies the enterprise project ID of the VPC endpoint.
+                Changing this parameter creates a new resource.
             198.19.128.0/20.port_ip: '- (Optional, String, ForceNew) Specifies the IP address for accessing the associated VPC endpoint service.'
             198.19.128.0/20.route_tables: '- (Optional, List, ForceNew) Lists the IDs of route tables.'
             198.19.128.0/20.tags: '- (Optional, Map) The key/value pairs to associate with the VPC endpoint.'
@@ -24203,6 +24737,9 @@ resources:
             description: '- (Optional, String) Specifies the description of the VPC endpoint service.'
             domain_id: '- The user''s domain ID.'
             endpoint_id: '- The unique ID of the VPC endpoint.'
+            enterprise_project_id: |-
+                - (Optional, String, ForceNew) Specifies the enterprise project ID of the VPC endpoint
+                service. Changing this parameter creates a new resource.
             "false": |-
                 : indicates that connection approval is not required.
                 The created VPC endpoint is in the accepted state.

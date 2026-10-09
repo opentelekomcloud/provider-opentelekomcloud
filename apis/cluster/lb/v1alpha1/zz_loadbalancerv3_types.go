@@ -13,6 +13,62 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 )
 
+type AutoscalingInitParameters struct {
+}
+
+type AutoscalingObservation struct {
+	Enable *bool `json:"enable,omitempty" tf:"enable,omitempty"`
+
+	MinL7FlavorID *string `json:"minL7FlavorId,omitempty" tf:"min_l7_flavor_id,omitempty"`
+}
+
+type AutoscalingParameters struct {
+}
+
+type CustomQosLimitInitParameters struct {
+}
+
+type CustomQosLimitObservation struct {
+	L4Connection *float64 `json:"l4Connection,omitempty" tf:"l4_connection,omitempty"`
+
+	L4Cps *float64 `json:"l4Cps,omitempty" tf:"l4_cps,omitempty"`
+
+	L7Connection *float64 `json:"l7Connection,omitempty" tf:"l7_connection,omitempty"`
+
+	L7Cps *float64 `json:"l7Cps,omitempty" tf:"l7_cps,omitempty"`
+}
+
+type CustomQosLimitParameters struct {
+}
+
+type EipsInitParameters struct {
+}
+
+type EipsObservation struct {
+	EIPAddress *string `json:"eipAddress,omitempty" tf:"eip_address,omitempty"`
+
+	EIPID *string `json:"eipId,omitempty" tf:"eip_id,omitempty"`
+
+	IPVersion *float64 `json:"ipVersion,omitempty" tf:"ip_version,omitempty"`
+}
+
+type EipsParameters struct {
+}
+
+type GlobalEipsInitParameters struct {
+}
+
+type GlobalEipsObservation struct {
+	GlobalEIPAddress *string `json:"globalEipAddress,omitempty" tf:"global_eip_address,omitempty"`
+
+	GlobalEIPID *string `json:"globalEipId,omitempty" tf:"global_eip_id,omitempty"`
+
+	IPVersion *float64 `json:"ipVersion,omitempty" tf:"ip_version,omitempty"`
+}
+
+type GlobalEipsParameters struct {
+}
+
 type LoadbalancerV3InitParameters struct {
 
 	// The administrative state of the LoadBalancer. A valid value is only true (UP).
@@ -23,6 +79,9 @@ type LoadbalancerV3InitParameters struct {
 	// +listType=set
 	AvailabilityZones []*string `json:"availabilityZones,omitempty" tf:"availability_zones,omitempty"`
 
+	// The load balancer billing mode. Changing this creates a new load balancer.
+	ChargeMode *string `json:"chargeMode,omitempty" tf:"charge_mode,omitempty"`
+
 	// Specifies whether to enable deletion protection for the load balancer.
 	// true: Enable deletion protection.
 	// false (default): Disable deletion protection.
@@ -31,8 +90,21 @@ type LoadbalancerV3InitParameters struct {
 	// Provides supplementary information about the load balancer.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	// The enterprise project ID. Changing this creates a new load balancer.
+	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
+
+	// Whether the load balancer is a dedicated load balancer.
+	// Changing this creates a new load balancer.
+	Guaranteed *bool `json:"guaranteed,omitempty" tf:"guaranteed,omitempty"`
+
 	// The value can be true (enabled) or false (disabled).
 	IPTargetEnable *bool `json:"ipTargetEnable,omitempty" tf:"ip_target_enable,omitempty"`
+
+	// The ID of the shared bandwidth used by the public IPv6 address.
+	IPv6BandwidthID *string `json:"ipv6BandwidthId,omitempty" tf:"ipv6_bandwidth_id,omitempty"`
+
+	// The ID of the IPv6 subnet where the load balancer resides.
+	IPv6VipSubnetID *string `json:"ipv6VipSubnetId,omitempty" tf:"ipv6_vip_subnet_id,omitempty"`
 
 	// The ID of the Layer-4 flavor.
 	L4Flavor *string `json:"l4Flavor,omitempty" tf:"l4_flavor,omitempty"`
@@ -56,6 +128,12 @@ type LoadbalancerV3InitParameters struct {
 	// Selector for a list of SubnetV1 in vpc to populate networkIds.
 	// +kubebuilder:validation:Optional
 	NetworkIdsSelector *v1.Selector `json:"networkIdsSelector,omitempty" tf:"-"`
+
+	// The reason for enabling modification protection.
+	ProtectionReason *string `json:"protectionReason,omitempty" tf:"protection_reason,omitempty"`
+
+	// The modification protection status.
+	ProtectionStatus *string `json:"protectionStatus,omitempty" tf:"protection_status,omitempty"`
 
 	// The elastic IP address of the instance. The public_ip structure
 	// is described below. Changing this creates a new LoadBalancer.
@@ -99,13 +177,25 @@ type LoadbalancerV3Observation struct {
 	// The administrative state of the LoadBalancer. A valid value is only true (UP).
 	AdminStateUp *bool `json:"adminStateUp,omitempty" tf:"admin_state_up,omitempty"`
 
+	// Autoscaling information, including enable and min_l7_flavor_id.
+	Autoscaling []AutoscalingObservation `json:"autoscaling,omitempty" tf:"autoscaling,omitempty"`
+
 	// Specifies the availability zones where the LoadBalancer will be located.
 	// Changing this creates a new LoadBalancer.
 	// +listType=set
 	AvailabilityZones []*string `json:"availabilityZones,omitempty" tf:"availability_zones,omitempty"`
 
+	// Billing information for the load balancer.
+	BillingInfo *string `json:"billingInfo,omitempty" tf:"billing_info,omitempty"`
+
+	// The load balancer billing mode. Changing this creates a new load balancer.
+	ChargeMode *string `json:"chargeMode,omitempty" tf:"charge_mode,omitempty"`
+
 	// The time the LoadBalancer was created.
 	CreatedAt *string `json:"createdAt,omitempty" tf:"created_at,omitempty"`
+
+	// Custom Layer-4 and Layer-7 connection and CPS limits.
+	CustomQosLimit []CustomQosLimitObservation `json:"customQosLimit,omitempty" tf:"custom_qos_limit,omitempty"`
 
 	// Specifies whether to enable deletion protection for the load balancer.
 	// true: Enable deletion protection.
@@ -115,17 +205,77 @@ type LoadbalancerV3Observation struct {
 	// Provides supplementary information about the load balancer.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	// The IP version supported by the load balancer subnet.
+	ELBSubnetType *string `json:"elbSubnetType,omitempty" tf:"elb_subnet_type,omitempty"`
+
+	// EIPs associated with the load balancer, including eip_id, eip_address, and ip_version.
+	Eips []EipsObservation `json:"eips,omitempty" tf:"eips,omitempty"`
+
+	// The enterprise project ID. Changing this creates a new load balancer.
+	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
+
+	// The scenario in which the load balancer was frozen.
+	FrozenScene *string `json:"frozenScene,omitempty" tf:"frozen_scene,omitempty"`
+
+	// The gateway flavor ID.
+	GatewayFlavorID *string `json:"gatewayFlavorId,omitempty" tf:"gateway_flavor_id,omitempty"`
+
+	// Global EIPs associated with the load balancer, including global_eip_id,
+	// global_eip_address, and ip_version.
+	GlobalEips []GlobalEipsObservation `json:"globalEips,omitempty" tf:"global_eips,omitempty"`
+
+	// Whether the load balancer is a dedicated load balancer.
+	// Changing this creates a new load balancer.
+	Guaranteed *bool `json:"guaranteed,omitempty" tf:"guaranteed,omitempty"`
+
 	// ID of an existing elastic IP. Required when using existing EIP.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// The value can be true (enabled) or false (disabled).
 	IPTargetEnable *bool `json:"ipTargetEnable,omitempty" tf:"ip_target_enable,omitempty"`
 
+	// The ID of the shared bandwidth used by the public IPv6 address.
+	IPv6BandwidthID *string `json:"ipv6BandwidthId,omitempty" tf:"ipv6_bandwidth_id,omitempty"`
+
+	// The private IPv6 address of the load balancer.
+	IPv6VipAddress *string `json:"ipv6VipAddress,omitempty" tf:"ipv6_vip_address,omitempty"`
+
+	// The port ID associated with the private IPv6 address.
+	IPv6VipPortID *string `json:"ipv6VipPortId,omitempty" tf:"ipv6_vip_port_id,omitempty"`
+
+	// The ID of the IPv6 subnet where the load balancer resides.
+	IPv6VipSubnetID *string `json:"ipv6VipSubnetId,omitempty" tf:"ipv6_vip_subnet_id,omitempty"`
+
+	// The load balancer instance ID.
+	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
+
+	// The load balancer instance type.
+	InstanceType *string `json:"instanceType,omitempty" tf:"instance_type,omitempty"`
+
 	// The ID of the Layer-4 flavor.
 	L4Flavor *string `json:"l4Flavor,omitempty" tf:"l4_flavor,omitempty"`
 
+	// The ID of the Layer-4 elastic flavor.
+	L4ScaleFlavor *string `json:"l4ScaleFlavor,omitempty" tf:"l4_scale_flavor,omitempty"`
+
 	// The ID of the Layer-7 flavor.
 	L7Flavor *string `json:"l7Flavor,omitempty" tf:"l7_flavor,omitempty"`
+
+	// The ID of the Layer-7 elastic flavor.
+	L7ScaleFlavor *string `json:"l7ScaleFlavor,omitempty" tf:"l7_scale_flavor,omitempty"`
+
+	// IDs of listeners associated with the load balancer.
+	// +listType=set
+	Listeners []*string `json:"listeners,omitempty" tf:"listeners,omitempty"`
+
+	// The load balancer type.
+	LoadbalancerType *string `json:"loadbalancerType,omitempty" tf:"loadbalancer_type,omitempty"`
+
+	// The LTS log group ID.
+	LogGroupID *string `json:"logGroupId,omitempty" tf:"log_group_id,omitempty"`
+
+	// The LTS log stream ID.
+	LogTopicID *string `json:"logTopicId,omitempty" tf:"log_topic_id,omitempty"`
 
 	// The LoadBalancer name.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -134,6 +284,34 @@ type LoadbalancerV3Observation struct {
 	// +listType=set
 	NetworkIds []*string `json:"networkIds,omitempty" tf:"network_ids,omitempty"`
 
+	// The operating status of the load balancer.
+	OperatingStatus *string `json:"operatingStatus,omitempty" tf:"operating_status,omitempty"`
+
+	// IDs of backend server groups associated with the load balancer.
+	// +listType=set
+	Pools []*string `json:"pools,omitempty" tf:"pools,omitempty"`
+
+	// The project ID of the load balancer.
+	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
+
+	// The reason for enabling modification protection.
+	ProtectionReason *string `json:"protectionReason,omitempty" tf:"protection_reason,omitempty"`
+
+	// The modification protection status.
+	ProtectionStatus *string `json:"protectionStatus,omitempty" tf:"protection_status,omitempty"`
+
+	// The load balancer provider.
+	ProviderName *string `json:"providerName,omitempty" tf:"provider_name,omitempty"`
+
+	// The provisioning status of the load balancer.
+	ProvisioningStatus *string `json:"provisioningStatus,omitempty" tf:"provisioning_status,omitempty"`
+
+	// Proxy protocol extension endpoint information.
+	ProxyProtocolExtensions []ProxyProtocolExtensionsObservation `json:"proxyProtocolExtensions,omitempty" tf:"proxy_protocol_extensions,omitempty"`
+
+	// The public border group of the load balancer.
+	PublicBorderGroup *string `json:"publicBorderGroup,omitempty" tf:"public_border_group,omitempty"`
+
 	// The elastic IP address of the instance. The public_ip structure
 	// is described below. Changing this creates a new LoadBalancer.
 	PublicIP []PublicIPObservation `json:"publicIp,omitempty" tf:"public_ip,omitempty"`
@@ -141,6 +319,9 @@ type LoadbalancerV3Observation struct {
 	// ID of the router (or VPC) this LoadBalancer belongs to. Changing
 	// this creates a new LoadBalancer.
 	RouterID *string `json:"routerId,omitempty" tf:"router_id,omitempty"`
+
+	// The service load balancer mode.
+	ServiceLBMode *string `json:"serviceLbMode,omitempty" tf:"service_lb_mode,omitempty"`
 
 	// The ID of the subnet to which the LoadBalancer belongs. Required when using vip_address.
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
@@ -157,6 +338,9 @@ type LoadbalancerV3Observation struct {
 
 	// The Port ID of the Load Balancer IP.
 	VipPortID *string `json:"vipPortId,omitempty" tf:"vip_port_id,omitempty"`
+
+	// The action taken when WAF is unavailable.
+	WafFailureAction *string `json:"wafFailureAction,omitempty" tf:"waf_failure_action,omitempty"`
 }
 
 type LoadbalancerV3Parameters struct {
@@ -171,6 +355,10 @@ type LoadbalancerV3Parameters struct {
 	// +listType=set
 	AvailabilityZones []*string `json:"availabilityZones,omitempty" tf:"availability_zones,omitempty"`
 
+	// The load balancer billing mode. Changing this creates a new load balancer.
+	// +kubebuilder:validation:Optional
+	ChargeMode *string `json:"chargeMode,omitempty" tf:"charge_mode,omitempty"`
+
 	// Specifies whether to enable deletion protection for the load balancer.
 	// true: Enable deletion protection.
 	// false (default): Disable deletion protection.
@@ -181,9 +369,26 @@ type LoadbalancerV3Parameters struct {
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	// The enterprise project ID. Changing this creates a new load balancer.
+	// +kubebuilder:validation:Optional
+	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
+
+	// Whether the load balancer is a dedicated load balancer.
+	// Changing this creates a new load balancer.
+	// +kubebuilder:validation:Optional
+	Guaranteed *bool `json:"guaranteed,omitempty" tf:"guaranteed,omitempty"`
+
 	// The value can be true (enabled) or false (disabled).
 	// +kubebuilder:validation:Optional
 	IPTargetEnable *bool `json:"ipTargetEnable,omitempty" tf:"ip_target_enable,omitempty"`
+
+	// The ID of the shared bandwidth used by the public IPv6 address.
+	// +kubebuilder:validation:Optional
+	IPv6BandwidthID *string `json:"ipv6BandwidthId,omitempty" tf:"ipv6_bandwidth_id,omitempty"`
+
+	// The ID of the IPv6 subnet where the load balancer resides.
+	// +kubebuilder:validation:Optional
+	IPv6VipSubnetID *string `json:"ipv6VipSubnetId,omitempty" tf:"ipv6_vip_subnet_id,omitempty"`
 
 	// The ID of the Layer-4 flavor.
 	// +kubebuilder:validation:Optional
@@ -211,6 +416,14 @@ type LoadbalancerV3Parameters struct {
 	// Selector for a list of SubnetV1 in vpc to populate networkIds.
 	// +kubebuilder:validation:Optional
 	NetworkIdsSelector *v1.Selector `json:"networkIdsSelector,omitempty" tf:"-"`
+
+	// The reason for enabling modification protection.
+	// +kubebuilder:validation:Optional
+	ProtectionReason *string `json:"protectionReason,omitempty" tf:"protection_reason,omitempty"`
+
+	// The modification protection status.
+	// +kubebuilder:validation:Optional
+	ProtectionStatus *string `json:"protectionStatus,omitempty" tf:"protection_status,omitempty"`
 
 	// The elastic IP address of the instance. The public_ip structure
 	// is described below. Changing this creates a new LoadBalancer.
@@ -252,6 +465,24 @@ type LoadbalancerV3Parameters struct {
 	// The ip address of the LoadBalancer. Changing this creates a new LoadBalancer.
 	// +kubebuilder:validation:Optional
 	VipAddress *string `json:"vipAddress,omitempty" tf:"vip_address,omitempty"`
+}
+
+type ProxyProtocolExtensionsInitParameters struct {
+}
+
+type ProxyProtocolExtensionsObservation struct {
+	EndpointID *string `json:"endpointId,omitempty" tf:"endpoint_id,omitempty"`
+
+	EndpointServiceID *string `json:"endpointServiceId,omitempty" tf:"endpoint_service_id,omitempty"`
+
+	// The private IPv6 address of the load balancer.
+	IPv6VipAddress *string `json:"ipv6VipAddress,omitempty" tf:"ipv6_vip_address,omitempty"`
+
+	// The ip address of the LoadBalancer. Changing this creates a new LoadBalancer.
+	VipAddress *string `json:"vipAddress,omitempty" tf:"vip_address,omitempty"`
+}
+
+type ProxyProtocolExtensionsParameters struct {
 }
 
 type PublicIPInitParameters struct {

@@ -187,6 +187,11 @@ spec:
                           type: string
                       type: object
                     type: array
+                  enterpriseProjectId:
+                    description: |-
+                      Specifies the enterprise project ID of the VPN gateway.
+                      Changing this parameter creates a new resource.
+                    type: string
                   erId:
                     description: |-
                       The enterprise router ID to attach with to VPN gateway.
@@ -377,6 +382,11 @@ spec:
                           type: string
                       type: object
                     type: array
+                  enterpriseProjectId:
+                    description: |-
+                      Specifies the enterprise project ID of the VPN gateway.
+                      Changing this parameter creates a new resource.
+                    type: string
                   erId:
                     description: |-
                       The enterprise router ID to attach with to VPN gateway.
@@ -647,6 +657,11 @@ spec:
                           type: string
                       type: object
                     type: array
+                  enterpriseProjectId:
+                    description: |-
+                      Specifies the enterprise project ID of the VPN gateway.
+                      Changing this parameter creates a new resource.
+                    type: string
                   erAttachmentId:
                     description: The ER attachment ID.
                     type: string

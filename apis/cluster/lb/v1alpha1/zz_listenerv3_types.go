@@ -13,6 +13,57 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 )
 
+type AccessLogCustomizedHeadersConfigInitParameters struct {
+
+	// Specifies whether to enable access control.
+	// true: Access control will be enabled.
+	// false (default): Access control will be disabled.
+	Enable *bool `json:"enable,omitempty" tf:"enable,omitempty"`
+
+	// Specifies the headers that will not be recorded in access logs.
+	// If this parameter is specified, the specified headers will not be recorded in access logs.
+	ExcludeHeaders []*string `json:"excludeHeaders,omitempty" tf:"exclude_headers,omitempty"`
+
+	// Specifies the custom headers that will be recorded in access logs.
+	// If this parameter is specified, only the specified headers will be recorded in access logs.
+	IncludeHeaders []*string `json:"includeHeaders,omitempty" tf:"include_headers,omitempty"`
+}
+
+type AccessLogCustomizedHeadersConfigObservation struct {
+
+	// Specifies whether to enable access control.
+	// true: Access control will be enabled.
+	// false (default): Access control will be disabled.
+	Enable *bool `json:"enable,omitempty" tf:"enable,omitempty"`
+
+	// Specifies the headers that will not be recorded in access logs.
+	// If this parameter is specified, the specified headers will not be recorded in access logs.
+	ExcludeHeaders []*string `json:"excludeHeaders,omitempty" tf:"exclude_headers,omitempty"`
+
+	// Specifies the custom headers that will be recorded in access logs.
+	// If this parameter is specified, only the specified headers will be recorded in access logs.
+	IncludeHeaders []*string `json:"includeHeaders,omitempty" tf:"include_headers,omitempty"`
+}
+
+type AccessLogCustomizedHeadersConfigParameters struct {
+
+	// Specifies whether to enable access control.
+	// true: Access control will be enabled.
+	// false (default): Access control will be disabled.
+	// +kubebuilder:validation:Optional
+	Enable *bool `json:"enable,omitempty" tf:"enable,omitempty"`
+
+	// Specifies the headers that will not be recorded in access logs.
+	// If this parameter is specified, the specified headers will not be recorded in access logs.
+	// +kubebuilder:validation:Optional
+	ExcludeHeaders []*string `json:"excludeHeaders,omitempty" tf:"exclude_headers,omitempty"`
+
+	// Specifies the custom headers that will be recorded in access logs.
+	// If this parameter is specified, only the specified headers will be recorded in access logs.
+	// +kubebuilder:validation:Optional
+	IncludeHeaders []*string `json:"includeHeaders,omitempty" tf:"include_headers,omitempty"`
+}
+
 type IPGroupInitParameters struct {
 
 	// Specifies whether to enable access control.
@@ -165,6 +216,11 @@ type InsertHeadersParameters struct {
 }
 
 type ListenerV3InitParameters struct {
+
+	// Specifies the custom headers to be recorded in
+	// access logs. You can specify which headers to be or not to be recorded in the access logs of a load balancer.
+	AccessLogCustomizedHeadersConfig []AccessLogCustomizedHeadersConfigInitParameters `json:"accessLogCustomizedHeadersConfig,omitempty" tf:"access_log_customized_headers_config,omitempty"`
+
 	AdminStateUp *bool `json:"adminStateUp,omitempty" tf:"admin_state_up,omitempty"`
 
 	// Specifies whether to enable advanced forwarding.
@@ -250,6 +306,15 @@ type ListenerV3InitParameters struct {
 	// Specifies the listener name.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// Specifies why the modification protection is enabled. Valid only
+	// when protection_status is set to consoleProtection. The value can contain a maximum of 255 Unicode
+	// characters, excluding angle brackets (<>).
+	ProtectionReason *string `json:"protectionReason,omitempty" tf:"protection_reason,omitempty"`
+
+	// Specifies the protection status. Value options: nonProtection
+	// (default, not protected), consoleProtection (modification protection is enabled on the console).
+	ProtectionStatus *string `json:"protectionStatus,omitempty" tf:"protection_status,omitempty"`
+
 	// The protocol - can either be TCP, HTTP, HTTPS or UDP.
 	// Changing this creates a new Listener.
 	Protocol *string `json:"protocol,omitempty" tf:"protocol,omitempty"`
@@ -291,6 +356,11 @@ type ListenerV3InitParameters struct {
 }
 
 type ListenerV3Observation struct {
+
+	// Specifies the custom headers to be recorded in
+	// access logs. You can specify which headers to be or not to be recorded in the access logs of a load balancer.
+	AccessLogCustomizedHeadersConfig []AccessLogCustomizedHeadersConfigObservation `json:"accessLogCustomizedHeadersConfig,omitempty" tf:"access_log_customized_headers_config,omitempty"`
+
 	AdminStateUp *bool `json:"adminStateUp,omitempty" tf:"admin_state_up,omitempty"`
 
 	// Specifies whether to enable advanced forwarding.
@@ -307,6 +377,9 @@ type ListenerV3Observation struct {
 	// the default value is 60. An error will be returned if you configure this parameter for TCP and UDP listeners.
 	ClientTimeout *float64 `json:"clientTimeout,omitempty" tf:"client_timeout,omitempty"`
 
+	// Specifies the maximum number of new connections that a listener can handle per second.
+	Cps *float64 `json:"cps,omitempty" tf:"cps,omitempty"`
+
 	// Indicates the creation time.
 	CreatedAt *string `json:"createdAt,omitempty" tf:"created_at,omitempty"`
 
@@ -319,6 +392,9 @@ type ListenerV3Observation struct {
 
 	// Provides supplementary information about the listener.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// Specifies whether GZIP compression is enabled for the load balancer.
+	GzipEnable *bool `json:"gzipEnable,omitempty" tf:"gzip_enable,omitempty"`
 
 	// Specifies whether to use HTTP/2. This parameter is available only for HTTPS
 	// listeners. If you configure this parameter for other types of listeners, it will not take effect. Enable
@@ -344,6 +420,9 @@ type ListenerV3Observation struct {
 	// Specifies the ID of the load balancer that the listener is added to.
 	LoadbalancerID *string `json:"loadbalancerId,omitempty" tf:"loadbalancer_id,omitempty"`
 
+	// Specifies the maximum number of concurrent connections that a listener can handle per second.
+	MaxConnections *float64 `json:"maxConnections,omitempty" tf:"max_connections,omitempty"`
+
 	// Specifies whether to enable health check retries for backend servers.
 	// This parameter is available only for HTTP and HTTPS listeners. An error will be returned if you configure
 	// this parameter for TCP and UDP listeners.
@@ -358,12 +437,33 @@ type ListenerV3Observation struct {
 	// Specifies the listener name.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// Specifies whether to translate between IPv4 and IPv6 addresses. This option allows a client
+	// to access IPv4 or IPv6 backend servers by accessing the IPv4 or IPv6 address of a load balancer.
+	Nat64Enable *bool `json:"nat64Enable,omitempty" tf:"nat64_enable,omitempty"`
+
+	// Specifies why the modification protection is enabled. Valid only
+	// when protection_status is set to consoleProtection. The value can contain a maximum of 255 Unicode
+	// characters, excluding angle brackets (<>).
+	ProtectionReason *string `json:"protectionReason,omitempty" tf:"protection_reason,omitempty"`
+
+	// Specifies the protection status. Value options: nonProtection
+	// (default, not protected), consoleProtection (modification protection is enabled on the console).
+	ProtectionStatus *string `json:"protectionStatus,omitempty" tf:"protection_status,omitempty"`
+
 	// The protocol - can either be TCP, HTTP, HTTPS or UDP.
 	// Changing this creates a new Listener.
 	Protocol *string `json:"protocol,omitempty" tf:"protocol,omitempty"`
 
 	// Specifies the port used by the listener. Changing this creates a new Listener.
 	ProtocolPort *float64 `json:"protocolPort,omitempty" tf:"protocol_port,omitempty"`
+
+	// Specifies whether ProxyProtocol is enabled to pass the source IP addresses of the
+	// clients to backend servers.
+	ProxyProtocolEnable *bool `json:"proxyProtocolEnable,omitempty" tf:"proxy_protocol_enable,omitempty"`
+
+	// Specifies the QUIC configuration for the current listener. Valid only when protocol is
+	// set to HTTPS.
+	QuicConfig []QuicConfigObservation `json:"quicConfig,omitempty" tf:"quic_config,omitempty"`
 
 	// Specifies the ID of the custom security policy.
 	SecurityPolicyID *string `json:"securityPolicyId,omitempty" tf:"security_policy_id,omitempty"`
@@ -388,11 +488,19 @@ type ListenerV3Observation struct {
 	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
+	// Specifies the open tracing configuration.
+	TracingConfig []TracingConfigObservation `json:"tracingConfig,omitempty" tf:"tracing_config,omitempty"`
+
 	// Indicates the update time.
 	UpdatedAt *string `json:"updatedAt,omitempty" tf:"updated_at,omitempty"`
 }
 
 type ListenerV3Parameters struct {
+
+	// Specifies the custom headers to be recorded in
+	// access logs. You can specify which headers to be or not to be recorded in the access logs of a load balancer.
+	// +kubebuilder:validation:Optional
+	AccessLogCustomizedHeadersConfig []AccessLogCustomizedHeadersConfigParameters `json:"accessLogCustomizedHeadersConfig,omitempty" tf:"access_log_customized_headers_config,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	AdminStateUp *bool `json:"adminStateUp,omitempty" tf:"admin_state_up,omitempty"`
@@ -494,6 +602,17 @@ type ListenerV3Parameters struct {
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// Specifies why the modification protection is enabled. Valid only
+	// when protection_status is set to consoleProtection. The value can contain a maximum of 255 Unicode
+	// characters, excluding angle brackets (<>).
+	// +kubebuilder:validation:Optional
+	ProtectionReason *string `json:"protectionReason,omitempty" tf:"protection_reason,omitempty"`
+
+	// Specifies the protection status. Value options: nonProtection
+	// (default, not protected), consoleProtection (modification protection is enabled on the console).
+	// +kubebuilder:validation:Optional
+	ProtectionStatus *string `json:"protectionStatus,omitempty" tf:"protection_status,omitempty"`
+
 	// The protocol - can either be TCP, HTTP, HTTPS or UDP.
 	// Changing this creates a new Listener.
 	// +kubebuilder:validation:Optional
@@ -539,6 +658,44 @@ type ListenerV3Parameters struct {
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
+}
+
+type QuicConfigInitParameters struct {
+}
+
+type QuicConfigObservation struct {
+
+	// Specifies whether QUIC upgrade is enabled.
+	EnableQuicUpgrade *bool `json:"enableQuicUpgrade,omitempty" tf:"enable_quic_upgrade,omitempty"`
+
+	// Specifies the ID of the QUIC listener.
+	QuicListenerID *string `json:"quicListenerId,omitempty" tf:"quic_listener_id,omitempty"`
+}
+
+type QuicConfigParameters struct {
+}
+
+type TracingConfigInitParameters struct {
+}
+
+type TracingConfigObservation struct {
+
+	// Specifies whether open tracing is enabled.
+	TracingEnable *bool `json:"tracingEnable,omitempty" tf:"tracing_enable,omitempty"`
+
+	// Specifies the sampling rate. Values between 1 and 10000 represent sampling rates
+	// ranging from 0.01% to 100%.
+	TracingSample *float64 `json:"tracingSample,omitempty" tf:"tracing_sample,omitempty"`
+
+	// Specifies the sampling mode. Value options: full (full sampling), ratio
+	// (sampling by ratio).
+	TracingStrategy *string `json:"tracingStrategy,omitempty" tf:"tracing_strategy,omitempty"`
+
+	// Specifies the tracing type. Value: W3CTraceContext.
+	TracingType *string `json:"tracingType,omitempty" tf:"tracing_type,omitempty"`
+}
+
+type TracingConfigParameters struct {
 }
 
 // ListenerV3Spec defines the desired state of ListenerV3

@@ -252,6 +252,10 @@ type VPNGatewayV5InitParameters struct {
 	// The object structure is documented below.
 	Eip2 []Eip2InitParameters `json:"eip2,omitempty" tf:"eip2,omitempty"`
 
+	// Specifies the enterprise project ID of the VPN gateway.
+	// Changing this parameter creates a new resource.
+	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
+
 	// The enterprise router ID to attach with to VPN gateway.
 	// This parameter is mandatory when attachment_type is er.
 	// Changing this parameter will create a new resource.
@@ -349,6 +353,10 @@ type VPNGatewayV5Observation struct {
 	// in active-standby VPN gateway. This parameter is mandatory when network_type is public or left empty.
 	// The object structure is documented below.
 	Eip2 []Eip2Observation `json:"eip2,omitempty" tf:"eip2,omitempty"`
+
+	// Specifies the enterprise project ID of the VPN gateway.
+	// Changing this parameter creates a new resource.
+	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
 
 	// The ER attachment ID.
 	ErAttachmentID *string `json:"erAttachmentId,omitempty" tf:"er_attachment_id,omitempty"`
@@ -476,6 +484,11 @@ type VPNGatewayV5Parameters struct {
 	// The object structure is documented below.
 	// +kubebuilder:validation:Optional
 	Eip2 []Eip2Parameters `json:"eip2,omitempty" tf:"eip2,omitempty"`
+
+	// Specifies the enterprise project ID of the VPN gateway.
+	// Changing this parameter creates a new resource.
+	// +kubebuilder:validation:Optional
+	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
 
 	// The enterprise router ID to attach with to VPN gateway.
 	// This parameter is mandatory when attachment_type is er.

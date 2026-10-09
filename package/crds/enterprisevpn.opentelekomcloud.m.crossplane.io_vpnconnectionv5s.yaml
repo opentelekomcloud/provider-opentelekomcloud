@@ -65,6 +65,11 @@ spec:
                   enableNqa:
                     description: Whether to enable NQA check. Defaults to false.
                     type: boolean
+                  enterpriseProjectId:
+                    description: |-
+                      Specifies the enterprise project ID of the VPN connection.
+                      Changing this parameter creates a new resource.
+                    type: string
                   gatewayId:
                     description: The VPN gateway ID.
                     type: string
@@ -270,6 +275,11 @@ spec:
                   enableNqa:
                     description: Whether to enable NQA check. Defaults to false.
                     type: boolean
+                  enterpriseProjectId:
+                    description: |-
+                      Specifies the enterprise project ID of the VPN connection.
+                      Changing this parameter creates a new resource.
+                    type: string
                   gatewayId:
                     description: The VPN gateway ID.
                     type: string
@@ -553,6 +563,11 @@ spec:
                   enableNqa:
                     description: Whether to enable NQA check. Defaults to false.
                     type: boolean
+                  enterpriseProjectId:
+                    description: |-
+                      Specifies the enterprise project ID of the VPN connection.
+                      Changing this parameter creates a new resource.
+                    type: string
                   gatewayId:
                     description: The VPN gateway ID.
                     type: string
