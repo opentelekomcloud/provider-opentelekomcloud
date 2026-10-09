@@ -14,7 +14,16 @@ const (
 // Configure configures individual resources by adding custom ResourceConfigurators.
 func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("opentelekomcloud_lb_loadbalancer_v3", func(r *config.Resource) {
-		r.UseAsync = true
+		config.MoveToStatus(r.TerraformResource, "public_ip.ip_type", "public_ip.bandwidth_charge_mode", "public_ip.bandwidth_name", "public_ip.bandwidth_share_type", "public_ip.bandwidth_size")
+		r.LateInitializer = config.LateInitializer{
+			IgnoredFields: []string{
+				"guaranteed", "admin_state_up", "charge_mode",
+				"deletion_protection", "ip_target_enable", "enterprise_project_id",
+			},
+		}
+		r.References["public_ip.id"] = config.Reference{
+			TerraformName: "opentelekomcloud_vpc_eip_v1",
+		}
 		r.References["router_id"] = config.Reference{
 			TerraformName:     "opentelekomcloud_vpc_v1",
 			SelectorFieldName: "VPCSelector",
@@ -28,11 +37,9 @@ func Configure(p *config.Provider) {
 		}
 		r.References["subnet_id"] = config.Reference{
 			TerraformName:     "opentelekomcloud_vpc_subnet_v1",
+			Extractor:         common.SubnetIDExtractor,
 			SelectorFieldName: "SubnetSelector",
 			RefFieldName:      "SubnetRef",
-		}
-		r.References["public_ip.id"] = config.Reference{
-			TerraformName: "opentelekomcloud_vpc_eip_v1",
 		}
 	})
 	p.AddResourceConfigurator("opentelekomcloud_lb_listener_v3", func(r *config.Resource) {

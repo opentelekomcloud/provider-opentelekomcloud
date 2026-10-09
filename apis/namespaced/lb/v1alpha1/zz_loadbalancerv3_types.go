@@ -151,6 +151,7 @@ type LoadbalancerV3InitParameters struct {
 
 	// The ID of the subnet to which the LoadBalancer belongs. Required when using vip_address.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.SubnetV1
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractSubnetID()
 	// +crossplane:generate:reference:refFieldName=SubnetRef
 	// +crossplane:generate:reference:selectorFieldName=SubnetSelector
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
@@ -449,6 +450,7 @@ type LoadbalancerV3Parameters struct {
 
 	// The ID of the subnet to which the LoadBalancer belongs. Required when using vip_address.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.SubnetV1
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractSubnetID()
 	// +crossplane:generate:reference:refFieldName=SubnetRef
 	// +crossplane:generate:reference:selectorFieldName=SubnetSelector
 	// +kubebuilder:validation:Optional
@@ -500,19 +502,6 @@ type ProxyProtocolExtensionsParameters struct {
 
 type PublicIPInitParameters struct {
 
-	// Bandwidth billing type. Possible value is traffic.
-	BandwidthChargeMode *string `json:"bandwidthChargeMode,omitempty" tf:"bandwidth_charge_mode,omitempty"`
-
-	// Bandwidth name. Required when creating a new EIP.
-	BandwidthName *string `json:"bandwidthName,omitempty" tf:"bandwidth_name,omitempty"`
-
-	// Bandwidth sharing type. Possible values are: PER, WHOLE.
-	// Required when creating a new EIP.
-	BandwidthShareType *string `json:"bandwidthShareType,omitempty" tf:"bandwidth_share_type,omitempty"`
-
-	// Bandwidth size. Required when creating a new EIP.
-	BandwidthSize *float64 `json:"bandwidthSize,omitempty" tf:"bandwidth_size,omitempty"`
-
 	// ID of an existing elastic IP. Required when using existing EIP.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.EIPV1
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -524,10 +513,6 @@ type PublicIPInitParameters struct {
 	// Selector for a EIPV1 in vpc to populate id.
 	// +kubebuilder:validation:Optional
 	IDSelector *v1.NamespacedSelector `json:"idSelector,omitempty" tf:"-"`
-
-	// Elastic IP type. The value can be 5_bgp or 5_mailbgp.
-	// Required when creating a new EIP.
-	IPType *string `json:"ipType,omitempty" tf:"ip_type,omitempty"`
 }
 
 type PublicIPObservation struct {
@@ -558,23 +543,6 @@ type PublicIPObservation struct {
 
 type PublicIPParameters struct {
 
-	// Bandwidth billing type. Possible value is traffic.
-	// +kubebuilder:validation:Optional
-	BandwidthChargeMode *string `json:"bandwidthChargeMode,omitempty" tf:"bandwidth_charge_mode,omitempty"`
-
-	// Bandwidth name. Required when creating a new EIP.
-	// +kubebuilder:validation:Optional
-	BandwidthName *string `json:"bandwidthName,omitempty" tf:"bandwidth_name,omitempty"`
-
-	// Bandwidth sharing type. Possible values are: PER, WHOLE.
-	// Required when creating a new EIP.
-	// +kubebuilder:validation:Optional
-	BandwidthShareType *string `json:"bandwidthShareType,omitempty" tf:"bandwidth_share_type,omitempty"`
-
-	// Bandwidth size. Required when creating a new EIP.
-	// +kubebuilder:validation:Optional
-	BandwidthSize *float64 `json:"bandwidthSize,omitempty" tf:"bandwidth_size,omitempty"`
-
 	// ID of an existing elastic IP. Required when using existing EIP.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.EIPV1
 	// +kubebuilder:validation:Optional
@@ -587,11 +555,6 @@ type PublicIPParameters struct {
 	// Selector for a EIPV1 in vpc to populate id.
 	// +kubebuilder:validation:Optional
 	IDSelector *v1.NamespacedSelector `json:"idSelector,omitempty" tf:"-"`
-
-	// Elastic IP type. The value can be 5_bgp or 5_mailbgp.
-	// Required when creating a new EIP.
-	// +kubebuilder:validation:Optional
-	IPType *string `json:"ipType,omitempty" tf:"ip_type,omitempty"`
 }
 
 // LoadbalancerV3Spec defines the desired state of LoadbalancerV3

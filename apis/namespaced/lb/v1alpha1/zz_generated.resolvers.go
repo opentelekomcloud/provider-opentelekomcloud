@@ -345,7 +345,7 @@ func (mg *LoadbalancerV3) ResolveReferences(ctx context.Context, c client.Reader
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.SubnetID),
-		Extract:      reference.ExternalName(),
+		Extract:      common.ExtractSubnetID(),
 		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.ForProvider.SubnetRef,
 		Selector:     mg.Spec.ForProvider.SubnetSelector,
@@ -415,7 +415,7 @@ func (mg *LoadbalancerV3) ResolveReferences(ctx context.Context, c client.Reader
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.SubnetID),
-		Extract:      reference.ExternalName(),
+		Extract:      common.ExtractSubnetID(),
 		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.InitProvider.SubnetRef,
 		Selector:     mg.Spec.InitProvider.SubnetSelector,
