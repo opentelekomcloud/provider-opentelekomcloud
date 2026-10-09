@@ -720,6 +720,12 @@ type VolumeInitParameters struct {
 	// Specifies the key ID for disk encryption. Changing this parameter will create a new resource.
 	DiskEncryptionID *string `json:"diskEncryptionId,omitempty" tf:"disk_encryption_id,omitempty"`
 
+	// Specifies the IOPS of the volume. This parameter is available only
+	// when type is set to GPSSD2, where it is mandatory. The value ranges from 3,000 to 128,000 and
+	// must be no greater than 500 times the volume size.
+	// Changing this parameter will create a new resource.
+	Iops *float64 `json:"iops,omitempty" tf:"iops,omitempty"`
+
 	// Specifies the upper limit of automatic expansion of storage, in GB.
 	// The value ranges from 40 GB to 4,000 GB and must be no less than the current storage of the instance.
 	// If this parameter is configured, trigger_threshold is mandatory.
@@ -729,14 +735,20 @@ type VolumeInitParameters struct {
 	// GB. The value must be a multiple of 10. Changing this resize the volume.
 	Size *float64 `json:"size,omitempty" tf:"size,omitempty"`
 
+	// Specifies the throughput of the volume, in MiB/s. This
+	// parameter is available only when type is set to GPSSD2, where it is mandatory. The value ranges
+	// from 125 to 1,000 and must be no greater than iops divided by 4.
+	// Changing this parameter will create a new resource.
+	Throughput *float64 `json:"throughput,omitempty" tf:"throughput,omitempty"`
+
 	// Specifies the threshold to trigger automatic expansion.
 	// If this parameter is configured, limit_size is mandatory.
 	// If the available storage drops to this threshold or 10 GB, the automatic expansion is triggered.
 	// The valid values are as follows:
 	TriggerThreshold *float64 `json:"triggerThreshold,omitempty" tf:"trigger_threshold,omitempty"`
 
-	// Specifies the volume type. Changing this resize the volume. Its value can be any of the following
-	// and is case-sensitive:
+	// Specifies the volume type. Changing this parameter will create a new resource.
+	// Its value can be any of the following and is case-sensitive:
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
@@ -745,6 +757,12 @@ type VolumeObservation struct {
 	// Specifies the key ID for disk encryption. Changing this parameter will create a new resource.
 	DiskEncryptionID *string `json:"diskEncryptionId,omitempty" tf:"disk_encryption_id,omitempty"`
 
+	// Specifies the IOPS of the volume. This parameter is available only
+	// when type is set to GPSSD2, where it is mandatory. The value ranges from 3,000 to 128,000 and
+	// must be no greater than 500 times the volume size.
+	// Changing this parameter will create a new resource.
+	Iops *float64 `json:"iops,omitempty" tf:"iops,omitempty"`
+
 	// Specifies the upper limit of automatic expansion of storage, in GB.
 	// The value ranges from 40 GB to 4,000 GB and must be no less than the current storage of the instance.
 	// If this parameter is configured, trigger_threshold is mandatory.
@@ -754,14 +772,20 @@ type VolumeObservation struct {
 	// GB. The value must be a multiple of 10. Changing this resize the volume.
 	Size *float64 `json:"size,omitempty" tf:"size,omitempty"`
 
+	// Specifies the throughput of the volume, in MiB/s. This
+	// parameter is available only when type is set to GPSSD2, where it is mandatory. The value ranges
+	// from 125 to 1,000 and must be no greater than iops divided by 4.
+	// Changing this parameter will create a new resource.
+	Throughput *float64 `json:"throughput,omitempty" tf:"throughput,omitempty"`
+
 	// Specifies the threshold to trigger automatic expansion.
 	// If this parameter is configured, limit_size is mandatory.
 	// If the available storage drops to this threshold or 10 GB, the automatic expansion is triggered.
 	// The valid values are as follows:
 	TriggerThreshold *float64 `json:"triggerThreshold,omitempty" tf:"trigger_threshold,omitempty"`
 
-	// Specifies the volume type. Changing this resize the volume. Its value can be any of the following
-	// and is case-sensitive:
+	// Specifies the volume type. Changing this parameter will create a new resource.
+	// Its value can be any of the following and is case-sensitive:
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
@@ -770,6 +794,13 @@ type VolumeParameters struct {
 	// Specifies the key ID for disk encryption. Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
 	DiskEncryptionID *string `json:"diskEncryptionId,omitempty" tf:"disk_encryption_id,omitempty"`
+
+	// Specifies the IOPS of the volume. This parameter is available only
+	// when type is set to GPSSD2, where it is mandatory. The value ranges from 3,000 to 128,000 and
+	// must be no greater than 500 times the volume size.
+	// Changing this parameter will create a new resource.
+	// +kubebuilder:validation:Optional
+	Iops *float64 `json:"iops,omitempty" tf:"iops,omitempty"`
 
 	// Specifies the upper limit of automatic expansion of storage, in GB.
 	// The value ranges from 40 GB to 4,000 GB and must be no less than the current storage of the instance.
@@ -782,6 +813,13 @@ type VolumeParameters struct {
 	// +kubebuilder:validation:Optional
 	Size *float64 `json:"size" tf:"size,omitempty"`
 
+	// Specifies the throughput of the volume, in MiB/s. This
+	// parameter is available only when type is set to GPSSD2, where it is mandatory. The value ranges
+	// from 125 to 1,000 and must be no greater than iops divided by 4.
+	// Changing this parameter will create a new resource.
+	// +kubebuilder:validation:Optional
+	Throughput *float64 `json:"throughput,omitempty" tf:"throughput,omitempty"`
+
 	// Specifies the threshold to trigger automatic expansion.
 	// If this parameter is configured, limit_size is mandatory.
 	// If the available storage drops to this threshold or 10 GB, the automatic expansion is triggered.
@@ -789,8 +827,8 @@ type VolumeParameters struct {
 	// +kubebuilder:validation:Optional
 	TriggerThreshold *float64 `json:"triggerThreshold,omitempty" tf:"trigger_threshold,omitempty"`
 
-	// Specifies the volume type. Changing this resize the volume. Its value can be any of the following
-	// and is case-sensitive:
+	// Specifies the volume type. Changing this parameter will create a new resource.
+	// Its value can be any of the following and is case-sensitive:
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type" tf:"type,omitempty"`
 }

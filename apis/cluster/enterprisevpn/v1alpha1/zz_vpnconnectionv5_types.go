@@ -350,6 +350,10 @@ type VPNConnectionV5InitParameters struct {
 	// Whether to enable NQA check. Defaults to false.
 	EnableNqa *bool `json:"enableNqa,omitempty" tf:"enable_nqa,omitempty"`
 
+	// Specifies the enterprise project ID of the VPN connection.
+	// Changing this parameter creates a new resource.
+	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
+
 	// The VPN gateway ID.
 	GatewayID *string `json:"gatewayId,omitempty" tf:"gateway_id,omitempty"`
 
@@ -413,6 +417,10 @@ type VPNConnectionV5Observation struct {
 
 	// Whether to enable NQA check. Defaults to false.
 	EnableNqa *bool `json:"enableNqa,omitempty" tf:"enable_nqa,omitempty"`
+
+	// Specifies the enterprise project ID of the VPN connection.
+	// Changing this parameter creates a new resource.
+	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
 
 	// The VPN gateway ID.
 	GatewayID *string `json:"gatewayId,omitempty" tf:"gateway_id,omitempty"`
@@ -488,6 +496,11 @@ type VPNConnectionV5Parameters struct {
 	// Whether to enable NQA check. Defaults to false.
 	// +kubebuilder:validation:Optional
 	EnableNqa *bool `json:"enableNqa,omitempty" tf:"enable_nqa,omitempty"`
+
+	// Specifies the enterprise project ID of the VPN connection.
+	// Changing this parameter creates a new resource.
+	// +kubebuilder:validation:Optional
+	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
 
 	// The VPN gateway ID.
 	// +kubebuilder:validation:Optional

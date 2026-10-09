@@ -93,6 +93,11 @@ spec:
                       Whether to enable the propagation of the default route table.
                       The default value is false.
                     type: boolean
+                  enterpriseProjectId:
+                    description: |-
+                      The enterprise project ID of the ER instance.
+                      Changing this parameter creates a new resource.
+                    type: string
                   name:
                     description: |-
                       The router name.
@@ -152,6 +157,11 @@ spec:
                       Whether to enable the propagation of the default route table.
                       The default value is false.
                     type: boolean
+                  enterpriseProjectId:
+                    description: |-
+                      The enterprise project ID of the ER instance.
+                      Changing this parameter creates a new resource.
+                    type: string
                   name:
                     description: |-
                       The router name.
@@ -283,6 +293,11 @@ spec:
                       Whether to enable the propagation of the default route table.
                       The default value is false.
                     type: boolean
+                  enterpriseProjectId:
+                    description: |-
+                      The enterprise project ID of the ER instance.
+                      Changing this parameter creates a new resource.
+                    type: string
                   id:
                     description: The resource ID.
                     type: string

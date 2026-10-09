@@ -59,47 +59,56 @@ type BackupStrategyParameters struct {
 
 type DatastoreInitParameters struct {
 
-	// Specifies the database engine. Only "GeminiDB-Cassandra" is supported now.
-	// Changing this parameter will create a new resource.
+	// Specifies the compatible API. The value can be cassandra for a
+	// GeminiDB Cassandra instance or influxdb for a GeminiDB Influx instance. Defaults to cassandra when the
+	// datastore block is omitted. Changing this parameter will create a new resource.
 	Engine *string `json:"engine,omitempty" tf:"engine,omitempty"`
 
-	// Specifies the storage engine. Only "rocksDB" is supported now.
-	// Changing this parameter will create a new resource.
+	// Specifies the storage engine. Only rocksDB is supported now,
+	// for both compatible APIs. Changing this parameter will create a new resource.
 	StorageEngine *string `json:"storageEngine,omitempty" tf:"storage_engine,omitempty"`
 
-	// Specifies the database version.
+	// Specifies the database version. Use 3.11 for GeminiDB Cassandra and
+	// 1.7 for GeminiDB Influx. The versions actually available in your region can be queried with the
+	// opentelekomcloud_gemini_datastores_v3 data source. Defaults to 3.11 when the datastore block is omitted.
 	// Changing this parameter will create a new resource.
 	Version *string `json:"version,omitempty" tf:"version,omitempty"`
 }
 
 type DatastoreObservation struct {
 
-	// Specifies the database engine. Only "GeminiDB-Cassandra" is supported now.
-	// Changing this parameter will create a new resource.
+	// Specifies the compatible API. The value can be cassandra for a
+	// GeminiDB Cassandra instance or influxdb for a GeminiDB Influx instance. Defaults to cassandra when the
+	// datastore block is omitted. Changing this parameter will create a new resource.
 	Engine *string `json:"engine,omitempty" tf:"engine,omitempty"`
 
-	// Specifies the storage engine. Only "rocksDB" is supported now.
-	// Changing this parameter will create a new resource.
+	// Specifies the storage engine. Only rocksDB is supported now,
+	// for both compatible APIs. Changing this parameter will create a new resource.
 	StorageEngine *string `json:"storageEngine,omitempty" tf:"storage_engine,omitempty"`
 
-	// Specifies the database version.
+	// Specifies the database version. Use 3.11 for GeminiDB Cassandra and
+	// 1.7 for GeminiDB Influx. The versions actually available in your region can be queried with the
+	// opentelekomcloud_gemini_datastores_v3 data source. Defaults to 3.11 when the datastore block is omitted.
 	// Changing this parameter will create a new resource.
 	Version *string `json:"version,omitempty" tf:"version,omitempty"`
 }
 
 type DatastoreParameters struct {
 
-	// Specifies the database engine. Only "GeminiDB-Cassandra" is supported now.
-	// Changing this parameter will create a new resource.
+	// Specifies the compatible API. The value can be cassandra for a
+	// GeminiDB Cassandra instance or influxdb for a GeminiDB Influx instance. Defaults to cassandra when the
+	// datastore block is omitted. Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
 	Engine *string `json:"engine" tf:"engine,omitempty"`
 
-	// Specifies the storage engine. Only "rocksDB" is supported now.
-	// Changing this parameter will create a new resource.
+	// Specifies the storage engine. Only rocksDB is supported now,
+	// for both compatible APIs. Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
 	StorageEngine *string `json:"storageEngine" tf:"storage_engine,omitempty"`
 
-	// Specifies the database version.
+	// Specifies the database version. Use 3.11 for GeminiDB Cassandra and
+	// 1.7 for GeminiDB Influx. The versions actually available in your region can be queried with the
+	// opentelekomcloud_gemini_datastores_v3 data source. Defaults to 3.11 when the datastore block is omitted.
 	// Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
 	Version *string `json:"version" tf:"version,omitempty"`
@@ -122,8 +131,16 @@ type InstanceV3InitParameters struct {
 	// this parameter will create a new resource.
 	Datastore []DatastoreInitParameters `json:"datastore,omitempty" tf:"datastore,omitempty"`
 
-	// Specifies the instance specifications. For details,
-	// see DB Instance Specifications.
+	// Specifies the enterprise project ID the instance belongs
+	// to. Leave it empty if the Enterprise Project Management Service is not enabled, otherwise the default enterprise
+	// project is used when the value is not set. Changing this parameter will create a new resource.
+	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
+
+	// Specifies the instance specifications, for example
+	// geminidb.cassandra.xlarge.8 or geminidb.influxdb-geminifs.xlarge.4. The flavor must match the engine
+	// selected in the datastore block. The available values can be queried with the
+	// opentelekomcloud_gemini_flavors_v3 data source, for details see
+	// DB Instance Specifications.
 	Flavor *string `json:"flavor,omitempty" tf:"flavor,omitempty"`
 
 	// Specifies the instance name, which can be the same as an existing instance name. The value
@@ -160,9 +177,9 @@ type InstanceV3InitParameters struct {
 	// Specifies the VPC ID. Changing this parameter will create a new resource.
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
 
-	// Specifies the storage space in GB. The value must be a multiple of 10. For a GeminiDB
-	// Cassandra DB instance, the minimum storage space is 100 GB, and the maximum storage space is related to the instance
-	// performance specifications.
+	// Specifies the storage space in GB. The value must be a multiple of 10. For both
+	// GeminiDB Cassandra and GeminiDB Influx DB instances, the minimum storage space is 100 GB, and the maximum storage
+	// space is related to the instance performance specifications.
 	VolumeSize *float64 `json:"volumeSize,omitempty" tf:"volume_size,omitempty"`
 }
 
@@ -186,14 +203,23 @@ type InstanceV3Observation struct {
 	// this parameter will create a new resource.
 	Datastore []DatastoreObservation `json:"datastore,omitempty" tf:"datastore,omitempty"`
 
-	// Specifies the instance specifications. For details,
-	// see DB Instance Specifications.
+	// Specifies the enterprise project ID the instance belongs
+	// to. Leave it empty if the Enterprise Project Management Service is not enabled, otherwise the default enterprise
+	// project is used when the value is not set. Changing this parameter will create a new resource.
+	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
+
+	// Specifies the instance specifications, for example
+	// geminidb.cassandra.xlarge.8 or geminidb.influxdb-geminifs.xlarge.4. The flavor must match the engine
+	// selected in the datastore block. The available values can be queried with the
+	// opentelekomcloud_gemini_flavors_v3 data source, for details see
+	// DB Instance Specifications.
 	Flavor *string `json:"flavor,omitempty" tf:"flavor,omitempty"`
 
 	// Indicates the DB instance ID.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// Indicates the instance type.
+	// Indicates the DB instance type. Cluster for GeminiDB Cassandra and CloudNativeCluster for
+	// GeminiDB Influx.
 	Mode *string `json:"mode,omitempty" tf:"mode,omitempty"`
 
 	// Specifies the instance name, which can be the same as an existing instance name. The value
@@ -240,9 +266,9 @@ type InstanceV3Observation struct {
 	// Specifies the VPC ID. Changing this parameter will create a new resource.
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
 
-	// Specifies the storage space in GB. The value must be a multiple of 10. For a GeminiDB
-	// Cassandra DB instance, the minimum storage space is 100 GB, and the maximum storage space is related to the instance
-	// performance specifications.
+	// Specifies the storage space in GB. The value must be a multiple of 10. For both
+	// GeminiDB Cassandra and GeminiDB Influx DB instances, the minimum storage space is 100 GB, and the maximum storage
+	// space is related to the instance performance specifications.
 	VolumeSize *float64 `json:"volumeSize,omitempty" tf:"volume_size,omitempty"`
 }
 
@@ -267,8 +293,17 @@ type InstanceV3Parameters struct {
 	// +kubebuilder:validation:Optional
 	Datastore []DatastoreParameters `json:"datastore,omitempty" tf:"datastore,omitempty"`
 
-	// Specifies the instance specifications. For details,
-	// see DB Instance Specifications.
+	// Specifies the enterprise project ID the instance belongs
+	// to. Leave it empty if the Enterprise Project Management Service is not enabled, otherwise the default enterprise
+	// project is used when the value is not set. Changing this parameter will create a new resource.
+	// +kubebuilder:validation:Optional
+	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
+
+	// Specifies the instance specifications, for example
+	// geminidb.cassandra.xlarge.8 or geminidb.influxdb-geminifs.xlarge.4. The flavor must match the engine
+	// selected in the datastore block. The available values can be queried with the
+	// opentelekomcloud_gemini_flavors_v3 data source, for details see
+	// DB Instance Specifications.
 	// +kubebuilder:validation:Optional
 	Flavor *string `json:"flavor,omitempty" tf:"flavor,omitempty"`
 
@@ -315,9 +350,9 @@ type InstanceV3Parameters struct {
 	// +kubebuilder:validation:Optional
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
 
-	// Specifies the storage space in GB. The value must be a multiple of 10. For a GeminiDB
-	// Cassandra DB instance, the minimum storage space is 100 GB, and the maximum storage space is related to the instance
-	// performance specifications.
+	// Specifies the storage space in GB. The value must be a multiple of 10. For both
+	// GeminiDB Cassandra and GeminiDB Influx DB instances, the minimum storage space is 100 GB, and the maximum storage
+	// space is related to the instance performance specifications.
 	// +kubebuilder:validation:Optional
 	VolumeSize *float64 `json:"volumeSize,omitempty" tf:"volume_size,omitempty"`
 }

@@ -1050,6 +1050,11 @@ func (in *VPNConnectionV5InitParameters) DeepCopyInto(out *VPNConnectionV5InitPa
 		*out = new(bool)
 		**out = **in
 	}
+	if in.EnterpriseProjectID != nil {
+		in, out := &in.EnterpriseProjectID, &out.EnterpriseProjectID
+		*out = new(string)
+		**out = **in
+	}
 	if in.GatewayID != nil {
 		in, out := &in.GatewayID, &out.GatewayID
 		*out = new(string)
@@ -1200,6 +1205,11 @@ func (in *VPNConnectionV5Observation) DeepCopyInto(out *VPNConnectionV5Observati
 		*out = new(bool)
 		**out = **in
 	}
+	if in.EnterpriseProjectID != nil {
+		in, out := &in.EnterpriseProjectID, &out.EnterpriseProjectID
+		*out = new(string)
+		**out = **in
+	}
 	if in.GatewayID != nil {
 		in, out := &in.GatewayID, &out.GatewayID
 		*out = new(string)
@@ -1331,6 +1341,11 @@ func (in *VPNConnectionV5Parameters) DeepCopyInto(out *VPNConnectionV5Parameters
 	if in.EnableNqa != nil {
 		in, out := &in.EnableNqa, &out.EnableNqa
 		*out = new(bool)
+		**out = **in
+	}
+	if in.EnterpriseProjectID != nil {
+		in, out := &in.EnterpriseProjectID, &out.EnterpriseProjectID
+		*out = new(string)
 		**out = **in
 	}
 	if in.GatewayID != nil {
@@ -1840,6 +1855,11 @@ func (in *VPNGatewayV5InitParameters) DeepCopyInto(out *VPNGatewayV5InitParamete
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.EnterpriseProjectID != nil {
+		in, out := &in.EnterpriseProjectID, &out.EnterpriseProjectID
+		*out = new(string)
+		**out = **in
+	}
 	if in.ErID != nil {
 		in, out := &in.ErID, &out.ErID
 		*out = new(string)
@@ -2014,6 +2034,11 @@ func (in *VPNGatewayV5Observation) DeepCopyInto(out *VPNGatewayV5Observation) {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.EnterpriseProjectID != nil {
+		in, out := &in.EnterpriseProjectID, &out.EnterpriseProjectID
+		*out = new(string)
+		**out = **in
+	}
 	if in.ErAttachmentID != nil {
 		in, out := &in.ErAttachmentID, &out.ErAttachmentID
 		*out = new(string)
@@ -2185,6 +2210,11 @@ func (in *VPNGatewayV5Parameters) DeepCopyInto(out *VPNGatewayV5Parameters) {
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.EnterpriseProjectID != nil {
+		in, out := &in.EnterpriseProjectID, &out.EnterpriseProjectID
+		*out = new(string)
+		**out = **in
 	}
 	if in.ErID != nil {
 		in, out := &in.ErID, &out.ErID

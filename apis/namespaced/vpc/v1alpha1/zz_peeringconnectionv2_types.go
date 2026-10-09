@@ -58,6 +58,9 @@ type PeeringConnectionV2InitParameters struct {
 
 type PeeringConnectionV2Observation struct {
 
+	// The UTC time when the VPC peering connection was created.
+	CreatedAt *string `json:"createdAt,omitempty" tf:"created_at,omitempty"`
+
 	// Specifies the description of the VPC peering connection.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
@@ -78,8 +81,14 @@ type PeeringConnectionV2Observation struct {
 	// The VPC peering connection status. The value can be PENDING_ACCEPTANCE, REJECTED, EXPIRED, DELETED, or ACTIVE.
 	Status *string `json:"status,omitempty" tf:"status,omitempty"`
 
+	// The UTC time when the VPC peering connection was last updated.
+	UpdatedAt *string `json:"updatedAt,omitempty" tf:"updated_at,omitempty"`
+
 	// Specifies the ID of a VPC involved in a VPC peering connection. Changing this creates a new VPC peering connection.
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
+
+	// The project ID of the requester VPC.
+	VPCTenantID *string `json:"vpcTenantId,omitempty" tf:"vpc_tenant_id,omitempty"`
 }
 
 type PeeringConnectionV2Parameters struct {

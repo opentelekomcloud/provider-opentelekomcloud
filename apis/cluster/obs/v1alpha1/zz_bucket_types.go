@@ -50,6 +50,12 @@ type BucketInitParameters struct {
 	// A rule of Cross-Origin Resource Sharing (documented below).
 	CorsRule []CorsRuleInitParameters `json:"corsRule,omitempty" tf:"cors_rule,omitempty"`
 
+	// Specifies the enterprise project ID of the bucket. Defaults to the
+	// provider's enterprise project ID, or the default enterprise project (0) when none is configured.
+	// Changing this value migrates the bucket to the target enterprise project through EPS without recreating it.
+	// EPS permissions are required for updates. The timeouts.update setting defaults to 5 minutes.
+	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
+
 	// A configuration of bucket event notifications (documented below).
 	EventNotifications []EventNotificationsInitParameters `json:"eventNotifications,omitempty" tf:"event_notifications,omitempty"`
 
@@ -120,6 +126,12 @@ type BucketObservation struct {
 	// A rule of Cross-Origin Resource Sharing (documented below).
 	CorsRule []CorsRuleObservation `json:"corsRule,omitempty" tf:"cors_rule,omitempty"`
 
+	// Specifies the enterprise project ID of the bucket. Defaults to the
+	// provider's enterprise project ID, or the default enterprise project (0) when none is configured.
+	// Changing this value migrates the bucket to the target enterprise project through EPS without recreating it.
+	// EPS permissions are required for updates. The timeouts.update setting defaults to 5 minutes.
+	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
+
 	// A configuration of bucket event notifications (documented below).
 	EventNotifications []EventNotificationsObservation `json:"eventNotifications,omitempty" tf:"event_notifications,omitempty"`
 
@@ -189,6 +201,13 @@ type BucketParameters struct {
 	// A rule of Cross-Origin Resource Sharing (documented below).
 	// +kubebuilder:validation:Optional
 	CorsRule []CorsRuleParameters `json:"corsRule,omitempty" tf:"cors_rule,omitempty"`
+
+	// Specifies the enterprise project ID of the bucket. Defaults to the
+	// provider's enterprise project ID, or the default enterprise project (0) when none is configured.
+	// Changing this value migrates the bucket to the target enterprise project through EPS without recreating it.
+	// EPS permissions are required for updates. The timeouts.update setting defaults to 5 minutes.
+	// +kubebuilder:validation:Optional
+	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
 
 	// A configuration of bucket event notifications (documented below).
 	// +kubebuilder:validation:Optional

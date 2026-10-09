@@ -91,6 +91,10 @@ type ServiceV1InitParameters struct {
 	// Specifies the description of the VPC endpoint service.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	// Specifies the enterprise project ID of the VPC endpoint
+	// service. Changing this parameter creates a new resource.
+	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
+
 	// Specifies the name of the VPC endpoint service.
 	// The value contains a maximum of 16 characters, including letters, digits, underscores (_), and hyphens (-).
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -142,6 +146,10 @@ type ServiceV1Observation struct {
 
 	// Specifies the description of the VPC endpoint service.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// Specifies the enterprise project ID of the VPC endpoint
+	// service. Changing this parameter creates a new resource.
+	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
 
 	// ID of VPC endpoint service
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -199,6 +207,11 @@ type ServiceV1Parameters struct {
 	// Specifies the description of the VPC endpoint service.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// Specifies the enterprise project ID of the VPC endpoint
+	// service. Changing this parameter creates a new resource.
+	// +kubebuilder:validation:Optional
+	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
 
 	// Specifies the name of the VPC endpoint service.
 	// The value contains a maximum of 16 characters, including letters, digits, underscores (_), and hyphens (-).

@@ -96,25 +96,37 @@ spec:
                       properties:
                         engine:
                           description: |-
-                            Specifies the database engine. Only "GeminiDB-Cassandra" is supported now.
-                            Changing this parameter will create a new resource.
+                            Specifies the compatible API. The value can be cassandra for a
+                            GeminiDB Cassandra instance or influxdb for a GeminiDB Influx instance. Defaults to cassandra when the
+                            datastore block is omitted. Changing this parameter will create a new resource.
                           type: string
                         storageEngine:
                           description: |-
-                            Specifies the storage engine. Only "rocksDB" is supported now.
-                            Changing this parameter will create a new resource.
+                            Specifies the storage engine. Only rocksDB is supported now,
+                            for both compatible APIs. Changing this parameter will create a new resource.
                           type: string
                         version:
                           description: |-
-                            Specifies the database version.
+                            Specifies the database version. Use 3.11 for GeminiDB Cassandra and
+                            1.7 for GeminiDB Influx. The versions actually available in your region can be queried with the
+                            opentelekomcloud_gemini_datastores_v3 data source. Defaults to 3.11 when the datastore block is omitted.
                             Changing this parameter will create a new resource.
                           type: string
                       type: object
                     type: array
+                  enterpriseProjectId:
+                    description: |-
+                      Specifies the enterprise project ID the instance belongs
+                      to. Leave it empty if the Enterprise Project Management Service is not enabled, otherwise the default enterprise
+                      project is used when the value is not set. Changing this parameter will create a new resource.
+                    type: string
                   flavor:
                     description: |-
-                      Specifies the instance specifications. For details,
-                      see DB Instance Specifications.
+                      Specifies the instance specifications, for example
+                      geminidb.cassandra.xlarge.8 or geminidb.influxdb-geminifs.xlarge.4. The flavor must match the engine
+                      selected in the datastore block. The available values can be queried with the
+                      opentelekomcloud_gemini_flavors_v3 data source, for details see
+                      DB Instance Specifications.
                     type: string
                   name:
                     description: |-
@@ -166,9 +178,9 @@ spec:
                     x-kubernetes-map-type: granular
                   volumeSize:
                     description: |-
-                      Specifies the storage space in GB. The value must be a multiple of 10. For a GeminiDB
-                      Cassandra DB instance, the minimum storage space is 100 GB, and the maximum storage space is related to the instance
-                      performance specifications.
+                      Specifies the storage space in GB. The value must be a multiple of 10. For both
+                      GeminiDB Cassandra and GeminiDB Influx DB instances, the minimum storage space is 100 GB, and the maximum storage
+                      space is related to the instance performance specifications.
                     type: number
                   vpcId:
                     description: Specifies the VPC ID. Changing this parameter will
@@ -225,25 +237,37 @@ spec:
                       properties:
                         engine:
                           description: |-
-                            Specifies the database engine. Only "GeminiDB-Cassandra" is supported now.
-                            Changing this parameter will create a new resource.
+                            Specifies the compatible API. The value can be cassandra for a
+                            GeminiDB Cassandra instance or influxdb for a GeminiDB Influx instance. Defaults to cassandra when the
+                            datastore block is omitted. Changing this parameter will create a new resource.
                           type: string
                         storageEngine:
                           description: |-
-                            Specifies the storage engine. Only "rocksDB" is supported now.
-                            Changing this parameter will create a new resource.
+                            Specifies the storage engine. Only rocksDB is supported now,
+                            for both compatible APIs. Changing this parameter will create a new resource.
                           type: string
                         version:
                           description: |-
-                            Specifies the database version.
+                            Specifies the database version. Use 3.11 for GeminiDB Cassandra and
+                            1.7 for GeminiDB Influx. The versions actually available in your region can be queried with the
+                            opentelekomcloud_gemini_datastores_v3 data source. Defaults to 3.11 when the datastore block is omitted.
                             Changing this parameter will create a new resource.
                           type: string
                       type: object
                     type: array
+                  enterpriseProjectId:
+                    description: |-
+                      Specifies the enterprise project ID the instance belongs
+                      to. Leave it empty if the Enterprise Project Management Service is not enabled, otherwise the default enterprise
+                      project is used when the value is not set. Changing this parameter will create a new resource.
+                    type: string
                   flavor:
                     description: |-
-                      Specifies the instance specifications. For details,
-                      see DB Instance Specifications.
+                      Specifies the instance specifications, for example
+                      geminidb.cassandra.xlarge.8 or geminidb.influxdb-geminifs.xlarge.4. The flavor must match the engine
+                      selected in the datastore block. The available values can be queried with the
+                      opentelekomcloud_gemini_flavors_v3 data source, for details see
+                      DB Instance Specifications.
                     type: string
                   name:
                     description: |-
@@ -295,9 +319,9 @@ spec:
                     x-kubernetes-map-type: granular
                   volumeSize:
                     description: |-
-                      Specifies the storage space in GB. The value must be a multiple of 10. For a GeminiDB
-                      Cassandra DB instance, the minimum storage space is 100 GB, and the maximum storage space is related to the instance
-                      performance specifications.
+                      Specifies the storage space in GB. The value must be a multiple of 10. For both
+                      GeminiDB Cassandra and GeminiDB Influx DB instances, the minimum storage space is 100 GB, and the maximum storage
+                      space is related to the instance performance specifications.
                     type: number
                   vpcId:
                     description: Specifies the VPC ID. Changing this parameter will
@@ -434,17 +458,20 @@ spec:
                       properties:
                         engine:
                           description: |-
-                            Specifies the database engine. Only "GeminiDB-Cassandra" is supported now.
-                            Changing this parameter will create a new resource.
+                            Specifies the compatible API. The value can be cassandra for a
+                            GeminiDB Cassandra instance or influxdb for a GeminiDB Influx instance. Defaults to cassandra when the
+                            datastore block is omitted. Changing this parameter will create a new resource.
                           type: string
                         storageEngine:
                           description: |-
-                            Specifies the storage engine. Only "rocksDB" is supported now.
-                            Changing this parameter will create a new resource.
+                            Specifies the storage engine. Only rocksDB is supported now,
+                            for both compatible APIs. Changing this parameter will create a new resource.
                           type: string
                         version:
                           description: |-
-                            Specifies the database version.
+                            Specifies the database version. Use 3.11 for GeminiDB Cassandra and
+                            1.7 for GeminiDB Influx. The versions actually available in your region can be queried with the
+                            opentelekomcloud_gemini_datastores_v3 data source. Defaults to 3.11 when the datastore block is omitted.
                             Changing this parameter will create a new resource.
                           type: string
                       type: object
@@ -452,16 +479,27 @@ spec:
                   dbUserName:
                     description: Indicates the default username.
                     type: string
+                  enterpriseProjectId:
+                    description: |-
+                      Specifies the enterprise project ID the instance belongs
+                      to. Leave it empty if the Enterprise Project Management Service is not enabled, otherwise the default enterprise
+                      project is used when the value is not set. Changing this parameter will create a new resource.
+                    type: string
                   flavor:
                     description: |-
-                      Specifies the instance specifications. For details,
-                      see DB Instance Specifications.
+                      Specifies the instance specifications, for example
+                      geminidb.cassandra.xlarge.8 or geminidb.influxdb-geminifs.xlarge.4. The flavor must match the engine
+                      selected in the datastore block. The available values can be queried with the
+                      opentelekomcloud_gemini_flavors_v3 data source, for details see
+                      DB Instance Specifications.
                     type: string
                   id:
                     description: Indicates the DB instance ID.
                     type: string
                   mode:
-                    description: Indicates the instance type.
+                    description: |-
+                      Indicates the DB instance type. Cluster for GeminiDB Cassandra and CloudNativeCluster for
+                      GeminiDB Influx.
                     type: string
                   name:
                     description: |-
@@ -535,9 +573,9 @@ spec:
                     x-kubernetes-map-type: granular
                   volumeSize:
                     description: |-
-                      Specifies the storage space in GB. The value must be a multiple of 10. For a GeminiDB
-                      Cassandra DB instance, the minimum storage space is 100 GB, and the maximum storage space is related to the instance
-                      performance specifications.
+                      Specifies the storage space in GB. The value must be a multiple of 10. For both
+                      GeminiDB Cassandra and GeminiDB Influx DB instances, the minimum storage space is 100 GB, and the maximum storage
+                      space is related to the instance performance specifications.
                     type: number
                   vpcId:
                     description: Specifies the VPC ID. Changing this parameter will

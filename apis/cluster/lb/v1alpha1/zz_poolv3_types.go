@@ -65,6 +65,14 @@ type PoolV3InitParameters struct {
 	// +kubebuilder:validation:Optional
 	ProjectIDSelector *v1.Selector `json:"projectIdSelector,omitempty" tf:"-"`
 
+	// Specifies why modification protection is enabled. This value is valid only when
+	// protection_status is consoleProtection.
+	ProtectionReason *string `json:"protectionReason,omitempty" tf:"protection_reason,omitempty"`
+
+	// Specifies the modification protection status. Valid values are nonProtection
+	// and consoleProtection.
+	ProtectionStatus *string `json:"protectionStatus,omitempty" tf:"protection_status,omitempty"`
+
 	// Specifies the protocol used by the backend server group to receive requests.
 	// TCP, UDP, HTTP, HTTPS, and QUIC are supported.
 	Protocol *string `json:"protocol,omitempty" tf:"protocol,omitempty"`
@@ -72,7 +80,11 @@ type PoolV3InitParameters struct {
 	// Specifies whether to enable sticky sessions.
 	SessionPersistence []SessionPersistenceInitParameters `json:"sessionPersistence,omitempty" tf:"session_persistence,omitempty"`
 
-	// Specifies the sticky session type. The value can be SOURCE_IP, HTTP_COOKIE, or APP_COOKIE.
+	// Specifies the slow start configuration. This block is supported only for backend
+	// server groups using the HTTP or HTTPS protocol.
+	SlowStart []SlowStartInitParameters `json:"slowStart,omitempty" tf:"slow_start,omitempty"`
+
+	// Specifies the type of the backend server group.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// Specifies the ID of the VPC where the backend server group works.
@@ -90,8 +102,14 @@ type PoolV3InitParameters struct {
 
 type PoolV3Observation struct {
 
+	// Specifies the time when the backend server group was created.
+	CreatedAt *string `json:"createdAt,omitempty" tf:"created_at,omitempty"`
+
 	// Provides supplementary information about the backend server group.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// Specifies the ID of the health monitor associated with the backend server group.
+	HealthmonitorID *string `json:"healthmonitorId,omitempty" tf:"healthmonitor_id,omitempty"`
 
 	// Specifies the backend server group ID.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -105,19 +123,39 @@ type PoolV3Observation struct {
 	// Specifies the ID of the listener associated with the backend server group.
 	ListenerID *string `json:"listenerId,omitempty" tf:"listener_id,omitempty"`
 
+	// Lists the IDs of listeners associated with the backend server group.
+	// +listType=set
+	ListenerIds []*string `json:"listenerIds,omitempty" tf:"listener_ids,omitempty"`
+
 	// Specifies the ID of the associated load balancer.
 	LoadbalancerID *string `json:"loadbalancerId,omitempty" tf:"loadbalancer_id,omitempty"`
+
+	// Lists the IDs of load balancers associated with the backend server group.
+	// +listType=set
+	LoadbalancerIds []*string `json:"loadbalancerIds,omitempty" tf:"loadbalancer_ids,omitempty"`
 
 	// Specifies whether to enable removal protection for the pool members.
 	// true: Enable removal protection.
 	// false (default): Disable removal protection.
 	MemberDeletionProtection *bool `json:"memberDeletionProtection,omitempty" tf:"member_deletion_protection,omitempty"`
 
+	// Lists the IDs of backend servers in the backend server group.
+	// +listType=set
+	MemberIds []*string `json:"memberIds,omitempty" tf:"member_ids,omitempty"`
+
 	// Specifies the backend server group name.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Specifies the project ID.
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
+
+	// Specifies why modification protection is enabled. This value is valid only when
+	// protection_status is consoleProtection.
+	ProtectionReason *string `json:"protectionReason,omitempty" tf:"protection_reason,omitempty"`
+
+	// Specifies the modification protection status. Valid values are nonProtection
+	// and consoleProtection.
+	ProtectionStatus *string `json:"protectionStatus,omitempty" tf:"protection_status,omitempty"`
 
 	// Specifies the protocol used by the backend server group to receive requests.
 	// TCP, UDP, HTTP, HTTPS, and QUIC are supported.
@@ -126,8 +164,15 @@ type PoolV3Observation struct {
 	// Specifies whether to enable sticky sessions.
 	SessionPersistence []SessionPersistenceObservation `json:"sessionPersistence,omitempty" tf:"session_persistence,omitempty"`
 
-	// Specifies the sticky session type. The value can be SOURCE_IP, HTTP_COOKIE, or APP_COOKIE.
+	// Specifies the slow start configuration. This block is supported only for backend
+	// server groups using the HTTP or HTTPS protocol.
+	SlowStart []SlowStartObservation `json:"slowStart,omitempty" tf:"slow_start,omitempty"`
+
+	// Specifies the type of the backend server group.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+	// Specifies the time when the backend server group was last updated.
+	UpdatedAt *string `json:"updatedAt,omitempty" tf:"updated_at,omitempty"`
 
 	// Specifies the ID of the VPC where the backend server group works.
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
@@ -192,6 +237,16 @@ type PoolV3Parameters struct {
 	// +kubebuilder:validation:Optional
 	ProjectIDSelector *v1.Selector `json:"projectIdSelector,omitempty" tf:"-"`
 
+	// Specifies why modification protection is enabled. This value is valid only when
+	// protection_status is consoleProtection.
+	// +kubebuilder:validation:Optional
+	ProtectionReason *string `json:"protectionReason,omitempty" tf:"protection_reason,omitempty"`
+
+	// Specifies the modification protection status. Valid values are nonProtection
+	// and consoleProtection.
+	// +kubebuilder:validation:Optional
+	ProtectionStatus *string `json:"protectionStatus,omitempty" tf:"protection_status,omitempty"`
+
 	// Specifies the protocol used by the backend server group to receive requests.
 	// TCP, UDP, HTTP, HTTPS, and QUIC are supported.
 	// +kubebuilder:validation:Optional
@@ -201,7 +256,12 @@ type PoolV3Parameters struct {
 	// +kubebuilder:validation:Optional
 	SessionPersistence []SessionPersistenceParameters `json:"sessionPersistence,omitempty" tf:"session_persistence,omitempty"`
 
-	// Specifies the sticky session type. The value can be SOURCE_IP, HTTP_COOKIE, or APP_COOKIE.
+	// Specifies the slow start configuration. This block is supported only for backend
+	// server groups using the HTTP or HTTPS protocol.
+	// +kubebuilder:validation:Optional
+	SlowStart []SlowStartParameters `json:"slowStart,omitempty" tf:"slow_start,omitempty"`
+
+	// Specifies the type of the backend server group.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
@@ -262,6 +322,35 @@ type SessionPersistenceParameters struct {
 	// Specifies the sticky session type. The value can be SOURCE_IP, HTTP_COOKIE, or APP_COOKIE.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type" tf:"type,omitempty"`
+}
+
+type SlowStartInitParameters struct {
+
+	// Specifies the slow start duration, in seconds. The value ranges from 30 to 1200.
+	Duration *float64 `json:"duration,omitempty" tf:"duration,omitempty"`
+
+	// Specifies whether slow start is enabled.
+	Enable *bool `json:"enable,omitempty" tf:"enable,omitempty"`
+}
+
+type SlowStartObservation struct {
+
+	// Specifies the slow start duration, in seconds. The value ranges from 30 to 1200.
+	Duration *float64 `json:"duration,omitempty" tf:"duration,omitempty"`
+
+	// Specifies whether slow start is enabled.
+	Enable *bool `json:"enable,omitempty" tf:"enable,omitempty"`
+}
+
+type SlowStartParameters struct {
+
+	// Specifies the slow start duration, in seconds. The value ranges from 30 to 1200.
+	// +kubebuilder:validation:Optional
+	Duration *float64 `json:"duration,omitempty" tf:"duration,omitempty"`
+
+	// Specifies whether slow start is enabled.
+	// +kubebuilder:validation:Optional
+	Enable *bool `json:"enable,omitempty" tf:"enable,omitempty"`
 }
 
 // PoolV3Spec defines the desired state of PoolV3

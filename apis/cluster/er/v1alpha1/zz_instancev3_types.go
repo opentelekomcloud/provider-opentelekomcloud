@@ -41,6 +41,10 @@ type InstanceV3InitParameters struct {
 	// The default value is false.
 	EnableDefaultPropagation *bool `json:"enableDefaultPropagation,omitempty" tf:"enable_default_propagation,omitempty"`
 
+	// The enterprise project ID of the ER instance.
+	// Changing this parameter creates a new resource.
+	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
+
 	// The router name.
 	// The name can contain 1 to 64 characters, only letters, digits, underscore (_) and hyphens (-) are allowed.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -86,6 +90,10 @@ type InstanceV3Observation struct {
 	// Whether to enable the propagation of the default route table.
 	// The default value is false.
 	EnableDefaultPropagation *bool `json:"enableDefaultPropagation,omitempty" tf:"enable_default_propagation,omitempty"`
+
+	// The enterprise project ID of the ER instance.
+	// Changing this parameter creates a new resource.
+	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
 
 	// The resource ID.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -141,6 +149,11 @@ type InstanceV3Parameters struct {
 	// The default value is false.
 	// +kubebuilder:validation:Optional
 	EnableDefaultPropagation *bool `json:"enableDefaultPropagation,omitempty" tf:"enable_default_propagation,omitempty"`
+
+	// The enterprise project ID of the ER instance.
+	// Changing this parameter creates a new resource.
+	// +kubebuilder:validation:Optional
+	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
 
 	// The router name.
 	// The name can contain 1 to 64 characters, only letters, digits, underscore (_) and hyphens (-) are allowed.

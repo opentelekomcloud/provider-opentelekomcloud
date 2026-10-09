@@ -17,6 +17,25 @@ Test case: `bucket.yaml` - creates a basic OBS bucket with tags.
 | `${Rand.RFC1123Subdomain}` | name, `spec.forProvider.bucket` | Replace with a unique, globally-unique bucket name (lowercase, 3-63 chars, no underscores) |
 | `namespace: test` | all resources | All resources are created in the `test` namespace - adjust if needed |
 
+## bucket-eps.yaml
+
+Test case: `bucket-eps.yaml` - creates an OBS bucket with tags assigned to a
+specific enterprise project.
+
+### APIs used
+
+| Kind | Full API name |
+|------|---------------|
+| Bucket | `buckets.obs.opentelekomcloud.m.crossplane.io` |
+
+### Configuration needed
+
+| Item | Where | What to do |
+|------|-------|-----------|
+| `${Rand.RFC1123Subdomain}` | name, `spec.forProvider.bucket` | Replace with a unique, globally-unique bucket name (lowercase, 3-63 chars, no underscores) |
+| `${data.obsEP}` | Bucket `spec.forProvider.enterpriseProjectId` | Replace with the ID of the enterprise project the bucket should belong to (use the default project ID if you don't use enterprise projects) |
+| `namespace: test` | all resources | All resources are created in the `test` namespace - adjust if needed |
+
 ## bucket_encrypt.yaml
 
 Test case: `bucket_encrypt.yaml` - creates a KMS key and an OBS bucket with KMS server-side encryption.

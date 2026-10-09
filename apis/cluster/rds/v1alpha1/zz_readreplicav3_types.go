@@ -200,6 +200,16 @@ type ReadReplicaV3VolumeInitParameters struct {
 	// resource.
 	DiskEncryptionID *string `json:"diskEncryptionId,omitempty" tf:"disk_encryption_id,omitempty"`
 
+	// Specifies the IOPS of the volume. This parameter is available only when type is set to
+	// GPSSD2, where it is mandatory. The value ranges from 3,000 to 128,000 and must be no greater than 500 times the
+	// volume size. Changing this parameter will create a new resource.
+	Iops *float64 `json:"iops,omitempty" tf:"iops,omitempty"`
+
+	// Specifies the throughput of the volume, in MiB/s. This parameter is available only
+	// when type is set to GPSSD2, where it is mandatory. The value ranges from 125 to 1,000 and must be no greater
+	// than iops divided by 4. Changing this parameter will create a new resource.
+	Throughput *float64 `json:"throughput,omitempty" tf:"throughput,omitempty"`
+
 	// Specifies the volume type. Changing this parameter will create a new resource. Its value can be any of the
 	// following and is case-sensitive.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
@@ -211,8 +221,18 @@ type ReadReplicaV3VolumeObservation struct {
 	// resource.
 	DiskEncryptionID *string `json:"diskEncryptionId,omitempty" tf:"disk_encryption_id,omitempty"`
 
+	// Specifies the IOPS of the volume. This parameter is available only when type is set to
+	// GPSSD2, where it is mandatory. The value ranges from 3,000 to 128,000 and must be no greater than 500 times the
+	// volume size. Changing this parameter will create a new resource.
+	Iops *float64 `json:"iops,omitempty" tf:"iops,omitempty"`
+
 	// Indicates the volume size. Same as replicated instance disk size.
 	Size *float64 `json:"size,omitempty" tf:"size,omitempty"`
+
+	// Specifies the throughput of the volume, in MiB/s. This parameter is available only
+	// when type is set to GPSSD2, where it is mandatory. The value ranges from 125 to 1,000 and must be no greater
+	// than iops divided by 4. Changing this parameter will create a new resource.
+	Throughput *float64 `json:"throughput,omitempty" tf:"throughput,omitempty"`
 
 	// Specifies the volume type. Changing this parameter will create a new resource. Its value can be any of the
 	// following and is case-sensitive.
@@ -225,6 +245,18 @@ type ReadReplicaV3VolumeParameters struct {
 	// resource.
 	// +kubebuilder:validation:Optional
 	DiskEncryptionID *string `json:"diskEncryptionId,omitempty" tf:"disk_encryption_id,omitempty"`
+
+	// Specifies the IOPS of the volume. This parameter is available only when type is set to
+	// GPSSD2, where it is mandatory. The value ranges from 3,000 to 128,000 and must be no greater than 500 times the
+	// volume size. Changing this parameter will create a new resource.
+	// +kubebuilder:validation:Optional
+	Iops *float64 `json:"iops,omitempty" tf:"iops,omitempty"`
+
+	// Specifies the throughput of the volume, in MiB/s. This parameter is available only
+	// when type is set to GPSSD2, where it is mandatory. The value ranges from 125 to 1,000 and must be no greater
+	// than iops divided by 4. Changing this parameter will create a new resource.
+	// +kubebuilder:validation:Optional
+	Throughput *float64 `json:"throughput,omitempty" tf:"throughput,omitempty"`
 
 	// Specifies the volume type. Changing this parameter will create a new resource. Its value can be any of the
 	// following and is case-sensitive.

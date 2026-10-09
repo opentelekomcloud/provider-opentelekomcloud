@@ -591,6 +591,11 @@ func (in *InstanceV3InitParameters) DeepCopyInto(out *InstanceV3InitParameters) 
 		*out = new(bool)
 		**out = **in
 	}
+	if in.EnterpriseProjectID != nil {
+		in, out := &in.EnterpriseProjectID, &out.EnterpriseProjectID
+		*out = new(string)
+		**out = **in
+	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)
@@ -710,6 +715,11 @@ func (in *InstanceV3Observation) DeepCopyInto(out *InstanceV3Observation) {
 		*out = new(bool)
 		**out = **in
 	}
+	if in.EnterpriseProjectID != nil {
+		in, out := &in.EnterpriseProjectID, &out.EnterpriseProjectID
+		*out = new(string)
+		**out = **in
+	}
 	if in.ID != nil {
 		in, out := &in.ID, &out.ID
 		*out = new(string)
@@ -800,6 +810,11 @@ func (in *InstanceV3Parameters) DeepCopyInto(out *InstanceV3Parameters) {
 	if in.EnableDefaultPropagation != nil {
 		in, out := &in.EnableDefaultPropagation, &out.EnableDefaultPropagation
 		*out = new(bool)
+		**out = **in
+	}
+	if in.EnterpriseProjectID != nil {
+		in, out := &in.EnterpriseProjectID, &out.EnterpriseProjectID
+		*out = new(string)
 		**out = **in
 	}
 	if in.Name != nil {

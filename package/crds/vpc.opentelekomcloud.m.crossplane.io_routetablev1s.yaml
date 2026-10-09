@@ -414,6 +414,10 @@ spec:
                     description: Specifies the time (UTC) when the route table is
                       created.
                     type: string
+                  default:
+                    description: Indicates whether the route table is the default
+                      route table.
+                    type: boolean
                   description:
                     description: |-
                       Specifies the supplementary information about the route table.
@@ -466,6 +470,9 @@ spec:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
+                  tenantId:
+                    description: The project ID to which the route table belongs.
+                    type: string
                   updatedAt:
                     description: Specifies the time (UTC) when the route table is
                       updated.

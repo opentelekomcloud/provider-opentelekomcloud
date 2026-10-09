@@ -327,6 +327,13 @@ spec:
                     description: '- Whether or not to accept the peering request.
                       Defaults to false.'
                     type: boolean
+                  createdAt:
+                    description: The UTC time when the VPC peering connection was
+                      created.
+                    type: string
+                  description:
+                    description: The VPC peering connection description.
+                    type: string
                   id:
                     description: The VPC peering connection ID.
                     type: string
@@ -344,6 +351,10 @@ spec:
                   status:
                     description: The VPC peering connection status.
                     type: string
+                  updatedAt:
+                    description: The UTC time when the VPC peering connection was
+                      last updated.
+                    type: string
                   vpcId:
                     description: The ID of requester VPC involved in a VPC peering
                       connection.
@@ -351,6 +362,9 @@ spec:
                   vpcPeeringConnectionId:
                     description: The VPC Peering Connection ID to manage. Changing
                       this creates a new VPC peering connection accepter.
+                    type: string
+                  vpcTenantId:
+                    description: The project ID of the requester VPC.
                     type: string
                 type: object
               conditions:

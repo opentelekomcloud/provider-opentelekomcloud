@@ -104,6 +104,13 @@ spec:
                           type: number
                       type: object
                     type: array
+                  enterpriseProjectId:
+                    description: |-
+                      Specifies the enterprise project ID of the bucket. Defaults to the
+                      provider's enterprise project ID, or the default enterprise project (0) when none is configured.
+                      Changing this value migrates the bucket to the target enterprise project through EPS without recreating it.
+                      EPS permissions are required for updates. The timeouts.update setting defaults to 5 minutes.
+                    type: string
                   eventNotifications:
                     description: A configuration of bucket event notifications (documented
                       below).
@@ -757,6 +764,13 @@ spec:
                           type: number
                       type: object
                     type: array
+                  enterpriseProjectId:
+                    description: |-
+                      Specifies the enterprise project ID of the bucket. Defaults to the
+                      provider's enterprise project ID, or the default enterprise project (0) when none is configured.
+                      Changing this value migrates the bucket to the target enterprise project through EPS without recreating it.
+                      EPS permissions are required for updates. The timeouts.update setting defaults to 5 minutes.
+                    type: string
                   eventNotifications:
                     description: A configuration of bucket event notifications (documented
                       below).
@@ -1476,6 +1490,13 @@ spec:
                           type: number
                       type: object
                     type: array
+                  enterpriseProjectId:
+                    description: |-
+                      Specifies the enterprise project ID of the bucket. Defaults to the
+                      provider's enterprise project ID, or the default enterprise project (0) when none is configured.
+                      Changing this value migrates the bucket to the target enterprise project through EPS without recreating it.
+                      EPS permissions are required for updates. The timeouts.update setting defaults to 5 minutes.
+                    type: string
                   eventNotifications:
                     description: A configuration of bucket event notifications (documented
                       below).

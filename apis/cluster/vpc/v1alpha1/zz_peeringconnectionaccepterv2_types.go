@@ -38,6 +38,12 @@ type PeeringConnectionAccepterV2Observation struct {
 	// - Whether or not to accept the peering request. Defaults to false.
 	Accept *bool `json:"accept,omitempty" tf:"accept,omitempty"`
 
+	// The UTC time when the VPC peering connection was created.
+	CreatedAt *string `json:"createdAt,omitempty" tf:"created_at,omitempty"`
+
+	// The VPC peering connection description.
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
 	// The VPC peering connection ID.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
@@ -55,11 +61,17 @@ type PeeringConnectionAccepterV2Observation struct {
 	// The VPC peering connection status.
 	Status *string `json:"status,omitempty" tf:"status,omitempty"`
 
+	// The UTC time when the VPC peering connection was last updated.
+	UpdatedAt *string `json:"updatedAt,omitempty" tf:"updated_at,omitempty"`
+
 	// The ID of requester VPC involved in a VPC peering connection.
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
 
 	// The VPC Peering Connection ID to manage. Changing this creates a new VPC peering connection accepter.
 	VPCPeeringConnectionID *string `json:"vpcPeeringConnectionId,omitempty" tf:"vpc_peering_connection_id,omitempty"`
+
+	// The project ID of the requester VPC.
+	VPCTenantID *string `json:"vpcTenantId,omitempty" tf:"vpc_tenant_id,omitempty"`
 }
 
 type PeeringConnectionAccepterV2Parameters struct {

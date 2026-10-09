@@ -231,6 +231,11 @@ func (in *InstanceV3InitParameters) DeepCopyInto(out *InstanceV3InitParameters) 
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.EnterpriseProjectID != nil {
+		in, out := &in.EnterpriseProjectID, &out.EnterpriseProjectID
+		*out = new(string)
+		**out = **in
+	}
 	if in.Flavor != nil {
 		in, out := &in.Flavor, &out.Flavor
 		*out = new(string)
@@ -368,6 +373,11 @@ func (in *InstanceV3Observation) DeepCopyInto(out *InstanceV3Observation) {
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.EnterpriseProjectID != nil {
+		in, out := &in.EnterpriseProjectID, &out.EnterpriseProjectID
+		*out = new(string)
+		**out = **in
 	}
 	if in.Flavor != nil {
 		in, out := &in.Flavor, &out.Flavor
@@ -511,6 +521,11 @@ func (in *InstanceV3Parameters) DeepCopyInto(out *InstanceV3Parameters) {
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.EnterpriseProjectID != nil {
+		in, out := &in.EnterpriseProjectID, &out.EnterpriseProjectID
+		*out = new(string)
+		**out = **in
 	}
 	if in.Flavor != nil {
 		in, out := &in.Flavor, &out.Flavor

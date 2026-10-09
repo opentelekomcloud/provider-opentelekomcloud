@@ -603,6 +603,13 @@ spec:
                           description: Specifies the key ID for disk encryption. Changing
                             this parameter will create a new resource.
                           type: string
+                        iops:
+                          description: |-
+                            Specifies the IOPS of the volume. This parameter is available only
+                            when type is set to GPSSD2, where it is mandatory. The value ranges from 3,000 to 128,000 and
+                            must be no greater than 500 times the volume size.
+                            Changing this parameter will create a new resource.
+                          type: number
                         limitSize:
                           description: |-
                             Specifies the upper limit of automatic expansion of storage, in GB.
@@ -614,6 +621,13 @@ spec:
                             Specifies the volume size. Its value range is from 40 GB to 4000
                             GB. The value must be a multiple of 10. Changing this resize the volume.
                           type: number
+                        throughput:
+                          description: |-
+                            Specifies the throughput of the volume, in MiB/s. This
+                            parameter is available only when type is set to GPSSD2, where it is mandatory. The value ranges
+                            from 125 to 1,000 and must be no greater than iops divided by 4.
+                            Changing this parameter will create a new resource.
+                          type: number
                         triggerThreshold:
                           description: |-
                             Specifies the threshold to trigger automatic expansion.
@@ -623,8 +637,8 @@ spec:
                           type: number
                         type:
                           description: |-
-                            Specifies the volume type. Changing this resize the volume. Its value can be any of the following
-                            and is case-sensitive:
+                            Specifies the volume type. Changing this parameter will create a new resource.
+                            Its value can be any of the following and is case-sensitive:
                           type: string
                       type: object
                     type: array
@@ -1252,6 +1266,13 @@ spec:
                           description: Specifies the key ID for disk encryption. Changing
                             this parameter will create a new resource.
                           type: string
+                        iops:
+                          description: |-
+                            Specifies the IOPS of the volume. This parameter is available only
+                            when type is set to GPSSD2, where it is mandatory. The value ranges from 3,000 to 128,000 and
+                            must be no greater than 500 times the volume size.
+                            Changing this parameter will create a new resource.
+                          type: number
                         limitSize:
                           description: |-
                             Specifies the upper limit of automatic expansion of storage, in GB.
@@ -1263,6 +1284,13 @@ spec:
                             Specifies the volume size. Its value range is from 40 GB to 4000
                             GB. The value must be a multiple of 10. Changing this resize the volume.
                           type: number
+                        throughput:
+                          description: |-
+                            Specifies the throughput of the volume, in MiB/s. This
+                            parameter is available only when type is set to GPSSD2, where it is mandatory. The value ranges
+                            from 125 to 1,000 and must be no greater than iops divided by 4.
+                            Changing this parameter will create a new resource.
+                          type: number
                         triggerThreshold:
                           description: |-
                             Specifies the threshold to trigger automatic expansion.
@@ -1272,8 +1300,8 @@ spec:
                           type: number
                         type:
                           description: |-
-                            Specifies the volume type. Changing this resize the volume. Its value can be any of the following
-                            and is case-sensitive:
+                            Specifies the volume type. Changing this parameter will create a new resource.
+                            Its value can be any of the following and is case-sensitive:
                           type: string
                       type: object
                     type: array
@@ -1730,6 +1758,13 @@ spec:
                           description: Specifies the key ID for disk encryption. Changing
                             this parameter will create a new resource.
                           type: string
+                        iops:
+                          description: |-
+                            Specifies the IOPS of the volume. This parameter is available only
+                            when type is set to GPSSD2, where it is mandatory. The value ranges from 3,000 to 128,000 and
+                            must be no greater than 500 times the volume size.
+                            Changing this parameter will create a new resource.
+                          type: number
                         limitSize:
                           description: |-
                             Specifies the upper limit of automatic expansion of storage, in GB.
@@ -1741,6 +1776,13 @@ spec:
                             Specifies the volume size. Its value range is from 40 GB to 4000
                             GB. The value must be a multiple of 10. Changing this resize the volume.
                           type: number
+                        throughput:
+                          description: |-
+                            Specifies the throughput of the volume, in MiB/s. This
+                            parameter is available only when type is set to GPSSD2, where it is mandatory. The value ranges
+                            from 125 to 1,000 and must be no greater than iops divided by 4.
+                            Changing this parameter will create a new resource.
+                          type: number
                         triggerThreshold:
                           description: |-
                             Specifies the threshold to trigger automatic expansion.
@@ -1750,8 +1792,8 @@ spec:
                           type: number
                         type:
                           description: |-
-                            Specifies the volume type. Changing this resize the volume. Its value can be any of the following
-                            and is case-sensitive:
+                            Specifies the volume type. Changing this parameter will create a new resource.
+                            Its value can be any of the following and is case-sensitive:
                           type: string
                       type: object
                     type: array

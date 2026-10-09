@@ -65,6 +65,11 @@ spec:
                   description:
                     description: Specifies the description of the VPC endpoint service.
                     type: string
+                  enterpriseProjectId:
+                    description: |-
+                      Specifies the enterprise project ID of the VPC endpoint
+                      service. Changing this parameter creates a new resource.
+                    type: string
                   name:
                     description: |-
                       Specifies the name of the VPC endpoint service.
@@ -151,6 +156,11 @@ spec:
                     type: boolean
                   description:
                     description: Specifies the description of the VPC endpoint service.
+                    type: string
+                  enterpriseProjectId:
+                    description: |-
+                      Specifies the enterprise project ID of the VPC endpoint
+                      service. Changing this parameter creates a new resource.
                     type: string
                   name:
                     description: |-
@@ -333,6 +343,11 @@ spec:
                     type: array
                   description:
                     description: Specifies the description of the VPC endpoint service.
+                    type: string
+                  enterpriseProjectId:
+                    description: |-
+                      Specifies the enterprise project ID of the VPC endpoint
+                      service. Changing this parameter creates a new resource.
                     type: string
                   id:
                     description: ID of VPC endpoint service
