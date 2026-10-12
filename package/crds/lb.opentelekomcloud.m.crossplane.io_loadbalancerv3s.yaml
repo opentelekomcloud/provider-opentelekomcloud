@@ -216,22 +216,6 @@ spec:
                       is described below. Changing this creates a new LoadBalancer.
                     items:
                       properties:
-                        bandwidthChargeMode:
-                          description: Bandwidth billing type. Possible value is traffic.
-                          type: string
-                        bandwidthName:
-                          description: Bandwidth name. Required when creating a new
-                            EIP.
-                          type: string
-                        bandwidthShareType:
-                          description: |-
-                            Bandwidth sharing type. Possible values are: PER, WHOLE.
-                            Required when creating a new EIP.
-                          type: string
-                        bandwidthSize:
-                          description: Bandwidth size. Required when creating a new
-                            EIP.
-                          type: number
                         id:
                           description: ID of an existing elastic IP. Required when
                             using existing EIP.
@@ -316,11 +300,6 @@ spec:
                                   type: string
                               type: object
                           type: object
-                        ipType:
-                          description: |-
-                            Elastic IP type. The value can be 5_bgp or 5_mailbgp.
-                            Required when creating a new EIP.
-                          type: string
                       type: object
                     type: array
                   routerId:
@@ -673,22 +652,6 @@ spec:
                       is described below. Changing this creates a new LoadBalancer.
                     items:
                       properties:
-                        bandwidthChargeMode:
-                          description: Bandwidth billing type. Possible value is traffic.
-                          type: string
-                        bandwidthName:
-                          description: Bandwidth name. Required when creating a new
-                            EIP.
-                          type: string
-                        bandwidthShareType:
-                          description: |-
-                            Bandwidth sharing type. Possible values are: PER, WHOLE.
-                            Required when creating a new EIP.
-                          type: string
-                        bandwidthSize:
-                          description: Bandwidth size. Required when creating a new
-                            EIP.
-                          type: number
                         id:
                           description: ID of an existing elastic IP. Required when
                             using existing EIP.
@@ -773,11 +736,6 @@ spec:
                                   type: string
                               type: object
                           type: object
-                        ipType:
-                          description: |-
-                            Elastic IP type. The value can be 5_bgp or 5_mailbgp.
-                            Required when creating a new EIP.
-                          type: string
                       type: object
                     type: array
                   routerId:

@@ -118,6 +118,12 @@ func (tr *LoadbalancerV3) LateInitialize(attrs []byte) (bool, error) {
 		return false, errors.Wrap(err, "failed to unmarshal Terraform state parameters for late-initialization")
 	}
 	opts := []resource.GenericLateInitializerOption{resource.WithZeroValueJSONOmitEmptyFilter(resource.CNameWildcard)}
+	opts = append(opts, resource.WithNameFilter("AdminStateUp"))
+	opts = append(opts, resource.WithNameFilter("ChargeMode"))
+	opts = append(opts, resource.WithNameFilter("DeletionProtection"))
+	opts = append(opts, resource.WithNameFilter("EnterpriseProjectID"))
+	opts = append(opts, resource.WithNameFilter("Guaranteed"))
+	opts = append(opts, resource.WithNameFilter("IPTargetEnable"))
 
 	li := resource.NewGenericLateInitializer(opts...)
 	return li.LateInitialize(&tr.Spec.ForProvider, params)
