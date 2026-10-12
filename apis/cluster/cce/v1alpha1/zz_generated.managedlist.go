@@ -35,6 +35,15 @@ func (l *NodeAttachV3List) GetItems() []resource.Managed {
 	return items
 }
 
+// GetItems of this NodePoolConfigV3List.
+func (l *NodePoolConfigV3List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this NodePoolV3List.
 func (l *NodePoolV3List) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))

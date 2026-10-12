@@ -45,11 +45,12 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"opentelekomcloud_cbr_vault_v3":  config.IdentifierFromProvider,
 
 	// CCE
-	"opentelekomcloud_cce_cluster_v3":     config.IdentifierFromProvider,
-	"opentelekomcloud_cce_node_v3":        config.IdentifierFromProvider,
-	"opentelekomcloud_cce_node_pool_v3":   config.IdentifierFromProvider,
-	"opentelekomcloud_cce_addon_v3":       config.IdentifierFromProvider,
-	"opentelekomcloud_cce_node_attach_v3": config.IdentifierFromProvider,
+	"opentelekomcloud_cce_cluster_v3":          config.IdentifierFromProvider,
+	"opentelekomcloud_cce_node_v3":             config.IdentifierFromProvider,
+	"opentelekomcloud_cce_node_pool_v3":        config.IdentifierFromProvider,
+	"opentelekomcloud_cce_node_pool_config_v3": config.IdentifierFromProvider,
+	"opentelekomcloud_cce_addon_v3":            config.IdentifierFromProvider,
+	"opentelekomcloud_cce_node_attach_v3":      config.IdentifierFromProvider,
 
 	// CWF
 	"opentelekomcloud_cfw_acl_rule_v1":                 config.IdentifierFromProvider,

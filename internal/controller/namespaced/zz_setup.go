@@ -37,6 +37,7 @@ import (
 	addonv3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/cce/addonv3"
 	clusterv3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/cce/clusterv3"
 	nodeattachv3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/cce/nodeattachv3"
+	nodepoolconfigv3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/cce/nodepoolconfigv3"
 	nodepoolv3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/cce/nodepoolv3"
 	nodev3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/cce/nodev3"
 	aclrulev1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/cfw/aclrulev1"
@@ -293,6 +294,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		addonv3.Setup,
 		clusterv3.Setup,
 		nodeattachv3.Setup,
+		nodepoolconfigv3.Setup,
 		nodepoolv3.Setup,
 		nodev3.Setup,
 		aclrulev1.Setup,
@@ -555,6 +557,7 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		addonv3.SetupGated,
 		clusterv3.SetupGated,
 		nodeattachv3.SetupGated,
+		nodepoolconfigv3.SetupGated,
 		nodepoolv3.SetupGated,
 		nodev3.SetupGated,
 		aclrulev1.SetupGated,

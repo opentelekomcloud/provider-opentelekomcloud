@@ -8,12 +8,15 @@ import (
 )
 
 const (
-	tfVpcSubnetV1 = "opentelekomcloud_vpc_subnet_v1"
+	tfVpcSubnetV1            = "opentelekomcloud_vpc_subnet_v1"
+	tfCceClusterV3           = "opentelekomcloud_cce_cluster_v3"
+	selectorFieldNameCluster = "ClusterSelector"
+	refFieldNameCluster      = "ClusterRef"
 )
 
 // Configure configures individual resources by adding custom ResourceConfigurators.
 func Configure(p *config.Provider) {
-	p.AddResourceConfigurator("opentelekomcloud_cce_cluster_v3", func(r *config.Resource) {
+	p.AddResourceConfigurator(tfCceClusterV3, func(r *config.Resource) {
 		r.UseAsync = true
 		r.References["vpc_id"] = config.Reference{
 			TerraformName:     "opentelekomcloud_vpc_v1",
@@ -60,9 +63,9 @@ func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("opentelekomcloud_cce_node_v3", func(r *config.Resource) {
 		r.UseAsync = true
 		r.References["cluster_id"] = config.Reference{
-			TerraformName:     "opentelekomcloud_cce_cluster_v3",
-			SelectorFieldName: "ClusterSelector",
-			RefFieldName:      "ClusterRef",
+			TerraformName:     tfCceClusterV3,
+			SelectorFieldName: selectorFieldNameCluster,
+			RefFieldName:      refFieldNameCluster,
 		}
 		r.References["eip_ids"] = config.Reference{
 			TerraformName:     "opentelekomcloud_vpc_eip_v1",
@@ -105,14 +108,14 @@ func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("opentelekomcloud_cce_addon_v3", func(r *config.Resource) {
 		r.UseAsync = true
 		r.References["cluster_id"] = config.Reference{
-			TerraformName:     "opentelekomcloud_cce_cluster_v3",
-			SelectorFieldName: "ClusterSelector",
-			RefFieldName:      "ClusterRef",
+			TerraformName:     tfCceClusterV3,
+			SelectorFieldName: selectorFieldNameCluster,
+			RefFieldName:      refFieldNameCluster,
 		}
 		r.References["custom.cluster_id"] = config.Reference{
-			TerraformName:     "opentelekomcloud_cce_cluster_v3",
-			SelectorFieldName: "ClusterSelector",
-			RefFieldName:      "ClusterRef",
+			TerraformName:     tfCceClusterV3,
+			SelectorFieldName: selectorFieldNameCluster,
+			RefFieldName:      refFieldNameCluster,
 		}
 		r.References["custom.tenant_id"] = config.Reference{
 			TerraformName:     "opentelekomcloud_identity_project_v3",
@@ -123,9 +126,9 @@ func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("opentelekomcloud_cce_node_pool_v3", func(r *config.Resource) {
 		r.UseAsync = true
 		r.References["cluster_id"] = config.Reference{
-			TerraformName:     "opentelekomcloud_cce_cluster_v3",
-			SelectorFieldName: "ClusterSelector",
-			RefFieldName:      "ClusterRef",
+			TerraformName:     tfCceClusterV3,
+			SelectorFieldName: selectorFieldNameCluster,
+			RefFieldName:      refFieldNameCluster,
 		}
 		r.References["key_pair"] = config.Reference{
 			TerraformName: "opentelekomcloud_compute_keypair_v2",
@@ -149,6 +152,18 @@ func Configure(p *config.Provider) {
 			Extractor:         common.NetworkIDExtractor,
 			SelectorFieldName: "SubnetSelector",
 			RefFieldName:      "SubnetRef",
+		}
+	})
+	p.AddResourceConfigurator("opentelekomcloud_cce_node_pool_config_v3", func(r *config.Resource) {
+		r.References["cluster_id"] = config.Reference{
+			TerraformName:     tfCceClusterV3,
+			SelectorFieldName: selectorFieldNameCluster,
+			RefFieldName:      refFieldNameCluster,
+		}
+		r.References["nodepool_id"] = config.Reference{
+			TerraformName:     "opentelekomcloud_cce_node_pool_v3",
+			SelectorFieldName: "NodePoolSelector",
+			RefFieldName:      "NodePoolRef",
 		}
 	})
 }
