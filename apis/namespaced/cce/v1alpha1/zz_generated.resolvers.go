@@ -310,6 +310,84 @@ func (mg *ClusterV3) ResolveReferences(ctx context.Context, c client.Reader) err
 	return nil
 }
 
+// ResolveReferences of this NodePoolConfigV3.
+func (mg *NodePoolConfigV3) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var rsp reference.NamespacedResolutionResponse
+	var err error
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ClusterID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.ClusterRef,
+		Selector:     mg.Spec.ForProvider.ClusterSelector,
+		To: reference.To{
+			List:    &ClusterV3List{},
+			Managed: &ClusterV3{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.ClusterID")
+	}
+	mg.Spec.ForProvider.ClusterID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.ClusterRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.NodepoolID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.NodePoolRef,
+		Selector:     mg.Spec.ForProvider.NodePoolSelector,
+		To: reference.To{
+			List:    &NodePoolV3List{},
+			Managed: &NodePoolV3{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.NodepoolID")
+	}
+	mg.Spec.ForProvider.NodepoolID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.NodePoolRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ClusterID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.ClusterRef,
+		Selector:     mg.Spec.InitProvider.ClusterSelector,
+		To: reference.To{
+			List:    &ClusterV3List{},
+			Managed: &ClusterV3{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.ClusterID")
+	}
+	mg.Spec.InitProvider.ClusterID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.ClusterRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.NodepoolID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.NodePoolRef,
+		Selector:     mg.Spec.InitProvider.NodePoolSelector,
+		To: reference.To{
+			List:    &NodePoolV3List{},
+			Managed: &NodePoolV3{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.NodepoolID")
+	}
+	mg.Spec.InitProvider.NodepoolID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.NodePoolRef = rsp.ResolvedReference
+
+	return nil
+}
+
 // ResolveReferences of this NodePoolV3.
 func (mg *NodePoolV3) ResolveReferences(ctx context.Context, c client.Reader) error {
 	r := reference.NewAPINamespacedResolver(c, mg)

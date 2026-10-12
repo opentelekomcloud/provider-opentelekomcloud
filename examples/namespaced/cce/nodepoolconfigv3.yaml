@@ -1,0 +1,23 @@
+apiVersion: cce.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: NodePoolConfigV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cce/v1alpha1/nodepoolconfigv3
+  labels:
+    testing.upbound.io/example-name: node_pool_config
+  name: node-pool-config
+  namespace: upbound-system
+spec:
+  forProvider:
+    clusterSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    name: configuration
+    nodePoolSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    packages:
+      - configurations:
+          - name: system-reserved-mem
+            value: "600"
+        name: kubelet

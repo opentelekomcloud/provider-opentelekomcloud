@@ -15,6 +15,7 @@ one dedicated node, and an auto-scaling node pool.
 | ClusterV3 | `clusterv3s.cce.opentelekomcloud.m.crossplane.io` |
 | NodeV3 | `nodev3s.cce.opentelekomcloud.m.crossplane.io` |
 | NodePoolV3 | `nodepoolv3s.cce.opentelekomcloud.m.crossplane.io` |
+| NodePoolConfigV3 | `nodepoolconfigv3s.cce.opentelekomcloud.m.crossplane.io` |
 
 ### Configuration needed
 
@@ -27,6 +28,24 @@ one dedicated node, and an auto-scaling node pool.
 | `availabilityZone: eu-de-01` | NodeV3, NodePoolV3 | Change to an AZ in your region |
 | `os: HCE OS 2.0` | NodeV3, NodePoolV3 | Change to the OS image available in your region |
 | `namespace: test` | all resources | All resources are created in the `test` namespace - adjust if needed |
+
+## nodepoolconfigv3.yaml
+
+Test case: `nodepoolconfigv3.yaml` - creates a node pool configuration with kubelet settings for a CCE node pool.
+
+### APIs used
+
+| Kind | Full API name |
+|------|---------------|
+| NodePoolConfigV3 | `nodepoolconfigv3s.cce.opentelekomcloud.m.crossplane.io` |
+
+### Configuration needed
+
+| Item | Where | What to do |
+|------|-------|-----------|
+| `clusterSelector` / `nodePoolSelector` | NodePoolConfigV3 `spec.forProvider` | Replace the `matchLabels` selectors with selectors pointing to your actual CCE cluster and node pool |
+| `name: configuration` | NodePoolConfigV3 `spec.forProvider.name` | Replace with a unique name for your node pool configuration |
+| `namespace: upbound-system` | NodePoolConfigV3 `metadata.namespace` | Change to the namespace where your CCE cluster and node pool resources live |
 
 ## Prerequisites
 

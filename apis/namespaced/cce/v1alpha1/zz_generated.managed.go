@@ -128,6 +128,46 @@ func (mg *NodeAttachV3) SetWriteConnectionSecretToReference(r *xpv1.LocalSecretR
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
+// GetCondition of this NodePoolConfigV3.
+func (mg *NodePoolConfigV3) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+	return mg.Status.GetCondition(ct)
+}
+
+// GetManagementPolicies of this NodePoolConfigV3.
+func (mg *NodePoolConfigV3) GetManagementPolicies() xpv1.ManagementPolicies {
+	return mg.Spec.ManagementPolicies
+}
+
+// GetProviderConfigReference of this NodePoolConfigV3.
+func (mg *NodePoolConfigV3) GetProviderConfigReference() *xpv1.ProviderConfigReference {
+	return mg.Spec.ProviderConfigReference
+}
+
+// GetWriteConnectionSecretToReference of this NodePoolConfigV3.
+func (mg *NodePoolConfigV3) GetWriteConnectionSecretToReference() *xpv1.LocalSecretReference {
+	return mg.Spec.WriteConnectionSecretToReference
+}
+
+// SetConditions of this NodePoolConfigV3.
+func (mg *NodePoolConfigV3) SetConditions(c ...xpv1.Condition) {
+	mg.Status.SetConditions(c...)
+}
+
+// SetManagementPolicies of this NodePoolConfigV3.
+func (mg *NodePoolConfigV3) SetManagementPolicies(r xpv1.ManagementPolicies) {
+	mg.Spec.ManagementPolicies = r
+}
+
+// SetProviderConfigReference of this NodePoolConfigV3.
+func (mg *NodePoolConfigV3) SetProviderConfigReference(r *xpv1.ProviderConfigReference) {
+	mg.Spec.ProviderConfigReference = r
+}
+
+// SetWriteConnectionSecretToReference of this NodePoolConfigV3.
+func (mg *NodePoolConfigV3) SetWriteConnectionSecretToReference(r *xpv1.LocalSecretReference) {
+	mg.Spec.WriteConnectionSecretToReference = r
+}
+
 // GetCondition of this NodePoolV3.
 func (mg *NodePoolV3) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
 	return mg.Status.GetCondition(ct)
