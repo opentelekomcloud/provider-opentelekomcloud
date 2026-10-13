@@ -1,9 +1,21 @@
+# v1.0.2
+
+## What's Changed
+* [EOL]: remove SFS capacity oriented config #169 by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/171
+* [chore] regen provider with `v1.37.10`; add test for `OBS` `EP` by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/175
+* [fix(elb)]: eip assignment, subnetSelector and LateInitialize #176 by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/177
+* feat: add `opentelekomcloud_cce_node_pool_config_v3` by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/179
+
+
+**Full Changelog**: https://github.com/opentelekomcloud/provider-opentelekomcloud/compare/v1.0.1...v1.0.2
+
 # v1.0.1
 
 ## What's Changed
 * docs: #162 add description for examples by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/163
 * chore(deps): bump google.golang.org/grpc from 1.79.3 to 1.83.2 in the go_modules group across 1 directory by @dependabot[bot] in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/160
 * chore(tf): regen provider with `v1.37.8` by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/164
+* release notes for v1.0.1 by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/168
 
 
 **Full Changelog**: https://github.com/opentelekomcloud/provider-opentelekomcloud/compare/v1.0.0...v1.0.1
