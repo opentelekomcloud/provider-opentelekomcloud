@@ -103,7 +103,122 @@ spec:
                     - InjectedIdentity
                     - Environment
                     - Filesystem
+                    - WebIdentity
                     type: string
+                  webIdentity:
+                    description: |-
+                      WebIdentity configures authenticating to the cloud using a workload
+                      identity. It is only used when Source is WebIdentity.
+                    properties:
+                      authURL:
+                        description: |-
+                          AuthURL is the base URL of the T Cloud IAM identity service, e.g.
+                          https://iam.eu-de.otc.t-systems.com.
+                        type: string
+                      idpID:
+                        description: |-
+                          IdpID is the ID of the federated identity provider (IdP) registered with
+                          T Cloud IAM.
+                        type: string
+                      region:
+                        description: Region is the T Cloud region to operate in, e.g.
+                          eu-de.
+                        type: string
+                      scope:
+                        description: |-
+                          Scope limits the resulting OTC token to a project or a domain. At most
+                          one of Project and Domain may be set, and within the selected scope
+                          exactly one of Id and Name must be set. When no scope is set the token is
+                          unscoped.
+                        properties:
+                          domain:
+                            description: Domain scope, either by Id or Name (exactly
+                              one).
+                            properties:
+                              id:
+                                type: string
+                              name:
+                                type: string
+                            type: object
+                          project:
+                            description: Project scope, either by Id or Name (exactly
+                              one).
+                            properties:
+                              id:
+                                type: string
+                              name:
+                                type: string
+                            type: object
+                        type: object
+                      temporaryCredentials:
+                        description: |-
+                          TemporaryCredentials configures exchanging the OTC token for short-lived
+                          AK/SK credentials, required by services that sign requests with AK/SK
+                          (e.g. OBS). When omitted, no temporary credentials are issued.
+                        properties:
+                          durationSeconds:
+                            description: |-
+                              DurationSeconds is the validity period of the temporary credentials in
+                              seconds. It must be between 900 (15 minutes) and 86400 (24 hours).
+                              Defaults to 3600.
+                            maximum: 86400
+                            minimum: 900
+                            type: integer
+                          enabled:
+                            description: |-
+                              Enabled controls whether temporary credentials are obtained. Defaults to
+                              true when this object is present.
+                            type: boolean
+                        type: object
+                      tokenConfig:
+                        description: TokenConfig defines where the OIDC identity token
+                          is read from.
+                        properties:
+                          fs:
+                            description: |-
+                              Fs is a reference to a filesystem path holding the OIDC identity token,
+                              used when Source is Filesystem.
+                            properties:
+                              path:
+                                description: Path is a filesystem path.
+                                type: string
+                            required:
+                            - path
+                            type: object
+                          secretRef:
+                            description: |-
+                              SecretRef is a reference to a secret key holding the OIDC identity token,
+                              used when Source is Secret.
+                            properties:
+                              key:
+                                description: The key to select.
+                                type: string
+                              name:
+                                description: Name of the secret.
+                                type: string
+                              namespace:
+                                description: Namespace of the secret.
+                                type: string
+                            required:
+                            - key
+                            - name
+                            - namespace
+                            type: object
+                          source:
+                            description: Source of the OIDC identity token.
+                            enum:
+                            - Secret
+                            - Filesystem
+                            type: string
+                        required:
+                        - source
+                        type: object
+                    required:
+                    - authURL
+                    - idpID
+                    - region
+                    - tokenConfig
+                    type: object
                 required:
                 - source
                 type: object
