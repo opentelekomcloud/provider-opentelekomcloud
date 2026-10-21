@@ -54,6 +54,11 @@ helm install crossplane crossplane-stable/crossplane \
   --set provider.defaultActivations={"*.opentelekomcloud.m.crossplane.io"} \
 -n crossplane-system
 ```
+PowerShell terminal version:
+```pwsh
+helm install crossplane crossplane-stable/crossplane --set-string "provider.defaultActivations[0]=*.opentelekomcloud.m.crossplane.io" -n crossplane-system
+```
+
 
 After installation, verify that Crossplane is running correctly:
 
