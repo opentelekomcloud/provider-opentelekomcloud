@@ -11,7 +11,10 @@ import (
 	"github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/v1beta1"
 )
 
-const testProjectID = "p-1"
+const (
+	testProjectID   = "p-1"
+	testProjectName = "my-project"
+)
 
 func TestBuildScopeMap(t *testing.T) {
 	cases := []struct {
@@ -40,9 +43,9 @@ func TestBuildScopeMap(t *testing.T) {
 		{
 			name: "project by name",
 			scope: &v1beta1.WebIdentityScope{
-				Project: &v1beta1.WebIdentityScopeResource{Name: "my-project"},
+				Project: &v1beta1.WebIdentityScopeResource{Name: testProjectName},
 			},
-			want: map[string]any{"project": map[string]any{"name": "my-project"}},
+			want: map[string]any{"project": map[string]any{"name": testProjectName}},
 		},
 		{
 			name: "domain by name",
@@ -69,7 +72,7 @@ func TestBuildScopeMap(t *testing.T) {
 		{
 			name: "project with both id and name is invalid",
 			scope: &v1beta1.WebIdentityScope{
-				Project: &v1beta1.WebIdentityScopeResource{Id: testProjectID, Name: "my-project"},
+				Project: &v1beta1.WebIdentityScopeResource{Id: testProjectID, Name: testProjectName},
 			},
 			wantErr: true,
 		},
@@ -163,14 +166,14 @@ func TestProjectTenantFields(t *testing.T) {
 		{
 			name: "project by name",
 			scope: &v1beta1.WebIdentityScope{
-				Project: &v1beta1.WebIdentityScopeResource{Name: "my-project"},
+				Project: &v1beta1.WebIdentityScopeResource{Name: testProjectName},
 			},
-			want: map[string]any{"tenant_name": "my-project"},
+			want: map[string]any{"tenant_name": testProjectName},
 		},
 		{
 			name: "id preferred over name",
 			scope: &v1beta1.WebIdentityScope{
-				Project: &v1beta1.WebIdentityScopeResource{Id: testProjectID, Name: "my-project"},
+				Project: &v1beta1.WebIdentityScopeResource{Id: testProjectID, Name: testProjectName},
 			},
 			want: map[string]any{"tenant_id": testProjectID},
 		},
