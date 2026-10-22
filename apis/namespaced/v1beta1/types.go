@@ -35,6 +35,7 @@ type ProviderCredentials struct {
 // token (workload identity). The token is read from a filesystem path or a
 // Kubernetes secret, exchanged with the T Cloud IAM identity endpoint for an
 // OTC token, and optionally swapped for short-lived AK/SK credentials.
+// +kubebuilder:validation:XValidation:rule="has(self.scope) && has(self.scope.project) && !has(self.scope.domain)",message="only a project scope is supported: set scope.project (id or name); a domain scope is not supported"
 type WebIdentity struct {
 	// AuthURL is the base URL of the T Cloud IAM identity service, e.g.
 	// https://iam.eu-de.otc.t-systems.com.
@@ -47,10 +48,9 @@ type WebIdentity struct {
 	// Region is the T Cloud region to operate in, e.g. eu-de.
 	Region string `json:"region"`
 
-	// Scope limits the resulting OTC token to a project or a domain. At most
-	// one of Project and Domain may be set, and within the selected scope
-	// exactly one of Id and Name must be set. When no scope is set the token is
-	// unscoped.
+	// Scope limits the resulting OTC token to a project. Only a project scope
+	// is supported: set Project with exactly one of Id and Name. A Domain scope
+	// is not supported, and a missing scope (unscoped token) is rejected.
 	// +optional
 	Scope *WebIdentityScope `json:"scope,omitempty"`
 
@@ -65,20 +65,21 @@ type WebIdentity struct {
 	TemporaryCredentials *WebIdentityTemporaryCredentials `json:"temporaryCredentials,omitempty"`
 }
 
-// WebIdentityScope is either a project scope or a domain scope. At most one of
-// the two may be set.
+// WebIdentityScope is the scope of the resulting OTC token. Only a project
+// scope is supported.
 type WebIdentityScope struct {
 	// Project scope, either by Id or Name (exactly one).
 	// +optional
 	Project *WebIdentityScopeResource `json:"project,omitempty"`
 
-	// Domain scope, either by Id or Name (exactly one).
+	// Domain scope. Not supported — only a project scope is supported. Retained
+	// in the schema so domain-scoped auth can be re-enabled later without a
+	// schema change.
 	// +optional
 	Domain *WebIdentityScopeResource `json:"domain,omitempty"`
 }
 
-// WebIdentityScopeResource identifies a project or domain by exactly one of Id
-// or Name.
+// WebIdentityScopeResource identifies a project by exactly one of Id or Name.
 type WebIdentityScopeResource struct {
 	// +optional
 	Id string `json:"id,omitempty"`

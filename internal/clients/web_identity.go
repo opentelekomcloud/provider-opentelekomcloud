@@ -26,15 +26,16 @@ const (
 	// identity (workload identity) authentication flow.
 	sourceWebIdentity xpv1.CredentialsSource = "WebIdentity"
 
-	errWebIdentityRequired = "spec.credentials.webIdentity must be set when credentials.source is WebIdentity"
-	errTokenConfigRequired = "spec.credentials.webIdentity.tokenConfig must be set"
-	errTokenConfigSource   = "spec.credentials.webIdentity.tokenConfig.source must be Secret or Filesystem"
-	errScopeMutuallyExcl   = "spec.credentials.webIdentity.scope: at most one of project and domain may be set"
-	errScopeEmpty          = "spec.credentials.webIdentity.scope: within the selected scope exactly one of id and name must be set"
-	errTempDurationInvalid = "spec.credentials.webIdentity.temporaryCredentials.durationSeconds must be between 900 and 86400"
-	errEmptyToken          = "could not read a non-empty OIDC identity token"
-	errExchangeToken       = "cannot exchange OIDC identity token with IAM"
-	errTempCredentials     = "cannot obtain temporary credentials"
+	errWebIdentityRequired    = "spec.credentials.webIdentity must be set when credentials.source is WebIdentity"
+	errTokenConfigRequired    = "spec.credentials.webIdentity.tokenConfig must be set"
+	errTokenConfigSource      = "spec.credentials.webIdentity.tokenConfig.source must be Secret or Filesystem"
+	errScopeProjectRequired   = "spec.credentials.webIdentity.scope.project must be set: only a project scope is supported"
+	errScopeDomainUnsupported = "spec.credentials.webIdentity.scope.domain is not supported: only a project scope is supported"
+	errScopeEmpty             = "spec.credentials.webIdentity.scope.project: exactly one of id and name must be set"
+	errTempDurationInvalid    = "spec.credentials.webIdentity.temporaryCredentials.durationSeconds must be between 900 and 86400"
+	errEmptyToken             = "could not read a non-empty OIDC identity token"
+	errExchangeToken          = "cannot exchange OIDC identity token with IAM"
+	errTempCredentials        = "cannot obtain temporary credentials"
 )
 
 const defaultTempDurationSeconds = 3600
@@ -74,12 +75,6 @@ func buildWebIdentityConfig(ctx context.Context, c client.Client, pcSpec *namesp
 	for k, v := range projectTenantFields(wi.Scope) {
 		cfg[k] = v
 	}
-
-	// TODO(webidentity/domain): a domain-scoped token only carries domain-level
-	// endpoints in its catalog and cannot create project-scoped resources, so it
-	// currently fails with "No suitable endpoint could be found in the service
-	// catalog" when a project-scoped resource is created. Decide how to handle
-	// this (reject early, require a project, or resolve the target project).
 
 	if wi.TemporaryCredentials != nil && tempCredsEnabled(wi.TemporaryCredentials.Enabled) {
 		if err := addTemporaryCredentials(ctx, wi, iamToken, cfg); err != nil {
@@ -158,35 +153,21 @@ func readIdentityToken(ctx context.Context, c client.Client, tc *namespacedv1bet
 	return token, nil
 }
 
-// buildScopeMap validates the scope configuration and returns the request
-// scope object. A nil map means the token is unscoped.
+// buildScopeMap validates the scope configuration and returns the request scope
+// object. Only a project scope is supported: an unset scope or a domain scope is
+// rejected. On success the returned map is always {"project": {"id"|{"name"}}}.
 func buildScopeMap(scope *namespacedv1beta1.WebIdentityScope) (map[string]any, error) {
-	if scope == nil {
-		return nil, nil
+	if scope == nil || scope.Project == nil {
+		return nil, errors.New(errScopeProjectRequired)
 	}
-	if scope.Project != nil && scope.Domain != nil {
-		return nil, errors.New(errScopeMutuallyExcl)
+	if scope.Domain != nil {
+		return nil, errors.New(errScopeDomainUnsupported)
 	}
-
-	var selected *namespacedv1beta1.WebIdentityScopeResource
-	switch {
-	case scope.Project != nil:
-		selected = scope.Project
-	case scope.Domain != nil:
-		selected = scope.Domain
-	default:
-		return nil, nil
-	}
-
-	res, err := buildScopeResourceMap(selected)
+	res, err := buildScopeResourceMap(scope.Project)
 	if err != nil {
 		return nil, err
 	}
-	key := "project"
-	if scope.Domain != nil {
-		key = "domain"
-	}
-	return map[string]any{key: res}, nil
+	return map[string]any{"project": res}, nil
 }
 
 func buildScopeResourceMap(r *namespacedv1beta1.WebIdentityScopeResource) (map[string]any, error) {

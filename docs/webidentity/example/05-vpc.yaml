@@ -1,0 +1,16 @@
+apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: VpcV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/secondarycidrv3
+  labels:
+    testing.upbound.io/example-name: vpc-vpc-main
+  name: vpc-vpc-1212
+  namespace: test
+spec:
+  forProvider:
+    cidr: 192.168.0.0/16
+    name: vpc-vpc-1212
+  providerConfigRef:
+    name: webidentity
+    kind: ProviderConfig

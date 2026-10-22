@@ -16,9 +16,9 @@ Web Identity enables secretless, least-privilege authentication:
 
 1. An OIDC identity provider (IdP) issues the token the provider pod presents
    (the CCE cluster API server for OTC CCE, or an external IdP).
-2. T Cloud IAM trusts that IdP and maps its identity to a virtual IAM user in a
-   local IAM group; the group holds the roles needed to manage resources in a
-   target project or domain.
+ 2. T Cloud IAM trusts that IdP and maps its identity to a virtual IAM user in a
+    local IAM group; the group holds the roles needed to manage resources in the
+    target project.
 3. The provider reads the token, calls T Cloud IAM to exchange it, and uses the
    result to configure the Terraform OTC provider.
 
@@ -33,7 +33,7 @@ service-account token — recommended) or from a **Kubernetes Secret**.
 | Credential stored | Long-lived AK/SK (or password) in a Secret | Nothing long-lived; only a short-lived OIDC token |
 | Permission boundary | The AK/SK owner | The mapped IAM group + its roles |
 | Rotation | Manual (edit the Secret) | Automatic (projected token) or per-token refresh |
-| Scope | whatever the AK/SK can do | the project/domain set in `scope` |
+| Scope | whatever the AK/SK can do | the project set in `scope.project` (only project-scoped tokens are supported) |
 
 `WebIdentity` is useful when you want to avoid storing T Cloud credentials in
 Kubernetes at all, scope the provider to a single project, and rotate credentials
@@ -47,8 +47,8 @@ without touching a Secret.
   [User Management Model](https://docs.otc.t-systems.com/en-us/usermanual/iam/iam_01_0034.html).
 - `kubectl` configured for the target cluster.
 - Crossplane installed, and the T Cloud provider installed.
-- Knowledge of the target **region**, **project** and (optionally) **domain**
-  the provider should operate in.
+- Knowledge of the target **region** and **project** the provider should operate
+  in (only project-scoped tokens are supported).
 - For the recommended CCE path: an **OTC CCE cluster of version v1.19.16 or
   later** (the cluster API server acts as the OIDC IdP).
 
@@ -70,8 +70,8 @@ without touching a Secret.
     - identity protocol (binds provider + mapping; Terraform/Crossplane only)
              |
              v
-    IAM group with the IAM roles to manage resources in the
-    target project (or domain) scope
+     IAM group with the IAM roles to manage resources in the
+     target project scope
 ```
 
 Three things must be set up and **agree with each other**:
@@ -259,7 +259,7 @@ The `user` is virtual and need not exist beforehand; the `group`
 ### 2.3 Grant permissions to the group
 
 Attach the IAM roles the provider needs to the mapped group for the
-target project/domain. This is the permission boundary for Web Identity — the
+target project. This is the permission boundary for Web Identity — the
 provider can do exactly what this group can. Prefer a **least-privilege** custom
 role over `admin`.
 
@@ -433,7 +433,7 @@ and upserts the `id_token` into the Secret every minute is a common pattern.
 | `authURL` | yes | The base URL of the T Cloud IAM identity service for your region, e.g. `https://iam.eu-de.otc.t-systems.com`. A trailing `/v3` or `/v3.0` is optional and normalised. |
 | `idpID` | yes | The name of the federated identity provider registered with T Cloud IAM (Step 2.1). Sent as the `X-Idp-Id` header. |
 | `region` | yes | The T Cloud region to operate in, e.g. `eu-de`. |
-| `scope` | no | Limits the resulting OTC token to a project or a domain. At most one of `project`/`domain`; within it exactly one of `id`/`name`. Omit for an unscoped token. **Prefer project scope** (see Limitations). |
+| `scope.project` | yes | Limits the resulting OTC token to a project. **Only a project-scoped token is supported** — set exactly one of `scope.project.id` or `scope.project.name`. A missing `scope` (unscoped token) or a `scope.domain` is rejected at runtime (see Limitations). |
 | `tokenConfig.source` | yes | `Filesystem` (projected token, recommended) or `Secret`. |
 | `tokenConfig.fs.path` | if `Filesystem` | Path to the OIDC ID token file inside the provider pod, e.g. `/var/run/secrets/otc/tokens/oidc-token`. |
 | `tokenConfig.secretRef` | if `Secret` | The Secret holding the token. For a namespaced `ProviderConfig` the Secret is resolved in the managed resource's namespace, so set `name`/`key` (the `namespace` is filled in automatically). |
@@ -498,9 +498,10 @@ kubectl logs -n crossplane-system <provider-pod> -c package-runtime
 | `401` / `InvalidIdentityToken` from IAM | `idpID` does not match the registered IAM provider name; or the token's `iss` does not match `provider_url`; or the `signing_key` is stale (key rotated). |
 | `400` / `IAM.0007` / "Request parameter 'id token' is invalid" | The token was received but IAM could not verify it. Decode it (`cut -d'.' -f2 \| base64 -d`) and check: `iss` == `provider_url`, `aud` == `client_id`, `sub` matches the mapping, `exp` is in the future, and the `signing_key` JWKS matches `kubectl get --raw /openid/v1/jwks`. |
 | `Incorrect token audience` | The token audience is not what the federation expects; fix the `serviceAccountToken.audience` (Option A) or the IdP client (Option B). |
-| `403` after a successful token exchange | The mapped group lacks the required role in the target project/domain (Step 2.3), or the `scope` in the `ProviderConfig` does not match where the permission is granted. |
+| `403` after a successful token exchange | The mapped group lacks the required role in the target project (Step 2.3), or the `scope.project` in the `ProviderConfig` does not match where the permission is granted. |
 | Mapping does not match | The token's `sub`/claims do not match the `remote` rule in the mapping (Step 2.2). |
-| `No suitable endpoint could be found in the service catalog` | A domain-scoped (or unscoped) token was used for a project-scoped resource. Use a project-scoped token (see Limitations). |
+| `scope.project must be set: only a project scope is supported` | The `scope` is missing (unscoped token) or has no `project`. Only project-scoped tokens are supported; set `scope.project.id` or `scope.project.name`. |
+| `scope.domain is not supported: only a project scope is supported` | A `scope.domain` was set. Domain-scoped tokens are not supported; use `scope.project` instead (see Limitations). |
 | Token file not found | The projected volume is not mounted, or `fs.path` is wrong. Verify the volume (Step 3) and the path. |
 | Secret not found | `secretRef` name/key/namespace mismatch, or the token controller has not written it yet. For a namespaced `ProviderConfig`, the Secret is resolved in the managed resource's namespace. |
 | Temp AK/SK missing for OBS | `temporaryCredentials` is omitted or `enabled: false`; add it. |
@@ -512,22 +513,21 @@ kubectl logs -n crossplane-system <provider-pod> -c package-runtime
   token; the OTC token and (optional) AK/SK are short-lived and re-issued on
   every reconcile. The token is re-read fresh each time and is never cached, so
   token rotation is always picked up.
-- **Least privilege.** Scope the IAM roles granted to the mapped group to only
-  what the provider needs, and prefer project scope over domain scope.
-- **Rotate IdP keys carefully.** If you rotate the IdP signing key, update the
-  IAM `signing_key` promptly, or token verification fails.
-- **Prefer project scope** over domain scope for the token to limit blast radius.
+ - **Least privilege.** Scope the IAM roles granted to the mapped group to only
+   what the provider needs for the target project.
+ - **Rotate IdP keys carefully.** If you rotate the IdP signing key, update the
+   IAM `signing_key` promptly, or token verification fails.
 
 ## Limitations
 
-- **Namespaced API group only.** `WebIdentity` is not supported on the legacy
-  cluster-scoped `ClusterProviderConfig`.
-- **Domain-scoped tokens cannot create project-scoped resources.** A
-  domain-scoped token only carries domain-level endpoints in its service
-  catalog, so creating a project-scoped resource (VPC, OBS bucket, ...) fails
-  with `No suitable endpoint could be found in the service catalog`. **Use a
-  project-scoped token** (`scope.project` with `id` or `name`) for deployment.
-  A project-scoped token can still manage global services (e.g. OBS).
+ - **Namespaced API group only.** `WebIdentity` is not supported on the legacy
+   cluster-scoped `ClusterProviderConfig`.
+ - **Only project-scoped tokens are supported.** The provider requires
+   `scope.project` (with `id` or `name`) and rejects both an unscoped token (no
+   `scope`) and a domain-scoped token (`scope.domain`) at runtime. A
+   project-scoped token can still manage global services (e.g. OBS). Domain-
+   scoped and unscoped tokens are not supported because their service catalogs
+   cannot reliably target the project.
 - **Temporary credentials are required for AK/SK-signing services** such as
   OBS. Enable `temporaryCredentials` if you manage those.
 - **No credential caching.** Every reconcile of every managed resource re-exchanges

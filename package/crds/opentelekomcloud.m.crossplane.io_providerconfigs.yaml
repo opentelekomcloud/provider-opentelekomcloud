@@ -126,14 +126,15 @@ spec:
                         type: string
                       scope:
                         description: |-
-                          Scope limits the resulting OTC token to a project or a domain. At most
-                          one of Project and Domain may be set, and within the selected scope
-                          exactly one of Id and Name must be set. When no scope is set the token is
-                          unscoped.
+                          Scope limits the resulting OTC token to a project. Only a project scope
+                          is supported: set Project with exactly one of Id and Name. A Domain scope
+                          is not supported, and a missing scope (unscoped token) is rejected.
                         properties:
                           domain:
-                            description: Domain scope, either by Id or Name (exactly
-                              one).
+                            description: |-
+                              Domain scope. Not supported — only a project scope is supported. Retained
+                              in the schema so domain-scoped auth can be re-enabled later without a
+                              schema change.
                             properties:
                               id:
                                 type: string
@@ -219,6 +220,10 @@ spec:
                     - region
                     - tokenConfig
                     type: object
+                    x-kubernetes-validations:
+                    - message: 'only a project scope is supported: set scope.project
+                        (id or name); a domain scope is not supported'
+                      rule: has(self.scope) && has(self.scope.project) && !has(self.scope.domain)
                 required:
                 - source
                 type: object

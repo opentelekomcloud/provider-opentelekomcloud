@@ -24,14 +24,14 @@ func TestBuildScopeMap(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			name:  "nil scope is unscoped",
-			scope: nil,
-			want:  nil,
+			name:    "nil scope requires a project",
+			scope:   nil,
+			wantErr: true,
 		},
 		{
-			name:  "empty scope is unscoped",
-			scope: &v1beta1.WebIdentityScope{},
-			want:  nil,
+			name:    "empty scope requires a project",
+			scope:   &v1beta1.WebIdentityScope{},
+			wantErr: true,
 		},
 		{
 			name: "project by id",
@@ -48,18 +48,18 @@ func TestBuildScopeMap(t *testing.T) {
 			want: map[string]any{"project": map[string]any{"name": testProjectName}},
 		},
 		{
-			name: "domain by name",
+			name: "domain by name is unsupported",
 			scope: &v1beta1.WebIdentityScope{
 				Domain: &v1beta1.WebIdentityScopeResource{Name: "my-domain"},
 			},
-			want: map[string]any{"domain": map[string]any{"name": "my-domain"}},
+			wantErr: true,
 		},
 		{
-			name: "domain by id",
+			name: "domain by id is unsupported",
 			scope: &v1beta1.WebIdentityScope{
 				Domain: &v1beta1.WebIdentityScopeResource{Id: "d-1"},
 			},
-			want: map[string]any{"domain": map[string]any{"id": "d-1"}},
+			wantErr: true,
 		},
 		{
 			name: "both project and domain is invalid",
