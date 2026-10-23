@@ -20,10 +20,107 @@ type ProviderConfigSpec struct {
 // ProviderCredentials required to authenticate.
 type ProviderCredentials struct {
 	// Source of the provider credentials.
-	// +kubebuilder:validation:Enum=None;Secret;InjectedIdentity;Environment;Filesystem
+	// +kubebuilder:validation:Enum=None;Secret;InjectedIdentity;Environment;Filesystem;WebIdentity
 	Source xpv1.CredentialsSource `json:"source"`
 
+	// WebIdentity configures authenticating to the cloud using a workload
+	// identity. It is only used when Source is WebIdentity.
+	// +optional
+	WebIdentity *WebIdentity `json:"webIdentity,omitempty"`
+
 	xpv1.CommonCredentialSelectors `json:",inline"`
+}
+
+// WebIdentity configures authenticating to the cloud using an OIDC identity
+// token (workload identity). The token is read from a filesystem path or a
+// Kubernetes secret, exchanged with the T Cloud IAM identity endpoint for an
+// OTC token, and optionally swapped for short-lived AK/SK credentials.
+// +kubebuilder:validation:XValidation:rule="has(self.scope) && has(self.scope.project) && !has(self.scope.domain)",message="only a project scope is supported: set scope.project (id or name); a domain scope is not supported"
+type WebIdentity struct {
+	// AuthURL is the base URL of the T Cloud IAM identity service, e.g.
+	// https://iam.eu-de.otc.t-systems.com.
+	AuthURL string `json:"authURL"`
+
+	// IdpID is the ID of the federated identity provider (IdP) registered with
+	// T Cloud IAM.
+	IdpID string `json:"idpID"`
+
+	// Region is the T Cloud region to operate in, e.g. eu-de.
+	Region string `json:"region"`
+
+	// Scope limits the resulting OTC token to a project. Only a project scope
+	// is supported: set Project with exactly one of Id and Name. A Domain scope
+	// is not supported, and a missing scope (unscoped token) is rejected.
+	// +optional
+	Scope *WebIdentityScope `json:"scope,omitempty"`
+
+	// TokenConfig defines where the OIDC identity token is read from.
+	// +kubebuilder:validation:Required
+	TokenConfig WebIdentityTokenConfig `json:"tokenConfig"`
+
+	// TemporaryCredentials configures exchanging the OTC token for short-lived
+	// AK/SK credentials, required by services that sign requests with AK/SK
+	// (e.g. OBS). When omitted, no temporary credentials are issued.
+	// +optional
+	TemporaryCredentials *WebIdentityTemporaryCredentials `json:"temporaryCredentials,omitempty"`
+}
+
+// WebIdentityScope is the scope of the resulting OTC token. Only a project
+// scope is supported.
+type WebIdentityScope struct {
+	// Project scope, either by Id or Name (exactly one).
+	// +optional
+	Project *WebIdentityScopeResource `json:"project,omitempty"`
+
+	// Domain scope. Not supported — only a project scope is supported. Retained
+	// in the schema so domain-scoped auth can be re-enabled later without a
+	// schema change.
+	// +optional
+	Domain *WebIdentityScopeResource `json:"domain,omitempty"`
+}
+
+// WebIdentityScopeResource identifies a project by exactly one of Id or Name.
+type WebIdentityScopeResource struct {
+	// +optional
+	Id string `json:"id,omitempty"`
+
+	// +optional
+	Name string `json:"name,omitempty"`
+}
+
+// WebIdentityTokenConfig defines the source of the OIDC identity token.
+type WebIdentityTokenConfig struct {
+	// Source of the OIDC identity token.
+	// +kubebuilder:validation:Enum=Secret;Filesystem
+	// +kubebuilder:validation:Required
+	Source xpv1.CredentialsSource `json:"source"`
+
+	// SecretRef is a reference to a secret key holding the OIDC identity token,
+	// used when Source is Secret.
+	// +optional
+	SecretRef *xpv1.SecretKeySelector `json:"secretRef,omitempty"`
+
+	// Fs is a reference to a filesystem path holding the OIDC identity token,
+	// used when Source is Filesystem.
+	// +optional
+	Fs *xpv1.FsSelector `json:"fs,omitempty"`
+}
+
+// WebIdentityTemporaryCredentials configures obtaining short-lived AK/SK
+// credentials from the OTC token.
+type WebIdentityTemporaryCredentials struct {
+	// Enabled controls whether temporary credentials are obtained. Defaults to
+	// true when this object is present.
+	// +optional
+	Enabled *bool `json:"enabled,omitempty"`
+
+	// DurationSeconds is the validity period of the temporary credentials in
+	// seconds. It must be between 900 (15 minutes) and 86400 (24 hours).
+	// Defaults to 3600.
+	// +optional
+	// +kubebuilder:validation:Minimum=900
+	// +kubebuilder:validation:Maximum=86400
+	DurationSeconds *int `json:"durationSeconds,omitempty"`
 }
 
 // A ProviderConfigStatus reflects the observed state of a ProviderConfig.

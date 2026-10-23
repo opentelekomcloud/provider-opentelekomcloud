@@ -45,6 +45,15 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string) terr
 			return terraform.Setup{}, errors.Wrap(err, "cannot resolve provider config")
 		}
 
+		if pcSpec.Credentials.Source == sourceWebIdentity {
+			cfg, err := buildWebIdentityConfig(ctx, client, pcSpec)
+			if err != nil {
+				return ps, errors.Wrap(err, "cannot build web identity configuration")
+			}
+			ps.Configuration = cfg
+			return ps, nil
+		}
+
 		data, err := resource.CommonCredentialExtractor(ctx, pcSpec.Credentials.Source, client, pcSpec.Credentials.CommonCredentialSelectors)
 		if err != nil {
 			return ps, errors.Wrap(err, errExtractCredentials)
@@ -161,9 +170,7 @@ func resolveModern(ctx context.Context, crClient client.Client, mg resource.Mode
 	switch pc := pcObj.(type) {
 	case *namespacedv1beta1.ProviderConfig:
 		pcSpec = pc.Spec
-		if pcSpec.Credentials.SecretRef != nil {
-			pcSpec.Credentials.SecretRef.Namespace = mg.GetNamespace()
-		}
+		enrichSecretRefNamespaces(&pcSpec, mg.GetNamespace())
 	case *namespacedv1beta1.ClusterProviderConfig:
 		pcSpec = pc.Spec
 	default:
@@ -174,4 +181,16 @@ func resolveModern(ctx context.Context, crClient client.Client, mg resource.Mode
 		return nil, errors.Wrap(err, errTrackUsage)
 	}
 	return &pcSpec, nil
+}
+
+// enrichSecretRefNamespaces sets the namespace of the credential secret refs on
+// a namespaced ProviderConfig spec to the managed resource's namespace, so that
+// the secrets are resolved in that namespace.
+func enrichSecretRefNamespaces(pcSpec *namespacedv1beta1.ProviderConfigSpec, namespace string) {
+	if pcSpec.Credentials.SecretRef != nil {
+		pcSpec.Credentials.SecretRef.Namespace = namespace
+	}
+	if wi := pcSpec.Credentials.WebIdentity; wi != nil && wi.TokenConfig.SecretRef != nil {
+		wi.TokenConfig.SecretRef.Namespace = namespace
+	}
 }
