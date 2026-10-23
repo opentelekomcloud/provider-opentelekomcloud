@@ -80,10 +80,8 @@ func buildWebIdentityConfig(ctx context.Context, c client.Client, pcSpec *namesp
 		cfg[k] = v
 	}
 
-	if wi.TemporaryCredentials != nil && tempCredsEnabled(wi.TemporaryCredentials.Enabled) {
-		if err := addTemporaryCredentials(ctx, wi, iamToken, cfg); err != nil {
-			return nil, err
-		}
+	if err := addTemporaryCredentials(ctx, wi, iamToken, cfg); err != nil {
+		return nil, err
 	}
 
 	return cfg, nil
@@ -107,8 +105,12 @@ func projectTenantFields(scope *namespacedv1beta1.WebIdentityScope) map[string]a
 }
 
 // addTemporaryCredentials exchanges the OTC token for short-lived AK/SK and adds
-// them to the Terraform configuration.
+// them to the Terraform configuration. It is a no-op unless temporary
+// credentials are configured and enabled.
 func addTemporaryCredentials(ctx context.Context, wi *namespacedv1beta1.WebIdentity, iamToken string, cfg map[string]any) error {
+	if wi.TemporaryCredentials == nil || !tempCredsEnabled(wi.TemporaryCredentials.Enabled) {
+		return nil
+	}
 	duration := defaultTempDurationSeconds
 	if wi.TemporaryCredentials.DurationSeconds != nil {
 		duration = *wi.TemporaryCredentials.DurationSeconds
@@ -162,24 +164,35 @@ func readIdentityToken(ctx context.Context, c client.Client, tc *namespacedv1bet
 // (which triggers rate-limiting / WAF errors). Tokens that cannot be decoded
 // or carry no exp claim are passed through and left to IAM as final authority.
 func validateIdTokenNotExpired(token string) error {
+	exp, ok := parseIdTokenExpiry(token)
+	if !ok || exp == nil {
+		return nil
+	}
+	if !time.Now().Before(time.Unix(*exp, 0)) {
+		return errors.New(errTokenExpired)
+	}
+	return nil
+}
+
+// parseIdTokenExpiry best-effort extracts the exp claim from a JWT payload.
+// ok is false when the token is not a three-part JWT or cannot be decoded;
+// such tokens are left to IAM as final authority.
+func parseIdTokenExpiry(token string) (*int64, bool) {
 	parts := strings.Split(token, ".")
 	if len(parts) != 3 {
-		return nil
+		return nil, false
 	}
 	payload, err := base64.RawURLEncoding.DecodeString(strings.TrimRight(parts[1], "="))
 	if err != nil {
-		return nil
+		return nil, false
 	}
 	var claims struct {
 		Exp *int64 `json:"exp"`
 	}
 	if err := json.Unmarshal(payload, &claims); err != nil {
-		return nil
+		return nil, false
 	}
-	if claims.Exp != nil && !time.Now().Before(time.Unix(*claims.Exp, 0)) {
-		return errors.New(errTokenExpired)
-	}
-	return nil
+	return claims.Exp, true
 }
 
 // buildScopeMap validates the scope configuration and returns the request scope
