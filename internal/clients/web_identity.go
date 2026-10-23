@@ -1,14 +1,10 @@
-/*
-Copyright 2021 Upbound Inc.
-*/
-
 package clients
 
 import (
 	"bytes"
 	"context"
+	"encoding/base64"
 	"encoding/json"
-	"io"
 	"net/http"
 	"strings"
 	"time"
@@ -36,6 +32,11 @@ const (
 	errEmptyToken             = "could not read a non-empty OIDC identity token"
 	errExchangeToken          = "cannot exchange OIDC identity token with IAM"
 	errTempCredentials        = "cannot obtain temporary credentials"
+	errTempCredentialsEmpty   = "temporary credentials response was missing access_key, secret_key or security_token"
+	errAuthURLRequired        = "spec.credentials.webIdentity.authURL must be set"
+	errIdpIDRequired          = "spec.credentials.webIdentity.idpID must be set"
+	errExchangeTokenEmpty     = "cannot exchange an empty OIDC identity token"
+	errTokenExpired           = "OIDC identity token has expired; a fresh token is required"
 )
 
 const defaultTempDurationSeconds = 3600
@@ -58,6 +59,9 @@ func buildWebIdentityConfig(ctx context.Context, c client.Client, pcSpec *namesp
 
 	token, err := readIdentityToken(ctx, c, tc)
 	if err != nil {
+		return nil, err
+	}
+	if err := validateIdTokenNotExpired(token); err != nil {
 		return nil, err
 	}
 
@@ -153,6 +157,31 @@ func readIdentityToken(ctx context.Context, c client.Client, tc *namespacedv1bet
 	return token, nil
 }
 
+// validateIdTokenNotExpired fails fast on an OIDC token already past its
+// expiry, so a wave of reconciles does not stamp IAM with an expired token
+// (which triggers rate-limiting / WAF errors). Tokens that cannot be decoded
+// or carry no exp claim are passed through and left to IAM as final authority.
+func validateIdTokenNotExpired(token string) error {
+	parts := strings.Split(token, ".")
+	if len(parts) != 3 {
+		return nil
+	}
+	payload, err := base64.RawURLEncoding.DecodeString(strings.TrimRight(parts[1], "="))
+	if err != nil {
+		return nil
+	}
+	var claims struct {
+		Exp *int64 `json:"exp"`
+	}
+	if err := json.Unmarshal(payload, &claims); err != nil {
+		return nil
+	}
+	if claims.Exp != nil && !time.Now().Before(time.Unix(*claims.Exp, 0)) {
+		return errors.New(errTokenExpired)
+	}
+	return nil
+}
+
 // buildScopeMap validates the scope configuration and returns the request scope
 // object. Only a project scope is supported: an unset scope or a domain scope is
 // rejected. On success the returned map is always {"project": {"id"|{"name"}}}.
@@ -224,6 +253,9 @@ func buildIdTokenBody(idToken string, scope map[string]any) ([]byte, error) {
 // exchangeIdToken exchanges an OIDC identity token for an OTC token. The signed
 // token is returned in the X-Subject-Token response header.
 func exchangeIdToken(ctx context.Context, authURL, idpID, idToken string, scope map[string]any) (string, error) {
+	if err := validateExchangeIdTokenInputs(authURL, idpID, idToken); err != nil {
+		return "", err
+	}
 	url := normalizeAuthURLBase(authURL) + "/v3.0/OS-AUTH/id-token/tokens"
 
 	body, err := buildIdTokenBody(idToken, scope)
@@ -247,7 +279,11 @@ func exchangeIdToken(ctx context.Context, authURL, idpID, idToken string, scope 
 	}()
 
 	if resp.StatusCode != http.StatusCreated {
-		return "", errors.Errorf("identity token exchange failed with status %d: %s", resp.StatusCode, readBody(resp))
+		// The response body is not included in the error: it can echo the request,
+		// which carries the OIDC identity token, and would leak into reconcile
+		// events and logs.
+		// TODO(webidentity): surface a sanitized body (IAM error code/message only).
+		return "", errors.Errorf("identity token exchange failed with status %d", resp.StatusCode)
 	}
 
 	if t := strings.TrimSpace(resp.Header.Get("X-Subject-Token")); t != "" {
@@ -260,7 +296,6 @@ type tempCredential struct {
 	AccessKey     string `json:"access"`
 	SecretKey     string `json:"secret"`
 	SecurityToken string `json:"securitytoken"`
-	ExpiresAt     string `json:"expires_at"`
 }
 
 type tempCredentialResponse struct {
@@ -305,19 +340,52 @@ func createTemporaryCredentials(ctx context.Context, authURL, iamToken string, d
 	}()
 
 	if resp.StatusCode != http.StatusCreated {
-		return nil, errors.Errorf("temporary credentials request failed with status %d: %s", resp.StatusCode, readBody(resp))
+		// The response body is not included in the error: it can echo the request,
+		// which carries the OTC token, and would leak into reconcile events and
+		// logs.
+		// TODO(webidentity): surface a sanitized body (IAM error code/message only).
+		return nil, errors.Errorf("temporary credentials request failed with status %d", resp.StatusCode)
 	}
 
 	var out tempCredentialResponse
 	if err := json.NewDecoder(resp.Body).Decode(&out); err != nil {
 		return nil, errors.Wrap(err, "cannot decode temporary credentials response")
 	}
+	if err := validateTempCredential(&out.Credential); err != nil {
+		return nil, err
+	}
 	return &out.Credential, nil
 }
 
-func readBody(resp *http.Response) string {
-	b, _ := io.ReadAll(io.LimitReader(resp.Body, 4096))
-	return strings.TrimSpace(string(b))
+// validateExchangeIdTokenInputs ensures the inputs to the identity token
+// exchange are present. An empty auth URL, IdP id or token would produce an
+// uninformative IAM error, so they are rejected up front.
+func validateExchangeIdTokenInputs(authURL, idpID, idToken string) error {
+	switch {
+	case strings.TrimSpace(authURL) == "":
+		return errors.New(errAuthURLRequired)
+	case strings.TrimSpace(idpID) == "":
+		return errors.New(errIdpIDRequired)
+	case strings.TrimSpace(idToken) == "":
+		return errors.New(errExchangeTokenEmpty)
+	}
+	return nil
+}
+
+// validateTempCredential ensures every field of the returned temporary
+// credentials is present. An empty value would otherwise be silently written
+// into the Terraform configuration and surface later as an obscure auth
+// failure.
+func validateTempCredential(cred *tempCredential) error {
+	switch {
+	case strings.TrimSpace(cred.AccessKey) == "":
+		return errors.New(errTempCredentialsEmpty)
+	case strings.TrimSpace(cred.SecretKey) == "":
+		return errors.New(errTempCredentialsEmpty)
+	case strings.TrimSpace(cred.SecurityToken) == "":
+		return errors.New(errTempCredentialsEmpty)
+	}
+	return nil
 }
 
 func newHTTPClient() *http.Client {

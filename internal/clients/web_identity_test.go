@@ -5,8 +5,11 @@ Copyright 2021 Upbound Inc.
 package clients
 
 import (
+	"encoding/base64"
 	"encoding/json"
+	"strconv"
 	"testing"
+	"time"
 
 	"github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/v1beta1"
 )
@@ -297,4 +300,78 @@ func TestBuildIdTokenBody(t *testing.T) {
 			t.Errorf("auth.scope.project.id = %v, want %s", project["id"], testProjectID)
 		}
 	})
+}
+
+// buildTestToken assembles a throwaway JWT (header.payload.sig) whose payload
+// is the given JSON string, for exercising validateIdTokenNotExpired.
+func buildTestToken(t *testing.T, payload string) string {
+	t.Helper()
+	header := base64.RawURLEncoding.EncodeToString([]byte(`{"alg":"none"}`))
+	body := base64.RawURLEncoding.EncodeToString([]byte(payload))
+	return header + "." + body + ".sig"
+}
+
+func TestValidateIdTokenNotExpired(t *testing.T) {
+	now := time.Now().Unix()
+	expired := strconv.FormatInt(now-3600, 10)
+	valid := strconv.FormatInt(now+3600, 10)
+
+	cases := []struct {
+		name    string
+		token   string
+		wantErr bool
+	}{
+		{
+			name:    "expired token is rejected",
+			token:   buildTestToken(t, `{"exp":`+expired+`}`),
+			wantErr: true,
+		},
+		{
+			name:  "valid token is accepted",
+			token: buildTestToken(t, `{"exp":`+valid+`}`),
+		},
+		{
+			name:  "token without exp passes through",
+			token: buildTestToken(t, `{"sub":"system:serviceaccount:ns:sa"}`),
+		},
+		{
+			name:  "non-JWT token passes through",
+			token: "not-a-jwt",
+		},
+		{
+			name:  "too many segments passes through",
+			token: "a.b.c.d",
+		},
+		{
+			name:  "undecodable payload passes through",
+			token: "a.!!!.c",
+		},
+		{
+			name:  "invalid JSON payload passes through",
+			token: buildTestToken(t, "this is not json"),
+		},
+		{
+			name:  "non-numeric exp passes through",
+			token: buildTestToken(t, `{"exp":"not-a-number"}`),
+		},
+		{
+			name:  "null exp passes through",
+			token: buildTestToken(t, `{"exp":null}`),
+		},
+	}
+
+	for _, tc := range cases {
+		t.Run(tc.name, func(t *testing.T) {
+			err := validateIdTokenNotExpired(tc.token)
+			if tc.wantErr {
+				if err == nil {
+					t.Fatalf("expected error, got nil (token=%q)", tc.token)
+				}
+				return
+			}
+			if err != nil {
+				t.Fatalf("unexpected error: %v (token=%q)", err, tc.token)
+			}
+		})
+	}
 }
