@@ -41,6 +41,16 @@ const (
 
 const defaultTempDurationSeconds = 3600
 
+type tempCredential struct {
+	AccessKey     string `json:"access"`
+	SecretKey     string `json:"secret"`
+	SecurityToken string `json:"securitytoken"`
+}
+
+type tempCredentialResponse struct {
+	Credential tempCredential `json:"credential"`
+}
+
 // buildWebIdentityConfig authenticates using an OIDC identity token and returns
 // the Terraform provider configuration to use.
 func buildWebIdentityConfig(ctx context.Context, c client.Client, pcSpec *namespacedv1beta1.ProviderConfigSpec) (map[string]any, error) {
@@ -87,6 +97,33 @@ func buildWebIdentityConfig(ctx context.Context, c client.Client, pcSpec *namesp
 	return cfg, nil
 }
 
+// buildScopeMap validates the scope configuration and returns the request scope
+// object. Only a project scope is supported: an unset scope or a domain scope is
+// rejected. On success the returned map is always {"project": {"id"|{"name"}}}.
+func buildScopeMap(scope *namespacedv1beta1.WebIdentityScope) (map[string]any, error) {
+	if scope == nil || scope.Project == nil {
+		return nil, errors.New(errScopeProjectRequired)
+	}
+	if scope.Domain != nil {
+		return nil, errors.New(errScopeDomainUnsupported)
+	}
+	res, err := buildScopeResourceMap(scope.Project)
+	if err != nil {
+		return nil, err
+	}
+	return map[string]any{"project": res}, nil
+}
+
+func buildScopeResourceMap(r *namespacedv1beta1.WebIdentityScopeResource) (map[string]any, error) {
+	if (r.Id == "") == (r.Name == "") {
+		return nil, errors.New(errScopeEmpty)
+	}
+	if r.Id != "" {
+		return map[string]any{"id": r.Id}, nil
+	}
+	return map[string]any{"name": r.Name}, nil
+}
+
 // projectTenantFields returns the Terraform tenant fields for a project-scoped
 // token. The Terraform OTC provider requires a tenant to be set (see its
 // validateProject check), and a project-scoped token only exposes project-scoped
@@ -102,30 +139,6 @@ func projectTenantFields(scope *namespacedv1beta1.WebIdentityScope) map[string]a
 		return map[string]any{"tenant_id": scope.Project.Id}
 	}
 	return map[string]any{"tenant_name": scope.Project.Name}
-}
-
-// addTemporaryCredentials exchanges the OTC token for short-lived AK/SK and adds
-// them to the Terraform configuration. It is a no-op unless temporary
-// credentials are configured and enabled.
-func addTemporaryCredentials(ctx context.Context, wi *namespacedv1beta1.WebIdentity, iamToken string, cfg map[string]any) error {
-	if wi.TemporaryCredentials == nil || !tempCredsEnabled(wi.TemporaryCredentials.Enabled) {
-		return nil
-	}
-	duration := defaultTempDurationSeconds
-	if wi.TemporaryCredentials.DurationSeconds != nil {
-		duration = *wi.TemporaryCredentials.DurationSeconds
-	}
-	if duration < 900 || duration > 86400 {
-		return errors.New(errTempDurationInvalid)
-	}
-	cred, err := createTemporaryCredentials(ctx, wi.AuthURL, iamToken, duration)
-	if err != nil {
-		return errors.Wrap(err, errTempCredentials)
-	}
-	cfg["access_key"] = cred.AccessKey
-	cfg["secret_key"] = cred.SecretKey
-	cfg["security_token"] = cred.SecurityToken
-	return nil
 }
 
 // validateTokenConfig checks that the token source is one of the supported
@@ -195,72 +208,19 @@ func parseIdTokenExpiry(token string) (*int64, bool) {
 	return claims.Exp, true
 }
 
-// buildScopeMap validates the scope configuration and returns the request scope
-// object. Only a project scope is supported: an unset scope or a domain scope is
-// rejected. On success the returned map is always {"project": {"id"|{"name"}}}.
-func buildScopeMap(scope *namespacedv1beta1.WebIdentityScope) (map[string]any, error) {
-	if scope == nil || scope.Project == nil {
-		return nil, errors.New(errScopeProjectRequired)
+// validateExchangeIdTokenInputs ensures the inputs to the identity token
+// exchange are present. An empty auth URL, IdP id or token would produce an
+// uninformative IAM error, so they are rejected up front.
+func validateExchangeIdTokenInputs(authURL, idpID, idToken string) error {
+	switch {
+	case strings.TrimSpace(authURL) == "":
+		return errors.New(errAuthURLRequired)
+	case strings.TrimSpace(idpID) == "":
+		return errors.New(errIdpIDRequired)
+	case strings.TrimSpace(idToken) == "":
+		return errors.New(errExchangeTokenEmpty)
 	}
-	if scope.Domain != nil {
-		return nil, errors.New(errScopeDomainUnsupported)
-	}
-	res, err := buildScopeResourceMap(scope.Project)
-	if err != nil {
-		return nil, err
-	}
-	return map[string]any{"project": res}, nil
-}
-
-func buildScopeResourceMap(r *namespacedv1beta1.WebIdentityScopeResource) (map[string]any, error) {
-	if (r.Id == "") == (r.Name == "") {
-		return nil, errors.New(errScopeEmpty)
-	}
-	if r.Id != "" {
-		return map[string]any{"id": r.Id}, nil
-	}
-	return map[string]any{"name": r.Name}, nil
-}
-
-func tempCredsEnabled(enabled *bool) bool {
-	if enabled == nil {
-		return true
-	}
-	return *enabled
-}
-
-// normalizeAuthURLV3 returns the auth URL in the form expected by the Terraform
-// OTC provider (ending in /v3), stripping any existing /v3 or /v3.0 suffix.
-func normalizeAuthURLV3(authURL string) string {
-	u := strings.TrimRight(authURL, "/")
-	u = strings.TrimSuffix(u, "/v3.0")
-	u = strings.TrimSuffix(u, "/v3")
-	return u + "/v3"
-}
-
-// normalizeAuthURLBase returns the base auth URL without any version suffix,
-// e.g. https://iam.eu-de.otc.t-systems.com
-func normalizeAuthURLBase(authURL string) string {
-	u := strings.TrimRight(authURL, "/")
-	u = strings.TrimSuffix(u, "/v3.0")
-	u = strings.TrimSuffix(u, "/v3")
-	return u
-}
-
-// buildIdTokenBody assembles the body for the OS-AUTH/id-token/tokens request:
-// the ID token is carried under auth.id_token.id, with an optional auth.scope
-// (a project or a domain). See the IAM "obtaining a token by using an ID token"
-// API reference.
-func buildIdTokenBody(idToken string, scope map[string]any) ([]byte, error) {
-	auth := map[string]any{
-		"id_token": map[string]any{
-			"id": idToken,
-		},
-	}
-	if scope != nil {
-		auth["scope"] = scope
-	}
-	return json.Marshal(map[string]any{"auth": auth})
+	return nil
 }
 
 // exchangeIdToken exchanges an OIDC identity token for an OTC token. The signed
@@ -305,14 +265,51 @@ func exchangeIdToken(ctx context.Context, authURL, idpID, idToken string, scope 
 	return "", errors.New("identity token exchange response did not contain an X-Subject-Token")
 }
 
-type tempCredential struct {
-	AccessKey     string `json:"access"`
-	SecretKey     string `json:"secret"`
-	SecurityToken string `json:"securitytoken"`
+// buildIdTokenBody assembles the body for the OS-AUTH/id-token/tokens request:
+// the ID token is carried under auth.id_token.id, with an optional auth.scope
+// (a project or a domain). See the IAM "obtaining a token by using an ID token"
+// API reference.
+func buildIdTokenBody(idToken string, scope map[string]any) ([]byte, error) {
+	auth := map[string]any{
+		"id_token": map[string]any{
+			"id": idToken,
+		},
+	}
+	if scope != nil {
+		auth["scope"] = scope
+	}
+	return json.Marshal(map[string]any{"auth": auth})
 }
 
-type tempCredentialResponse struct {
-	Credential tempCredential `json:"credential"`
+// addTemporaryCredentials exchanges the OTC token for short-lived AK/SK and adds
+// them to the Terraform configuration. It is a no-op unless temporary
+// credentials are configured and enabled.
+func addTemporaryCredentials(ctx context.Context, wi *namespacedv1beta1.WebIdentity, iamToken string, cfg map[string]any) error {
+	if wi.TemporaryCredentials == nil || !tempCredsEnabled(wi.TemporaryCredentials.Enabled) {
+		return nil
+	}
+	duration := defaultTempDurationSeconds
+	if wi.TemporaryCredentials.DurationSeconds != nil {
+		duration = *wi.TemporaryCredentials.DurationSeconds
+	}
+	if duration < 900 || duration > 86400 {
+		return errors.New(errTempDurationInvalid)
+	}
+	cred, err := createTemporaryCredentials(ctx, wi.AuthURL, iamToken, duration)
+	if err != nil {
+		return errors.Wrap(err, errTempCredentials)
+	}
+	cfg["access_key"] = cred.AccessKey
+	cfg["secret_key"] = cred.SecretKey
+	cfg["security_token"] = cred.SecurityToken
+	return nil
+}
+
+func tempCredsEnabled(enabled *bool) bool {
+	if enabled == nil {
+		return true
+	}
+	return *enabled
 }
 
 // createTemporaryCredentials exchanges an OTC token for short-lived AK/SK
@@ -370,21 +367,6 @@ func createTemporaryCredentials(ctx context.Context, authURL, iamToken string, d
 	return &out.Credential, nil
 }
 
-// validateExchangeIdTokenInputs ensures the inputs to the identity token
-// exchange are present. An empty auth URL, IdP id or token would produce an
-// uninformative IAM error, so they are rejected up front.
-func validateExchangeIdTokenInputs(authURL, idpID, idToken string) error {
-	switch {
-	case strings.TrimSpace(authURL) == "":
-		return errors.New(errAuthURLRequired)
-	case strings.TrimSpace(idpID) == "":
-		return errors.New(errIdpIDRequired)
-	case strings.TrimSpace(idToken) == "":
-		return errors.New(errExchangeTokenEmpty)
-	}
-	return nil
-}
-
 // validateTempCredential ensures every field of the returned temporary
 // credentials is present. An empty value would otherwise be silently written
 // into the Terraform configuration and surface later as an obscure auth
@@ -399,6 +381,24 @@ func validateTempCredential(cred *tempCredential) error {
 		return errors.New(errTempCredentialsEmpty)
 	}
 	return nil
+}
+
+// normalizeAuthURLV3 returns the auth URL in the form expected by the Terraform
+// OTC provider (ending in /v3), stripping any existing /v3 or /v3.0 suffix.
+func normalizeAuthURLV3(authURL string) string {
+	u := strings.TrimRight(authURL, "/")
+	u = strings.TrimSuffix(u, "/v3.0")
+	u = strings.TrimSuffix(u, "/v3")
+	return u + "/v3"
+}
+
+// normalizeAuthURLBase returns the base auth URL without any version suffix,
+// e.g. https://iam.eu-de.otc.t-systems.com
+func normalizeAuthURLBase(authURL string) string {
+	u := strings.TrimRight(authURL, "/")
+	u = strings.TrimSuffix(u, "/v3.0")
+	u = strings.TrimSuffix(u, "/v3")
+	return u
 }
 
 func newHTTPClient() *http.Client {
