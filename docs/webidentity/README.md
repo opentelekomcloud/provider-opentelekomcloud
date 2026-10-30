@@ -437,15 +437,15 @@ and upserts the `id_token` into the Secret every minute is a common pattern.
 | `tokenConfig.source` | yes | `Filesystem` (projected token, recommended) or `Secret`. |
 | `tokenConfig.fs.path` | if `Filesystem` | Path to the OIDC ID token file inside the provider pod, e.g. `/var/run/secrets/otc/tokens/oidc-token`. |
 | `tokenConfig.secretRef` | if `Secret` | The Secret holding the token. For a namespaced `ProviderConfig` the Secret is resolved in the managed resource's namespace, so set `name`/`key` (the `namespace` is filled in automatically). |
-| `temporaryCredentials` | no | Optional. When present, `enabled` defaults to `true` and `durationSeconds` defaults to `3600` (range `900`–`86400`). Omit the object entirely for token-only auth (no temporary AK/SK). |
-| `temporaryCredentials.enabled` | no | `true` (default when the object is present) or `false`. |
+| `temporaryCredentials` | no | Optional. `enabled` defaults to `false`; set `enabled: true` to obtain temporary AK/SK. `durationSeconds` defaults to `3600` (range `900`–`86400`). Omit the object or leave `enabled` unset for token-only auth. |
+| `temporaryCredentials.enabled` | no | `true` enables temporary AK/SK; `false` or omitted disables. |
 | `temporaryCredentials.durationSeconds` | no | Validity of the temporary AK/SK in seconds. `900`–`86400`; default `3600`. |
 
 > [!NOTE]
 > **When to enable `temporaryCredentials`.** The OTC token alone authenticates
 > most services. Services that sign requests with AK/SK (e.g. **OBS**) require
-> temporary credentials. Enable `temporaryCredentials` if you manage such
-> services; otherwise you can omit it.
+> temporary credentials. Set `temporaryCredentials.enabled: true` if you manage
+> such services; otherwise omit the object or leave `enabled` unset.
 
 Reference the `ProviderConfig` from managed resources:
 
@@ -504,8 +504,8 @@ kubectl logs -n crossplane-system <provider-pod> -c package-runtime
 | `scope.domain is not supported: only a project scope is supported` | A `scope.domain` was set. Domain-scoped tokens are not supported; use `scope.project` instead (see Limitations). |
 | Token file not found | The projected volume is not mounted, or `fs.path` is wrong. Verify the volume (Step 3) and the path. |
 | Secret not found | `secretRef` name/key/namespace mismatch, or the token controller has not written it yet. For a namespaced `ProviderConfig`, the Secret is resolved in the managed resource's namespace. |
-| Temp AK/SK missing for OBS | `temporaryCredentials` is omitted or `enabled: false`; add it. |
-| Provider works but a service (e.g. OBS) fails | You configured token-only auth but the service needs AK/SK signing; enable `temporaryCredentials`. |
+| Temp AK/SK missing for OBS | `temporaryCredentials` is omitted, `enabled` is omitted, or `enabled: false`; set `temporaryCredentials.enabled: true`. |
+| Provider works but a service (e.g. OBS) fails | You configured token-only auth but the service needs AK/SK signing; set `temporaryCredentials.enabled: true`. |
 
 ## Security best practices
 
@@ -529,7 +529,7 @@ kubectl logs -n crossplane-system <provider-pod> -c package-runtime
    scoped and unscoped tokens are not supported because their service catalogs
    cannot reliably target the project.
 - **Temporary credentials are required for AK/SK-signing services** such as
-  OBS. Enable `temporaryCredentials` if you manage those.
+  OBS. Set `temporaryCredentials.enabled: true` if you manage those.
 - **No credential caching.** Every reconcile of every managed resource re-exchanges
   the OIDC token with T Cloud IAM. This keeps the flow simple and always uses a
   fresh token, at the cost of extra IAM calls as the number of managed resources

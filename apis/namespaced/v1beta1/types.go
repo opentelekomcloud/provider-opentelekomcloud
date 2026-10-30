@@ -109,8 +109,9 @@ type WebIdentityTokenConfig struct {
 // WebIdentityTemporaryCredentials configures obtaining short-lived AK/SK
 // credentials from the OTC token.
 type WebIdentityTemporaryCredentials struct {
-	// Enabled controls whether temporary credentials are obtained. Defaults to
-	// true when this object is present.
+	// Enabled controls whether temporary credentials are obtained. Temporary
+	// credentials are disabled when this field is omitted; set it to true to
+	// opt in.
 	// +optional
 	Enabled *bool `json:"enabled,omitempty"`
 

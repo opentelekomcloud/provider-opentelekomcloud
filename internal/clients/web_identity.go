@@ -283,7 +283,7 @@ func buildIdTokenBody(idToken string, scope map[string]any) ([]byte, error) {
 
 // addTemporaryCredentials exchanges the OTC token for short-lived AK/SK and adds
 // them to the Terraform configuration. It is a no-op unless temporary
-// credentials are configured and enabled.
+// credentials are configured and explicitly enabled.
 func addTemporaryCredentials(ctx context.Context, wi *namespacedv1beta1.WebIdentity, iamToken string, cfg map[string]any) error {
 	if wi.TemporaryCredentials == nil || !tempCredsEnabled(wi.TemporaryCredentials.Enabled) {
 		return nil
@@ -305,11 +305,10 @@ func addTemporaryCredentials(ctx context.Context, wi *namespacedv1beta1.WebIdent
 	return nil
 }
 
+// tempCredsEnabled reports whether temporary credentials are enabled. Temporary
+// credentials are opt-in: an omitted enabled field means disabled.
 func tempCredsEnabled(enabled *bool) bool {
-	if enabled == nil {
-		return true
-	}
-	return *enabled
+	return enabled != nil && *enabled
 }
 
 // createTemporaryCredentials exchanges an OTC token for short-lived AK/SK

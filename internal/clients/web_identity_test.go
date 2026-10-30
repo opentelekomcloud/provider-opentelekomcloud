@@ -230,9 +230,9 @@ func TestNormalizeAuthURLBase(t *testing.T) {
 }
 
 func TestTempCredsEnabled(t *testing.T) {
-	// nil defaults to enabled
-	if !tempCredsEnabled(nil) {
-		t.Errorf("expected tempCredsEnabled(nil) to be true")
+	// nil (omitted) defaults to disabled
+	if tempCredsEnabled(nil) {
+		t.Errorf("expected tempCredsEnabled(nil) to be false")
 	}
 	f := false
 	tr := true

@@ -167,8 +167,9 @@ spec:
                             type: integer
                           enabled:
                             description: |-
-                              Enabled controls whether temporary credentials are obtained. Defaults to
-                              true when this object is present.
+                              Enabled controls whether temporary credentials are obtained. Temporary
+                              credentials are disabled when this field is omitted; set it to true to
+                              opt in.
                             type: boolean
                         type: object
                       tokenConfig:
