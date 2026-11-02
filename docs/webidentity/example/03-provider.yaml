@@ -1,0 +1,8 @@
+apiVersion: pkg.crossplane.io/v1
+kind: Provider
+metadata:
+  name: provider-opentelekomcloud
+spec:
+  package: xpkg.upbound.io/opentelekomcloud/provider-opentelekomcloud:<version>
+  runtimeConfigRef:
+    name: cce-workload-identity

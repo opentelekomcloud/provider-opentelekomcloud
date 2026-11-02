@@ -55,3 +55,6 @@ so any field supported there can be used: `region`, `security_token`, `passcode`
 | `auth_url` | `secret.yaml.tmpl` | Change the region in the URL (`eu-de` -> your region, e.g. `https://iam.eu-de.otc.t-systems.com/v3`) |
 | secret name/namespace | `providerconfig.yaml` `spec.credentials.secretRef` | Defaults to `provider-secret` in `crossplane-system` - change if you put the secret elsewhere |
 | provider config name | `providerconfig.yaml` `metadata.name` | Defaults to `default` - some examples reference it explicitly (e.g. `default-tlp`, `default-nl` in `obs/bucketreplication.yaml`) |
+
+For Web Identity (workload identity) authentication instead of AK/SK in a
+secret, see [`docs/webidentity/`](../../docs/webidentity/README.md).

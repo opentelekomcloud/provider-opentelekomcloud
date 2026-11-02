@@ -1,0 +1,25 @@
+apiVersion: pkg.crossplane.io/v1beta1
+kind: DeploymentRuntimeConfig
+metadata:
+  name: cce-workload-identity
+spec:
+  deploymentTemplate:
+    spec:
+      selector: {}
+      template:
+        spec:
+          serviceAccountName: oidc-token   # the SA whose sub the IAM mapping matches
+          containers:
+            - name: package-runtime
+              volumeMounts:
+                - name: cce-oidc-token
+                  mountPath: /var/run/secrets/otc/tokens
+                  readOnly: true
+          volumes:
+            - name: cce-oidc-token
+              projected:
+                sources:
+                  - serviceAccountToken:
+                      path: oidc-token
+                      audience: crossplane-provider   # must equal the IAM client ID
+                      expirationSeconds: 7200

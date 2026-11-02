@@ -1,0 +1,22 @@
+apiVersion: opentelekomcloud.m.crossplane.io/v1beta1
+kind: ProviderConfig
+metadata:
+  name: webidentity
+  namespace: test
+spec:
+  credentials:
+    source: WebIdentity
+    webIdentity:
+      authURL: https://iam.eu-de.otc.t-systems.com # IAM endpoint for your region
+      idpID: crossplane-workload-identity # the IAM provider name from Step 2.1
+      region: eu-de
+      scope:
+        project:
+          name: eu-de
+      tokenConfig:
+        source: Filesystem
+        fs:
+          path: /var/run/secrets/otc/tokens/oidc-token
+      temporaryCredentials:
+        enabled: true
+        durationSeconds: 3600
