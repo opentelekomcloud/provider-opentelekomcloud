@@ -1,7 +1,7 @@
 # Web Identity (workload identity) authentication
 
 > [!NOTE]
-> Web Identity is available on the **namespaced** API group
+> Web Identity is currently a **BETA** feature and is available on the **namespaced** API group
 > `opentelekomcloud.m.crossplane.io` only. The legacy cluster-scoped
 > `ProviderConfig`/`ClusterProviderConfig` does not support
 > `spec.credentials.source: WebIdentity`.
