@@ -61,7 +61,7 @@ spec:
                 properties:
                   granteePrincipal:
                     description: |-
-                      Indicates the ID of the authorized user.
+                      Indicates the ID of the authorized user or account.
                       Changing this creates new grant.
                     type: string
                   granteePrincipalRef:
@@ -144,6 +144,11 @@ spec:
                             type: string
                         type: object
                     type: object
+                  granteePrincipalType:
+                    description: |-
+                      Authorization type. The valid values are: user, domain.
+                      Defaults to user on the API side. Changing this creates new grant.
+                    type: string
                   keyId:
                     description: Indicates the ID of the KMS. Changing this creates
                       new grant.
@@ -265,7 +270,7 @@ spec:
                 properties:
                   granteePrincipal:
                     description: |-
-                      Indicates the ID of the authorized user.
+                      Indicates the ID of the authorized user or account.
                       Changing this creates new grant.
                     type: string
                   granteePrincipalRef:
@@ -348,6 +353,11 @@ spec:
                             type: string
                         type: object
                     type: object
+                  granteePrincipalType:
+                    description: |-
+                      Authorization type. The valid values are: user, domain.
+                      Defaults to user on the API side. Changing this creates new grant.
+                    type: string
                   keyId:
                     description: Indicates the ID of the KMS. Changing this creates
                       new grant.
@@ -524,8 +534,13 @@ spec:
                     type: string
                   granteePrincipal:
                     description: |-
-                      Indicates the ID of the authorized user.
+                      Indicates the ID of the authorized user or account.
                       Changing this creates new grant.
+                    type: string
+                  granteePrincipalType:
+                    description: |-
+                      Authorization type. The valid values are: user, domain.
+                      Defaults to user on the API side. Changing this creates new grant.
                     type: string
                   id:
                     type: string

@@ -47,6 +47,11 @@ type FirewallV1InitParameters struct {
 
 	// Specifies the Firewall protection type. Currently, its value can only be 0 (Internet protection).
 	ServiceType *string `json:"serviceType,omitempty" tf:"service_type,omitempty"`
+
+	// Specifies the key/value pairs to associate with the firewall instance.
+	// Changing tags updates the firewall instance in place.
+	// +mapType=granular
+	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
 
 type FirewallV1Observation struct {
@@ -110,6 +115,11 @@ type FirewallV1Observation struct {
 
 	// Indicates whether website filtering is supported: true (yes), false (no).
 	SupportURLFiltering *bool `json:"supportUrlFiltering,omitempty" tf:"support_url_filtering,omitempty"`
+
+	// Specifies the key/value pairs to associate with the firewall instance.
+	// Changing tags updates the firewall instance in place.
+	// +mapType=granular
+	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
 
 type FirewallV1Parameters struct {
@@ -131,6 +141,12 @@ type FirewallV1Parameters struct {
 	// Specifies the Firewall protection type. Currently, its value can only be 0 (Internet protection).
 	// +kubebuilder:validation:Optional
 	ServiceType *string `json:"serviceType,omitempty" tf:"service_type,omitempty"`
+
+	// Specifies the key/value pairs to associate with the firewall instance.
+	// Changing tags updates the firewall instance in place.
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
 
 type FlavorInitParameters struct {

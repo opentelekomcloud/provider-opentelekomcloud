@@ -47,6 +47,11 @@ func (in *GrantV1InitParameters) DeepCopyInto(out *GrantV1InitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.GranteePrincipalType != nil {
+		in, out := &in.GranteePrincipalType, &out.GranteePrincipalType
+		*out = new(string)
+		**out = **in
+	}
 	if in.KeyID != nil {
 		in, out := &in.KeyID, &out.KeyID
 		*out = new(string)
@@ -130,6 +135,11 @@ func (in *GrantV1Observation) DeepCopyInto(out *GrantV1Observation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.GranteePrincipalType != nil {
+		in, out := &in.GranteePrincipalType, &out.GranteePrincipalType
+		*out = new(string)
+		**out = **in
+	}
 	if in.ID != nil {
 		in, out := &in.ID, &out.ID
 		*out = new(string)
@@ -183,6 +193,11 @@ func (in *GrantV1Parameters) DeepCopyInto(out *GrantV1Parameters) {
 	*out = *in
 	if in.GranteePrincipal != nil {
 		in, out := &in.GranteePrincipal, &out.GranteePrincipal
+		*out = new(string)
+		**out = **in
+	}
+	if in.GranteePrincipalType != nil {
+		in, out := &in.GranteePrincipalType, &out.GranteePrincipalType
 		*out = new(string)
 		**out = **in
 	}

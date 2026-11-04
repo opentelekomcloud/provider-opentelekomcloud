@@ -13,3 +13,6 @@ spec:
     flavor:
     - version: standard
     name: test-acc-tf-firewall
+    tags:
+      kuh: value-create
+      muh: value-create

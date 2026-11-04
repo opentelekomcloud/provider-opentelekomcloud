@@ -16,7 +16,7 @@ import (
 
 type GrantV1InitParameters struct {
 
-	// Indicates the ID of the authorized user.
+	// Indicates the ID of the authorized user or account.
 	// Changing this creates new grant.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/identity/v1alpha1.UserV3
 	GranteePrincipal *string `json:"granteePrincipal,omitempty" tf:"grantee_principal,omitempty"`
@@ -28,6 +28,10 @@ type GrantV1InitParameters struct {
 	// Selector for a UserV3 in identity to populate granteePrincipal.
 	// +kubebuilder:validation:Optional
 	GranteePrincipalSelector *v1.NamespacedSelector `json:"granteePrincipalSelector,omitempty" tf:"-"`
+
+	// Authorization type. The valid values are: user, domain.
+	// Defaults to user on the API side. Changing this creates new grant.
+	GranteePrincipalType *string `json:"granteePrincipalType,omitempty" tf:"grantee_principal_type,omitempty"`
 
 	// Indicates the ID of the KMS. Changing this creates new grant.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/kms/v1alpha1.KeyV1
@@ -66,9 +70,13 @@ type GrantV1Observation struct {
 	// seconds since 00:00:00 UTC on January 1, 1970.
 	CreationDate *string `json:"creationDate,omitempty" tf:"creation_date,omitempty"`
 
-	// Indicates the ID of the authorized user.
+	// Indicates the ID of the authorized user or account.
 	// Changing this creates new grant.
 	GranteePrincipal *string `json:"granteePrincipal,omitempty" tf:"grantee_principal,omitempty"`
+
+	// Authorization type. The valid values are: user, domain.
+	// Defaults to user on the API side. Changing this creates new grant.
+	GranteePrincipalType *string `json:"granteePrincipalType,omitempty" tf:"grantee_principal_type,omitempty"`
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
@@ -97,7 +105,7 @@ type GrantV1Observation struct {
 
 type GrantV1Parameters struct {
 
-	// Indicates the ID of the authorized user.
+	// Indicates the ID of the authorized user or account.
 	// Changing this creates new grant.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/identity/v1alpha1.UserV3
 	// +kubebuilder:validation:Optional
@@ -110,6 +118,11 @@ type GrantV1Parameters struct {
 	// Selector for a UserV3 in identity to populate granteePrincipal.
 	// +kubebuilder:validation:Optional
 	GranteePrincipalSelector *v1.NamespacedSelector `json:"granteePrincipalSelector,omitempty" tf:"-"`
+
+	// Authorization type. The valid values are: user, domain.
+	// Defaults to user on the API side. Changing this creates new grant.
+	// +kubebuilder:validation:Optional
+	GranteePrincipalType *string `json:"granteePrincipalType,omitempty" tf:"grantee_principal_type,omitempty"`
 
 	// Indicates the ID of the KMS. Changing this creates new grant.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/kms/v1alpha1.KeyV1

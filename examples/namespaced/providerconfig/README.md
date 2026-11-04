@@ -57,4 +57,4 @@ so any field supported there can be used: `region`, `security_token`, `passcode`
 | provider config name | `providerconfig.yaml` `metadata.name` | Defaults to `default` - some examples reference it explicitly (e.g. `default-tlp`, `default-nl` in `obs/bucketreplication.yaml`) |
 
 For Web Identity (workload identity) authentication instead of AK/SK in a
-secret, see [`docs/webidentity/`](../../docs/webidentity/README.md).
+secret, see [`docs/webidentity/`](../../../docs/webidentity/README.md).

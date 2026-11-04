@@ -14,7 +14,7 @@ You can find all supported resources bundled in the **T Cloud Public** provider 
 Please note that some services are not yet fully configured. While you can still provision and manage these services, dynamic value assignment is not configured for them. In such cases, cross-resource identifiers must be configured manually. You can check [this](https://github.com/opentelekomcloud/provider-opentelekomcloud/issues/7) issue tracker to see the status of the services.
 
 ## Getting Started
-> !NOTE
+> [!NOTE]
 > This is a quick start guide to get you up and running in minutes, for a comprehensive introduction and guide please see [Architecture Center](https://arch.otc-service.com/docs/blueprints/by-use-case/platform-engineering/crossplane/introduction-crossplane-provider).
 You will need some flavor of kubernetes to start using Crossplane. You can use [kind](https://github.com/kubernetes-sigs/kind) for testing or any managed kubernetes service.
 
