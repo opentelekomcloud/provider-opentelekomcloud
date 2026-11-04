@@ -15,7 +15,8 @@ Please note that some services are not yet fully configured. While you can still
 
 ## Getting Started
 > [!NOTE]
-> This is a quick start guide to get you up and running in minutes, for a comprehensive introduction and guide please see [Architecture Center](https://arch.otc-service.com/docs/blueprints/by-use-case/platform-engineering/crossplane/introduction-crossplane-provider).
+> This is a quick start guide to get you up and running in minutes, for a comprehensive introduction and guide please see [Architecture Center](https://arch.otc-service.com/docs/blueprints/by-use-case/platform-engineering/crossplane/introduction-crossplane-provider).  
+
 You will need some flavor of kubernetes to start using Crossplane. You can use [kind](https://github.com/kubernetes-sigs/kind) for testing or any managed kubernetes service.
 
 ```console
