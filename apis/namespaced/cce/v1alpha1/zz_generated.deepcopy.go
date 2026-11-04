@@ -1207,6 +1207,11 @@ func (in *ClusterV3Observation) DeepCopyInto(out *ClusterV3Observation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.SecurityGroupEni != nil {
+		in, out := &in.SecurityGroupEni, &out.SecurityGroupEni
+		*out = new(string)
+		**out = **in
+	}
 	if in.SecurityGroupID != nil {
 		in, out := &in.SecurityGroupID, &out.SecurityGroupID
 		*out = new(string)

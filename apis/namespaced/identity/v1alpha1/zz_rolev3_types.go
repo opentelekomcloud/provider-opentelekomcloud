@@ -107,6 +107,9 @@ type StatementInitParameters struct {
 	// The resources which will be granted/denied accesses.
 	// Format: Service:*:*:resource:resource_path.
 	// Examples: KMS:*:*:KeyId:your_key, OBS:*:*:bucket:your_bucket, OBS:*:*:object:your_object.
+	// To restrict iam:agencies:assume to specific agencies, use agency URIs instead:
+	// /iam/agencies/<agency_id> (the agency ID, not the name). Values starting with / are sent
+	// to the API as {"uri": [...]}.
 	Resource []*string `json:"resource,omitempty" tf:"resource,omitempty"`
 }
 
@@ -134,6 +137,9 @@ type StatementObservation struct {
 	// The resources which will be granted/denied accesses.
 	// Format: Service:*:*:resource:resource_path.
 	// Examples: KMS:*:*:KeyId:your_key, OBS:*:*:bucket:your_bucket, OBS:*:*:object:your_object.
+	// To restrict iam:agencies:assume to specific agencies, use agency URIs instead:
+	// /iam/agencies/<agency_id> (the agency ID, not the name). Values starting with / are sent
+	// to the API as {"uri": [...]}.
 	Resource []*string `json:"resource,omitempty" tf:"resource,omitempty"`
 }
 
@@ -164,6 +170,9 @@ type StatementParameters struct {
 	// The resources which will be granted/denied accesses.
 	// Format: Service:*:*:resource:resource_path.
 	// Examples: KMS:*:*:KeyId:your_key, OBS:*:*:bucket:your_bucket, OBS:*:*:object:your_object.
+	// To restrict iam:agencies:assume to specific agencies, use agency URIs instead:
+	// /iam/agencies/<agency_id> (the agency ID, not the name). Values starting with / are sent
+	// to the API as {"uri": [...]}.
 	// +kubebuilder:validation:Optional
 	Resource []*string `json:"resource,omitempty" tf:"resource,omitempty"`
 }
