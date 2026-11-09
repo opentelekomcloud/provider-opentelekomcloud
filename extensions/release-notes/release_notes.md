@@ -1,3 +1,12 @@
+# v1.1.0
+
+## What's Changed
+* [feat] add WebIdentity authentication (beta) by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/186
+* chore(tf provider): regen provider with `v1.37.11` by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/192
+
+
+**Full Changelog**: https://github.com/opentelekomcloud/provider-opentelekomcloud/compare/v1.0.2...v1.1.0
+
 # v1.0.2
 
 ## What's Changed
@@ -5,6 +14,7 @@
 * [chore] regen provider with `v1.37.10`; add test for `OBS` `EP` by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/175
 * [fix(elb)]: eip assignment, subnetSelector and LateInitialize #176 by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/177
 * feat: add `opentelekomcloud_cce_node_pool_config_v3` by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/179
+* upbound release notes for v1.0.2 by @dombisza in https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/180
 
 
 **Full Changelog**: https://github.com/opentelekomcloud/provider-opentelekomcloud/compare/v1.0.1...v1.0.2
