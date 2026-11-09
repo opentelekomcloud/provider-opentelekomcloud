@@ -1,0 +1,76 @@
+apiVersion: lts.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: GroupV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lts/v1alpha1/hostaccessv3
+  labels:
+    testing.upbound.io/example-name: lts-group
+  name: lts-group-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    groupName: lts-group-${Rand.RFC1123Subdomain}
+    ttlInDays: 7
+
+---
+
+apiVersion: lts.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: StreamV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lts/v1alpha1/hostaccessv3
+  labels:
+    testing.upbound.io/example-name: lts-stream
+  name: lts-stream-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    logGroupSelector:
+      matchLabels:
+        testing.upbound.io/example-name: lts-group
+    streamName: lts-stream-${Rand.RFC1123Subdomain}
+
+---
+
+apiVersion: lts.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: HostGroupV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lts/v1alpha1/hostaccessv3
+  labels:
+    testing.upbound.io/example-name: lts-hostgroup
+  name: lts-hostgroup-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    name: lts-hostgroup-${Rand.RFC1123Subdomain}
+    type: linux
+
+---
+
+apiVersion: lts.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: HostAccessV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lts/v1alpha1/hostaccessv3
+  labels:
+    testing.upbound.io/example-name: lts-hostaccess
+  name: lts-hostaccess-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    accessConfig:
+      - paths:
+          - /var/log/*
+        singleLogFormat:
+          - mode: system
+    hostGroupSelector:
+      matchLabels:
+        testing.upbound.io/example-name: lts-hostgroup
+    logGroupSelector:
+      matchLabels:
+        testing.upbound.io/example-name: lts-group
+    logStreamSelector:
+      matchLabels:
+        testing.upbound.io/example-name: lts-stream
+    name: lts-hostaccess-${Rand.RFC1123Subdomain}

@@ -1,0 +1,73 @@
+apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: VpcV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/flowlogv1
+  labels:
+    testing.upbound.io/example-name: lts-vpc
+  name: lts-vpc-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    cidr: 192.168.0.0/16
+    name: lts-vpc-${Rand.RFC1123Subdomain}
+
+---
+
+apiVersion: lts.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: GroupV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/flowlogv1
+  labels:
+    testing.upbound.io/example-name: lts-group
+  name: lts-group-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    groupName: lts-group-${Rand.RFC1123Subdomain}
+    ttlInDays: 7
+
+---
+
+apiVersion: lts.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: StreamV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/flowlogv1
+  labels:
+    testing.upbound.io/example-name: lts-stream
+  name: lts-stream-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    logGroupSelector:
+      matchLabels:
+        testing.upbound.io/example-name: lts-group
+    streamName: lts-stream-${Rand.RFC1123Subdomain}
+
+---
+
+apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: FlowLogV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/flowlogv1
+  labels:
+    testing.upbound.io/example-name: lts-flowlog
+  name: lts-flowlog-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    logGroupSelector:
+      matchLabels:
+        testing.upbound.io/example-name: lts-group
+    logStreamSelector:
+      matchLabels:
+        testing.upbound.io/example-name: lts-stream
+    name: lts-flowlog-${Rand.RFC1123Subdomain}
+    resourceSelector:
+      matchLabels:
+        testing.upbound.io/example-name: lts-vpc
+    resourceType: vpc
+    trafficType: all

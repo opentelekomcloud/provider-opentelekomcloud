@@ -1,0 +1,88 @@
+apiVersion: lts.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: GroupV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lts/v1alpha1/keywordsalarmrulev2
+  labels:
+    testing.upbound.io/example-name: lts-group
+  name: lts-group-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    groupName: lts-group-${Rand.RFC1123Subdomain}
+    ttlInDays: 7
+
+---
+
+apiVersion: lts.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: StreamV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lts/v1alpha1/keywordsalarmrulev2
+  labels:
+    testing.upbound.io/example-name: lts-stream
+  name: lts-stream-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    logGroupSelector:
+      matchLabels:
+        testing.upbound.io/example-name: lts-group
+    streamName: lts-stream-${Rand.RFC1123Subdomain}
+
+---
+
+apiVersion: smn.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: TopicV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lts/v1alpha1/keywordsalarmrulev2
+  labels:
+    testing.upbound.io/example-name: lts-topic
+  name: lts-topic-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    displayName: LTS keyword alarm topic
+    name: lts-topic-${Rand.RFC1123Subdomain}
+
+---
+
+apiVersion: lts.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: KeywordsAlarmRuleV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lts/v1alpha1/keywordsalarmrulev2
+  labels:
+    testing.upbound.io/example-name: lts-keywordsalarm
+  name: lts-keywordsalarm-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    description: LTS keyword alarm rule
+    frequency:
+      - type: HOURLY
+    keywordsRequests:
+      - condition: ">"
+        keyword: key_words
+        logGroupSelector:
+          matchLabels:
+            testing.upbound.io/example-name: lts-group
+        logStreamSelector:
+          matchLabels:
+            testing.upbound.io/example-name: lts-stream
+        number: 100
+        searchTimeRange: 5
+        searchTimeRangeUnit: minute
+    name: lts-keywordsalarm-${Rand.RFC1123Subdomain}
+    notificationFrequency: 5
+    notificationRule:
+      - language: en-us
+        timezone: xx/xx
+        topics:
+          - name: lts-topic-${Rand.RFC1123Subdomain}
+            topicUrnSelector:
+              matchLabels:
+                testing.upbound.io/example-name: lts-topic
+        userName: test
+    severity: CRITICAL

@@ -16,8 +16,12 @@ spec:
       - /var/log/*
       singleLogFormat:
       - mode: system
-    hostGroupIds:
-    - ${var.host_group_id}
-    logGroupId: ${var.group_id}
-    logStreamId: ${var.stream_id}
+    hostGroupRef:
+    - name: example
+    logGroupSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    logStreamSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     name: access-demo

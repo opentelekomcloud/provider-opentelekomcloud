@@ -89,6 +89,15 @@ func (l *StreamV2List) GetItems() []resource.Managed {
 	return items
 }
 
+// GetItems of this StructuringTemplateV3List.
+func (l *StructuringTemplateV3List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this TransferV2List.
 func (l *TransferV2List) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))

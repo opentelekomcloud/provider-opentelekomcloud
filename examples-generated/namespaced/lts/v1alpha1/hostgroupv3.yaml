@@ -9,7 +9,9 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    hostIds: ${var.host_ids}
+    hostSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     name: ${var.group_name}
     tags:
       foo: bar

@@ -16,8 +16,12 @@ spec:
     logAgencyGroupName: ${var.agency_group_name}
     logAgencyStreamId: ${var.agency_stream_id}
     logAgencyStreamName: ${var.agency_stream_name}
-    logGroupId: ${var.log_group_id}
     logGroupName: ${var.log_group_name}
-    logStreamId: ${var.log_stream_id}
+    logGroupSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     logStreamName: ${var.log_stream_name}
+    logStreamSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     name: ${var.name}

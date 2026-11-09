@@ -298,10 +298,32 @@ type KeywordsRequestsInitParameters struct {
 	Keyword *string `json:"keyword,omitempty" tf:"keyword,omitempty"`
 
 	// Specifies the log group id.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lts/v1alpha1.GroupV2
+	// +crossplane:generate:reference:refFieldName=LogGroupRef
+	// +crossplane:generate:reference:selectorFieldName=LogGroupSelector
 	LogGroupID *string `json:"logGroupId,omitempty" tf:"log_group_id,omitempty"`
 
+	// Reference to a GroupV2 in lts to populate logGroupId.
+	// +kubebuilder:validation:Optional
+	LogGroupRef *v1.NamespacedReference `json:"logGroupRef,omitempty" tf:"-"`
+
+	// Selector for a GroupV2 in lts to populate logGroupId.
+	// +kubebuilder:validation:Optional
+	LogGroupSelector *v1.NamespacedSelector `json:"logGroupSelector,omitempty" tf:"-"`
+
 	// Specifies the log stream id.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lts/v1alpha1.StreamV2
+	// +crossplane:generate:reference:refFieldName=LogStreamRef
+	// +crossplane:generate:reference:selectorFieldName=LogStreamSelector
 	LogStreamID *string `json:"logStreamId,omitempty" tf:"log_stream_id,omitempty"`
+
+	// Reference to a StreamV2 in lts to populate logStreamId.
+	// +kubebuilder:validation:Optional
+	LogStreamRef *v1.NamespacedReference `json:"logStreamRef,omitempty" tf:"-"`
+
+	// Selector for a StreamV2 in lts to populate logStreamId.
+	// +kubebuilder:validation:Optional
+	LogStreamSelector *v1.NamespacedSelector `json:"logStreamSelector,omitempty" tf:"-"`
 
 	// Specifies the line number.
 	Number *float64 `json:"number,omitempty" tf:"number,omitempty"`
@@ -350,12 +372,34 @@ type KeywordsRequestsParameters struct {
 	Keyword *string `json:"keyword" tf:"keyword,omitempty"`
 
 	// Specifies the log group id.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lts/v1alpha1.GroupV2
+	// +crossplane:generate:reference:refFieldName=LogGroupRef
+	// +crossplane:generate:reference:selectorFieldName=LogGroupSelector
 	// +kubebuilder:validation:Optional
-	LogGroupID *string `json:"logGroupId" tf:"log_group_id,omitempty"`
+	LogGroupID *string `json:"logGroupId,omitempty" tf:"log_group_id,omitempty"`
+
+	// Reference to a GroupV2 in lts to populate logGroupId.
+	// +kubebuilder:validation:Optional
+	LogGroupRef *v1.NamespacedReference `json:"logGroupRef,omitempty" tf:"-"`
+
+	// Selector for a GroupV2 in lts to populate logGroupId.
+	// +kubebuilder:validation:Optional
+	LogGroupSelector *v1.NamespacedSelector `json:"logGroupSelector,omitempty" tf:"-"`
 
 	// Specifies the log stream id.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lts/v1alpha1.StreamV2
+	// +crossplane:generate:reference:refFieldName=LogStreamRef
+	// +crossplane:generate:reference:selectorFieldName=LogStreamSelector
 	// +kubebuilder:validation:Optional
-	LogStreamID *string `json:"logStreamId" tf:"log_stream_id,omitempty"`
+	LogStreamID *string `json:"logStreamId,omitempty" tf:"log_stream_id,omitempty"`
+
+	// Reference to a StreamV2 in lts to populate logStreamId.
+	// +kubebuilder:validation:Optional
+	LogStreamRef *v1.NamespacedReference `json:"logStreamRef,omitempty" tf:"-"`
+
+	// Selector for a StreamV2 in lts to populate logStreamId.
+	// +kubebuilder:validation:Optional
+	LogStreamSelector *v1.NamespacedSelector `json:"logStreamSelector,omitempty" tf:"-"`
 
 	// Specifies the line number.
 	// +kubebuilder:validation:Optional
@@ -377,7 +421,18 @@ type NotificationRuleInitParameters struct {
 	Language *string `json:"language,omitempty" tf:"language,omitempty"`
 
 	// Specifies the notification template name.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lts/v1alpha1.NotificationTemplateV2
+	// +crossplane:generate:reference:refFieldName=TemplateRef
+	// +crossplane:generate:reference:selectorFieldName=TemplateSelector
 	TemplateName *string `json:"templateName,omitempty" tf:"template_name,omitempty"`
+
+	// Reference to a NotificationTemplateV2 in lts to populate templateName.
+	// +kubebuilder:validation:Optional
+	TemplateRef *v1.NamespacedReference `json:"templateRef,omitempty" tf:"-"`
+
+	// Selector for a NotificationTemplateV2 in lts to populate templateName.
+	// +kubebuilder:validation:Optional
+	TemplateSelector *v1.NamespacedSelector `json:"templateSelector,omitempty" tf:"-"`
 
 	// Specifies the timezone.
 	Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
@@ -418,8 +473,19 @@ type NotificationRuleParameters struct {
 	Language *string `json:"language,omitempty" tf:"language,omitempty"`
 
 	// Specifies the notification template name.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lts/v1alpha1.NotificationTemplateV2
+	// +crossplane:generate:reference:refFieldName=TemplateRef
+	// +crossplane:generate:reference:selectorFieldName=TemplateSelector
 	// +kubebuilder:validation:Optional
 	TemplateName *string `json:"templateName,omitempty" tf:"template_name,omitempty"`
+
+	// Reference to a NotificationTemplateV2 in lts to populate templateName.
+	// +kubebuilder:validation:Optional
+	TemplateRef *v1.NamespacedReference `json:"templateRef,omitempty" tf:"-"`
+
+	// Selector for a NotificationTemplateV2 in lts to populate templateName.
+	// +kubebuilder:validation:Optional
+	TemplateSelector *v1.NamespacedSelector `json:"templateSelector,omitempty" tf:"-"`
 
 	// Specifies the timezone.
 	// +kubebuilder:validation:Optional
@@ -453,7 +519,16 @@ type TopicsInitParameters struct {
 
 	// Specifies the topic URN.
 	// Changing this parameter will create a new resource.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/smn/v1alpha1.TopicV2
 	TopicUrn *string `json:"topicUrn,omitempty" tf:"topic_urn,omitempty"`
+
+	// Reference to a TopicV2 in smn to populate topicUrn.
+	// +kubebuilder:validation:Optional
+	TopicUrnRef *v1.NamespacedReference `json:"topicUrnRef,omitempty" tf:"-"`
+
+	// Selector for a TopicV2 in smn to populate topicUrn.
+	// +kubebuilder:validation:Optional
+	TopicUrnSelector *v1.NamespacedSelector `json:"topicUrnSelector,omitempty" tf:"-"`
 }
 
 type TopicsObservation struct {
@@ -498,8 +573,17 @@ type TopicsParameters struct {
 
 	// Specifies the topic URN.
 	// Changing this parameter will create a new resource.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/smn/v1alpha1.TopicV2
 	// +kubebuilder:validation:Optional
-	TopicUrn *string `json:"topicUrn" tf:"topic_urn,omitempty"`
+	TopicUrn *string `json:"topicUrn,omitempty" tf:"topic_urn,omitempty"`
+
+	// Reference to a TopicV2 in smn to populate topicUrn.
+	// +kubebuilder:validation:Optional
+	TopicUrnRef *v1.NamespacedReference `json:"topicUrnRef,omitempty" tf:"-"`
+
+	// Selector for a TopicV2 in smn to populate topicUrn.
+	// +kubebuilder:validation:Optional
+	TopicUrnSelector *v1.NamespacedSelector `json:"topicUrnSelector,omitempty" tf:"-"`
 }
 
 // KeywordsAlarmRuleV2Spec defines the desired state of KeywordsAlarmRuleV2

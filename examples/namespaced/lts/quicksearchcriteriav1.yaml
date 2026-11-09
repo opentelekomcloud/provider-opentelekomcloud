@@ -1,0 +1,54 @@
+apiVersion: lts.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: GroupV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lts/v1alpha1/quicksearchcriteriav1
+  labels:
+    testing.upbound.io/example-name: lts-group
+  name: lts-group-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    groupName: lts-group-${Rand.RFC1123Subdomain}
+    ttlInDays: 7
+
+---
+
+apiVersion: lts.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: StreamV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lts/v1alpha1/quicksearchcriteriav1
+  labels:
+    testing.upbound.io/example-name: lts-stream
+  name: lts-stream-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    logGroupSelector:
+      matchLabels:
+        testing.upbound.io/example-name: lts-group
+    streamName: lts-stream-${Rand.RFC1123Subdomain}
+
+---
+
+apiVersion: lts.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: QuickSearchCriteriaV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lts/v1alpha1/quicksearchcriteriav1
+  labels:
+    testing.upbound.io/example-name: lts-quicksearch
+  name: lts-quicksearch-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    criteria: content:test
+    logGroupSelector:
+      matchLabels:
+        testing.upbound.io/example-name: lts-group
+    logStreamSelector:
+      matchLabels:
+        testing.upbound.io/example-name: lts-stream
+    name: lts-quicksearch-${Rand.RFC1123Subdomain}
+    type: ORIGINALLOG

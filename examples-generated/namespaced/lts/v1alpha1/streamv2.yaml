@@ -9,5 +9,7 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    groupId: ${var.group_id}
+    logGroupSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     streamName: test_stream
