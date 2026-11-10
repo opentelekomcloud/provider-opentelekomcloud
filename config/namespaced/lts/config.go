@@ -7,18 +7,41 @@ import (
 )
 
 const (
-	tfGroupV2     = "opentelekomcloud_lts_group_v2"
-	tfHostGroupV3 = "opentelekomcloud_lts_host_group_v3"
-	tfStreamV2    = "opentelekomcloud_lts_stream_v2"
+	tfCceAccessV3            = "opentelekomcloud_lts_cce_access_v3"
+	tfComputeInstanceV2      = "opentelekomcloud_compute_instance_v2"
+	tfCrossAccountAccessV2   = "opentelekomcloud_lts_cross_account_access_v2"
+	tfGroupV2                = "opentelekomcloud_lts_group_v2"
+	tfHostAccessV3           = "opentelekomcloud_lts_host_access_v3"
+	tfHostGroupV3            = "opentelekomcloud_lts_host_group_v3"
+	tfIdentityAgencyV3       = "opentelekomcloud_identity_agency_v3"
+	tfKeywordsAlarmRuleV2    = "opentelekomcloud_lts_keywords_alarm_rule_v2"
+	tfKmsKeyV1               = "opentelekomcloud_kms_key_v1"
+	tfNotificationTemplateV2 = "opentelekomcloud_lts_notification_template_v2"
+	tfObsBucket              = "opentelekomcloud_obs_bucket"
+	tfQuickSearchCriteriaV1  = "opentelekomcloud_lts_quick_search_criteria_v1"
+	tfSmnTopicV2             = "opentelekomcloud_smn_topic_v2"
+	tfStreamV2               = "opentelekomcloud_lts_stream_v2"
+	tfStructuringTemplateV3  = "opentelekomcloud_lts_structuring_template_v3"
+	tfTransferV2             = "opentelekomcloud_lts_transfer_v2"
 
+	selectorFieldNameAgency    = "AgencySelector"
+	refFieldNameAgency         = "AgencyRef"
 	selectorFieldNameHost      = "HostSelector"
 	refFieldNameHost           = "HostRef"
 	selectorFieldNameHostGroup = "HostGroupSelector"
 	refFieldNameHostGroup      = "HostGroupRef"
+	selectorFieldNameKMS       = "KMSSelector"
+	refFieldNameKMS            = "KMSRef"
 	selectorFieldNameLogGroup  = "LogGroupSelector"
 	refFieldNameLogGroup       = "LogGroupRef"
 	selectorFieldNameLogStream = "LogStreamSelector"
 	refFieldNameLogStream      = "LogStreamRef"
+	selectorFieldNameObsBucket = "ObsBucketSelector"
+	refFieldNameObsBucket      = "ObsBucketRef"
+	selectorFieldNameTemplate  = "TemplateSelector"
+	refFieldNameTemplate       = "TemplateRef"
+	selectorFieldNameTopicUrn  = "TopicUrnSelector"
+	refFieldNameTopicUrn       = "TopicUrnRef"
 )
 
 func Configure(p *config.Provider) {
@@ -30,7 +53,7 @@ func Configure(p *config.Provider) {
 		}
 	})
 
-	p.AddResourceConfigurator("opentelekomcloud_lts_cce_access_v3", func(r *config.Resource) {
+	p.AddResourceConfigurator(tfCceAccessV3, func(r *config.Resource) {
 		// NOTE: cluster_id intentionally has no cross-resource reference.
 		// A reference from the LTS API package to the CCE API package would create
 		// the import cycle cce -> vpc -> lts -> cce, because VPC FlowLogV1
@@ -54,7 +77,7 @@ func Configure(p *config.Provider) {
 		}
 	})
 
-	p.AddResourceConfigurator("opentelekomcloud_lts_cross_account_access_v2", func(r *config.Resource) {
+	p.AddResourceConfigurator(tfCrossAccountAccessV2, func(r *config.Resource) {
 		r.References["log_group_id"] = config.Reference{
 			TerraformName:     tfGroupV2,
 			SelectorFieldName: selectorFieldNameLogGroup,
@@ -67,7 +90,7 @@ func Configure(p *config.Provider) {
 		}
 	})
 
-	p.AddResourceConfigurator("opentelekomcloud_lts_host_access_v3", func(r *config.Resource) {
+	p.AddResourceConfigurator(tfHostAccessV3, func(r *config.Resource) {
 		r.References["log_group_id"] = config.Reference{
 			TerraformName:     tfGroupV2,
 			SelectorFieldName: selectorFieldNameLogGroup,
@@ -88,13 +111,13 @@ func Configure(p *config.Provider) {
 	p.AddResourceConfigurator(tfHostGroupV3, func(r *config.Resource) {
 		r.UseAsync = true
 		r.References["host_ids"] = config.Reference{
-			TerraformName:     "opentelekomcloud_compute_instance_v2",
+			TerraformName:     tfComputeInstanceV2,
 			SelectorFieldName: selectorFieldNameHost,
 			RefFieldName:      refFieldNameHost,
 		}
 	})
 
-	p.AddResourceConfigurator("opentelekomcloud_lts_keywords_alarm_rule_v2", func(r *config.Resource) {
+	p.AddResourceConfigurator(tfKeywordsAlarmRuleV2, func(r *config.Resource) {
 		r.References["keywords_requests.log_group_id"] = config.Reference{
 			TerraformName:     tfGroupV2,
 			SelectorFieldName: selectorFieldNameLogGroup,
@@ -106,16 +129,18 @@ func Configure(p *config.Provider) {
 			RefFieldName:      refFieldNameLogStream,
 		}
 		r.References["notification_rule.template_name"] = config.Reference{
-			TerraformName:     "opentelekomcloud_lts_notification_template_v2",
-			SelectorFieldName: "TemplateSelector",
-			RefFieldName:      "TemplateRef",
+			TerraformName:     tfNotificationTemplateV2,
+			SelectorFieldName: selectorFieldNameTemplate,
+			RefFieldName:      refFieldNameTemplate,
 		}
 		r.References["notification_rule.topics.topic_urn"] = config.Reference{
-			TerraformName: "opentelekomcloud_smn_topic_v2",
+			TerraformName:     tfSmnTopicV2,
+			SelectorFieldName: selectorFieldNameTopicUrn,
+			RefFieldName:      refFieldNameTopicUrn,
 		}
 	})
 
-	p.AddResourceConfigurator("opentelekomcloud_lts_quick_search_criteria_v1", func(r *config.Resource) {
+	p.AddResourceConfigurator(tfQuickSearchCriteriaV1, func(r *config.Resource) {
 		r.References["log_group_id"] = config.Reference{
 			TerraformName:     tfGroupV2,
 			SelectorFieldName: selectorFieldNameLogGroup,
@@ -128,7 +153,7 @@ func Configure(p *config.Provider) {
 		}
 	})
 
-	p.AddResourceConfigurator("opentelekomcloud_lts_structuring_template_v3", func(r *config.Resource) {
+	p.AddResourceConfigurator(tfStructuringTemplateV3, func(r *config.Resource) {
 		r.References["log_group_id"] = config.Reference{
 			TerraformName:     tfGroupV2,
 			SelectorFieldName: selectorFieldNameLogGroup,
@@ -141,7 +166,7 @@ func Configure(p *config.Provider) {
 		}
 	})
 
-	p.AddResourceConfigurator("opentelekomcloud_lts_transfer_v2", func(r *config.Resource) {
+	p.AddResourceConfigurator(tfTransferV2, func(r *config.Resource) {
 		r.References["log_group_id"] = config.Reference{
 			TerraformName:     tfGroupV2,
 			SelectorFieldName: selectorFieldNameLogGroup,
@@ -153,21 +178,21 @@ func Configure(p *config.Provider) {
 			RefFieldName:      refFieldNameLogStream,
 		}
 		r.References["log_transfer_info.log_transfer_detail.obs_bucket_name"] = config.Reference{
-			TerraformName:     "opentelekomcloud_obs_bucket",
+			TerraformName:     tfObsBucket,
 			Extractor:         common.ObsBucketExtractor,
-			SelectorFieldName: "ObsBucketSelector",
-			RefFieldName:      "ObsBucketRef",
+			SelectorFieldName: selectorFieldNameObsBucket,
+			RefFieldName:      refFieldNameObsBucket,
 		}
 		r.References["log_transfer_info.log_transfer_detail.obs_encrypted_id"] = config.Reference{
-			TerraformName:     "opentelekomcloud_kms_key_v1",
-			SelectorFieldName: "KMSSelector",
-			RefFieldName:      "KMSRef",
+			TerraformName:     tfKmsKeyV1,
+			SelectorFieldName: selectorFieldNameKMS,
+			RefFieldName:      refFieldNameKMS,
 		}
 		r.References["log_transfer_info.log_agency_transfer.agency_name"] = config.Reference{
-			TerraformName:     "opentelekomcloud_identity_agency_v3",
+			TerraformName:     tfIdentityAgencyV3,
 			Extractor:         common.AgencyNameExtractor,
-			SelectorFieldName: "AgencySelector",
-			RefFieldName:      "AgencyRef",
+			SelectorFieldName: selectorFieldNameAgency,
+			RefFieldName:      refFieldNameAgency,
 		}
 	})
 }

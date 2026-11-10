@@ -520,6 +520,8 @@ type TopicsInitParameters struct {
 	// Specifies the topic URN.
 	// Changing this parameter will create a new resource.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/smn/v1alpha1.TopicV2
+	// +crossplane:generate:reference:refFieldName=TopicUrnRef
+	// +crossplane:generate:reference:selectorFieldName=TopicUrnSelector
 	TopicUrn *string `json:"topicUrn,omitempty" tf:"topic_urn,omitempty"`
 
 	// Reference to a TopicV2 in smn to populate topicUrn.
@@ -574,6 +576,8 @@ type TopicsParameters struct {
 	// Specifies the topic URN.
 	// Changing this parameter will create a new resource.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/smn/v1alpha1.TopicV2
+	// +crossplane:generate:reference:refFieldName=TopicUrnRef
+	// +crossplane:generate:reference:selectorFieldName=TopicUrnSelector
 	// +kubebuilder:validation:Optional
 	TopicUrn *string `json:"topicUrn,omitempty" tf:"topic_urn,omitempty"`
 
