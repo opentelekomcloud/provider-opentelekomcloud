@@ -31,6 +31,11 @@ func Configure(p *config.Provider) {
 		r.UseAsync = true
 		networkReferences(r, "network_id")
 		publicIPReference(r)
+		// TF requires >= 3 cross_vpc_accesses, but single-node instances report one;
+		// late-initializing it breaks every refresh.
+		r.LateInitializer = config.LateInitializer{
+			IgnoredFields: []string{"cross_vpc_accesses"},
+		}
 	})
 
 	p.AddResourceConfigurator("opentelekomcloud_dms_topic_v1", func(r *config.Resource) {
