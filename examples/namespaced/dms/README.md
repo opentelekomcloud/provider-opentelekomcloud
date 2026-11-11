@@ -40,7 +40,7 @@ Creates a single-node Kafka instance with SASL enabled in a new VPC/subnet/secur
 | `${data.dmsKey}` | Secret `example-dms-password`, key `example-dms-key` | Replace with the base64-encoded Kafka password (8-32 chars, upper/lower case, digit and special character). For e2e, add `dmsKey` to the `UPTEST_DATASOURCE` secret |
 | `flavorId: s6.2u4g.single.small` | DedicatedInstanceV2 | Adjust to a single-node flavor available in your region |
 | `storageSpecCode: dms.physical.storage.ultra.v2` | DedicatedInstanceV2 | Adjust to a storage spec supported by the flavor in your region |
-| `availableZones: [eu-de-01]` | DedicatedInstanceV2 | Change to an AZ in your region |
+| `availableZones: [bf84aba586ce4e948da0b97d9a7d62fb]` | DedicatedInstanceV2 | DMS AZ **ID** (here `eu-de-01`), not the AZ name. List IDs with `GET https://dms.<region>.otc.t-systems.com/v2/available-zones` |
 | `accessUser: crossplane` | DedicatedInstanceV2 | SASL user name of the instance |
 | `cidr`, `gatewayIp` | VpcV1, SubnetV1, SecgroupV2 rule | Adjust if `192.168.0.0/16` collides with existing networks |
 

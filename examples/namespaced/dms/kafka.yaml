@@ -79,8 +79,9 @@ metadata:
 spec:
   forProvider:
     name: dms-kafka-${Rand.RFC1123Subdomain}
+    # DMS AZ ID (eu-de-01), see GET /v2/available-zones.
     availableZones:
-      - eu-de-01
+      - bf84aba586ce4e948da0b97d9a7d62fb
     flavorId: s6.2u4g.single.small
     storageSpecCode: dms.physical.storage.ultra.v2
     engineVersion: "2.7"
