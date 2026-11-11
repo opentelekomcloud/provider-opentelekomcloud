@@ -155,7 +155,7 @@ Not part of e2e (requires the cluster instance from `smart-connect.yaml`).
 | Item | Where | What to do |
 |------|-------|-----------|
 | `brokers: [0, 1, 2]` / `replicationFactor: 3` | ReassignPartitionsV2 `reassignments[]` | Broker IDs and replica count; must fit the broker count of the instance |
-| `throttle` | ReassignPartitionsV2 | Replication bandwidth limit, bytes/s |
+| `throttle` | ReassignPartitionsV2 | Replication bandwidth limit, MB/s (1–300) |
 
 ## Prerequisites
 

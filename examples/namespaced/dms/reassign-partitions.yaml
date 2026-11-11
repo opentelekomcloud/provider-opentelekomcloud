@@ -24,5 +24,5 @@ spec:
         topicSelector:
           matchLabels:
             testing.upbound.io/example-name: dms-cluster-topic
-    throttle: 1000000
+    throttle: 10
     timeEstimate: false
