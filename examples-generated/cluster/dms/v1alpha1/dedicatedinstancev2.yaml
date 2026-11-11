@@ -15,13 +15,19 @@ spec:
     engineVersion: "2.7"
     flavorId: ${data.opentelekomcloud_dms_flavor_v2.test.flavor_id}
     name: kafka_test
-    networkId: ${var.subnet_id}
+    networkIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     passwordSecretRef:
       key: example-key
       name: example-secret
       namespace: upbound-system
-    securityGroupId: ${var.security_group_id}
+    securityGroupIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     sslEnable: true
     storageSpace: 600
     storageSpecCode: ${data.opentelekomcloud_dms_flavor_v2.test.flavors[0].ios[0].storage_spec_code}
-    vpcId: ${var.vpc_id}
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example

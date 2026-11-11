@@ -34,6 +34,9 @@ func (tr *SmartConnectV2) Hub() {}
 func (tr *TopicV1) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *TopicV2) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *UserPermissionV1) Hub() {}
 
 // Hub marks this type as a conversion hub.

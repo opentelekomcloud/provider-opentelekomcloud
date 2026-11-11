@@ -10,6 +10,8 @@ metadata:
 spec:
   forProvider:
     bandwidth: 100MB
-    instanceId: ${var.instance_id}
+    instanceSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     nodeCount: 2
     storageSpecCode: dms.physical.storage.ultra.v2

@@ -19,7 +19,16 @@ type ReassignPartitionsV2InitParameters struct {
 	ExecuteAt *float64 `json:"executeAt,omitempty" tf:"execute_at,omitempty"`
 
 	// Specifies the DMS instance ID.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/dms/v1alpha1.DedicatedInstanceV2
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
+
+	// Reference to a DedicatedInstanceV2 in dms to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceIDRef *v1.Reference `json:"instanceIdRef,omitempty" tf:"-"`
+
+	// Selector for a DedicatedInstanceV2 in dms to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceIDSelector *v1.Selector `json:"instanceIdSelector,omitempty" tf:"-"`
 
 	// Specifies whether the task is scheduled. If no, is_schedule and execute_at can be left blank. If yes, is_schedule is true and execute_at must be specified.
 	IsSchedule *bool `json:"isSchedule,omitempty" tf:"is_schedule,omitempty"`
@@ -72,8 +81,17 @@ type ReassignPartitionsV2Parameters struct {
 	ExecuteAt *float64 `json:"executeAt,omitempty" tf:"execute_at,omitempty"`
 
 	// Specifies the DMS instance ID.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/dms/v1alpha1.DedicatedInstanceV2
 	// +kubebuilder:validation:Optional
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
+
+	// Reference to a DedicatedInstanceV2 in dms to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceIDRef *v1.Reference `json:"instanceIdRef,omitempty" tf:"-"`
+
+	// Selector for a DedicatedInstanceV2 in dms to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceIDSelector *v1.Selector `json:"instanceIdSelector,omitempty" tf:"-"`
 
 	// Specifies whether the task is scheduled. If no, is_schedule and execute_at can be left blank. If yes, is_schedule is true and execute_at must be specified.
 	// +kubebuilder:validation:Optional
@@ -137,7 +155,16 @@ type ReassignmentsInitParameters struct {
 	ReplicationFactor *float64 `json:"replicationFactor,omitempty" tf:"replication_factor,omitempty"`
 
 	// Specifies the topic name.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/dms/v1alpha1.TopicV2
 	Topic *string `json:"topic,omitempty" tf:"topic,omitempty"`
+
+	// Reference to a TopicV2 in dms to populate topic.
+	// +kubebuilder:validation:Optional
+	TopicRef *v1.Reference `json:"topicRef,omitempty" tf:"-"`
+
+	// Selector for a TopicV2 in dms to populate topic.
+	// +kubebuilder:validation:Optional
+	TopicSelector *v1.Selector `json:"topicSelector,omitempty" tf:"-"`
 }
 
 type ReassignmentsObservation struct {
@@ -176,8 +203,17 @@ type ReassignmentsParameters struct {
 	ReplicationFactor *float64 `json:"replicationFactor,omitempty" tf:"replication_factor,omitempty"`
 
 	// Specifies the topic name.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/dms/v1alpha1.TopicV2
 	// +kubebuilder:validation:Optional
-	Topic *string `json:"topic" tf:"topic,omitempty"`
+	Topic *string `json:"topic,omitempty" tf:"topic,omitempty"`
+
+	// Reference to a TopicV2 in dms to populate topic.
+	// +kubebuilder:validation:Optional
+	TopicRef *v1.Reference `json:"topicRef,omitempty" tf:"-"`
+
+	// Selector for a TopicV2 in dms to populate topic.
+	// +kubebuilder:validation:Optional
+	TopicSelector *v1.Selector `json:"topicSelector,omitempty" tf:"-"`
 }
 
 // ReassignPartitionsV2Spec defines the desired state of ReassignPartitionsV2
@@ -216,7 +252,6 @@ type ReassignPartitionsV2Status struct {
 type ReassignPartitionsV2 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.instanceId) || (has(self.initProvider) && has(self.initProvider.instanceId))",message="spec.forProvider.instanceId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.reassignments) || (has(self.initProvider) && has(self.initProvider.reassignments))",message="spec.forProvider.reassignments is a required parameter"
 	Spec   ReassignPartitionsV2Spec   `json:"spec"`
 	Status ReassignPartitionsV2Status `json:"status,omitempty"`
