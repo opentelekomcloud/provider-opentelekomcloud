@@ -1,33 +1,28 @@
 # DMS (Kafka) test cases
 
-All examples share one Kafka instance from `dedicated-instance.yaml`. Child resources find it (and each
-other) via `*Selector.matchLabels` on `testing.upbound.io/example-name`, so they are **not standalone**:
-apply them together with `dedicated-instance.yaml`.
+All e2e resources live in `kafka.yaml`: one single-node Kafka instance plus its topic, user, user
+permission and consumer group. uptest runs every example file separately, so dependent resources must be in
+the same file. Resources find each other via `*Selector.matchLabels` on `testing.upbound.io/example-name`.
 
 | File | e2e | Depends on |
 |------|-----|------------|
-| `dedicated-instance.yaml` | yes | - |
-| `topic.yaml` | yes | `dedicated-instance.yaml` |
-| `user.yaml` | yes | `dedicated-instance.yaml` |
-| `user-permission.yaml` | yes | `dedicated-instance.yaml`, `topic.yaml`, `user.yaml` |
-| `consumer-group.yaml` | yes | `dedicated-instance.yaml` |
-| `smart-connect.yaml` | no | `dedicated-instance.yaml` (VPC/subnet/SG and peer instance) |
+| `kafka.yaml` | yes | - |
+| `smart-connect.yaml` | no | `kafka.yaml` (VPC/subnet/SG and peer instance) |
 | `reassign-partitions.yaml` | no | `smart-connect.yaml` (cluster instance and topic) |
 
-Run all e2e examples in a single uptest invocation so that only one instance is created per run:
-
 ```shell
-UPTEST_EXAMPLE_LIST="examples/namespaced/dms/dedicated-instance.yaml,examples/namespaced/dms/topic.yaml,examples/namespaced/dms/user.yaml,examples/namespaced/dms/user-permission.yaml,examples/namespaced/dms/consumer-group.yaml"
+UPTEST_EXAMPLE_LIST="examples/namespaced/dms/kafka.yaml"
 ```
 
 Non-e2e resources carry the `upjet.upbound.io/manual-intervention` annotation.
 
-## dedicated-instance.yaml
+## kafka.yaml
 
-Test case: `dedicated-instance.yaml` - creates a single-node Kafka instance with SASL enabled in a new
-VPC/subnet/security group. SASL (`accessUser` + password) is required by `UserV2` and `UserPermissionV1`.
+### Instance
 
-### APIs used
+Creates a single-node Kafka instance with SASL enabled in a new VPC/subnet/security group. SASL (`accessUser` + password) is required by `UserV2` and `UserPermissionV1`.
+
+#### APIs used
 
 | Kind | Full API name |
 |------|---------------|
@@ -37,7 +32,7 @@ VPC/subnet/security group. SASL (`accessUser` + password) is required by `UserV2
 | SecgroupV2 | `secgroupv2s.compute.opentelekomcloud.m.crossplane.io` |
 | DedicatedInstanceV2 | `dedicatedinstancev2s.dms.opentelekomcloud.m.crossplane.io` |
 
-### Configuration needed
+#### Configuration needed
 
 | Item | Where | What to do |
 |------|-------|-----------|
@@ -49,17 +44,17 @@ VPC/subnet/security group. SASL (`accessUser` + password) is required by `UserV2
 | `accessUser: crossplane` | DedicatedInstanceV2 | SASL user name of the instance |
 | `cidr`, `gatewayIp` | VpcV1, SubnetV1, SecgroupV2 rule | Adjust if `192.168.0.0/16` collides with existing networks |
 
-## topic.yaml
+### Topic
 
-Test case: `topic.yaml` - creates a topic in the instance.
+Creates a topic in the instance.
 
-### APIs used
+#### APIs used
 
 | Kind | Full API name |
 |------|---------------|
 | TopicV2 | `topicv2s.dms.opentelekomcloud.m.crossplane.io` |
 
-### Configuration needed
+#### Configuration needed
 
 | Item | Where | What to do |
 |------|-------|-----------|
@@ -67,51 +62,51 @@ Test case: `topic.yaml` - creates a topic in the instance.
 | `replication: 1` | TopicV2 | Must not exceed the broker count of the instance |
 | `partition: 3` | TopicV2 | Number of partitions |
 
-## user.yaml
+### User
 
-Test case: `user.yaml` - creates a SASL user in the instance.
+Creates a SASL user in the instance.
 
-### APIs used
+#### APIs used
 
 | Kind | Full API name |
 |------|---------------|
 | Secret | `secrets` (core/v1) |
 | UserV2 | `userv2s.dms.opentelekomcloud.m.crossplane.io` |
 
-### Configuration needed
+#### Configuration needed
 
 | Item | Where | What to do |
 |------|-------|-----------|
 | `${data.dmsKey}` | Secret `example-dms-user-password`, key `example-dms-user-key` | Replace with the base64-encoded user password |
 | `username: crossplane-user` | UserV2 | 4-64 characters, must start with a letter |
 
-## user-permission.yaml
+### User permission
 
-Test case: `user-permission.yaml` - grants the user from `user.yaml` access to the topic from `topic.yaml`.
+Grants the user access to the topic.
 
-### APIs used
+#### APIs used
 
 | Kind | Full API name |
 |------|---------------|
 | UserPermissionV1 | `userpermissionv1s.dms.opentelekomcloud.m.crossplane.io` |
 
-### Configuration needed
+#### Configuration needed
 
 | Item | Where | What to do |
 |------|-------|-----------|
 | `accessPolicy: all` | UserPermissionV1 `policies[]` | One of `all`, `pub`, `sub` |
 
-## consumer-group.yaml
+### Consumer group
 
-Test case: `consumer-group.yaml` - creates a consumer group in the instance.
+Creates a consumer group in the instance.
 
-### APIs used
+#### APIs used
 
 | Kind | Full API name |
 |------|---------------|
 | ConsumerGroupV2 | `consumergroupv2s.dms.opentelekomcloud.m.crossplane.io` |
 
-### Configuration needed
+#### Configuration needed
 
 | Item | Where | What to do |
 |------|-------|-----------|
@@ -121,7 +116,7 @@ Test case: `consumer-group.yaml` - creates a consumer group in the instance.
 
 Test case: `smart-connect.yaml` - creates a 3-broker cluster instance with a topic, enables Smart Connect
 on it, creates a Kafka replicator task that pushes the topic to the single-node instance from
-`dedicated-instance.yaml`, and pauses the task. Not part of e2e (expensive cluster instance).
+`kafka.yaml`, and pauses the task. Not part of e2e (expensive cluster instance).
 
 ### APIs used
 
@@ -139,8 +134,8 @@ on it, creates a Kafka replicator task that pushes the topic to the single-node 
 | Item | Where | What to do |
 |------|-------|-----------|
 | `flavorId: c6.2u4g.cluster` / `brokerNum: 3` | DedicatedInstanceV2 `dms-cluster-instance` | Adjust to a cluster flavor available in your region |
-| `${data.dmsKey}` | Secret `example-dms-peer-password` | Password of the peer instance SASL user (same as in `dedicated-instance.yaml`) |
-| `userName: crossplane` | SmartConnectTaskV2 `sourceTask[]` | SASL user of the peer instance (`accessUser` in `dedicated-instance.yaml`) |
+| `${data.dmsKey}` | Secret `example-dms-peer-password` | Password of the peer instance SASL user (same as in `kafka.yaml`) |
+| `userName: crossplane` | SmartConnectTaskV2 `sourceTask[]` | SASL user of the peer instance (`accessUser` in `kafka.yaml`) |
 | `replicationFactor: 1` | SmartConnectTaskV2 `sourceTask[]` | Must not exceed the broker count of the peer instance |
 | `action: pause` | SmartConnectTaskActionV2 | One of `pause`, `resume`, `restart` |
 

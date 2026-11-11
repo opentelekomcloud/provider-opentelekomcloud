@@ -104,3 +104,93 @@ spec:
         testing.upbound.io/example-name: dms-sg
     tags:
       managed-by: crossplane
+
+---
+apiVersion: dms.opentelekomcloud.crossplane.io/v1alpha1
+kind: TopicV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dms/v1alpha1/topicv2
+  labels:
+    testing.upbound.io/example-name: dms-topic
+  name: dms-topic
+spec:
+  forProvider:
+    name: crossplane-topic
+    partition: 3
+    # Single-broker instance: the replication factor cannot exceed the broker count.
+    replication: 1
+    retentionTime: 72
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: dms-instance
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: example-dms-user-password
+  namespace: crossplane-system
+type: Opaque
+data:
+  example-dms-user-key: ${data.dmsKey}
+
+---
+apiVersion: dms.opentelekomcloud.crossplane.io/v1alpha1
+kind: UserV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dms/v1alpha1/userv2
+  labels:
+    testing.upbound.io/example-name: dms-user
+  name: dms-user
+spec:
+  forProvider:
+    username: crossplane-user
+    passwordSecretRef:
+      key: example-dms-user-key
+      name: example-dms-user-password
+      namespace: crossplane-system
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: dms-instance
+
+---
+apiVersion: dms.opentelekomcloud.crossplane.io/v1alpha1
+kind: UserPermissionV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dms/v1alpha1/userpermissionv1
+  labels:
+    testing.upbound.io/example-name: dms-user-permission
+  name: dms-user-permission
+spec:
+  forProvider:
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: dms-instance
+    topicNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: dms-topic
+    policies:
+      - accessPolicy: all
+        usernameSelector:
+          matchLabels:
+            testing.upbound.io/example-name: dms-user
+
+---
+apiVersion: dms.opentelekomcloud.crossplane.io/v1alpha1
+kind: ConsumerGroupV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dms/v1alpha1/consumergroupv2
+  labels:
+    testing.upbound.io/example-name: dms-consumer-group
+  name: dms-consumer-group
+spec:
+  forProvider:
+    groupName: crossplane-consumer-group
+    description: Consumer group managed by Crossplane
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: dms-instance

@@ -1,5 +1,5 @@
 # Not part of e2e: Smart Connect needs a cluster (multi-broker) instance and a peer
-# Kafka instance. The peer is the single-node instance from dedicated-instance.yaml.
+# Kafka instance. The peer is the single-node instance from kafka.yaml.
 apiVersion: dms.opentelekomcloud.crossplane.io/v1alpha1
 kind: DedicatedInstanceV2
 metadata:
