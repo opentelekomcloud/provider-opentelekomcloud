@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: example-dms-user-password
+  namespace: crossplane-system
+type: Opaque
+data:
+  example-dms-user-key: ${data.dmsKey}
+
+---
+apiVersion: dms.opentelekomcloud.crossplane.io/v1alpha1
+kind: UserV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dms/v1alpha1/userv2
+  labels:
+    testing.upbound.io/example-name: dms-user
+  name: dms-user
+spec:
+  forProvider:
+    username: crossplane-user
+    passwordSecretRef:
+      key: example-dms-user-key
+      name: example-dms-user-password
+      namespace: crossplane-system
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: dms-instance

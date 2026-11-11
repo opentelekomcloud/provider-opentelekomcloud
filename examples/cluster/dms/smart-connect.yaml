@@ -1,0 +1,144 @@
+# Not part of e2e: Smart Connect needs a cluster (multi-broker) instance and a peer
+# Kafka instance. The peer is the single-node instance from dedicated-instance.yaml.
+apiVersion: dms.opentelekomcloud.crossplane.io/v1alpha1
+kind: DedicatedInstanceV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dms/v1alpha1/dedicatedinstancev2
+    upjet.upbound.io/manual-intervention: "Requires a 3-broker cluster instance; too expensive for e2e."
+  labels:
+    testing.upbound.io/example-name: dms-cluster-instance
+  name: dms-kafka-cluster
+spec:
+  forProvider:
+    name: dms-kafka-cluster
+    availableZones:
+      - eu-de-01
+    flavorId: c6.2u4g.cluster
+    storageSpecCode: dms.physical.storage.ultra.v2
+    engineVersion: "2.7"
+    storageSpace: 300
+    brokerNum: 3
+    retentionPolicy: time_base
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: dms-vpc
+    networkIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: dms-subnet
+    securityGroupIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: dms-sg
+    tags:
+      managed-by: crossplane
+
+---
+apiVersion: dms.opentelekomcloud.crossplane.io/v1alpha1
+kind: TopicV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dms/v1alpha1/topicv2
+    upjet.upbound.io/manual-intervention: "Depends on the cluster instance that is not part of e2e."
+  labels:
+    testing.upbound.io/example-name: dms-cluster-topic
+  name: dms-cluster-topic
+spec:
+  forProvider:
+    name: crossplane-cluster-topic
+    partition: 3
+    replication: 3
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: dms-cluster-instance
+
+---
+apiVersion: dms.opentelekomcloud.crossplane.io/v1alpha1
+kind: SmartConnectV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dms/v1alpha1/smartconnectv2
+    upjet.upbound.io/manual-intervention: "Requires a cluster instance that is not part of e2e."
+  labels:
+    testing.upbound.io/example-name: dms-smart-connect
+  name: dms-smart-connect
+spec:
+  forProvider:
+    bandwidth: 100MB
+    nodeCount: 2
+    storageSpecCode: dms.physical.storage.ultra.v2
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: dms-cluster-instance
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: example-dms-peer-password
+  namespace: crossplane-system
+type: Opaque
+data:
+  example-dms-peer-key: ${data.dmsKey}
+
+---
+# The task is created only after Smart Connect is enabled on the instance;
+# the provider retries until the SmartConnectV2 resource becomes ready.
+apiVersion: dms.opentelekomcloud.crossplane.io/v1alpha1
+kind: SmartConnectTaskV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dms/v1alpha1/smartconnecttaskv2
+    upjet.upbound.io/manual-intervention: "Requires Smart Connect on a cluster instance and a peer instance."
+  labels:
+    testing.upbound.io/example-name: dms-smart-connect-task
+  name: dms-smart-connect-task
+spec:
+  forProvider:
+    taskName: crossplane-replicator
+    sourceType: KAFKA_REPLICATOR_SOURCE
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: dms-cluster-instance
+    topicsSelector:
+      matchLabels:
+        testing.upbound.io/example-name: dms-cluster-topic
+    sourceTask:
+      - direction: push
+        # The peer is single-node, so replicas on the peer side cannot exceed 1.
+        replicationFactor: 1
+        taskNum: 2
+        provenanceHeaderEnabled: false
+        syncConsumerOffsetsEnabled: false
+        renameTopicEnabled: false
+        consumerStrategy: latest
+        compressionType: none
+        securityProtocol: SASL_PLAINTEXT
+        saslMechanism: SCRAM-SHA-512
+        userName: crossplane
+        passwordSecretRef:
+          key: example-dms-peer-key
+          name: example-dms-peer-password
+          namespace: crossplane-system
+        peerInstanceIdSelector:
+          matchLabels:
+            testing.upbound.io/example-name: dms-instance
+
+---
+apiVersion: dms.opentelekomcloud.crossplane.io/v1alpha1
+kind: SmartConnectTaskActionV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dms/v1alpha1/smartconnecttaskactionv2
+    upjet.upbound.io/manual-intervention: "Depends on the Smart Connect task that is not part of e2e."
+  labels:
+    testing.upbound.io/example-name: dms-smart-connect-task-action
+  name: dms-smart-connect-task-action
+spec:
+  forProvider:
+    action: pause
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: dms-cluster-instance
+    taskIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: dms-smart-connect-task

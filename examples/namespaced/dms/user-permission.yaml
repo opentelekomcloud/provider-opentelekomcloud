@@ -1,0 +1,22 @@
+apiVersion: dms.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: UserPermissionV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dms/v1alpha1/userpermissionv1
+  labels:
+    testing.upbound.io/example-name: dms-user-permission
+  name: dms-user-permission-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    instanceSelector:
+      matchLabels:
+        testing.upbound.io/example-name: dms-instance
+    topicSelector:
+      matchLabels:
+        testing.upbound.io/example-name: dms-topic
+    policies:
+      - accessPolicy: all
+        userSelector:
+          matchLabels:
+            testing.upbound.io/example-name: dms-user
