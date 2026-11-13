@@ -1,0 +1,11 @@
+apiVersion: rds.opentelekomcloud.crossplane.io/v1alpha1
+kind: InstanceMinorVersionUpgradeV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: rds/v1alpha1/instanceminorversionupgradev3
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    instanceId: ${var.instance_id}

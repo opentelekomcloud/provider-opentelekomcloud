@@ -9,9 +9,15 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    instanceId: ${var.instance_id}
-    publicIp: ${opentelekomcloud_compute_floatingip_v2.eip_2.address}
-    publicIpId: ${opentelekomcloud_compute_floatingip_v2.eip_2.id}
+    instanceSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    publicIpSelector:
+      matchLabels:
+        testing.upbound.io/example-name: eip_2
+    publicIpSelectorById:
+      matchLabels:
+        testing.upbound.io/example-name: eip_2
 
 ---
 

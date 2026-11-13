@@ -1,0 +1,125 @@
+apiVersion: rds.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: InstanceMinorVersionUpgradeV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: rds/v1alpha1/instanceminorversionupgradev3
+  labels:
+    testing.upbound.io/example-name: rds-minor-upgrade
+  name: rds-minor-upgrade-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    delay: true
+    instanceSelector:
+      matchLabels:
+        testing.upbound.io/example-name: rds-minor-instance
+
+---
+apiVersion: rds.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: InstanceV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: rds/v1alpha1/instanceminorversionupgradev3
+  labels:
+    testing.upbound.io/example-name: rds-minor-instance
+  name: rds-minor-ins-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    availabilityZone:
+      - eu-de-03
+    backupStrategy:
+      - keepDays: 1
+        startTime: 08:00-09:00
+    db:
+      - passwordSecretRef:
+          key: example-rds-key
+          name: example-rds-secret
+        port: 8635
+        type: PostgreSQL
+        version: "15"
+    flavor: rds.pg.n1.large.2
+    name: rds-minor-ins-${Rand.RFC1123Subdomain}
+    computeSecurityGroupSelector:
+      matchLabels:
+        testing.upbound.io/example-name: rds-minor-sg
+    subnetSelector:
+      matchLabels:
+        testing.upbound.io/example-name: rds-minor-subnet
+    tags:
+      managed-by: crossplane
+    volume:
+      - size: 100
+        type: CLOUDSSD
+    vpcSelector:
+      matchLabels:
+        testing.upbound.io/example-name: rds-minor-vpc
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: example-rds-secret
+  namespace: test
+type: Opaque
+data:
+  example-rds-key: ${data.rdsKey}
+
+---
+apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: VpcV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: rds/v1alpha1/instanceminorversionupgradev3
+  labels:
+    testing.upbound.io/example-name: rds-minor-vpc
+  name: rds-minor-vpc-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    cidr: 192.168.0.0/16
+    name: rds-minor-vpc-${Rand.RFC1123Subdomain}
+    tags:
+      managed-by: crossplane
+
+---
+apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: SubnetV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: rds/v1alpha1/instanceminorversionupgradev3
+  labels:
+    testing.upbound.io/example-name: rds-minor-subnet
+  name: rds-minor-subnet-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    cidr: 192.168.0.0/24
+    gatewayIp: 192.168.0.1
+    name: rds-minor-subnet-${Rand.RFC1123Subdomain}
+    ntpAddresses: 10.100.0.33,10.100.0.34
+    vpcSelector:
+      matchLabels:
+        testing.upbound.io/example-name: rds-minor-vpc
+    tags:
+      managed-by: crossplane
+
+---
+apiVersion: compute.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: SecgroupV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: rds/v1alpha1/instanceminorversionupgradev3
+  labels:
+    testing.upbound.io/example-name: rds-minor-sg
+  name: rds-minor-sg-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    description: crossplane security group
+    name: rds-minor-sg-${Rand.RFC1123Subdomain}
+    rule:
+      - cidr: 0.0.0.0/0
+        fromPort: 8635
+        ipProtocol: tcp
+        toPort: 8635

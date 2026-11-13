@@ -24,17 +24,17 @@ type PostgresExtensionV3InitParameters struct {
 
 	// Specifies the ID of the RDS PostgreSQL instance.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/rds/v1alpha1.InstanceV3
-	// +crossplane:generate:reference:refFieldName=InstanceSelectorRef
+	// +crossplane:generate:reference:refFieldName=InstanceRef
 	// +crossplane:generate:reference:selectorFieldName=InstanceSelector
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
+
+	// Reference to a InstanceV3 in rds to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceRef *v1.NamespacedReference `json:"instanceRef,omitempty" tf:"-"`
 
 	// Selector for a InstanceV3 in rds to populate instanceId.
 	// +kubebuilder:validation:Optional
 	InstanceSelector *v1.NamespacedSelector `json:"instanceSelector,omitempty" tf:"-"`
-
-	// Reference to a InstanceV3 in rds to populate instanceId.
-	// +kubebuilder:validation:Optional
-	InstanceSelectorRef *v1.NamespacedReference `json:"instanceSelectorRef,omitempty" tf:"-"`
 }
 
 type PostgresExtensionV3Observation struct {
@@ -79,18 +79,18 @@ type PostgresExtensionV3Parameters struct {
 
 	// Specifies the ID of the RDS PostgreSQL instance.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/rds/v1alpha1.InstanceV3
-	// +crossplane:generate:reference:refFieldName=InstanceSelectorRef
+	// +crossplane:generate:reference:refFieldName=InstanceRef
 	// +crossplane:generate:reference:selectorFieldName=InstanceSelector
 	// +kubebuilder:validation:Optional
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
 
+	// Reference to a InstanceV3 in rds to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceRef *v1.NamespacedReference `json:"instanceRef,omitempty" tf:"-"`
+
 	// Selector for a InstanceV3 in rds to populate instanceId.
 	// +kubebuilder:validation:Optional
 	InstanceSelector *v1.NamespacedSelector `json:"instanceSelector,omitempty" tf:"-"`
-
-	// Reference to a InstanceV3 in rds to populate instanceId.
-	// +kubebuilder:validation:Optional
-	InstanceSelectorRef *v1.NamespacedReference `json:"instanceSelectorRef,omitempty" tf:"-"`
 }
 
 // PostgresExtensionV3Spec defines the desired state of PostgresExtensionV3

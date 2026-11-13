@@ -11,3 +11,4 @@ spec:
   forProvider:
     description: crossplane
     ipVersion: 4
+    name: vpc-ig-${Rand.RFC1123Subdomain}

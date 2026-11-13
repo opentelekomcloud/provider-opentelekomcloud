@@ -10,6 +10,7 @@ import (
 	"context"
 	reference "github.com/crossplane/crossplane-runtime/v2/pkg/reference"
 	v1alpha11 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/compute/v1alpha1"
+	v1alpha12 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/kms/v1alpha1"
 	v1alpha1 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1"
 	common "github.com/opentelekomcloud/provider-opentelekomcloud/config/common"
 	errors "github.com/pkg/errors"
@@ -18,6 +19,50 @@ import (
 
 // ResolveReferences of this BackupV3.
 func (mg *BackupV3) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var rsp reference.NamespacedResolutionResponse
+	var err error
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.InstanceID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.InstanceRef,
+		Selector:     mg.Spec.ForProvider.InstanceSelector,
+		To: reference.To{
+			List:    &InstanceV3List{},
+			Managed: &InstanceV3{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.InstanceID")
+	}
+	mg.Spec.ForProvider.InstanceID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.InstanceRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.InstanceID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.InstanceRef,
+		Selector:     mg.Spec.InitProvider.InstanceSelector,
+		To: reference.To{
+			List:    &InstanceV3List{},
+			Managed: &InstanceV3{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.InstanceID")
+	}
+	mg.Spec.InitProvider.InstanceID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.InstanceRef = rsp.ResolvedReference
+
+	return nil
+}
+
+// ResolveReferences of this InstanceMinorVersionUpgradeV3.
+func (mg *InstanceMinorVersionUpgradeV3) ResolveReferences(ctx context.Context, c client.Reader) error {
 	r := reference.NewAPINamespacedResolver(c, mg)
 
 	var rsp reference.NamespacedResolutionResponse
@@ -153,6 +198,25 @@ func (mg *InstanceV3) ResolveReferences(ctx context.Context, c client.Reader) er
 	mg.Spec.ForProvider.VPCID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.VPCRef = rsp.ResolvedReference
 
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.Volume); i3++ {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Volume[i3].DiskEncryptionID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.Volume[i3].DiskEncryptionKeyRef,
+			Selector:     mg.Spec.ForProvider.Volume[i3].DiskEncryptionKeySelector,
+			To: reference.To{
+				List:    &v1alpha12.KeyV1List{},
+				Managed: &v1alpha12.KeyV1{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.Volume[i3].DiskEncryptionID")
+		}
+		mg.Spec.ForProvider.Volume[i3].DiskEncryptionID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.Volume[i3].DiskEncryptionKeyRef = rsp.ResolvedReference
+
+	}
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ParamGroupID),
 		Extract:      reference.ExternalName(),
@@ -238,6 +302,70 @@ func (mg *InstanceV3) ResolveReferences(ctx context.Context, c client.Reader) er
 	mg.Spec.InitProvider.VPCID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.InitProvider.VPCRef = rsp.ResolvedReference
 
+	for i3 := 0; i3 < len(mg.Spec.InitProvider.Volume); i3++ {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Volume[i3].DiskEncryptionID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.Volume[i3].DiskEncryptionKeyRef,
+			Selector:     mg.Spec.InitProvider.Volume[i3].DiskEncryptionKeySelector,
+			To: reference.To{
+				List:    &v1alpha12.KeyV1List{},
+				Managed: &v1alpha12.KeyV1{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.InitProvider.Volume[i3].DiskEncryptionID")
+		}
+		mg.Spec.InitProvider.Volume[i3].DiskEncryptionID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.InitProvider.Volume[i3].DiskEncryptionKeyRef = rsp.ResolvedReference
+
+	}
+
+	return nil
+}
+
+// ResolveReferences of this MaintenanceV3.
+func (mg *MaintenanceV3) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var rsp reference.NamespacedResolutionResponse
+	var err error
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.InstanceID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.InstanceRef,
+		Selector:     mg.Spec.ForProvider.InstanceSelector,
+		To: reference.To{
+			List:    &InstanceV3List{},
+			Managed: &InstanceV3{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.InstanceID")
+	}
+	mg.Spec.ForProvider.InstanceID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.InstanceRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.InstanceID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.InstanceRef,
+		Selector:     mg.Spec.InitProvider.InstanceSelector,
+		To: reference.To{
+			List:    &InstanceV3List{},
+			Managed: &InstanceV3{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.InstanceID")
+	}
+	mg.Spec.InitProvider.InstanceID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.InstanceRef = rsp.ResolvedReference
+
 	return nil
 }
 
@@ -252,7 +380,7 @@ func (mg *PostgresExtensionV3) ResolveReferences(ctx context.Context, c client.R
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.InstanceID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.ForProvider.InstanceSelectorRef,
+		Reference:    mg.Spec.ForProvider.InstanceRef,
 		Selector:     mg.Spec.ForProvider.InstanceSelector,
 		To: reference.To{
 			List:    &InstanceV3List{},
@@ -263,13 +391,13 @@ func (mg *PostgresExtensionV3) ResolveReferences(ctx context.Context, c client.R
 		return errors.Wrap(err, "mg.Spec.ForProvider.InstanceID")
 	}
 	mg.Spec.ForProvider.InstanceID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.InstanceSelectorRef = rsp.ResolvedReference
+	mg.Spec.ForProvider.InstanceRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.InstanceID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.InitProvider.InstanceSelectorRef,
+		Reference:    mg.Spec.InitProvider.InstanceRef,
 		Selector:     mg.Spec.InitProvider.InstanceSelector,
 		To: reference.To{
 			List:    &InstanceV3List{},
@@ -280,7 +408,119 @@ func (mg *PostgresExtensionV3) ResolveReferences(ctx context.Context, c client.R
 		return errors.Wrap(err, "mg.Spec.InitProvider.InstanceID")
 	}
 	mg.Spec.InitProvider.InstanceID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.InstanceSelectorRef = rsp.ResolvedReference
+	mg.Spec.InitProvider.InstanceRef = rsp.ResolvedReference
+
+	return nil
+}
+
+// ResolveReferences of this PublicIPAssociateV3.
+func (mg *PublicIPAssociateV3) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var rsp reference.NamespacedResolutionResponse
+	var err error
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.InstanceID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.InstanceRef,
+		Selector:     mg.Spec.ForProvider.InstanceSelector,
+		To: reference.To{
+			List:    &InstanceV3List{},
+			Managed: &InstanceV3{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.InstanceID")
+	}
+	mg.Spec.ForProvider.InstanceID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.InstanceRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.PublicIP),
+		Extract:      common.ExtractEipAddress(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.PublicIPSelectorRef,
+		Selector:     mg.Spec.ForProvider.PublicIPSelector,
+		To: reference.To{
+			List:    &v1alpha1.EIPV1List{},
+			Managed: &v1alpha1.EIPV1{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.PublicIP")
+	}
+	mg.Spec.ForProvider.PublicIP = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.PublicIPSelectorRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.PublicIPID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.PublicIPSelectorByIDRef,
+		Selector:     mg.Spec.ForProvider.PublicIPSelectorByID,
+		To: reference.To{
+			List:    &v1alpha1.EIPV1List{},
+			Managed: &v1alpha1.EIPV1{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.PublicIPID")
+	}
+	mg.Spec.ForProvider.PublicIPID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.PublicIPSelectorByIDRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.InstanceID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.InstanceRef,
+		Selector:     mg.Spec.InitProvider.InstanceSelector,
+		To: reference.To{
+			List:    &InstanceV3List{},
+			Managed: &InstanceV3{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.InstanceID")
+	}
+	mg.Spec.InitProvider.InstanceID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.InstanceRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.PublicIP),
+		Extract:      common.ExtractEipAddress(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.PublicIPSelectorRef,
+		Selector:     mg.Spec.InitProvider.PublicIPSelector,
+		To: reference.To{
+			List:    &v1alpha1.EIPV1List{},
+			Managed: &v1alpha1.EIPV1{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.PublicIP")
+	}
+	mg.Spec.InitProvider.PublicIP = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.PublicIPSelectorRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.PublicIPID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.PublicIPSelectorByIDRef,
+		Selector:     mg.Spec.InitProvider.PublicIPSelectorByID,
+		To: reference.To{
+			List:    &v1alpha1.EIPV1List{},
+			Managed: &v1alpha1.EIPV1{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.PublicIPID")
+	}
+	mg.Spec.InitProvider.PublicIPID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.PublicIPSelectorByIDRef = rsp.ResolvedReference
 
 	return nil
 }
@@ -327,6 +567,25 @@ func (mg *ReadReplicaV3) ResolveReferences(ctx context.Context, c client.Reader)
 	mg.Spec.ForProvider.ReplicaOfID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.InstanceRef = rsp.ResolvedReference
 
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.Volume); i3++ {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Volume[i3].DiskEncryptionID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.Volume[i3].DiskEncryptionKeyRef,
+			Selector:     mg.Spec.ForProvider.Volume[i3].DiskEncryptionKeySelector,
+			To: reference.To{
+				List:    &v1alpha12.KeyV1List{},
+				Managed: &v1alpha12.KeyV1{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.Volume[i3].DiskEncryptionID")
+		}
+		mg.Spec.ForProvider.Volume[i3].DiskEncryptionID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.Volume[i3].DiskEncryptionKeyRef = rsp.ResolvedReference
+
+	}
 	mrsp, err = r.ResolveMultiple(ctx, reference.MultiNamespacedResolutionRequest{
 		CurrentValues: reference.FromPtrValues(mg.Spec.InitProvider.PublicIps),
 		Extract:       common.ExtractEipAddress(),
@@ -360,6 +619,26 @@ func (mg *ReadReplicaV3) ResolveReferences(ctx context.Context, c client.Reader)
 	}
 	mg.Spec.InitProvider.ReplicaOfID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.InitProvider.InstanceRef = rsp.ResolvedReference
+
+	for i3 := 0; i3 < len(mg.Spec.InitProvider.Volume); i3++ {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Volume[i3].DiskEncryptionID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.Volume[i3].DiskEncryptionKeyRef,
+			Selector:     mg.Spec.InitProvider.Volume[i3].DiskEncryptionKeySelector,
+			To: reference.To{
+				List:    &v1alpha12.KeyV1List{},
+				Managed: &v1alpha12.KeyV1{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.InitProvider.Volume[i3].DiskEncryptionID")
+		}
+		mg.Spec.InitProvider.Volume[i3].DiskEncryptionID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.InitProvider.Volume[i3].DiskEncryptionKeyRef = rsp.ResolvedReference
+
+	}
 
 	return nil
 }
