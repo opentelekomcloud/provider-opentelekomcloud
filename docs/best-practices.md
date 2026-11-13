@@ -23,26 +23,26 @@ When a VPC equivalent exists, use it:
 
 | Recommended VPC resource | Equivalent Networking resource | Notes |
 |--------------------------|--------------------------------|-------|
-| `vpcv1s.vpc.opentelekomcloud.m.crossplane.io` | `routerv2s.networking.opentelekomcloud.m.crossplane.io` | The VPC ID is the OpenStack router ID. |
-| `subnetv1s.vpc.opentelekomcloud.m.crossplane.io` | `networkv2s.networking.opentelekomcloud.m.crossplane.io` + `subnetv2s.networking.opentelekomcloud.m.crossplane.io` | A VPC subnet is backed by a Neutron network and subnet; `status.atProvider.networkId` and `subnetId` expose their IDs. |
-| `secgroupv3s.vpc.opentelekomcloud.m.crossplane.io` | `secgroupv2s.networking.opentelekomcloud.m.crossplane.io` | The VPC v3 API is the newer API for the same security groups. |
-| `secgrouprulev3s.vpc.opentelekomcloud.m.crossplane.io` | `secgrouprulev2s.networking.opentelekomcloud.m.crossplane.io` | The VPC v3 API is the newer API for the same security group rules. |
-| `eipv1s.vpc.opentelekomcloud.m.crossplane.io` | `floatingipv2s.networking.opentelekomcloud.m.crossplane.io` | Both allocate public IPs; EIPs also manage bandwidth. |
-| `routev2s.vpc.opentelekomcloud.m.crossplane.io` | `routerroutev2s.networking.opentelekomcloud.m.crossplane.io` | Both add routes to the VPC/router; the Networking route resource is deprecated. VPC routes only support peering next hops. |
-| `routetablev1s.vpc.opentelekomcloud.m.crossplane.io` | — | VPC-only route tables, subnet associations, and non-peering routes. |
-| `peeringconnectionv2s.vpc.opentelekomcloud.m.crossplane.io` | — | VPC-only peering requester. |
-| `peeringconnectionaccepterv2s.vpc.opentelekomcloud.m.crossplane.io` | — | VPC-only peering accepter. |
-| `bandwidthv2s.vpc.opentelekomcloud.m.crossplane.io` | — | VPC-only bandwidth sharing. |
-| `bandwidthassociatev2s.vpc.opentelekomcloud.m.crossplane.io` | — | VPC-only bandwidth association. |
-| `flowlogv1s.vpc.opentelekomcloud.m.crossplane.io` | — | VPC-only flow logs. |
-| `ipaddressgroupv3s.vpc.opentelekomcloud.m.crossplane.io` | — | VPC-only address groups. |
-| `secondarycidrv3s.vpc.opentelekomcloud.m.crossplane.io` | — | VPC-only secondary CIDRs. |
-| — | `portv2s.networking.opentelekomcloud.m.crossplane.io` | Networking-only; there is no VPC port resource. |
-| — | `portsecgroupassociatev2s.networking.opentelekomcloud.m.crossplane.io` | Networking-only. |
-| — | `routerinterfacev2s.networking.opentelekomcloud.m.crossplane.io` | Attaching a subnet to the router is implicit in `subnetv1s.vpc.opentelekomcloud.m.crossplane.io`. |
-| — | `vipv2s.networking.opentelekomcloud.m.crossplane.io` | Networking-only. |
-| — | `vipassociatev2s.networking.opentelekomcloud.m.crossplane.io` | Networking-only. |
-| — | `floatingipassociatev2s.networking.opentelekomcloud.m.crossplane.io` | EIPs bind through `publicip.portId`; no standalone VPC association resource. |
+| `vpcv1s.vpc` | `routerv2s.networking` | The VPC ID is the OpenStack router ID. |
+| `subnetv1s.vpc` | `networkv2s.networking` + `subnetv2s.networking` | A VPC subnet is backed by a Neutron network and subnet; `status.atProvider.networkId` and `subnetId` expose their IDs. |
+| `secgroupv3s.vpc` | `secgroupv2s.networking` | The VPC v3 API is the newer API for the same security groups. |
+| `secgrouprulev3s.vpc` | `secgrouprulev2s.networking` | The VPC v3 API is the newer API for the same security group rules. |
+| `eipv1s.vpc` | `floatingipv2s.networking` | Both allocate public IPs; EIPs also manage bandwidth. |
+| `routev2s.vpc` | `routerroutev2s.networking` | Both add routes to the VPC/router; the Networking route resource is deprecated. VPC routes only support peering next hops. |
+| `routetablev1s.vpc` | — | VPC-only route tables, subnet associations, and non-peering routes. |
+| `peeringconnectionv2s.vpc` | — | VPC-only peering requester. |
+| `peeringconnectionaccepterv2s.vpc` | — | VPC-only peering accepter. |
+| `bandwidthv2s.vpc` | — | VPC-only bandwidth sharing. |
+| `bandwidthassociatev2s.vpc` | — | VPC-only bandwidth association. |
+| `flowlogv1s.vpc` | — | VPC-only flow logs. |
+| `ipaddressgroupv3s.vpc` | — | VPC-only address groups. |
+| `secondarycidrv3s.vpc` | — | VPC-only secondary CIDRs. |
+| — | `portv2s.networking` | Networking-only; there is no VPC port resource. |
+| — | `portsecgroupassociatev2s.networking` | Networking-only. |
+| — | `routerinterfacev2s.networking` | Attaching a subnet to the router is implicit in `subnetv1s.vpc`. |
+| — | `vipv2s.networking` | Networking-only. |
+| — | `vipassociatev2s.networking` | Networking-only. |
+| — | `floatingipassociatev2s.networking` | EIPs bind through `publicip.portId`; no standalone VPC association resource. |
 
 The VPC API is the higher-level, actively developed API family. Newer capabilities are only available there, for example EIPs with bandwidth, route tables, flow logs, VPC peering, secondary CIDRs, IP address groups, and security groups v3. VPC resources also expose the OpenStack IDs that other services require, so they can usually be used even when the consuming service expects a Neutron ID.
 
