@@ -38,7 +38,18 @@ type ConsumerGroupV2InitParameters struct {
 	GroupName *string `json:"groupName,omitempty" tf:"group_name,omitempty"`
 
 	// Specifies the ID of the DMS instance.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/dms/v1alpha1.DedicatedInstanceV2
+	// +crossplane:generate:reference:refFieldName=InstanceRef
+	// +crossplane:generate:reference:selectorFieldName=InstanceSelector
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
+
+	// Reference to a DedicatedInstanceV2 in dms to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceRef *v1.NamespacedReference `json:"instanceRef,omitempty" tf:"-"`
+
+	// Selector for a DedicatedInstanceV2 in dms to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceSelector *v1.NamespacedSelector `json:"instanceSelector,omitempty" tf:"-"`
 }
 
 type ConsumerGroupV2Observation struct {
@@ -83,8 +94,19 @@ type ConsumerGroupV2Parameters struct {
 	GroupName *string `json:"groupName,omitempty" tf:"group_name,omitempty"`
 
 	// Specifies the ID of the DMS instance.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/dms/v1alpha1.DedicatedInstanceV2
+	// +crossplane:generate:reference:refFieldName=InstanceRef
+	// +crossplane:generate:reference:selectorFieldName=InstanceSelector
 	// +kubebuilder:validation:Optional
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
+
+	// Reference to a DedicatedInstanceV2 in dms to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceRef *v1.NamespacedReference `json:"instanceRef,omitempty" tf:"-"`
+
+	// Selector for a DedicatedInstanceV2 in dms to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceSelector *v1.NamespacedSelector `json:"instanceSelector,omitempty" tf:"-"`
 }
 
 type GroupMessageOffsetsInitParameters struct {
@@ -169,7 +191,6 @@ type ConsumerGroupV2 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.groupName) || (has(self.initProvider) && has(self.initProvider.groupName))",message="spec.forProvider.groupName is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.instanceId) || (has(self.initProvider) && has(self.initProvider.instanceId))",message="spec.forProvider.instanceId is a required parameter"
 	Spec   ConsumerGroupV2Spec   `json:"spec"`
 	Status ConsumerGroupV2Status `json:"status,omitempty"`
 }

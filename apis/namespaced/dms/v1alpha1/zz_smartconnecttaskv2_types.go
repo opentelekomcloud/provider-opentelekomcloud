@@ -182,7 +182,18 @@ type SmartConnectTaskV2InitParameters struct {
 
 	// Specifies the kafka instance ID.
 	// Changing this parameter will create a new resource.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/dms/v1alpha1.DedicatedInstanceV2
+	// +crossplane:generate:reference:refFieldName=InstanceRef
+	// +crossplane:generate:reference:selectorFieldName=InstanceSelector
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
+
+	// Reference to a DedicatedInstanceV2 in dms to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceRef *v1.NamespacedReference `json:"instanceRef,omitempty" tf:"-"`
+
+	// Selector for a DedicatedInstanceV2 in dms to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceSelector *v1.NamespacedSelector `json:"instanceSelector,omitempty" tf:"-"`
 
 	// Specifies the source configuration of a smart connect task.
 	// The source_task structure is documented below.
@@ -201,8 +212,19 @@ type SmartConnectTaskV2InitParameters struct {
 	// Changing this parameter will create a new resource.
 	TaskName *string `json:"taskName,omitempty" tf:"task_name,omitempty"`
 
+	// References to TopicV2 in dms to populate topics.
+	// +kubebuilder:validation:Optional
+	TopicRefs []v1.NamespacedReference `json:"topicRefs,omitempty" tf:"-"`
+
+	// Selector for a list of TopicV2 in dms to populate topics.
+	// +kubebuilder:validation:Optional
+	TopicSelector *v1.NamespacedSelector `json:"topicSelector,omitempty" tf:"-"`
+
 	// Specifies the topic names list of the smart connect task.
 	// Changing this parameter will create a new resource.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/dms/v1alpha1.TopicV2
+	// +crossplane:generate:reference:refFieldName=TopicRefs
+	// +crossplane:generate:reference:selectorFieldName=TopicSelector
 	// +listType=set
 	Topics []*string `json:"topics,omitempty" tf:"topics,omitempty"`
 
@@ -280,8 +302,19 @@ type SmartConnectTaskV2Parameters struct {
 
 	// Specifies the kafka instance ID.
 	// Changing this parameter will create a new resource.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/dms/v1alpha1.DedicatedInstanceV2
+	// +crossplane:generate:reference:refFieldName=InstanceRef
+	// +crossplane:generate:reference:selectorFieldName=InstanceSelector
 	// +kubebuilder:validation:Optional
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
+
+	// Reference to a DedicatedInstanceV2 in dms to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceRef *v1.NamespacedReference `json:"instanceRef,omitempty" tf:"-"`
+
+	// Selector for a DedicatedInstanceV2 in dms to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceSelector *v1.NamespacedSelector `json:"instanceSelector,omitempty" tf:"-"`
 
 	// Specifies the source configuration of a smart connect task.
 	// The source_task structure is documented below.
@@ -304,8 +337,19 @@ type SmartConnectTaskV2Parameters struct {
 	// +kubebuilder:validation:Optional
 	TaskName *string `json:"taskName,omitempty" tf:"task_name,omitempty"`
 
+	// References to TopicV2 in dms to populate topics.
+	// +kubebuilder:validation:Optional
+	TopicRefs []v1.NamespacedReference `json:"topicRefs,omitempty" tf:"-"`
+
+	// Selector for a list of TopicV2 in dms to populate topics.
+	// +kubebuilder:validation:Optional
+	TopicSelector *v1.NamespacedSelector `json:"topicSelector,omitempty" tf:"-"`
+
 	// Specifies the topic names list of the smart connect task.
 	// Changing this parameter will create a new resource.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/dms/v1alpha1.TopicV2
+	// +crossplane:generate:reference:refFieldName=TopicRefs
+	// +crossplane:generate:reference:selectorFieldName=TopicSelector
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	Topics []*string `json:"topics,omitempty" tf:"topics,omitempty"`
@@ -348,7 +392,18 @@ type SourceTaskInitParameters struct {
 
 	// Specifies the peer Kafka instance ID.
 	// Changing this parameter will create a new resource.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/dms/v1alpha1.DedicatedInstanceV2
+	// +crossplane:generate:reference:refFieldName=PeerInstanceRef
+	// +crossplane:generate:reference:selectorFieldName=PeerInstanceSelector
 	PeerInstanceID *string `json:"peerInstanceId,omitempty" tf:"peer_instance_id,omitempty"`
+
+	// Reference to a DedicatedInstanceV2 in dms to populate peerInstanceId.
+	// +kubebuilder:validation:Optional
+	PeerInstanceRef *v1.NamespacedReference `json:"peerInstanceRef,omitempty" tf:"-"`
+
+	// Selector for a DedicatedInstanceV2 in dms to populate peerInstanceId.
+	// +kubebuilder:validation:Optional
+	PeerInstanceSelector *v1.NamespacedSelector `json:"peerInstanceSelector,omitempty" tf:"-"`
 
 	// Specifies whether the message header contains the message source.
 	// Changing this parameter will create a new resource.
@@ -497,8 +552,19 @@ type SourceTaskParameters struct {
 
 	// Specifies the peer Kafka instance ID.
 	// Changing this parameter will create a new resource.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/dms/v1alpha1.DedicatedInstanceV2
+	// +crossplane:generate:reference:refFieldName=PeerInstanceRef
+	// +crossplane:generate:reference:selectorFieldName=PeerInstanceSelector
 	// +kubebuilder:validation:Optional
 	PeerInstanceID *string `json:"peerInstanceId,omitempty" tf:"peer_instance_id,omitempty"`
+
+	// Reference to a DedicatedInstanceV2 in dms to populate peerInstanceId.
+	// +kubebuilder:validation:Optional
+	PeerInstanceRef *v1.NamespacedReference `json:"peerInstanceRef,omitempty" tf:"-"`
+
+	// Selector for a DedicatedInstanceV2 in dms to populate peerInstanceId.
+	// +kubebuilder:validation:Optional
+	PeerInstanceSelector *v1.NamespacedSelector `json:"peerInstanceSelector,omitempty" tf:"-"`
 
 	// Specifies whether the message header contains the message source.
 	// Changing this parameter will create a new resource.
@@ -584,7 +650,6 @@ type SmartConnectTaskV2Status struct {
 type SmartConnectTaskV2 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.instanceId) || (has(self.initProvider) && has(self.initProvider.instanceId))",message="spec.forProvider.instanceId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.taskName) || (has(self.initProvider) && has(self.initProvider.taskName))",message="spec.forProvider.taskName is a required parameter"
 	Spec   SmartConnectTaskV2Spec   `json:"spec"`
 	Status SmartConnectTaskV2Status `json:"status,omitempty"`

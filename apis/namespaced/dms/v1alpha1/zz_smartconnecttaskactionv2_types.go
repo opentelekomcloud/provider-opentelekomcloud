@@ -21,10 +21,32 @@ type SmartConnectTaskActionV2InitParameters struct {
 	Action *string `json:"action,omitempty" tf:"action,omitempty"`
 
 	// Specifies the kafka instance ID.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/dms/v1alpha1.DedicatedInstanceV2
+	// +crossplane:generate:reference:refFieldName=InstanceRef
+	// +crossplane:generate:reference:selectorFieldName=InstanceSelector
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
 
+	// Reference to a DedicatedInstanceV2 in dms to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceRef *v1.NamespacedReference `json:"instanceRef,omitempty" tf:"-"`
+
+	// Selector for a DedicatedInstanceV2 in dms to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceSelector *v1.NamespacedSelector `json:"instanceSelector,omitempty" tf:"-"`
+
 	// Specifies the smart connect task ID.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/dms/v1alpha1.SmartConnectTaskV2
+	// +crossplane:generate:reference:refFieldName=TaskRef
+	// +crossplane:generate:reference:selectorFieldName=TaskSelector
 	TaskID *string `json:"taskId,omitempty" tf:"task_id,omitempty"`
+
+	// Reference to a SmartConnectTaskV2 in dms to populate taskId.
+	// +kubebuilder:validation:Optional
+	TaskRef *v1.NamespacedReference `json:"taskRef,omitempty" tf:"-"`
+
+	// Selector for a SmartConnectTaskV2 in dms to populate taskId.
+	// +kubebuilder:validation:Optional
+	TaskSelector *v1.NamespacedSelector `json:"taskSelector,omitempty" tf:"-"`
 }
 
 type SmartConnectTaskActionV2Observation struct {
@@ -56,12 +78,34 @@ type SmartConnectTaskActionV2Parameters struct {
 	Action *string `json:"action,omitempty" tf:"action,omitempty"`
 
 	// Specifies the kafka instance ID.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/dms/v1alpha1.DedicatedInstanceV2
+	// +crossplane:generate:reference:refFieldName=InstanceRef
+	// +crossplane:generate:reference:selectorFieldName=InstanceSelector
 	// +kubebuilder:validation:Optional
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
 
+	// Reference to a DedicatedInstanceV2 in dms to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceRef *v1.NamespacedReference `json:"instanceRef,omitempty" tf:"-"`
+
+	// Selector for a DedicatedInstanceV2 in dms to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceSelector *v1.NamespacedSelector `json:"instanceSelector,omitempty" tf:"-"`
+
 	// Specifies the smart connect task ID.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/dms/v1alpha1.SmartConnectTaskV2
+	// +crossplane:generate:reference:refFieldName=TaskRef
+	// +crossplane:generate:reference:selectorFieldName=TaskSelector
 	// +kubebuilder:validation:Optional
 	TaskID *string `json:"taskId,omitempty" tf:"task_id,omitempty"`
+
+	// Reference to a SmartConnectTaskV2 in dms to populate taskId.
+	// +kubebuilder:validation:Optional
+	TaskRef *v1.NamespacedReference `json:"taskRef,omitempty" tf:"-"`
+
+	// Selector for a SmartConnectTaskV2 in dms to populate taskId.
+	// +kubebuilder:validation:Optional
+	TaskSelector *v1.NamespacedSelector `json:"taskSelector,omitempty" tf:"-"`
 }
 
 // SmartConnectTaskActionV2Spec defines the desired state of SmartConnectTaskActionV2
@@ -101,8 +145,6 @@ type SmartConnectTaskActionV2 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.action) || (has(self.initProvider) && has(self.initProvider.action))",message="spec.forProvider.action is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.instanceId) || (has(self.initProvider) && has(self.initProvider.instanceId))",message="spec.forProvider.instanceId is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.taskId) || (has(self.initProvider) && has(self.initProvider.taskId))",message="spec.forProvider.taskId is a required parameter"
 	Spec   SmartConnectTaskActionV2Spec   `json:"spec"`
 	Status SmartConnectTaskActionV2Status `json:"status,omitempty"`
 }

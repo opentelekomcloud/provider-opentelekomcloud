@@ -115,6 +115,7 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"opentelekomcloud_dms_instance_v1":                  config.IdentifierFromProvider,
 	"opentelekomcloud_dms_instance_v2":                  config.IdentifierFromProvider,
 	"opentelekomcloud_dms_topic_v1":                     config.IdentifierFromProvider,
+	"opentelekomcloud_dms_topic_v2":                     config.IdentifierFromProvider,
 	"opentelekomcloud_dms_user_v2":                      config.IdentifierFromProvider,
 	"opentelekomcloud_dms_user_permission_v1":           config.IdentifierFromProvider,
 	"opentelekomcloud_dms_consumer_group_v2":            config.IdentifierFromProvider,

@@ -17,7 +17,18 @@ import (
 type TopicV1InitParameters struct {
 
 	// Indicates the ID of primary DMS instance.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/dms/v1alpha1.InstanceV1
+	// +crossplane:generate:reference:refFieldName=InstanceRef
+	// +crossplane:generate:reference:selectorFieldName=InstanceSelector
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
+
+	// Reference to a InstanceV1 in dms to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceRef *v1.NamespacedReference `json:"instanceRef,omitempty" tf:"-"`
+
+	// Selector for a InstanceV1 in dms to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceSelector *v1.NamespacedSelector `json:"instanceSelector,omitempty" tf:"-"`
 
 	// Total partitions number.
 	MaxPartitions *float64 `json:"maxPartitions,omitempty" tf:"max_partitions,omitempty"`
@@ -100,8 +111,19 @@ type TopicV1Observation struct {
 type TopicV1Parameters struct {
 
 	// Indicates the ID of primary DMS instance.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/dms/v1alpha1.InstanceV1
+	// +crossplane:generate:reference:refFieldName=InstanceRef
+	// +crossplane:generate:reference:selectorFieldName=InstanceSelector
 	// +kubebuilder:validation:Optional
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
+
+	// Reference to a InstanceV1 in dms to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceRef *v1.NamespacedReference `json:"instanceRef,omitempty" tf:"-"`
+
+	// Selector for a InstanceV1 in dms to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceSelector *v1.NamespacedSelector `json:"instanceSelector,omitempty" tf:"-"`
 
 	// Total partitions number.
 	// +kubebuilder:validation:Optional
@@ -184,7 +206,6 @@ type TopicV1Status struct {
 type TopicV1 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.instanceId) || (has(self.initProvider) && has(self.initProvider.instanceId))",message="spec.forProvider.instanceId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	Spec   TopicV1Spec   `json:"spec"`
 	Status TopicV1Status `json:"status,omitempty"`

@@ -80,6 +80,7 @@ import (
 	smartconnecttaskv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/dms/smartconnecttaskv2"
 	smartconnectv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/dms/smartconnectv2"
 	topicv1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/dms/topicv1"
+	topicv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/dms/topicv2"
 	userpermissionv1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/dms/userpermissionv1"
 	userv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/dms/userv2"
 	ptrrecordv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/dns/ptrrecordv2"
@@ -149,7 +150,7 @@ import (
 	rulev3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/lb/rulev3"
 	securitypolicyv3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/lb/securitypolicyv3"
 	groupv2logtank "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/logtank/groupv2"
-	topicv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/logtank/topicv2"
+	topicv2logtank "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/logtank/topicv2"
 	transferv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/logtank/transferv2"
 	cceaccessv3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/lts/cceaccessv3"
 	crossaccountaccessv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/lts/crossaccountaccessv2"
@@ -338,6 +339,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		smartconnecttaskv2.Setup,
 		smartconnectv2.Setup,
 		topicv1.Setup,
+		topicv2.Setup,
 		userpermissionv1.Setup,
 		userv2.Setup,
 		ptrrecordv2.Setup,
@@ -407,7 +409,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		rulev3.Setup,
 		securitypolicyv3.Setup,
 		groupv2logtank.Setup,
-		topicv2.Setup,
+		topicv2logtank.Setup,
 		transferv2.Setup,
 		cceaccessv3.Setup,
 		crossaccountaccessv2.Setup,
@@ -602,6 +604,7 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		smartconnecttaskv2.SetupGated,
 		smartconnectv2.SetupGated,
 		topicv1.SetupGated,
+		topicv2.SetupGated,
 		userpermissionv1.SetupGated,
 		userv2.SetupGated,
 		ptrrecordv2.SetupGated,
@@ -671,7 +674,7 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		rulev3.SetupGated,
 		securitypolicyv3.SetupGated,
 		groupv2logtank.SetupGated,
-		topicv2.SetupGated,
+		topicv2logtank.SetupGated,
 		transferv2.SetupGated,
 		cceaccessv3.SetupGated,
 		crossaccountaccessv2.SetupGated,

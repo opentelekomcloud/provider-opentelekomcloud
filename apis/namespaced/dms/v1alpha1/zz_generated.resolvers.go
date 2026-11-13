@@ -9,12 +9,204 @@ package v1alpha1
 import (
 	"context"
 	reference "github.com/crossplane/crossplane-runtime/v2/pkg/reference"
-	v1alpha1 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/compute/v1alpha1"
-	v1alpha11 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1"
+	v1alpha12 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/compute/v1alpha1"
+	v1alpha11 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/networking/v1alpha1"
+	v1alpha1 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1"
 	common "github.com/opentelekomcloud/provider-opentelekomcloud/config/common"
 	errors "github.com/pkg/errors"
 	client "sigs.k8s.io/controller-runtime/pkg/client"
 )
+
+// ResolveReferences of this ConsumerGroupV2.
+func (mg *ConsumerGroupV2) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var rsp reference.NamespacedResolutionResponse
+	var err error
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.InstanceID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.InstanceRef,
+		Selector:     mg.Spec.ForProvider.InstanceSelector,
+		To: reference.To{
+			List:    &DedicatedInstanceV2List{},
+			Managed: &DedicatedInstanceV2{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.InstanceID")
+	}
+	mg.Spec.ForProvider.InstanceID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.InstanceRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.InstanceID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.InstanceRef,
+		Selector:     mg.Spec.InitProvider.InstanceSelector,
+		To: reference.To{
+			List:    &DedicatedInstanceV2List{},
+			Managed: &DedicatedInstanceV2{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.InstanceID")
+	}
+	mg.Spec.InitProvider.InstanceID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.InstanceRef = rsp.ResolvedReference
+
+	return nil
+}
+
+// ResolveReferences of this DedicatedInstanceV2.
+func (mg *DedicatedInstanceV2) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var rsp reference.NamespacedResolutionResponse
+	var mrsp reference.MultiNamespacedResolutionResponse
+	var err error
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.NetworkID),
+		Extract:      common.ExtractNetworkID(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.SubnetRef,
+		Selector:     mg.Spec.ForProvider.SubnetSelector,
+		To: reference.To{
+			List:    &v1alpha1.SubnetV1List{},
+			Managed: &v1alpha1.SubnetV1{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.NetworkID")
+	}
+	mg.Spec.ForProvider.NetworkID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.SubnetRef = rsp.ResolvedReference
+
+	mrsp, err = r.ResolveMultiple(ctx, reference.MultiNamespacedResolutionRequest{
+		CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.PublicipID),
+		Extract:       reference.ExternalName(),
+		Namespace:     mg.GetNamespace(),
+		References:    mg.Spec.ForProvider.PublicIPRefs,
+		Selector:      mg.Spec.ForProvider.PublicIPSelector,
+		To: reference.To{
+			List:    &v1alpha11.FloatingipV2List{},
+			Managed: &v1alpha11.FloatingipV2{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.PublicipID")
+	}
+	mg.Spec.ForProvider.PublicipID = reference.ToPtrValues(mrsp.ResolvedValues)
+	mg.Spec.ForProvider.PublicIPRefs = mrsp.ResolvedReferences
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.SecurityGroupID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.ComputeSecurityGroupRefs,
+		Selector:     mg.Spec.ForProvider.ComputeSecurityGroupSelector,
+		To: reference.To{
+			List:    &v1alpha12.SecgroupV2List{},
+			Managed: &v1alpha12.SecgroupV2{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.SecurityGroupID")
+	}
+	mg.Spec.ForProvider.SecurityGroupID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.ComputeSecurityGroupRefs = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.VPCID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.VPCRef,
+		Selector:     mg.Spec.ForProvider.VPCSelector,
+		To: reference.To{
+			List:    &v1alpha1.VpcV1List{},
+			Managed: &v1alpha1.VpcV1{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.VPCID")
+	}
+	mg.Spec.ForProvider.VPCID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.VPCRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.NetworkID),
+		Extract:      common.ExtractNetworkID(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.SubnetRef,
+		Selector:     mg.Spec.InitProvider.SubnetSelector,
+		To: reference.To{
+			List:    &v1alpha1.SubnetV1List{},
+			Managed: &v1alpha1.SubnetV1{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.NetworkID")
+	}
+	mg.Spec.InitProvider.NetworkID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.SubnetRef = rsp.ResolvedReference
+
+	mrsp, err = r.ResolveMultiple(ctx, reference.MultiNamespacedResolutionRequest{
+		CurrentValues: reference.FromPtrValues(mg.Spec.InitProvider.PublicipID),
+		Extract:       reference.ExternalName(),
+		Namespace:     mg.GetNamespace(),
+		References:    mg.Spec.InitProvider.PublicIPRefs,
+		Selector:      mg.Spec.InitProvider.PublicIPSelector,
+		To: reference.To{
+			List:    &v1alpha11.FloatingipV2List{},
+			Managed: &v1alpha11.FloatingipV2{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.PublicipID")
+	}
+	mg.Spec.InitProvider.PublicipID = reference.ToPtrValues(mrsp.ResolvedValues)
+	mg.Spec.InitProvider.PublicIPRefs = mrsp.ResolvedReferences
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.SecurityGroupID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.ComputeSecurityGroupRefs,
+		Selector:     mg.Spec.InitProvider.ComputeSecurityGroupSelector,
+		To: reference.To{
+			List:    &v1alpha12.SecgroupV2List{},
+			Managed: &v1alpha12.SecgroupV2{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.SecurityGroupID")
+	}
+	mg.Spec.InitProvider.SecurityGroupID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.ComputeSecurityGroupRefs = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.VPCID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.VPCRef,
+		Selector:     mg.Spec.InitProvider.VPCSelector,
+		To: reference.To{
+			List:    &v1alpha1.VpcV1List{},
+			Managed: &v1alpha1.VpcV1{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.VPCID")
+	}
+	mg.Spec.InitProvider.VPCID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.VPCRef = rsp.ResolvedReference
+
+	return nil
+}
 
 // ResolveReferences of this InstanceV1.
 func (mg *InstanceV1) ResolveReferences(ctx context.Context, c client.Reader) error {
@@ -30,8 +222,8 @@ func (mg *InstanceV1) ResolveReferences(ctx context.Context, c client.Reader) er
 		Reference:    mg.Spec.ForProvider.ComputeSecurityGroupRefs,
 		Selector:     mg.Spec.ForProvider.ComputeSecurityGroupSelector,
 		To: reference.To{
-			List:    &v1alpha1.SecgroupV2List{},
-			Managed: &v1alpha1.SecgroupV2{},
+			List:    &v1alpha12.SecgroupV2List{},
+			Managed: &v1alpha12.SecgroupV2{},
 		},
 	})
 	if err != nil {
@@ -47,8 +239,8 @@ func (mg *InstanceV1) ResolveReferences(ctx context.Context, c client.Reader) er
 		Reference:    mg.Spec.ForProvider.SubnetRef,
 		Selector:     mg.Spec.ForProvider.SubnetSelector,
 		To: reference.To{
-			List:    &v1alpha11.SubnetV1List{},
-			Managed: &v1alpha11.SubnetV1{},
+			List:    &v1alpha1.SubnetV1List{},
+			Managed: &v1alpha1.SubnetV1{},
 		},
 	})
 	if err != nil {
@@ -64,8 +256,8 @@ func (mg *InstanceV1) ResolveReferences(ctx context.Context, c client.Reader) er
 		Reference:    mg.Spec.ForProvider.VPCRef,
 		Selector:     mg.Spec.ForProvider.VPCSelector,
 		To: reference.To{
-			List:    &v1alpha11.VpcV1List{},
-			Managed: &v1alpha11.VpcV1{},
+			List:    &v1alpha1.VpcV1List{},
+			Managed: &v1alpha1.VpcV1{},
 		},
 	})
 	if err != nil {
@@ -81,8 +273,8 @@ func (mg *InstanceV1) ResolveReferences(ctx context.Context, c client.Reader) er
 		Reference:    mg.Spec.InitProvider.ComputeSecurityGroupRefs,
 		Selector:     mg.Spec.InitProvider.ComputeSecurityGroupSelector,
 		To: reference.To{
-			List:    &v1alpha1.SecgroupV2List{},
-			Managed: &v1alpha1.SecgroupV2{},
+			List:    &v1alpha12.SecgroupV2List{},
+			Managed: &v1alpha12.SecgroupV2{},
 		},
 	})
 	if err != nil {
@@ -98,8 +290,8 @@ func (mg *InstanceV1) ResolveReferences(ctx context.Context, c client.Reader) er
 		Reference:    mg.Spec.InitProvider.SubnetRef,
 		Selector:     mg.Spec.InitProvider.SubnetSelector,
 		To: reference.To{
-			List:    &v1alpha11.SubnetV1List{},
-			Managed: &v1alpha11.SubnetV1{},
+			List:    &v1alpha1.SubnetV1List{},
+			Managed: &v1alpha1.SubnetV1{},
 		},
 	})
 	if err != nil {
@@ -115,8 +307,8 @@ func (mg *InstanceV1) ResolveReferences(ctx context.Context, c client.Reader) er
 		Reference:    mg.Spec.InitProvider.VPCRef,
 		Selector:     mg.Spec.InitProvider.VPCSelector,
 		To: reference.To{
-			List:    &v1alpha11.VpcV1List{},
-			Managed: &v1alpha11.VpcV1{},
+			List:    &v1alpha1.VpcV1List{},
+			Managed: &v1alpha1.VpcV1{},
 		},
 	})
 	if err != nil {
@@ -124,6 +316,723 @@ func (mg *InstanceV1) ResolveReferences(ctx context.Context, c client.Reader) er
 	}
 	mg.Spec.InitProvider.VPCID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.InitProvider.VPCRef = rsp.ResolvedReference
+
+	return nil
+}
+
+// ResolveReferences of this InstanceV2.
+func (mg *InstanceV2) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var rsp reference.NamespacedResolutionResponse
+	var mrsp reference.MultiNamespacedResolutionResponse
+	var err error
+
+	mrsp, err = r.ResolveMultiple(ctx, reference.MultiNamespacedResolutionRequest{
+		CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.PublicipID),
+		Extract:       reference.ExternalName(),
+		Namespace:     mg.GetNamespace(),
+		References:    mg.Spec.ForProvider.PublicIPRefs,
+		Selector:      mg.Spec.ForProvider.PublicIPSelector,
+		To: reference.To{
+			List:    &v1alpha11.FloatingipV2List{},
+			Managed: &v1alpha11.FloatingipV2{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.PublicipID")
+	}
+	mg.Spec.ForProvider.PublicipID = reference.ToPtrValues(mrsp.ResolvedValues)
+	mg.Spec.ForProvider.PublicIPRefs = mrsp.ResolvedReferences
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.SecurityGroupID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.ComputeSecurityGroupRefs,
+		Selector:     mg.Spec.ForProvider.ComputeSecurityGroupSelector,
+		To: reference.To{
+			List:    &v1alpha12.SecgroupV2List{},
+			Managed: &v1alpha12.SecgroupV2{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.SecurityGroupID")
+	}
+	mg.Spec.ForProvider.SecurityGroupID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.ComputeSecurityGroupRefs = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.SubnetID),
+		Extract:      common.ExtractNetworkID(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.SubnetRef,
+		Selector:     mg.Spec.ForProvider.SubnetSelector,
+		To: reference.To{
+			List:    &v1alpha1.SubnetV1List{},
+			Managed: &v1alpha1.SubnetV1{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.SubnetID")
+	}
+	mg.Spec.ForProvider.SubnetID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.SubnetRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.VPCID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.VPCRef,
+		Selector:     mg.Spec.ForProvider.VPCSelector,
+		To: reference.To{
+			List:    &v1alpha1.VpcV1List{},
+			Managed: &v1alpha1.VpcV1{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.VPCID")
+	}
+	mg.Spec.ForProvider.VPCID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.VPCRef = rsp.ResolvedReference
+
+	mrsp, err = r.ResolveMultiple(ctx, reference.MultiNamespacedResolutionRequest{
+		CurrentValues: reference.FromPtrValues(mg.Spec.InitProvider.PublicipID),
+		Extract:       reference.ExternalName(),
+		Namespace:     mg.GetNamespace(),
+		References:    mg.Spec.InitProvider.PublicIPRefs,
+		Selector:      mg.Spec.InitProvider.PublicIPSelector,
+		To: reference.To{
+			List:    &v1alpha11.FloatingipV2List{},
+			Managed: &v1alpha11.FloatingipV2{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.PublicipID")
+	}
+	mg.Spec.InitProvider.PublicipID = reference.ToPtrValues(mrsp.ResolvedValues)
+	mg.Spec.InitProvider.PublicIPRefs = mrsp.ResolvedReferences
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.SecurityGroupID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.ComputeSecurityGroupRefs,
+		Selector:     mg.Spec.InitProvider.ComputeSecurityGroupSelector,
+		To: reference.To{
+			List:    &v1alpha12.SecgroupV2List{},
+			Managed: &v1alpha12.SecgroupV2{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.SecurityGroupID")
+	}
+	mg.Spec.InitProvider.SecurityGroupID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.ComputeSecurityGroupRefs = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.SubnetID),
+		Extract:      common.ExtractNetworkID(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.SubnetRef,
+		Selector:     mg.Spec.InitProvider.SubnetSelector,
+		To: reference.To{
+			List:    &v1alpha1.SubnetV1List{},
+			Managed: &v1alpha1.SubnetV1{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.SubnetID")
+	}
+	mg.Spec.InitProvider.SubnetID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.SubnetRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.VPCID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.VPCRef,
+		Selector:     mg.Spec.InitProvider.VPCSelector,
+		To: reference.To{
+			List:    &v1alpha1.VpcV1List{},
+			Managed: &v1alpha1.VpcV1{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.VPCID")
+	}
+	mg.Spec.InitProvider.VPCID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.VPCRef = rsp.ResolvedReference
+
+	return nil
+}
+
+// ResolveReferences of this ReassignPartitionsV2.
+func (mg *ReassignPartitionsV2) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var rsp reference.NamespacedResolutionResponse
+	var err error
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.InstanceID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.InstanceRef,
+		Selector:     mg.Spec.ForProvider.InstanceSelector,
+		To: reference.To{
+			List:    &DedicatedInstanceV2List{},
+			Managed: &DedicatedInstanceV2{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.InstanceID")
+	}
+	mg.Spec.ForProvider.InstanceID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.InstanceRef = rsp.ResolvedReference
+
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.Reassignments); i3++ {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Reassignments[i3].Topic),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.Reassignments[i3].TopicRef,
+			Selector:     mg.Spec.ForProvider.Reassignments[i3].TopicSelector,
+			To: reference.To{
+				List:    &TopicV2List{},
+				Managed: &TopicV2{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.Reassignments[i3].Topic")
+		}
+		mg.Spec.ForProvider.Reassignments[i3].Topic = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.Reassignments[i3].TopicRef = rsp.ResolvedReference
+
+	}
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.InstanceID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.InstanceRef,
+		Selector:     mg.Spec.InitProvider.InstanceSelector,
+		To: reference.To{
+			List:    &DedicatedInstanceV2List{},
+			Managed: &DedicatedInstanceV2{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.InstanceID")
+	}
+	mg.Spec.InitProvider.InstanceID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.InstanceRef = rsp.ResolvedReference
+
+	for i3 := 0; i3 < len(mg.Spec.InitProvider.Reassignments); i3++ {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Reassignments[i3].Topic),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.Reassignments[i3].TopicRef,
+			Selector:     mg.Spec.InitProvider.Reassignments[i3].TopicSelector,
+			To: reference.To{
+				List:    &TopicV2List{},
+				Managed: &TopicV2{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.InitProvider.Reassignments[i3].Topic")
+		}
+		mg.Spec.InitProvider.Reassignments[i3].Topic = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.InitProvider.Reassignments[i3].TopicRef = rsp.ResolvedReference
+
+	}
+
+	return nil
+}
+
+// ResolveReferences of this SmartConnectTaskActionV2.
+func (mg *SmartConnectTaskActionV2) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var rsp reference.NamespacedResolutionResponse
+	var err error
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.InstanceID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.InstanceRef,
+		Selector:     mg.Spec.ForProvider.InstanceSelector,
+		To: reference.To{
+			List:    &DedicatedInstanceV2List{},
+			Managed: &DedicatedInstanceV2{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.InstanceID")
+	}
+	mg.Spec.ForProvider.InstanceID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.InstanceRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.TaskID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.TaskRef,
+		Selector:     mg.Spec.ForProvider.TaskSelector,
+		To: reference.To{
+			List:    &SmartConnectTaskV2List{},
+			Managed: &SmartConnectTaskV2{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.TaskID")
+	}
+	mg.Spec.ForProvider.TaskID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.TaskRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.InstanceID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.InstanceRef,
+		Selector:     mg.Spec.InitProvider.InstanceSelector,
+		To: reference.To{
+			List:    &DedicatedInstanceV2List{},
+			Managed: &DedicatedInstanceV2{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.InstanceID")
+	}
+	mg.Spec.InitProvider.InstanceID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.InstanceRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.TaskID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.TaskRef,
+		Selector:     mg.Spec.InitProvider.TaskSelector,
+		To: reference.To{
+			List:    &SmartConnectTaskV2List{},
+			Managed: &SmartConnectTaskV2{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.TaskID")
+	}
+	mg.Spec.InitProvider.TaskID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.TaskRef = rsp.ResolvedReference
+
+	return nil
+}
+
+// ResolveReferences of this SmartConnectTaskV2.
+func (mg *SmartConnectTaskV2) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var rsp reference.NamespacedResolutionResponse
+	var mrsp reference.MultiNamespacedResolutionResponse
+	var err error
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.InstanceID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.InstanceRef,
+		Selector:     mg.Spec.ForProvider.InstanceSelector,
+		To: reference.To{
+			List:    &DedicatedInstanceV2List{},
+			Managed: &DedicatedInstanceV2{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.InstanceID")
+	}
+	mg.Spec.ForProvider.InstanceID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.InstanceRef = rsp.ResolvedReference
+
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.SourceTask); i3++ {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.SourceTask[i3].PeerInstanceID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.SourceTask[i3].PeerInstanceRef,
+			Selector:     mg.Spec.ForProvider.SourceTask[i3].PeerInstanceSelector,
+			To: reference.To{
+				List:    &DedicatedInstanceV2List{},
+				Managed: &DedicatedInstanceV2{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.SourceTask[i3].PeerInstanceID")
+		}
+		mg.Spec.ForProvider.SourceTask[i3].PeerInstanceID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.SourceTask[i3].PeerInstanceRef = rsp.ResolvedReference
+
+	}
+	mrsp, err = r.ResolveMultiple(ctx, reference.MultiNamespacedResolutionRequest{
+		CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.Topics),
+		Extract:       reference.ExternalName(),
+		Namespace:     mg.GetNamespace(),
+		References:    mg.Spec.ForProvider.TopicRefs,
+		Selector:      mg.Spec.ForProvider.TopicSelector,
+		To: reference.To{
+			List:    &TopicV2List{},
+			Managed: &TopicV2{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.Topics")
+	}
+	mg.Spec.ForProvider.Topics = reference.ToPtrValues(mrsp.ResolvedValues)
+	mg.Spec.ForProvider.TopicRefs = mrsp.ResolvedReferences
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.InstanceID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.InstanceRef,
+		Selector:     mg.Spec.InitProvider.InstanceSelector,
+		To: reference.To{
+			List:    &DedicatedInstanceV2List{},
+			Managed: &DedicatedInstanceV2{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.InstanceID")
+	}
+	mg.Spec.InitProvider.InstanceID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.InstanceRef = rsp.ResolvedReference
+
+	for i3 := 0; i3 < len(mg.Spec.InitProvider.SourceTask); i3++ {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.SourceTask[i3].PeerInstanceID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.SourceTask[i3].PeerInstanceRef,
+			Selector:     mg.Spec.InitProvider.SourceTask[i3].PeerInstanceSelector,
+			To: reference.To{
+				List:    &DedicatedInstanceV2List{},
+				Managed: &DedicatedInstanceV2{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.InitProvider.SourceTask[i3].PeerInstanceID")
+		}
+		mg.Spec.InitProvider.SourceTask[i3].PeerInstanceID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.InitProvider.SourceTask[i3].PeerInstanceRef = rsp.ResolvedReference
+
+	}
+	mrsp, err = r.ResolveMultiple(ctx, reference.MultiNamespacedResolutionRequest{
+		CurrentValues: reference.FromPtrValues(mg.Spec.InitProvider.Topics),
+		Extract:       reference.ExternalName(),
+		Namespace:     mg.GetNamespace(),
+		References:    mg.Spec.InitProvider.TopicRefs,
+		Selector:      mg.Spec.InitProvider.TopicSelector,
+		To: reference.To{
+			List:    &TopicV2List{},
+			Managed: &TopicV2{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.Topics")
+	}
+	mg.Spec.InitProvider.Topics = reference.ToPtrValues(mrsp.ResolvedValues)
+	mg.Spec.InitProvider.TopicRefs = mrsp.ResolvedReferences
+
+	return nil
+}
+
+// ResolveReferences of this SmartConnectV2.
+func (mg *SmartConnectV2) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var rsp reference.NamespacedResolutionResponse
+	var err error
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.InstanceID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.InstanceRef,
+		Selector:     mg.Spec.ForProvider.InstanceSelector,
+		To: reference.To{
+			List:    &DedicatedInstanceV2List{},
+			Managed: &DedicatedInstanceV2{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.InstanceID")
+	}
+	mg.Spec.ForProvider.InstanceID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.InstanceRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.InstanceID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.InstanceRef,
+		Selector:     mg.Spec.InitProvider.InstanceSelector,
+		To: reference.To{
+			List:    &DedicatedInstanceV2List{},
+			Managed: &DedicatedInstanceV2{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.InstanceID")
+	}
+	mg.Spec.InitProvider.InstanceID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.InstanceRef = rsp.ResolvedReference
+
+	return nil
+}
+
+// ResolveReferences of this TopicV1.
+func (mg *TopicV1) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var rsp reference.NamespacedResolutionResponse
+	var err error
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.InstanceID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.InstanceRef,
+		Selector:     mg.Spec.ForProvider.InstanceSelector,
+		To: reference.To{
+			List:    &InstanceV1List{},
+			Managed: &InstanceV1{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.InstanceID")
+	}
+	mg.Spec.ForProvider.InstanceID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.InstanceRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.InstanceID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.InstanceRef,
+		Selector:     mg.Spec.InitProvider.InstanceSelector,
+		To: reference.To{
+			List:    &InstanceV1List{},
+			Managed: &InstanceV1{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.InstanceID")
+	}
+	mg.Spec.InitProvider.InstanceID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.InstanceRef = rsp.ResolvedReference
+
+	return nil
+}
+
+// ResolveReferences of this TopicV2.
+func (mg *TopicV2) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var rsp reference.NamespacedResolutionResponse
+	var err error
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.InstanceID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.InstanceRef,
+		Selector:     mg.Spec.ForProvider.InstanceSelector,
+		To: reference.To{
+			List:    &DedicatedInstanceV2List{},
+			Managed: &DedicatedInstanceV2{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.InstanceID")
+	}
+	mg.Spec.ForProvider.InstanceID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.InstanceRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.InstanceID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.InstanceRef,
+		Selector:     mg.Spec.InitProvider.InstanceSelector,
+		To: reference.To{
+			List:    &DedicatedInstanceV2List{},
+			Managed: &DedicatedInstanceV2{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.InstanceID")
+	}
+	mg.Spec.InitProvider.InstanceID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.InstanceRef = rsp.ResolvedReference
+
+	return nil
+}
+
+// ResolveReferences of this UserPermissionV1.
+func (mg *UserPermissionV1) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var rsp reference.NamespacedResolutionResponse
+	var err error
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.InstanceID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.InstanceRef,
+		Selector:     mg.Spec.ForProvider.InstanceSelector,
+		To: reference.To{
+			List:    &DedicatedInstanceV2List{},
+			Managed: &DedicatedInstanceV2{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.InstanceID")
+	}
+	mg.Spec.ForProvider.InstanceID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.InstanceRef = rsp.ResolvedReference
+
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.Policies); i3++ {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Policies[i3].Username),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.Policies[i3].UserRef,
+			Selector:     mg.Spec.ForProvider.Policies[i3].UserSelector,
+			To: reference.To{
+				List:    &UserV2List{},
+				Managed: &UserV2{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.Policies[i3].Username")
+		}
+		mg.Spec.ForProvider.Policies[i3].Username = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.Policies[i3].UserRef = rsp.ResolvedReference
+
+	}
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.TopicName),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.TopicRef,
+		Selector:     mg.Spec.ForProvider.TopicSelector,
+		To: reference.To{
+			List:    &TopicV2List{},
+			Managed: &TopicV2{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.TopicName")
+	}
+	mg.Spec.ForProvider.TopicName = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.TopicRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.InstanceID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.InstanceRef,
+		Selector:     mg.Spec.InitProvider.InstanceSelector,
+		To: reference.To{
+			List:    &DedicatedInstanceV2List{},
+			Managed: &DedicatedInstanceV2{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.InstanceID")
+	}
+	mg.Spec.InitProvider.InstanceID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.InstanceRef = rsp.ResolvedReference
+
+	for i3 := 0; i3 < len(mg.Spec.InitProvider.Policies); i3++ {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Policies[i3].Username),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.Policies[i3].UserRef,
+			Selector:     mg.Spec.InitProvider.Policies[i3].UserSelector,
+			To: reference.To{
+				List:    &UserV2List{},
+				Managed: &UserV2{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.InitProvider.Policies[i3].Username")
+		}
+		mg.Spec.InitProvider.Policies[i3].Username = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.InitProvider.Policies[i3].UserRef = rsp.ResolvedReference
+
+	}
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.TopicName),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.TopicRef,
+		Selector:     mg.Spec.InitProvider.TopicSelector,
+		To: reference.To{
+			List:    &TopicV2List{},
+			Managed: &TopicV2{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.TopicName")
+	}
+	mg.Spec.InitProvider.TopicName = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.TopicRef = rsp.ResolvedReference
+
+	return nil
+}
+
+// ResolveReferences of this UserV2.
+func (mg *UserV2) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var rsp reference.NamespacedResolutionResponse
+	var err error
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.InstanceID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.InstanceRef,
+		Selector:     mg.Spec.ForProvider.InstanceSelector,
+		To: reference.To{
+			List:    &DedicatedInstanceV2List{},
+			Managed: &DedicatedInstanceV2{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.InstanceID")
+	}
+	mg.Spec.ForProvider.InstanceID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.InstanceRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.InstanceID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.InstanceRef,
+		Selector:     mg.Spec.InitProvider.InstanceSelector,
+		To: reference.To{
+			List:    &DedicatedInstanceV2List{},
+			Managed: &DedicatedInstanceV2{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.InstanceID")
+	}
+	mg.Spec.InitProvider.InstanceID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.InstanceRef = rsp.ResolvedReference
 
 	return nil
 }

@@ -1,0 +1,70 @@
+apiVersion: dms.opentelekomcloud.crossplane.io/v1alpha1
+kind: TopicV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dms/v1alpha1/topicv2
+  labels:
+    testing.upbound.io/example-name: topic_1
+  name: topic-1
+spec:
+  forProvider:
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: instance_1
+    name: topic-test
+    partition: 10
+    replication: 2
+    retentionTime: 80
+    syncReplication: true
+
+---
+
+apiVersion: dms.opentelekomcloud.crossplane.io/v1alpha1
+kind: InstanceV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dms/v1alpha1/topicv2
+  labels:
+    testing.upbound.io/example-name: instance_1
+  name: instance-1
+spec:
+  forProvider:
+    accessUser: ${var.access_user}
+    availableZones:
+    - ${data.opentelekomcloud_dms_az_v1.az_1.id}
+    engine: kafka
+    engineVersion: ${data.opentelekomcloud_dms_product_v1.product_1.version}
+    name: kafka-test
+    partitionNum: ${data.opentelekomcloud_dms_product_v1.product_1.partition_num}
+    passwordSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system
+    productId: ${data.opentelekomcloud_dms_product_v1.product_1.id}
+    securityGroupIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: secgroup_1
+    specification: ${data.opentelekomcloud_dms_product_v1.product_1.bandwidth}
+    storageSpace: ${data.opentelekomcloud_dms_product_v1.product_1.storage}
+    storageSpecCode: ${data.opentelekomcloud_dms_product_v1.product_1.storage_spec_code}
+    subnetIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+
+---
+
+apiVersion: networking.opentelekomcloud.crossplane.io/v1alpha1
+kind: SecgroupV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dms/v1alpha1/topicv2
+  labels:
+    testing.upbound.io/example-name: secgroup_1
+  name: secgroup-1
+spec:
+  forProvider:
+    description: secgroup_1
+    name: secgroup_1

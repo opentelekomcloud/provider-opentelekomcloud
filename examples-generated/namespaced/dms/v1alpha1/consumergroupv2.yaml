@@ -11,4 +11,6 @@ spec:
   forProvider:
     description: Sample consumer group
     groupName: dms_consumer_group
-    instanceId: ${var.instance_id}
+    instanceSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example

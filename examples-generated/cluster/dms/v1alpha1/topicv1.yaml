@@ -8,7 +8,9 @@ metadata:
   name: topic-1
 spec:
   forProvider:
-    instanceId: ${resource.opentelekomcloud_dms_instance_v1.instance_1.id}
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: opentelekomcloud_dms_instance_v1
     name: topic-test
     partition: 10
     replication: 2

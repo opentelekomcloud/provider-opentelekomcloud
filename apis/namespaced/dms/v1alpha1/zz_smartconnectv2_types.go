@@ -20,7 +20,18 @@ type SmartConnectV2InitParameters struct {
 	Bandwidth *string `json:"bandwidth,omitempty" tf:"bandwidth,omitempty"`
 
 	// Specifies the ID of the DMS instance.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/dms/v1alpha1.DedicatedInstanceV2
+	// +crossplane:generate:reference:refFieldName=InstanceRef
+	// +crossplane:generate:reference:selectorFieldName=InstanceSelector
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
+
+	// Reference to a DedicatedInstanceV2 in dms to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceRef *v1.NamespacedReference `json:"instanceRef,omitempty" tf:"-"`
+
+	// Selector for a DedicatedInstanceV2 in dms to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceSelector *v1.NamespacedSelector `json:"instanceSelector,omitempty" tf:"-"`
 
 	// Specifies the node count of the connector. Defaults to 2 and minimum is 2.
 	NodeCount *float64 `json:"nodeCount,omitempty" tf:"node_count,omitempty"`
@@ -57,8 +68,19 @@ type SmartConnectV2Parameters struct {
 	Bandwidth *string `json:"bandwidth,omitempty" tf:"bandwidth,omitempty"`
 
 	// Specifies the ID of the DMS instance.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/dms/v1alpha1.DedicatedInstanceV2
+	// +crossplane:generate:reference:refFieldName=InstanceRef
+	// +crossplane:generate:reference:selectorFieldName=InstanceSelector
 	// +kubebuilder:validation:Optional
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
+
+	// Reference to a DedicatedInstanceV2 in dms to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceRef *v1.NamespacedReference `json:"instanceRef,omitempty" tf:"-"`
+
+	// Selector for a DedicatedInstanceV2 in dms to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceSelector *v1.NamespacedSelector `json:"instanceSelector,omitempty" tf:"-"`
 
 	// Specifies the node count of the connector. Defaults to 2 and minimum is 2.
 	// +kubebuilder:validation:Optional
@@ -105,9 +127,8 @@ type SmartConnectV2Status struct {
 type SmartConnectV2 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.instanceId) || (has(self.initProvider) && has(self.initProvider.instanceId))",message="spec.forProvider.instanceId is a required parameter"
-	Spec   SmartConnectV2Spec   `json:"spec"`
-	Status SmartConnectV2Status `json:"status,omitempty"`
+	Spec              SmartConnectV2Spec   `json:"spec"`
+	Status            SmartConnectV2Status `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

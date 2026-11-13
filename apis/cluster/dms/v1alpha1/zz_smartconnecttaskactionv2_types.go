@@ -20,10 +20,28 @@ type SmartConnectTaskActionV2InitParameters struct {
 	Action *string `json:"action,omitempty" tf:"action,omitempty"`
 
 	// Specifies the kafka instance ID.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/dms/v1alpha1.DedicatedInstanceV2
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
 
+	// Reference to a DedicatedInstanceV2 in dms to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceIDRef *v1.Reference `json:"instanceIdRef,omitempty" tf:"-"`
+
+	// Selector for a DedicatedInstanceV2 in dms to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceIDSelector *v1.Selector `json:"instanceIdSelector,omitempty" tf:"-"`
+
 	// Specifies the smart connect task ID.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/dms/v1alpha1.SmartConnectTaskV2
 	TaskID *string `json:"taskId,omitempty" tf:"task_id,omitempty"`
+
+	// Reference to a SmartConnectTaskV2 in dms to populate taskId.
+	// +kubebuilder:validation:Optional
+	TaskIDRef *v1.Reference `json:"taskIdRef,omitempty" tf:"-"`
+
+	// Selector for a SmartConnectTaskV2 in dms to populate taskId.
+	// +kubebuilder:validation:Optional
+	TaskIDSelector *v1.Selector `json:"taskIdSelector,omitempty" tf:"-"`
 }
 
 type SmartConnectTaskActionV2Observation struct {
@@ -55,12 +73,30 @@ type SmartConnectTaskActionV2Parameters struct {
 	Action *string `json:"action,omitempty" tf:"action,omitempty"`
 
 	// Specifies the kafka instance ID.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/dms/v1alpha1.DedicatedInstanceV2
 	// +kubebuilder:validation:Optional
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
 
+	// Reference to a DedicatedInstanceV2 in dms to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceIDRef *v1.Reference `json:"instanceIdRef,omitempty" tf:"-"`
+
+	// Selector for a DedicatedInstanceV2 in dms to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceIDSelector *v1.Selector `json:"instanceIdSelector,omitempty" tf:"-"`
+
 	// Specifies the smart connect task ID.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/dms/v1alpha1.SmartConnectTaskV2
 	// +kubebuilder:validation:Optional
 	TaskID *string `json:"taskId,omitempty" tf:"task_id,omitempty"`
+
+	// Reference to a SmartConnectTaskV2 in dms to populate taskId.
+	// +kubebuilder:validation:Optional
+	TaskIDRef *v1.Reference `json:"taskIdRef,omitempty" tf:"-"`
+
+	// Selector for a SmartConnectTaskV2 in dms to populate taskId.
+	// +kubebuilder:validation:Optional
+	TaskIDSelector *v1.Selector `json:"taskIdSelector,omitempty" tf:"-"`
 }
 
 // SmartConnectTaskActionV2Spec defines the desired state of SmartConnectTaskActionV2
@@ -100,8 +136,6 @@ type SmartConnectTaskActionV2 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.action) || (has(self.initProvider) && has(self.initProvider.action))",message="spec.forProvider.action is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.instanceId) || (has(self.initProvider) && has(self.initProvider.instanceId))",message="spec.forProvider.instanceId is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.taskId) || (has(self.initProvider) && has(self.initProvider.taskId))",message="spec.forProvider.taskId is a required parameter"
 	Spec   SmartConnectTaskActionV2Spec   `json:"spec"`
 	Status SmartConnectTaskActionV2Status `json:"status,omitempty"`
 }
