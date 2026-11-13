@@ -10,6 +10,9 @@ package v1alpha1
 func (tr *BackupV3) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *InstanceMinorVersionUpgradeV3) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *InstanceV3) Hub() {}
 
 // Hub marks this type as a conversion hub.

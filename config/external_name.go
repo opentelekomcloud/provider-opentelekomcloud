@@ -248,13 +248,16 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"opentelekomcloud_vpc_peering_connection_v2":             config.IdentifierFromProvider,
 	"opentelekomcloud_vpc_peering_connection_accepter_v2":    config.IdentifierFromProvider,
 	"opentelekomcloud_vpc_route_table_v1":                    config.IdentifierFromProvider,
+	"opentelekomcloud_vpc_route_table_route_v1":              config.IdentifierFromProvider,
+	"opentelekomcloud_vpc_route_table_subnet_associate_v1":   config.IdentifierFromProvider,
 	"opentelekomcloud_vpc_route_v2":                          config.IdentifierFromProvider,
 	"opentelekomcloud_vpc_subnet_v1":                         config.IdentifierFromProvider,
+	"opentelekomcloud_vpc_subnet_private_ip_v1":              config.IdentifierFromProvider,
 	"opentelekomcloud_vpc_secgroup_v3":                       config.IdentifierFromProvider,
 	"opentelekomcloud_vpc_secgroup_rule_v3":                  config.IdentifierFromProvider,
 	"opentelekomcloud_vpc_flow_log_v1":                       config.IdentifierFromProvider,
 	"opentelekomcloud_vpc_secondary_cidr_v3":                 config.IdentifierFromProvider,
-	"vpc_ip_address_group_v3":                                config.IdentifierFromProvider,
+	"opentelekomcloud_vpc_ip_address_group_v3":               config.IdentifierFromProvider,
 
 	// OBS / S3
 	"opentelekomcloud_obs_bucket":             config.IdentifierFromProvider,
@@ -269,13 +272,14 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"opentelekomcloud_s3_bucket_object":       config.IdentifierFromProvider,
 
 	// RDS
-	"opentelekomcloud_rds_backup_v3":              config.IdentifierFromProvider,
-	"opentelekomcloud_rds_public_ip_associate_v3": config.IdentifierFromProvider,
-	"opentelekomcloud_rds_instance_v3":            config.IdentifierFromProvider,
-	"opentelekomcloud_rds_maintenance_v3":         config.IdentifierFromProvider,
-	"opentelekomcloud_rds_parametergroup_v3":      config.IdentifierFromProvider,
-	"opentelekomcloud_rds_read_replica_v3":        config.IdentifierFromProvider,
-	"opentelekomcloud_rds_postgres_extension_v3":  config.IdentifierFromProvider,
+	"opentelekomcloud_rds_backup_v3":                         config.IdentifierFromProvider,
+	"opentelekomcloud_rds_public_ip_associate_v3":            config.IdentifierFromProvider,
+	"opentelekomcloud_rds_instance_v3":                       config.IdentifierFromProvider,
+	"opentelekomcloud_rds_instance_minor_version_upgrade_v3": config.IdentifierFromProvider,
+	"opentelekomcloud_rds_maintenance_v3":                    config.IdentifierFromProvider,
+	"opentelekomcloud_rds_parametergroup_v3":                 config.IdentifierFromProvider,
+	"opentelekomcloud_rds_read_replica_v3":                   config.IdentifierFromProvider,
+	"opentelekomcloud_rds_postgres_extension_v3":             config.IdentifierFromProvider,
 
 	// RMS
 	"opentelekomcloud_rms_advanced_query_v1":             config.IdentifierFromProvider,

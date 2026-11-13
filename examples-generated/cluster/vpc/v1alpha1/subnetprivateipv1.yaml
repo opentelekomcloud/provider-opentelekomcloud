@@ -1,0 +1,11 @@
+apiVersion: vpc.opentelekomcloud.crossplane.io/v1alpha1
+kind: SubnetPrivateIPV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/subnetprivateipv1
+  labels:
+    testing.upbound.io/example-name: private_ip
+  name: private-ip
+spec:
+  forProvider:
+    subnetId: ${opentelekomcloud_vpc_subnet_v1.example.network_id}

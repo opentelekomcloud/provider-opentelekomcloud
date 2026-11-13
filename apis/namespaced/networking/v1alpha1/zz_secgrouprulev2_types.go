@@ -42,11 +42,22 @@ type SecgroupRuleV2InitParameters struct {
 	// The remote group id, the value needs to be an
 	// OpenTelekomCloud ID of a security group in the same tenant. Changing this creates
 	// a new security group rule.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/networking/v1alpha1.SecgroupV2
+	// +crossplane:generate:reference:refFieldName=RemoteSecurityGroupRef
+	// +crossplane:generate:reference:selectorFieldName=RemoteSecurityGroupSelector
 	RemoteGroupID *string `json:"remoteGroupId,omitempty" tf:"remote_group_id,omitempty"`
 
 	// The remote CIDR, the value needs to be a valid
 	// CIDR (i.e. 192.168.0.0/16). Changing this creates a new security group rule.
 	RemoteIPPrefix *string `json:"remoteIpPrefix,omitempty" tf:"remote_ip_prefix,omitempty"`
+
+	// Reference to a SecgroupV2 in networking to populate remoteGroupId.
+	// +kubebuilder:validation:Optional
+	RemoteSecurityGroupRef *v1.NamespacedReference `json:"remoteSecurityGroupRef,omitempty" tf:"-"`
+
+	// Selector for a SecgroupV2 in networking to populate remoteGroupId.
+	// +kubebuilder:validation:Optional
+	RemoteSecurityGroupSelector *v1.NamespacedSelector `json:"remoteSecurityGroupSelector,omitempty" tf:"-"`
 
 	// Configuration block defining a security_group for the rule. Only opentelekomcloud_networking_secgroup_v2 (secgroupv2s.networking.opentelekomcloud.m.crossplane.io) is supported for cross resource reference configuration.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/networking/v1alpha1.SecgroupV2
@@ -148,6 +159,9 @@ type SecgroupRuleV2Parameters struct {
 	// The remote group id, the value needs to be an
 	// OpenTelekomCloud ID of a security group in the same tenant. Changing this creates
 	// a new security group rule.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/networking/v1alpha1.SecgroupV2
+	// +crossplane:generate:reference:refFieldName=RemoteSecurityGroupRef
+	// +crossplane:generate:reference:selectorFieldName=RemoteSecurityGroupSelector
 	// +kubebuilder:validation:Optional
 	RemoteGroupID *string `json:"remoteGroupId,omitempty" tf:"remote_group_id,omitempty"`
 
@@ -155,6 +169,14 @@ type SecgroupRuleV2Parameters struct {
 	// CIDR (i.e. 192.168.0.0/16). Changing this creates a new security group rule.
 	// +kubebuilder:validation:Optional
 	RemoteIPPrefix *string `json:"remoteIpPrefix,omitempty" tf:"remote_ip_prefix,omitempty"`
+
+	// Reference to a SecgroupV2 in networking to populate remoteGroupId.
+	// +kubebuilder:validation:Optional
+	RemoteSecurityGroupRef *v1.NamespacedReference `json:"remoteSecurityGroupRef,omitempty" tf:"-"`
+
+	// Selector for a SecgroupV2 in networking to populate remoteGroupId.
+	// +kubebuilder:validation:Optional
+	RemoteSecurityGroupSelector *v1.NamespacedSelector `json:"remoteSecurityGroupSelector,omitempty" tf:"-"`
 
 	// Configuration block defining a security_group for the rule. Only opentelekomcloud_networking_secgroup_v2 (secgroupv2s.networking.opentelekomcloud.m.crossplane.io) is supported for cross resource reference configuration.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/networking/v1alpha1.SecgroupV2

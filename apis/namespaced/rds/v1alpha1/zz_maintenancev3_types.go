@@ -21,7 +21,18 @@ type MaintenanceV3InitParameters struct {
 	EndTime *string `json:"endTime,omitempty" tf:"end_time,omitempty"`
 
 	// The ID of the RDS instance to which the maintenance window belongs.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/rds/v1alpha1.InstanceV3
+	// +crossplane:generate:reference:refFieldName=InstanceRef
+	// +crossplane:generate:reference:selectorFieldName=InstanceSelector
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
+
+	// Reference to a InstanceV3 in rds to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceRef *v1.NamespacedReference `json:"instanceRef,omitempty" tf:"-"`
+
+	// Selector for a InstanceV3 in rds to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceSelector *v1.NamespacedSelector `json:"instanceSelector,omitempty" tf:"-"`
 
 	// Specifies the start time.
 	// The value must be a valid value in the "HH:MM" format. The current time is in the UTC format.
@@ -52,8 +63,19 @@ type MaintenanceV3Parameters struct {
 	EndTime *string `json:"endTime,omitempty" tf:"end_time,omitempty"`
 
 	// The ID of the RDS instance to which the maintenance window belongs.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/rds/v1alpha1.InstanceV3
+	// +crossplane:generate:reference:refFieldName=InstanceRef
+	// +crossplane:generate:reference:selectorFieldName=InstanceSelector
 	// +kubebuilder:validation:Optional
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
+
+	// Reference to a InstanceV3 in rds to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceRef *v1.NamespacedReference `json:"instanceRef,omitempty" tf:"-"`
+
+	// Selector for a InstanceV3 in rds to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceSelector *v1.NamespacedSelector `json:"instanceSelector,omitempty" tf:"-"`
 
 	// Specifies the start time.
 	// The value must be a valid value in the "HH:MM" format. The current time is in the UTC format.
@@ -98,7 +120,6 @@ type MaintenanceV3 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.endTime) || (has(self.initProvider) && has(self.initProvider.endTime))",message="spec.forProvider.endTime is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.instanceId) || (has(self.initProvider) && has(self.initProvider.instanceId))",message="spec.forProvider.instanceId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.startTime) || (has(self.initProvider) && has(self.initProvider.startTime))",message="spec.forProvider.startTime is a required parameter"
 	Spec   MaintenanceV3Spec   `json:"spec"`
 	Status MaintenanceV3Status `json:"status,omitempty"`

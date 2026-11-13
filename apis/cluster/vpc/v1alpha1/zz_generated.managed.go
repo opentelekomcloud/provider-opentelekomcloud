@@ -358,6 +358,106 @@ func (mg *PeeringConnectionV2) SetWriteConnectionSecretToReference(r *xpv1.Secre
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
+// GetCondition of this RouteTableRouteV1.
+func (mg *RouteTableRouteV1) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+	return mg.Status.GetCondition(ct)
+}
+
+// GetDeletionPolicy of this RouteTableRouteV1.
+func (mg *RouteTableRouteV1) GetDeletionPolicy() xpv1.DeletionPolicy {
+	return mg.Spec.DeletionPolicy
+}
+
+// GetManagementPolicies of this RouteTableRouteV1.
+func (mg *RouteTableRouteV1) GetManagementPolicies() xpv1.ManagementPolicies {
+	return mg.Spec.ManagementPolicies
+}
+
+// GetProviderConfigReference of this RouteTableRouteV1.
+func (mg *RouteTableRouteV1) GetProviderConfigReference() *xpv1.Reference {
+	return mg.Spec.ProviderConfigReference
+}
+
+// GetWriteConnectionSecretToReference of this RouteTableRouteV1.
+func (mg *RouteTableRouteV1) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
+	return mg.Spec.WriteConnectionSecretToReference
+}
+
+// SetConditions of this RouteTableRouteV1.
+func (mg *RouteTableRouteV1) SetConditions(c ...xpv1.Condition) {
+	mg.Status.SetConditions(c...)
+}
+
+// SetDeletionPolicy of this RouteTableRouteV1.
+func (mg *RouteTableRouteV1) SetDeletionPolicy(r xpv1.DeletionPolicy) {
+	mg.Spec.DeletionPolicy = r
+}
+
+// SetManagementPolicies of this RouteTableRouteV1.
+func (mg *RouteTableRouteV1) SetManagementPolicies(r xpv1.ManagementPolicies) {
+	mg.Spec.ManagementPolicies = r
+}
+
+// SetProviderConfigReference of this RouteTableRouteV1.
+func (mg *RouteTableRouteV1) SetProviderConfigReference(r *xpv1.Reference) {
+	mg.Spec.ProviderConfigReference = r
+}
+
+// SetWriteConnectionSecretToReference of this RouteTableRouteV1.
+func (mg *RouteTableRouteV1) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
+	mg.Spec.WriteConnectionSecretToReference = r
+}
+
+// GetCondition of this RouteTableSubnetAssociateV1.
+func (mg *RouteTableSubnetAssociateV1) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+	return mg.Status.GetCondition(ct)
+}
+
+// GetDeletionPolicy of this RouteTableSubnetAssociateV1.
+func (mg *RouteTableSubnetAssociateV1) GetDeletionPolicy() xpv1.DeletionPolicy {
+	return mg.Spec.DeletionPolicy
+}
+
+// GetManagementPolicies of this RouteTableSubnetAssociateV1.
+func (mg *RouteTableSubnetAssociateV1) GetManagementPolicies() xpv1.ManagementPolicies {
+	return mg.Spec.ManagementPolicies
+}
+
+// GetProviderConfigReference of this RouteTableSubnetAssociateV1.
+func (mg *RouteTableSubnetAssociateV1) GetProviderConfigReference() *xpv1.Reference {
+	return mg.Spec.ProviderConfigReference
+}
+
+// GetWriteConnectionSecretToReference of this RouteTableSubnetAssociateV1.
+func (mg *RouteTableSubnetAssociateV1) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
+	return mg.Spec.WriteConnectionSecretToReference
+}
+
+// SetConditions of this RouteTableSubnetAssociateV1.
+func (mg *RouteTableSubnetAssociateV1) SetConditions(c ...xpv1.Condition) {
+	mg.Status.SetConditions(c...)
+}
+
+// SetDeletionPolicy of this RouteTableSubnetAssociateV1.
+func (mg *RouteTableSubnetAssociateV1) SetDeletionPolicy(r xpv1.DeletionPolicy) {
+	mg.Spec.DeletionPolicy = r
+}
+
+// SetManagementPolicies of this RouteTableSubnetAssociateV1.
+func (mg *RouteTableSubnetAssociateV1) SetManagementPolicies(r xpv1.ManagementPolicies) {
+	mg.Spec.ManagementPolicies = r
+}
+
+// SetProviderConfigReference of this RouteTableSubnetAssociateV1.
+func (mg *RouteTableSubnetAssociateV1) SetProviderConfigReference(r *xpv1.Reference) {
+	mg.Spec.ProviderConfigReference = r
+}
+
+// SetWriteConnectionSecretToReference of this RouteTableSubnetAssociateV1.
+func (mg *RouteTableSubnetAssociateV1) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
+	mg.Spec.WriteConnectionSecretToReference = r
+}
+
 // GetCondition of this RouteTableV1.
 func (mg *RouteTableV1) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
 	return mg.Status.GetCondition(ct)
@@ -605,6 +705,56 @@ func (mg *SecondaryCidrV3) SetProviderConfigReference(r *xpv1.Reference) {
 
 // SetWriteConnectionSecretToReference of this SecondaryCidrV3.
 func (mg *SecondaryCidrV3) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
+	mg.Spec.WriteConnectionSecretToReference = r
+}
+
+// GetCondition of this SubnetPrivateIPV1.
+func (mg *SubnetPrivateIPV1) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+	return mg.Status.GetCondition(ct)
+}
+
+// GetDeletionPolicy of this SubnetPrivateIPV1.
+func (mg *SubnetPrivateIPV1) GetDeletionPolicy() xpv1.DeletionPolicy {
+	return mg.Spec.DeletionPolicy
+}
+
+// GetManagementPolicies of this SubnetPrivateIPV1.
+func (mg *SubnetPrivateIPV1) GetManagementPolicies() xpv1.ManagementPolicies {
+	return mg.Spec.ManagementPolicies
+}
+
+// GetProviderConfigReference of this SubnetPrivateIPV1.
+func (mg *SubnetPrivateIPV1) GetProviderConfigReference() *xpv1.Reference {
+	return mg.Spec.ProviderConfigReference
+}
+
+// GetWriteConnectionSecretToReference of this SubnetPrivateIPV1.
+func (mg *SubnetPrivateIPV1) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
+	return mg.Spec.WriteConnectionSecretToReference
+}
+
+// SetConditions of this SubnetPrivateIPV1.
+func (mg *SubnetPrivateIPV1) SetConditions(c ...xpv1.Condition) {
+	mg.Status.SetConditions(c...)
+}
+
+// SetDeletionPolicy of this SubnetPrivateIPV1.
+func (mg *SubnetPrivateIPV1) SetDeletionPolicy(r xpv1.DeletionPolicy) {
+	mg.Spec.DeletionPolicy = r
+}
+
+// SetManagementPolicies of this SubnetPrivateIPV1.
+func (mg *SubnetPrivateIPV1) SetManagementPolicies(r xpv1.ManagementPolicies) {
+	mg.Spec.ManagementPolicies = r
+}
+
+// SetProviderConfigReference of this SubnetPrivateIPV1.
+func (mg *SubnetPrivateIPV1) SetProviderConfigReference(r *xpv1.Reference) {
+	mg.Spec.ProviderConfigReference = r
+}
+
+// SetWriteConnectionSecretToReference of this SubnetPrivateIPV1.
+func (mg *SubnetPrivateIPV1) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 

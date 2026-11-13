@@ -1,0 +1,51 @@
+apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: SubnetPrivateIPV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/subnetprivateipv1
+  labels:
+    testing.upbound.io/example-name: vpc-private-ip
+  name: vpc-private-ip-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    ipAddress: 192.168.0.10
+    subnetSelector:
+      matchLabels:
+        testing.upbound.io/example-name: vpc-private-ip-subnet
+
+---
+
+apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: SubnetV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/subnetprivateipv1
+  labels:
+    testing.upbound.io/example-name: vpc-private-ip-subnet
+  name: vpc-private-ip-subnet-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    cidr: 192.168.0.0/24
+    gatewayIp: 192.168.0.1
+    name: vpc-private-ip-subnet-${Rand.RFC1123Subdomain}
+    vpcSelector:
+      matchLabels:
+        testing.upbound.io/example-name: vpc-private-ip-vpc
+
+---
+
+apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: VpcV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/subnetprivateipv1
+  labels:
+    testing.upbound.io/example-name: vpc-private-ip-vpc
+  name: vpc-private-ip-vpc-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    cidr: 192.168.0.0/16
+    name: vpc-private-ip-vpc-${Rand.RFC1123Subdomain}

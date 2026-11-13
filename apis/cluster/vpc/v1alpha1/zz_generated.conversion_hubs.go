@@ -28,6 +28,12 @@ func (tr *PeeringConnectionAccepterV2) Hub() {}
 func (tr *PeeringConnectionV2) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *RouteTableRouteV1) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *RouteTableSubnetAssociateV1) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *RouteTableV1) Hub() {}
 
 // Hub marks this type as a conversion hub.
@@ -41,6 +47,9 @@ func (tr *SecgroupV3) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *SecondaryCidrV3) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *SubnetPrivateIPV1) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *SubnetV1) Hub() {}

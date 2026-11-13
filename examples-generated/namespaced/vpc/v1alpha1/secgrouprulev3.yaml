@@ -16,6 +16,4 @@ spec:
     priority: 1
     protocol: tcp
     remoteIpPrefix: 10.10.0.0/16
-    securityGroupSelector:
-      matchLabels:
-        testing.upbound.io/example-name: example
+    securityGroupId: ${var.security_group_id}

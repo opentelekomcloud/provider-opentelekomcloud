@@ -17,13 +17,47 @@ import (
 type PublicIPAssociateV3InitParameters struct {
 
 	// Specifies the RDS instance ID.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/rds/v1alpha1.InstanceV3
+	// +crossplane:generate:reference:refFieldName=InstanceRef
+	// +crossplane:generate:reference:selectorFieldName=InstanceSelector
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
 
+	// Reference to a InstanceV3 in rds to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceRef *v1.NamespacedReference `json:"instanceRef,omitempty" tf:"-"`
+
+	// Selector for a InstanceV3 in rds to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceSelector *v1.NamespacedSelector `json:"instanceSelector,omitempty" tf:"-"`
+
 	// Specifies the EIP to be bound. The value must be in the standard IP address format.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.EIPV1
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractEipAddress()
+	// +crossplane:generate:reference:refFieldName=PublicIPSelectorRef
+	// +crossplane:generate:reference:selectorFieldName=PublicIPSelector
 	PublicIP *string `json:"publicIp,omitempty" tf:"public_ip,omitempty"`
 
 	// Specifies the EIP ID. The value must be in the standard UUID format.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.EIPV1
+	// +crossplane:generate:reference:refFieldName=PublicIPSelectorByIDRef
+	// +crossplane:generate:reference:selectorFieldName=PublicIPSelectorByID
 	PublicIPID *string `json:"publicIpId,omitempty" tf:"public_ip_id,omitempty"`
+
+	// Selector for a EIPV1 in vpc to populate publicIp.
+	// +kubebuilder:validation:Optional
+	PublicIPSelector *v1.NamespacedSelector `json:"publicIpSelector,omitempty" tf:"-"`
+
+	// Selector for a EIPV1 in vpc to populate publicIpId.
+	// +kubebuilder:validation:Optional
+	PublicIPSelectorByID *v1.NamespacedSelector `json:"publicIpSelectorById,omitempty" tf:"-"`
+
+	// Reference to a EIPV1 in vpc to populate publicIpId.
+	// +kubebuilder:validation:Optional
+	PublicIPSelectorByIDRef *v1.NamespacedReference `json:"publicIpSelectorByIdRef,omitempty" tf:"-"`
+
+	// Reference to a EIPV1 in vpc to populate publicIp.
+	// +kubebuilder:validation:Optional
+	PublicIPSelectorRef *v1.NamespacedReference `json:"publicIpSelectorRef,omitempty" tf:"-"`
 }
 
 type PublicIPAssociateV3Observation struct {
@@ -42,16 +76,50 @@ type PublicIPAssociateV3Observation struct {
 type PublicIPAssociateV3Parameters struct {
 
 	// Specifies the RDS instance ID.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/rds/v1alpha1.InstanceV3
+	// +crossplane:generate:reference:refFieldName=InstanceRef
+	// +crossplane:generate:reference:selectorFieldName=InstanceSelector
 	// +kubebuilder:validation:Optional
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
 
+	// Reference to a InstanceV3 in rds to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceRef *v1.NamespacedReference `json:"instanceRef,omitempty" tf:"-"`
+
+	// Selector for a InstanceV3 in rds to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceSelector *v1.NamespacedSelector `json:"instanceSelector,omitempty" tf:"-"`
+
 	// Specifies the EIP to be bound. The value must be in the standard IP address format.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.EIPV1
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractEipAddress()
+	// +crossplane:generate:reference:refFieldName=PublicIPSelectorRef
+	// +crossplane:generate:reference:selectorFieldName=PublicIPSelector
 	// +kubebuilder:validation:Optional
 	PublicIP *string `json:"publicIp,omitempty" tf:"public_ip,omitempty"`
 
 	// Specifies the EIP ID. The value must be in the standard UUID format.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.EIPV1
+	// +crossplane:generate:reference:refFieldName=PublicIPSelectorByIDRef
+	// +crossplane:generate:reference:selectorFieldName=PublicIPSelectorByID
 	// +kubebuilder:validation:Optional
 	PublicIPID *string `json:"publicIpId,omitempty" tf:"public_ip_id,omitempty"`
+
+	// Selector for a EIPV1 in vpc to populate publicIp.
+	// +kubebuilder:validation:Optional
+	PublicIPSelector *v1.NamespacedSelector `json:"publicIpSelector,omitempty" tf:"-"`
+
+	// Selector for a EIPV1 in vpc to populate publicIpId.
+	// +kubebuilder:validation:Optional
+	PublicIPSelectorByID *v1.NamespacedSelector `json:"publicIpSelectorById,omitempty" tf:"-"`
+
+	// Reference to a EIPV1 in vpc to populate publicIpId.
+	// +kubebuilder:validation:Optional
+	PublicIPSelectorByIDRef *v1.NamespacedReference `json:"publicIpSelectorByIdRef,omitempty" tf:"-"`
+
+	// Reference to a EIPV1 in vpc to populate publicIp.
+	// +kubebuilder:validation:Optional
+	PublicIPSelectorRef *v1.NamespacedReference `json:"publicIpSelectorRef,omitempty" tf:"-"`
 }
 
 // PublicIPAssociateV3Spec defines the desired state of PublicIPAssociateV3
@@ -90,11 +158,8 @@ type PublicIPAssociateV3Status struct {
 type PublicIPAssociateV3 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.instanceId) || (has(self.initProvider) && has(self.initProvider.instanceId))",message="spec.forProvider.instanceId is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.publicIp) || (has(self.initProvider) && has(self.initProvider.publicIp))",message="spec.forProvider.publicIp is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.publicIpId) || (has(self.initProvider) && has(self.initProvider.publicIpId))",message="spec.forProvider.publicIpId is a required parameter"
-	Spec   PublicIPAssociateV3Spec   `json:"spec"`
-	Status PublicIPAssociateV3Status `json:"status,omitempty"`
+	Spec              PublicIPAssociateV3Spec   `json:"spec"`
+	Status            PublicIPAssociateV3Status `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

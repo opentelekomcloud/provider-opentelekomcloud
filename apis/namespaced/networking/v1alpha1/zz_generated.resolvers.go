@@ -418,6 +418,23 @@ func (mg *SecgroupRuleV2) ResolveReferences(ctx context.Context, c client.Reader
 	var err error
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.RemoteGroupID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.RemoteSecurityGroupRef,
+		Selector:     mg.Spec.ForProvider.RemoteSecurityGroupSelector,
+		To: reference.To{
+			List:    &SecgroupV2List{},
+			Managed: &SecgroupV2{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.RemoteGroupID")
+	}
+	mg.Spec.ForProvider.RemoteGroupID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.RemoteSecurityGroupRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.SecurityGroupID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
@@ -433,6 +450,23 @@ func (mg *SecgroupRuleV2) ResolveReferences(ctx context.Context, c client.Reader
 	}
 	mg.Spec.ForProvider.SecurityGroupID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.SecurityGroupRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.RemoteGroupID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.RemoteSecurityGroupRef,
+		Selector:     mg.Spec.InitProvider.RemoteSecurityGroupSelector,
+		To: reference.To{
+			List:    &SecgroupV2List{},
+			Managed: &SecgroupV2{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.RemoteGroupID")
+	}
+	mg.Spec.InitProvider.RemoteGroupID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.RemoteSecurityGroupRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.SecurityGroupID),

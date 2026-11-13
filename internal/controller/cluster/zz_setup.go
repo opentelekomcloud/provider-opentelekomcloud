@@ -191,6 +191,7 @@ import (
 	nattransitipv3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/privatenat/nattransitipv3"
 	providerconfig "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/providerconfig"
 	backupv3rds "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/rds/backupv3"
+	instanceminorversionupgradev3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/rds/instanceminorversionupgradev3"
 	instancev3rds "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/rds/instancev3"
 	maintenancev3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/rds/maintenancev3"
 	parametergroupv3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/rds/parametergroupv3"
@@ -231,11 +232,14 @@ import (
 	ipaddressgroupv3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/vpc/ipaddressgroupv3"
 	peeringconnectionaccepterv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/vpc/peeringconnectionaccepterv2"
 	peeringconnectionv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/vpc/peeringconnectionv2"
+	routetableroutev1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/vpc/routetableroutev1"
+	routetablesubnetassociatev1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/vpc/routetablesubnetassociatev1"
 	routetablev1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/vpc/routetablev1"
 	routev2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/vpc/routev2"
 	secgrouprulev3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/vpc/secgrouprulev3"
 	secgroupv3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/vpc/secgroupv3"
 	secondarycidrv3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/vpc/secondarycidrv3"
+	subnetprivateipv1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/vpc/subnetprivateipv1"
 	subnetv1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/vpc/subnetv1"
 	vpcv1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/vpc/vpcv1"
 	approvalv1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/vpcep/approvalv1"
@@ -449,6 +453,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		nattransitipv3.Setup,
 		providerconfig.Setup,
 		backupv3rds.Setup,
+		instanceminorversionupgradev3.Setup,
 		instancev3rds.Setup,
 		maintenancev3.Setup,
 		parametergroupv3.Setup,
@@ -489,11 +494,14 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		ipaddressgroupv3.Setup,
 		peeringconnectionaccepterv2.Setup,
 		peeringconnectionv2.Setup,
+		routetableroutev1.Setup,
+		routetablesubnetassociatev1.Setup,
 		routetablev1.Setup,
 		routev2.Setup,
 		secgrouprulev3.Setup,
 		secgroupv3.Setup,
 		secondarycidrv3.Setup,
+		subnetprivateipv1.Setup,
 		subnetv1.Setup,
 		vpcv1.Setup,
 		approvalv1.Setup,
@@ -713,6 +721,7 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		nattransitipv3.SetupGated,
 		providerconfig.SetupGated,
 		backupv3rds.SetupGated,
+		instanceminorversionupgradev3.SetupGated,
 		instancev3rds.SetupGated,
 		maintenancev3.SetupGated,
 		parametergroupv3.SetupGated,
@@ -753,11 +762,14 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		ipaddressgroupv3.SetupGated,
 		peeringconnectionaccepterv2.SetupGated,
 		peeringconnectionv2.SetupGated,
+		routetableroutev1.SetupGated,
+		routetablesubnetassociatev1.SetupGated,
 		routetablev1.SetupGated,
 		routev2.SetupGated,
 		secgrouprulev3.SetupGated,
 		secgroupv3.SetupGated,
 		secondarycidrv3.SetupGated,
+		subnetprivateipv1.SetupGated,
 		subnetv1.SetupGated,
 		vpcv1.SetupGated,
 		approvalv1.SetupGated,

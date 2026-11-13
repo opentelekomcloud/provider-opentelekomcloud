@@ -34,6 +34,37 @@ Postgres extension.
 | `extensionName: hstore` / `databaseName: postgres` | PostgresExtensionV3 `spec.forProvider` | Change to the extension and database you need |
 | `namespace: test` | all resources | All resources are created in the `test` namespace - adjust if needed |
 
+## instanceminorversionupgradev3.yaml
+
+Test case: `instanceminorversionupgradev3.yaml` - creates a PostgreSQL RDS
+instance and schedules a minor version upgrade for it.
+
+### APIs used
+
+| Kind | Full API name |
+|------|---------------|
+| Secret | `secrets` (core/v1) |
+| VpcV1 | `vpcv1s.vpc.opentelekomcloud.m.crossplane.io` |
+| SubnetV1 | `subnetv1s.vpc.opentelekomcloud.m.crossplane.io` |
+| SecgroupV2 | `secgroupv2s.compute.opentelekomcloud.m.crossplane.io` |
+| InstanceV3 | `instancev3s.rds.opentelekomcloud.m.crossplane.io` |
+| InstanceMinorVersionUpgradeV3 | `instanceminorversionupgradev3s.rds.opentelekomcloud.m.crossplane.io` |
+
+### Configuration needed
+
+| Item | Where | What to do |
+|------|-------|-----------|
+| `${Rand.RFC1123Subdomain}` | names of VpcV1, SubnetV1, SecgroupV2, InstanceV3, InstanceMinorVersionUpgradeV3 | Replace with a unique RFC1123-compatible suffix (or leave for the example generator to substitute) |
+| `${data.rdsKey}` | Secret `example-rds-secret`, key `example-rds-key` | Replace with the base64-encoded RDS database password (e.g. `base64 <<< '<password>'`) |
+| `flavor: rds.pg.n1.large.2` | InstanceV3 `spec.forProvider.flavor` | Adjust to an RDS flavor available in your region |
+| `type: PostgreSQL` / `version: "15"` | InstanceV3 `spec.forProvider.db` | Change to the database type/version you need |
+| `port: 8635` | InstanceV3 `spec.forProvider.db` | Change to the port you need (must match the security group rule) |
+| `availabilityZone: [eu-de-03]` | InstanceV3 | Change to an AZ in your region |
+| `volume: size: 100` / `type: CLOUDSSD` | InstanceV3 `spec.forProvider.volume` | Adjust storage size and type |
+| `security group rules` (port 8635 from 0.0.0.0/0) | SecgroupV2 `spec.forProvider.rule` | Restrict the CIDR and port to what you actually need |
+| `delay: true` | InstanceMinorVersionUpgradeV3 `spec.forProvider.delay` | Set to `false` to start the upgrade immediately instead of in the maintenance window |
+| `namespace: test` | all resources | All resources are created in the `test` namespace - adjust if needed |
+
 ## Prerequisites
 
 This example requires a configured `ClusterProviderConfig` - see [providerconfig](../providerconfig/README.md).

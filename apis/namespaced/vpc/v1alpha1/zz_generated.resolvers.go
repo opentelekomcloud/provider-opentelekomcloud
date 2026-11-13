@@ -9,7 +9,9 @@ package v1alpha1
 import (
 	"context"
 	reference "github.com/crossplane/crossplane-runtime/v2/pkg/reference"
-	v1alpha1 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lts/v1alpha1"
+	v1alpha11 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lts/v1alpha1"
+	v1alpha1 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/networking/v1alpha1"
+	common "github.com/opentelekomcloud/provider-opentelekomcloud/config/common"
 	errors "github.com/pkg/errors"
 	client "sigs.k8s.io/controller-runtime/pkg/client"
 )
@@ -93,6 +95,93 @@ func (mg *BandwidthAssociateV2) ResolveReferences(ctx context.Context, c client.
 	return nil
 }
 
+// ResolveReferences of this EIPV1.
+func (mg *EIPV1) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var rsp reference.NamespacedResolutionResponse
+	var err error
+
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.Bandwidth); i3++ {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Bandwidth[i3].ID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.Bandwidth[i3].BandwidthRef,
+			Selector:     mg.Spec.ForProvider.Bandwidth[i3].BandwidthSelector,
+			To: reference.To{
+				List:    &BandwidthV2List{},
+				Managed: &BandwidthV2{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.Bandwidth[i3].ID")
+		}
+		mg.Spec.ForProvider.Bandwidth[i3].ID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.Bandwidth[i3].BandwidthRef = rsp.ResolvedReference
+
+	}
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.Publicip); i3++ {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Publicip[i3].PortID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.Publicip[i3].PortRef,
+			Selector:     mg.Spec.ForProvider.Publicip[i3].PortSelector,
+			To: reference.To{
+				List:    &v1alpha1.PortV2List{},
+				Managed: &v1alpha1.PortV2{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.Publicip[i3].PortID")
+		}
+		mg.Spec.ForProvider.Publicip[i3].PortID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.Publicip[i3].PortRef = rsp.ResolvedReference
+
+	}
+	for i3 := 0; i3 < len(mg.Spec.InitProvider.Bandwidth); i3++ {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Bandwidth[i3].ID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.Bandwidth[i3].BandwidthRef,
+			Selector:     mg.Spec.InitProvider.Bandwidth[i3].BandwidthSelector,
+			To: reference.To{
+				List:    &BandwidthV2List{},
+				Managed: &BandwidthV2{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.InitProvider.Bandwidth[i3].ID")
+		}
+		mg.Spec.InitProvider.Bandwidth[i3].ID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.InitProvider.Bandwidth[i3].BandwidthRef = rsp.ResolvedReference
+
+	}
+	for i3 := 0; i3 < len(mg.Spec.InitProvider.Publicip); i3++ {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Publicip[i3].PortID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.Publicip[i3].PortRef,
+			Selector:     mg.Spec.InitProvider.Publicip[i3].PortSelector,
+			To: reference.To{
+				List:    &v1alpha1.PortV2List{},
+				Managed: &v1alpha1.PortV2{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.InitProvider.Publicip[i3].PortID")
+		}
+		mg.Spec.InitProvider.Publicip[i3].PortID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.InitProvider.Publicip[i3].PortRef = rsp.ResolvedReference
+
+	}
+
+	return nil
+}
+
 // ResolveReferences of this FlowLogV1.
 func (mg *FlowLogV1) ResolveReferences(ctx context.Context, c client.Reader) error {
 	r := reference.NewAPINamespacedResolver(c, mg)
@@ -107,8 +196,8 @@ func (mg *FlowLogV1) ResolveReferences(ctx context.Context, c client.Reader) err
 		Reference:    mg.Spec.ForProvider.LogGroupRef,
 		Selector:     mg.Spec.ForProvider.LogGroupSelector,
 		To: reference.To{
-			List:    &v1alpha1.GroupV2List{},
-			Managed: &v1alpha1.GroupV2{},
+			List:    &v1alpha11.GroupV2List{},
+			Managed: &v1alpha11.GroupV2{},
 		},
 	})
 	if err != nil {
@@ -124,8 +213,8 @@ func (mg *FlowLogV1) ResolveReferences(ctx context.Context, c client.Reader) err
 		Reference:    mg.Spec.ForProvider.LogSteamRef,
 		Selector:     mg.Spec.ForProvider.LogStreamSelector,
 		To: reference.To{
-			List:    &v1alpha1.StreamV2List{},
-			Managed: &v1alpha1.StreamV2{},
+			List:    &v1alpha11.StreamV2List{},
+			Managed: &v1alpha11.StreamV2{},
 		},
 	})
 	if err != nil {
@@ -158,8 +247,8 @@ func (mg *FlowLogV1) ResolveReferences(ctx context.Context, c client.Reader) err
 		Reference:    mg.Spec.InitProvider.LogGroupRef,
 		Selector:     mg.Spec.InitProvider.LogGroupSelector,
 		To: reference.To{
-			List:    &v1alpha1.GroupV2List{},
-			Managed: &v1alpha1.GroupV2{},
+			List:    &v1alpha11.GroupV2List{},
+			Managed: &v1alpha11.GroupV2{},
 		},
 	})
 	if err != nil {
@@ -175,8 +264,8 @@ func (mg *FlowLogV1) ResolveReferences(ctx context.Context, c client.Reader) err
 		Reference:    mg.Spec.InitProvider.LogSteamRef,
 		Selector:     mg.Spec.InitProvider.LogStreamSelector,
 		To: reference.To{
-			List:    &v1alpha1.StreamV2List{},
-			Managed: &v1alpha1.StreamV2{},
+			List:    &v1alpha11.StreamV2List{},
+			Managed: &v1alpha11.StreamV2{},
 		},
 	})
 	if err != nil {
@@ -327,6 +416,162 @@ func (mg *PeeringConnectionV2) ResolveReferences(ctx context.Context, c client.R
 	return nil
 }
 
+// ResolveReferences of this RouteTableRouteV1.
+func (mg *RouteTableRouteV1) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var rsp reference.NamespacedResolutionResponse
+	var err error
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.RouteTableID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.RouteTableRef,
+		Selector:     mg.Spec.ForProvider.RouteTableSelector,
+		To: reference.To{
+			List:    &RouteTableV1List{},
+			Managed: &RouteTableV1{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.RouteTableID")
+	}
+	mg.Spec.ForProvider.RouteTableID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.RouteTableRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.VPCID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.VPCRef,
+		Selector:     mg.Spec.ForProvider.VPCSelector,
+		To: reference.To{
+			List:    &VpcV1List{},
+			Managed: &VpcV1{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.VPCID")
+	}
+	mg.Spec.ForProvider.VPCID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.VPCRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.RouteTableID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.RouteTableRef,
+		Selector:     mg.Spec.InitProvider.RouteTableSelector,
+		To: reference.To{
+			List:    &RouteTableV1List{},
+			Managed: &RouteTableV1{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.RouteTableID")
+	}
+	mg.Spec.InitProvider.RouteTableID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.RouteTableRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.VPCID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.VPCRef,
+		Selector:     mg.Spec.InitProvider.VPCSelector,
+		To: reference.To{
+			List:    &VpcV1List{},
+			Managed: &VpcV1{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.VPCID")
+	}
+	mg.Spec.InitProvider.VPCID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.VPCRef = rsp.ResolvedReference
+
+	return nil
+}
+
+// ResolveReferences of this RouteTableSubnetAssociateV1.
+func (mg *RouteTableSubnetAssociateV1) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var rsp reference.NamespacedResolutionResponse
+	var err error
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.RouteTableID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.RouteTableRef,
+		Selector:     mg.Spec.ForProvider.RouteTableSelector,
+		To: reference.To{
+			List:    &RouteTableV1List{},
+			Managed: &RouteTableV1{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.RouteTableID")
+	}
+	mg.Spec.ForProvider.RouteTableID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.RouteTableRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.SubnetID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.SubnetRef,
+		Selector:     mg.Spec.ForProvider.SubnetSelector,
+		To: reference.To{
+			List:    &SubnetV1List{},
+			Managed: &SubnetV1{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.SubnetID")
+	}
+	mg.Spec.ForProvider.SubnetID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.SubnetRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.RouteTableID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.RouteTableRef,
+		Selector:     mg.Spec.InitProvider.RouteTableSelector,
+		To: reference.To{
+			List:    &RouteTableV1List{},
+			Managed: &RouteTableV1{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.RouteTableID")
+	}
+	mg.Spec.InitProvider.RouteTableID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.RouteTableRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.SubnetID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.SubnetRef,
+		Selector:     mg.Spec.InitProvider.SubnetSelector,
+		To: reference.To{
+			List:    &SubnetV1List{},
+			Managed: &SubnetV1{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.SubnetID")
+	}
+	mg.Spec.InitProvider.SubnetID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.SubnetRef = rsp.ResolvedReference
+
+	return nil
+}
+
 // ResolveReferences of this RouteTableV1.
 func (mg *RouteTableV1) ResolveReferences(ctx context.Context, c client.Reader) error {
 	r := reference.NewAPINamespacedResolver(c, mg)
@@ -415,50 +660,6 @@ func (mg *RouteV2) ResolveReferences(ctx context.Context, c client.Reader) error
 	return nil
 }
 
-// ResolveReferences of this SecgroupRuleV3.
-func (mg *SecgroupRuleV3) ResolveReferences(ctx context.Context, c client.Reader) error {
-	r := reference.NewAPINamespacedResolver(c, mg)
-
-	var rsp reference.NamespacedResolutionResponse
-	var err error
-
-	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.SecurityGroupID),
-		Extract:      reference.ExternalName(),
-		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.ForProvider.SecurityGroupRef,
-		Selector:     mg.Spec.ForProvider.SecurityGroupSelector,
-		To: reference.To{
-			List:    &SecgroupV3List{},
-			Managed: &SecgroupV3{},
-		},
-	})
-	if err != nil {
-		return errors.Wrap(err, "mg.Spec.ForProvider.SecurityGroupID")
-	}
-	mg.Spec.ForProvider.SecurityGroupID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.SecurityGroupRef = rsp.ResolvedReference
-
-	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.SecurityGroupID),
-		Extract:      reference.ExternalName(),
-		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.InitProvider.SecurityGroupRef,
-		Selector:     mg.Spec.InitProvider.SecurityGroupSelector,
-		To: reference.To{
-			List:    &SecgroupV3List{},
-			Managed: &SecgroupV3{},
-		},
-	})
-	if err != nil {
-		return errors.Wrap(err, "mg.Spec.InitProvider.SecurityGroupID")
-	}
-	mg.Spec.InitProvider.SecurityGroupID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.SecurityGroupRef = rsp.ResolvedReference
-
-	return nil
-}
-
 // ResolveReferences of this SecondaryCidrV3.
 func (mg *SecondaryCidrV3) ResolveReferences(ctx context.Context, c client.Reader) error {
 	r := reference.NewAPINamespacedResolver(c, mg)
@@ -499,6 +700,50 @@ func (mg *SecondaryCidrV3) ResolveReferences(ctx context.Context, c client.Reade
 	}
 	mg.Spec.InitProvider.VPCID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.InitProvider.VPCRef = rsp.ResolvedReference
+
+	return nil
+}
+
+// ResolveReferences of this SubnetPrivateIPV1.
+func (mg *SubnetPrivateIPV1) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var rsp reference.NamespacedResolutionResponse
+	var err error
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.SubnetID),
+		Extract:      common.ExtractNetworkID(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.SubnetRef,
+		Selector:     mg.Spec.ForProvider.SubnetSelector,
+		To: reference.To{
+			List:    &SubnetV1List{},
+			Managed: &SubnetV1{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.SubnetID")
+	}
+	mg.Spec.ForProvider.SubnetID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.SubnetRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.SubnetID),
+		Extract:      common.ExtractNetworkID(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.SubnetRef,
+		Selector:     mg.Spec.InitProvider.SubnetSelector,
+		To: reference.To{
+			List:    &SubnetV1List{},
+			Managed: &SubnetV1{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.SubnetID")
+	}
+	mg.Spec.InitProvider.SubnetID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.SubnetRef = rsp.ResolvedReference
 
 	return nil
 }

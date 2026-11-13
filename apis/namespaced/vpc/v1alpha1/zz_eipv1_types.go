@@ -16,6 +16,14 @@ import (
 
 type BandwidthInitParameters struct {
 
+	// Reference to a BandwidthV2 in vpc to populate id.
+	// +kubebuilder:validation:Optional
+	BandwidthRef *v1.NamespacedReference `json:"bandwidthRef,omitempty" tf:"-"`
+
+	// Selector for a BandwidthV2 in vpc to populate id.
+	// +kubebuilder:validation:Optional
+	BandwidthSelector *v1.NamespacedSelector `json:"bandwidthSelector,omitempty" tf:"-"`
+
 	// This is a reserved field. If the system supports charging
 	// by traffic and this field is specified, then you are charged by traffic for elastic
 	// IP addresses. Changing this creates a new eip.
@@ -23,6 +31,9 @@ type BandwidthInitParameters struct {
 
 	// An existing shared bandwidth ID to attach the EIP to. This
 	// conflicts with name.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.BandwidthV2
+	// +crossplane:generate:reference:refFieldName=BandwidthRef
+	// +crossplane:generate:reference:selectorFieldName=BandwidthSelector
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// The bandwidth name, which is a string of 1 to 64 characters
@@ -66,6 +77,14 @@ type BandwidthObservation struct {
 
 type BandwidthParameters struct {
 
+	// Reference to a BandwidthV2 in vpc to populate id.
+	// +kubebuilder:validation:Optional
+	BandwidthRef *v1.NamespacedReference `json:"bandwidthRef,omitempty" tf:"-"`
+
+	// Selector for a BandwidthV2 in vpc to populate id.
+	// +kubebuilder:validation:Optional
+	BandwidthSelector *v1.NamespacedSelector `json:"bandwidthSelector,omitempty" tf:"-"`
+
 	// This is a reserved field. If the system supports charging
 	// by traffic and this field is specified, then you are charged by traffic for elastic
 	// IP addresses. Changing this creates a new eip.
@@ -74,6 +93,9 @@ type BandwidthParameters struct {
 
 	// An existing shared bandwidth ID to attach the EIP to. This
 	// conflicts with name.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.BandwidthV2
+	// +crossplane:generate:reference:refFieldName=BandwidthRef
+	// +crossplane:generate:reference:selectorFieldName=BandwidthSelector
 	// +kubebuilder:validation:Optional
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
@@ -216,7 +238,18 @@ type PublicipInitParameters struct {
 
 	// The port id which this eip will associate with. If the value
 	// is "" or this not specified, the eip will be in unbind state.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/networking/v1alpha1.PortV2
+	// +crossplane:generate:reference:refFieldName=PortRef
+	// +crossplane:generate:reference:selectorFieldName=PortSelector
 	PortID *string `json:"portId,omitempty" tf:"port_id,omitempty"`
+
+	// Reference to a PortV2 in networking to populate portId.
+	// +kubebuilder:validation:Optional
+	PortRef *v1.NamespacedReference `json:"portRef,omitempty" tf:"-"`
+
+	// Selector for a PortV2 in networking to populate portId.
+	// +kubebuilder:validation:Optional
+	PortSelector *v1.NamespacedSelector `json:"portSelector,omitempty" tf:"-"`
 
 	// The value must be a type supported by the system.
 	// The value can be 5_bgp, 5_mailbgp and 5_gray. Changing this creates a new eip.
@@ -263,8 +296,19 @@ type PublicipParameters struct {
 
 	// The port id which this eip will associate with. If the value
 	// is "" or this not specified, the eip will be in unbind state.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/networking/v1alpha1.PortV2
+	// +crossplane:generate:reference:refFieldName=PortRef
+	// +crossplane:generate:reference:selectorFieldName=PortSelector
 	// +kubebuilder:validation:Optional
 	PortID *string `json:"portId,omitempty" tf:"port_id,omitempty"`
+
+	// Reference to a PortV2 in networking to populate portId.
+	// +kubebuilder:validation:Optional
+	PortRef *v1.NamespacedReference `json:"portRef,omitempty" tf:"-"`
+
+	// Selector for a PortV2 in networking to populate portId.
+	// +kubebuilder:validation:Optional
+	PortSelector *v1.NamespacedSelector `json:"portSelector,omitempty" tf:"-"`
 
 	// The value must be a type supported by the system.
 	// The value can be 5_bgp, 5_mailbgp and 5_gray. Changing this creates a new eip.

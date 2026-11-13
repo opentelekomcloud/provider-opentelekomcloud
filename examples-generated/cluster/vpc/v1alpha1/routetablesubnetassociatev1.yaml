@@ -1,0 +1,63 @@
+apiVersion: vpc.opentelekomcloud.crossplane.io/v1alpha1
+kind: RouteTableSubnetAssociateV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/routetablesubnetassociatev1
+  labels:
+    testing.upbound.io/example-name: assoc
+  name: assoc
+spec:
+  forProvider:
+    routeTableId: ${opentelekomcloud_vpc_route_table_v1.table.id}
+    subnetId: ${opentelekomcloud_vpc_subnet_v1.subnet.id}
+
+---
+
+apiVersion: vpc.opentelekomcloud.crossplane.io/v1alpha1
+kind: RouteTableV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/routetablesubnetassociatev1
+  labels:
+    testing.upbound.io/example-name: table
+  name: table
+spec:
+  forProvider:
+    name: my-table
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: vpc
+
+---
+
+apiVersion: vpc.opentelekomcloud.crossplane.io/v1alpha1
+kind: SubnetV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/routetablesubnetassociatev1
+  labels:
+    testing.upbound.io/example-name: subnet
+  name: subnet
+spec:
+  forProvider:
+    cidr: 192.168.0.0/24
+    gatewayIp: 192.168.0.1
+    name: my-subnet
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: vpc
+
+---
+
+apiVersion: vpc.opentelekomcloud.crossplane.io/v1alpha1
+kind: VpcV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/routetablesubnetassociatev1
+  labels:
+    testing.upbound.io/example-name: vpc
+  name: vpc
+spec:
+  forProvider:
+    cidr: 192.168.0.0/16
+    name: my-vpc
