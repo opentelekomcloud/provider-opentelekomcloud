@@ -9,6 +9,21 @@ The [Terraform T Cloud Public](https://github.com/opentelekomcloud/terraform-pro
 
 If you have a use case for a service that is missing or only partially implemented, feel free to open an issue describing your needs and explaining why the service is important to you. If you’d like to contribute the implementation yourself, we recommend reviewing [Adding a new resource](https://github.com/crossplane/upjet/blob/main/docs/adding-new-resource.md), [Configure a resource](https://github.com/crossplane/upjet/blob/main/docs/configuring-a-resource.md), and this example [PR](https://github.com/opentelekomcloud/provider-opentelekomcloud/pull/33) to help you get started.
 
+## Choosing the networking API family
+
+T Cloud Public exposes two networking API families. For new resources, references, and examples, prefer the VPC family:
+
+| Prefer (VPC) | Avoid for new work (Networking) |
+|--------------|---------------------------------|
+| `opentelekomcloud_vpc_v1` (`VpcV1`) | `opentelekomcloud_networking_network_v2` (`NetworkV2`) |
+| `opentelekomcloud_vpc_subnet_v1` (`SubnetV1`) | `opentelekomcloud_networking_subnet_v2` (`SubnetV2`) |
+| `opentelekomcloud_vpc_secgroup_v3` (`SecgroupV3`) | `opentelekomcloud_networking_secgroup_v2` (`SecgroupV2`) |
+| `opentelekomcloud_vpc_secgroup_rule_v3` (`SecgroupRuleV3`) | `opentelekomcloud_networking_secgroup_rule_v2` (`SecgroupRuleV2`) |
+| `opentelekomcloud_vpc_eip_v1` (`EIPV1`) | `opentelekomcloud_networking_floatingip_v2` (`FloatingipV2`) |
+
+Use `opentelekomcloud_networking_*` only for constructs that have no VPC equivalent: ports, routers, router interfaces and routes, VIPs, floating IP association, and port/security-group association.
+
+See [Best practices](../docs/best-practices.md) for the user-facing guidance.
 
 ## Building and running the provider
 
