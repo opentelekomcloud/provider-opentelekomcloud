@@ -22,8 +22,19 @@ type HostGroupV3InitParameters struct {
 	AgentAccessType *string `json:"agentAccessType,omitempty" tf:"agent_access_type,omitempty"`
 
 	// Specifies the ID list of hosts to join the host group.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/compute/v1alpha1.InstanceV2
+	// +crossplane:generate:reference:refFieldName=HostRef
+	// +crossplane:generate:reference:selectorFieldName=HostSelector
 	// +listType=set
 	HostIds []*string `json:"hostIds,omitempty" tf:"host_ids,omitempty"`
+
+	// References to InstanceV2 in compute to populate hostIds.
+	// +kubebuilder:validation:Optional
+	HostRef []v1.NamespacedReference `json:"hostRef,omitempty" tf:"-"`
+
+	// Selector for a list of InstanceV2 in compute to populate hostIds.
+	// +kubebuilder:validation:Optional
+	HostSelector *v1.NamespacedSelector `json:"hostSelector,omitempty" tf:"-"`
 
 	// Specifies the custom label list of the host group.
 	// This parameter is required when agent_access_type is set to LABEL.
@@ -91,9 +102,20 @@ type HostGroupV3Parameters struct {
 	AgentAccessType *string `json:"agentAccessType,omitempty" tf:"agent_access_type,omitempty"`
 
 	// Specifies the ID list of hosts to join the host group.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/compute/v1alpha1.InstanceV2
+	// +crossplane:generate:reference:refFieldName=HostRef
+	// +crossplane:generate:reference:selectorFieldName=HostSelector
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	HostIds []*string `json:"hostIds,omitempty" tf:"host_ids,omitempty"`
+
+	// References to InstanceV2 in compute to populate hostIds.
+	// +kubebuilder:validation:Optional
+	HostRef []v1.NamespacedReference `json:"hostRef,omitempty" tf:"-"`
+
+	// Selector for a list of InstanceV2 in compute to populate hostIds.
+	// +kubebuilder:validation:Optional
+	HostSelector *v1.NamespacedSelector `json:"hostSelector,omitempty" tf:"-"`
 
 	// Specifies the custom label list of the host group.
 	// This parameter is required when agent_access_type is set to LABEL.

@@ -46,19 +46,41 @@ type CrossAccountAccessV2InitParameters struct {
 
 	// Specify the log group ID that already exists in the
 	// main account. Changing this creates a new resource.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lts/v1alpha1.GroupV2
+	// +crossplane:generate:reference:refFieldName=LogGroupRef
+	// +crossplane:generate:reference:selectorFieldName=LogGroupSelector
 	LogGroupID *string `json:"logGroupId,omitempty" tf:"log_group_id,omitempty"`
 
 	// Specify the log group name that already exists in the
 	// delegatee account. Changing this creates a new resource.
 	LogGroupName *string `json:"logGroupName,omitempty" tf:"log_group_name,omitempty"`
 
+	// Reference to a GroupV2 in lts to populate logGroupId.
+	// +kubebuilder:validation:Optional
+	LogGroupRef *v1.NamespacedReference `json:"logGroupRef,omitempty" tf:"-"`
+
+	// Selector for a GroupV2 in lts to populate logGroupId.
+	// +kubebuilder:validation:Optional
+	LogGroupSelector *v1.NamespacedSelector `json:"logGroupSelector,omitempty" tf:"-"`
+
 	// Specifies the log stream ID that already exists in the
 	// delegatee account. Changing this creates a new resource.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lts/v1alpha1.StreamV2
+	// +crossplane:generate:reference:refFieldName=LogStreamRef
+	// +crossplane:generate:reference:selectorFieldName=LogStreamSelector
 	LogStreamID *string `json:"logStreamId,omitempty" tf:"log_stream_id,omitempty"`
 
 	// Specifies the log stream name that already exists in the
 	// delegatee account. Changing this creates a new resource.
 	LogStreamName *string `json:"logStreamName,omitempty" tf:"log_stream_name,omitempty"`
+
+	// Reference to a StreamV2 in lts to populate logStreamId.
+	// +kubebuilder:validation:Optional
+	LogStreamRef *v1.NamespacedReference `json:"logStreamRef,omitempty" tf:"-"`
+
+	// Selector for a StreamV2 in lts to populate logStreamId.
+	// +kubebuilder:validation:Optional
+	LogStreamSelector *v1.NamespacedSelector `json:"logStreamSelector,omitempty" tf:"-"`
 
 	// Specifies the name of the cross account access.
 	// Changing this creates a new resource.
@@ -175,6 +197,9 @@ type CrossAccountAccessV2Parameters struct {
 
 	// Specify the log group ID that already exists in the
 	// main account. Changing this creates a new resource.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lts/v1alpha1.GroupV2
+	// +crossplane:generate:reference:refFieldName=LogGroupRef
+	// +crossplane:generate:reference:selectorFieldName=LogGroupSelector
 	// +kubebuilder:validation:Optional
 	LogGroupID *string `json:"logGroupId,omitempty" tf:"log_group_id,omitempty"`
 
@@ -183,8 +208,19 @@ type CrossAccountAccessV2Parameters struct {
 	// +kubebuilder:validation:Optional
 	LogGroupName *string `json:"logGroupName,omitempty" tf:"log_group_name,omitempty"`
 
+	// Reference to a GroupV2 in lts to populate logGroupId.
+	// +kubebuilder:validation:Optional
+	LogGroupRef *v1.NamespacedReference `json:"logGroupRef,omitempty" tf:"-"`
+
+	// Selector for a GroupV2 in lts to populate logGroupId.
+	// +kubebuilder:validation:Optional
+	LogGroupSelector *v1.NamespacedSelector `json:"logGroupSelector,omitempty" tf:"-"`
+
 	// Specifies the log stream ID that already exists in the
 	// delegatee account. Changing this creates a new resource.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lts/v1alpha1.StreamV2
+	// +crossplane:generate:reference:refFieldName=LogStreamRef
+	// +crossplane:generate:reference:selectorFieldName=LogStreamSelector
 	// +kubebuilder:validation:Optional
 	LogStreamID *string `json:"logStreamId,omitempty" tf:"log_stream_id,omitempty"`
 
@@ -192,6 +228,14 @@ type CrossAccountAccessV2Parameters struct {
 	// delegatee account. Changing this creates a new resource.
 	// +kubebuilder:validation:Optional
 	LogStreamName *string `json:"logStreamName,omitempty" tf:"log_stream_name,omitempty"`
+
+	// Reference to a StreamV2 in lts to populate logStreamId.
+	// +kubebuilder:validation:Optional
+	LogStreamRef *v1.NamespacedReference `json:"logStreamRef,omitempty" tf:"-"`
+
+	// Selector for a StreamV2 in lts to populate logStreamId.
+	// +kubebuilder:validation:Optional
+	LogStreamSelector *v1.NamespacedSelector `json:"logStreamSelector,omitempty" tf:"-"`
 
 	// Specifies the name of the cross account access.
 	// Changing this creates a new resource.
@@ -247,9 +291,7 @@ type CrossAccountAccessV2 struct {
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.logAgencyGroupName) || (has(self.initProvider) && has(self.initProvider.logAgencyGroupName))",message="spec.forProvider.logAgencyGroupName is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.logAgencyStreamId) || (has(self.initProvider) && has(self.initProvider.logAgencyStreamId))",message="spec.forProvider.logAgencyStreamId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.logAgencyStreamName) || (has(self.initProvider) && has(self.initProvider.logAgencyStreamName))",message="spec.forProvider.logAgencyStreamName is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.logGroupId) || (has(self.initProvider) && has(self.initProvider.logGroupId))",message="spec.forProvider.logGroupId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.logGroupName) || (has(self.initProvider) && has(self.initProvider.logGroupName))",message="spec.forProvider.logGroupName is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.logStreamId) || (has(self.initProvider) && has(self.initProvider.logStreamId))",message="spec.forProvider.logStreamId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.logStreamName) || (has(self.initProvider) && has(self.initProvider.logStreamName))",message="spec.forProvider.logStreamName is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	Spec   CrossAccountAccessV2Spec   `json:"spec"`

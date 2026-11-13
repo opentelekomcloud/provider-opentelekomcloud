@@ -160,6 +160,7 @@ import (
 	notificationtemplatev2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/lts/notificationtemplatev2"
 	quicksearchcriteriav1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/lts/quicksearchcriteriav1"
 	streamv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/lts/streamv2"
+	structuringtemplatev3 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/lts/structuringtemplatev3"
 	transferv2lts "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/lts/transferv2"
 	dnatrulev2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/nat/dnatrulev2"
 	gatewayv2nat "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/cluster/nat/gatewayv2"
@@ -417,6 +418,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		notificationtemplatev2.Setup,
 		quicksearchcriteriav1.Setup,
 		streamv2.Setup,
+		structuringtemplatev3.Setup,
 		transferv2lts.Setup,
 		dnatrulev2.Setup,
 		gatewayv2nat.Setup,
@@ -680,6 +682,7 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		notificationtemplatev2.SetupGated,
 		quicksearchcriteriav1.SetupGated,
 		streamv2.SetupGated,
+		structuringtemplatev3.SetupGated,
 		transferv2lts.SetupGated,
 		dnatrulev2.SetupGated,
 		gatewayv2nat.SetupGated,
