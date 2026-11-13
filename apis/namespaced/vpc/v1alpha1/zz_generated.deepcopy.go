@@ -3813,6 +3813,16 @@ func (in *SecgroupRuleV3InitParameters) DeepCopyInto(out *SecgroupRuleV3InitPara
 		*out = new(string)
 		**out = **in
 	}
+	if in.RemoteAddressGroupRef != nil {
+		in, out := &in.RemoteAddressGroupRef, &out.RemoteAddressGroupRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.RemoteAddressGroupSelector != nil {
+		in, out := &in.RemoteAddressGroupSelector, &out.RemoteAddressGroupSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.RemoteGroupID != nil {
 		in, out := &in.RemoteGroupID, &out.RemoteGroupID
 		*out = new(string)
@@ -3823,10 +3833,30 @@ func (in *SecgroupRuleV3InitParameters) DeepCopyInto(out *SecgroupRuleV3InitPara
 		*out = new(string)
 		**out = **in
 	}
+	if in.RemoteSecurityGroupRef != nil {
+		in, out := &in.RemoteSecurityGroupRef, &out.RemoteSecurityGroupRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.RemoteSecurityGroupSelector != nil {
+		in, out := &in.RemoteSecurityGroupSelector, &out.RemoteSecurityGroupSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.SecurityGroupID != nil {
 		in, out := &in.SecurityGroupID, &out.SecurityGroupID
 		*out = new(string)
 		**out = **in
+	}
+	if in.SecurityGroupRef != nil {
+		in, out := &in.SecurityGroupRef, &out.SecurityGroupRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.SecurityGroupSelector != nil {
+		in, out := &in.SecurityGroupSelector, &out.SecurityGroupSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -4005,6 +4035,16 @@ func (in *SecgroupRuleV3Parameters) DeepCopyInto(out *SecgroupRuleV3Parameters) 
 		*out = new(string)
 		**out = **in
 	}
+	if in.RemoteAddressGroupRef != nil {
+		in, out := &in.RemoteAddressGroupRef, &out.RemoteAddressGroupRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.RemoteAddressGroupSelector != nil {
+		in, out := &in.RemoteAddressGroupSelector, &out.RemoteAddressGroupSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.RemoteGroupID != nil {
 		in, out := &in.RemoteGroupID, &out.RemoteGroupID
 		*out = new(string)
@@ -4015,10 +4055,30 @@ func (in *SecgroupRuleV3Parameters) DeepCopyInto(out *SecgroupRuleV3Parameters) 
 		*out = new(string)
 		**out = **in
 	}
+	if in.RemoteSecurityGroupRef != nil {
+		in, out := &in.RemoteSecurityGroupRef, &out.RemoteSecurityGroupRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.RemoteSecurityGroupSelector != nil {
+		in, out := &in.RemoteSecurityGroupSelector, &out.RemoteSecurityGroupSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.SecurityGroupID != nil {
 		in, out := &in.SecurityGroupID, &out.SecurityGroupID
 		*out = new(string)
 		**out = **in
+	}
+	if in.SecurityGroupRef != nil {
+		in, out := &in.SecurityGroupRef, &out.SecurityGroupRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.SecurityGroupSelector != nil {
+		in, out := &in.SecurityGroupSelector, &out.SecurityGroupSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 

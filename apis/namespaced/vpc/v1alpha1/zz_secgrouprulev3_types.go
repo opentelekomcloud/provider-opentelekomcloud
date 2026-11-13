@@ -38,16 +38,49 @@ type SecgroupRuleV3InitParameters struct {
 	Protocol *string `json:"protocol,omitempty" tf:"protocol,omitempty"`
 
 	// Specifies the ID of an existing IP address group. The parameter value is mutually exclusive with parameters remote_ip_prefix and remote_group_id.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.IPAddressGroupV3
+	// +crossplane:generate:reference:refFieldName=RemoteAddressGroupRef
+	// +crossplane:generate:reference:selectorFieldName=RemoteAddressGroupSelector
 	RemoteAddressGroupID *string `json:"remoteAddressGroupId,omitempty" tf:"remote_address_group_id,omitempty"`
 
+	// Reference to a IPAddressGroupV3 in vpc to populate remoteAddressGroupId.
+	// +kubebuilder:validation:Optional
+	RemoteAddressGroupRef *v1.NamespacedReference `json:"remoteAddressGroupRef,omitempty" tf:"-"`
+
+	// Selector for a IPAddressGroupV3 in vpc to populate remoteAddressGroupId.
+	// +kubebuilder:validation:Optional
+	RemoteAddressGroupSelector *v1.NamespacedSelector `json:"remoteAddressGroupSelector,omitempty" tf:"-"`
+
 	// Specifies the ID of the remote security group, which allows or denies traffic to and from the security group. The value has to be the ID of an existing security group. The parameter is mutually exclusive with parameter remote_ip_prefix and remote_address_group_id.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.SecgroupV3
+	// +crossplane:generate:reference:refFieldName=RemoteSecurityGroupRef
+	// +crossplane:generate:reference:selectorFieldName=RemoteSecurityGroupSelector
 	RemoteGroupID *string `json:"remoteGroupId,omitempty" tf:"remote_group_id,omitempty"`
 
 	// Specifies the remote IP address. If direction is set to egress, the parameter specifies the source IP address. If direction is set to ingress, the parameter specifies the destination IP address. The value is an IP address or a CIDR block. The parameter is mutually exclusive with parameter remote_group_id and remote_address_group_id. If this parameter is left blank, the remote IP address is not limited, and the traffic from all remote IP addresses is allowed or rejected.
 	RemoteIPPrefix *string `json:"remoteIpPrefix,omitempty" tf:"remote_ip_prefix,omitempty"`
 
-	// Specifies the ID of the security group to which the security group rule belongs.
+	// Reference to a SecgroupV3 in vpc to populate remoteGroupId.
+	// +kubebuilder:validation:Optional
+	RemoteSecurityGroupRef *v1.NamespacedReference `json:"remoteSecurityGroupRef,omitempty" tf:"-"`
+
+	// Selector for a SecgroupV3 in vpc to populate remoteGroupId.
+	// +kubebuilder:validation:Optional
+	RemoteSecurityGroupSelector *v1.NamespacedSelector `json:"remoteSecurityGroupSelector,omitempty" tf:"-"`
+
+	// Configuration block defining a security_group for the rule. Only opentelekomcloud_vpc_secgroup_v3 (secgroupv3s.vpc.opentelekomcloud.m.crossplane.io) is supported for cross resource reference configuration.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.SecgroupV3
+	// +crossplane:generate:reference:refFieldName=SecurityGroupRef
+	// +crossplane:generate:reference:selectorFieldName=SecurityGroupSelector
 	SecurityGroupID *string `json:"securityGroupId,omitempty" tf:"security_group_id,omitempty"`
+
+	// Reference to a SecgroupV3 in vpc to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	SecurityGroupRef *v1.NamespacedReference `json:"securityGroupRef,omitempty" tf:"-"`
+
+	// Selector for a SecgroupV3 in vpc to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	SecurityGroupSelector *v1.NamespacedSelector `json:"securityGroupSelector,omitempty" tf:"-"`
 }
 
 type SecgroupRuleV3Observation struct {
@@ -91,7 +124,7 @@ type SecgroupRuleV3Observation struct {
 	// Specifies the remote IP address. If direction is set to egress, the parameter specifies the source IP address. If direction is set to ingress, the parameter specifies the destination IP address. The value is an IP address or a CIDR block. The parameter is mutually exclusive with parameter remote_group_id and remote_address_group_id. If this parameter is left blank, the remote IP address is not limited, and the traffic from all remote IP addresses is allowed or rejected.
 	RemoteIPPrefix *string `json:"remoteIpPrefix,omitempty" tf:"remote_ip_prefix,omitempty"`
 
-	// Specifies the ID of the security group to which the security group rule belongs.
+	// Configuration block defining a security_group for the rule. Only opentelekomcloud_vpc_secgroup_v3 (secgroupv3s.vpc.opentelekomcloud.m.crossplane.io) is supported for cross resource reference configuration.
 	SecurityGroupID *string `json:"securityGroupId,omitempty" tf:"security_group_id,omitempty"`
 
 	// Indicates the time when the security group rule was updated. It is a UTC time in yyyy-MM-ddTHH:mm:ssZ format.
@@ -129,10 +162,24 @@ type SecgroupRuleV3Parameters struct {
 	Protocol *string `json:"protocol,omitempty" tf:"protocol,omitempty"`
 
 	// Specifies the ID of an existing IP address group. The parameter value is mutually exclusive with parameters remote_ip_prefix and remote_group_id.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.IPAddressGroupV3
+	// +crossplane:generate:reference:refFieldName=RemoteAddressGroupRef
+	// +crossplane:generate:reference:selectorFieldName=RemoteAddressGroupSelector
 	// +kubebuilder:validation:Optional
 	RemoteAddressGroupID *string `json:"remoteAddressGroupId,omitempty" tf:"remote_address_group_id,omitempty"`
 
+	// Reference to a IPAddressGroupV3 in vpc to populate remoteAddressGroupId.
+	// +kubebuilder:validation:Optional
+	RemoteAddressGroupRef *v1.NamespacedReference `json:"remoteAddressGroupRef,omitempty" tf:"-"`
+
+	// Selector for a IPAddressGroupV3 in vpc to populate remoteAddressGroupId.
+	// +kubebuilder:validation:Optional
+	RemoteAddressGroupSelector *v1.NamespacedSelector `json:"remoteAddressGroupSelector,omitempty" tf:"-"`
+
 	// Specifies the ID of the remote security group, which allows or denies traffic to and from the security group. The value has to be the ID of an existing security group. The parameter is mutually exclusive with parameter remote_ip_prefix and remote_address_group_id.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.SecgroupV3
+	// +crossplane:generate:reference:refFieldName=RemoteSecurityGroupRef
+	// +crossplane:generate:reference:selectorFieldName=RemoteSecurityGroupSelector
 	// +kubebuilder:validation:Optional
 	RemoteGroupID *string `json:"remoteGroupId,omitempty" tf:"remote_group_id,omitempty"`
 
@@ -140,9 +187,28 @@ type SecgroupRuleV3Parameters struct {
 	// +kubebuilder:validation:Optional
 	RemoteIPPrefix *string `json:"remoteIpPrefix,omitempty" tf:"remote_ip_prefix,omitempty"`
 
-	// Specifies the ID of the security group to which the security group rule belongs.
+	// Reference to a SecgroupV3 in vpc to populate remoteGroupId.
+	// +kubebuilder:validation:Optional
+	RemoteSecurityGroupRef *v1.NamespacedReference `json:"remoteSecurityGroupRef,omitempty" tf:"-"`
+
+	// Selector for a SecgroupV3 in vpc to populate remoteGroupId.
+	// +kubebuilder:validation:Optional
+	RemoteSecurityGroupSelector *v1.NamespacedSelector `json:"remoteSecurityGroupSelector,omitempty" tf:"-"`
+
+	// Configuration block defining a security_group for the rule. Only opentelekomcloud_vpc_secgroup_v3 (secgroupv3s.vpc.opentelekomcloud.m.crossplane.io) is supported for cross resource reference configuration.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.SecgroupV3
+	// +crossplane:generate:reference:refFieldName=SecurityGroupRef
+	// +crossplane:generate:reference:selectorFieldName=SecurityGroupSelector
 	// +kubebuilder:validation:Optional
 	SecurityGroupID *string `json:"securityGroupId,omitempty" tf:"security_group_id,omitempty"`
+
+	// Reference to a SecgroupV3 in vpc to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	SecurityGroupRef *v1.NamespacedReference `json:"securityGroupRef,omitempty" tf:"-"`
+
+	// Selector for a SecgroupV3 in vpc to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	SecurityGroupSelector *v1.NamespacedSelector `json:"securityGroupSelector,omitempty" tf:"-"`
 }
 
 // SecgroupRuleV3Spec defines the desired state of SecgroupRuleV3
@@ -182,7 +248,6 @@ type SecgroupRuleV3 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.direction) || (has(self.initProvider) && has(self.initProvider.direction))",message="spec.forProvider.direction is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.securityGroupId) || (has(self.initProvider) && has(self.initProvider.securityGroupId))",message="spec.forProvider.securityGroupId is a required parameter"
 	Spec   SecgroupRuleV3Spec   `json:"spec"`
 	Status SecgroupRuleV3Status `json:"status,omitempty"`
 }

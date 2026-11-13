@@ -660,6 +660,118 @@ func (mg *RouteV2) ResolveReferences(ctx context.Context, c client.Reader) error
 	return nil
 }
 
+// ResolveReferences of this SecgroupRuleV3.
+func (mg *SecgroupRuleV3) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var rsp reference.NamespacedResolutionResponse
+	var err error
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.RemoteAddressGroupID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.RemoteAddressGroupRef,
+		Selector:     mg.Spec.ForProvider.RemoteAddressGroupSelector,
+		To: reference.To{
+			List:    &IPAddressGroupV3List{},
+			Managed: &IPAddressGroupV3{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.RemoteAddressGroupID")
+	}
+	mg.Spec.ForProvider.RemoteAddressGroupID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.RemoteAddressGroupRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.RemoteGroupID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.RemoteSecurityGroupRef,
+		Selector:     mg.Spec.ForProvider.RemoteSecurityGroupSelector,
+		To: reference.To{
+			List:    &SecgroupV3List{},
+			Managed: &SecgroupV3{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.RemoteGroupID")
+	}
+	mg.Spec.ForProvider.RemoteGroupID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.RemoteSecurityGroupRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.SecurityGroupID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.SecurityGroupRef,
+		Selector:     mg.Spec.ForProvider.SecurityGroupSelector,
+		To: reference.To{
+			List:    &SecgroupV3List{},
+			Managed: &SecgroupV3{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.SecurityGroupID")
+	}
+	mg.Spec.ForProvider.SecurityGroupID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.SecurityGroupRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.RemoteAddressGroupID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.RemoteAddressGroupRef,
+		Selector:     mg.Spec.InitProvider.RemoteAddressGroupSelector,
+		To: reference.To{
+			List:    &IPAddressGroupV3List{},
+			Managed: &IPAddressGroupV3{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.RemoteAddressGroupID")
+	}
+	mg.Spec.InitProvider.RemoteAddressGroupID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.RemoteAddressGroupRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.RemoteGroupID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.RemoteSecurityGroupRef,
+		Selector:     mg.Spec.InitProvider.RemoteSecurityGroupSelector,
+		To: reference.To{
+			List:    &SecgroupV3List{},
+			Managed: &SecgroupV3{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.RemoteGroupID")
+	}
+	mg.Spec.InitProvider.RemoteGroupID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.RemoteSecurityGroupRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.SecurityGroupID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.SecurityGroupRef,
+		Selector:     mg.Spec.InitProvider.SecurityGroupSelector,
+		To: reference.To{
+			List:    &SecgroupV3List{},
+			Managed: &SecgroupV3{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.SecurityGroupID")
+	}
+	mg.Spec.InitProvider.SecurityGroupID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.SecurityGroupRef = rsp.ResolvedReference
+
+	return nil
+}
+
 // ResolveReferences of this SecondaryCidrV3.
 func (mg *SecondaryCidrV3) ResolveReferences(ctx context.Context, c client.Reader) error {
 	r := reference.NewAPINamespacedResolver(c, mg)
