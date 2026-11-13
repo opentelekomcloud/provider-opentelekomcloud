@@ -14,6 +14,7 @@ const (
 	tfVpcBandwidthV2                 = "opentelekomcloud_vpc_bandwidth_v2"
 	tfVpcEipV1                       = "opentelekomcloud_vpc_eip_v1"
 	tfVpcFlowLogV1                   = "opentelekomcloud_vpc_flow_log_v1"
+	tfVpcIpAddressGroupV3            = "opentelekomcloud_vpc_ip_address_group_v3"
 	tfVpcPeeringConnectionAccepterV2 = "opentelekomcloud_vpc_peering_connection_accepter_v2"
 	tfVpcPeeringConnectionV2         = "opentelekomcloud_vpc_peering_connection_v2"
 	tfVpcRouteTableRouteV1           = "opentelekomcloud_vpc_route_table_route_v1"
@@ -21,6 +22,7 @@ const (
 	tfVpcRouteTableV1                = "opentelekomcloud_vpc_route_table_v1"
 	tfVpcRouteV2                     = "opentelekomcloud_vpc_route_v2"
 	tfVpcSecondaryCidrV3             = "opentelekomcloud_vpc_secondary_cidr_v3"
+	tfVpcSecgroupRuleV3              = "opentelekomcloud_vpc_secgroup_rule_v3"
 	tfVpcSecgroupV3                  = "opentelekomcloud_vpc_secgroup_v3"
 	tfVpcSubnetPrivateIPV1           = "opentelekomcloud_vpc_subnet_private_ip_v1"
 	tfVpcSubnetV1                    = "opentelekomcloud_vpc_subnet_v1"
@@ -36,6 +38,10 @@ const (
 	refFieldNamePeerVPC                   = "PeerVPCRef"
 	selectorFieldNamePort                 = "PortSelector"
 	refFieldNamePort                      = "PortRef"
+	selectorFieldNameRemoteAddressGroup   = "RemoteAddressGroupSelector"
+	refFieldNameRemoteAddressGroup        = "RemoteAddressGroupRef"
+	selectorFieldNameRemoteSecurityGroup  = "RemoteSecurityGroupSelector"
+	refFieldNameRemoteSecurityGroup       = "RemoteSecurityGroupRef"
 	selectorFieldNameResource             = "ResourceSelector"
 	refFieldNameResource                  = "ResourceRef"
 	selectorFieldNameRouteTable           = "RouteTableSelector"
@@ -186,13 +192,23 @@ func Configure(p *config.Provider) {
 			RefFieldName:      refFieldNameVPC,
 		}
 	})
-	p.AddResourceConfigurator(tfVpcSecgroupV3, func(r *config.Resource) {
+	p.AddResourceConfigurator(tfVpcSecgroupRuleV3, func(r *config.Resource) {
 		r.UseAsync = true
 		r.MetaResource.ArgumentDocs["security_group_id"] = `Configuration block defining a security_group for the rule. Only opentelekomcloud_vpc_secgroup_v3 (secgroupv3s.vpc.opentelekomcloud.m.crossplane.io) is supported for cross resource reference configuration.`
 		r.References["security_group_id"] = config.Reference{
 			TerraformName:     tfVpcSecgroupV3,
 			SelectorFieldName: selectorFieldNameSecurityGroup,
 			RefFieldName:      refFieldNameSecurityGroup,
+		}
+		r.References["remote_group_id"] = config.Reference{
+			TerraformName:     tfVpcSecgroupV3,
+			SelectorFieldName: selectorFieldNameRemoteSecurityGroup,
+			RefFieldName:      refFieldNameRemoteSecurityGroup,
+		}
+		r.References["remote_address_group_id"] = config.Reference{
+			TerraformName:     tfVpcIpAddressGroupV3,
+			SelectorFieldName: selectorFieldNameRemoteAddressGroup,
+			RefFieldName:      refFieldNameRemoteAddressGroup,
 		}
 	})
 }
