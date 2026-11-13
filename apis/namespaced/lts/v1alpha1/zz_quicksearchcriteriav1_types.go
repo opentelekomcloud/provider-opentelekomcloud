@@ -20,10 +20,32 @@ type QuickSearchCriteriaV1InitParameters struct {
 	Criteria *string `json:"criteria,omitempty" tf:"criteria,omitempty"`
 
 	// Specifies the ID of a log group.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lts/v1alpha1.GroupV2
+	// +crossplane:generate:reference:refFieldName=LogGroupRef
+	// +crossplane:generate:reference:selectorFieldName=LogGroupSelector
 	LogGroupID *string `json:"logGroupId,omitempty" tf:"log_group_id,omitempty"`
 
+	// Reference to a GroupV2 in lts to populate logGroupId.
+	// +kubebuilder:validation:Optional
+	LogGroupRef *v1.NamespacedReference `json:"logGroupRef,omitempty" tf:"-"`
+
+	// Selector for a GroupV2 in lts to populate logGroupId.
+	// +kubebuilder:validation:Optional
+	LogGroupSelector *v1.NamespacedSelector `json:"logGroupSelector,omitempty" tf:"-"`
+
 	// Specifies the ID of a log stream.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lts/v1alpha1.StreamV2
+	// +crossplane:generate:reference:refFieldName=LogStreamRef
+	// +crossplane:generate:reference:selectorFieldName=LogStreamSelector
 	LogStreamID *string `json:"logStreamId,omitempty" tf:"log_stream_id,omitempty"`
+
+	// Reference to a StreamV2 in lts to populate logStreamId.
+	// +kubebuilder:validation:Optional
+	LogStreamRef *v1.NamespacedReference `json:"logStreamRef,omitempty" tf:"-"`
+
+	// Selector for a StreamV2 in lts to populate logStreamId.
+	// +kubebuilder:validation:Optional
+	LogStreamSelector *v1.NamespacedSelector `json:"logStreamSelector,omitempty" tf:"-"`
 
 	// Specifies the name of the search criteria. The name can only contain English
 	// letters, numbers, hyphens, underscores, and periods. It cannot start with a period or underscore
@@ -69,12 +91,34 @@ type QuickSearchCriteriaV1Parameters struct {
 	Criteria *string `json:"criteria,omitempty" tf:"criteria,omitempty"`
 
 	// Specifies the ID of a log group.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lts/v1alpha1.GroupV2
+	// +crossplane:generate:reference:refFieldName=LogGroupRef
+	// +crossplane:generate:reference:selectorFieldName=LogGroupSelector
 	// +kubebuilder:validation:Optional
 	LogGroupID *string `json:"logGroupId,omitempty" tf:"log_group_id,omitempty"`
 
+	// Reference to a GroupV2 in lts to populate logGroupId.
+	// +kubebuilder:validation:Optional
+	LogGroupRef *v1.NamespacedReference `json:"logGroupRef,omitempty" tf:"-"`
+
+	// Selector for a GroupV2 in lts to populate logGroupId.
+	// +kubebuilder:validation:Optional
+	LogGroupSelector *v1.NamespacedSelector `json:"logGroupSelector,omitempty" tf:"-"`
+
 	// Specifies the ID of a log stream.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lts/v1alpha1.StreamV2
+	// +crossplane:generate:reference:refFieldName=LogStreamRef
+	// +crossplane:generate:reference:selectorFieldName=LogStreamSelector
 	// +kubebuilder:validation:Optional
 	LogStreamID *string `json:"logStreamId,omitempty" tf:"log_stream_id,omitempty"`
+
+	// Reference to a StreamV2 in lts to populate logStreamId.
+	// +kubebuilder:validation:Optional
+	LogStreamRef *v1.NamespacedReference `json:"logStreamRef,omitempty" tf:"-"`
+
+	// Selector for a StreamV2 in lts to populate logStreamId.
+	// +kubebuilder:validation:Optional
+	LogStreamSelector *v1.NamespacedSelector `json:"logStreamSelector,omitempty" tf:"-"`
 
 	// Specifies the name of the search criteria. The name can only contain English
 	// letters, numbers, hyphens, underscores, and periods. It cannot start with a period or underscore
@@ -125,8 +169,6 @@ type QuickSearchCriteriaV1 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.criteria) || (has(self.initProvider) && has(self.initProvider.criteria))",message="spec.forProvider.criteria is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.logGroupId) || (has(self.initProvider) && has(self.initProvider.logGroupId))",message="spec.forProvider.logGroupId is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.logStreamId) || (has(self.initProvider) && has(self.initProvider.logStreamId))",message="spec.forProvider.logStreamId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.type) || (has(self.initProvider) && has(self.initProvider.type))",message="spec.forProvider.type is a required parameter"
 	Spec   QuickSearchCriteriaV1Spec   `json:"spec"`

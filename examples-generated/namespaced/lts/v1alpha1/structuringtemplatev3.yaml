@@ -1,0 +1,19 @@
+apiVersion: lts.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: StructuringTemplateV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lts/v1alpha1/structuringtemplatev3
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+  namespace: upbound-system
+spec:
+  forProvider:
+    logGroupSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    logStreamSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    templateName: CTS
+    templateType: built_in

@@ -15,8 +15,12 @@ spec:
     keywordsRequests:
     - condition: '>'
       keyword: key_words
-      logGroupId: ${var.log_group_id}
-      logStreamId: ${var.log_stream_id}
+      logGroupSelector:
+        matchLabels:
+          testing.upbound.io/example-name: example
+      logStreamSelector:
+        matchLabels:
+          testing.upbound.io/example-name: example
       number: 100
       searchTimeRange: 5
       searchTimeRangeUnit: minute
@@ -27,6 +31,8 @@ spec:
       timezone: xx/xx
       topics:
       - name: ${var.topic_name}
-        topicUrn: ${var.topic_urn}
+        topicUrnSelector:
+          matchLabels:
+            testing.upbound.io/example-name: example
       userName: test
     severity: CRITICAL

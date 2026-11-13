@@ -18,7 +18,18 @@ type StreamV2InitParameters struct {
 
 	// Specifies the ID of a created log group. Changing this parameter will create
 	// a new resource.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lts/v1alpha1.GroupV2
+	// +crossplane:generate:reference:refFieldName=LogGroupRef
+	// +crossplane:generate:reference:selectorFieldName=LogGroupSelector
 	GroupID *string `json:"groupId,omitempty" tf:"group_id,omitempty"`
+
+	// Reference to a GroupV2 in lts to populate groupId.
+	// +kubebuilder:validation:Optional
+	LogGroupRef *v1.NamespacedReference `json:"logGroupRef,omitempty" tf:"-"`
+
+	// Selector for a GroupV2 in lts to populate groupId.
+	// +kubebuilder:validation:Optional
+	LogGroupSelector *v1.NamespacedSelector `json:"logGroupSelector,omitempty" tf:"-"`
 
 	StreamAlias *string `json:"streamAlias,omitempty" tf:"stream_alias,omitempty"`
 
@@ -75,8 +86,19 @@ type StreamV2Parameters struct {
 
 	// Specifies the ID of a created log group. Changing this parameter will create
 	// a new resource.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lts/v1alpha1.GroupV2
+	// +crossplane:generate:reference:refFieldName=LogGroupRef
+	// +crossplane:generate:reference:selectorFieldName=LogGroupSelector
 	// +kubebuilder:validation:Optional
 	GroupID *string `json:"groupId,omitempty" tf:"group_id,omitempty"`
+
+	// Reference to a GroupV2 in lts to populate groupId.
+	// +kubebuilder:validation:Optional
+	LogGroupRef *v1.NamespacedReference `json:"logGroupRef,omitempty" tf:"-"`
+
+	// Selector for a GroupV2 in lts to populate groupId.
+	// +kubebuilder:validation:Optional
+	LogGroupSelector *v1.NamespacedSelector `json:"logGroupSelector,omitempty" tf:"-"`
 
 	// +kubebuilder:validation:Optional
 	StreamAlias *string `json:"streamAlias,omitempty" tf:"stream_alias,omitempty"`
@@ -133,7 +155,6 @@ type StreamV2Status struct {
 type StreamV2 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.groupId) || (has(self.initProvider) && has(self.initProvider.groupId))",message="spec.forProvider.groupId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.streamName) || (has(self.initProvider) && has(self.initProvider.streamName))",message="spec.forProvider.streamName is a required parameter"
 	Spec   StreamV2Spec   `json:"spec"`
 	Status StreamV2Status `json:"status,omitempty"`

@@ -1,0 +1,83 @@
+apiVersion: lts.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: GroupV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lts/v1alpha1/transferv2
+  labels:
+    testing.upbound.io/example-name: lts-group
+  name: lts-group-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    groupName: lts-group-${Rand.RFC1123Subdomain}
+    ttlInDays: 7
+
+---
+
+apiVersion: lts.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: StreamV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lts/v1alpha1/transferv2
+  labels:
+    testing.upbound.io/example-name: lts-stream
+  name: lts-stream-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    logGroupSelector:
+      matchLabels:
+        testing.upbound.io/example-name: lts-group
+    streamName: lts-stream-${Rand.RFC1123Subdomain}
+
+---
+
+apiVersion: obs.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: Bucket
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lts/v1alpha1/transferv2
+  labels:
+    testing.upbound.io/example-name: lts-bucket
+  name: lts-bkt-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    bucket: lts-bkt-${Rand.RFC1123Subdomain}
+    storageClass: STANDARD
+
+---
+
+apiVersion: lts.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: TransferV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lts/v1alpha1/transferv2
+  labels:
+    testing.upbound.io/example-name: lts-transfer
+  name: lts-transfer-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    logGroupSelector:
+      matchLabels:
+        testing.upbound.io/example-name: lts-group
+    logStreams:
+      - logStreamSelector:
+          matchLabels:
+            testing.upbound.io/example-name: lts-stream
+    logTransferInfo:
+      - logStorageFormat: RAW
+        logTransferDetail:
+          - obsBucketSelector:
+              matchLabels:
+                testing.upbound.io/example-name: lts-bucket
+            obsDirPrefixName: lts_transfer_obs_
+            obsPeriod: 3
+            obsPeriodUnit: hour
+            obsPrefixName: obs_
+            obsTimeZone: UTC
+            obsTimeZoneId: Etc/GMT
+        logTransferMode: cycle
+        logTransferStatus: ENABLE
+        logTransferType: OBS

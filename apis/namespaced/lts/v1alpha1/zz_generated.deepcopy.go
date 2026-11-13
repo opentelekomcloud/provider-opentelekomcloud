@@ -9,6 +9,7 @@
 package v1alpha1
 
 import (
+	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 )
 
@@ -895,10 +896,32 @@ func (in *CceAccessV3InitParameters) DeepCopyInto(out *CceAccessV3InitParameters
 			}
 		}
 	}
+	if in.HostGroupRef != nil {
+		in, out := &in.HostGroupRef, &out.HostGroupRef
+		*out = make([]v1.NamespacedReference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.HostGroupSelector != nil {
+		in, out := &in.HostGroupSelector, &out.HostGroupSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.LogGroupID != nil {
 		in, out := &in.LogGroupID, &out.LogGroupID
 		*out = new(string)
 		**out = **in
+	}
+	if in.LogGroupRef != nil {
+		in, out := &in.LogGroupRef, &out.LogGroupRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.LogGroupSelector != nil {
+		in, out := &in.LogGroupSelector, &out.LogGroupSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.LogSplit != nil {
 		in, out := &in.LogSplit, &out.LogSplit
@@ -909,6 +932,16 @@ func (in *CceAccessV3InitParameters) DeepCopyInto(out *CceAccessV3InitParameters
 		in, out := &in.LogStreamID, &out.LogStreamID
 		*out = new(string)
 		**out = **in
+	}
+	if in.LogStreamRef != nil {
+		in, out := &in.LogStreamRef, &out.LogStreamRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.LogStreamSelector != nil {
+		in, out := &in.LogStreamSelector, &out.LogStreamSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
@@ -1115,10 +1148,32 @@ func (in *CceAccessV3Parameters) DeepCopyInto(out *CceAccessV3Parameters) {
 			}
 		}
 	}
+	if in.HostGroupRef != nil {
+		in, out := &in.HostGroupRef, &out.HostGroupRef
+		*out = make([]v1.NamespacedReference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.HostGroupSelector != nil {
+		in, out := &in.HostGroupSelector, &out.HostGroupSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.LogGroupID != nil {
 		in, out := &in.LogGroupID, &out.LogGroupID
 		*out = new(string)
 		**out = **in
+	}
+	if in.LogGroupRef != nil {
+		in, out := &in.LogGroupRef, &out.LogGroupRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.LogGroupSelector != nil {
+		in, out := &in.LogGroupSelector, &out.LogGroupSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.LogSplit != nil {
 		in, out := &in.LogSplit, &out.LogSplit
@@ -1129,6 +1184,16 @@ func (in *CceAccessV3Parameters) DeepCopyInto(out *CceAccessV3Parameters) {
 		in, out := &in.LogStreamID, &out.LogStreamID
 		*out = new(string)
 		**out = **in
+	}
+	if in.LogStreamRef != nil {
+		in, out := &in.LogStreamRef, &out.LogStreamRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.LogStreamSelector != nil {
+		in, out := &in.LogStreamSelector, &out.LogStreamSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
@@ -1273,6 +1338,16 @@ func (in *CrossAccountAccessV2InitParameters) DeepCopyInto(out *CrossAccountAcce
 		*out = new(string)
 		**out = **in
 	}
+	if in.LogGroupRef != nil {
+		in, out := &in.LogGroupRef, &out.LogGroupRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.LogGroupSelector != nil {
+		in, out := &in.LogGroupSelector, &out.LogGroupSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.LogStreamID != nil {
 		in, out := &in.LogStreamID, &out.LogStreamID
 		*out = new(string)
@@ -1282,6 +1357,16 @@ func (in *CrossAccountAccessV2InitParameters) DeepCopyInto(out *CrossAccountAcce
 		in, out := &in.LogStreamName, &out.LogStreamName
 		*out = new(string)
 		**out = **in
+	}
+	if in.LogStreamRef != nil {
+		in, out := &in.LogStreamRef, &out.LogStreamRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.LogStreamSelector != nil {
+		in, out := &in.LogStreamSelector, &out.LogStreamSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
@@ -1507,6 +1592,16 @@ func (in *CrossAccountAccessV2Parameters) DeepCopyInto(out *CrossAccountAccessV2
 		*out = new(string)
 		**out = **in
 	}
+	if in.LogGroupRef != nil {
+		in, out := &in.LogGroupRef, &out.LogGroupRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.LogGroupSelector != nil {
+		in, out := &in.LogGroupSelector, &out.LogGroupSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.LogStreamID != nil {
 		in, out := &in.LogStreamID, &out.LogStreamID
 		*out = new(string)
@@ -1516,6 +1611,16 @@ func (in *CrossAccountAccessV2Parameters) DeepCopyInto(out *CrossAccountAccessV2
 		in, out := &in.LogStreamName, &out.LogStreamName
 		*out = new(string)
 		**out = **in
+	}
+	if in.LogStreamRef != nil {
+		in, out := &in.LogStreamRef, &out.LogStreamRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.LogStreamSelector != nil {
+		in, out := &in.LogStreamSelector, &out.LogStreamSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
@@ -1581,6 +1686,81 @@ func (in *CrossAccountAccessV2Status) DeepCopy() *CrossAccountAccessV2Status {
 		return nil
 	}
 	out := new(CrossAccountAccessV2Status)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *DemoFieldsInitParameters) DeepCopyInto(out *DemoFieldsInitParameters) {
+	*out = *in
+	if in.FieldName != nil {
+		in, out := &in.FieldName, &out.FieldName
+		*out = new(string)
+		**out = **in
+	}
+	if in.IsAnalysis != nil {
+		in, out := &in.IsAnalysis, &out.IsAnalysis
+		*out = new(bool)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new DemoFieldsInitParameters.
+func (in *DemoFieldsInitParameters) DeepCopy() *DemoFieldsInitParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(DemoFieldsInitParameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *DemoFieldsObservation) DeepCopyInto(out *DemoFieldsObservation) {
+	*out = *in
+	if in.FieldName != nil {
+		in, out := &in.FieldName, &out.FieldName
+		*out = new(string)
+		**out = **in
+	}
+	if in.IsAnalysis != nil {
+		in, out := &in.IsAnalysis, &out.IsAnalysis
+		*out = new(bool)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new DemoFieldsObservation.
+func (in *DemoFieldsObservation) DeepCopy() *DemoFieldsObservation {
+	if in == nil {
+		return nil
+	}
+	out := new(DemoFieldsObservation)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *DemoFieldsParameters) DeepCopyInto(out *DemoFieldsParameters) {
+	*out = *in
+	if in.FieldName != nil {
+		in, out := &in.FieldName, &out.FieldName
+		*out = new(string)
+		**out = **in
+	}
+	if in.IsAnalysis != nil {
+		in, out := &in.IsAnalysis, &out.IsAnalysis
+		*out = new(bool)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new DemoFieldsParameters.
+func (in *DemoFieldsParameters) DeepCopy() *DemoFieldsParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(DemoFieldsParameters)
 	in.DeepCopyInto(out)
 	return out
 }
@@ -2199,10 +2379,32 @@ func (in *HostAccessV3InitParameters) DeepCopyInto(out *HostAccessV3InitParamete
 			}
 		}
 	}
+	if in.HostGroupRef != nil {
+		in, out := &in.HostGroupRef, &out.HostGroupRef
+		*out = make([]v1.NamespacedReference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.HostGroupSelector != nil {
+		in, out := &in.HostGroupSelector, &out.HostGroupSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.LogGroupID != nil {
 		in, out := &in.LogGroupID, &out.LogGroupID
 		*out = new(string)
 		**out = **in
+	}
+	if in.LogGroupRef != nil {
+		in, out := &in.LogGroupRef, &out.LogGroupRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.LogGroupSelector != nil {
+		in, out := &in.LogGroupSelector, &out.LogGroupSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.LogSplit != nil {
 		in, out := &in.LogSplit, &out.LogSplit
@@ -2213,6 +2415,16 @@ func (in *HostAccessV3InitParameters) DeepCopyInto(out *HostAccessV3InitParamete
 		in, out := &in.LogStreamID, &out.LogStreamID
 		*out = new(string)
 		**out = **in
+	}
+	if in.LogStreamRef != nil {
+		in, out := &in.LogStreamRef, &out.LogStreamRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.LogStreamSelector != nil {
+		in, out := &in.LogStreamSelector, &out.LogStreamSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
@@ -2409,10 +2621,32 @@ func (in *HostAccessV3Parameters) DeepCopyInto(out *HostAccessV3Parameters) {
 			}
 		}
 	}
+	if in.HostGroupRef != nil {
+		in, out := &in.HostGroupRef, &out.HostGroupRef
+		*out = make([]v1.NamespacedReference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.HostGroupSelector != nil {
+		in, out := &in.HostGroupSelector, &out.HostGroupSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.LogGroupID != nil {
 		in, out := &in.LogGroupID, &out.LogGroupID
 		*out = new(string)
 		**out = **in
+	}
+	if in.LogGroupRef != nil {
+		in, out := &in.LogGroupRef, &out.LogGroupRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.LogGroupSelector != nil {
+		in, out := &in.LogGroupSelector, &out.LogGroupSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.LogSplit != nil {
 		in, out := &in.LogSplit, &out.LogSplit
@@ -2423,6 +2657,16 @@ func (in *HostAccessV3Parameters) DeepCopyInto(out *HostAccessV3Parameters) {
 		in, out := &in.LogStreamID, &out.LogStreamID
 		*out = new(string)
 		**out = **in
+	}
+	if in.LogStreamRef != nil {
+		in, out := &in.LogStreamRef, &out.LogStreamRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.LogStreamSelector != nil {
+		in, out := &in.LogStreamSelector, &out.LogStreamSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
@@ -2537,6 +2781,18 @@ func (in *HostGroupV3InitParameters) DeepCopyInto(out *HostGroupV3InitParameters
 				**out = **in
 			}
 		}
+	}
+	if in.HostRef != nil {
+		in, out := &in.HostRef, &out.HostRef
+		*out = make([]v1.NamespacedReference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.HostSelector != nil {
+		in, out := &in.HostSelector, &out.HostSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Labels != nil {
 		in, out := &in.Labels, &out.Labels
@@ -2725,6 +2981,18 @@ func (in *HostGroupV3Parameters) DeepCopyInto(out *HostGroupV3Parameters) {
 				**out = **in
 			}
 		}
+	}
+	if in.HostRef != nil {
+		in, out := &in.HostRef, &out.HostRef
+		*out = make([]v1.NamespacedReference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.HostSelector != nil {
+		in, out := &in.HostSelector, &out.HostSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Labels != nil {
 		in, out := &in.Labels, &out.Labels
@@ -3210,10 +3478,30 @@ func (in *KeywordsRequestsInitParameters) DeepCopyInto(out *KeywordsRequestsInit
 		*out = new(string)
 		**out = **in
 	}
+	if in.LogGroupRef != nil {
+		in, out := &in.LogGroupRef, &out.LogGroupRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.LogGroupSelector != nil {
+		in, out := &in.LogGroupSelector, &out.LogGroupSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.LogStreamID != nil {
 		in, out := &in.LogStreamID, &out.LogStreamID
 		*out = new(string)
 		**out = **in
+	}
+	if in.LogStreamRef != nil {
+		in, out := &in.LogStreamRef, &out.LogStreamRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.LogStreamSelector != nil {
+		in, out := &in.LogStreamSelector, &out.LogStreamSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Number != nil {
 		in, out := &in.Number, &out.Number
@@ -3310,10 +3598,30 @@ func (in *KeywordsRequestsParameters) DeepCopyInto(out *KeywordsRequestsParamete
 		*out = new(string)
 		**out = **in
 	}
+	if in.LogGroupRef != nil {
+		in, out := &in.LogGroupRef, &out.LogGroupRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.LogGroupSelector != nil {
+		in, out := &in.LogGroupSelector, &out.LogGroupSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.LogStreamID != nil {
 		in, out := &in.LogStreamID, &out.LogStreamID
 		*out = new(string)
 		**out = **in
+	}
+	if in.LogStreamRef != nil {
+		in, out := &in.LogStreamRef, &out.LogStreamRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.LogStreamSelector != nil {
+		in, out := &in.LogStreamSelector, &out.LogStreamSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Number != nil {
 		in, out := &in.Number, &out.Number
@@ -3364,6 +3672,16 @@ func (in *LogAgencyTransferInitParameters) DeepCopyInto(out *LogAgencyTransferIn
 		in, out := &in.AgencyProjectID, &out.AgencyProjectID
 		*out = new(string)
 		**out = **in
+	}
+	if in.AgencyRef != nil {
+		in, out := &in.AgencyRef, &out.AgencyRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.AgencySelector != nil {
+		in, out := &in.AgencySelector, &out.AgencySelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -3435,6 +3753,16 @@ func (in *LogAgencyTransferParameters) DeepCopyInto(out *LogAgencyTransferParame
 		*out = new(string)
 		**out = **in
 	}
+	if in.AgencyRef != nil {
+		in, out := &in.AgencyRef, &out.AgencyRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.AgencySelector != nil {
+		in, out := &in.AgencySelector, &out.AgencySelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 }
 
 // DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new LogAgencyTransferParameters.
@@ -3459,6 +3787,16 @@ func (in *LogStreamsInitParameters) DeepCopyInto(out *LogStreamsInitParameters) 
 		in, out := &in.LogStreamName, &out.LogStreamName
 		*out = new(string)
 		**out = **in
+	}
+	if in.LogStreamRef != nil {
+		in, out := &in.LogStreamRef, &out.LogStreamRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.LogStreamSelector != nil {
+		in, out := &in.LogStreamSelector, &out.LogStreamSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -3510,6 +3848,16 @@ func (in *LogStreamsParameters) DeepCopyInto(out *LogStreamsParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.LogStreamRef != nil {
+		in, out := &in.LogStreamRef, &out.LogStreamRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.LogStreamSelector != nil {
+		in, out := &in.LogStreamSelector, &out.LogStreamSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 }
 
 // DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new LogStreamsParameters.
@@ -3525,10 +3873,30 @@ func (in *LogStreamsParameters) DeepCopy() *LogStreamsParameters {
 // DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
 func (in *LogTransferDetailInitParameters) DeepCopyInto(out *LogTransferDetailInitParameters) {
 	*out = *in
+	if in.KMSRef != nil {
+		in, out := &in.KMSRef, &out.KMSRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.KMSSelector != nil {
+		in, out := &in.KMSSelector, &out.KMSSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.ObsBucketName != nil {
 		in, out := &in.ObsBucketName, &out.ObsBucketName
 		*out = new(string)
 		**out = **in
+	}
+	if in.ObsBucketRef != nil {
+		in, out := &in.ObsBucketRef, &out.ObsBucketRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ObsBucketSelector != nil {
+		in, out := &in.ObsBucketSelector, &out.ObsBucketSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ObsDirPrefixName != nil {
 		in, out := &in.ObsDirPrefixName, &out.ObsDirPrefixName
@@ -3687,10 +4055,30 @@ func (in *LogTransferDetailObservation) DeepCopy() *LogTransferDetailObservation
 // DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
 func (in *LogTransferDetailParameters) DeepCopyInto(out *LogTransferDetailParameters) {
 	*out = *in
+	if in.KMSRef != nil {
+		in, out := &in.KMSRef, &out.KMSRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.KMSSelector != nil {
+		in, out := &in.KMSSelector, &out.KMSSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.ObsBucketName != nil {
 		in, out := &in.ObsBucketName, &out.ObsBucketName
 		*out = new(string)
 		**out = **in
+	}
+	if in.ObsBucketRef != nil {
+		in, out := &in.ObsBucketRef, &out.ObsBucketRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ObsBucketSelector != nil {
+		in, out := &in.ObsBucketSelector, &out.ObsBucketSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ObsDirPrefixName != nil {
 		in, out := &in.ObsDirPrefixName, &out.ObsDirPrefixName
@@ -4005,6 +4393,16 @@ func (in *NotificationRuleInitParameters) DeepCopyInto(out *NotificationRuleInit
 		*out = new(string)
 		**out = **in
 	}
+	if in.TemplateRef != nil {
+		in, out := &in.TemplateRef, &out.TemplateRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.TemplateSelector != nil {
+		in, out := &in.TemplateSelector, &out.TemplateSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Timezone != nil {
 		in, out := &in.Timezone, &out.Timezone
 		*out = new(string)
@@ -4088,6 +4486,16 @@ func (in *NotificationRuleParameters) DeepCopyInto(out *NotificationRuleParamete
 		in, out := &in.TemplateName, &out.TemplateName
 		*out = new(string)
 		**out = **in
+	}
+	if in.TemplateRef != nil {
+		in, out := &in.TemplateRef, &out.TemplateRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.TemplateSelector != nil {
+		in, out := &in.TemplateSelector, &out.TemplateSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Timezone != nil {
 		in, out := &in.Timezone, &out.Timezone
@@ -4388,10 +4796,30 @@ func (in *QuickSearchCriteriaV1InitParameters) DeepCopyInto(out *QuickSearchCrit
 		*out = new(string)
 		**out = **in
 	}
+	if in.LogGroupRef != nil {
+		in, out := &in.LogGroupRef, &out.LogGroupRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.LogGroupSelector != nil {
+		in, out := &in.LogGroupSelector, &out.LogGroupSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.LogStreamID != nil {
 		in, out := &in.LogStreamID, &out.LogStreamID
 		*out = new(string)
 		**out = **in
+	}
+	if in.LogStreamRef != nil {
+		in, out := &in.LogStreamRef, &out.LogStreamRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.LogStreamSelector != nil {
+		in, out := &in.LogStreamSelector, &out.LogStreamSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
@@ -4510,10 +4938,30 @@ func (in *QuickSearchCriteriaV1Parameters) DeepCopyInto(out *QuickSearchCriteria
 		*out = new(string)
 		**out = **in
 	}
+	if in.LogGroupRef != nil {
+		in, out := &in.LogGroupRef, &out.LogGroupRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.LogGroupSelector != nil {
+		in, out := &in.LogGroupSelector, &out.LogGroupSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.LogStreamID != nil {
 		in, out := &in.LogStreamID, &out.LogStreamID
 		*out = new(string)
 		**out = **in
+	}
+	if in.LogStreamRef != nil {
+		in, out := &in.LogStreamRef, &out.LogStreamRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.LogStreamSelector != nil {
+		in, out := &in.LogStreamSelector, &out.LogStreamSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
@@ -4682,6 +5130,16 @@ func (in *StreamV2InitParameters) DeepCopyInto(out *StreamV2InitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.LogGroupRef != nil {
+		in, out := &in.LogGroupRef, &out.LogGroupRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.LogGroupSelector != nil {
+		in, out := &in.LogGroupSelector, &out.LogGroupSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.StreamAlias != nil {
 		in, out := &in.StreamAlias, &out.StreamAlias
 		*out = new(string)
@@ -4841,6 +5299,16 @@ func (in *StreamV2Parameters) DeepCopyInto(out *StreamV2Parameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.LogGroupRef != nil {
+		in, out := &in.LogGroupRef, &out.LogGroupRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.LogGroupSelector != nil {
+		in, out := &in.LogGroupSelector, &out.LogGroupSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.StreamAlias != nil {
 		in, out := &in.StreamAlias, &out.StreamAlias
 		*out = new(string)
@@ -4915,6 +5383,407 @@ func (in *StreamV2Status) DeepCopy() *StreamV2Status {
 		return nil
 	}
 	out := new(StreamV2Status)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *StructuringTemplateV3) DeepCopyInto(out *StructuringTemplateV3) {
+	*out = *in
+	out.TypeMeta = in.TypeMeta
+	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
+	in.Spec.DeepCopyInto(&out.Spec)
+	in.Status.DeepCopyInto(&out.Status)
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new StructuringTemplateV3.
+func (in *StructuringTemplateV3) DeepCopy() *StructuringTemplateV3 {
+	if in == nil {
+		return nil
+	}
+	out := new(StructuringTemplateV3)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyObject is an autogenerated deepcopy function, copying the receiver, creating a new runtime.Object.
+func (in *StructuringTemplateV3) DeepCopyObject() runtime.Object {
+	if c := in.DeepCopy(); c != nil {
+		return c
+	}
+	return nil
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *StructuringTemplateV3InitParameters) DeepCopyInto(out *StructuringTemplateV3InitParameters) {
+	*out = *in
+	if in.DemoFields != nil {
+		in, out := &in.DemoFields, &out.DemoFields
+		*out = make([]DemoFieldsInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.LogGroupID != nil {
+		in, out := &in.LogGroupID, &out.LogGroupID
+		*out = new(string)
+		**out = **in
+	}
+	if in.LogGroupRef != nil {
+		in, out := &in.LogGroupRef, &out.LogGroupRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.LogGroupSelector != nil {
+		in, out := &in.LogGroupSelector, &out.LogGroupSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.LogStreamID != nil {
+		in, out := &in.LogStreamID, &out.LogStreamID
+		*out = new(string)
+		**out = **in
+	}
+	if in.LogStreamRef != nil {
+		in, out := &in.LogStreamRef, &out.LogStreamRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.LogStreamSelector != nil {
+		in, out := &in.LogStreamSelector, &out.LogStreamSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.QuickAnalysis != nil {
+		in, out := &in.QuickAnalysis, &out.QuickAnalysis
+		*out = new(bool)
+		**out = **in
+	}
+	if in.TagFields != nil {
+		in, out := &in.TagFields, &out.TagFields
+		*out = make([]TagFieldsInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.TemplateID != nil {
+		in, out := &in.TemplateID, &out.TemplateID
+		*out = new(string)
+		**out = **in
+	}
+	if in.TemplateName != nil {
+		in, out := &in.TemplateName, &out.TemplateName
+		*out = new(string)
+		**out = **in
+	}
+	if in.TemplateType != nil {
+		in, out := &in.TemplateType, &out.TemplateType
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new StructuringTemplateV3InitParameters.
+func (in *StructuringTemplateV3InitParameters) DeepCopy() *StructuringTemplateV3InitParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(StructuringTemplateV3InitParameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *StructuringTemplateV3List) DeepCopyInto(out *StructuringTemplateV3List) {
+	*out = *in
+	out.TypeMeta = in.TypeMeta
+	in.ListMeta.DeepCopyInto(&out.ListMeta)
+	if in.Items != nil {
+		in, out := &in.Items, &out.Items
+		*out = make([]StructuringTemplateV3, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new StructuringTemplateV3List.
+func (in *StructuringTemplateV3List) DeepCopy() *StructuringTemplateV3List {
+	if in == nil {
+		return nil
+	}
+	out := new(StructuringTemplateV3List)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyObject is an autogenerated deepcopy function, copying the receiver, creating a new runtime.Object.
+func (in *StructuringTemplateV3List) DeepCopyObject() runtime.Object {
+	if c := in.DeepCopy(); c != nil {
+		return c
+	}
+	return nil
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *StructuringTemplateV3Observation) DeepCopyInto(out *StructuringTemplateV3Observation) {
+	*out = *in
+	if in.DemoFields != nil {
+		in, out := &in.DemoFields, &out.DemoFields
+		*out = make([]DemoFieldsObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.DemoLog != nil {
+		in, out := &in.DemoLog, &out.DemoLog
+		*out = new(string)
+		**out = **in
+	}
+	if in.ID != nil {
+		in, out := &in.ID, &out.ID
+		*out = new(string)
+		**out = **in
+	}
+	if in.LogGroupID != nil {
+		in, out := &in.LogGroupID, &out.LogGroupID
+		*out = new(string)
+		**out = **in
+	}
+	if in.LogStreamID != nil {
+		in, out := &in.LogStreamID, &out.LogStreamID
+		*out = new(string)
+		**out = **in
+	}
+	if in.QuickAnalysis != nil {
+		in, out := &in.QuickAnalysis, &out.QuickAnalysis
+		*out = new(bool)
+		**out = **in
+	}
+	if in.Region != nil {
+		in, out := &in.Region, &out.Region
+		*out = new(string)
+		**out = **in
+	}
+	if in.TagFields != nil {
+		in, out := &in.TagFields, &out.TagFields
+		*out = make([]TagFieldsObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.TemplateID != nil {
+		in, out := &in.TemplateID, &out.TemplateID
+		*out = new(string)
+		**out = **in
+	}
+	if in.TemplateName != nil {
+		in, out := &in.TemplateName, &out.TemplateName
+		*out = new(string)
+		**out = **in
+	}
+	if in.TemplateType != nil {
+		in, out := &in.TemplateType, &out.TemplateType
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new StructuringTemplateV3Observation.
+func (in *StructuringTemplateV3Observation) DeepCopy() *StructuringTemplateV3Observation {
+	if in == nil {
+		return nil
+	}
+	out := new(StructuringTemplateV3Observation)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *StructuringTemplateV3Parameters) DeepCopyInto(out *StructuringTemplateV3Parameters) {
+	*out = *in
+	if in.DemoFields != nil {
+		in, out := &in.DemoFields, &out.DemoFields
+		*out = make([]DemoFieldsParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.LogGroupID != nil {
+		in, out := &in.LogGroupID, &out.LogGroupID
+		*out = new(string)
+		**out = **in
+	}
+	if in.LogGroupRef != nil {
+		in, out := &in.LogGroupRef, &out.LogGroupRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.LogGroupSelector != nil {
+		in, out := &in.LogGroupSelector, &out.LogGroupSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.LogStreamID != nil {
+		in, out := &in.LogStreamID, &out.LogStreamID
+		*out = new(string)
+		**out = **in
+	}
+	if in.LogStreamRef != nil {
+		in, out := &in.LogStreamRef, &out.LogStreamRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.LogStreamSelector != nil {
+		in, out := &in.LogStreamSelector, &out.LogStreamSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.QuickAnalysis != nil {
+		in, out := &in.QuickAnalysis, &out.QuickAnalysis
+		*out = new(bool)
+		**out = **in
+	}
+	if in.TagFields != nil {
+		in, out := &in.TagFields, &out.TagFields
+		*out = make([]TagFieldsParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.TemplateID != nil {
+		in, out := &in.TemplateID, &out.TemplateID
+		*out = new(string)
+		**out = **in
+	}
+	if in.TemplateName != nil {
+		in, out := &in.TemplateName, &out.TemplateName
+		*out = new(string)
+		**out = **in
+	}
+	if in.TemplateType != nil {
+		in, out := &in.TemplateType, &out.TemplateType
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new StructuringTemplateV3Parameters.
+func (in *StructuringTemplateV3Parameters) DeepCopy() *StructuringTemplateV3Parameters {
+	if in == nil {
+		return nil
+	}
+	out := new(StructuringTemplateV3Parameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *StructuringTemplateV3Spec) DeepCopyInto(out *StructuringTemplateV3Spec) {
+	*out = *in
+	in.ManagedResourceSpec.DeepCopyInto(&out.ManagedResourceSpec)
+	in.ForProvider.DeepCopyInto(&out.ForProvider)
+	in.InitProvider.DeepCopyInto(&out.InitProvider)
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new StructuringTemplateV3Spec.
+func (in *StructuringTemplateV3Spec) DeepCopy() *StructuringTemplateV3Spec {
+	if in == nil {
+		return nil
+	}
+	out := new(StructuringTemplateV3Spec)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *StructuringTemplateV3Status) DeepCopyInto(out *StructuringTemplateV3Status) {
+	*out = *in
+	in.ResourceStatus.DeepCopyInto(&out.ResourceStatus)
+	in.AtProvider.DeepCopyInto(&out.AtProvider)
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new StructuringTemplateV3Status.
+func (in *StructuringTemplateV3Status) DeepCopy() *StructuringTemplateV3Status {
+	if in == nil {
+		return nil
+	}
+	out := new(StructuringTemplateV3Status)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *TagFieldsInitParameters) DeepCopyInto(out *TagFieldsInitParameters) {
+	*out = *in
+	if in.FieldName != nil {
+		in, out := &in.FieldName, &out.FieldName
+		*out = new(string)
+		**out = **in
+	}
+	if in.IsAnalysis != nil {
+		in, out := &in.IsAnalysis, &out.IsAnalysis
+		*out = new(bool)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new TagFieldsInitParameters.
+func (in *TagFieldsInitParameters) DeepCopy() *TagFieldsInitParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(TagFieldsInitParameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *TagFieldsObservation) DeepCopyInto(out *TagFieldsObservation) {
+	*out = *in
+	if in.FieldName != nil {
+		in, out := &in.FieldName, &out.FieldName
+		*out = new(string)
+		**out = **in
+	}
+	if in.IsAnalysis != nil {
+		in, out := &in.IsAnalysis, &out.IsAnalysis
+		*out = new(bool)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new TagFieldsObservation.
+func (in *TagFieldsObservation) DeepCopy() *TagFieldsObservation {
+	if in == nil {
+		return nil
+	}
+	out := new(TagFieldsObservation)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *TagFieldsParameters) DeepCopyInto(out *TagFieldsParameters) {
+	*out = *in
+	if in.FieldName != nil {
+		in, out := &in.FieldName, &out.FieldName
+		*out = new(string)
+		**out = **in
+	}
+	if in.IsAnalysis != nil {
+		in, out := &in.IsAnalysis, &out.IsAnalysis
+		*out = new(bool)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new TagFieldsParameters.
+func (in *TagFieldsParameters) DeepCopy() *TagFieldsParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(TagFieldsParameters)
 	in.DeepCopyInto(out)
 	return out
 }
@@ -5017,6 +5886,16 @@ func (in *TopicsInitParameters) DeepCopyInto(out *TopicsInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.TopicUrnRef != nil {
+		in, out := &in.TopicUrnRef, &out.TopicUrnRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.TopicUrnSelector != nil {
+		in, out := &in.TopicUrnSelector, &out.TopicUrnSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 }
 
 // DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new TopicsInitParameters.
@@ -5087,6 +5966,16 @@ func (in *TopicsParameters) DeepCopyInto(out *TopicsParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.TopicUrnRef != nil {
+		in, out := &in.TopicUrnRef, &out.TopicUrnRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.TopicUrnSelector != nil {
+		in, out := &in.TopicUrnSelector, &out.TopicUrnSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 }
 
 // DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new TopicsParameters.
@@ -5133,6 +6022,16 @@ func (in *TransferV2InitParameters) DeepCopyInto(out *TransferV2InitParameters) 
 		in, out := &in.LogGroupID, &out.LogGroupID
 		*out = new(string)
 		**out = **in
+	}
+	if in.LogGroupRef != nil {
+		in, out := &in.LogGroupRef, &out.LogGroupRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.LogGroupSelector != nil {
+		in, out := &in.LogGroupSelector, &out.LogGroupSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.LogStreams != nil {
 		in, out := &in.LogStreams, &out.LogStreams
@@ -5248,6 +6147,16 @@ func (in *TransferV2Parameters) DeepCopyInto(out *TransferV2Parameters) {
 		in, out := &in.LogGroupID, &out.LogGroupID
 		*out = new(string)
 		**out = **in
+	}
+	if in.LogGroupRef != nil {
+		in, out := &in.LogGroupRef, &out.LogGroupRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.LogGroupSelector != nil {
+		in, out := &in.LogGroupSelector, &out.LogGroupSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.LogStreams != nil {
 		in, out := &in.LogStreams, &out.LogStreams

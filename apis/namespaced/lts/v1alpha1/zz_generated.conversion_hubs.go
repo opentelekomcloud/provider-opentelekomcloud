@@ -34,4 +34,7 @@ func (tr *QuickSearchCriteriaV1) Hub() {}
 func (tr *StreamV2) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *StructuringTemplateV3) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *TransferV2) Hub() {}

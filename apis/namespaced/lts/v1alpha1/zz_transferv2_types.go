@@ -23,10 +23,22 @@ type LogAgencyTransferInitParameters struct {
 	AgencyDomainName *string `json:"agencyDomainName,omitempty" tf:"agency_domain_name,omitempty"`
 
 	// The agency name created by the delegator.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/identity/v1alpha1.AgencyV3
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractAgencyName()
+	// +crossplane:generate:reference:refFieldName=AgencyRef
+	// +crossplane:generate:reference:selectorFieldName=AgencySelector
 	AgencyName *string `json:"agencyName,omitempty" tf:"agency_name,omitempty"`
 
 	// Project ID of the delegator.
 	AgencyProjectID *string `json:"agencyProjectId,omitempty" tf:"agency_project_id,omitempty"`
+
+	// Reference to a AgencyV3 in identity to populate agencyName.
+	// +kubebuilder:validation:Optional
+	AgencyRef *v1.NamespacedReference `json:"agencyRef,omitempty" tf:"-"`
+
+	// Selector for a AgencyV3 in identity to populate agencyName.
+	// +kubebuilder:validation:Optional
+	AgencySelector *v1.NamespacedSelector `json:"agencySelector,omitempty" tf:"-"`
 }
 
 type LogAgencyTransferObservation struct {
@@ -55,21 +67,44 @@ type LogAgencyTransferParameters struct {
 	AgencyDomainName *string `json:"agencyDomainName" tf:"agency_domain_name,omitempty"`
 
 	// The agency name created by the delegator.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/identity/v1alpha1.AgencyV3
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractAgencyName()
+	// +crossplane:generate:reference:refFieldName=AgencyRef
+	// +crossplane:generate:reference:selectorFieldName=AgencySelector
 	// +kubebuilder:validation:Optional
-	AgencyName *string `json:"agencyName" tf:"agency_name,omitempty"`
+	AgencyName *string `json:"agencyName,omitempty" tf:"agency_name,omitempty"`
 
 	// Project ID of the delegator.
 	// +kubebuilder:validation:Optional
 	AgencyProjectID *string `json:"agencyProjectId" tf:"agency_project_id,omitempty"`
+
+	// Reference to a AgencyV3 in identity to populate agencyName.
+	// +kubebuilder:validation:Optional
+	AgencyRef *v1.NamespacedReference `json:"agencyRef,omitempty" tf:"-"`
+
+	// Selector for a AgencyV3 in identity to populate agencyName.
+	// +kubebuilder:validation:Optional
+	AgencySelector *v1.NamespacedSelector `json:"agencySelector,omitempty" tf:"-"`
 }
 
 type LogStreamsInitParameters struct {
 
 	// Log stream ID.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lts/v1alpha1.StreamV2
+	// +crossplane:generate:reference:refFieldName=LogStreamRef
+	// +crossplane:generate:reference:selectorFieldName=LogStreamSelector
 	LogStreamID *string `json:"logStreamId,omitempty" tf:"log_stream_id,omitempty"`
 
 	// Log stream name.
 	LogStreamName *string `json:"logStreamName,omitempty" tf:"log_stream_name,omitempty"`
+
+	// Reference to a StreamV2 in lts to populate logStreamId.
+	// +kubebuilder:validation:Optional
+	LogStreamRef *v1.NamespacedReference `json:"logStreamRef,omitempty" tf:"-"`
+
+	// Selector for a StreamV2 in lts to populate logStreamId.
+	// +kubebuilder:validation:Optional
+	LogStreamSelector *v1.NamespacedSelector `json:"logStreamSelector,omitempty" tf:"-"`
 }
 
 type LogStreamsObservation struct {
@@ -84,19 +119,50 @@ type LogStreamsObservation struct {
 type LogStreamsParameters struct {
 
 	// Log stream ID.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lts/v1alpha1.StreamV2
+	// +crossplane:generate:reference:refFieldName=LogStreamRef
+	// +crossplane:generate:reference:selectorFieldName=LogStreamSelector
 	// +kubebuilder:validation:Optional
-	LogStreamID *string `json:"logStreamId" tf:"log_stream_id,omitempty"`
+	LogStreamID *string `json:"logStreamId,omitempty" tf:"log_stream_id,omitempty"`
 
 	// Log stream name.
 	// +kubebuilder:validation:Optional
 	LogStreamName *string `json:"logStreamName,omitempty" tf:"log_stream_name,omitempty"`
+
+	// Reference to a StreamV2 in lts to populate logStreamId.
+	// +kubebuilder:validation:Optional
+	LogStreamRef *v1.NamespacedReference `json:"logStreamRef,omitempty" tf:"-"`
+
+	// Selector for a StreamV2 in lts to populate logStreamId.
+	// +kubebuilder:validation:Optional
+	LogStreamSelector *v1.NamespacedSelector `json:"logStreamSelector,omitempty" tf:"-"`
 }
 
 type LogTransferDetailInitParameters struct {
 
+	// Reference to a KeyV1 in kms to populate obsEncryptedId.
+	// +kubebuilder:validation:Optional
+	KMSRef *v1.NamespacedReference `json:"kmsRef,omitempty" tf:"-"`
+
+	// Selector for a KeyV1 in kms to populate obsEncryptedId.
+	// +kubebuilder:validation:Optional
+	KMSSelector *v1.NamespacedSelector `json:"kmsSelector,omitempty" tf:"-"`
+
 	// OBS bucket name.
 	// This parameter is mandatory when you create an OBS transfer task.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/obs/v1alpha1.Bucket
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractObsBucket()
+	// +crossplane:generate:reference:refFieldName=ObsBucketRef
+	// +crossplane:generate:reference:selectorFieldName=ObsBucketSelector
 	ObsBucketName *string `json:"obsBucketName,omitempty" tf:"obs_bucket_name,omitempty"`
+
+	// Reference to a Bucket in obs to populate obsBucketName.
+	// +kubebuilder:validation:Optional
+	ObsBucketRef *v1.NamespacedReference `json:"obsBucketRef,omitempty" tf:"-"`
+
+	// Selector for a Bucket in obs to populate obsBucketName.
+	// +kubebuilder:validation:Optional
+	ObsBucketSelector *v1.NamespacedSelector `json:"obsBucketSelector,omitempty" tf:"-"`
 
 	// Custom transfer path of an OBS transfer task.
 	ObsDirPrefixName *string `json:"obsDirPrefixName,omitempty" tf:"obs_dir_prefix_name,omitempty"`
@@ -106,6 +172,9 @@ type LogTransferDetailInitParameters struct {
 
 	// KMS key ID for an OBS transfer task.
 	// This parameter is mandatory if encryption is enabled for the target OBS bucket.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/kms/v1alpha1.KeyV1
+	// +crossplane:generate:reference:refFieldName=KMSRef
+	// +crossplane:generate:reference:selectorFieldName=KMSSelector
 	ObsEncryptedID *string `json:"obsEncryptedId,omitempty" tf:"obs_encrypted_id,omitempty"`
 
 	// Enterprise project ID of an OBS transfer task.
@@ -202,10 +271,30 @@ type LogTransferDetailObservation struct {
 
 type LogTransferDetailParameters struct {
 
+	// Reference to a KeyV1 in kms to populate obsEncryptedId.
+	// +kubebuilder:validation:Optional
+	KMSRef *v1.NamespacedReference `json:"kmsRef,omitempty" tf:"-"`
+
+	// Selector for a KeyV1 in kms to populate obsEncryptedId.
+	// +kubebuilder:validation:Optional
+	KMSSelector *v1.NamespacedSelector `json:"kmsSelector,omitempty" tf:"-"`
+
 	// OBS bucket name.
 	// This parameter is mandatory when you create an OBS transfer task.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/obs/v1alpha1.Bucket
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractObsBucket()
+	// +crossplane:generate:reference:refFieldName=ObsBucketRef
+	// +crossplane:generate:reference:selectorFieldName=ObsBucketSelector
 	// +kubebuilder:validation:Optional
 	ObsBucketName *string `json:"obsBucketName,omitempty" tf:"obs_bucket_name,omitempty"`
+
+	// Reference to a Bucket in obs to populate obsBucketName.
+	// +kubebuilder:validation:Optional
+	ObsBucketRef *v1.NamespacedReference `json:"obsBucketRef,omitempty" tf:"-"`
+
+	// Selector for a Bucket in obs to populate obsBucketName.
+	// +kubebuilder:validation:Optional
+	ObsBucketSelector *v1.NamespacedSelector `json:"obsBucketSelector,omitempty" tf:"-"`
 
 	// Custom transfer path of an OBS transfer task.
 	// +kubebuilder:validation:Optional
@@ -217,6 +306,9 @@ type LogTransferDetailParameters struct {
 
 	// KMS key ID for an OBS transfer task.
 	// This parameter is mandatory if encryption is enabled for the target OBS bucket.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/kms/v1alpha1.KeyV1
+	// +crossplane:generate:reference:refFieldName=KMSRef
+	// +crossplane:generate:reference:selectorFieldName=KMSSelector
 	// +kubebuilder:validation:Optional
 	ObsEncryptedID *string `json:"obsEncryptedId,omitempty" tf:"obs_encrypted_id,omitempty"`
 
@@ -364,7 +456,18 @@ type LogTransferInfoParameters struct {
 type TransferV2InitParameters struct {
 
 	// Log group ID.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lts/v1alpha1.GroupV2
+	// +crossplane:generate:reference:refFieldName=LogGroupRef
+	// +crossplane:generate:reference:selectorFieldName=LogGroupSelector
 	LogGroupID *string `json:"logGroupId,omitempty" tf:"log_group_id,omitempty"`
+
+	// Reference to a GroupV2 in lts to populate logGroupId.
+	// +kubebuilder:validation:Optional
+	LogGroupRef *v1.NamespacedReference `json:"logGroupRef,omitempty" tf:"-"`
+
+	// Selector for a GroupV2 in lts to populate logGroupId.
+	// +kubebuilder:validation:Optional
+	LogGroupSelector *v1.NamespacedSelector `json:"logGroupSelector,omitempty" tf:"-"`
 
 	// The list of log streams.
 	LogStreams []LogStreamsInitParameters `json:"logStreams,omitempty" tf:"log_streams,omitempty"`
@@ -399,8 +502,19 @@ type TransferV2Observation struct {
 type TransferV2Parameters struct {
 
 	// Log group ID.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lts/v1alpha1.GroupV2
+	// +crossplane:generate:reference:refFieldName=LogGroupRef
+	// +crossplane:generate:reference:selectorFieldName=LogGroupSelector
 	// +kubebuilder:validation:Optional
 	LogGroupID *string `json:"logGroupId,omitempty" tf:"log_group_id,omitempty"`
+
+	// Reference to a GroupV2 in lts to populate logGroupId.
+	// +kubebuilder:validation:Optional
+	LogGroupRef *v1.NamespacedReference `json:"logGroupRef,omitempty" tf:"-"`
+
+	// Selector for a GroupV2 in lts to populate logGroupId.
+	// +kubebuilder:validation:Optional
+	LogGroupSelector *v1.NamespacedSelector `json:"logGroupSelector,omitempty" tf:"-"`
 
 	// The list of log streams.
 	// +kubebuilder:validation:Optional
@@ -448,7 +562,6 @@ type TransferV2Status struct {
 type TransferV2 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.logGroupId) || (has(self.initProvider) && has(self.initProvider.logGroupId))",message="spec.forProvider.logGroupId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.logStreams) || (has(self.initProvider) && has(self.initProvider.logStreams))",message="spec.forProvider.logStreams is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.logTransferInfo) || (has(self.initProvider) && has(self.initProvider.logTransferInfo))",message="spec.forProvider.logTransferInfo is a required parameter"
 	Spec   TransferV2Spec   `json:"spec"`

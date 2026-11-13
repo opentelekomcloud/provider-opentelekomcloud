@@ -85,6 +85,7 @@ import (
 	imageNamespaced "github.com/opentelekomcloud/provider-opentelekomcloud/config/namespaced/image"
 	kmsNamespaced "github.com/opentelekomcloud/provider-opentelekomcloud/config/namespaced/kms"
 	lbNamespaced "github.com/opentelekomcloud/provider-opentelekomcloud/config/namespaced/lb"
+	ltsNamespaced "github.com/opentelekomcloud/provider-opentelekomcloud/config/namespaced/lts"
 	natNamespaced "github.com/opentelekomcloud/provider-opentelekomcloud/config/namespaced/nat"
 	networkingNamespaced "github.com/opentelekomcloud/provider-opentelekomcloud/config/namespaced/networking"
 	obsNamespaced "github.com/opentelekomcloud/provider-opentelekomcloud/config/namespaced/obs"
@@ -213,6 +214,7 @@ func GetProviderNamespaced() *ujconfig.Provider {
 		imageNamespaced.Configure,
 		kmsNamespaced.Configure,
 		lbNamespaced.Configure,
+		ltsNamespaced.Configure,
 		natNamespaced.Configure,
 		networkingNamespaced.Configure,
 		obsNamespaced.Configure,

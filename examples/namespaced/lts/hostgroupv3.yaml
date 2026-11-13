@@ -1,0 +1,13 @@
+apiVersion: lts.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: HostGroupV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lts/v1alpha1/hostgroupv3
+  labels:
+    testing.upbound.io/example-name: lts-hostgroup
+  name: lts-hostgroup-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    name: lts-hostgroup-${Rand.RFC1123Subdomain}
+    type: linux

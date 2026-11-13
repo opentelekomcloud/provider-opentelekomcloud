@@ -1,0 +1,61 @@
+apiVersion: lts.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: GroupV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lts/v1alpha1/crossaccountaccessv2
+  labels:
+    testing.upbound.io/example-name: lts-group
+  name: lts-group-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    groupName: lts-group-${Rand.RFC1123Subdomain}
+    ttlInDays: 7
+
+---
+
+apiVersion: lts.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: StreamV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lts/v1alpha1/crossaccountaccessv2
+  labels:
+    testing.upbound.io/example-name: lts-stream
+  name: lts-stream-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    logGroupSelector:
+      matchLabels:
+        testing.upbound.io/example-name: lts-group
+    streamName: lts-stream-${Rand.RFC1123Subdomain}
+
+---
+
+apiVersion: lts.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: CrossAccountAccessV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lts/v1alpha1/crossaccountaccessv2
+  labels:
+    testing.upbound.io/example-name: lts-crossaccount
+  name: lts-crossaccount-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    agencyDomainName: REPLACE_WITH_AGENCY_DOMAIN_NAME
+    agencyName: REPLACE_WITH_AGENCY_NAME
+    agencyProjectId: REPLACE_WITH_AGENCY_PROJECT_ID
+    logAgencyGroupId: REPLACE_WITH_AGENCY_GROUP_ID
+    logAgencyGroupName: REPLACE_WITH_AGENCY_GROUP_NAME
+    logAgencyStreamId: REPLACE_WITH_AGENCY_STREAM_ID
+    logAgencyStreamName: REPLACE_WITH_AGENCY_STREAM_NAME
+    logGroupName: lts-group-${Rand.RFC1123Subdomain}
+    logGroupSelector:
+      matchLabels:
+        testing.upbound.io/example-name: lts-group
+    logStreamName: lts-stream-${Rand.RFC1123Subdomain}
+    logStreamSelector:
+      matchLabels:
+        testing.upbound.io/example-name: lts-stream
+    name: lts-crossaccount-${Rand.RFC1123Subdomain}

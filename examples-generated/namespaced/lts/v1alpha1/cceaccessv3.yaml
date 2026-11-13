@@ -15,8 +15,12 @@ spec:
       - mode: system
       stdout: true
     clusterId: ${var.cluster_id}
-    hostGroupIds:
-    - ${var.host_group_id}
-    logGroupId: ${var.log_group_id}
-    logStreamId: ${var.log_stream_id}
+    hostGroupRef:
+    - name: example
+    logGroupSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    logStreamSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     name: ${var.name}

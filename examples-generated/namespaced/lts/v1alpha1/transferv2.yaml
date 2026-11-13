@@ -9,13 +9,19 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    logGroupId: ${var.lts_group_id}
+    logGroupSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     logStreams:
-    - logStreamId: ${var.lts_stream_id}
+    - logStreamSelector:
+        matchLabels:
+          testing.upbound.io/example-name: example
     logTransferInfo:
     - logStorageFormat: RAW
       logTransferDetail:
-      - obsBucketName: ${var.obs_buket}
+      - obsBucketSelector:
+          matchLabels:
+            testing.upbound.io/example-name: example
         obsDirPrefixName: dir_prefix_
         obsPeriod: 3
         obsPeriodUnit: hour

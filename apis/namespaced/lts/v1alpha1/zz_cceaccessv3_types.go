@@ -387,20 +387,53 @@ type CceAccessV3InitParameters struct {
 	// Specifies whether collect in binary format. Default is false.
 	BinaryCollect *bool `json:"binaryCollect,omitempty" tf:"binary_collect,omitempty"`
 
-	// Specifies the CCE cluster ID. Changing this creates a new resource.
+	// Specifies the CCE cluster ID. This field does not support Crossplane selectors or references because a reference would create an import cycle between the CCE, VPC and LTS API packages. Provide the exact CCE cluster ID instead of selecting it by labels.
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
 
 	// Specifies the log access host group ID list.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lts/v1alpha1.HostGroupV3
+	// +crossplane:generate:reference:refFieldName=HostGroupRef
+	// +crossplane:generate:reference:selectorFieldName=HostGroupSelector
 	HostGroupIds []*string `json:"hostGroupIds,omitempty" tf:"host_group_ids,omitempty"`
 
+	// References to HostGroupV3 in lts to populate hostGroupIds.
+	// +kubebuilder:validation:Optional
+	HostGroupRef []v1.NamespacedReference `json:"hostGroupRef,omitempty" tf:"-"`
+
+	// Selector for a list of HostGroupV3 in lts to populate hostGroupIds.
+	// +kubebuilder:validation:Optional
+	HostGroupSelector *v1.NamespacedSelector `json:"hostGroupSelector,omitempty" tf:"-"`
+
 	// Specifies the log group ID. Changing this creates a new resource.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lts/v1alpha1.GroupV2
+	// +crossplane:generate:reference:refFieldName=LogGroupRef
+	// +crossplane:generate:reference:selectorFieldName=LogGroupSelector
 	LogGroupID *string `json:"logGroupId,omitempty" tf:"log_group_id,omitempty"`
+
+	// Reference to a GroupV2 in lts to populate logGroupId.
+	// +kubebuilder:validation:Optional
+	LogGroupRef *v1.NamespacedReference `json:"logGroupRef,omitempty" tf:"-"`
+
+	// Selector for a GroupV2 in lts to populate logGroupId.
+	// +kubebuilder:validation:Optional
+	LogGroupSelector *v1.NamespacedSelector `json:"logGroupSelector,omitempty" tf:"-"`
 
 	// Specifies whether to split log. Default is false.
 	LogSplit *bool `json:"logSplit,omitempty" tf:"log_split,omitempty"`
 
 	// Specifies the log stream ID. Changing this creates a new resource.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lts/v1alpha1.StreamV2
+	// +crossplane:generate:reference:refFieldName=LogStreamRef
+	// +crossplane:generate:reference:selectorFieldName=LogStreamSelector
 	LogStreamID *string `json:"logStreamId,omitempty" tf:"log_stream_id,omitempty"`
+
+	// Reference to a StreamV2 in lts to populate logStreamId.
+	// +kubebuilder:validation:Optional
+	LogStreamRef *v1.NamespacedReference `json:"logStreamRef,omitempty" tf:"-"`
+
+	// Selector for a StreamV2 in lts to populate logStreamId.
+	// +kubebuilder:validation:Optional
+	LogStreamSelector *v1.NamespacedSelector `json:"logStreamSelector,omitempty" tf:"-"`
 
 	// Specifies the name of the CCE access. The name consists of 1 to 64
 	// characters. Only letters, digits, underscores (_), and periods (.) are allowed, and the period cannot be the first
@@ -424,7 +457,7 @@ type CceAccessV3Observation struct {
 	// Specifies whether collect in binary format. Default is false.
 	BinaryCollect *bool `json:"binaryCollect,omitempty" tf:"binary_collect,omitempty"`
 
-	// Specifies the CCE cluster ID. Changing this creates a new resource.
+	// Specifies the CCE cluster ID. This field does not support Crossplane selectors or references because a reference would create an import cycle between the CCE, VPC and LTS API packages. Provide the exact CCE cluster ID instead of selecting it by labels.
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
 
 	// The creation time of the CCE access, in RFC3339 format.
@@ -475,25 +508,58 @@ type CceAccessV3Parameters struct {
 	// +kubebuilder:validation:Optional
 	BinaryCollect *bool `json:"binaryCollect,omitempty" tf:"binary_collect,omitempty"`
 
-	// Specifies the CCE cluster ID. Changing this creates a new resource.
+	// Specifies the CCE cluster ID. This field does not support Crossplane selectors or references because a reference would create an import cycle between the CCE, VPC and LTS API packages. Provide the exact CCE cluster ID instead of selecting it by labels.
 	// +kubebuilder:validation:Optional
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
 
 	// Specifies the log access host group ID list.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lts/v1alpha1.HostGroupV3
+	// +crossplane:generate:reference:refFieldName=HostGroupRef
+	// +crossplane:generate:reference:selectorFieldName=HostGroupSelector
 	// +kubebuilder:validation:Optional
 	HostGroupIds []*string `json:"hostGroupIds,omitempty" tf:"host_group_ids,omitempty"`
 
+	// References to HostGroupV3 in lts to populate hostGroupIds.
+	// +kubebuilder:validation:Optional
+	HostGroupRef []v1.NamespacedReference `json:"hostGroupRef,omitempty" tf:"-"`
+
+	// Selector for a list of HostGroupV3 in lts to populate hostGroupIds.
+	// +kubebuilder:validation:Optional
+	HostGroupSelector *v1.NamespacedSelector `json:"hostGroupSelector,omitempty" tf:"-"`
+
 	// Specifies the log group ID. Changing this creates a new resource.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lts/v1alpha1.GroupV2
+	// +crossplane:generate:reference:refFieldName=LogGroupRef
+	// +crossplane:generate:reference:selectorFieldName=LogGroupSelector
 	// +kubebuilder:validation:Optional
 	LogGroupID *string `json:"logGroupId,omitempty" tf:"log_group_id,omitempty"`
+
+	// Reference to a GroupV2 in lts to populate logGroupId.
+	// +kubebuilder:validation:Optional
+	LogGroupRef *v1.NamespacedReference `json:"logGroupRef,omitempty" tf:"-"`
+
+	// Selector for a GroupV2 in lts to populate logGroupId.
+	// +kubebuilder:validation:Optional
+	LogGroupSelector *v1.NamespacedSelector `json:"logGroupSelector,omitempty" tf:"-"`
 
 	// Specifies whether to split log. Default is false.
 	// +kubebuilder:validation:Optional
 	LogSplit *bool `json:"logSplit,omitempty" tf:"log_split,omitempty"`
 
 	// Specifies the log stream ID. Changing this creates a new resource.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/lts/v1alpha1.StreamV2
+	// +crossplane:generate:reference:refFieldName=LogStreamRef
+	// +crossplane:generate:reference:selectorFieldName=LogStreamSelector
 	// +kubebuilder:validation:Optional
 	LogStreamID *string `json:"logStreamId,omitempty" tf:"log_stream_id,omitempty"`
+
+	// Reference to a StreamV2 in lts to populate logStreamId.
+	// +kubebuilder:validation:Optional
+	LogStreamRef *v1.NamespacedReference `json:"logStreamRef,omitempty" tf:"-"`
+
+	// Selector for a StreamV2 in lts to populate logStreamId.
+	// +kubebuilder:validation:Optional
+	LogStreamSelector *v1.NamespacedSelector `json:"logStreamSelector,omitempty" tf:"-"`
 
 	// Specifies the name of the CCE access. The name consists of 1 to 64
 	// characters. Only letters, digits, underscores (_), and periods (.) are allowed, and the period cannot be the first
@@ -603,8 +669,6 @@ type CceAccessV3 struct {
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.accessConfig) || (has(self.initProvider) && has(self.initProvider.accessConfig))",message="spec.forProvider.accessConfig is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.clusterId) || (has(self.initProvider) && has(self.initProvider.clusterId))",message="spec.forProvider.clusterId is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.logGroupId) || (has(self.initProvider) && has(self.initProvider.logGroupId))",message="spec.forProvider.logGroupId is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.logStreamId) || (has(self.initProvider) && has(self.initProvider.logStreamId))",message="spec.forProvider.logStreamId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	Spec   CceAccessV3Spec   `json:"spec"`
 	Status CceAccessV3Status `json:"status,omitempty"`

@@ -10,7 +10,11 @@ metadata:
 spec:
   forProvider:
     criteria: content:test
-    logGroupId: ${var.log_group_id}
-    logStreamId: ${var.log_stream_id}
+    logGroupSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    logStreamSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     name: search_criteria_test
     type: ORIGINALLOG

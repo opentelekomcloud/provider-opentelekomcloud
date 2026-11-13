@@ -1,0 +1,58 @@
+apiVersion: lts.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: GroupV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lts/v1alpha1/cceaccessv3
+  labels:
+    testing.upbound.io/example-name: lts-group
+  name: lts-group-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    groupName: lts-group-${Rand.RFC1123Subdomain}
+    ttlInDays: 7
+
+---
+
+apiVersion: lts.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: StreamV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lts/v1alpha1/cceaccessv3
+  labels:
+    testing.upbound.io/example-name: lts-stream
+  name: lts-stream-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    logGroupSelector:
+      matchLabels:
+        testing.upbound.io/example-name: lts-group
+    streamName: lts-stream-${Rand.RFC1123Subdomain}
+
+---
+
+apiVersion: lts.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: CceAccessV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: lts/v1alpha1/cceaccessv3
+  labels:
+    testing.upbound.io/example-name: lts-cceaccess
+  name: lts-cceaccess-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    accessConfig:
+      - pathType: container_stdout
+        singleLogFormat:
+          - mode: system
+        stdout: true
+    clusterId: REPLACE_WITH_CCE_CLUSTER_ID
+    logGroupSelector:
+      matchLabels:
+        testing.upbound.io/example-name: lts-group
+    logStreamSelector:
+      matchLabels:
+        testing.upbound.io/example-name: lts-stream
+    name: lts-cceaccess-${Rand.RFC1123Subdomain}
