@@ -203,7 +203,18 @@ type ReadReplicaV3VolumeInitParameters struct {
 
 	// Specifies the key ID for disk encryption. Changing this parameter will create a new
 	// resource.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/kms/v1alpha1.KeyV1
+	// +crossplane:generate:reference:refFieldName=DiskEncryptionKeyRef
+	// +crossplane:generate:reference:selectorFieldName=DiskEncryptionKeySelector
 	DiskEncryptionID *string `json:"diskEncryptionId,omitempty" tf:"disk_encryption_id,omitempty"`
+
+	// Reference to a KeyV1 in kms to populate diskEncryptionId.
+	// +kubebuilder:validation:Optional
+	DiskEncryptionKeyRef *v1.NamespacedReference `json:"diskEncryptionKeyRef,omitempty" tf:"-"`
+
+	// Selector for a KeyV1 in kms to populate diskEncryptionId.
+	// +kubebuilder:validation:Optional
+	DiskEncryptionKeySelector *v1.NamespacedSelector `json:"diskEncryptionKeySelector,omitempty" tf:"-"`
 
 	// Specifies the IOPS of the volume. This parameter is available only when type is set to
 	// GPSSD2, where it is mandatory. The value ranges from 3,000 to 128,000 and must be no greater than 500 times the
@@ -248,8 +259,19 @@ type ReadReplicaV3VolumeParameters struct {
 
 	// Specifies the key ID for disk encryption. Changing this parameter will create a new
 	// resource.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/kms/v1alpha1.KeyV1
+	// +crossplane:generate:reference:refFieldName=DiskEncryptionKeyRef
+	// +crossplane:generate:reference:selectorFieldName=DiskEncryptionKeySelector
 	// +kubebuilder:validation:Optional
 	DiskEncryptionID *string `json:"diskEncryptionId,omitempty" tf:"disk_encryption_id,omitempty"`
+
+	// Reference to a KeyV1 in kms to populate diskEncryptionId.
+	// +kubebuilder:validation:Optional
+	DiskEncryptionKeyRef *v1.NamespacedReference `json:"diskEncryptionKeyRef,omitempty" tf:"-"`
+
+	// Selector for a KeyV1 in kms to populate diskEncryptionId.
+	// +kubebuilder:validation:Optional
+	DiskEncryptionKeySelector *v1.NamespacedSelector `json:"diskEncryptionKeySelector,omitempty" tf:"-"`
 
 	// Specifies the IOPS of the volume. This parameter is available only when type is set to
 	// GPSSD2, where it is mandatory. The value ranges from 3,000 to 128,000 and must be no greater than 500 times the

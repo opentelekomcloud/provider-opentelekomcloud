@@ -1,0 +1,65 @@
+apiVersion: vpc.opentelekomcloud.crossplane.io/v1alpha1
+kind: RouteTableRouteV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/routetableroutev1
+  labels:
+    testing.upbound.io/example-name: route
+  name: route
+spec:
+  forProvider:
+    description: peering route
+    destination: 172.16.0.0/16
+    nexthop: ${opentelekomcloud_vpc_peering_connection_v2.peering.id}
+    type: peering
+    vpcId: ${opentelekomcloud_vpc_v1.vpc_1.id}
+
+---
+
+apiVersion: vpc.opentelekomcloud.crossplane.io/v1alpha1
+kind: PeeringConnectionV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/routetableroutev1
+  labels:
+    testing.upbound.io/example-name: peering
+  name: peering
+spec:
+  forProvider:
+    name: my_peering
+    peerVpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: vpc_2
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: vpc_1
+
+---
+
+apiVersion: vpc.opentelekomcloud.crossplane.io/v1alpha1
+kind: VpcV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/routetableroutev1
+  labels:
+    testing.upbound.io/example-name: vpc_1
+  name: vpc-1
+spec:
+  forProvider:
+    cidr: 192.168.0.0/16
+    name: vpc-1
+
+---
+
+apiVersion: vpc.opentelekomcloud.crossplane.io/v1alpha1
+kind: VpcV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/routetableroutev1
+  labels:
+    testing.upbound.io/example-name: vpc_2
+  name: vpc-2
+spec:
+  forProvider:
+    cidr: 172.16.0.0/16
+    name: vpc-2

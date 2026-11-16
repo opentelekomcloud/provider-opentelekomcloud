@@ -10,5 +10,7 @@ metadata:
 spec:
   forProvider:
     endTime: "16:00"
-    instanceId: ${var.instance_id}
+    instanceSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     startTime: "12:00"

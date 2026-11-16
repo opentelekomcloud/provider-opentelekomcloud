@@ -104,6 +104,11 @@ spec:
                       Maximum number of IP address entries in the IP address group.
                       Range: 0 to 20. Default: 0.
                     type: number
+                  name:
+                    description: |-
+                      A unique name for the IP address group.
+                      The value can contain 1 to 64 characters, including letters, digits, underscores (_), hyphens (-), and periods (.).
+                    type: string
                 type: object
               initProvider:
                 description: |-
@@ -163,6 +168,11 @@ spec:
                       Maximum number of IP address entries in the IP address group.
                       Range: 0 to 20. Default: 0.
                     type: number
+                  name:
+                    description: |-
+                      A unique name for the IP address group.
+                      The value can contain 1 to 64 characters, including letters, digits, underscores (_), hyphens (-), and periods (.).
+                    type: string
                 type: object
               managementPolicies:
                 default:
@@ -227,6 +237,10 @@ spec:
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.ipVersion)
                 || (has(self.initProvider) && has(self.initProvider.ipVersion))'
+            - message: spec.forProvider.name is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
+                || (has(self.initProvider) && has(self.initProvider.name))'
           status:
             description: IPAddressGroupV3Status defines the observed state of IPAddressGroupV3.
             properties:
@@ -285,6 +299,11 @@ spec:
                       Maximum number of IP address entries in the IP address group.
                       Range: 0 to 20. Default: 0.
                     type: number
+                  name:
+                    description: |-
+                      A unique name for the IP address group.
+                      The value can contain 1 to 64 characters, including letters, digits, underscores (_), hyphens (-), and periods (.).
+                    type: string
                   projectId:
                     description: Indicates the project ID that the IP address group
                       belongs to.

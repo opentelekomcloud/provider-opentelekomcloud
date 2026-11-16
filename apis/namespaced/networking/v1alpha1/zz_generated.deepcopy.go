@@ -2782,6 +2782,16 @@ func (in *SecgroupRuleV2InitParameters) DeepCopyInto(out *SecgroupRuleV2InitPara
 		*out = new(string)
 		**out = **in
 	}
+	if in.RemoteSecurityGroupRef != nil {
+		in, out := &in.RemoteSecurityGroupRef, &out.RemoteSecurityGroupRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.RemoteSecurityGroupSelector != nil {
+		in, out := &in.RemoteSecurityGroupSelector, &out.RemoteSecurityGroupSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.SecurityGroupID != nil {
 		in, out := &in.SecurityGroupID, &out.SecurityGroupID
 		*out = new(string)
@@ -2968,6 +2978,16 @@ func (in *SecgroupRuleV2Parameters) DeepCopyInto(out *SecgroupRuleV2Parameters) 
 		in, out := &in.RemoteIPPrefix, &out.RemoteIPPrefix
 		*out = new(string)
 		**out = **in
+	}
+	if in.RemoteSecurityGroupRef != nil {
+		in, out := &in.RemoteSecurityGroupRef, &out.RemoteSecurityGroupRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.RemoteSecurityGroupSelector != nil {
+		in, out := &in.RemoteSecurityGroupSelector, &out.RemoteSecurityGroupSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.SecurityGroupID != nil {
 		in, out := &in.SecurityGroupID, &out.SecurityGroupID
