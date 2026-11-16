@@ -23,10 +23,6 @@ spec:
         name: example-secret
         namespace: upbound-system
     destinationType: OBS_SINK
-    instanceIdSelector:
-      matchLabels:
-        testing.upbound.io/example-name: example
+    instanceId: ${var.instance_id}
     taskName: ${var.task_name}
-    topicsSelector:
-      matchLabels:
-        testing.upbound.io/example-name: example
+    topics: ${var.topics}

@@ -16,16 +16,7 @@ import (
 type TopicV2InitParameters struct {
 
 	// Specifies the ID of the DMS for Kafka instance.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/dms/v1alpha1.DedicatedInstanceV2
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
-
-	// Reference to a DedicatedInstanceV2 in dms to populate instanceId.
-	// +kubebuilder:validation:Optional
-	InstanceIDRef *v1.Reference `json:"instanceIdRef,omitempty" tf:"-"`
-
-	// Selector for a DedicatedInstanceV2 in dms to populate instanceId.
-	// +kubebuilder:validation:Optional
-	InstanceIDSelector *v1.Selector `json:"instanceIdSelector,omitempty" tf:"-"`
 
 	// Maximum total number of partitions supported by the DMS instance.
 	MaxPartitions *float64 `json:"maxPartitions,omitempty" tf:"max_partitions,omitempty"`
@@ -108,17 +99,8 @@ type TopicV2Observation struct {
 type TopicV2Parameters struct {
 
 	// Specifies the ID of the DMS for Kafka instance.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/dms/v1alpha1.DedicatedInstanceV2
 	// +kubebuilder:validation:Optional
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
-
-	// Reference to a DedicatedInstanceV2 in dms to populate instanceId.
-	// +kubebuilder:validation:Optional
-	InstanceIDRef *v1.Reference `json:"instanceIdRef,omitempty" tf:"-"`
-
-	// Selector for a DedicatedInstanceV2 in dms to populate instanceId.
-	// +kubebuilder:validation:Optional
-	InstanceIDSelector *v1.Selector `json:"instanceIdSelector,omitempty" tf:"-"`
 
 	// Maximum total number of partitions supported by the DMS instance.
 	// +kubebuilder:validation:Optional
@@ -201,6 +183,7 @@ type TopicV2Status struct {
 type TopicV2 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.instanceId) || (has(self.initProvider) && has(self.initProvider.instanceId))",message="spec.forProvider.instanceId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	Spec   TopicV2Spec   `json:"spec"`
 	Status TopicV2Status `json:"status,omitempty"`

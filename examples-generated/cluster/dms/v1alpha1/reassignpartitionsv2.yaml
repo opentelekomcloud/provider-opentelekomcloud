@@ -8,17 +8,13 @@ metadata:
   name: rp-1
 spec:
   forProvider:
-    instanceIdSelector:
-      matchLabels:
-        testing.upbound.io/example-name: example
+    instanceId: ${var.instance_id}
     reassignments:
     - brokers:
       - 0
       - 1
       - 2
       replicationFactor: 3
-      topicSelector:
-        matchLabels:
-          testing.upbound.io/example-name: example
+      topic: ${var.topic_name}
     throttle: 1000000
     timeEstimate: false
