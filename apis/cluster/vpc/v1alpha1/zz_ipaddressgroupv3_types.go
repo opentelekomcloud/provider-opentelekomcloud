@@ -39,6 +39,10 @@ type IPAddressGroupV3InitParameters struct {
 	// Maximum number of IP address entries in the IP address group.
 	// Range: 0 to 20. Default: 0.
 	MaxCapacity *float64 `json:"maxCapacity,omitempty" tf:"max_capacity,omitempty"`
+
+	// A unique name for the IP address group.
+	// The value can contain 1 to 64 characters, including letters, digits, underscores (_), hyphens (-), and periods (.).
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
 type IPAddressGroupV3Observation struct {
@@ -74,6 +78,10 @@ type IPAddressGroupV3Observation struct {
 	// Maximum number of IP address entries in the IP address group.
 	// Range: 0 to 20. Default: 0.
 	MaxCapacity *float64 `json:"maxCapacity,omitempty" tf:"max_capacity,omitempty"`
+
+	// A unique name for the IP address group.
+	// The value can contain 1 to 64 characters, including letters, digits, underscores (_), hyphens (-), and periods (.).
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Indicates the project ID that the IP address group belongs to.
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
@@ -122,6 +130,11 @@ type IPAddressGroupV3Parameters struct {
 	// Range: 0 to 20. Default: 0.
 	// +kubebuilder:validation:Optional
 	MaxCapacity *float64 `json:"maxCapacity,omitempty" tf:"max_capacity,omitempty"`
+
+	// A unique name for the IP address group.
+	// The value can contain 1 to 64 characters, including letters, digits, underscores (_), hyphens (-), and periods (.).
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
 type IPExtraSetInitParameters struct {
@@ -193,6 +206,7 @@ type IPAddressGroupV3 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.ipVersion) || (has(self.initProvider) && has(self.initProvider.ipVersion))",message="spec.forProvider.ipVersion is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	Spec   IPAddressGroupV3Spec   `json:"spec"`
 	Status IPAddressGroupV3Status `json:"status,omitempty"`
 }

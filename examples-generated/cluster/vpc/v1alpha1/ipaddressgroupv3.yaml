@@ -10,3 +10,4 @@ spec:
   forProvider:
     description: My VPC IP address group
     ipVersion: 4
+    name: group_1

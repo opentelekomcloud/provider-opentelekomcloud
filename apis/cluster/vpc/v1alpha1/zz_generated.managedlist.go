@@ -71,6 +71,24 @@ func (l *PeeringConnectionV2List) GetItems() []resource.Managed {
 	return items
 }
 
+// GetItems of this RouteTableRouteV1List.
+func (l *RouteTableRouteV1List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this RouteTableSubnetAssociateV1List.
+func (l *RouteTableSubnetAssociateV1List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this RouteTableV1List.
 func (l *RouteTableV1List) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
@@ -109,6 +127,15 @@ func (l *SecgroupV3List) GetItems() []resource.Managed {
 
 // GetItems of this SecondaryCidrV3List.
 func (l *SecondaryCidrV3List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this SubnetPrivateIPV1List.
+func (l *SubnetPrivateIPV1List) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]

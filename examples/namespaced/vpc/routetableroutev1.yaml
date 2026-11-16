@@ -1,0 +1,53 @@
+apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: RouteTableRouteV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/routetableroutev1
+  labels:
+    testing.upbound.io/example-name: vpc-route-table-route
+  name: vpc-rtb-route-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    description: peering route
+    destination: 172.16.0.0/16
+    nexthop: REPLACEWITHID
+    routeTableSelector:
+      matchLabels:
+        testing.upbound.io/example-name: vpc-route-table-route-table
+    type: peering
+    vpcSelector:
+      matchLabels:
+        testing.upbound.io/example-name: vpc-route-table-route-vpc
+
+---
+apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: RouteTableV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/routetableroutev1
+  labels:
+    testing.upbound.io/example-name: vpc-route-table-route-table
+  name: vpc-rtb-route-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    name: vpc-rtb-route-${Rand.RFC1123Subdomain}
+    vpcSelector:
+      matchLabels:
+        testing.upbound.io/example-name: vpc-route-table-route-vpc
+
+---
+apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: VpcV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/routetableroutev1
+  labels:
+    testing.upbound.io/example-name: vpc-route-table-route-vpc
+  name: vpc-rtb-route-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    cidr: 192.168.0.0/16
+    name: vpc-rtb-route-${Rand.RFC1123Subdomain}
