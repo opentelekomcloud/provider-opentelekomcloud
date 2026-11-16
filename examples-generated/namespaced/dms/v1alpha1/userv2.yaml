@@ -9,7 +9,9 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    instanceId: ${instance_id}
+    instanceSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     passwordSecretRef:
       key: example-key
       name: example-secret

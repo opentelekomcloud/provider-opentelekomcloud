@@ -8,13 +8,21 @@ metadata:
   name: perm-1
 spec:
   forProvider:
-    instanceId: ${opentelekomcloud_dms_instance_v2.instance_1.id}
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: instance_1
     policies:
     - accessPolicy: all
-      username: ${opentelekomcloud_dms_user_v2.user_1.id}
+      usernameSelector:
+        matchLabels:
+          testing.upbound.io/example-name: user_1
     - accessPolicy: sub
-      username: ${opentelekomcloud_dms_user_v2.user_2.id}
-    topicName: test-topic
+      usernameSelector:
+        matchLabels:
+          testing.upbound.io/example-name: user_2
+    topicNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
 
 ---
 
@@ -28,7 +36,9 @@ metadata:
   name: user-1
 spec:
   forProvider:
-    instanceId: ${instance_id}
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     passwordSecretRef:
       key: example-key
       name: example-secret
@@ -47,7 +57,9 @@ metadata:
   name: user-2
 spec:
   forProvider:
-    instanceId: ${instance_id}
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     passwordSecretRef:
       key: example-key
       name: example-secret

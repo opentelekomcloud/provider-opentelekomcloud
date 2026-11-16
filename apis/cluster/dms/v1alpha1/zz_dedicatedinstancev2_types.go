@@ -114,7 +114,17 @@ type DedicatedInstanceV2InitParameters struct {
 
 	// Specifies the ID of a subnet. Changing this creates a new instance
 	// resource.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.SubnetV1
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractNetworkID()
 	NetworkID *string `json:"networkId,omitempty" tf:"network_id,omitempty"`
+
+	// Reference to a SubnetV1 in vpc to populate networkId.
+	// +kubebuilder:validation:Optional
+	NetworkIDRef *v1.Reference `json:"networkIdRef,omitempty" tf:"-"`
+
+	// Selector for a SubnetV1 in vpc to populate networkId.
+	// +kubebuilder:validation:Optional
+	NetworkIDSelector *v1.Selector `json:"networkIdSelector,omitempty" tf:"-"`
 
 	// Specifies the IPv4 private IP addresses for the new brokers.
 	NewTenantIps []*string `json:"newTenantIps,omitempty" tf:"new_tenant_ips,omitempty"`
@@ -125,7 +135,16 @@ type DedicatedInstanceV2InitParameters struct {
 	PasswordSecretRef *v1.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
 
 	// Specifies a resource ID in UUID format.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/networking/v1alpha1.FloatingipV2
 	PublicipID []*string `json:"publicipId,omitempty" tf:"publicip_id,omitempty"`
+
+	// References to FloatingipV2 in networking to populate publicipId.
+	// +kubebuilder:validation:Optional
+	PublicipIDRefs []v1.Reference `json:"publicipIdRefs,omitempty" tf:"-"`
+
+	// Selector for a list of FloatingipV2 in networking to populate publicipId.
+	// +kubebuilder:validation:Optional
+	PublicipIDSelector *v1.Selector `json:"publicipIdSelector,omitempty" tf:"-"`
 
 	// Specifies the action to be taken when the memory usage reaches the disk
 	// capacity threshold. The valid values are as follows:
@@ -136,7 +155,16 @@ type DedicatedInstanceV2InitParameters struct {
 	SSLEnable *bool `json:"sslEnable,omitempty" tf:"ssl_enable,omitempty"`
 
 	// Specifies the ID of a security group.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/compute/v1alpha1.SecgroupV2
 	SecurityGroupID *string `json:"securityGroupId,omitempty" tf:"security_group_id,omitempty"`
+
+	// Reference to a SecgroupV2 in compute to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	SecurityGroupIDRef *v1.Reference `json:"securityGroupIdRef,omitempty" tf:"-"`
+
+	// Selector for a SecgroupV2 in compute to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	SecurityGroupIDSelector *v1.Selector `json:"securityGroupIdSelector,omitempty" tf:"-"`
 
 	// Specifies the protocol to use after SASL is enabled. Value options:
 	SecurityProtocol *string `json:"securityProtocol,omitempty" tf:"security_protocol,omitempty"`
@@ -154,7 +182,16 @@ type DedicatedInstanceV2InitParameters struct {
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// Specifies the ID of a VPC. Changing this creates a new instance resource.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.VpcV1
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
+
+	// Reference to a VpcV1 in vpc to populate vpcId.
+	// +kubebuilder:validation:Optional
+	VPCIDRef *v1.Reference `json:"vpcIdRef,omitempty" tf:"-"`
+
+	// Selector for a VpcV1 in vpc to populate vpcId.
+	// +kubebuilder:validation:Optional
+	VPCIDSelector *v1.Selector `json:"vpcIdSelector,omitempty" tf:"-"`
 }
 
 type DedicatedInstanceV2Observation struct {
@@ -428,8 +465,18 @@ type DedicatedInstanceV2Parameters struct {
 
 	// Specifies the ID of a subnet. Changing this creates a new instance
 	// resource.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.SubnetV1
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractNetworkID()
 	// +kubebuilder:validation:Optional
 	NetworkID *string `json:"networkId,omitempty" tf:"network_id,omitempty"`
+
+	// Reference to a SubnetV1 in vpc to populate networkId.
+	// +kubebuilder:validation:Optional
+	NetworkIDRef *v1.Reference `json:"networkIdRef,omitempty" tf:"-"`
+
+	// Selector for a SubnetV1 in vpc to populate networkId.
+	// +kubebuilder:validation:Optional
+	NetworkIDSelector *v1.Selector `json:"networkIdSelector,omitempty" tf:"-"`
 
 	// Specifies the IPv4 private IP addresses for the new brokers.
 	// +kubebuilder:validation:Optional
@@ -442,8 +489,17 @@ type DedicatedInstanceV2Parameters struct {
 	PasswordSecretRef *v1.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
 
 	// Specifies a resource ID in UUID format.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/networking/v1alpha1.FloatingipV2
 	// +kubebuilder:validation:Optional
 	PublicipID []*string `json:"publicipId,omitempty" tf:"publicip_id,omitempty"`
+
+	// References to FloatingipV2 in networking to populate publicipId.
+	// +kubebuilder:validation:Optional
+	PublicipIDRefs []v1.Reference `json:"publicipIdRefs,omitempty" tf:"-"`
+
+	// Selector for a list of FloatingipV2 in networking to populate publicipId.
+	// +kubebuilder:validation:Optional
+	PublicipIDSelector *v1.Selector `json:"publicipIdSelector,omitempty" tf:"-"`
 
 	// Specifies the action to be taken when the memory usage reaches the disk
 	// capacity threshold. The valid values are as follows:
@@ -456,8 +512,17 @@ type DedicatedInstanceV2Parameters struct {
 	SSLEnable *bool `json:"sslEnable,omitempty" tf:"ssl_enable,omitempty"`
 
 	// Specifies the ID of a security group.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/compute/v1alpha1.SecgroupV2
 	// +kubebuilder:validation:Optional
 	SecurityGroupID *string `json:"securityGroupId,omitempty" tf:"security_group_id,omitempty"`
+
+	// Reference to a SecgroupV2 in compute to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	SecurityGroupIDRef *v1.Reference `json:"securityGroupIdRef,omitempty" tf:"-"`
+
+	// Selector for a SecgroupV2 in compute to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	SecurityGroupIDSelector *v1.Selector `json:"securityGroupIdSelector,omitempty" tf:"-"`
 
 	// Specifies the protocol to use after SASL is enabled. Value options:
 	// +kubebuilder:validation:Optional
@@ -479,8 +544,17 @@ type DedicatedInstanceV2Parameters struct {
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// Specifies the ID of a VPC. Changing this creates a new instance resource.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/vpc/v1alpha1.VpcV1
 	// +kubebuilder:validation:Optional
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
+
+	// Reference to a VpcV1 in vpc to populate vpcId.
+	// +kubebuilder:validation:Optional
+	VPCIDRef *v1.Reference `json:"vpcIdRef,omitempty" tf:"-"`
+
+	// Selector for a VpcV1 in vpc to populate vpcId.
+	// +kubebuilder:validation:Optional
+	VPCIDSelector *v1.Selector `json:"vpcIdSelector,omitempty" tf:"-"`
 }
 
 // DedicatedInstanceV2Spec defines the desired state of DedicatedInstanceV2
@@ -523,11 +597,8 @@ type DedicatedInstanceV2 struct {
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.engineVersion) || (has(self.initProvider) && has(self.initProvider.engineVersion))",message="spec.forProvider.engineVersion is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.flavorId) || (has(self.initProvider) && has(self.initProvider.flavorId))",message="spec.forProvider.flavorId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.networkId) || (has(self.initProvider) && has(self.initProvider.networkId))",message="spec.forProvider.networkId is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.securityGroupId) || (has(self.initProvider) && has(self.initProvider.securityGroupId))",message="spec.forProvider.securityGroupId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.storageSpace) || (has(self.initProvider) && has(self.initProvider.storageSpace))",message="spec.forProvider.storageSpace is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.storageSpecCode) || (has(self.initProvider) && has(self.initProvider.storageSpecCode))",message="spec.forProvider.storageSpecCode is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.vpcId) || (has(self.initProvider) && has(self.initProvider.vpcId))",message="spec.forProvider.vpcId is a required parameter"
 	Spec   DedicatedInstanceV2Spec   `json:"spec"`
 	Status DedicatedInstanceV2Status `json:"status,omitempty"`
 }

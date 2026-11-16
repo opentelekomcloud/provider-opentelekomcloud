@@ -9,13 +9,21 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    instanceId: ${opentelekomcloud_dms_instance_v2.instance_1.id}
+    instanceSelector:
+      matchLabels:
+        testing.upbound.io/example-name: instance_1
     policies:
     - accessPolicy: all
-      username: ${opentelekomcloud_dms_user_v2.user_1.id}
+      userSelector:
+        matchLabels:
+          testing.upbound.io/example-name: user_1
     - accessPolicy: sub
-      username: ${opentelekomcloud_dms_user_v2.user_2.id}
-    topicName: test-topic
+      userSelector:
+        matchLabels:
+          testing.upbound.io/example-name: user_2
+    topicSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
 
 ---
 
@@ -30,7 +38,9 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    instanceId: ${instance_id}
+    instanceSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     passwordSecretRef:
       key: example-key
       name: example-secret
@@ -49,7 +59,9 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    instanceId: ${instance_id}
+    instanceSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     passwordSecretRef:
       key: example-key
       name: example-secret

@@ -10,5 +10,9 @@ metadata:
 spec:
   forProvider:
     action: pause
-    instanceId: ${var.instance_id}
-    taskId: ${var.task_id}
+    instanceSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    taskSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example

@@ -23,6 +23,10 @@ spec:
         key: example-key
         name: example-secret
     destinationType: OBS_SINK
-    instanceId: ${var.instance_id}
+    instanceSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     taskName: ${var.task_name}
-    topics: ${var.topics}
+    topicSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example

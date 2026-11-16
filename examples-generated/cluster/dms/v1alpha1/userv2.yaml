@@ -8,7 +8,9 @@ metadata:
   name: user-1
 spec:
   forProvider:
-    instanceId: ${instance_id}
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     passwordSecretRef:
       key: example-key
       name: example-secret
