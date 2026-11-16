@@ -2,6 +2,9 @@
 
 This guide demonstrates how you can import already existing resources to Crossplane. For an extensive guide please see the official [documentation](https://docs.crossplane.io/latest/guides/import-existing-resources/).
 
+> [!NOTE]
+> Network resources created with the native OpenStack/Neutron APIs can be imported into the corresponding VPC managed resources instead of being recreated. See [Best practices](best-practices.md#importing-resources-created-with-openstack-apis) for the supported mappings.
+
 ### Prepare the new Crossplane object
 Create a new managed resource which matches the `apiVersion` and `Kind` of the resource which you will import under Crossplane management. We will use a simple `OBS` bucket for this which was previously created on the console with the name `crossplane-import`.
 
