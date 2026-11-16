@@ -15,13 +15,16 @@ T Cloud Public exposes two networking API families. For new resources, reference
 
 | Prefer (VPC) | Avoid for new work (Networking) |
 |--------------|---------------------------------|
-| `opentelekomcloud_vpc_v1` (`VpcV1`) | `opentelekomcloud_networking_network_v2` (`NetworkV2`) |
-| `opentelekomcloud_vpc_subnet_v1` (`SubnetV1`) | `opentelekomcloud_networking_subnet_v2` (`SubnetV2`) |
+| `opentelekomcloud_vpc_v1` (`VpcV1`) | `opentelekomcloud_networking_router_v2` (`RouterV2`) |
+| `opentelekomcloud_vpc_subnet_v1` (`SubnetV1`) | `opentelekomcloud_networking_network_v2` (`NetworkV2`) + `opentelekomcloud_networking_subnet_v2` (`SubnetV2`) |
 | `opentelekomcloud_vpc_secgroup_v3` (`SecgroupV3`) | `opentelekomcloud_networking_secgroup_v2` (`SecgroupV2`) |
 | `opentelekomcloud_vpc_secgroup_rule_v3` (`SecgroupRuleV3`) | `opentelekomcloud_networking_secgroup_rule_v2` (`SecgroupRuleV2`) |
 | `opentelekomcloud_vpc_eip_v1` (`EIPV1`) | `opentelekomcloud_networking_floatingip_v2` (`FloatingipV2`) |
+| `opentelekomcloud_vpc_route_v2` (`RouteV2`) | `opentelekomcloud_networking_router_route_v2` (`RouterRouteV2`, deprecated) |
+| `opentelekomcloud_vpc_route_table_v1` (`RouteTableV1`) | — |
 
-Use `opentelekomcloud_networking_*` only for constructs that have no VPC equivalent: ports, routers, router interfaces and routes, VIPs, floating IP association, and port/security-group association.
+
+Use `opentelekomcloud_networking_*` only for constructs that have no VPC equivalent: ports, router interfaces, VIPs, floating IP association, and port/security-group association.
 
 See [Best practices](../docs/best-practices.md) for the user-facing guidance.
 
