@@ -7,27 +7,60 @@ import (
 )
 
 const (
-	instanceV1          = "opentelekomcloud_dms_instance_v1"
-	dedicatedInstanceV2 = "opentelekomcloud_dms_dedicated_instance_v2"
-	topicV2             = "opentelekomcloud_dms_topic_v2"
-	userV2              = "opentelekomcloud_dms_user_v2"
-	smartConnectTaskV2  = "opentelekomcloud_dms_smart_connect_task_v2"
+	tfComputeSecgroupV2        = "opentelekomcloud_compute_secgroup_v2"
+	tfConsumerGroupV2          = "opentelekomcloud_dms_consumer_group_v2"
+	tfDedicatedInstanceV2      = "opentelekomcloud_dms_dedicated_instance_v2"
+	tfFloatingIPV2             = "opentelekomcloud_networking_floatingip_v2"
+	tfInstanceV1               = "opentelekomcloud_dms_instance_v1"
+	tfInstanceV2               = "opentelekomcloud_dms_instance_v2"
+	tfReassignPartitionsV2     = "opentelekomcloud_dms_reassign_partitions_v2"
+	tfSmartConnectTaskActionV2 = "opentelekomcloud_dms_smart_connect_task_action_v2"
+	tfSmartConnectTaskV2       = "opentelekomcloud_dms_smart_connect_task_v2"
+	tfSmartConnectV2           = "opentelekomcloud_dms_smart_connect_v2"
+	tfSubnetV1                 = "opentelekomcloud_vpc_subnet_v1"
+	tfTopicV1                  = "opentelekomcloud_dms_topic_v1"
+	tfUserPermissionV1         = "opentelekomcloud_dms_user_permission_v1"
+	tfUserV2                   = "opentelekomcloud_dms_user_v2"
+	tfVPCV1                    = "opentelekomcloud_vpc_v1"
+
+	// TFTopicV2 is the Terraform resource name of the namespaced-only TopicV2.
+	TFTopicV2 = "opentelekomcloud_dms_topic_v2"
+
+	selectorFieldNameComputeSecurityGroup = "ComputeSecurityGroupSelector"
+	refFieldNameComputeSecurityGroup      = "ComputeSecurityGroupRefs"
+	selectorFieldNameInstance             = "InstanceSelector"
+	refFieldNameInstance                  = "InstanceRef"
+	selectorFieldNamePeerInstance         = "PeerInstanceSelector"
+	refFieldNamePeerInstance              = "PeerInstanceRef"
+	selectorFieldNamePublicIP             = "PublicIPSelector"
+	refFieldNamePublicIP                  = "PublicIPRefs"
+	selectorFieldNameSubnet               = "SubnetSelector"
+	refFieldNameSubnet                    = "SubnetRef"
+	selectorFieldNameTask                 = "TaskSelector"
+	refFieldNameTask                      = "TaskRef"
+	selectorFieldNameTopic                = "TopicSelector"
+	refFieldNameTopic                     = "TopicRef"
+	refFieldNameTopics                    = "TopicRefs"
+	selectorFieldNameUser                 = "UserSelector"
+	refFieldNameUser                      = "UserRef"
+	selectorFieldNameVPC                  = "VPCSelector"
+	refFieldNameVPC                       = "VPCRef"
 )
 
 // Configure configures individual resources by adding custom ResourceConfigurators.
 func Configure(p *config.Provider) {
-	p.AddResourceConfigurator(instanceV1, func(r *config.Resource) {
+	p.AddResourceConfigurator(tfInstanceV1, func(r *config.Resource) {
 		r.UseAsync = true
 		networkReferences(r, "subnet_id")
 	})
 
-	p.AddResourceConfigurator("opentelekomcloud_dms_instance_v2", func(r *config.Resource) {
+	p.AddResourceConfigurator(tfInstanceV2, func(r *config.Resource) {
 		r.UseAsync = true
 		networkReferences(r, "subnet_id")
 		publicIPReference(r)
 	})
 
-	p.AddResourceConfigurator(dedicatedInstanceV2, func(r *config.Resource) {
+	p.AddResourceConfigurator(tfDedicatedInstanceV2, func(r *config.Resource) {
 		r.UseAsync = true
 		networkReferences(r, "network_id")
 		publicIPReference(r)
@@ -38,68 +71,68 @@ func Configure(p *config.Provider) {
 		}
 	})
 
-	p.AddResourceConfigurator("opentelekomcloud_dms_topic_v1", func(r *config.Resource) {
+	p.AddResourceConfigurator(tfTopicV1, func(r *config.Resource) {
 		r.References["instance_id"] = config.Reference{
-			TerraformName:     instanceV1,
-			SelectorFieldName: "InstanceSelector",
-			RefFieldName:      "InstanceRef",
+			TerraformName:     tfInstanceV1,
+			SelectorFieldName: selectorFieldNameInstance,
+			RefFieldName:      refFieldNameInstance,
 		}
 	})
 
 	for _, name := range []string{
-		topicV2,
-		userV2,
-		"opentelekomcloud_dms_consumer_group_v2",
-		"opentelekomcloud_dms_smart_connect_v2",
+		TFTopicV2,
+		tfUserV2,
+		tfConsumerGroupV2,
+		tfSmartConnectV2,
 	} {
 		p.AddResourceConfigurator(name, func(r *config.Resource) {
 			dedicatedInstanceReference(r)
 		})
 	}
 
-	p.AddResourceConfigurator("opentelekomcloud_dms_user_permission_v1", func(r *config.Resource) {
+	p.AddResourceConfigurator(tfUserPermissionV1, func(r *config.Resource) {
 		dedicatedInstanceReference(r)
 		r.References["topic_name"] = config.Reference{
-			TerraformName:     topicV2,
-			SelectorFieldName: "TopicSelector",
-			RefFieldName:      "TopicRef",
+			TerraformName:     TFTopicV2,
+			SelectorFieldName: selectorFieldNameTopic,
+			RefFieldName:      refFieldNameTopic,
 		}
 		r.References["policies.username"] = config.Reference{
-			TerraformName:     userV2,
-			SelectorFieldName: "UserSelector",
-			RefFieldName:      "UserRef",
+			TerraformName:     tfUserV2,
+			SelectorFieldName: selectorFieldNameUser,
+			RefFieldName:      refFieldNameUser,
 		}
 	})
 
-	p.AddResourceConfigurator("opentelekomcloud_dms_reassign_partitions_v2", func(r *config.Resource) {
+	p.AddResourceConfigurator(tfReassignPartitionsV2, func(r *config.Resource) {
 		dedicatedInstanceReference(r)
 		r.References["reassignments.topic"] = config.Reference{
-			TerraformName:     topicV2,
-			SelectorFieldName: "TopicSelector",
-			RefFieldName:      "TopicRef",
+			TerraformName:     TFTopicV2,
+			SelectorFieldName: selectorFieldNameTopic,
+			RefFieldName:      refFieldNameTopic,
 		}
 	})
 
-	p.AddResourceConfigurator(smartConnectTaskV2, func(r *config.Resource) {
+	p.AddResourceConfigurator(tfSmartConnectTaskV2, func(r *config.Resource) {
 		dedicatedInstanceReference(r)
 		r.References["source_task.peer_instance_id"] = config.Reference{
-			TerraformName:     dedicatedInstanceV2,
-			SelectorFieldName: "PeerInstanceSelector",
-			RefFieldName:      "PeerInstanceRef",
+			TerraformName:     tfDedicatedInstanceV2,
+			SelectorFieldName: selectorFieldNamePeerInstance,
+			RefFieldName:      refFieldNamePeerInstance,
 		}
 		r.References["topics"] = config.Reference{
-			TerraformName:     topicV2,
-			SelectorFieldName: "TopicSelector",
-			RefFieldName:      "TopicRefs",
+			TerraformName:     TFTopicV2,
+			SelectorFieldName: selectorFieldNameTopic,
+			RefFieldName:      refFieldNameTopics,
 		}
 	})
 
-	p.AddResourceConfigurator("opentelekomcloud_dms_smart_connect_task_action_v2", func(r *config.Resource) {
+	p.AddResourceConfigurator(tfSmartConnectTaskActionV2, func(r *config.Resource) {
 		dedicatedInstanceReference(r)
 		r.References["task_id"] = config.Reference{
-			TerraformName:     smartConnectTaskV2,
-			SelectorFieldName: "TaskSelector",
-			RefFieldName:      "TaskRef",
+			TerraformName:     tfSmartConnectTaskV2,
+			SelectorFieldName: selectorFieldNameTask,
+			RefFieldName:      refFieldNameTask,
 		}
 	})
 }
@@ -108,35 +141,35 @@ func Configure(p *config.Provider) {
 // DMS expects the neutron network ID, so the subnet field is resolved via NetworkIDExtractor.
 func networkReferences(r *config.Resource, subnetField string) {
 	r.References["vpc_id"] = config.Reference{
-		TerraformName:     "opentelekomcloud_vpc_v1",
-		SelectorFieldName: "VPCSelector",
-		RefFieldName:      "VPCRef",
+		TerraformName:     tfVPCV1,
+		SelectorFieldName: selectorFieldNameVPC,
+		RefFieldName:      refFieldNameVPC,
 	}
 	r.References[subnetField] = config.Reference{
-		TerraformName:     "opentelekomcloud_vpc_subnet_v1",
+		TerraformName:     tfSubnetV1,
 		Extractor:         common.NetworkIDExtractor,
-		SelectorFieldName: "SubnetSelector",
-		RefFieldName:      "SubnetRef",
+		SelectorFieldName: selectorFieldNameSubnet,
+		RefFieldName:      refFieldNameSubnet,
 	}
 	r.References["security_group_id"] = config.Reference{
-		TerraformName:     "opentelekomcloud_compute_secgroup_v2",
-		SelectorFieldName: "ComputeSecurityGroupSelector",
-		RefFieldName:      "ComputeSecurityGroupRefs",
+		TerraformName:     tfComputeSecgroupV2,
+		SelectorFieldName: selectorFieldNameComputeSecurityGroup,
+		RefFieldName:      refFieldNameComputeSecurityGroup,
 	}
 }
 
 func publicIPReference(r *config.Resource) {
 	r.References["publicip_id"] = config.Reference{
-		TerraformName:     "opentelekomcloud_networking_floatingip_v2",
-		SelectorFieldName: "PublicIPSelector",
-		RefFieldName:      "PublicIPRefs",
+		TerraformName:     tfFloatingIPV2,
+		SelectorFieldName: selectorFieldNamePublicIP,
+		RefFieldName:      refFieldNamePublicIP,
 	}
 }
 
 func dedicatedInstanceReference(r *config.Resource) {
 	r.References["instance_id"] = config.Reference{
-		TerraformName:     dedicatedInstanceV2,
-		SelectorFieldName: "InstanceSelector",
-		RefFieldName:      "InstanceRef",
+		TerraformName:     tfDedicatedInstanceV2,
+		SelectorFieldName: selectorFieldNameInstance,
+		RefFieldName:      refFieldNameInstance,
 	}
 }

@@ -4,7 +4,11 @@ Copyright 2022 Upbound Inc.
 
 package config
 
-import "github.com/crossplane/upjet/v2/pkg/config"
+import (
+	"github.com/crossplane/upjet/v2/pkg/config"
+
+	"github.com/opentelekomcloud/provider-opentelekomcloud/config/namespaced/dms"
+)
 
 // ExternalNameConfigs contains all external name configurations for this
 // provider.
@@ -115,7 +119,7 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"opentelekomcloud_dms_instance_v1":                  config.IdentifierFromProvider,
 	"opentelekomcloud_dms_instance_v2":                  config.IdentifierFromProvider,
 	"opentelekomcloud_dms_topic_v1":                     config.IdentifierFromProvider,
-	"opentelekomcloud_dms_topic_v2":                     config.IdentifierFromProvider,
+	dms.TFTopicV2:                                       config.IdentifierFromProvider,
 	"opentelekomcloud_dms_user_v2":                      config.IdentifierFromProvider,
 	"opentelekomcloud_dms_user_permission_v1":           config.IdentifierFromProvider,
 	"opentelekomcloud_dms_consumer_group_v2":            config.IdentifierFromProvider,

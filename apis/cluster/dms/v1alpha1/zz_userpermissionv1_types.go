@@ -19,16 +19,7 @@ type PoliciesInitParameters struct {
 	AccessPolicy *string `json:"accessPolicy,omitempty" tf:"access_policy,omitempty"`
 
 	// DMS instance user name.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/dms/v1alpha1.UserV2
 	Username *string `json:"username,omitempty" tf:"username,omitempty"`
-
-	// Reference to a UserV2 in dms to populate username.
-	// +kubebuilder:validation:Optional
-	UsernameRef *v1.Reference `json:"usernameRef,omitempty" tf:"-"`
-
-	// Selector for a UserV2 in dms to populate username.
-	// +kubebuilder:validation:Optional
-	UsernameSelector *v1.Selector `json:"usernameSelector,omitempty" tf:"-"`
 }
 
 type PoliciesObservation struct {
@@ -50,48 +41,21 @@ type PoliciesParameters struct {
 	AccessPolicy *string `json:"accessPolicy" tf:"access_policy,omitempty"`
 
 	// DMS instance user name.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/dms/v1alpha1.UserV2
 	// +kubebuilder:validation:Optional
-	Username *string `json:"username,omitempty" tf:"username,omitempty"`
-
-	// Reference to a UserV2 in dms to populate username.
-	// +kubebuilder:validation:Optional
-	UsernameRef *v1.Reference `json:"usernameRef,omitempty" tf:"-"`
-
-	// Selector for a UserV2 in dms to populate username.
-	// +kubebuilder:validation:Optional
-	UsernameSelector *v1.Selector `json:"usernameSelector,omitempty" tf:"-"`
+	Username *string `json:"username" tf:"username,omitempty"`
 }
 
 type UserPermissionV1InitParameters struct {
 
 	// Indicates the ID of primary DMS instance.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/dms/v1alpha1.DedicatedInstanceV2
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
-
-	// Reference to a DedicatedInstanceV2 in dms to populate instanceId.
-	// +kubebuilder:validation:Optional
-	InstanceIDRef *v1.Reference `json:"instanceIdRef,omitempty" tf:"-"`
-
-	// Selector for a DedicatedInstanceV2 in dms to populate instanceId.
-	// +kubebuilder:validation:Optional
-	InstanceIDSelector *v1.Selector `json:"instanceIdSelector,omitempty" tf:"-"`
 
 	// Indicates policy configuration for the topic.
 	// Supported fields:
 	Policies []PoliciesInitParameters `json:"policies,omitempty" tf:"policies,omitempty"`
 
 	// Indicates the name of a topic.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/dms/v1alpha1.TopicV2
 	TopicName *string `json:"topicName,omitempty" tf:"topic_name,omitempty"`
-
-	// Reference to a TopicV2 in dms to populate topicName.
-	// +kubebuilder:validation:Optional
-	TopicNameRef *v1.Reference `json:"topicNameRef,omitempty" tf:"-"`
-
-	// Selector for a TopicV2 in dms to populate topicName.
-	// +kubebuilder:validation:Optional
-	TopicNameSelector *v1.Selector `json:"topicNameSelector,omitempty" tf:"-"`
 }
 
 type UserPermissionV1Observation struct {
@@ -114,17 +78,8 @@ type UserPermissionV1Observation struct {
 type UserPermissionV1Parameters struct {
 
 	// Indicates the ID of primary DMS instance.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/dms/v1alpha1.DedicatedInstanceV2
 	// +kubebuilder:validation:Optional
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
-
-	// Reference to a DedicatedInstanceV2 in dms to populate instanceId.
-	// +kubebuilder:validation:Optional
-	InstanceIDRef *v1.Reference `json:"instanceIdRef,omitempty" tf:"-"`
-
-	// Selector for a DedicatedInstanceV2 in dms to populate instanceId.
-	// +kubebuilder:validation:Optional
-	InstanceIDSelector *v1.Selector `json:"instanceIdSelector,omitempty" tf:"-"`
 
 	// Indicates policy configuration for the topic.
 	// Supported fields:
@@ -132,17 +87,8 @@ type UserPermissionV1Parameters struct {
 	Policies []PoliciesParameters `json:"policies,omitempty" tf:"policies,omitempty"`
 
 	// Indicates the name of a topic.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/dms/v1alpha1.TopicV2
 	// +kubebuilder:validation:Optional
 	TopicName *string `json:"topicName,omitempty" tf:"topic_name,omitempty"`
-
-	// Reference to a TopicV2 in dms to populate topicName.
-	// +kubebuilder:validation:Optional
-	TopicNameRef *v1.Reference `json:"topicNameRef,omitempty" tf:"-"`
-
-	// Selector for a TopicV2 in dms to populate topicName.
-	// +kubebuilder:validation:Optional
-	TopicNameSelector *v1.Selector `json:"topicNameSelector,omitempty" tf:"-"`
 }
 
 // UserPermissionV1Spec defines the desired state of UserPermissionV1
@@ -181,7 +127,9 @@ type UserPermissionV1Status struct {
 type UserPermissionV1 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.instanceId) || (has(self.initProvider) && has(self.initProvider.instanceId))",message="spec.forProvider.instanceId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.policies) || (has(self.initProvider) && has(self.initProvider.policies))",message="spec.forProvider.policies is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.topicName) || (has(self.initProvider) && has(self.initProvider.topicName))",message="spec.forProvider.topicName is a required parameter"
 	Spec   UserPermissionV1Spec   `json:"spec"`
 	Status UserPermissionV1Status `json:"status,omitempty"`
 }

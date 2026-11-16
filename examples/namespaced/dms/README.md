@@ -1,5 +1,7 @@
 # DMS (Kafka) test cases
 
+These examples use namespaced managed resources. Existing cluster-scoped DMS resources are unchanged.
+
 All e2e resources live in `kafka.yaml`: one single-node Kafka instance plus its topic, user, user
 permission and consumer group. uptest runs every example file separately, so dependent resources must be in
 the same file. Resources find each other via `*Selector.matchLabels` on `testing.upbound.io/example-name`.
