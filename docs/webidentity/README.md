@@ -54,25 +54,8 @@ without touching a Secret.
 
 ## Overview of the moving parts
 
-```
-   +---------------------------------------------------------------+
-   |  Kubernetes cluster                                           |
-   |                                                               |
-   |  Provider pod                                                 |
-   |   - reads OIDC ID token from a file or Secret                 |
-   |   - POST {authURL}/v3.0/OS-AUTH/id-token/tokens (X-Idp-Id)    |
-   |   - POST {authURL}/v3.0/OS-CREDENTIAL/securitytokens (opt.)   |
-   +--------|------------------------------------------------------+
-            v
-    T Cloud IAM (federated identity)
-    - OIDC identity provider (trusts the CCE API server or an external IdP)
-    - identity mapping (federated identity -> virtual user + group)
-    - identity protocol (binds provider + mapping; Terraform/Crossplane only)
-             |
-             v
-     IAM group with the IAM roles to manage resources in the
-     target project scope
-```
+![image](./img/webidentity-auth-flow.png)
+
 
 Three things must be set up and **agree with each other**:
 
