@@ -110,6 +110,7 @@ protected by the dedicated WAF.
 | `${Rand.RFC1123Subdomain}` | names of all resources and cloud names | Replace with a unique RFC1123-compatible suffix (or leave for the example generator to substitute) |
 | `domain: www.wafd-...example.com` | DomainV1 `spec.forProvider.domain` | Replace with the domain name or IP address to protect |
 | `address: 192.168.0.10`, `port: 8080` | DomainV1 `spec.forProvider.server` | Point at a real backend reachable from the selected VPC |
+| `protectionMode: block`, `level: 2`, `options` | PolicyV1 `spec.forProvider` | Adjust the protection action, level, and enabled rule groups; `protectionMode` requires `level`/`options` so the provider's post-create update succeeds |
 | `keepPolicy: true` | DomainV1 `spec.forProvider.keepPolicy` | Keep `true` so deleting the domain does not delete the referenced policy |
 | `namespace: test` | all resources | All resources are created in the `test` namespace - adjust if needed |
 

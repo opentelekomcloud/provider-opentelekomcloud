@@ -45,7 +45,12 @@ metadata:
   namespace: test
 spec:
   forProvider:
+    fullDetection: true
+    level: 2
     name: wafd-domain-policy-${Rand.RFC1123Subdomain}
+    options:
+      - cc: true
+        webAttack: true
     protectionMode: block
 
 ---
