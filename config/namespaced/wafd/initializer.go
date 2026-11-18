@@ -26,71 +26,95 @@ var newPreciseProtectionContentsInitializer config.NewInitializerFn = func(kube 
 		if !ok {
 			return nil
 		}
-		original := obj.DeepCopyObject().(client.Object)
-		paved, err := fieldpath.PaveObject(obj)
-		if err != nil {
-			return err
-		}
-		specRaw, err := paved.GetValue("spec.forProvider.conditions")
-		if err != nil {
-			return nil
-		}
-		observedRaw, err := paved.GetValue("status.atProvider.conditions")
-		if err != nil {
-			return nil
-		}
-		specConditions, ok := specRaw.([]any)
-		if !ok {
-			return nil
-		}
-		observedConditions, ok := observedRaw.([]any)
-		if !ok {
-			return nil
-		}
-
-		changed := false
-		for _, specItem := range specConditions {
-			specCondition, ok := specItem.(map[string]any)
-			if !ok {
-				continue
-			}
-			valueListID, _ := specCondition["valueListId"].(string)
-			if valueListID == "" {
-				continue
-			}
-			for _, observedItem := range observedConditions {
-				observedCondition, ok := observedItem.(map[string]any)
-				if !ok {
-					continue
-				}
-				if observedValueListID, _ := observedCondition["valueListId"].(string); observedValueListID != valueListID {
-					continue
-				}
-				if specCategory, ok := specCondition["category"].(string); ok {
-					if observedCategory, ok := observedCondition["category"].(string); ok && specCategory != observedCategory {
-						continue
-					}
-				}
-				if !reflect.DeepEqual(specCondition["contents"], observedCondition["contents"]) {
-					specCondition["contents"] = observedCondition["contents"]
-					changed = true
-				}
-				break
-			}
-		}
-		if !changed {
-			return nil
-		}
-		if err := paved.SetValue("spec.forProvider.conditions", specConditions); err != nil {
-			return err
-		}
-		pavedBytes, err := paved.MarshalJSON()
-		if err != nil {
-			return err
-		}
-		if err := json.Unmarshal(pavedBytes, obj); err != nil {
-			return err
-		}
-		return kube.Patch(ctx, obj, client.MergeFrom(original))
+		return mirrorPreciseProtectionContents(ctx, kube, obj)
 	})
+}
+
+func mirrorPreciseProtectionContents(ctx context.Context, kube client.Client, obj client.Object) error {
+	original := obj.DeepCopyObject().(client.Object)
+	paved, err := fieldpath.PaveObject(obj)
+	if err != nil {
+		return err
+	}
+	specConditions, ok := conditionsAt(paved, "spec.forProvider.conditions")
+	if !ok {
+		return nil
+	}
+	observedConditions, ok := conditionsAt(paved, "status.atProvider.conditions")
+	if !ok {
+		return nil
+	}
+	if !mirrorContents(specConditions, observedConditions) {
+		return nil
+	}
+	return patchConditions(ctx, kube, obj, original, paved, specConditions)
+}
+
+func conditionsAt(paved *fieldpath.Paved, path string) ([]any, bool) {
+	raw, err := paved.GetValue(path)
+	if err != nil {
+		return nil, false
+	}
+	conditions, ok := raw.([]any)
+	return conditions, ok
+}
+
+func mirrorContents(specConditions, observedConditions []any) bool {
+	changed := false
+	for _, specItem := range specConditions {
+		specCondition, ok := specItem.(map[string]any)
+		if !ok {
+			continue
+		}
+		observedCondition := findObservedCondition(specCondition, observedConditions)
+		if observedCondition == nil {
+			continue
+		}
+		if reflect.DeepEqual(specCondition["contents"], observedCondition["contents"]) {
+			continue
+		}
+		specCondition["contents"] = observedCondition["contents"]
+		changed = true
+	}
+	return changed
+}
+
+func findObservedCondition(specCondition map[string]any, observedConditions []any) map[string]any {
+	valueListID := stringValue(specCondition, "valueListId")
+	if valueListID == "" {
+		return nil
+	}
+	for _, observedItem := range observedConditions {
+		observedCondition, ok := observedItem.(map[string]any)
+		if !ok {
+			continue
+		}
+		if stringValue(observedCondition, "valueListId") != valueListID {
+			continue
+		}
+		if category := stringValue(specCondition, "category"); category != "" && stringValue(observedCondition, "category") != category {
+			continue
+		}
+		return observedCondition
+	}
+	return nil
+}
+
+func stringValue(m map[string]any, key string) string {
+	value, _ := m[key].(string)
+	return value
+}
+
+func patchConditions(ctx context.Context, kube client.Client, obj, original client.Object, paved *fieldpath.Paved, specConditions []any) error {
+	if err := paved.SetValue("spec.forProvider.conditions", specConditions); err != nil {
+		return err
+	}
+	pavedBytes, err := paved.MarshalJSON()
+	if err != nil {
+		return err
+	}
+	if err := json.Unmarshal(pavedBytes, obj); err != nil {
+		return err
+	}
+	return kube.Patch(ctx, obj, client.MergeFrom(original))
 }
