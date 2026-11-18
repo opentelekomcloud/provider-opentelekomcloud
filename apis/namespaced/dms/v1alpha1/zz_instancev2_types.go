@@ -25,6 +25,14 @@ type InstanceV2InitParameters struct {
 	// Querying AZ Information.
 	AvailableZones []*string `json:"availableZones,omitempty" tf:"available_zones,omitempty"`
 
+	// Reference to a SecgroupV2 in compute to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	ComputeSecurityGroupRefs *v1.NamespacedReference `json:"computeSecurityGroupRefs,omitempty" tf:"-"`
+
+	// Selector for a SecgroupV2 in compute to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	ComputeSecurityGroupSelector *v1.NamespacedSelector `json:"computeSecurityGroupSelector,omitempty" tf:"-"`
+
 	// Indicates the description of an instance. It is a character
 	// string containing not more than 1024 characters.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
@@ -72,7 +80,18 @@ type InstanceV2InitParameters struct {
 
 	PublicBandwidth *float64 `json:"publicBandwidth,omitempty" tf:"public_bandwidth,omitempty"`
 
+	// References to FloatingipV2 in networking to populate publicipId.
+	// +kubebuilder:validation:Optional
+	PublicIPRefs []v1.NamespacedReference `json:"publicIpRefs,omitempty" tf:"-"`
+
+	// Selector for a list of FloatingipV2 in networking to populate publicipId.
+	// +kubebuilder:validation:Optional
+	PublicIPSelector *v1.NamespacedSelector `json:"publicIpSelector,omitempty" tf:"-"`
+
 	// - List of public ip IDs to be bound to DMS instance nodes.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/networking/v1alpha1.FloatingipV2
+	// +crossplane:generate:reference:refFieldName=PublicIPRefs
+	// +crossplane:generate:reference:selectorFieldName=PublicIPSelector
 	PublicipID []*string `json:"publicipId,omitempty" tf:"publicip_id,omitempty"`
 
 	// Indicates the action to be taken when the memory usage reaches
@@ -80,6 +99,9 @@ type InstanceV2InitParameters struct {
 	RetentionPolicy *string `json:"retentionPolicy,omitempty" tf:"retention_policy,omitempty"`
 
 	// Indicates the ID of a security group.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/compute/v1alpha1.SecgroupV2
+	// +crossplane:generate:reference:refFieldName=ComputeSecurityGroupRefs
+	// +crossplane:generate:reference:selectorFieldName=ComputeSecurityGroupSelector
 	SecurityGroupID *string `json:"securityGroupId,omitempty" tf:"security_group_id,omitempty"`
 
 	// This parameter is mandatory if the engine is kafka.
@@ -95,14 +117,37 @@ type InstanceV2InitParameters struct {
 	StorageSpecCode *string `json:"storageSpecCode,omitempty" tf:"storage_spec_code,omitempty"`
 
 	// Indicates the ID of the subnet (OpenStack network ID).
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.SubnetV1
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractNetworkID()
+	// +crossplane:generate:reference:refFieldName=SubnetRef
+	// +crossplane:generate:reference:selectorFieldName=SubnetSelector
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
+
+	// Reference to a SubnetV1 in vpc to populate subnetId.
+	// +kubebuilder:validation:Optional
+	SubnetRef *v1.NamespacedReference `json:"subnetRef,omitempty" tf:"-"`
+
+	// Selector for a SubnetV1 in vpc to populate subnetId.
+	// +kubebuilder:validation:Optional
+	SubnetSelector *v1.NamespacedSelector `json:"subnetSelector,omitempty" tf:"-"`
 
 	// Tags key/value pairs to associate with the instance.
 	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// Indicates the ID of a VPC (OpenStack router ID).
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.VpcV1
+	// +crossplane:generate:reference:refFieldName=VPCRef
+	// +crossplane:generate:reference:selectorFieldName=VPCSelector
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
+
+	// Reference to a VpcV1 in vpc to populate vpcId.
+	// +kubebuilder:validation:Optional
+	VPCRef *v1.NamespacedReference `json:"vpcRef,omitempty" tf:"-"`
+
+	// Selector for a VpcV1 in vpc to populate vpcId.
+	// +kubebuilder:validation:Optional
+	VPCSelector *v1.NamespacedSelector `json:"vpcSelector,omitempty" tf:"-"`
 }
 
 type InstanceV2Observation struct {
@@ -266,6 +311,14 @@ type InstanceV2Parameters struct {
 	// +kubebuilder:validation:Optional
 	AvailableZones []*string `json:"availableZones,omitempty" tf:"available_zones,omitempty"`
 
+	// Reference to a SecgroupV2 in compute to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	ComputeSecurityGroupRefs *v1.NamespacedReference `json:"computeSecurityGroupRefs,omitempty" tf:"-"`
+
+	// Selector for a SecgroupV2 in compute to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	ComputeSecurityGroupSelector *v1.NamespacedSelector `json:"computeSecurityGroupSelector,omitempty" tf:"-"`
+
 	// Indicates the description of an instance. It is a character
 	// string containing not more than 1024 characters.
 	// +kubebuilder:validation:Optional
@@ -326,7 +379,18 @@ type InstanceV2Parameters struct {
 	// +kubebuilder:validation:Optional
 	PublicBandwidth *float64 `json:"publicBandwidth,omitempty" tf:"public_bandwidth,omitempty"`
 
+	// References to FloatingipV2 in networking to populate publicipId.
+	// +kubebuilder:validation:Optional
+	PublicIPRefs []v1.NamespacedReference `json:"publicIpRefs,omitempty" tf:"-"`
+
+	// Selector for a list of FloatingipV2 in networking to populate publicipId.
+	// +kubebuilder:validation:Optional
+	PublicIPSelector *v1.NamespacedSelector `json:"publicIpSelector,omitempty" tf:"-"`
+
 	// - List of public ip IDs to be bound to DMS instance nodes.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/networking/v1alpha1.FloatingipV2
+	// +crossplane:generate:reference:refFieldName=PublicIPRefs
+	// +crossplane:generate:reference:selectorFieldName=PublicIPSelector
 	// +kubebuilder:validation:Optional
 	PublicipID []*string `json:"publicipId,omitempty" tf:"publicip_id,omitempty"`
 
@@ -336,6 +400,9 @@ type InstanceV2Parameters struct {
 	RetentionPolicy *string `json:"retentionPolicy,omitempty" tf:"retention_policy,omitempty"`
 
 	// Indicates the ID of a security group.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/compute/v1alpha1.SecgroupV2
+	// +crossplane:generate:reference:refFieldName=ComputeSecurityGroupRefs
+	// +crossplane:generate:reference:selectorFieldName=ComputeSecurityGroupSelector
 	// +kubebuilder:validation:Optional
 	SecurityGroupID *string `json:"securityGroupId,omitempty" tf:"security_group_id,omitempty"`
 
@@ -355,8 +422,20 @@ type InstanceV2Parameters struct {
 	StorageSpecCode *string `json:"storageSpecCode,omitempty" tf:"storage_spec_code,omitempty"`
 
 	// Indicates the ID of the subnet (OpenStack network ID).
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.SubnetV1
+	// +crossplane:generate:reference:extractor=github.com/opentelekomcloud/provider-opentelekomcloud/config/common.ExtractNetworkID()
+	// +crossplane:generate:reference:refFieldName=SubnetRef
+	// +crossplane:generate:reference:selectorFieldName=SubnetSelector
 	// +kubebuilder:validation:Optional
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
+
+	// Reference to a SubnetV1 in vpc to populate subnetId.
+	// +kubebuilder:validation:Optional
+	SubnetRef *v1.NamespacedReference `json:"subnetRef,omitempty" tf:"-"`
+
+	// Selector for a SubnetV1 in vpc to populate subnetId.
+	// +kubebuilder:validation:Optional
+	SubnetSelector *v1.NamespacedSelector `json:"subnetSelector,omitempty" tf:"-"`
 
 	// Tags key/value pairs to associate with the instance.
 	// +kubebuilder:validation:Optional
@@ -364,8 +443,19 @@ type InstanceV2Parameters struct {
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// Indicates the ID of a VPC (OpenStack router ID).
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.VpcV1
+	// +crossplane:generate:reference:refFieldName=VPCRef
+	// +crossplane:generate:reference:selectorFieldName=VPCSelector
 	// +kubebuilder:validation:Optional
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
+
+	// Reference to a VpcV1 in vpc to populate vpcId.
+	// +kubebuilder:validation:Optional
+	VPCRef *v1.NamespacedReference `json:"vpcRef,omitempty" tf:"-"`
+
+	// Selector for a VpcV1 in vpc to populate vpcId.
+	// +kubebuilder:validation:Optional
+	VPCSelector *v1.NamespacedSelector `json:"vpcSelector,omitempty" tf:"-"`
 }
 
 // InstanceV2Spec defines the desired state of InstanceV2
@@ -409,11 +499,8 @@ type InstanceV2 struct {
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.engineVersion) || (has(self.initProvider) && has(self.initProvider.engineVersion))",message="spec.forProvider.engineVersion is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.productId) || (has(self.initProvider) && has(self.initProvider.productId))",message="spec.forProvider.productId is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.securityGroupId) || (has(self.initProvider) && has(self.initProvider.securityGroupId))",message="spec.forProvider.securityGroupId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.storageSpace) || (has(self.initProvider) && has(self.initProvider.storageSpace))",message="spec.forProvider.storageSpace is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.storageSpecCode) || (has(self.initProvider) && has(self.initProvider.storageSpecCode))",message="spec.forProvider.storageSpecCode is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.subnetId) || (has(self.initProvider) && has(self.initProvider.subnetId))",message="spec.forProvider.subnetId is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.vpcId) || (has(self.initProvider) && has(self.initProvider.vpcId))",message="spec.forProvider.vpcId is a required parameter"
 	Spec   InstanceV2Spec   `json:"spec"`
 	Status InstanceV2Status `json:"status,omitempty"`
 }

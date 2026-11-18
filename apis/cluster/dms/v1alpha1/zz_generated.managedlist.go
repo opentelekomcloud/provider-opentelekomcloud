@@ -89,6 +89,15 @@ func (l *TopicV1List) GetItems() []resource.Managed {
 	return items
 }
 
+// GetItems of this TopicV2List.
+func (l *TopicV2List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this UserPermissionV1List.
 func (l *UserPermissionV1List) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
