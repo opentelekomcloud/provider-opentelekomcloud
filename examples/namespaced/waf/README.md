@@ -5,7 +5,7 @@ dedicated WAF instance is available in the target project; see
 [`instancev1.yaml`](#instancev1yaml) for provisioning one.
 
 > [!IMPORTANT]
-> WAF resources require you to configure the REGION.
+> Some WAF resources require you to configure the REGION in `ClusterProviderConfig`/`ProviderConfig`.
 
 ## instancev1.yaml
 
@@ -190,7 +190,7 @@ source rule.
 | Item | Where | What to do |
 |------|-------|-----------|
 | `${Rand.RFC1123Subdomain}` | names of all resources and cloud names | Replace with a unique RFC1123-compatible suffix (or leave for the example generator to substitute) |
-| `category: long_cookie_block`, `blockTime: 300` | KnownAttackSourceRuleV1 `spec.forProvider` | Adjust the block category and duration |
+| `category: long_cookie_block`, `blockTime: 301` | KnownAttackSourceRuleV1 `spec.forProvider` | Adjust the block category and duration; `long_*` categories require 301-1800 seconds, `short_*` categories 0-300 seconds |
 | `namespace: test` | all resources | All resources are created in the `test` namespace - adjust if needed |
 
 ## webtamperrulev1.yaml
@@ -283,15 +283,17 @@ Test case: `geoiprulev1.yaml` - creates a policy and a geo IP access control rul
 
 ## blacklistrulev1.yaml
 
-Test case: `blacklistrulev1.yaml` - creates a policy, a known attack source rule,
-and an IP blacklist rule that references the source rule.
+Test case: `blacklistrulev1.yaml` - creates a VPC, subnet, policy, domain, and an
+IP blacklist rule bound to the policy.
 
 ### APIs used
 
 | Kind | Full API name |
 |------|---------------|
+| VpcV1 | `vpcv1s.vpc.opentelekomcloud.m.crossplane.io` |
+| SubnetV1 | `subnetv1s.vpc.opentelekomcloud.m.crossplane.io` |
 | PolicyV1 | `policyv1s.waf.opentelekomcloud.m.crossplane.io` |
-| KnownAttackSourceRuleV1 | `knownattacksourcerulev1s.waf.opentelekomcloud.m.crossplane.io` |
+| DomainV1 | `domainv1s.waf.opentelekomcloud.m.crossplane.io` |
 | BlacklistRuleV1 | `blacklistrulev1s.waf.opentelekomcloud.m.crossplane.io` |
 
 ### Configuration needed
@@ -299,19 +301,28 @@ and an IP blacklist rule that references the source rule.
 | Item | Where | What to do |
 |------|-------|-----------|
 | `${Rand.RFC1123Subdomain}` | names of all resources and cloud names | Replace with a unique RFC1123-compatible suffix (or leave for the example generator to substitute) |
+| `domain`, `address`, `port` | DomainV1 `spec.forProvider` | Replace with the domain and backend to protect; the policy must be bound to a domain for the blacklist API to accept the rule |
 | `ipAddress: 192.168.1.0/24`, `action: 0` | BlacklistRuleV1 `spec.forProvider` | Adjust the blocked address range and action |
 | `namespace: test` | all resources | All resources are created in the `test` namespace - adjust if needed |
 
+The example intentionally leaves `followedActionId` unset. Setting it makes the
+API require a session tag on the protected domain, which the provider does not
+expose for configuration.
+
 ## preciseprotectionrulev1.yaml
 
-Test case: `preciseprotectionrulev1.yaml` - creates a policy, a reference table, a
-known attack source rule, and a precise protection rule that references both.
+Test case: `preciseprotectionrulev1.yaml` - creates a VPC, subnet, policy,
+domain, a reference table, a known attack source rule, and a precise protection
+rule that references both.
 
 ### APIs used
 
 | Kind | Full API name |
 |------|---------------|
+| VpcV1 | `vpcv1s.vpc.opentelekomcloud.m.crossplane.io` |
+| SubnetV1 | `subnetv1s.vpc.opentelekomcloud.m.crossplane.io` |
 | PolicyV1 | `policyv1s.waf.opentelekomcloud.m.crossplane.io` |
+| DomainV1 | `domainv1s.waf.opentelekomcloud.m.crossplane.io` |
 | ReferenceTableV1 | `referencetablev1s.waf.opentelekomcloud.m.crossplane.io` |
 | KnownAttackSourceRuleV1 | `knownattacksourcerulev1s.waf.opentelekomcloud.m.crossplane.io` |
 | PreciseProtectionRuleV1 | `preciseprotectionrulev1s.waf.opentelekomcloud.m.crossplane.io` |
@@ -321,6 +332,7 @@ known attack source rule, and a precise protection rule that references both.
 | Item | Where | What to do |
 |------|-------|-----------|
 | `${Rand.RFC1123Subdomain}` | names of all resources and cloud names | Replace with a unique RFC1123-compatible suffix (or leave for the example generator to substitute) |
+| `domain`, `address`, `port` | DomainV1 `spec.forProvider` | Replace with the domain and backend to protect; the policy must be bound to a domain for the precise protection API to accept the rule |
 | `priority: 50`, `conditions`, `action` | PreciseProtectionRuleV1 `spec.forProvider` | Adjust the rule priority, matching conditions, and action |
 | `namespace: test` | all resources | All resources are created in the `test` namespace - adjust if needed |
 

@@ -24,7 +24,7 @@ metadata:
   namespace: test
 spec:
   forProvider:
-    blockTime: 300
+    blockTime: 301
     category: long_cookie_block
     description: block long-lived attack sources
     policySelector:

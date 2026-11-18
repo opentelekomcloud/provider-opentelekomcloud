@@ -1,3 +1,39 @@
+apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: VpcV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/vpcv1
+  labels:
+    testing.upbound.io/example-name: wafd-blacklist-vpc
+  name: wafd-blacklist-vpc-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    cidr: 192.168.0.0/16
+    name: wafd-blacklist-vpc-${Rand.RFC1123Subdomain}
+
+---
+
+apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: SubnetV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/subnetv1
+  labels:
+    testing.upbound.io/example-name: wafd-blacklist-subnet
+  name: wafd-blacklist-subnet-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    cidr: 192.168.0.0/24
+    gatewayIp: 192.168.0.1
+    name: wafd-blacklist-subnet-${Rand.RFC1123Subdomain}
+    vpcSelector:
+      matchLabels:
+        testing.upbound.io/example-name: wafd-blacklist-vpc
+
+---
+
 apiVersion: waf.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: PolicyV1
 metadata:
@@ -14,21 +50,31 @@ spec:
 ---
 
 apiVersion: waf.opentelekomcloud.m.crossplane.io/v1alpha1
-kind: KnownAttackSourceRuleV1
+kind: DomainV1
 metadata:
   annotations:
-    meta.upbound.io/example-id: waf/v1alpha1/knownattacksourcerulev1
+    meta.upbound.io/example-id: waf/v1alpha1/domainv1
   labels:
-    testing.upbound.io/example-name: wafd-blacklist-source-rule
-  name: wafd-blacklist-source-rule-${Rand.RFC1123Subdomain}
+    testing.upbound.io/example-name: wafd-blacklist-domain
+  name: wafd-blacklist-domain-${Rand.RFC1123Subdomain}
   namespace: test
 spec:
   forProvider:
-    blockTime: 300
-    category: long_cookie_block
+    domain: www.wafd-blacklist-${Rand.RFC1123Subdomain}.example.com
+    keepPolicy: true
     policySelector:
       matchLabels:
         testing.upbound.io/example-name: wafd-blacklist-policy
+    proxy: true
+    server:
+      - address: 192.168.0.10
+        clientProtocol: HTTP
+        port: 8080
+        serverProtocol: HTTP
+        type: ipv4
+        vpcSelector:
+          matchLabels:
+            testing.upbound.io/example-name: wafd-blacklist-vpc
 
 ---
 
@@ -46,9 +92,6 @@ spec:
     action: 0
     description: block requests from a fixed IPv4 range
     ipAddress: 192.168.1.0/24
-    knownAttackSourceSelector:
-      matchLabels:
-        testing.upbound.io/example-name: wafd-blacklist-source-rule
     name: wafd-blacklist-${Rand.RFC1123Subdomain}
     policySelector:
       matchLabels:
