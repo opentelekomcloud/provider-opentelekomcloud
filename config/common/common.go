@@ -55,6 +55,8 @@ const (
 	UsernameExtractor = SelfPackagePath + ".ExtractUsername()"
 
 	NetworkingNetworkNameExtractor = SelfPackagePath + ".ExtractNetworkingNetworkName()"
+
+	WafDomainNameExtractor = SelfPackagePath + ".ExtractWafDomainName()"
 )
 
 // getStringFromMap safely returns a non-empty string value for a key.
@@ -310,6 +312,20 @@ func ExtractUsername() xpref.ExtractValueFn {
 		}
 
 		return ""
+	}
+}
+
+func ExtractWafDomainName() xpref.ExtractValueFn {
+	return func(mr xpresource.Managed) string {
+		tr, ok := mr.(resource.Terraformed)
+		if !ok {
+			return ""
+		}
+		o, err := tr.GetParameters()
+		if err != nil {
+			return ""
+		}
+		return getStringFromMap(o, "domain")
 	}
 }
 

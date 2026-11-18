@@ -8,602 +8,602 @@ package v1alpha1
 
 import xpv1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 
-// GetCondition of this DedicatedAlarmMaskingRuleV1.
-func (mg *DedicatedAlarmMaskingRuleV1) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+// GetCondition of this AlarmMaskingRuleV1.
+func (mg *AlarmMaskingRuleV1) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
 	return mg.Status.GetCondition(ct)
 }
 
-// GetManagementPolicies of this DedicatedAlarmMaskingRuleV1.
-func (mg *DedicatedAlarmMaskingRuleV1) GetManagementPolicies() xpv1.ManagementPolicies {
+// GetManagementPolicies of this AlarmMaskingRuleV1.
+func (mg *AlarmMaskingRuleV1) GetManagementPolicies() xpv1.ManagementPolicies {
 	return mg.Spec.ManagementPolicies
 }
 
-// GetProviderConfigReference of this DedicatedAlarmMaskingRuleV1.
-func (mg *DedicatedAlarmMaskingRuleV1) GetProviderConfigReference() *xpv1.ProviderConfigReference {
+// GetProviderConfigReference of this AlarmMaskingRuleV1.
+func (mg *AlarmMaskingRuleV1) GetProviderConfigReference() *xpv1.ProviderConfigReference {
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetWriteConnectionSecretToReference of this DedicatedAlarmMaskingRuleV1.
-func (mg *DedicatedAlarmMaskingRuleV1) GetWriteConnectionSecretToReference() *xpv1.LocalSecretReference {
+// GetWriteConnectionSecretToReference of this AlarmMaskingRuleV1.
+func (mg *AlarmMaskingRuleV1) GetWriteConnectionSecretToReference() *xpv1.LocalSecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this DedicatedAlarmMaskingRuleV1.
-func (mg *DedicatedAlarmMaskingRuleV1) SetConditions(c ...xpv1.Condition) {
+// SetConditions of this AlarmMaskingRuleV1.
+func (mg *AlarmMaskingRuleV1) SetConditions(c ...xpv1.Condition) {
 	mg.Status.SetConditions(c...)
 }
 
-// SetManagementPolicies of this DedicatedAlarmMaskingRuleV1.
-func (mg *DedicatedAlarmMaskingRuleV1) SetManagementPolicies(r xpv1.ManagementPolicies) {
+// SetManagementPolicies of this AlarmMaskingRuleV1.
+func (mg *AlarmMaskingRuleV1) SetManagementPolicies(r xpv1.ManagementPolicies) {
 	mg.Spec.ManagementPolicies = r
 }
 
-// SetProviderConfigReference of this DedicatedAlarmMaskingRuleV1.
-func (mg *DedicatedAlarmMaskingRuleV1) SetProviderConfigReference(r *xpv1.ProviderConfigReference) {
+// SetProviderConfigReference of this AlarmMaskingRuleV1.
+func (mg *AlarmMaskingRuleV1) SetProviderConfigReference(r *xpv1.ProviderConfigReference) {
 	mg.Spec.ProviderConfigReference = r
 }
 
-// SetWriteConnectionSecretToReference of this DedicatedAlarmMaskingRuleV1.
-func (mg *DedicatedAlarmMaskingRuleV1) SetWriteConnectionSecretToReference(r *xpv1.LocalSecretReference) {
+// SetWriteConnectionSecretToReference of this AlarmMaskingRuleV1.
+func (mg *AlarmMaskingRuleV1) SetWriteConnectionSecretToReference(r *xpv1.LocalSecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this DedicatedAntiCrawlerRuleV1.
-func (mg *DedicatedAntiCrawlerRuleV1) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+// GetCondition of this AntiCrawlerRuleV1.
+func (mg *AntiCrawlerRuleV1) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
 	return mg.Status.GetCondition(ct)
 }
 
-// GetManagementPolicies of this DedicatedAntiCrawlerRuleV1.
-func (mg *DedicatedAntiCrawlerRuleV1) GetManagementPolicies() xpv1.ManagementPolicies {
+// GetManagementPolicies of this AntiCrawlerRuleV1.
+func (mg *AntiCrawlerRuleV1) GetManagementPolicies() xpv1.ManagementPolicies {
 	return mg.Spec.ManagementPolicies
 }
 
-// GetProviderConfigReference of this DedicatedAntiCrawlerRuleV1.
-func (mg *DedicatedAntiCrawlerRuleV1) GetProviderConfigReference() *xpv1.ProviderConfigReference {
+// GetProviderConfigReference of this AntiCrawlerRuleV1.
+func (mg *AntiCrawlerRuleV1) GetProviderConfigReference() *xpv1.ProviderConfigReference {
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetWriteConnectionSecretToReference of this DedicatedAntiCrawlerRuleV1.
-func (mg *DedicatedAntiCrawlerRuleV1) GetWriteConnectionSecretToReference() *xpv1.LocalSecretReference {
+// GetWriteConnectionSecretToReference of this AntiCrawlerRuleV1.
+func (mg *AntiCrawlerRuleV1) GetWriteConnectionSecretToReference() *xpv1.LocalSecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this DedicatedAntiCrawlerRuleV1.
-func (mg *DedicatedAntiCrawlerRuleV1) SetConditions(c ...xpv1.Condition) {
+// SetConditions of this AntiCrawlerRuleV1.
+func (mg *AntiCrawlerRuleV1) SetConditions(c ...xpv1.Condition) {
 	mg.Status.SetConditions(c...)
 }
 
-// SetManagementPolicies of this DedicatedAntiCrawlerRuleV1.
-func (mg *DedicatedAntiCrawlerRuleV1) SetManagementPolicies(r xpv1.ManagementPolicies) {
+// SetManagementPolicies of this AntiCrawlerRuleV1.
+func (mg *AntiCrawlerRuleV1) SetManagementPolicies(r xpv1.ManagementPolicies) {
 	mg.Spec.ManagementPolicies = r
 }
 
-// SetProviderConfigReference of this DedicatedAntiCrawlerRuleV1.
-func (mg *DedicatedAntiCrawlerRuleV1) SetProviderConfigReference(r *xpv1.ProviderConfigReference) {
+// SetProviderConfigReference of this AntiCrawlerRuleV1.
+func (mg *AntiCrawlerRuleV1) SetProviderConfigReference(r *xpv1.ProviderConfigReference) {
 	mg.Spec.ProviderConfigReference = r
 }
 
-// SetWriteConnectionSecretToReference of this DedicatedAntiCrawlerRuleV1.
-func (mg *DedicatedAntiCrawlerRuleV1) SetWriteConnectionSecretToReference(r *xpv1.LocalSecretReference) {
+// SetWriteConnectionSecretToReference of this AntiCrawlerRuleV1.
+func (mg *AntiCrawlerRuleV1) SetWriteConnectionSecretToReference(r *xpv1.LocalSecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this DedicatedAntiLeakageRuleV1.
-func (mg *DedicatedAntiLeakageRuleV1) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+// GetCondition of this AntiLeakageRuleV1.
+func (mg *AntiLeakageRuleV1) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
 	return mg.Status.GetCondition(ct)
 }
 
-// GetManagementPolicies of this DedicatedAntiLeakageRuleV1.
-func (mg *DedicatedAntiLeakageRuleV1) GetManagementPolicies() xpv1.ManagementPolicies {
+// GetManagementPolicies of this AntiLeakageRuleV1.
+func (mg *AntiLeakageRuleV1) GetManagementPolicies() xpv1.ManagementPolicies {
 	return mg.Spec.ManagementPolicies
 }
 
-// GetProviderConfigReference of this DedicatedAntiLeakageRuleV1.
-func (mg *DedicatedAntiLeakageRuleV1) GetProviderConfigReference() *xpv1.ProviderConfigReference {
+// GetProviderConfigReference of this AntiLeakageRuleV1.
+func (mg *AntiLeakageRuleV1) GetProviderConfigReference() *xpv1.ProviderConfigReference {
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetWriteConnectionSecretToReference of this DedicatedAntiLeakageRuleV1.
-func (mg *DedicatedAntiLeakageRuleV1) GetWriteConnectionSecretToReference() *xpv1.LocalSecretReference {
+// GetWriteConnectionSecretToReference of this AntiLeakageRuleV1.
+func (mg *AntiLeakageRuleV1) GetWriteConnectionSecretToReference() *xpv1.LocalSecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this DedicatedAntiLeakageRuleV1.
-func (mg *DedicatedAntiLeakageRuleV1) SetConditions(c ...xpv1.Condition) {
+// SetConditions of this AntiLeakageRuleV1.
+func (mg *AntiLeakageRuleV1) SetConditions(c ...xpv1.Condition) {
 	mg.Status.SetConditions(c...)
 }
 
-// SetManagementPolicies of this DedicatedAntiLeakageRuleV1.
-func (mg *DedicatedAntiLeakageRuleV1) SetManagementPolicies(r xpv1.ManagementPolicies) {
+// SetManagementPolicies of this AntiLeakageRuleV1.
+func (mg *AntiLeakageRuleV1) SetManagementPolicies(r xpv1.ManagementPolicies) {
 	mg.Spec.ManagementPolicies = r
 }
 
-// SetProviderConfigReference of this DedicatedAntiLeakageRuleV1.
-func (mg *DedicatedAntiLeakageRuleV1) SetProviderConfigReference(r *xpv1.ProviderConfigReference) {
+// SetProviderConfigReference of this AntiLeakageRuleV1.
+func (mg *AntiLeakageRuleV1) SetProviderConfigReference(r *xpv1.ProviderConfigReference) {
 	mg.Spec.ProviderConfigReference = r
 }
 
-// SetWriteConnectionSecretToReference of this DedicatedAntiLeakageRuleV1.
-func (mg *DedicatedAntiLeakageRuleV1) SetWriteConnectionSecretToReference(r *xpv1.LocalSecretReference) {
+// SetWriteConnectionSecretToReference of this AntiLeakageRuleV1.
+func (mg *AntiLeakageRuleV1) SetWriteConnectionSecretToReference(r *xpv1.LocalSecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this DedicatedBlacklistRuleV1.
-func (mg *DedicatedBlacklistRuleV1) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+// GetCondition of this BlacklistRuleV1.
+func (mg *BlacklistRuleV1) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
 	return mg.Status.GetCondition(ct)
 }
 
-// GetManagementPolicies of this DedicatedBlacklistRuleV1.
-func (mg *DedicatedBlacklistRuleV1) GetManagementPolicies() xpv1.ManagementPolicies {
+// GetManagementPolicies of this BlacklistRuleV1.
+func (mg *BlacklistRuleV1) GetManagementPolicies() xpv1.ManagementPolicies {
 	return mg.Spec.ManagementPolicies
 }
 
-// GetProviderConfigReference of this DedicatedBlacklistRuleV1.
-func (mg *DedicatedBlacklistRuleV1) GetProviderConfigReference() *xpv1.ProviderConfigReference {
+// GetProviderConfigReference of this BlacklistRuleV1.
+func (mg *BlacklistRuleV1) GetProviderConfigReference() *xpv1.ProviderConfigReference {
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetWriteConnectionSecretToReference of this DedicatedBlacklistRuleV1.
-func (mg *DedicatedBlacklistRuleV1) GetWriteConnectionSecretToReference() *xpv1.LocalSecretReference {
+// GetWriteConnectionSecretToReference of this BlacklistRuleV1.
+func (mg *BlacklistRuleV1) GetWriteConnectionSecretToReference() *xpv1.LocalSecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this DedicatedBlacklistRuleV1.
-func (mg *DedicatedBlacklistRuleV1) SetConditions(c ...xpv1.Condition) {
+// SetConditions of this BlacklistRuleV1.
+func (mg *BlacklistRuleV1) SetConditions(c ...xpv1.Condition) {
 	mg.Status.SetConditions(c...)
 }
 
-// SetManagementPolicies of this DedicatedBlacklistRuleV1.
-func (mg *DedicatedBlacklistRuleV1) SetManagementPolicies(r xpv1.ManagementPolicies) {
+// SetManagementPolicies of this BlacklistRuleV1.
+func (mg *BlacklistRuleV1) SetManagementPolicies(r xpv1.ManagementPolicies) {
 	mg.Spec.ManagementPolicies = r
 }
 
-// SetProviderConfigReference of this DedicatedBlacklistRuleV1.
-func (mg *DedicatedBlacklistRuleV1) SetProviderConfigReference(r *xpv1.ProviderConfigReference) {
+// SetProviderConfigReference of this BlacklistRuleV1.
+func (mg *BlacklistRuleV1) SetProviderConfigReference(r *xpv1.ProviderConfigReference) {
 	mg.Spec.ProviderConfigReference = r
 }
 
-// SetWriteConnectionSecretToReference of this DedicatedBlacklistRuleV1.
-func (mg *DedicatedBlacklistRuleV1) SetWriteConnectionSecretToReference(r *xpv1.LocalSecretReference) {
+// SetWriteConnectionSecretToReference of this BlacklistRuleV1.
+func (mg *BlacklistRuleV1) SetWriteConnectionSecretToReference(r *xpv1.LocalSecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this DedicatedCcRuleV1.
-func (mg *DedicatedCcRuleV1) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+// GetCondition of this CcRuleV1.
+func (mg *CcRuleV1) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
 	return mg.Status.GetCondition(ct)
 }
 
-// GetManagementPolicies of this DedicatedCcRuleV1.
-func (mg *DedicatedCcRuleV1) GetManagementPolicies() xpv1.ManagementPolicies {
+// GetManagementPolicies of this CcRuleV1.
+func (mg *CcRuleV1) GetManagementPolicies() xpv1.ManagementPolicies {
 	return mg.Spec.ManagementPolicies
 }
 
-// GetProviderConfigReference of this DedicatedCcRuleV1.
-func (mg *DedicatedCcRuleV1) GetProviderConfigReference() *xpv1.ProviderConfigReference {
+// GetProviderConfigReference of this CcRuleV1.
+func (mg *CcRuleV1) GetProviderConfigReference() *xpv1.ProviderConfigReference {
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetWriteConnectionSecretToReference of this DedicatedCcRuleV1.
-func (mg *DedicatedCcRuleV1) GetWriteConnectionSecretToReference() *xpv1.LocalSecretReference {
+// GetWriteConnectionSecretToReference of this CcRuleV1.
+func (mg *CcRuleV1) GetWriteConnectionSecretToReference() *xpv1.LocalSecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this DedicatedCcRuleV1.
-func (mg *DedicatedCcRuleV1) SetConditions(c ...xpv1.Condition) {
+// SetConditions of this CcRuleV1.
+func (mg *CcRuleV1) SetConditions(c ...xpv1.Condition) {
 	mg.Status.SetConditions(c...)
 }
 
-// SetManagementPolicies of this DedicatedCcRuleV1.
-func (mg *DedicatedCcRuleV1) SetManagementPolicies(r xpv1.ManagementPolicies) {
+// SetManagementPolicies of this CcRuleV1.
+func (mg *CcRuleV1) SetManagementPolicies(r xpv1.ManagementPolicies) {
 	mg.Spec.ManagementPolicies = r
 }
 
-// SetProviderConfigReference of this DedicatedCcRuleV1.
-func (mg *DedicatedCcRuleV1) SetProviderConfigReference(r *xpv1.ProviderConfigReference) {
+// SetProviderConfigReference of this CcRuleV1.
+func (mg *CcRuleV1) SetProviderConfigReference(r *xpv1.ProviderConfigReference) {
 	mg.Spec.ProviderConfigReference = r
 }
 
-// SetWriteConnectionSecretToReference of this DedicatedCcRuleV1.
-func (mg *DedicatedCcRuleV1) SetWriteConnectionSecretToReference(r *xpv1.LocalSecretReference) {
+// SetWriteConnectionSecretToReference of this CcRuleV1.
+func (mg *CcRuleV1) SetWriteConnectionSecretToReference(r *xpv1.LocalSecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this DedicatedCertificateV1.
-func (mg *DedicatedCertificateV1) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+// GetCondition of this CertificateV1.
+func (mg *CertificateV1) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
 	return mg.Status.GetCondition(ct)
 }
 
-// GetManagementPolicies of this DedicatedCertificateV1.
-func (mg *DedicatedCertificateV1) GetManagementPolicies() xpv1.ManagementPolicies {
+// GetManagementPolicies of this CertificateV1.
+func (mg *CertificateV1) GetManagementPolicies() xpv1.ManagementPolicies {
 	return mg.Spec.ManagementPolicies
 }
 
-// GetProviderConfigReference of this DedicatedCertificateV1.
-func (mg *DedicatedCertificateV1) GetProviderConfigReference() *xpv1.ProviderConfigReference {
+// GetProviderConfigReference of this CertificateV1.
+func (mg *CertificateV1) GetProviderConfigReference() *xpv1.ProviderConfigReference {
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetWriteConnectionSecretToReference of this DedicatedCertificateV1.
-func (mg *DedicatedCertificateV1) GetWriteConnectionSecretToReference() *xpv1.LocalSecretReference {
+// GetWriteConnectionSecretToReference of this CertificateV1.
+func (mg *CertificateV1) GetWriteConnectionSecretToReference() *xpv1.LocalSecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this DedicatedCertificateV1.
-func (mg *DedicatedCertificateV1) SetConditions(c ...xpv1.Condition) {
+// SetConditions of this CertificateV1.
+func (mg *CertificateV1) SetConditions(c ...xpv1.Condition) {
 	mg.Status.SetConditions(c...)
 }
 
-// SetManagementPolicies of this DedicatedCertificateV1.
-func (mg *DedicatedCertificateV1) SetManagementPolicies(r xpv1.ManagementPolicies) {
+// SetManagementPolicies of this CertificateV1.
+func (mg *CertificateV1) SetManagementPolicies(r xpv1.ManagementPolicies) {
 	mg.Spec.ManagementPolicies = r
 }
 
-// SetProviderConfigReference of this DedicatedCertificateV1.
-func (mg *DedicatedCertificateV1) SetProviderConfigReference(r *xpv1.ProviderConfigReference) {
+// SetProviderConfigReference of this CertificateV1.
+func (mg *CertificateV1) SetProviderConfigReference(r *xpv1.ProviderConfigReference) {
 	mg.Spec.ProviderConfigReference = r
 }
 
-// SetWriteConnectionSecretToReference of this DedicatedCertificateV1.
-func (mg *DedicatedCertificateV1) SetWriteConnectionSecretToReference(r *xpv1.LocalSecretReference) {
+// SetWriteConnectionSecretToReference of this CertificateV1.
+func (mg *CertificateV1) SetWriteConnectionSecretToReference(r *xpv1.LocalSecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this DedicatedDataMaskingRuleV1.
-func (mg *DedicatedDataMaskingRuleV1) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+// GetCondition of this DataMaskingRuleV1.
+func (mg *DataMaskingRuleV1) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
 	return mg.Status.GetCondition(ct)
 }
 
-// GetManagementPolicies of this DedicatedDataMaskingRuleV1.
-func (mg *DedicatedDataMaskingRuleV1) GetManagementPolicies() xpv1.ManagementPolicies {
+// GetManagementPolicies of this DataMaskingRuleV1.
+func (mg *DataMaskingRuleV1) GetManagementPolicies() xpv1.ManagementPolicies {
 	return mg.Spec.ManagementPolicies
 }
 
-// GetProviderConfigReference of this DedicatedDataMaskingRuleV1.
-func (mg *DedicatedDataMaskingRuleV1) GetProviderConfigReference() *xpv1.ProviderConfigReference {
+// GetProviderConfigReference of this DataMaskingRuleV1.
+func (mg *DataMaskingRuleV1) GetProviderConfigReference() *xpv1.ProviderConfigReference {
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetWriteConnectionSecretToReference of this DedicatedDataMaskingRuleV1.
-func (mg *DedicatedDataMaskingRuleV1) GetWriteConnectionSecretToReference() *xpv1.LocalSecretReference {
+// GetWriteConnectionSecretToReference of this DataMaskingRuleV1.
+func (mg *DataMaskingRuleV1) GetWriteConnectionSecretToReference() *xpv1.LocalSecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this DedicatedDataMaskingRuleV1.
-func (mg *DedicatedDataMaskingRuleV1) SetConditions(c ...xpv1.Condition) {
+// SetConditions of this DataMaskingRuleV1.
+func (mg *DataMaskingRuleV1) SetConditions(c ...xpv1.Condition) {
 	mg.Status.SetConditions(c...)
 }
 
-// SetManagementPolicies of this DedicatedDataMaskingRuleV1.
-func (mg *DedicatedDataMaskingRuleV1) SetManagementPolicies(r xpv1.ManagementPolicies) {
+// SetManagementPolicies of this DataMaskingRuleV1.
+func (mg *DataMaskingRuleV1) SetManagementPolicies(r xpv1.ManagementPolicies) {
 	mg.Spec.ManagementPolicies = r
 }
 
-// SetProviderConfigReference of this DedicatedDataMaskingRuleV1.
-func (mg *DedicatedDataMaskingRuleV1) SetProviderConfigReference(r *xpv1.ProviderConfigReference) {
+// SetProviderConfigReference of this DataMaskingRuleV1.
+func (mg *DataMaskingRuleV1) SetProviderConfigReference(r *xpv1.ProviderConfigReference) {
 	mg.Spec.ProviderConfigReference = r
 }
 
-// SetWriteConnectionSecretToReference of this DedicatedDataMaskingRuleV1.
-func (mg *DedicatedDataMaskingRuleV1) SetWriteConnectionSecretToReference(r *xpv1.LocalSecretReference) {
+// SetWriteConnectionSecretToReference of this DataMaskingRuleV1.
+func (mg *DataMaskingRuleV1) SetWriteConnectionSecretToReference(r *xpv1.LocalSecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this DedicatedDomainV1.
-func (mg *DedicatedDomainV1) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+// GetCondition of this DomainV1.
+func (mg *DomainV1) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
 	return mg.Status.GetCondition(ct)
 }
 
-// GetManagementPolicies of this DedicatedDomainV1.
-func (mg *DedicatedDomainV1) GetManagementPolicies() xpv1.ManagementPolicies {
+// GetManagementPolicies of this DomainV1.
+func (mg *DomainV1) GetManagementPolicies() xpv1.ManagementPolicies {
 	return mg.Spec.ManagementPolicies
 }
 
-// GetProviderConfigReference of this DedicatedDomainV1.
-func (mg *DedicatedDomainV1) GetProviderConfigReference() *xpv1.ProviderConfigReference {
+// GetProviderConfigReference of this DomainV1.
+func (mg *DomainV1) GetProviderConfigReference() *xpv1.ProviderConfigReference {
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetWriteConnectionSecretToReference of this DedicatedDomainV1.
-func (mg *DedicatedDomainV1) GetWriteConnectionSecretToReference() *xpv1.LocalSecretReference {
+// GetWriteConnectionSecretToReference of this DomainV1.
+func (mg *DomainV1) GetWriteConnectionSecretToReference() *xpv1.LocalSecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this DedicatedDomainV1.
-func (mg *DedicatedDomainV1) SetConditions(c ...xpv1.Condition) {
+// SetConditions of this DomainV1.
+func (mg *DomainV1) SetConditions(c ...xpv1.Condition) {
 	mg.Status.SetConditions(c...)
 }
 
-// SetManagementPolicies of this DedicatedDomainV1.
-func (mg *DedicatedDomainV1) SetManagementPolicies(r xpv1.ManagementPolicies) {
+// SetManagementPolicies of this DomainV1.
+func (mg *DomainV1) SetManagementPolicies(r xpv1.ManagementPolicies) {
 	mg.Spec.ManagementPolicies = r
 }
 
-// SetProviderConfigReference of this DedicatedDomainV1.
-func (mg *DedicatedDomainV1) SetProviderConfigReference(r *xpv1.ProviderConfigReference) {
+// SetProviderConfigReference of this DomainV1.
+func (mg *DomainV1) SetProviderConfigReference(r *xpv1.ProviderConfigReference) {
 	mg.Spec.ProviderConfigReference = r
 }
 
-// SetWriteConnectionSecretToReference of this DedicatedDomainV1.
-func (mg *DedicatedDomainV1) SetWriteConnectionSecretToReference(r *xpv1.LocalSecretReference) {
+// SetWriteConnectionSecretToReference of this DomainV1.
+func (mg *DomainV1) SetWriteConnectionSecretToReference(r *xpv1.LocalSecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this DedicatedGeoIPRuleV1.
-func (mg *DedicatedGeoIPRuleV1) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+// GetCondition of this GeoIPRuleV1.
+func (mg *GeoIPRuleV1) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
 	return mg.Status.GetCondition(ct)
 }
 
-// GetManagementPolicies of this DedicatedGeoIPRuleV1.
-func (mg *DedicatedGeoIPRuleV1) GetManagementPolicies() xpv1.ManagementPolicies {
+// GetManagementPolicies of this GeoIPRuleV1.
+func (mg *GeoIPRuleV1) GetManagementPolicies() xpv1.ManagementPolicies {
 	return mg.Spec.ManagementPolicies
 }
 
-// GetProviderConfigReference of this DedicatedGeoIPRuleV1.
-func (mg *DedicatedGeoIPRuleV1) GetProviderConfigReference() *xpv1.ProviderConfigReference {
+// GetProviderConfigReference of this GeoIPRuleV1.
+func (mg *GeoIPRuleV1) GetProviderConfigReference() *xpv1.ProviderConfigReference {
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetWriteConnectionSecretToReference of this DedicatedGeoIPRuleV1.
-func (mg *DedicatedGeoIPRuleV1) GetWriteConnectionSecretToReference() *xpv1.LocalSecretReference {
+// GetWriteConnectionSecretToReference of this GeoIPRuleV1.
+func (mg *GeoIPRuleV1) GetWriteConnectionSecretToReference() *xpv1.LocalSecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this DedicatedGeoIPRuleV1.
-func (mg *DedicatedGeoIPRuleV1) SetConditions(c ...xpv1.Condition) {
+// SetConditions of this GeoIPRuleV1.
+func (mg *GeoIPRuleV1) SetConditions(c ...xpv1.Condition) {
 	mg.Status.SetConditions(c...)
 }
 
-// SetManagementPolicies of this DedicatedGeoIPRuleV1.
-func (mg *DedicatedGeoIPRuleV1) SetManagementPolicies(r xpv1.ManagementPolicies) {
+// SetManagementPolicies of this GeoIPRuleV1.
+func (mg *GeoIPRuleV1) SetManagementPolicies(r xpv1.ManagementPolicies) {
 	mg.Spec.ManagementPolicies = r
 }
 
-// SetProviderConfigReference of this DedicatedGeoIPRuleV1.
-func (mg *DedicatedGeoIPRuleV1) SetProviderConfigReference(r *xpv1.ProviderConfigReference) {
+// SetProviderConfigReference of this GeoIPRuleV1.
+func (mg *GeoIPRuleV1) SetProviderConfigReference(r *xpv1.ProviderConfigReference) {
 	mg.Spec.ProviderConfigReference = r
 }
 
-// SetWriteConnectionSecretToReference of this DedicatedGeoIPRuleV1.
-func (mg *DedicatedGeoIPRuleV1) SetWriteConnectionSecretToReference(r *xpv1.LocalSecretReference) {
+// SetWriteConnectionSecretToReference of this GeoIPRuleV1.
+func (mg *GeoIPRuleV1) SetWriteConnectionSecretToReference(r *xpv1.LocalSecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this DedicatedInstanceV1.
-func (mg *DedicatedInstanceV1) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+// GetCondition of this InstanceV1.
+func (mg *InstanceV1) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
 	return mg.Status.GetCondition(ct)
 }
 
-// GetManagementPolicies of this DedicatedInstanceV1.
-func (mg *DedicatedInstanceV1) GetManagementPolicies() xpv1.ManagementPolicies {
+// GetManagementPolicies of this InstanceV1.
+func (mg *InstanceV1) GetManagementPolicies() xpv1.ManagementPolicies {
 	return mg.Spec.ManagementPolicies
 }
 
-// GetProviderConfigReference of this DedicatedInstanceV1.
-func (mg *DedicatedInstanceV1) GetProviderConfigReference() *xpv1.ProviderConfigReference {
+// GetProviderConfigReference of this InstanceV1.
+func (mg *InstanceV1) GetProviderConfigReference() *xpv1.ProviderConfigReference {
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetWriteConnectionSecretToReference of this DedicatedInstanceV1.
-func (mg *DedicatedInstanceV1) GetWriteConnectionSecretToReference() *xpv1.LocalSecretReference {
+// GetWriteConnectionSecretToReference of this InstanceV1.
+func (mg *InstanceV1) GetWriteConnectionSecretToReference() *xpv1.LocalSecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this DedicatedInstanceV1.
-func (mg *DedicatedInstanceV1) SetConditions(c ...xpv1.Condition) {
+// SetConditions of this InstanceV1.
+func (mg *InstanceV1) SetConditions(c ...xpv1.Condition) {
 	mg.Status.SetConditions(c...)
 }
 
-// SetManagementPolicies of this DedicatedInstanceV1.
-func (mg *DedicatedInstanceV1) SetManagementPolicies(r xpv1.ManagementPolicies) {
+// SetManagementPolicies of this InstanceV1.
+func (mg *InstanceV1) SetManagementPolicies(r xpv1.ManagementPolicies) {
 	mg.Spec.ManagementPolicies = r
 }
 
-// SetProviderConfigReference of this DedicatedInstanceV1.
-func (mg *DedicatedInstanceV1) SetProviderConfigReference(r *xpv1.ProviderConfigReference) {
+// SetProviderConfigReference of this InstanceV1.
+func (mg *InstanceV1) SetProviderConfigReference(r *xpv1.ProviderConfigReference) {
 	mg.Spec.ProviderConfigReference = r
 }
 
-// SetWriteConnectionSecretToReference of this DedicatedInstanceV1.
-func (mg *DedicatedInstanceV1) SetWriteConnectionSecretToReference(r *xpv1.LocalSecretReference) {
+// SetWriteConnectionSecretToReference of this InstanceV1.
+func (mg *InstanceV1) SetWriteConnectionSecretToReference(r *xpv1.LocalSecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this DedicatedKnownAttackSourceRuleV1.
-func (mg *DedicatedKnownAttackSourceRuleV1) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+// GetCondition of this KnownAttackSourceRuleV1.
+func (mg *KnownAttackSourceRuleV1) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
 	return mg.Status.GetCondition(ct)
 }
 
-// GetManagementPolicies of this DedicatedKnownAttackSourceRuleV1.
-func (mg *DedicatedKnownAttackSourceRuleV1) GetManagementPolicies() xpv1.ManagementPolicies {
+// GetManagementPolicies of this KnownAttackSourceRuleV1.
+func (mg *KnownAttackSourceRuleV1) GetManagementPolicies() xpv1.ManagementPolicies {
 	return mg.Spec.ManagementPolicies
 }
 
-// GetProviderConfigReference of this DedicatedKnownAttackSourceRuleV1.
-func (mg *DedicatedKnownAttackSourceRuleV1) GetProviderConfigReference() *xpv1.ProviderConfigReference {
+// GetProviderConfigReference of this KnownAttackSourceRuleV1.
+func (mg *KnownAttackSourceRuleV1) GetProviderConfigReference() *xpv1.ProviderConfigReference {
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetWriteConnectionSecretToReference of this DedicatedKnownAttackSourceRuleV1.
-func (mg *DedicatedKnownAttackSourceRuleV1) GetWriteConnectionSecretToReference() *xpv1.LocalSecretReference {
+// GetWriteConnectionSecretToReference of this KnownAttackSourceRuleV1.
+func (mg *KnownAttackSourceRuleV1) GetWriteConnectionSecretToReference() *xpv1.LocalSecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this DedicatedKnownAttackSourceRuleV1.
-func (mg *DedicatedKnownAttackSourceRuleV1) SetConditions(c ...xpv1.Condition) {
+// SetConditions of this KnownAttackSourceRuleV1.
+func (mg *KnownAttackSourceRuleV1) SetConditions(c ...xpv1.Condition) {
 	mg.Status.SetConditions(c...)
 }
 
-// SetManagementPolicies of this DedicatedKnownAttackSourceRuleV1.
-func (mg *DedicatedKnownAttackSourceRuleV1) SetManagementPolicies(r xpv1.ManagementPolicies) {
+// SetManagementPolicies of this KnownAttackSourceRuleV1.
+func (mg *KnownAttackSourceRuleV1) SetManagementPolicies(r xpv1.ManagementPolicies) {
 	mg.Spec.ManagementPolicies = r
 }
 
-// SetProviderConfigReference of this DedicatedKnownAttackSourceRuleV1.
-func (mg *DedicatedKnownAttackSourceRuleV1) SetProviderConfigReference(r *xpv1.ProviderConfigReference) {
+// SetProviderConfigReference of this KnownAttackSourceRuleV1.
+func (mg *KnownAttackSourceRuleV1) SetProviderConfigReference(r *xpv1.ProviderConfigReference) {
 	mg.Spec.ProviderConfigReference = r
 }
 
-// SetWriteConnectionSecretToReference of this DedicatedKnownAttackSourceRuleV1.
-func (mg *DedicatedKnownAttackSourceRuleV1) SetWriteConnectionSecretToReference(r *xpv1.LocalSecretReference) {
+// SetWriteConnectionSecretToReference of this KnownAttackSourceRuleV1.
+func (mg *KnownAttackSourceRuleV1) SetWriteConnectionSecretToReference(r *xpv1.LocalSecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this DedicatedPolicyV1.
-func (mg *DedicatedPolicyV1) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+// GetCondition of this PolicyV1.
+func (mg *PolicyV1) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
 	return mg.Status.GetCondition(ct)
 }
 
-// GetManagementPolicies of this DedicatedPolicyV1.
-func (mg *DedicatedPolicyV1) GetManagementPolicies() xpv1.ManagementPolicies {
+// GetManagementPolicies of this PolicyV1.
+func (mg *PolicyV1) GetManagementPolicies() xpv1.ManagementPolicies {
 	return mg.Spec.ManagementPolicies
 }
 
-// GetProviderConfigReference of this DedicatedPolicyV1.
-func (mg *DedicatedPolicyV1) GetProviderConfigReference() *xpv1.ProviderConfigReference {
+// GetProviderConfigReference of this PolicyV1.
+func (mg *PolicyV1) GetProviderConfigReference() *xpv1.ProviderConfigReference {
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetWriteConnectionSecretToReference of this DedicatedPolicyV1.
-func (mg *DedicatedPolicyV1) GetWriteConnectionSecretToReference() *xpv1.LocalSecretReference {
+// GetWriteConnectionSecretToReference of this PolicyV1.
+func (mg *PolicyV1) GetWriteConnectionSecretToReference() *xpv1.LocalSecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this DedicatedPolicyV1.
-func (mg *DedicatedPolicyV1) SetConditions(c ...xpv1.Condition) {
+// SetConditions of this PolicyV1.
+func (mg *PolicyV1) SetConditions(c ...xpv1.Condition) {
 	mg.Status.SetConditions(c...)
 }
 
-// SetManagementPolicies of this DedicatedPolicyV1.
-func (mg *DedicatedPolicyV1) SetManagementPolicies(r xpv1.ManagementPolicies) {
+// SetManagementPolicies of this PolicyV1.
+func (mg *PolicyV1) SetManagementPolicies(r xpv1.ManagementPolicies) {
 	mg.Spec.ManagementPolicies = r
 }
 
-// SetProviderConfigReference of this DedicatedPolicyV1.
-func (mg *DedicatedPolicyV1) SetProviderConfigReference(r *xpv1.ProviderConfigReference) {
+// SetProviderConfigReference of this PolicyV1.
+func (mg *PolicyV1) SetProviderConfigReference(r *xpv1.ProviderConfigReference) {
 	mg.Spec.ProviderConfigReference = r
 }
 
-// SetWriteConnectionSecretToReference of this DedicatedPolicyV1.
-func (mg *DedicatedPolicyV1) SetWriteConnectionSecretToReference(r *xpv1.LocalSecretReference) {
+// SetWriteConnectionSecretToReference of this PolicyV1.
+func (mg *PolicyV1) SetWriteConnectionSecretToReference(r *xpv1.LocalSecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this DedicatedPreciseProtectionRuleV1.
-func (mg *DedicatedPreciseProtectionRuleV1) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+// GetCondition of this PreciseProtectionRuleV1.
+func (mg *PreciseProtectionRuleV1) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
 	return mg.Status.GetCondition(ct)
 }
 
-// GetManagementPolicies of this DedicatedPreciseProtectionRuleV1.
-func (mg *DedicatedPreciseProtectionRuleV1) GetManagementPolicies() xpv1.ManagementPolicies {
+// GetManagementPolicies of this PreciseProtectionRuleV1.
+func (mg *PreciseProtectionRuleV1) GetManagementPolicies() xpv1.ManagementPolicies {
 	return mg.Spec.ManagementPolicies
 }
 
-// GetProviderConfigReference of this DedicatedPreciseProtectionRuleV1.
-func (mg *DedicatedPreciseProtectionRuleV1) GetProviderConfigReference() *xpv1.ProviderConfigReference {
+// GetProviderConfigReference of this PreciseProtectionRuleV1.
+func (mg *PreciseProtectionRuleV1) GetProviderConfigReference() *xpv1.ProviderConfigReference {
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetWriteConnectionSecretToReference of this DedicatedPreciseProtectionRuleV1.
-func (mg *DedicatedPreciseProtectionRuleV1) GetWriteConnectionSecretToReference() *xpv1.LocalSecretReference {
+// GetWriteConnectionSecretToReference of this PreciseProtectionRuleV1.
+func (mg *PreciseProtectionRuleV1) GetWriteConnectionSecretToReference() *xpv1.LocalSecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this DedicatedPreciseProtectionRuleV1.
-func (mg *DedicatedPreciseProtectionRuleV1) SetConditions(c ...xpv1.Condition) {
+// SetConditions of this PreciseProtectionRuleV1.
+func (mg *PreciseProtectionRuleV1) SetConditions(c ...xpv1.Condition) {
 	mg.Status.SetConditions(c...)
 }
 
-// SetManagementPolicies of this DedicatedPreciseProtectionRuleV1.
-func (mg *DedicatedPreciseProtectionRuleV1) SetManagementPolicies(r xpv1.ManagementPolicies) {
+// SetManagementPolicies of this PreciseProtectionRuleV1.
+func (mg *PreciseProtectionRuleV1) SetManagementPolicies(r xpv1.ManagementPolicies) {
 	mg.Spec.ManagementPolicies = r
 }
 
-// SetProviderConfigReference of this DedicatedPreciseProtectionRuleV1.
-func (mg *DedicatedPreciseProtectionRuleV1) SetProviderConfigReference(r *xpv1.ProviderConfigReference) {
+// SetProviderConfigReference of this PreciseProtectionRuleV1.
+func (mg *PreciseProtectionRuleV1) SetProviderConfigReference(r *xpv1.ProviderConfigReference) {
 	mg.Spec.ProviderConfigReference = r
 }
 
-// SetWriteConnectionSecretToReference of this DedicatedPreciseProtectionRuleV1.
-func (mg *DedicatedPreciseProtectionRuleV1) SetWriteConnectionSecretToReference(r *xpv1.LocalSecretReference) {
+// SetWriteConnectionSecretToReference of this PreciseProtectionRuleV1.
+func (mg *PreciseProtectionRuleV1) SetWriteConnectionSecretToReference(r *xpv1.LocalSecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this DedicatedReferenceTableV1.
-func (mg *DedicatedReferenceTableV1) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+// GetCondition of this ReferenceTableV1.
+func (mg *ReferenceTableV1) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
 	return mg.Status.GetCondition(ct)
 }
 
-// GetManagementPolicies of this DedicatedReferenceTableV1.
-func (mg *DedicatedReferenceTableV1) GetManagementPolicies() xpv1.ManagementPolicies {
+// GetManagementPolicies of this ReferenceTableV1.
+func (mg *ReferenceTableV1) GetManagementPolicies() xpv1.ManagementPolicies {
 	return mg.Spec.ManagementPolicies
 }
 
-// GetProviderConfigReference of this DedicatedReferenceTableV1.
-func (mg *DedicatedReferenceTableV1) GetProviderConfigReference() *xpv1.ProviderConfigReference {
+// GetProviderConfigReference of this ReferenceTableV1.
+func (mg *ReferenceTableV1) GetProviderConfigReference() *xpv1.ProviderConfigReference {
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetWriteConnectionSecretToReference of this DedicatedReferenceTableV1.
-func (mg *DedicatedReferenceTableV1) GetWriteConnectionSecretToReference() *xpv1.LocalSecretReference {
+// GetWriteConnectionSecretToReference of this ReferenceTableV1.
+func (mg *ReferenceTableV1) GetWriteConnectionSecretToReference() *xpv1.LocalSecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this DedicatedReferenceTableV1.
-func (mg *DedicatedReferenceTableV1) SetConditions(c ...xpv1.Condition) {
+// SetConditions of this ReferenceTableV1.
+func (mg *ReferenceTableV1) SetConditions(c ...xpv1.Condition) {
 	mg.Status.SetConditions(c...)
 }
 
-// SetManagementPolicies of this DedicatedReferenceTableV1.
-func (mg *DedicatedReferenceTableV1) SetManagementPolicies(r xpv1.ManagementPolicies) {
+// SetManagementPolicies of this ReferenceTableV1.
+func (mg *ReferenceTableV1) SetManagementPolicies(r xpv1.ManagementPolicies) {
 	mg.Spec.ManagementPolicies = r
 }
 
-// SetProviderConfigReference of this DedicatedReferenceTableV1.
-func (mg *DedicatedReferenceTableV1) SetProviderConfigReference(r *xpv1.ProviderConfigReference) {
+// SetProviderConfigReference of this ReferenceTableV1.
+func (mg *ReferenceTableV1) SetProviderConfigReference(r *xpv1.ProviderConfigReference) {
 	mg.Spec.ProviderConfigReference = r
 }
 
-// SetWriteConnectionSecretToReference of this DedicatedReferenceTableV1.
-func (mg *DedicatedReferenceTableV1) SetWriteConnectionSecretToReference(r *xpv1.LocalSecretReference) {
+// SetWriteConnectionSecretToReference of this ReferenceTableV1.
+func (mg *ReferenceTableV1) SetWriteConnectionSecretToReference(r *xpv1.LocalSecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this DedicatedWebTamperRuleV1.
-func (mg *DedicatedWebTamperRuleV1) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+// GetCondition of this WebTamperRuleV1.
+func (mg *WebTamperRuleV1) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
 	return mg.Status.GetCondition(ct)
 }
 
-// GetManagementPolicies of this DedicatedWebTamperRuleV1.
-func (mg *DedicatedWebTamperRuleV1) GetManagementPolicies() xpv1.ManagementPolicies {
+// GetManagementPolicies of this WebTamperRuleV1.
+func (mg *WebTamperRuleV1) GetManagementPolicies() xpv1.ManagementPolicies {
 	return mg.Spec.ManagementPolicies
 }
 
-// GetProviderConfigReference of this DedicatedWebTamperRuleV1.
-func (mg *DedicatedWebTamperRuleV1) GetProviderConfigReference() *xpv1.ProviderConfigReference {
+// GetProviderConfigReference of this WebTamperRuleV1.
+func (mg *WebTamperRuleV1) GetProviderConfigReference() *xpv1.ProviderConfigReference {
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetWriteConnectionSecretToReference of this DedicatedWebTamperRuleV1.
-func (mg *DedicatedWebTamperRuleV1) GetWriteConnectionSecretToReference() *xpv1.LocalSecretReference {
+// GetWriteConnectionSecretToReference of this WebTamperRuleV1.
+func (mg *WebTamperRuleV1) GetWriteConnectionSecretToReference() *xpv1.LocalSecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this DedicatedWebTamperRuleV1.
-func (mg *DedicatedWebTamperRuleV1) SetConditions(c ...xpv1.Condition) {
+// SetConditions of this WebTamperRuleV1.
+func (mg *WebTamperRuleV1) SetConditions(c ...xpv1.Condition) {
 	mg.Status.SetConditions(c...)
 }
 
-// SetManagementPolicies of this DedicatedWebTamperRuleV1.
-func (mg *DedicatedWebTamperRuleV1) SetManagementPolicies(r xpv1.ManagementPolicies) {
+// SetManagementPolicies of this WebTamperRuleV1.
+func (mg *WebTamperRuleV1) SetManagementPolicies(r xpv1.ManagementPolicies) {
 	mg.Spec.ManagementPolicies = r
 }
 
-// SetProviderConfigReference of this DedicatedWebTamperRuleV1.
-func (mg *DedicatedWebTamperRuleV1) SetProviderConfigReference(r *xpv1.ProviderConfigReference) {
+// SetProviderConfigReference of this WebTamperRuleV1.
+func (mg *WebTamperRuleV1) SetProviderConfigReference(r *xpv1.ProviderConfigReference) {
 	mg.Spec.ProviderConfigReference = r
 }
 
-// SetWriteConnectionSecretToReference of this DedicatedWebTamperRuleV1.
-func (mg *DedicatedWebTamperRuleV1) SetWriteConnectionSecretToReference(r *xpv1.LocalSecretReference) {
+// SetWriteConnectionSecretToReference of this WebTamperRuleV1.
+func (mg *WebTamperRuleV1) SetWriteConnectionSecretToReference(r *xpv1.LocalSecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }
