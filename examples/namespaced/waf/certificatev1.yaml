@@ -1,0 +1,14 @@
+apiVersion: waf.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: CertificateV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: waf/v1alpha1/certificatev1
+  labels:
+    testing.upbound.io/example-name: wafd-certificate
+  name: wafd-certificate-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    content: "${data.wafdCertificate}"
+    key: "${data.wafdPrivateKey}"
+    name: wafd-certificate-${Rand.RFC1123Subdomain}

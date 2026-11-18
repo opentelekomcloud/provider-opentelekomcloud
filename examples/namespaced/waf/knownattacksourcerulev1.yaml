@@ -1,0 +1,32 @@
+apiVersion: waf.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: PolicyV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: waf/v1alpha1/policyv1
+  labels:
+    testing.upbound.io/example-name: wafd-known-attack-policy
+  name: wafd-known-attack-policy-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    name: wafd-known-attack-policy-${Rand.RFC1123Subdomain}
+
+---
+
+apiVersion: waf.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: KnownAttackSourceRuleV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: waf/v1alpha1/knownattacksourcerulev1
+  labels:
+    testing.upbound.io/example-name: wafd-known-attack-rule
+  name: wafd-known-attack-rule-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    blockTime: 300
+    category: long_cookie_block
+    description: block long-lived attack sources
+    policySelector:
+      matchLabels:
+        testing.upbound.io/example-name: wafd-known-attack-policy

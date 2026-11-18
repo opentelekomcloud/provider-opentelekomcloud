@@ -1,0 +1,99 @@
+apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: VpcV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/vpcv1
+  labels:
+    testing.upbound.io/example-name: wafd-tamper-vpc
+  name: wafd-tamper-vpc-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    cidr: 192.168.0.0/16
+    name: wafd-tamper-vpc-${Rand.RFC1123Subdomain}
+
+---
+
+apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: SubnetV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/subnetv1
+  labels:
+    testing.upbound.io/example-name: wafd-tamper-subnet
+  name: wafd-tamper-subnet-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    cidr: 192.168.0.0/24
+    gatewayIp: 192.168.0.1
+    name: wafd-tamper-subnet-${Rand.RFC1123Subdomain}
+    vpcSelector:
+      matchLabels:
+        testing.upbound.io/example-name: wafd-tamper-vpc
+
+---
+
+apiVersion: waf.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: PolicyV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: waf/v1alpha1/policyv1
+  labels:
+    testing.upbound.io/example-name: wafd-tamper-policy
+  name: wafd-tamper-policy-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    name: wafd-tamper-policy-${Rand.RFC1123Subdomain}
+
+---
+
+apiVersion: waf.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: DomainV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: waf/v1alpha1/domainv1
+  labels:
+    testing.upbound.io/example-name: wafd-tamper-domain
+  name: wafd-tamper-domain-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    domain: www.wafd-tamper-${Rand.RFC1123Subdomain}.example.com
+    keepPolicy: true
+    policySelector:
+      matchLabels:
+        testing.upbound.io/example-name: wafd-tamper-policy
+    proxy: true
+    server:
+      - address: 192.168.0.10
+        clientProtocol: HTTP
+        port: 8080
+        serverProtocol: HTTP
+        type: ipv4
+        vpcSelector:
+          matchLabels:
+            testing.upbound.io/example-name: wafd-tamper-vpc
+
+---
+
+apiVersion: waf.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: WebTamperRuleV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: waf/v1alpha1/webtamperrulev1
+  labels:
+    testing.upbound.io/example-name: wafd-tamper-rule
+  name: wafd-tamper-rule-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    description: protect the login page from tampering
+    domainSelector:
+      matchLabels:
+        testing.upbound.io/example-name: wafd-tamper-domain
+    policySelector:
+      matchLabels:
+        testing.upbound.io/example-name: wafd-tamper-policy
+    url: /login

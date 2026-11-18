@@ -1,0 +1,55 @@
+apiVersion: waf.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: PolicyV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: waf/v1alpha1/policyv1
+  labels:
+    testing.upbound.io/example-name: wafd-blacklist-policy
+  name: wafd-blacklist-policy-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    name: wafd-blacklist-policy-${Rand.RFC1123Subdomain}
+
+---
+
+apiVersion: waf.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: KnownAttackSourceRuleV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: waf/v1alpha1/knownattacksourcerulev1
+  labels:
+    testing.upbound.io/example-name: wafd-blacklist-source-rule
+  name: wafd-blacklist-source-rule-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    blockTime: 300
+    category: long_cookie_block
+    policySelector:
+      matchLabels:
+        testing.upbound.io/example-name: wafd-blacklist-policy
+
+---
+
+apiVersion: waf.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: BlacklistRuleV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: waf/v1alpha1/blacklistrulev1
+  labels:
+    testing.upbound.io/example-name: wafd-blacklist-rule
+  name: wafd-blacklist-rule-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    action: 0
+    description: block requests from a fixed IPv4 range
+    ipAddress: 192.168.1.0/24
+    knownAttackSourceSelector:
+      matchLabels:
+        testing.upbound.io/example-name: wafd-blacklist-source-rule
+    name: wafd-blacklist-${Rand.RFC1123Subdomain}
+    policySelector:
+      matchLabels:
+        testing.upbound.io/example-name: wafd-blacklist-policy

@@ -1,0 +1,80 @@
+apiVersion: waf.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: PolicyV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: waf/v1alpha1/policyv1
+  labels:
+    testing.upbound.io/example-name: wafd-precise-policy
+  name: wafd-precise-policy-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    name: wafd-precise-policy-${Rand.RFC1123Subdomain}
+
+---
+
+apiVersion: waf.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: ReferenceTableV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: waf/v1alpha1/referencetablev1
+  labels:
+    testing.upbound.io/example-name: wafd-precise-reference-table
+  name: wafd-precise-reference-table-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    conditions:
+      - /admin
+    name: wafd-precise-reference-table-${Rand.RFC1123Subdomain}
+    type: url
+
+---
+
+apiVersion: waf.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: KnownAttackSourceRuleV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: waf/v1alpha1/knownattacksourcerulev1
+  labels:
+    testing.upbound.io/example-name: wafd-precise-source-rule
+  name: wafd-precise-source-rule-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    blockTime: 300
+    category: long_cookie_block
+    policySelector:
+      matchLabels:
+        testing.upbound.io/example-name: wafd-precise-policy
+
+---
+
+apiVersion: waf.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: PreciseProtectionRuleV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: waf/v1alpha1/preciseprotectionrulev1
+  labels:
+    testing.upbound.io/example-name: wafd-precise-rule
+  name: wafd-precise-rule-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    action:
+      - category: block
+        knownAttackSourceSelector:
+          matchLabels:
+            testing.upbound.io/example-name: wafd-precise-source-rule
+    conditions:
+      - category: url
+        logicOperation: contain_any
+        referenceTableSelector:
+          matchLabels:
+            testing.upbound.io/example-name: wafd-precise-reference-table
+    description: block requests matching the reference table
+    policySelector:
+      matchLabels:
+        testing.upbound.io/example-name: wafd-precise-policy
+    priority: 50
+    time: false

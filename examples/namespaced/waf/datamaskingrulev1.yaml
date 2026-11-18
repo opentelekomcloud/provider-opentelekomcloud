@@ -1,0 +1,33 @@
+apiVersion: waf.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: PolicyV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: waf/v1alpha1/policyv1
+  labels:
+    testing.upbound.io/example-name: wafd-datamasking-policy
+  name: wafd-datamasking-policy-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    name: wafd-datamasking-policy-${Rand.RFC1123Subdomain}
+
+---
+
+apiVersion: waf.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: DataMaskingRuleV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: waf/v1alpha1/datamaskingrulev1
+  labels:
+    testing.upbound.io/example-name: wafd-datamasking-rule
+  name: wafd-datamasking-rule-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    category: params
+    description: mask request parameters
+    name: wafd-datamasking-${Rand.RFC1123Subdomain}
+    policySelector:
+      matchLabels:
+        testing.upbound.io/example-name: wafd-datamasking-policy
+    url: /login
