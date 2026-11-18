@@ -23,8 +23,7 @@ type BlacklistRuleV1InitParameters struct {
 	// Rule description. Changing this creates a new rule.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// ID of a known attack source rule. Changing this creates a new rule.
-	// This parameter can be configured only when action is set to 0.
+	// ID of a known attack source rule. Changing this creates a new rule. The WAFD API requires a session tag on the protected domain. The traffic_identifier field is computed only in this provider, so configure the session tag out of band (console or traffic_mark.cookie API) before using this field.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/waf/v1alpha1.KnownAttackSourceRuleV1
 	// +crossplane:generate:reference:refFieldName=KnownAttackSourceRef
 	// +crossplane:generate:reference:selectorFieldName=KnownAttackSourceSelector
@@ -72,8 +71,7 @@ type BlacklistRuleV1Observation struct {
 	// Rule description. Changing this creates a new rule.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// ID of a known attack source rule. Changing this creates a new rule.
-	// This parameter can be configured only when action is set to 0.
+	// ID of a known attack source rule. Changing this creates a new rule. The WAFD API requires a session tag on the protected domain. The traffic_identifier field is computed only in this provider, so configure the session tag out of band (console or traffic_mark.cookie API) before using this field.
 	FollowedActionID *string `json:"followedActionId,omitempty" tf:"followed_action_id,omitempty"`
 
 	// ID of the rule.
@@ -104,8 +102,7 @@ type BlacklistRuleV1Parameters struct {
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// ID of a known attack source rule. Changing this creates a new rule.
-	// This parameter can be configured only when action is set to 0.
+	// ID of a known attack source rule. Changing this creates a new rule. The WAFD API requires a session tag on the protected domain. The traffic_identifier field is computed only in this provider, so configure the session tag out of band (console or traffic_mark.cookie API) before using this field.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/waf/v1alpha1.KnownAttackSourceRuleV1
 	// +crossplane:generate:reference:refFieldName=KnownAttackSourceRef
 	// +crossplane:generate:reference:selectorFieldName=KnownAttackSourceSelector

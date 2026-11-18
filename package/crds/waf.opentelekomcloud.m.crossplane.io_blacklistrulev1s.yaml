@@ -68,9 +68,11 @@ spec:
                     description: Rule description. Changing this creates a new rule.
                     type: string
                   followedActionId:
-                    description: |-
-                      ID of a known attack source rule. Changing this creates a new rule.
-                      This parameter can be configured only when action is set to 0.
+                    description: ID of a known attack source rule. Changing this creates
+                      a new rule. The WAFD API requires a session tag on the protected
+                      domain. The traffic_identifier field is computed only in this
+                      provider, so configure the session tag out of band (console
+                      or traffic_mark.cookie API) before using this field.
                     type: string
                   ipAddress:
                     description: |-
@@ -269,9 +271,11 @@ spec:
                     description: Rule description. Changing this creates a new rule.
                     type: string
                   followedActionId:
-                    description: |-
-                      ID of a known attack source rule. Changing this creates a new rule.
-                      This parameter can be configured only when action is set to 0.
+                    description: ID of a known attack source rule. Changing this creates
+                      a new rule. The WAFD API requires a session tag on the protected
+                      domain. The traffic_identifier field is computed only in this
+                      provider, so configure the session tag out of band (console
+                      or traffic_mark.cookie API) before using this field.
                     type: string
                   ipAddress:
                     description: |-
@@ -532,9 +536,11 @@ spec:
                     description: Rule description. Changing this creates a new rule.
                     type: string
                   followedActionId:
-                    description: |-
-                      ID of a known attack source rule. Changing this creates a new rule.
-                      This parameter can be configured only when action is set to 0.
+                    description: ID of a known attack source rule. Changing this creates
+                      a new rule. The WAFD API requires a session tag on the protected
+                      domain. The traffic_identifier field is computed only in this
+                      provider, so configure the session tag out of band (console
+                      or traffic_mark.cookie API) before using this field.
                     type: string
                   id:
                     description: ID of the rule.
