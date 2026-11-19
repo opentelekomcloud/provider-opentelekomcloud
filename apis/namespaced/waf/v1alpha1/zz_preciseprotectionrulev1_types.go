@@ -14,7 +14,27 @@ import (
 	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
 )
 
-type DedicatedPreciseProtectionRuleV1ActionInitParameters struct {
+type PreciseProtectionRuleV1ActionInitParameters struct {
+
+	// Action type. Changing this creates a new rule.
+	Category *string `json:"category,omitempty" tf:"category,omitempty"`
+
+	// ID of a known attack source rule. This parameter can be configured only when category is set to block. Changing this creates a new rule.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/waf/v1alpha1.KnownAttackSourceRuleV1
+	// +crossplane:generate:reference:refFieldName=KnownAttackSourceRef
+	// +crossplane:generate:reference:selectorFieldName=KnownAttackSourceSelector
+	FollowedActionID *string `json:"followedActionId,omitempty" tf:"followed_action_id,omitempty"`
+
+	// Reference to a KnownAttackSourceRuleV1 in waf to populate followedActionId.
+	// +kubebuilder:validation:Optional
+	KnownAttackSourceRef *v1.NamespacedReference `json:"knownAttackSourceRef,omitempty" tf:"-"`
+
+	// Selector for a KnownAttackSourceRuleV1 in waf to populate followedActionId.
+	// +kubebuilder:validation:Optional
+	KnownAttackSourceSelector *v1.NamespacedSelector `json:"knownAttackSourceSelector,omitempty" tf:"-"`
+}
+
+type PreciseProtectionRuleV1ActionObservation struct {
 
 	// Action type. Changing this creates a new rule.
 	Category *string `json:"category,omitempty" tf:"category,omitempty"`
@@ -23,27 +43,59 @@ type DedicatedPreciseProtectionRuleV1ActionInitParameters struct {
 	FollowedActionID *string `json:"followedActionId,omitempty" tf:"followed_action_id,omitempty"`
 }
 
-type DedicatedPreciseProtectionRuleV1ActionObservation struct {
-
-	// Action type. Changing this creates a new rule.
-	Category *string `json:"category,omitempty" tf:"category,omitempty"`
-
-	// ID of a known attack source rule. This parameter can be configured only when category is set to block. Changing this creates a new rule.
-	FollowedActionID *string `json:"followedActionId,omitempty" tf:"followed_action_id,omitempty"`
-}
-
-type DedicatedPreciseProtectionRuleV1ActionParameters struct {
+type PreciseProtectionRuleV1ActionParameters struct {
 
 	// Action type. Changing this creates a new rule.
 	// +kubebuilder:validation:Optional
 	Category *string `json:"category" tf:"category,omitempty"`
 
 	// ID of a known attack source rule. This parameter can be configured only when category is set to block. Changing this creates a new rule.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/waf/v1alpha1.KnownAttackSourceRuleV1
+	// +crossplane:generate:reference:refFieldName=KnownAttackSourceRef
+	// +crossplane:generate:reference:selectorFieldName=KnownAttackSourceSelector
 	// +kubebuilder:validation:Optional
 	FollowedActionID *string `json:"followedActionId,omitempty" tf:"followed_action_id,omitempty"`
+
+	// Reference to a KnownAttackSourceRuleV1 in waf to populate followedActionId.
+	// +kubebuilder:validation:Optional
+	KnownAttackSourceRef *v1.NamespacedReference `json:"knownAttackSourceRef,omitempty" tf:"-"`
+
+	// Selector for a KnownAttackSourceRuleV1 in waf to populate followedActionId.
+	// +kubebuilder:validation:Optional
+	KnownAttackSourceSelector *v1.NamespacedSelector `json:"knownAttackSourceSelector,omitempty" tf:"-"`
 }
 
-type DedicatedPreciseProtectionRuleV1ConditionsInitParameters struct {
+type PreciseProtectionRuleV1ConditionsInitParameters struct {
+
+	// Field type. The options are url, user-agent, ip, params, cookie, referer, header, request_line, method, and request.
+	Category *string `json:"category,omitempty" tf:"category,omitempty"`
+
+	// Content of the conditions. This parameter is mandatory when the suffix of logic_operation is not any or all.
+	// Changing explicitly configured contents creates a new rule.
+	Contents []*string `json:"contents,omitempty" tf:"contents,omitempty"`
+
+	// Subfield. Changing this creates a new rule.
+	Index *string `json:"index,omitempty" tf:"index,omitempty"`
+
+	// Logic for matching the condition. Changing this creates a new rule.
+	LogicOperation *string `json:"logicOperation,omitempty" tf:"logic_operation,omitempty"`
+
+	// Reference to a ReferenceTableV1 in waf to populate valueListId.
+	// +kubebuilder:validation:Optional
+	ReferenceTableRef *v1.NamespacedReference `json:"referenceTableRef,omitempty" tf:"-"`
+
+	// Selector for a ReferenceTableV1 in waf to populate valueListId.
+	// +kubebuilder:validation:Optional
+	ReferenceTableSelector *v1.NamespacedSelector `json:"referenceTableSelector,omitempty" tf:"-"`
+
+	// Reference table ID. This parameter is mandatory when the suffix of logic_operation is any or all. The reference table type must be the same as the category type. Changing this creates a new rule.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/waf/v1alpha1.ReferenceTableV1
+	// +crossplane:generate:reference:refFieldName=ReferenceTableRef
+	// +crossplane:generate:reference:selectorFieldName=ReferenceTableSelector
+	ValueListID *string `json:"valueListId,omitempty" tf:"value_list_id,omitempty"`
+}
+
+type PreciseProtectionRuleV1ConditionsObservation struct {
 
 	// Field type. The options are url, user-agent, ip, params, cookie, referer, header, request_line, method, and request.
 	Category *string `json:"category,omitempty" tf:"category,omitempty"`
@@ -62,26 +114,7 @@ type DedicatedPreciseProtectionRuleV1ConditionsInitParameters struct {
 	ValueListID *string `json:"valueListId,omitempty" tf:"value_list_id,omitempty"`
 }
 
-type DedicatedPreciseProtectionRuleV1ConditionsObservation struct {
-
-	// Field type. The options are url, user-agent, ip, params, cookie, referer, header, request_line, method, and request.
-	Category *string `json:"category,omitempty" tf:"category,omitempty"`
-
-	// Content of the conditions. This parameter is mandatory when the suffix of logic_operation is not any or all.
-	// Changing explicitly configured contents creates a new rule.
-	Contents []*string `json:"contents,omitempty" tf:"contents,omitempty"`
-
-	// Subfield. Changing this creates a new rule.
-	Index *string `json:"index,omitempty" tf:"index,omitempty"`
-
-	// Logic for matching the condition. Changing this creates a new rule.
-	LogicOperation *string `json:"logicOperation,omitempty" tf:"logic_operation,omitempty"`
-
-	// Reference table ID. This parameter is mandatory when the suffix of logic_operation is any or all. The reference table type must be the same as the category type. Changing this creates a new rule.
-	ValueListID *string `json:"valueListId,omitempty" tf:"value_list_id,omitempty"`
-}
-
-type DedicatedPreciseProtectionRuleV1ConditionsParameters struct {
+type PreciseProtectionRuleV1ConditionsParameters struct {
 
 	// Field type. The options are url, user-agent, ip, params, cookie, referer, header, request_line, method, and request.
 	// +kubebuilder:validation:Optional
@@ -100,26 +133,48 @@ type DedicatedPreciseProtectionRuleV1ConditionsParameters struct {
 	// +kubebuilder:validation:Optional
 	LogicOperation *string `json:"logicOperation,omitempty" tf:"logic_operation,omitempty"`
 
+	// Reference to a ReferenceTableV1 in waf to populate valueListId.
+	// +kubebuilder:validation:Optional
+	ReferenceTableRef *v1.NamespacedReference `json:"referenceTableRef,omitempty" tf:"-"`
+
+	// Selector for a ReferenceTableV1 in waf to populate valueListId.
+	// +kubebuilder:validation:Optional
+	ReferenceTableSelector *v1.NamespacedSelector `json:"referenceTableSelector,omitempty" tf:"-"`
+
 	// Reference table ID. This parameter is mandatory when the suffix of logic_operation is any or all. The reference table type must be the same as the category type. Changing this creates a new rule.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/waf/v1alpha1.ReferenceTableV1
+	// +crossplane:generate:reference:refFieldName=ReferenceTableRef
+	// +crossplane:generate:reference:selectorFieldName=ReferenceTableSelector
 	// +kubebuilder:validation:Optional
 	ValueListID *string `json:"valueListId,omitempty" tf:"value_list_id,omitempty"`
 }
 
-type DedicatedPreciseProtectionRuleV1InitParameters struct {
+type PreciseProtectionRuleV1InitParameters struct {
 
 	// Protection action to take if the number of requests reaches the upper limit. Changing this creates a new rule.
 	// The conditions block supports:
-	Action []DedicatedPreciseProtectionRuleV1ActionInitParameters `json:"action,omitempty" tf:"action,omitempty"`
+	Action []PreciseProtectionRuleV1ActionInitParameters `json:"action,omitempty" tf:"action,omitempty"`
 
 	// Match condition List. Changing this creates a new rule.
 	// The conditions block supports:
-	Conditions []DedicatedPreciseProtectionRuleV1ConditionsInitParameters `json:"conditions,omitempty" tf:"conditions,omitempty"`
+	Conditions []PreciseProtectionRuleV1ConditionsInitParameters `json:"conditions,omitempty" tf:"conditions,omitempty"`
 
 	// Rule description. Changing this creates a new rule.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// The WAF policy ID. Changing this creates a new rule.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/waf/v1alpha1.PolicyV1
+	// +crossplane:generate:reference:refFieldName=PolicyRef
+	// +crossplane:generate:reference:selectorFieldName=PolicySelector
 	PolicyID *string `json:"policyId,omitempty" tf:"policy_id,omitempty"`
+
+	// Reference to a PolicyV1 in waf to populate policyId.
+	// +kubebuilder:validation:Optional
+	PolicyRef *v1.NamespacedReference `json:"policyRef,omitempty" tf:"-"`
+
+	// Selector for a PolicyV1 in waf to populate policyId.
+	// +kubebuilder:validation:Optional
+	PolicySelector *v1.NamespacedSelector `json:"policySelector,omitempty" tf:"-"`
 
 	// Priority of a rule. A small value indicates a high priority. If two rules are assigned with the same priority, the rule added earlier has higher priority. Value range: 0 to 1000. Changing this creates a new rule.
 	Priority *float64 `json:"priority,omitempty" tf:"priority,omitempty"`
@@ -135,15 +190,15 @@ type DedicatedPreciseProtectionRuleV1InitParameters struct {
 	Time *bool `json:"time,omitempty" tf:"time,omitempty"`
 }
 
-type DedicatedPreciseProtectionRuleV1Observation struct {
+type PreciseProtectionRuleV1Observation struct {
 
 	// Protection action to take if the number of requests reaches the upper limit. Changing this creates a new rule.
 	// The conditions block supports:
-	Action []DedicatedPreciseProtectionRuleV1ActionObservation `json:"action,omitempty" tf:"action,omitempty"`
+	Action []PreciseProtectionRuleV1ActionObservation `json:"action,omitempty" tf:"action,omitempty"`
 
 	// Match condition List. Changing this creates a new rule.
 	// The conditions block supports:
-	Conditions []DedicatedPreciseProtectionRuleV1ConditionsObservation `json:"conditions,omitempty" tf:"conditions,omitempty"`
+	Conditions []PreciseProtectionRuleV1ConditionsObservation `json:"conditions,omitempty" tf:"conditions,omitempty"`
 
 	// Timestamp the rule is created.
 	CreatedAt *float64 `json:"createdAt,omitempty" tf:"created_at,omitempty"`
@@ -174,25 +229,36 @@ type DedicatedPreciseProtectionRuleV1Observation struct {
 	Time *bool `json:"time,omitempty" tf:"time,omitempty"`
 }
 
-type DedicatedPreciseProtectionRuleV1Parameters struct {
+type PreciseProtectionRuleV1Parameters struct {
 
 	// Protection action to take if the number of requests reaches the upper limit. Changing this creates a new rule.
 	// The conditions block supports:
 	// +kubebuilder:validation:Optional
-	Action []DedicatedPreciseProtectionRuleV1ActionParameters `json:"action,omitempty" tf:"action,omitempty"`
+	Action []PreciseProtectionRuleV1ActionParameters `json:"action,omitempty" tf:"action,omitempty"`
 
 	// Match condition List. Changing this creates a new rule.
 	// The conditions block supports:
 	// +kubebuilder:validation:Optional
-	Conditions []DedicatedPreciseProtectionRuleV1ConditionsParameters `json:"conditions,omitempty" tf:"conditions,omitempty"`
+	Conditions []PreciseProtectionRuleV1ConditionsParameters `json:"conditions,omitempty" tf:"conditions,omitempty"`
 
 	// Rule description. Changing this creates a new rule.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// The WAF policy ID. Changing this creates a new rule.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/waf/v1alpha1.PolicyV1
+	// +crossplane:generate:reference:refFieldName=PolicyRef
+	// +crossplane:generate:reference:selectorFieldName=PolicySelector
 	// +kubebuilder:validation:Optional
 	PolicyID *string `json:"policyId,omitempty" tf:"policy_id,omitempty"`
+
+	// Reference to a PolicyV1 in waf to populate policyId.
+	// +kubebuilder:validation:Optional
+	PolicyRef *v1.NamespacedReference `json:"policyRef,omitempty" tf:"-"`
+
+	// Selector for a PolicyV1 in waf to populate policyId.
+	// +kubebuilder:validation:Optional
+	PolicySelector *v1.NamespacedSelector `json:"policySelector,omitempty" tf:"-"`
 
 	// Priority of a rule. A small value indicates a high priority. If two rules are assigned with the same priority, the rule added earlier has higher priority. Value range: 0 to 1000. Changing this creates a new rule.
 	// +kubebuilder:validation:Optional
@@ -212,10 +278,10 @@ type DedicatedPreciseProtectionRuleV1Parameters struct {
 	Time *bool `json:"time,omitempty" tf:"time,omitempty"`
 }
 
-// DedicatedPreciseProtectionRuleV1Spec defines the desired state of DedicatedPreciseProtectionRuleV1
-type DedicatedPreciseProtectionRuleV1Spec struct {
+// PreciseProtectionRuleV1Spec defines the desired state of PreciseProtectionRuleV1
+type PreciseProtectionRuleV1Spec struct {
 	v2.ManagedResourceSpec `json:",inline"`
-	ForProvider            DedicatedPreciseProtectionRuleV1Parameters `json:"forProvider"`
+	ForProvider            PreciseProtectionRuleV1Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -226,53 +292,52 @@ type DedicatedPreciseProtectionRuleV1Spec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider DedicatedPreciseProtectionRuleV1InitParameters `json:"initProvider,omitempty"`
+	InitProvider PreciseProtectionRuleV1InitParameters `json:"initProvider,omitempty"`
 }
 
-// DedicatedPreciseProtectionRuleV1Status defines the observed state of DedicatedPreciseProtectionRuleV1.
-type DedicatedPreciseProtectionRuleV1Status struct {
+// PreciseProtectionRuleV1Status defines the observed state of PreciseProtectionRuleV1.
+type PreciseProtectionRuleV1Status struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider        DedicatedPreciseProtectionRuleV1Observation `json:"atProvider,omitempty"`
+	AtProvider        PreciseProtectionRuleV1Observation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// DedicatedPreciseProtectionRuleV1 is the Schema for the DedicatedPreciseProtectionRuleV1s API. Manages a WAF Dedicated Precise Protection Rule resource within OpenTelekomCloud.
+// PreciseProtectionRuleV1 is the Schema for the PreciseProtectionRuleV1s API. Manages a WAF Dedicated Precise Protection Rule resource within OpenTelekomCloud.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:resource:scope=Namespaced,categories={crossplane,managed,opentelekomcloud}
-type DedicatedPreciseProtectionRuleV1 struct {
+type PreciseProtectionRuleV1 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.action) || (has(self.initProvider) && has(self.initProvider.action))",message="spec.forProvider.action is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.policyId) || (has(self.initProvider) && has(self.initProvider.policyId))",message="spec.forProvider.policyId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.priority) || (has(self.initProvider) && has(self.initProvider.priority))",message="spec.forProvider.priority is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.time) || (has(self.initProvider) && has(self.initProvider.time))",message="spec.forProvider.time is a required parameter"
-	Spec   DedicatedPreciseProtectionRuleV1Spec   `json:"spec"`
-	Status DedicatedPreciseProtectionRuleV1Status `json:"status,omitempty"`
+	Spec   PreciseProtectionRuleV1Spec   `json:"spec"`
+	Status PreciseProtectionRuleV1Status `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 
-// DedicatedPreciseProtectionRuleV1List contains a list of DedicatedPreciseProtectionRuleV1s
-type DedicatedPreciseProtectionRuleV1List struct {
+// PreciseProtectionRuleV1List contains a list of PreciseProtectionRuleV1s
+type PreciseProtectionRuleV1List struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []DedicatedPreciseProtectionRuleV1 `json:"items"`
+	Items           []PreciseProtectionRuleV1 `json:"items"`
 }
 
 // Repository type metadata.
 var (
-	DedicatedPreciseProtectionRuleV1_Kind             = "DedicatedPreciseProtectionRuleV1"
-	DedicatedPreciseProtectionRuleV1_GroupKind        = schema.GroupKind{Group: CRDGroup, Kind: DedicatedPreciseProtectionRuleV1_Kind}.String()
-	DedicatedPreciseProtectionRuleV1_KindAPIVersion   = DedicatedPreciseProtectionRuleV1_Kind + "." + CRDGroupVersion.String()
-	DedicatedPreciseProtectionRuleV1_GroupVersionKind = CRDGroupVersion.WithKind(DedicatedPreciseProtectionRuleV1_Kind)
+	PreciseProtectionRuleV1_Kind             = "PreciseProtectionRuleV1"
+	PreciseProtectionRuleV1_GroupKind        = schema.GroupKind{Group: CRDGroup, Kind: PreciseProtectionRuleV1_Kind}.String()
+	PreciseProtectionRuleV1_KindAPIVersion   = PreciseProtectionRuleV1_Kind + "." + CRDGroupVersion.String()
+	PreciseProtectionRuleV1_GroupVersionKind = CRDGroupVersion.WithKind(PreciseProtectionRuleV1_Kind)
 )
 
 func init() {
-	SchemeBuilder.Register(&DedicatedPreciseProtectionRuleV1{}, &DedicatedPreciseProtectionRuleV1List{})
+	SchemeBuilder.Register(&PreciseProtectionRuleV1{}, &PreciseProtectionRuleV1List{})
 }
