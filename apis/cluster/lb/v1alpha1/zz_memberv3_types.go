@@ -18,9 +18,21 @@ type MemberV3InitParameters struct {
 	// Specifies the IP address of the backend server.
 	Address *string `json:"address,omitempty" tf:"address,omitempty"`
 
+	// Specifies the administrative state at creation. Both true and
+	// false are supported. Changing this value recreates the member because administrative-state updates are
+	// unsupported by the OTC API.
+	AdminStateUp *bool `json:"adminStateUp,omitempty" tf:"admin_state_up,omitempty"`
+
+	// Specifies the AZ of an IP-address backend server. This parameter can be
+	// set only for IP-address backends and must identify an available ECS AZ in the current region. It is required
+	// when AZ affinity is enabled on the backend server group. The value can be updated to another non-empty AZ;
+	// removing this argument leaves the current AZ unchanged.
+	AvailabilityZone *string `json:"availabilityZone,omitempty" tf:"availability_zone,omitempty"`
+
 	// Specifies the backend server name. The value is a string of 0 to 255 characters.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// Specifies the backend server group ID.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/lb/v1alpha1.PoolV3
 	PoolID *string `json:"poolId,omitempty" tf:"pool_id,omitempty"`
 
@@ -69,13 +81,33 @@ type MemberV3Observation struct {
 	// Specifies the IP address of the backend server.
 	Address *string `json:"address,omitempty" tf:"address,omitempty"`
 
+	// Specifies the administrative state at creation. Both true and
+	// false are supported. Changing this value recreates the member because administrative-state updates are
+	// unsupported by the OTC API.
+	AdminStateUp *bool `json:"adminStateUp,omitempty" tf:"admin_state_up,omitempty"`
+
+	// Specifies the AZ of an IP-address backend server. This parameter can be
+	// set only for IP-address backends and must identify an available ECS AZ in the current region. It is required
+	// when AZ affinity is enabled on the backend server group. The value can be updated to another non-empty AZ;
+	// removing this argument leaves the current AZ unchanged.
+	AvailabilityZone *string `json:"availabilityZone,omitempty" tf:"availability_zone,omitempty"`
+
+	// Creation time. Older resources may not return this value.
+	CreatedAt *string `json:"createdAt,omitempty" tf:"created_at,omitempty"`
+
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// Version of IP based on the address parameter. The value can be v4 or v6.
 	IPVersion *string `json:"ipVersion,omitempty" tf:"ip_version,omitempty"`
 
+	// ID of the associated ECS, if any.
+	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
+
 	// ID of the pool member.
 	MemberID *string `json:"memberId,omitempty" tf:"member_id,omitempty"`
+
+	// Backend server type.
+	MemberType *string `json:"memberType,omitempty" tf:"member_type,omitempty"`
 
 	// Specifies the backend server name. The value is a string of 0 to 255 characters.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -83,6 +115,7 @@ type MemberV3Observation struct {
 	// Specifies the operating status of the backend server.
 	OperatingStatus *string `json:"operatingStatus,omitempty" tf:"operating_status,omitempty"`
 
+	// Specifies the backend server group ID.
 	PoolID *string `json:"poolId,omitempty" tf:"pool_id,omitempty"`
 
 	// Specifies the project ID.
@@ -92,8 +125,14 @@ type MemberV3Observation struct {
 	// valid port.
 	ProtocolPort *float64 `json:"protocolPort,omitempty" tf:"protocol_port,omitempty"`
 
+	// Per-listener health status list. Each entry exports:
+	Status []StatusObservation `json:"status,omitempty" tf:"status,omitempty"`
+
 	// , for example, 192.168.3.11.
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
+
+	// Last update time. Older resources may not return this value.
+	UpdatedAt *string `json:"updatedAt,omitempty" tf:"updated_at,omitempty"`
 
 	// Specifies the weight of the backend server.
 	Weight *float64 `json:"weight,omitempty" tf:"weight,omitempty"`
@@ -105,10 +144,24 @@ type MemberV3Parameters struct {
 	// +kubebuilder:validation:Optional
 	Address *string `json:"address,omitempty" tf:"address,omitempty"`
 
+	// Specifies the administrative state at creation. Both true and
+	// false are supported. Changing this value recreates the member because administrative-state updates are
+	// unsupported by the OTC API.
+	// +kubebuilder:validation:Optional
+	AdminStateUp *bool `json:"adminStateUp,omitempty" tf:"admin_state_up,omitempty"`
+
+	// Specifies the AZ of an IP-address backend server. This parameter can be
+	// set only for IP-address backends and must identify an available ECS AZ in the current region. It is required
+	// when AZ affinity is enabled on the backend server group. The value can be updated to another non-empty AZ;
+	// removing this argument leaves the current AZ unchanged.
+	// +kubebuilder:validation:Optional
+	AvailabilityZone *string `json:"availabilityZone,omitempty" tf:"availability_zone,omitempty"`
+
 	// Specifies the backend server name. The value is a string of 0 to 255 characters.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// Specifies the backend server group ID.
 	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/cluster/lb/v1alpha1.PoolV3
 	// +kubebuilder:validation:Optional
 	PoolID *string `json:"poolId,omitempty" tf:"pool_id,omitempty"`
@@ -155,6 +208,48 @@ type MemberV3Parameters struct {
 	// Specifies the weight of the backend server.
 	// +kubebuilder:validation:Optional
 	Weight *float64 `json:"weight,omitempty" tf:"weight,omitempty"`
+}
+
+type ReasonInitParameters struct {
+}
+
+type ReasonObservation struct {
+
+	// Expected health-check response code.
+	ExpectedResponse *string `json:"expectedResponse,omitempty" tf:"expected_response,omitempty"`
+
+	// Actual health-check response code.
+	HealthcheckResponse *string `json:"healthcheckResponse,omitempty" tf:"healthcheck_response,omitempty"`
+
+	// Failure code.
+	ReasonCode *string `json:"reasonCode,omitempty" tf:"reason_code,omitempty"`
+}
+
+type ReasonParameters struct {
+}
+
+type StatusInitParameters struct {
+}
+
+type StatusObservation struct {
+
+	// Creation time. Older resources may not return this value.
+	CreatedAt *string `json:"createdAt,omitempty" tf:"created_at,omitempty"`
+
+	// Listener ID.
+	ListenerID *string `json:"listenerId,omitempty" tf:"listener_id,omitempty"`
+
+	// Specifies the operating status of the backend server.
+	OperatingStatus *string `json:"operatingStatus,omitempty" tf:"operating_status,omitempty"`
+
+	// Optional health-check failure details:
+	Reason []ReasonObservation `json:"reason,omitempty" tf:"reason,omitempty"`
+
+	// Last update time. Older resources may not return this value.
+	UpdatedAt *string `json:"updatedAt,omitempty" tf:"updated_at,omitempty"`
+}
+
+type StatusParameters struct {
 }
 
 // MemberV3Spec defines the desired state of MemberV3

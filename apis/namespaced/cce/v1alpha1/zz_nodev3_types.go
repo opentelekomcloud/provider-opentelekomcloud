@@ -195,6 +195,16 @@ type NodeV3InitParameters struct {
 	// Specifies the flavor id. Changing this parameter will create a new resource.
 	FlavorID *string `json:"flavorId,omitempty" tf:"flavor_id,omitempty"`
 
+	// Kubernetes node name configuration type.
+	// Changing this parameter will create a new resource. Defaults to privateIp. Options are:
+	// privateIp - Use the private node IP address as the Kubernetes node name.
+	// cceNodeName - Use the CCE node name as the Kubernetes node name.
+	// -> NOTE: When set to cceNodeName, the CCE node name, the Kubernetes node name and the VM name
+	// are all the same and the name must be unique within the cluster. The API automatically appends a
+	// suffix to the node name (a hyphen followed by five random lowercase letters and digits, e.g.
+	// my-node-abc12), so the Kubernetes node name may differ from the configured one.
+	HostnameConfigType *string `json:"hostnameConfigType,omitempty" tf:"hostname_config_type,omitempty"`
+
 	// Elastic IP type.
 	Iptype *string `json:"iptype,omitempty" tf:"iptype,omitempty"`
 
@@ -331,6 +341,16 @@ type NodeV3Observation struct {
 
 	// Specifies the flavor id. Changing this parameter will create a new resource.
 	FlavorID *string `json:"flavorId,omitempty" tf:"flavor_id,omitempty"`
+
+	// Kubernetes node name configuration type.
+	// Changing this parameter will create a new resource. Defaults to privateIp. Options are:
+	// privateIp - Use the private node IP address as the Kubernetes node name.
+	// cceNodeName - Use the CCE node name as the Kubernetes node name.
+	// -> NOTE: When set to cceNodeName, the CCE node name, the Kubernetes node name and the VM name
+	// are all the same and the name must be unique within the cluster. The API automatically appends a
+	// suffix to the node name (a hyphen followed by five random lowercase letters and digits, e.g.
+	// my-node-abc12), so the Kubernetes node name may differ from the configured one.
+	HostnameConfigType *string `json:"hostnameConfigType,omitempty" tf:"hostname_config_type,omitempty"`
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
@@ -519,6 +539,17 @@ type NodeV3Parameters struct {
 	// Specifies the flavor id. Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
 	FlavorID *string `json:"flavorId,omitempty" tf:"flavor_id,omitempty"`
+
+	// Kubernetes node name configuration type.
+	// Changing this parameter will create a new resource. Defaults to privateIp. Options are:
+	// privateIp - Use the private node IP address as the Kubernetes node name.
+	// cceNodeName - Use the CCE node name as the Kubernetes node name.
+	// -> NOTE: When set to cceNodeName, the CCE node name, the Kubernetes node name and the VM name
+	// are all the same and the name must be unique within the cluster. The API automatically appends a
+	// suffix to the node name (a hyphen followed by five random lowercase letters and digits, e.g.
+	// my-node-abc12), so the Kubernetes node name may differ from the configured one.
+	// +kubebuilder:validation:Optional
+	HostnameConfigType *string `json:"hostnameConfigType,omitempty" tf:"hostname_config_type,omitempty"`
 
 	// Elastic IP type.
 	// +kubebuilder:validation:Optional

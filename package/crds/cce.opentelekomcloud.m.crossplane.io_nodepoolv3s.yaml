@@ -357,6 +357,13 @@ spec:
                     description: Specifies the flavor id. Changing this parameter
                       will create a new resource.
                     type: string
+                  hostnameConfigType:
+                    description: |-
+                      Kubernetes node name configuration type.
+                      Changing this parameter will create a new resource. Defaults to privateIp. Options are:
+                      privateIp - Use the private node IP address as the Kubernetes node name.
+                      cceNodeName - Use the CCE node name as the Kubernetes node name.
+                    type: string
                   initialNodeCount:
                     description: Initial number of expected nodes in the node pool.
                     type: number
@@ -1066,6 +1073,13 @@ spec:
                     description: Specifies the flavor id. Changing this parameter
                       will create a new resource.
                     type: string
+                  hostnameConfigType:
+                    description: |-
+                      Kubernetes node name configuration type.
+                      Changing this parameter will create a new resource. Defaults to privateIp. Options are:
+                      privateIp - Use the private node IP address as the Kubernetes node name.
+                      cceNodeName - Use the CCE node name as the Kubernetes node name.
+                    type: string
                   initialNodeCount:
                     description: Initial number of expected nodes in the node pool.
                     type: number
@@ -1605,6 +1619,13 @@ spec:
                   flavor:
                     description: Specifies the flavor id. Changing this parameter
                       will create a new resource.
+                    type: string
+                  hostnameConfigType:
+                    description: |-
+                      Kubernetes node name configuration type.
+                      Changing this parameter will create a new resource. Defaults to privateIp. Options are:
+                      privateIp - Use the private node IP address as the Kubernetes node name.
+                      cceNodeName - Use the CCE node name as the Kubernetes node name.
                     type: string
                   id:
                     description: Specifies a resource ID in UUID format.

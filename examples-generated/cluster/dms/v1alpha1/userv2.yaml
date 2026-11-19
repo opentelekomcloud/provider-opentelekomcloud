@@ -8,6 +8,7 @@ metadata:
   name: user-1
 spec:
   forProvider:
+    description: Kafka application user
     instanceId: ${instance_id}
     passwordSecretRef:
       key: example-key

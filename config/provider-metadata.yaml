@@ -60,6 +60,293 @@ resources:
             http_request_pos_id: '- (Required) The position ID of number of HTTP requests. The value ranges from 1 to 15.'
             traffic_pos_id: '- (Required) The position ID of traffic. The value ranges from 1 to 9.'
         importStatements: []
+    opentelekomcloud_aom_alarm_action_rule_v2:
+        subCategory: Application Operations Management (AOM)
+        description: Manages an AOM alarm action rule resource within T-Cloud Public (formerly OpenTelekomCloud).
+        name: opentelekomcloud_aom_alarm_action_rule_v2
+        title: opentelekomcloud_aom_alarm_action_rule_v2
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "description": "alarm action rule",
+                  "name": "alarm_action_rule",
+                  "notification_template": "aom.built-in.template.en",
+                  "smn_topic": [
+                    {
+                      "name": "alarm_topic",
+                      "push_policy": 0,
+                      "topic_urn": "${var.alarm_topic_urn}"
+                    }
+                  ],
+                  "type": "1"
+                }
+              references:
+                smn_topic.topic_urn: var.alarm_topic_urn
+        argumentDocs:
+            create_time: '- The creation time (UTC timestamp, in milliseconds).'
+            description: |-
+                - (Optional, String) The description of the rule.
+                A maximum of 1,024 characters are allowed. The description must not start or
+                end with an underscore (), and only digits, letters, underscores (),
+                asterisks (*), and spaces are allowed.
+            id: '- The resource ID, which is the name of the alarm action rule.'
+            name: |-
+                - (Required, String, ForceNew) The name of the alarm action rule.
+                A maximum of 100 characters are allowed. The name must not start or end with
+                a special character and only letters, digits, and underscores (_) are allowed.
+                Changing this parameter will create a new resource.
+            notification_template: |-
+                - (Required, String) The message template.
+                The template name must reference an existing AOM notification template.
+            smn_topic: |-
+                - (Required, List) The list of SMN topics to notify.
+                A maximum of 5 topics are allowed.
+                The smn_topic structure is documented below.
+            smn_topic.display_name: |-
+                - (Optional, String) The topic display name, which will be the
+                name of an email sender. A maximum of 192 bytes are allowed.
+                If omitted, the value is read back from the API.
+            smn_topic.name: '- (Required, String) The name of the topic.'
+            smn_topic.push_policy: |-
+                - (Required, Int) The SMN message push policy.
+                Valid values are 0 and 1.
+            smn_topic.status: |-
+                - The status of the topic subscriber:
+                0 (the topic has been deleted or the subscription list of this topic is
+                empty), 1 (the subscription object is in the subscribed state), or
+                2 (the subscription object is in the unsubscribed or canceled state).
+            smn_topic.topic_urn: '- (Required, String) The unique resource identifier of the topic.'
+            time_zone: '- (Optional, String) The time zone of the rule.'
+            type: |-
+                - (Required, String) The rule type.
+                Valid values are 1 (Prometheus monitoring) and 3 (log monitoring).
+            update_time: '- The modification time (UTC timestamp, in milliseconds).'
+            user_name: |-
+                - (Optional, String, ForceNew) The member account name.
+                If omitted, the username the provider is authenticated as is used.
+                Changing this parameter will create a new resource.
+        importStatements: []
+    opentelekomcloud_aom_alarm_silence_rule_v2:
+        subCategory: Application Operations Management (AOM)
+        description: Manages an AOM alarm silence rule resource within T-Cloud Public (formerly OpenTelekomCloud).
+        name: opentelekomcloud_aom_alarm_silence_rule_v2
+        title: opentelekomcloud_aom_alarm_silence_rule_v2
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "description": "silence Info alarms every day",
+                  "match": [
+                    {
+                      "conditions": [
+                        {
+                          "key": "event_severity",
+                          "operate": "EQUALS",
+                          "value": [
+                            "Info"
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "mute_config": [
+                    {
+                      "ends_at": 86399,
+                      "starts_at": 0,
+                      "type": "DAILY"
+                    }
+                  ],
+                  "name": "alarm_silence_rule",
+                  "timezone": "UTC"
+                }
+        argumentDocs:
+            create_time: '- The creation time (UTC timestamp, in milliseconds).'
+            description: '- (Optional, String) The description of the rule.'
+            id: '- The resource ID, which is the name of the silence rule.'
+            match: |-
+                - (Required, List) The match conditions of the rule.
+                Up to 10 serial or parallel conditions can be created.
+                The match structure is documented below.
+            match.conditions: |-
+                - (Required, List) The list of match conditions of a group.
+                The conditions structure is documented below.
+            match.conditions.key: '- (Required, String) The key specified in the metadata for matching.'
+            match.conditions.operate: |-
+                - (Required, String) The match mode.
+                Valid values are EXIST (exist), REGEX (regular expression), and
+                EQUALS (equal to).
+            match.conditions.value: |-
+                - (Optional, List) The list of values corresponding to the key.
+                If operate is set to EXIST, this parameter is left blank.
+            mute_config: |-
+                - (Required, List) The time when the rule takes effect.
+                The mute_config structure is documented below.
+            mute_config.ends_at: |-
+                - (Optional, Int) The end time of the silence rule
+                (in milliseconds). If the silence rule is permanent, set this parameter
+                to 0.
+            mute_config.scope: |-
+                - (Optional, List) The scope of the rule.
+                When type is set to WEEKLY or MONTHLY, this parameter is mandatory.
+            mute_config.starts_at: |-
+                - (Optional, Int) The start time of the silence rule
+                (in milliseconds).
+            mute_config.type: |-
+                - (Required, String) The type of the time for the silence rule to
+                take effect. Valid values are FIXED (fixed time), DAILY (certain time
+                every day), WEEKLY (certain time every week), and MONTHLY (certain time
+                every month).
+            name: |-
+                - (Required, String, ForceNew) The name of the silence rule.
+                A maximum of 100 characters are allowed. The name must not start or end with
+                an underscore (_) and only letters, digits, and underscores are allowed.
+                Changing this parameter will create a new resource.
+            timezone: '- (Optional, String) The time zone of the rule.'
+            update_time: '- The modification time (UTC timestamp, in milliseconds).'
+            user_id: |-
+                - (Optional, String, ForceNew) The user ID.
+                Changing this parameter will create a new resource.
+        importStatements: []
+    opentelekomcloud_aom_service_discovery_rule_v1:
+        subCategory: Application Operations Management (AOM)
+        description: Manages an AOM service discovery rule resource within T-Cloud Public (formerly OpenTelekomCloud).
+        name: opentelekomcloud_aom_service_discovery_rule_v1
+        title: opentelekomcloud_aom_service_discovery_rule_v1
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "description": "discover Java processes",
+                  "enabled": true,
+                  "name": "service-discovery-rule",
+                  "spec": [
+                    {
+                      "app_type": "Java",
+                      "detect_log": false,
+                      "discovery_rule": [
+                        {
+                          "check_content": [
+                            "my-application-process"
+                          ],
+                          "check_mode": "contain",
+                          "check_type": "cmdLine"
+                        }
+                      ],
+                      "is_default_rule": false,
+                      "is_detect": false,
+                      "log_file_fix": [
+                        "log",
+                        "trace",
+                        "out"
+                      ],
+                      "name_rule": [
+                        {
+                          "app_name_rule": [
+                            {
+                              "args": [
+                                "-svc"
+                              ],
+                              "name_type": "str"
+                            }
+                          ],
+                          "application_name_rule": [
+                            {
+                              "args": [
+                                "-app"
+                              ],
+                              "name_type": "str"
+                            }
+                          ]
+                        }
+                      ],
+                      "priority": 9999
+                    }
+                  ]
+                }
+        argumentDocs:
+            create_time: '- The creation time returned by the API.'
+            description: '- (Optional, String) The custom description of the rule.'
+            discovery_rule.check_content: |-
+                - (Required, List) The matched values.
+                For cmdLine: the process must contain the given parameter.
+                For env: pairs in the format ["k1", "v1"], the process must contain the
+                environment variable k1 with value v1.
+                For scope: host IDs the rule applies to; if empty, all project nodes.
+            discovery_rule.check_mode: |-
+                - (Required, String) The match condition.
+                Valid values are contain and equals.
+                For check_type cmdLine or env, use contain; for scope, use equals.
+            discovery_rule.check_type: |-
+                - (Required, String) The match type.
+                Valid values are cmdLine, env, and scope.
+            enabled: '- (Required, Bool) Whether the rule is enabled.'
+            event_name: |-
+                - The rule event name
+                (fixed value: aom_inventory_rules_event).
+            id: '- The resource ID, which is the ID of the service discovery rule.'
+            log_path_rule.args: '- (Required, List) The commands.'
+            log_path_rule.name_type: '- (Required, String) The value type, which can be cmdLineHash.'
+            log_path_rule.value: '- (Required, List) The log paths.'
+            name: |-
+                - (Required, String) The name of the service discovery rule.
+                A maximum of 64 characters are allowed. The name must start with a lowercase
+                letter, cannot end with a hyphen (-), and only digits, lowercase letters,
+                and hyphens are allowed.
+            name_rule.app_name_rule: |-
+                - (Required, List) The service name extraction rules.
+                Documented under the name extraction rules below.
+            name_rule.application_name_rule: |-
+                - (Required, List) The application name extraction
+                rules, with the same format as app_name_rule.
+            name_rule.args: '- (Required, List) The input values.'
+            name_rule.name_type: |-
+                - (Required, String) The value type.
+                Valid values are cmdLineHash, cmdLine, env, and str.
+                For cmdLine, args is ["start", "end"] and the characters between
+                start and end in the command are extracted.
+                For env, args is ["aa"] and the environment variable aa is extracted.
+                For str, args is ["fix"] and the name is suffixed with fix.
+                For cmdLineHash, args is ["0001"] and value is ["ser"], meaning
+                the name is ser when the startup command is 0001.
+            name_rule.value: |-
+                - (Optional, List) The name, mandatory only when name_type is
+                cmdLineHash.
+            project_id: '- The project ID the rule belongs to.'
+            spec: |-
+                - (Required, List) The details of the service discovery rule.
+                The spec structure is documented below.
+            spec.app_type: |-
+                - (Optional, String) The service type, used only for rule
+                classification and UI display. Any value can be entered, for example,
+                Java or Python.
+            spec.attr_list: |-
+                - (Optional, List) The attribute list. Currently not used.
+                Valid values are cmdLine and env.
+            spec.data_source: '- (Optional, String) The data source.'
+            spec.detect_log: '- (Required, Bool) Whether to enable log collection.'
+            spec.discovery_rule: |-
+                - (Required, List) The process match conditions.
+                If the list contains multiple conditions, only the processes that meet all
+                the conditions will be matched.
+                The discovery_rule structure is documented below.
+            spec.is_default_rule: '- (Required, Bool) Whether the rule is the default one.'
+            spec.is_detect: |-
+                - (Required, Bool) Whether the scenario is a pre-check scenario.
+                No rules will be saved in the pre-check scenario.
+            spec.log_file_fix: |-
+                - (Required, List) The log file suffixes.
+                Valid values are log, trace, and out.
+            spec.log_path_rule: |-
+                - (Optional, List) The log path configuration rules.
+                The log_path_rule structure is documented below.
+            spec.name_rule: |-
+                - (Required, List) The naming rules for discovered services and
+                applications. The name_rule structure is documented below.
+            spec.priority: |-
+                - (Required, Int) The rule priority. Value range: 1 to 9999.
+                Default value: 9999.
+        importStatements: []
     opentelekomcloud_apigw_acl_policy_associate_v2:
         subCategory: APIGW
         description: Manages a APIGW ACL policy association resource within OpenTelekomCloud.
@@ -2261,6 +2548,60 @@ resources:
             scaling_lifecycle_hook_name: '- (Required, String, ForceNew) The name of the AS Lifecycle Hook. The name can contain letters, digits, underscores(_), and hyphens(-),and cannot exceed 32 characters.'
             scaling_lifecycle_hook_type: '- (Required, String) The lifecycle hook type. The values can be INSTANCE_TERMINATING, and INSTANCE_LAUNCHING.'
         importStatements: []
+    opentelekomcloud_as_notification_v1:
+        subCategory: Autoscaling
+        description: Manages an Auto Scaling notification configuration within OpenTelekomCloud.
+        name: opentelekomcloud_as_notification_v1
+        title: opentelekomcloud_as_notification_v1
+        examples:
+            - name: scaling
+              manifest: |-
+                {
+                  "depends_on": [
+                    "${opentelekomcloud_smn_subscription_v2.scaling}"
+                  ],
+                  "scaling_group_id": "${opentelekomcloud_as_group_v1.group.id}",
+                  "topic_scene": [
+                    "SCALING_UP_FAIL",
+                    "SCALING_DOWN_FAIL",
+                    "SCALING_GROUP_ABNORMAL"
+                  ],
+                  "topic_urn": "${opentelekomcloud_smn_topic_v2.scaling.id}"
+                }
+              references:
+                scaling_group_id: opentelekomcloud_as_group_v1.group.id
+                topic_urn: opentelekomcloud_smn_topic_v2.scaling.id
+              dependencies:
+                opentelekomcloud_smn_subscription_v2.scaling: |-
+                    {
+                      "endpoint": "scaling-alerts@example.com",
+                      "protocol": "email",
+                      "topic_urn": "${opentelekomcloud_smn_topic_v2.scaling.id}"
+                    }
+                opentelekomcloud_smn_topic_v2.scaling: |-
+                    {
+                      "name": "scaling-events"
+                    }
+        argumentDocs:
+            create: '- (Default 5 minutes) Waiting for the configuration to become visible.'
+            delete: '- (Default 5 minutes) Waiting for the configuration to disappear.'
+            id: '- The composite identifier <scaling_group_id>/<topic_urn>.'
+            region: '- The region in which the notification configuration is managed.'
+            scaling_group_id: |-
+                - (Required, String, ForceNew) The Auto Scaling group ID.
+                Changing this creates a new notification configuration.
+            topic_name: '- The name of the SMN topic.'
+            topic_scene: |-
+                - (Required, Set of Strings, ForceNew) One or more events that
+                trigger notifications. Order and duplicate entries do not affect the set.
+                Supported values are SCALING_UP, SCALING_UP_FAIL, SCALING_DOWN,
+                SCALING_DOWN_FAIL, and SCALING_GROUP_ABNORMAL.
+                Changing this replaces the notification configuration.
+            topic_urn: |-
+                - (Required, String, ForceNew) The URN of the SMN topic.
+                Changing this creates a new notification configuration.
+        importStatements:
+            - terraform import opentelekomcloud_as_notification_v1.scaling 'group-id/urn:smn:eu-de:project-id:scaling-events'
     opentelekomcloud_as_policy_v1:
         subCategory: Autoscaling
         description: Manages a AS Policy v1 resource within OpenTelekomCloud.
@@ -4168,6 +4509,11 @@ resources:
                 Please use alternative parameter extend_params.
             extend_params: '- (Optional, Map, ForceNew) Disk expansion parameters. A list of strings which describes additional disk parameters.'
             flavor: '- (Required, ForceNew, String) Specifies the flavor id. Changing this parameter will create a new resource.'
+            hostname_config_type: |-
+                - (Optional, String, ForceNew) Kubernetes node name configuration type.
+                Changing this parameter will create a new resource. Defaults to privateIp. Options are:
+                privateIp - Use the private node IP address as the Kubernetes node name.
+                cceNodeName - Use the CCE node name as the Kubernetes node name.
             id: '- Specifies a resource ID in UUID format.'
             initial_node_count: '- (Required, Int) Initial number of expected nodes in the node pool.'
             k8s_tags: '- (Optional, Map) Tags of a Kubernetes node, key/value pair format.'
@@ -4290,6 +4636,9 @@ resources:
             bandwidth_charge_mode: '- (Optional, String) Bandwidth billing type.'
             bandwidth_size: '- (Optional, Int) Bandwidth size.'
             billing_mode: '- (Optional, ForceNew, Int) Node''s billing mode: The value is 0 (on demand). Changing this parameter will create a new resource.'
+            cceNodeName: |-
+                cannot be changed after creation.
+                A rename of the VM on the ECS console is not synchronized back to the CCE node either.
             cluster_id: '- (Required, ForceNew, String) ID of the cluster. Changing this parameter will create a new resource.'
             create: '- Default is 10 minutes.'
             data_volumes: '- (Required, ForceNew, List) Represents the data disk to be created. Changing this parameter will create a new resource.'
@@ -4316,6 +4665,17 @@ resources:
             extend_param_charging_mode: '- (Optional, ForceNew, Int) Node charging mode, 0 is on-demand charging. Changing this parameter will create a new cluster resource.'
             extend_params: '- (Optional, ForceNew, Map) Disk expansion parameters. A list of strings which describes additional disk parameters.'
             flavor_id: '- (Required, ForceNew, String) Specifies the flavor id. Changing this parameter will create a new resource.'
+            hostname_config_type: |-
+                - (Optional, ForceNew, String) Kubernetes node name configuration type.
+                Changing this parameter will create a new resource. Defaults to privateIp. Options are:
+                privateIp - Use the private node IP address as the Kubernetes node name.
+                cceNodeName - Use the CCE node name as the Kubernetes node name.
+                -> NOTE: When set to cceNodeName, the CCE node name, the Kubernetes node name and the VM name
+                are all the same and the name must be unique within the cluster. The API automatically appends a
+                suffix to the node name (a hyphen followed by five random lowercase letters and digits, e.g.
+                my-node-abc12), so the Kubernetes node name may differ from the configured one. Terraform keeps
+                the configured name in the state of the node resource; data sources report the actual name stored
+                by the API.
             iptype: '- (Optional, String) Elastic IP type.'
             k8s_tags: '- (Optional, ForceNew, Map) Tags of a Kubernetes node, key/value pair format.'
             key: '- (Required, String) A key must contain 1 to 63 characters starting with a letter or digit. Only letters, digits, hyphens (-), underscores (_), and periods (.) are allowed. A DNS subdomain name can be used as the prefix of a key.'
@@ -9682,6 +10042,9 @@ resources:
                 - (Required, String, ForceNew) Specifies the Kafka [flavor ID](https://docs.otc.t-systems.com/distributed-message-service/api-ref/apis_v2_recommended/other_apis/querying_product_specifications_list.html#listengineproducts,
                 e.g. c6.2u4g.cluster.
             id: '- Specifies a resource ID in UUID format.'
+            ipv6_connect_addresses: |-
+                - Indicates the IPv6 connection addresses of the DMS Kafka instance.
+                Populated only when ipv6_enable is true.
             ipv6_enable: |-
                 - (Optional, Bool, ForceNew) Specifies whether to enable IPv6. Defaults to false.
                 Changing this creates a new instance resource.
@@ -10106,6 +10469,165 @@ resources:
             retry_max_time: '- (Optional, Int) Specifies the maximum number of retries. Value range: 1–16.'
             update: '- Default is 5 minutes.'
         importStatements: []
+    opentelekomcloud_dms_rocketmq_consumption_verify_v2:
+        subCategory: Distributed Message Service (DMS)
+        description: Verifies DMS RocketMQ message consumption within OpenTelekomCloud.
+        name: opentelekomcloud_dms_rocketmq_consumption_verify_v2
+        title: opentelekomcloud_dms_rocketmq_consumption_verify_v2
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "client_id": "${var.client_id}",
+                  "group": "${var.group}",
+                  "instance_id": "${var.instance_id}",
+                  "msg_id_list": [
+                    "${var.msg_id}"
+                  ],
+                  "topic": "${var.topic}"
+                }
+              references:
+                client_id: var.client_id
+                group: var.group
+                instance_id: var.instance_id
+                msg_id_list: var.msg_id
+                topic: var.topic
+        argumentDocs:
+            client_id: |-
+                - (Required, String, ForceNew) Specifies the ID of the consumer client.
+                Changing this creates a new resource.
+            group: |-
+                - (Required, String, ForceNew) Specifies the consumer group name.
+                Changing this creates a new resource.
+            id: '- The resource ID.'
+            instance_id: |-
+                - (Required, String, ForceNew) Specifies the ID of the RocketMQ instance.
+                Changing this creates a new resource.
+            msg_id_list: |-
+                - (Optional, List, ForceNew) Specifies the IDs of the messages to be consumed again.
+                Changing this creates a new resource.
+            resend_results: |-
+                - Indicates the consumption verification results.
+                The resend_results structure is documented below.
+            resend_results.error_code: '- Indicates the error code.'
+            resend_results.error_message: '- Indicates the error message.'
+            resend_results.msg_id: '- Indicates the message ID.'
+            topic: |-
+                - (Optional, String, ForceNew) Specifies the topic to which the messages belong.
+                Changing this creates a new resource.
+        importStatements: []
+    opentelekomcloud_dms_rocketmq_dead_letter_resend_v2:
+        subCategory: Distributed Message Service (DMS)
+        description: Resends DMS RocketMQ dead letter messages within OpenTelekomCloud.
+        name: opentelekomcloud_dms_rocketmq_dead_letter_resend_v2
+        title: opentelekomcloud_dms_rocketmq_dead_letter_resend_v2
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "instance_id": "${var.instance_id}",
+                  "msg_id_list": [
+                    "${var.msg_id}"
+                  ],
+                  "topic": "%DLQ%${var.group}"
+                }
+              references:
+                instance_id: var.instance_id
+                msg_id_list: var.msg_id
+        argumentDocs:
+            id: '- The resource ID.'
+            instance_id: |-
+                - (Required, String, ForceNew) Specifies the ID of the RocketMQ instance.
+                Changing this creates a new resource.
+            msg_id_list: |-
+                - (Optional, List, ForceNew) Specifies the IDs of the messages to be resent.
+                Changing this creates a new resource.
+            resend_results: |-
+                - Indicates the results of resending the dead letter messages.
+                The resend_results structure is documented below.
+            resend_results.error_code: '- Indicates the error code.'
+            resend_results.error_message: '- Indicates the error message.'
+            resend_results.msg_id: '- Indicates the message ID.'
+            topic: |-
+                - (Optional, String, ForceNew) Specifies the dead letter topic name, in format %DLQ%{group}.
+                Changing this creates a new resource.
+        importStatements: []
+    opentelekomcloud_dms_rocketmq_instance_diagnosis_v2:
+        subCategory: Distributed Message Service (DMS)
+        description: Manages a DMS RocketMQ instance diagnosis resource within OpenTelekomCloud.
+        name: opentelekomcloud_dms_rocketmq_instance_diagnosis_v2
+        title: opentelekomcloud_dms_rocketmq_instance_diagnosis_v2
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "group_name": "${var.group_name}",
+                  "instance_id": "${var.instance_id}"
+                }
+              references:
+                group_name: var.group_name
+                instance_id: var.instance_id
+            - name: test
+              manifest: |-
+                {
+                  "lifecycle": [
+                    {
+                      "ignore_changes": [
+                        "${node_id_list}"
+                      ]
+                    }
+                  ]
+                }
+              references:
+                lifecycle.ignore_changes: node_id_list
+        argumentDocs:
+            abnormal_item_sum: '- Indicates the number of abnormal items.'
+            consumer_nums: '- Indicates the number of consumers.'
+            consumers_in_tags.consumers: '- Indicates the consumer list.'
+            consumers_in_tags.tag_name: '- Indicates the tag name.'
+            create: '- Default is 10 minutes.'
+            created_at: '- Indicates the time when the diagnosis report was generated, in RFC3339 format.'
+            diagnosis_node_report_list: |-
+                - Indicates the diagnosis node report list.
+                The diagnosis_node_report_list structure is documented below.
+            diagnosis_node_report_list.abnormal_item_sum: '- Indicates the total number of exceptions.'
+            diagnosis_node_report_list.consume_type: '- Indicates the consumption type.'
+            diagnosis_node_report_list.dead_lock: '- Indicates whether a deadlock occurs.'
+            diagnosis_node_report_list.deadlock_thread: '- Indicates the deadlock thread.'
+            diagnosis_node_report_list.is_faulted: '- Indicates whether the node is faulty.'
+            diagnosis_node_report_list.is_pop: '- Indicates whether pop consumption is used.'
+            diagnosis_node_report_list.message_accumulation: '- Indicates the number of stacked messages.'
+            diagnosis_node_report_list.node_id: '- Indicates the node ID.'
+            diagnosis_node_report_list.stack_id: '- Indicates the thread ID.'
+            different_consumer_type: '- Indicates whether there are inconsistent consumption types.'
+            duplicate_client_id: '- Indicates whether there are duplicate client IDs.'
+            faulted_node_sum: '- Indicates the number of abnormal nodes.'
+            group_name: |-
+                - (Required, String, ForceNew) Specifies the name of the consumer group to diagnose.
+                Changing this creates a new resource.
+            id: '- The resource ID in format <instance_id>/<report_id>.'
+            instance_id: |-
+                - (Required, String, ForceNew) Specifies the ID of the RocketMQ instance.
+                Changing this creates a new resource.
+            message_accumulation: '- Indicates the number of stacked messages.'
+            node_id_list: |-
+                - (Optional, List, ForceNew) Specifies the list of node IDs to diagnose.
+                Changing this creates a new resource.
+            online: '- Indicates whether the consumer group is online.'
+            report_id: '- Indicates the ID of the diagnosis report.'
+            status: |-
+                - Indicates the status of the diagnosis report.
+                Values: diagnosing, failed, deleted, finished, normal (no problems found),
+                abnormal (problems found).
+            subscription_consistency: '- Indicates whether the subscription relationship is consistent.'
+            subscriptions: |-
+                - Indicates the subscriber list.
+                The subscriptions structure is documented below.
+            subscriptions.consumers_in_tags: |-
+                - Indicates the consumer tag list.
+                The consumers_in_tags structure is documented below.
+            subscriptions.topic_name: '- Indicates the topic name.'
+        importStatements: []
     opentelekomcloud_dms_rocketmq_instance_v2:
         subCategory: Distributed Message Service (DMS)
         description: Manages a DMS RocketMQ instance resource within OpenTelekomCloud.
@@ -10269,6 +10791,97 @@ resources:
             update: '- Default is 50 minutes.'
             used_storage_space: '- Indicates the used message storage space. Unit: GB.'
             vpc_id: '- (Required, String, ForceNew) Specifies the ID of a VPC. Changing this creates a new instance resource.'
+        importStatements: []
+    opentelekomcloud_dms_rocketmq_message_offset_reset_v2:
+        subCategory: Distributed Message Service (DMS)
+        description: Resets the consumer offset of a DMS RocketMQ consumer group within OpenTelekomCloud.
+        name: opentelekomcloud_dms_rocketmq_message_offset_reset_v2
+        title: opentelekomcloud_dms_rocketmq_message_offset_reset_v2
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "group": "${var.group}",
+                  "instance_id": "${var.instance_id}",
+                  "timestamp": "1662652800000",
+                  "topic": "${var.topic}"
+                }
+              references:
+                group: var.group
+                instance_id: var.instance_id
+                topic: var.topic
+        argumentDocs:
+            group: |-
+                - (Required, String, ForceNew) Specifies the consumer group name.
+                Changing this creates a new resource.
+            id: '- The resource ID in format <instance_id>/<group>/<topic>.'
+            instance_id: |-
+                - (Required, String, ForceNew) Specifies the ID of the RocketMQ instance.
+                Changing this creates a new resource.
+            queues: |-
+                - Indicates the queues to be reset.
+                The queues structure is documented below.
+            queues.broker_name: '- Indicates the broker where the queue is located.'
+            queues.queue_id: '- Indicates the queue ID.'
+            queues.timestamp_offset: '- Indicates the reset consumer offset.'
+            timestamp: |-
+                - (Required, String, ForceNew) Specifies the reset time, Unix timestamp in milliseconds.
+                Changing this creates a new resource.
+            topic: |-
+                - (Required, String, ForceNew) Specifies the topic to be reset.
+                Changing this creates a new resource.
+        importStatements: []
+    opentelekomcloud_dms_rocketmq_message_send_v2:
+        subCategory: Distributed Message Service (DMS)
+        description: Sends a message to a DMS RocketMQ topic within OpenTelekomCloud.
+        name: opentelekomcloud_dms_rocketmq_message_send_v2
+        title: opentelekomcloud_dms_rocketmq_message_send_v2
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "body": "message content",
+                  "instance_id": "${var.instance_id}",
+                  "property_list": [
+                    {
+                      "name": "KEYS",
+                      "value": "owner"
+                    },
+                    {
+                      "name": "TAGS",
+                      "value": "terraform"
+                    }
+                  ],
+                  "topic": "${var.topic}"
+                }
+              references:
+                instance_id: var.instance_id
+                topic: var.topic
+        argumentDocs:
+            body: |-
+                - (Required, String, ForceNew) Specifies the message content.
+                Changing this creates a new resource.
+            broker_name: '- Indicates the broker name.'
+            id: '- The resource ID, same as msg_id.'
+            instance_id: |-
+                - (Required, String, ForceNew) Specifies the ID of the RocketMQ instance.
+                Changing this creates a new resource.
+            msg_id: '- Indicates the message ID.'
+            property_list: |-
+                - (Optional, List, ForceNew) Specifies the feature list of the message.
+                The property_list structure is documented below.
+                Changing this creates a new resource.
+            property_list.name: |-
+                - (Optional, String, ForceNew) Specifies the feature name.
+                Changing this creates a new resource.
+            property_list.value: |-
+                - (Optional, String, ForceNew) Specifies the feature value.
+                Changing this creates a new resource.
+            queue_id: '- Indicates the queue ID.'
+            queue_offset: '- Indicates the queue offset.'
+            topic: |-
+                - (Required, String, ForceNew) Specifies the topic name.
+                Changing this creates a new resource.
         importStatements: []
     opentelekomcloud_dms_rocketmq_migration_task_v2:
         subCategory: Distributed Message Service (DMS)
@@ -10646,6 +11259,45 @@ resources:
                 instance_id: var.instance_id
                 source_task.peer_instance_id: var.peer_instance_id
                 task_name: var.task_name
+            - name: redis
+              manifest: |-
+                {
+                  "destination_task": [
+                    {
+                      "dcs_instance_id": "${var.destination_dcs_instance_id}",
+                      "redis_address": "${var.destination_redis_address}",
+                      "redis_password": "${var.destination_redis_password}",
+                      "redis_type": "standalone"
+                    }
+                  ],
+                  "destination_type": "REDIS_REPLICATOR_SINK",
+                  "instance_id": "${var.instance_id}",
+                  "source_task": [
+                    {
+                      "dcs_instance_id": "${var.source_dcs_instance_id}",
+                      "full_sync_max_retry": 10,
+                      "full_sync_wait_ms": 10000,
+                      "ratelimit": -1,
+                      "redis_address": "${var.source_redis_address}",
+                      "redis_password": "${var.source_redis_password}",
+                      "redis_type": "cluster",
+                      "sync_mode": "RDB_ONLY"
+                    }
+                  ],
+                  "source_type": "REDIS_REPLICATOR_SOURCE",
+                  "task_name": "redis-replication",
+                  "topics": [
+                    "redis-replication"
+                  ]
+                }
+              references:
+                destination_task.dcs_instance_id: var.destination_dcs_instance_id
+                destination_task.redis_address: var.destination_redis_address
+                destination_task.redis_password: var.destination_redis_password
+                instance_id: var.instance_id
+                source_task.dcs_instance_id: var.source_dcs_instance_id
+                source_task.redis_address: var.source_redis_address
+                source_task.redis_password: var.source_redis_password
             - name: test
               manifest: |-
                 {
@@ -10654,7 +11306,9 @@ resources:
                       "ignore_changes": [
                         "${destination_task.0.access_key}",
                         "${destination_task.0.secret_key}",
-                        "${source_task.0.password}"
+                        "${source_task.0.password}",
+                        "${source_task.0.redis_password}",
+                        "${destination_task.0.redis_password}"
                       ]
                     }
                   ]
@@ -10675,6 +11329,7 @@ resources:
             destination_task.consumer_strategy: |-
                 - (Optional, String, ForceNew) Specifies the consumer strategy of the smart connect task.
                 Value options:
+            destination_task.dcs_instance_id: '- (Optional, String, ForceNew) Specifies the destination DCS instance ID.'
             destination_task.deliver_time_interval: |-
                 - (Optional, Int, ForceNew) Specifies the deliver time interval of the smart connect task.
                 It's required when destination_type is OBS_SINK.
@@ -10685,10 +11340,14 @@ resources:
             destination_task.destination_type: |-
                 is OBS_SINK.
                 Changing this parameter will create a new resource.
+            destination_task.flush_size: '- The OBS flush size.'
+            destination_task.key_converter: '- The OBS key converter class.'
+            destination_task.kv_delimiter: '- The OBS key/value delimiter.'
             destination_task.obs_bucket_name: |-
                 - (Optional, String, ForceNew) Specifies the obs bucket name of the smart connect task.
                 It's required when destination_type is OBS_SINK.
                 Changing this parameter will create a new resource.
+            destination_task.obs_part_size: '- The OBS upload part size in bytes. The service default is 5242880.'
             destination_task.obs_path: |-
                 - (Optional, String, ForceNew) Specifies the obs path of the smart connect task.
                 Obs path is separated by a slash. Changing this parameter will create a new resource.
@@ -10697,10 +11356,21 @@ resources:
                 Value options: yyyy, yyyy/MM, yyyy/MM/dd, yyyy/MM/dd/HH, yyyy/MM/dd/HH/mm.
                 It's required when destination_type is OBS_SINK.
                 Changing this parameter will create a new resource.
+            destination_task.partitioner_class: '- The OBS partitioner class.'
             destination_task.record_delimiter: |-
                 - (Optional, String, ForceNew) Specifies the record delimiter of the smart connect task.
                 Value options: ,, ;, |, \n.
                 Changing this parameter will create a new resource.
+            destination_task.redis_address: |-
+                - (Optional, String, ForceNew) Specifies the Redis destination addresses, separated by commas.
+                Applicable when destination_type is REDIS_REPLICATOR_SINK.
+            destination_task.redis_password: |-
+                - (Optional, String, ForceNew, Sensitive) Specifies the destination Redis password.
+                The API does not return this value; the configured value is retained in state.
+            destination_task.redis_type: |-
+                - (Optional, String, ForceNew) Specifies the Redis destination instance type, for example,
+                standalone or cluster.
+            destination_task.schema_generator_class: '- The OBS schema generator class.'
             destination_task.secret_key: |-
                 - (Optional, String, ForceNew) Specifies the secret access key used to access the OBS bucket.
                 It's required when destination_type is OBS_SINK.
@@ -10708,9 +11378,15 @@ resources:
             destination_task.store_keys: |-
                 - (Optional, Bool, ForceNew) Specifies whether to dump keys.
                 Changing this parameter will create a new resource.
+            destination_task.target_db: |-
+                - The Redis destination database, when returned by the API. The service default is -1;
+                database 0 is preserved.
+            destination_task.timezone: '- The time zone used by the OBS task.'
+            destination_task.value_converter: '- The OBS value converter class.'
             destination_type: |-
                 - (Optional, String, ForceNew) Specifies the destination type of the smart connect task.
-                Valid values are OBS_SINK and NONE. Changing this parameter will create a new resource.
+                Valid values are OBS_SINK, REDIS_REPLICATOR_SINK and NONE.
+                Changing this parameter will create a new resource.
             id: '- The resource ID.'
             instance_id: |-
                 - (Required, String, ForceNew) Specifies the kafka instance ID.
@@ -10728,7 +11404,12 @@ resources:
             source_task.current_instance_alias: |-
                 - (Optional, String, ForceNew) Specifies the current Kafka instance alias.
                 Changing this parameter will create a new resource.
+            source_task.dcs_instance_id: '- (Optional, String, ForceNew) Specifies the source DCS instance ID.'
             source_task.direction: '- (Optional, String, ForceNew) Specifies the sync direction. Valid values are:'
+            source_task.full_sync_max_retry: '- (Optional, Int, ForceNew) Specifies the maximum number of full synchronization retries.'
+            source_task.full_sync_wait_ms: |-
+                - (Optional, Int, ForceNew) Specifies the interval between full synchronization
+                retries, in milliseconds.
             source_task.password: |-
                 - (Optional, String, ForceNew) Specifies the peer Kafka user password.
                 It's required when security_protocol is SASL_SSL. Changing this parameter will create a new resource.
@@ -10744,6 +11425,18 @@ resources:
             source_task.provenance_header_enabled: |-
                 - (Optional, Bool, ForceNew) Specifies whether the message header contains the message source.
                 Changing this parameter will create a new resource.
+            source_task.ratelimit: |-
+                - (Optional, Int, ForceNew) Specifies the Redis replication rate limit in KB/s.
+                Set to -1 for no rate limit.
+            source_task.redis_address: |-
+                - (Optional, String, ForceNew) Specifies the Redis source addresses, separated by commas.
+                Applicable when source_type is REDIS_REPLICATOR_SOURCE.
+            source_task.redis_password: |-
+                - (Optional, String, ForceNew, Sensitive) Specifies the source Redis password.
+                The API does not return this value; the configured value is retained in state.
+            source_task.redis_type: |-
+                - (Optional, String, ForceNew) Specifies the Redis source instance type, for example,
+                standalone or cluster.
             source_task.rename_topic_enabled: |-
                 - (Optional, Bool, ForceNew) Specifies whether to rename the topic. If true, will add the
                 alias of the source Kafka instance before the target topic name to form a new name of the target topic.
@@ -10758,6 +11451,9 @@ resources:
             source_task.sync_consumer_offsets_enabled: |-
                 - (Optional, Bool, ForceNew) Specifies whether to sync the consumption progress.
                 Changing this parameter will create a new resource.
+            source_task.sync_mode: |-
+                - (Optional, String, ForceNew) Specifies Redis synchronization:
+                RDB_ONLY for full synchronization or CUSTOM_OFFSET for full and incremental synchronization.
             source_task.task_num: |-
                 - (Optional, Int, ForceNew) Specifies the number of data replication tasks.
                 If the direction is set to two-way, the actual number of tasks will be twice the number of tasks you configure here.
@@ -10770,7 +11466,8 @@ resources:
                 It's required when security_protocol is SASL_SSL. Changing this parameter will create a new resource.
             source_type: |-
                 - (Optional, String, ForceNew) Specifies the source type of the smart connect task. Valid values are
-                KAFKA_REPLICATOR_SOURCE and NONE. Changing this parameter will create a new resource.
+                KAFKA_REPLICATOR_SOURCE, REDIS_REPLICATOR_SOURCE and NONE.
+                Changing this parameter will create a new resource.
             start_later: |-
                 - (Optional, Bool, ForceNew) Specifies whether to start a task later.
                 Changing this parameter will create a new resource.
@@ -11006,6 +11703,7 @@ resources:
             - name: user_1
               manifest: |-
                 {
+                  "description": "Kafka application user",
                   "instance_id": "${instance_id}",
                   "password": "Dmstest@123@",
                   "username": "Test-user"
@@ -11013,14 +11711,21 @@ resources:
               references:
                 instance_id: instance_id
         argumentDocs:
-            creation_time: '- Specifies the time when a user was created.'
+            creation_time: |-
+                - Specifies the time when a user was created, as a Unix timestamp
+                in milliseconds.
             default_app: '- Specifies whether an application is the default application.'
+            description: |-
+                - (Optional) Specifies the user description. If omitted, the current
+                description is read from the API. Changing this creates a new user because the
+                API only accepts a description when creating a user.
             instance_id: '- (Required) Indicates the ID of primary DMS instance.'
             password: |-
                 - (Required) Indicates the password of an instance. An instance password
                 must meet the following complexity requirements: Must be 8 to 32 characters long.
                 Must contain at least 2 of the following character types: lowercase letters, uppercase
                 letters, digits, and special characters (~!@#$%^&*()-_=+\|[{}]:'",<.>/?).
+                This argument is sensitive. Changing it resets the user password in place.
             role: '- Specifies user role.'
             username: |-
                 - (Required) Indicates a username. A username consists of 4 to 64 characters
@@ -16778,18 +17483,38 @@ resources:
             OFFLINE: ': The cloud server used as the backend server is stopped or does not exist.'
             ONLINE: ': The backend server is running normally.'
             address: '- (Required) Specifies the IP address of the backend server.'
+            admin_state_up: |-
+                - (Optional, Bool, ForceNew) Specifies the administrative state at creation. Both true and
+                false are supported. Changing this value recreates the member because administrative-state updates are
+                unsupported by the OTC API.
+            availability_zone: |-
+                - (Optional, String) Specifies the AZ of an IP-address backend server. This parameter can be
+                set only for IP-address backends and must identify an available ECS AZ in the current region. It is required
+                when AZ affinity is enabled on the backend server group. The value can be updated to another non-empty AZ;
+                removing this argument leaves the current AZ unchanged.
+            created_at: '- Creation time. Older resources may not return this value.'
+            expected_response: '- Expected health-check response code.'
+            healthcheck_response: '- Actual health-check response code.'
+            instance_id: '- ID of the associated ECS, if any.'
             ip_version: '- Version of IP based on the address parameter. The value can be v4 or v6.'
             lb_algorithm: |-
                 is set to SOURCE_IP for the backend server group that contains the
                 backend server.
+            listener_id: '- Listener ID.'
             member_id: '- ID of the pool member.'
+            member_type: '- Backend server type.'
             name: '- (Optional) Specifies the backend server name. The value is a string of 0 to 255 characters.'
             operating_status: '- Specifies the operating status of the backend server.'
+            pool_id: '- (Required, String, ForceNew) Specifies the backend server group ID.'
             project_id: '- (Optional) Specifies the project ID.'
             protocol_port: |-
                 - (Required) Specifies the port used by the backend server to receive requests. The value should be a
                 valid port.
+            reason: '- Optional health-check failure details:'
+            reason_code: '- Failure code.'
+            status: '- Per-listener health status list. Each entry exports:'
             subnet_id: ', for example, 192.168.3.11.'
+            updated_at: '- Last update time. Older resources may not return this value.'
             weight: '- (Optional) Specifies the weight of the backend server.'
         importStatements: []
     opentelekomcloud_lb_monitor_v2:
@@ -16890,16 +17615,17 @@ resources:
         argumentDocs:
             /: .
             GET: ', HEAD, POST, PUT, DELETE, TRACE, OPTIONS, CONNECT, or PATCH.'
-            HTTP: .
+            HTTP: or HTTPS.
             TCP: ', UDP_CONNECT, HTTP, HTTPS, or PING.'
             admin_state_up: |-
                 - (Optional) Specifies the administrative status of the health check.
                 true indicates that the health check is enabled, and false indicates that the health check is disabled.
+            created_at: '- The time the health check was created, in UTC format yyyy-MM-dd''T''HH:mm:ss''Z''.'
             delay: '- (Required) Specifies the interval between health checks, in seconds.'
             domain_name: '- (Optional) Specifies the domain name that HTTP requests are sent to during the health check.'
             expected_codes: |-
                 - (Optional) Specifies the expected HTTP status code. This parameter will take effect only
-                when type is set to HTTP.
+                when type is set to HTTP or HTTPS.
             http_method: '- (Optional) Specifies the HTTP method.'
             id: '- Specifies the health check (monitor) ID.'
             max_retries: |-
@@ -16920,6 +17646,7 @@ resources:
                 - (Required) Specifies the maximum time required for waiting for a response from the health check, in
                 seconds.
             type: '- (Required) Specifies the health check protocol.'
+            updated_at: '- The time the health check was last updated, in UTC format yyyy-MM-dd''T''HH:mm:ss''Z''.'
             url_path: '- (Optional) Specifies the HTTP request path for the health check.'
         importStatements:
             - terraform import opentelekomcloud_lb_monitor_v3.monitor b4ef7345-cf1a-41ca-8baa-941466a66853
@@ -20543,7 +21270,8 @@ resources:
         argumentDocs:
             bucket: '- (Required) The name of the bucket to which to apply the policy.'
             policy: '- (Required) The text of the policy.'
-        importStatements: []
+        importStatements:
+            - terraform import opentelekomcloud_obs_bucket_policy.policy bucket-name
     opentelekomcloud_obs_bucket_replication:
         subCategory: Object Storage Service (OBS)
         description: Manages a OBS Bucket Replication resource within OpenTelekomCloud.
@@ -26469,7 +27197,9 @@ resources:
                 - (Optional, ForceNew, List) Match condition List. Changing this creates a new rule.
                 The conditions block supports:
             conditions.category: '- (Optional, ForceNew, String) Field type. The options are url, user-agent, ip, params, cookie, referer, header, request_line, method, and request.'
-            conditions.contents: '- (Optional, ForceNew, List) Content of the conditions. This parameter is mandatory when the suffix of logic_operation is not any or all. This parameter is mandatory when the suffix of logic_operation is not any or all. Changing this creates a new rule.'
+            conditions.contents: |-
+                - (Optional, Computed, ForceNew, List) Content of the conditions. This parameter is mandatory when the suffix of logic_operation is not any or all.
+                Changing explicitly configured contents creates a new rule.
             conditions.index: '- (Optional, ForceNew, String) Subfield. Changing this creates a new rule.'
             conditions.logic_operation: '- (Optional, ForceNew, String) Logic for matching the condition. Changing this creates a new rule.'
             conditions.value_list_id: '- (Optional, ForceNew, String) Reference table ID. This parameter is mandatory when the suffix of logic_operation is any or all. The reference table type must be the same as the category type. Changing this creates a new rule.'

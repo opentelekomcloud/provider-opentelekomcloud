@@ -145,6 +145,12 @@ type NodePoolV3InitParameters struct {
 	// Specifies the flavor id. Changing this parameter will create a new resource.
 	Flavor *string `json:"flavor,omitempty" tf:"flavor,omitempty"`
 
+	// Kubernetes node name configuration type.
+	// Changing this parameter will create a new resource. Defaults to privateIp. Options are:
+	// privateIp - Use the private node IP address as the Kubernetes node name.
+	// cceNodeName - Use the CCE node name as the Kubernetes node name.
+	HostnameConfigType *string `json:"hostnameConfigType,omitempty" tf:"hostname_config_type,omitempty"`
+
 	// Initial number of expected nodes in the node pool.
 	InitialNodeCount *float64 `json:"initialNodeCount,omitempty" tf:"initial_node_count,omitempty"`
 
@@ -272,6 +278,12 @@ type NodePoolV3Observation struct {
 
 	// Specifies the flavor id. Changing this parameter will create a new resource.
 	Flavor *string `json:"flavor,omitempty" tf:"flavor,omitempty"`
+
+	// Kubernetes node name configuration type.
+	// Changing this parameter will create a new resource. Defaults to privateIp. Options are:
+	// privateIp - Use the private node IP address as the Kubernetes node name.
+	// cceNodeName - Use the CCE node name as the Kubernetes node name.
+	HostnameConfigType *string `json:"hostnameConfigType,omitempty" tf:"hostname_config_type,omitempty"`
 
 	// Specifies a resource ID in UUID format.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -408,6 +420,13 @@ type NodePoolV3Parameters struct {
 	// Specifies the flavor id. Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
 	Flavor *string `json:"flavor,omitempty" tf:"flavor,omitempty"`
+
+	// Kubernetes node name configuration type.
+	// Changing this parameter will create a new resource. Defaults to privateIp. Options are:
+	// privateIp - Use the private node IP address as the Kubernetes node name.
+	// cceNodeName - Use the CCE node name as the Kubernetes node name.
+	// +kubebuilder:validation:Optional
+	HostnameConfigType *string `json:"hostnameConfigType,omitempty" tf:"hostname_config_type,omitempty"`
 
 	// Initial number of expected nodes in the node pool.
 	// +kubebuilder:validation:Optional

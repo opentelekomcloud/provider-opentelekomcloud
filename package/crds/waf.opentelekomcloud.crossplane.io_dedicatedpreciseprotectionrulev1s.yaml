@@ -102,11 +102,9 @@ spec:
                             and request.
                           type: string
                         contents:
-                          description: Content of the conditions. This parameter is
-                            mandatory when the suffix of logic_operation is not any
-                            or all. This parameter is mandatory when the suffix of
-                            logic_operation is not any or all. Changing this creates
-                            a new rule.
+                          description: |-
+                            Content of the conditions. This parameter is mandatory when the suffix of logic_operation is not any or all.
+                            Changing explicitly configured contents creates a new rule.
                           items:
                             type: string
                           type: array
@@ -194,11 +192,9 @@ spec:
                             and request.
                           type: string
                         contents:
-                          description: Content of the conditions. This parameter is
-                            mandatory when the suffix of logic_operation is not any
-                            or all. This parameter is mandatory when the suffix of
-                            logic_operation is not any or all. Changing this creates
-                            a new rule.
+                          description: |-
+                            Content of the conditions. This parameter is mandatory when the suffix of logic_operation is not any or all.
+                            Changing explicitly configured contents creates a new rule.
                           items:
                             type: string
                           type: array
@@ -382,11 +378,9 @@ spec:
                             and request.
                           type: string
                         contents:
-                          description: Content of the conditions. This parameter is
-                            mandatory when the suffix of logic_operation is not any
-                            or all. This parameter is mandatory when the suffix of
-                            logic_operation is not any or all. Changing this creates
-                            a new rule.
+                          description: |-
+                            Content of the conditions. This parameter is mandatory when the suffix of logic_operation is not any or all.
+                            Changing explicitly configured contents creates a new rule.
                           items:
                             type: string
                           type: array

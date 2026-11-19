@@ -9,6 +9,7 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
+    description: Kafka application user
     instanceId: ${instance_id}
     passwordSecretRef:
       key: example-key

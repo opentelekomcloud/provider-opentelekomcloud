@@ -228,6 +228,10 @@ type DedicatedInstanceV2Observation struct {
 	// Specifies a resource ID in UUID format.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// Indicates the IPv6 connection addresses of the DMS Kafka instance.
+	// Populated only when ipv6_enable is true.
+	IPv6ConnectAddresses []*string `json:"ipv6ConnectAddresses,omitempty" tf:"ipv6_connect_addresses,omitempty"`
+
 	// Specifies whether to enable IPv6. Defaults to false.
 	// Changing this creates a new instance resource.
 	IPv6Enable *bool `json:"ipv6Enable,omitempty" tf:"ipv6_enable,omitempty"`

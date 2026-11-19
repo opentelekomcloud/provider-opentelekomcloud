@@ -740,6 +740,17 @@ func (in *DedicatedInstanceV2Observation) DeepCopyInto(out *DedicatedInstanceV2O
 		*out = new(string)
 		**out = **in
 	}
+	if in.IPv6ConnectAddresses != nil {
+		in, out := &in.IPv6ConnectAddresses, &out.IPv6ConnectAddresses
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
+	}
 	if in.IPv6Enable != nil {
 		in, out := &in.IPv6Enable, &out.IPv6Enable
 		*out = new(bool)
@@ -1170,6 +1181,11 @@ func (in *DestinationTaskInitParameters) DeepCopyInto(out *DestinationTaskInitPa
 		*out = new(string)
 		**out = **in
 	}
+	if in.DcsInstanceID != nil {
+		in, out := &in.DcsInstanceID, &out.DcsInstanceID
+		*out = new(string)
+		**out = **in
+	}
 	if in.DeliverTimeInterval != nil {
 		in, out := &in.DeliverTimeInterval, &out.DeliverTimeInterval
 		*out = new(float64)
@@ -1197,6 +1213,21 @@ func (in *DestinationTaskInitParameters) DeepCopyInto(out *DestinationTaskInitPa
 	}
 	if in.RecordDelimiter != nil {
 		in, out := &in.RecordDelimiter, &out.RecordDelimiter
+		*out = new(string)
+		**out = **in
+	}
+	if in.RedisAddress != nil {
+		in, out := &in.RedisAddress, &out.RedisAddress
+		*out = new(string)
+		**out = **in
+	}
+	if in.RedisPasswordSecretRef != nil {
+		in, out := &in.RedisPasswordSecretRef, &out.RedisPasswordSecretRef
+		*out = new(v1.SecretKeySelector)
+		**out = **in
+	}
+	if in.RedisType != nil {
+		in, out := &in.RedisType, &out.RedisType
 		*out = new(string)
 		**out = **in
 	}
@@ -1235,6 +1266,11 @@ func (in *DestinationTaskObservation) DeepCopyInto(out *DestinationTaskObservati
 		*out = new(string)
 		**out = **in
 	}
+	if in.DcsInstanceID != nil {
+		in, out := &in.DcsInstanceID, &out.DcsInstanceID
+		*out = new(string)
+		**out = **in
+	}
 	if in.DeliverTimeInterval != nil {
 		in, out := &in.DeliverTimeInterval, &out.DeliverTimeInterval
 		*out = new(float64)
@@ -1245,9 +1281,29 @@ func (in *DestinationTaskObservation) DeepCopyInto(out *DestinationTaskObservati
 		*out = new(string)
 		**out = **in
 	}
+	if in.FlushSize != nil {
+		in, out := &in.FlushSize, &out.FlushSize
+		*out = new(float64)
+		**out = **in
+	}
+	if in.KeyConverter != nil {
+		in, out := &in.KeyConverter, &out.KeyConverter
+		*out = new(string)
+		**out = **in
+	}
+	if in.KvDelimiter != nil {
+		in, out := &in.KvDelimiter, &out.KvDelimiter
+		*out = new(string)
+		**out = **in
+	}
 	if in.ObsBucketName != nil {
 		in, out := &in.ObsBucketName, &out.ObsBucketName
 		*out = new(string)
+		**out = **in
+	}
+	if in.ObsPartSize != nil {
+		in, out := &in.ObsPartSize, &out.ObsPartSize
+		*out = new(float64)
 		**out = **in
 	}
 	if in.ObsPath != nil {
@@ -1260,14 +1316,49 @@ func (in *DestinationTaskObservation) DeepCopyInto(out *DestinationTaskObservati
 		*out = new(string)
 		**out = **in
 	}
+	if in.PartitionerClass != nil {
+		in, out := &in.PartitionerClass, &out.PartitionerClass
+		*out = new(string)
+		**out = **in
+	}
 	if in.RecordDelimiter != nil {
 		in, out := &in.RecordDelimiter, &out.RecordDelimiter
+		*out = new(string)
+		**out = **in
+	}
+	if in.RedisAddress != nil {
+		in, out := &in.RedisAddress, &out.RedisAddress
+		*out = new(string)
+		**out = **in
+	}
+	if in.RedisType != nil {
+		in, out := &in.RedisType, &out.RedisType
+		*out = new(string)
+		**out = **in
+	}
+	if in.SchemaGeneratorClass != nil {
+		in, out := &in.SchemaGeneratorClass, &out.SchemaGeneratorClass
 		*out = new(string)
 		**out = **in
 	}
 	if in.StoreKeys != nil {
 		in, out := &in.StoreKeys, &out.StoreKeys
 		*out = new(bool)
+		**out = **in
+	}
+	if in.TargetDB != nil {
+		in, out := &in.TargetDB, &out.TargetDB
+		*out = new(float64)
+		**out = **in
+	}
+	if in.Timezone != nil {
+		in, out := &in.Timezone, &out.Timezone
+		*out = new(string)
+		**out = **in
+	}
+	if in.ValueConverter != nil {
+		in, out := &in.ValueConverter, &out.ValueConverter
+		*out = new(string)
 		**out = **in
 	}
 }
@@ -1295,6 +1386,11 @@ func (in *DestinationTaskParameters) DeepCopyInto(out *DestinationTaskParameters
 		*out = new(string)
 		**out = **in
 	}
+	if in.DcsInstanceID != nil {
+		in, out := &in.DcsInstanceID, &out.DcsInstanceID
+		*out = new(string)
+		**out = **in
+	}
 	if in.DeliverTimeInterval != nil {
 		in, out := &in.DeliverTimeInterval, &out.DeliverTimeInterval
 		*out = new(float64)
@@ -1322,6 +1418,21 @@ func (in *DestinationTaskParameters) DeepCopyInto(out *DestinationTaskParameters
 	}
 	if in.RecordDelimiter != nil {
 		in, out := &in.RecordDelimiter, &out.RecordDelimiter
+		*out = new(string)
+		**out = **in
+	}
+	if in.RedisAddress != nil {
+		in, out := &in.RedisAddress, &out.RedisAddress
+		*out = new(string)
+		**out = **in
+	}
+	if in.RedisPasswordSecretRef != nil {
+		in, out := &in.RedisPasswordSecretRef, &out.RedisPasswordSecretRef
+		*out = new(v1.SecretKeySelector)
+		**out = **in
+	}
+	if in.RedisType != nil {
+		in, out := &in.RedisType, &out.RedisType
 		*out = new(string)
 		**out = **in
 	}
@@ -4007,9 +4118,24 @@ func (in *SourceTaskInitParameters) DeepCopyInto(out *SourceTaskInitParameters) 
 		*out = new(string)
 		**out = **in
 	}
+	if in.DcsInstanceID != nil {
+		in, out := &in.DcsInstanceID, &out.DcsInstanceID
+		*out = new(string)
+		**out = **in
+	}
 	if in.Direction != nil {
 		in, out := &in.Direction, &out.Direction
 		*out = new(string)
+		**out = **in
+	}
+	if in.FullSyncMaxRetry != nil {
+		in, out := &in.FullSyncMaxRetry, &out.FullSyncMaxRetry
+		*out = new(float64)
+		**out = **in
+	}
+	if in.FullSyncWaitMs != nil {
+		in, out := &in.FullSyncWaitMs, &out.FullSyncWaitMs
+		*out = new(float64)
 		**out = **in
 	}
 	if in.PasswordSecretRef != nil {
@@ -4043,6 +4169,26 @@ func (in *SourceTaskInitParameters) DeepCopyInto(out *SourceTaskInitParameters) 
 		*out = new(bool)
 		**out = **in
 	}
+	if in.Ratelimit != nil {
+		in, out := &in.Ratelimit, &out.Ratelimit
+		*out = new(float64)
+		**out = **in
+	}
+	if in.RedisAddress != nil {
+		in, out := &in.RedisAddress, &out.RedisAddress
+		*out = new(string)
+		**out = **in
+	}
+	if in.RedisPasswordSecretRef != nil {
+		in, out := &in.RedisPasswordSecretRef, &out.RedisPasswordSecretRef
+		*out = new(v1.SecretKeySelector)
+		**out = **in
+	}
+	if in.RedisType != nil {
+		in, out := &in.RedisType, &out.RedisType
+		*out = new(string)
+		**out = **in
+	}
 	if in.RenameTopicEnabled != nil {
 		in, out := &in.RenameTopicEnabled, &out.RenameTopicEnabled
 		*out = new(bool)
@@ -4066,6 +4212,11 @@ func (in *SourceTaskInitParameters) DeepCopyInto(out *SourceTaskInitParameters) 
 	if in.SyncConsumerOffsetsEnabled != nil {
 		in, out := &in.SyncConsumerOffsetsEnabled, &out.SyncConsumerOffsetsEnabled
 		*out = new(bool)
+		**out = **in
+	}
+	if in.SyncMode != nil {
+		in, out := &in.SyncMode, &out.SyncMode
+		*out = new(string)
 		**out = **in
 	}
 	if in.TaskNum != nil {
@@ -4119,9 +4270,24 @@ func (in *SourceTaskObservation) DeepCopyInto(out *SourceTaskObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.DcsInstanceID != nil {
+		in, out := &in.DcsInstanceID, &out.DcsInstanceID
+		*out = new(string)
+		**out = **in
+	}
 	if in.Direction != nil {
 		in, out := &in.Direction, &out.Direction
 		*out = new(string)
+		**out = **in
+	}
+	if in.FullSyncMaxRetry != nil {
+		in, out := &in.FullSyncMaxRetry, &out.FullSyncMaxRetry
+		*out = new(float64)
+		**out = **in
+	}
+	if in.FullSyncWaitMs != nil {
+		in, out := &in.FullSyncWaitMs, &out.FullSyncWaitMs
+		*out = new(float64)
 		**out = **in
 	}
 	if in.PeerInstanceAddress != nil {
@@ -4150,6 +4316,21 @@ func (in *SourceTaskObservation) DeepCopyInto(out *SourceTaskObservation) {
 		*out = new(bool)
 		**out = **in
 	}
+	if in.Ratelimit != nil {
+		in, out := &in.Ratelimit, &out.Ratelimit
+		*out = new(float64)
+		**out = **in
+	}
+	if in.RedisAddress != nil {
+		in, out := &in.RedisAddress, &out.RedisAddress
+		*out = new(string)
+		**out = **in
+	}
+	if in.RedisType != nil {
+		in, out := &in.RedisType, &out.RedisType
+		*out = new(string)
+		**out = **in
+	}
 	if in.RenameTopicEnabled != nil {
 		in, out := &in.RenameTopicEnabled, &out.RenameTopicEnabled
 		*out = new(bool)
@@ -4173,6 +4354,11 @@ func (in *SourceTaskObservation) DeepCopyInto(out *SourceTaskObservation) {
 	if in.SyncConsumerOffsetsEnabled != nil {
 		in, out := &in.SyncConsumerOffsetsEnabled, &out.SyncConsumerOffsetsEnabled
 		*out = new(bool)
+		**out = **in
+	}
+	if in.SyncMode != nil {
+		in, out := &in.SyncMode, &out.SyncMode
+		*out = new(string)
 		**out = **in
 	}
 	if in.TaskNum != nil {
@@ -4226,9 +4412,24 @@ func (in *SourceTaskParameters) DeepCopyInto(out *SourceTaskParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.DcsInstanceID != nil {
+		in, out := &in.DcsInstanceID, &out.DcsInstanceID
+		*out = new(string)
+		**out = **in
+	}
 	if in.Direction != nil {
 		in, out := &in.Direction, &out.Direction
 		*out = new(string)
+		**out = **in
+	}
+	if in.FullSyncMaxRetry != nil {
+		in, out := &in.FullSyncMaxRetry, &out.FullSyncMaxRetry
+		*out = new(float64)
+		**out = **in
+	}
+	if in.FullSyncWaitMs != nil {
+		in, out := &in.FullSyncWaitMs, &out.FullSyncWaitMs
+		*out = new(float64)
 		**out = **in
 	}
 	if in.PasswordSecretRef != nil {
@@ -4262,6 +4463,26 @@ func (in *SourceTaskParameters) DeepCopyInto(out *SourceTaskParameters) {
 		*out = new(bool)
 		**out = **in
 	}
+	if in.Ratelimit != nil {
+		in, out := &in.Ratelimit, &out.Ratelimit
+		*out = new(float64)
+		**out = **in
+	}
+	if in.RedisAddress != nil {
+		in, out := &in.RedisAddress, &out.RedisAddress
+		*out = new(string)
+		**out = **in
+	}
+	if in.RedisPasswordSecretRef != nil {
+		in, out := &in.RedisPasswordSecretRef, &out.RedisPasswordSecretRef
+		*out = new(v1.SecretKeySelector)
+		**out = **in
+	}
+	if in.RedisType != nil {
+		in, out := &in.RedisType, &out.RedisType
+		*out = new(string)
+		**out = **in
+	}
 	if in.RenameTopicEnabled != nil {
 		in, out := &in.RenameTopicEnabled, &out.RenameTopicEnabled
 		*out = new(bool)
@@ -4285,6 +4506,11 @@ func (in *SourceTaskParameters) DeepCopyInto(out *SourceTaskParameters) {
 	if in.SyncConsumerOffsetsEnabled != nil {
 		in, out := &in.SyncConsumerOffsetsEnabled, &out.SyncConsumerOffsetsEnabled
 		*out = new(bool)
+		**out = **in
+	}
+	if in.SyncMode != nil {
+		in, out := &in.SyncMode, &out.SyncMode
+		*out = new(string)
 		**out = **in
 	}
 	if in.TaskNum != nil {
@@ -4844,6 +5070,11 @@ func (in *UserV2) DeepCopyObject() runtime.Object {
 // DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
 func (in *UserV2InitParameters) DeepCopyInto(out *UserV2InitParameters) {
 	*out = *in
+	if in.Description != nil {
+		in, out := &in.Description, &out.Description
+		*out = new(string)
+		**out = **in
+	}
 	if in.InstanceID != nil {
 		in, out := &in.InstanceID, &out.InstanceID
 		*out = new(string)
@@ -4912,6 +5143,11 @@ func (in *UserV2Observation) DeepCopyInto(out *UserV2Observation) {
 		*out = new(bool)
 		**out = **in
 	}
+	if in.Description != nil {
+		in, out := &in.Description, &out.Description
+		*out = new(string)
+		**out = **in
+	}
 	if in.ID != nil {
 		in, out := &in.ID, &out.ID
 		*out = new(string)
@@ -4947,6 +5183,11 @@ func (in *UserV2Observation) DeepCopy() *UserV2Observation {
 // DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
 func (in *UserV2Parameters) DeepCopyInto(out *UserV2Parameters) {
 	*out = *in
+	if in.Description != nil {
+		in, out := &in.Description, &out.Description
+		*out = new(string)
+		**out = **in
+	}
 	if in.InstanceID != nil {
 		in, out := &in.InstanceID, &out.InstanceID
 		*out = new(string)
