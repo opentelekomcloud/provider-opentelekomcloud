@@ -596,6 +596,13 @@ spec:
                   id:
                     description: Specifies a resource ID in UUID format.
                     type: string
+                  ipv6ConnectAddresses:
+                    description: |-
+                      Indicates the IPv6 connection addresses of the DMS Kafka instance.
+                      Populated only when ipv6_enable is true.
+                    items:
+                      type: string
+                    type: array
                   ipv6Enable:
                     description: |-
                       Specifies whether to enable IPv6. Defaults to false.

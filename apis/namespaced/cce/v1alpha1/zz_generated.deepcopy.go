@@ -3195,6 +3195,11 @@ func (in *NodePoolV3InitParameters) DeepCopyInto(out *NodePoolV3InitParameters) 
 		*out = new(string)
 		**out = **in
 	}
+	if in.HostnameConfigType != nil {
+		in, out := &in.HostnameConfigType, &out.HostnameConfigType
+		*out = new(string)
+		**out = **in
+	}
 	if in.InitialNodeCount != nil {
 		in, out := &in.InitialNodeCount, &out.InitialNodeCount
 		*out = new(float64)
@@ -3441,6 +3446,11 @@ func (in *NodePoolV3Observation) DeepCopyInto(out *NodePoolV3Observation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.HostnameConfigType != nil {
+		in, out := &in.HostnameConfigType, &out.HostnameConfigType
+		*out = new(string)
+		**out = **in
+	}
 	if in.ID != nil {
 		in, out := &in.ID, &out.ID
 		*out = new(string)
@@ -3657,6 +3667,11 @@ func (in *NodePoolV3Parameters) DeepCopyInto(out *NodePoolV3Parameters) {
 	}
 	if in.Flavor != nil {
 		in, out := &in.Flavor, &out.Flavor
+		*out = new(string)
+		**out = **in
+	}
+	if in.HostnameConfigType != nil {
+		in, out := &in.HostnameConfigType, &out.HostnameConfigType
 		*out = new(string)
 		**out = **in
 	}
@@ -4471,6 +4486,11 @@ func (in *NodeV3InitParameters) DeepCopyInto(out *NodeV3InitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.HostnameConfigType != nil {
+		in, out := &in.HostnameConfigType, &out.HostnameConfigType
+		*out = new(string)
+		**out = **in
+	}
 	if in.Iptype != nil {
 		in, out := &in.Iptype, &out.Iptype
 		*out = new(string)
@@ -4766,6 +4786,11 @@ func (in *NodeV3Observation) DeepCopyInto(out *NodeV3Observation) {
 	}
 	if in.FlavorID != nil {
 		in, out := &in.FlavorID, &out.FlavorID
+		*out = new(string)
+		**out = **in
+	}
+	if in.HostnameConfigType != nil {
+		in, out := &in.HostnameConfigType, &out.HostnameConfigType
 		*out = new(string)
 		**out = **in
 	}
@@ -5074,6 +5099,11 @@ func (in *NodeV3Parameters) DeepCopyInto(out *NodeV3Parameters) {
 	}
 	if in.FlavorID != nil {
 		in, out := &in.FlavorID, &out.FlavorID
+		*out = new(string)
+		**out = **in
+	}
+	if in.HostnameConfigType != nil {
+		in, out := &in.HostnameConfigType, &out.HostnameConfigType
 		*out = new(string)
 		**out = **in
 	}

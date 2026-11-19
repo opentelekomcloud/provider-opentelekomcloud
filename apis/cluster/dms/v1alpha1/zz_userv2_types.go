@@ -15,6 +15,11 @@ import (
 
 type UserV2InitParameters struct {
 
+	// Specifies the user description. If omitted, the current
+	// description is read from the API. Changing this creates a new user because the
+	// API only accepts a description when creating a user.
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
 	// Indicates the ID of primary DMS instance.
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
 
@@ -22,6 +27,7 @@ type UserV2InitParameters struct {
 	// must meet the following complexity requirements: Must be 8 to 32 characters long.
 	// Must contain at least 2 of the following character types: lowercase letters, uppercase
 	// letters, digits, and special characters (~!@#$%^&*()-_=+\|[{}]:'",<.>/?).
+	// This argument is sensitive. Changing it resets the user password in place.
 	PasswordSecretRef v1.SecretKeySelector `json:"passwordSecretRef" tf:"-"`
 
 	// Indicates a username. A username consists of 4 to 64 characters
@@ -31,11 +37,17 @@ type UserV2InitParameters struct {
 
 type UserV2Observation struct {
 
-	// Specifies the time when a user was created.
+	// Specifies the time when a user was created, as a Unix timestamp
+	// in milliseconds.
 	CreationTime *float64 `json:"creationTime,omitempty" tf:"creation_time,omitempty"`
 
 	// Specifies whether an application is the default application.
 	DefaultApp *bool `json:"defaultApp,omitempty" tf:"default_app,omitempty"`
+
+	// Specifies the user description. If omitted, the current
+	// description is read from the API. Changing this creates a new user because the
+	// API only accepts a description when creating a user.
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
@@ -52,6 +64,12 @@ type UserV2Observation struct {
 
 type UserV2Parameters struct {
 
+	// Specifies the user description. If omitted, the current
+	// description is read from the API. Changing this creates a new user because the
+	// API only accepts a description when creating a user.
+	// +kubebuilder:validation:Optional
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
 	// Indicates the ID of primary DMS instance.
 	// +kubebuilder:validation:Optional
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
@@ -60,6 +78,7 @@ type UserV2Parameters struct {
 	// must meet the following complexity requirements: Must be 8 to 32 characters long.
 	// Must contain at least 2 of the following character types: lowercase letters, uppercase
 	// letters, digits, and special characters (~!@#$%^&*()-_=+\|[{}]:'",<.>/?).
+	// This argument is sensitive. Changing it resets the user password in place.
 	// +kubebuilder:validation:Optional
 	PasswordSecretRef v1.SecretKeySelector `json:"passwordSecretRef" tf:"-"`
 

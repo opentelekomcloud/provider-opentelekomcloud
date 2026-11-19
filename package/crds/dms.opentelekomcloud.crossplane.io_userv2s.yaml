@@ -73,6 +73,12 @@ spec:
                 type: string
               forProvider:
                 properties:
+                  description:
+                    description: |-
+                      Specifies the user description. If omitted, the current
+                      description is read from the API. Changing this creates a new user because the
+                      API only accepts a description when creating a user.
+                    type: string
                   instanceId:
                     description: Indicates the ID of primary DMS instance.
                     type: string
@@ -82,6 +88,7 @@ spec:
                       must meet the following complexity requirements: Must be 8 to 32 characters long.
                       Must contain at least 2 of the following character types: lowercase letters, uppercase
                       letters, digits, and special characters (~!@#$%^&*()-_=+\|[{}]:'",<.>/?).
+                      This argument is sensitive. Changing it resets the user password in place.
                     properties:
                       key:
                         description: The key to select.
@@ -116,6 +123,12 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
+                  description:
+                    description: |-
+                      Specifies the user description. If omitted, the current
+                      description is read from the API. Changing this creates a new user because the
+                      API only accepts a description when creating a user.
+                    type: string
                   instanceId:
                     description: Indicates the ID of primary DMS instance.
                     type: string
@@ -125,6 +138,7 @@ spec:
                       must meet the following complexity requirements: Must be 8 to 32 characters long.
                       Must contain at least 2 of the following character types: lowercase letters, uppercase
                       letters, digits, and special characters (~!@#$%^&*()-_=+\|[{}]:'",<.>/?).
+                      This argument is sensitive. Changing it resets the user password in place.
                     properties:
                       key:
                         description: The key to select.
@@ -252,11 +266,19 @@ spec:
               atProvider:
                 properties:
                   creationTime:
-                    description: Specifies the time when a user was created.
+                    description: |-
+                      Specifies the time when a user was created, as a Unix timestamp
+                      in milliseconds.
                     type: number
                   defaultApp:
                     description: Specifies whether an application is the default application.
                     type: boolean
+                  description:
+                    description: |-
+                      Specifies the user description. If omitted, the current
+                      description is read from the API. Changing this creates a new user because the
+                      API only accepts a description when creating a user.
+                    type: string
                   id:
                     type: string
                   instanceId:
