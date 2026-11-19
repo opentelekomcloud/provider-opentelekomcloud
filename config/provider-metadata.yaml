@@ -4510,10 +4510,12 @@ resources:
             extend_params: '- (Optional, Map, ForceNew) Disk expansion parameters. A list of strings which describes additional disk parameters.'
             flavor: '- (Required, ForceNew, String) Specifies the flavor id. Changing this parameter will create a new resource.'
             hostname_config_type: |-
-                - (Optional, String, ForceNew) Kubernetes node name configuration type.
+                - (Optional, Computed, String, ForceNew) Kubernetes node name configuration type.
                 Changing this parameter will create a new resource. Defaults to privateIp. Options are:
                 privateIp - Use the private node IP address as the Kubernetes node name.
                 cceNodeName - Use the CCE node name as the Kubernetes node name.
+                When omitted for a new node pool, the provider explicitly requests privateIp.
+                For existing and imported node pools, an omitted argument preserves the API-reported type.
             id: '- Specifies a resource ID in UUID format.'
             initial_node_count: '- (Required, Int) Initial number of expected nodes in the node pool.'
             k8s_tags: '- (Optional, Map) Tags of a Kubernetes node, key/value pair format.'
@@ -4666,10 +4668,12 @@ resources:
             extend_params: '- (Optional, ForceNew, Map) Disk expansion parameters. A list of strings which describes additional disk parameters.'
             flavor_id: '- (Required, ForceNew, String) Specifies the flavor id. Changing this parameter will create a new resource.'
             hostname_config_type: |-
-                - (Optional, ForceNew, String) Kubernetes node name configuration type.
+                - (Optional, Computed, ForceNew, String) Kubernetes node name configuration type.
                 Changing this parameter will create a new resource. Defaults to privateIp. Options are:
                 privateIp - Use the private node IP address as the Kubernetes node name.
                 cceNodeName - Use the CCE node name as the Kubernetes node name.
+                When omitted for a new node, the provider explicitly requests privateIp.
+                For existing and imported nodes, an omitted argument preserves the API-reported type.
                 -> NOTE: When set to cceNodeName, the CCE node name, the Kubernetes node name and the VM name
                 are all the same and the name must be unique within the cluster. The API automatically appends a
                 suffix to the node name (a hyphen followed by five random lowercase letters and digits, e.g.

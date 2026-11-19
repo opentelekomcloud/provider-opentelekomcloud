@@ -190,6 +190,8 @@ type NodeV3InitParameters struct {
 	// Changing this parameter will create a new resource. Defaults to privateIp. Options are:
 	// privateIp - Use the private node IP address as the Kubernetes node name.
 	// cceNodeName - Use the CCE node name as the Kubernetes node name.
+	// When omitted for a new node, the provider explicitly requests privateIp.
+	// For existing and imported nodes, an omitted argument preserves the API-reported type.
 	// -> NOTE: When set to cceNodeName, the CCE node name, the Kubernetes node name and the VM name
 	// are all the same and the name must be unique within the cluster. The API automatically appends a
 	// suffix to the node name (a hyphen followed by five random lowercase letters and digits, e.g.
@@ -337,6 +339,8 @@ type NodeV3Observation struct {
 	// Changing this parameter will create a new resource. Defaults to privateIp. Options are:
 	// privateIp - Use the private node IP address as the Kubernetes node name.
 	// cceNodeName - Use the CCE node name as the Kubernetes node name.
+	// When omitted for a new node, the provider explicitly requests privateIp.
+	// For existing and imported nodes, an omitted argument preserves the API-reported type.
 	// -> NOTE: When set to cceNodeName, the CCE node name, the Kubernetes node name and the VM name
 	// are all the same and the name must be unique within the cluster. The API automatically appends a
 	// suffix to the node name (a hyphen followed by five random lowercase letters and digits, e.g.
@@ -531,6 +535,8 @@ type NodeV3Parameters struct {
 	// Changing this parameter will create a new resource. Defaults to privateIp. Options are:
 	// privateIp - Use the private node IP address as the Kubernetes node name.
 	// cceNodeName - Use the CCE node name as the Kubernetes node name.
+	// When omitted for a new node, the provider explicitly requests privateIp.
+	// For existing and imported nodes, an omitted argument preserves the API-reported type.
 	// -> NOTE: When set to cceNodeName, the CCE node name, the Kubernetes node name and the VM name
 	// are all the same and the name must be unique within the cluster. The API automatically appends a
 	// suffix to the node name (a hyphen followed by five random lowercase letters and digits, e.g.

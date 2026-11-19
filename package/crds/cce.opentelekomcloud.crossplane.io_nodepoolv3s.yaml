@@ -359,6 +359,8 @@ spec:
                       Changing this parameter will create a new resource. Defaults to privateIp. Options are:
                       privateIp - Use the private node IP address as the Kubernetes node name.
                       cceNodeName - Use the CCE node name as the Kubernetes node name.
+                      When omitted for a new node pool, the provider explicitly requests privateIp.
+                      For existing and imported node pools, an omitted argument preserves the API-reported type.
                     type: string
                   initialNodeCount:
                     description: Initial number of expected nodes in the node pool.
@@ -1044,6 +1046,8 @@ spec:
                       Changing this parameter will create a new resource. Defaults to privateIp. Options are:
                       privateIp - Use the private node IP address as the Kubernetes node name.
                       cceNodeName - Use the CCE node name as the Kubernetes node name.
+                      When omitted for a new node pool, the provider explicitly requests privateIp.
+                      For existing and imported node pools, an omitted argument preserves the API-reported type.
                     type: string
                   initialNodeCount:
                     description: Initial number of expected nodes in the node pool.
@@ -1606,6 +1610,8 @@ spec:
                       Changing this parameter will create a new resource. Defaults to privateIp. Options are:
                       privateIp - Use the private node IP address as the Kubernetes node name.
                       cceNodeName - Use the CCE node name as the Kubernetes node name.
+                      When omitted for a new node pool, the provider explicitly requests privateIp.
+                      For existing and imported node pools, an omitted argument preserves the API-reported type.
                     type: string
                   id:
                     description: Specifies a resource ID in UUID format.
