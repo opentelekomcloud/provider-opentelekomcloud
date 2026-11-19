@@ -203,16 +203,6 @@ func Configure(p *config.Provider) {
 
 	p.AddResourceConfigurator(tfPreciseProtectionRuleV1, func(r *config.Resource) {
 		r.Kind = "PreciseProtectionRuleV1"
-		// WAF returns value_list_id conditions with the reference table contents
-		// expanded into conditions[].contents. The provider stores that derived
-		// value in Terraform state, but conditions.contents is ForceNew and absent
-		// from the spec, so Terraform plans a replacement on every reconcile.
-		// Upjet sets prevent_destroy, which turns the replacement plan into an
-		// observe error. The initializer below mirrors the observed contents into
-		// the spec for value_list_id conditions so state and config match and no
-		// replacement is planned. The proper fix belongs upstream: the provider
-		// should not persist derived contents when value_list_id is used.
-		r.InitializerFns = append(r.InitializerFns, newPreciseProtectionContentsInitializer)
 		r.References["policy_id"] = config.Reference{
 			TerraformName:     tfPolicyV1,
 			SelectorFieldName: selectorFieldNamePolicy,
