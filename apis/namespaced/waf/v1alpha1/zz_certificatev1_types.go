@@ -20,7 +20,7 @@ type CertificateV1InitParameters struct {
 	Content *string `json:"content,omitempty" tf:"content,omitempty"`
 
 	// The private key. Changing this creates a new certificate.
-	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+	KeySecretRef v1.LocalSecretKeySelector `json:"keySecretRef" tf:"-"`
 
 	// The certificate name. The value can contain a maximum of 64 characters.
 	// Only digits, letters, underscores(_), and hyphens(-) are allowed. Changing this creates a new certificate.
@@ -43,9 +43,6 @@ type CertificateV1Observation struct {
 	// ID of the certificate.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// The private key. Changing this creates a new certificate.
-	Key *string `json:"key,omitempty" tf:"key,omitempty"`
-
 	// The certificate name. The value can contain a maximum of 64 characters.
 	// Only digits, letters, underscores(_), and hyphens(-) are allowed. Changing this creates a new certificate.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -61,7 +58,7 @@ type CertificateV1Parameters struct {
 
 	// The private key. Changing this creates a new certificate.
 	// +kubebuilder:validation:Optional
-	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+	KeySecretRef v1.LocalSecretKeySelector `json:"keySecretRef" tf:"-"`
 
 	// The certificate name. The value can contain a maximum of 64 characters.
 	// Only digits, letters, underscores(_), and hyphens(-) are allowed. Changing this creates a new certificate.
@@ -109,7 +106,7 @@ type CertificateV1 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.content) || (has(self.initProvider) && has(self.initProvider.content))",message="spec.forProvider.content is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.key) || (has(self.initProvider) && has(self.initProvider.key))",message="spec.forProvider.key is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.keySecretRef)",message="spec.forProvider.keySecretRef is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	Spec   CertificateV1Spec   `json:"spec"`
 	Status CertificateV1Status `json:"status,omitempty"`

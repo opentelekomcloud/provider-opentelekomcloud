@@ -95,6 +95,7 @@ func Configure(p *config.Provider) {
 
 	p.AddResourceConfigurator(tfCertificateV1, func(r *config.Resource) {
 		r.Kind = "CertificateV1"
+		r.TerraformResource.Schema["key"].Sensitive = true
 	})
 
 	p.AddResourceConfigurator(tfCcRuleV1, func(r *config.Resource) {

@@ -1936,11 +1936,7 @@ func (in *CertificateV1InitParameters) DeepCopyInto(out *CertificateV1InitParame
 		*out = new(string)
 		**out = **in
 	}
-	if in.Key != nil {
-		in, out := &in.Key, &out.Key
-		*out = new(string)
-		**out = **in
-	}
+	in.KeySecretRef.DeepCopyInto(&out.KeySecretRef)
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)
@@ -2018,11 +2014,6 @@ func (in *CertificateV1Observation) DeepCopyInto(out *CertificateV1Observation) 
 		*out = new(string)
 		**out = **in
 	}
-	if in.Key != nil {
-		in, out := &in.Key, &out.Key
-		*out = new(string)
-		**out = **in
-	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)
@@ -2053,11 +2044,7 @@ func (in *CertificateV1Parameters) DeepCopyInto(out *CertificateV1Parameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.Key != nil {
-		in, out := &in.Key, &out.Key
-		*out = new(string)
-		**out = **in
-	}
+	in.KeySecretRef.DeepCopyInto(&out.KeySecretRef)
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)

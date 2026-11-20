@@ -63,9 +63,18 @@ spec:
                     description: The certificate content. Changing this creates a
                       new certificate.
                     type: string
-                  key:
+                  keySecretRef:
                     description: The private key. Changing this creates a new certificate.
-                    type: string
+                    properties:
+                      key:
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    type: object
                   name:
                     description: |-
                       The certificate name. The value can contain a maximum of 64 characters.
@@ -91,9 +100,18 @@ spec:
                     description: The certificate content. Changing this creates a
                       new certificate.
                     type: string
-                  key:
+                  keySecretRef:
                     description: The private key. Changing this creates a new certificate.
-                    type: string
+                    properties:
+                      key:
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    type: object
                   name:
                     description: |-
                       The certificate name. The value can contain a maximum of 64 characters.
@@ -101,6 +119,8 @@ spec:
                     type: string
                   region:
                     type: string
+                required:
+                - keySecretRef
                 type: object
               managementPolicies:
                 default:
@@ -165,10 +185,9 @@ spec:
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.content)
                 || (has(self.initProvider) && has(self.initProvider.content))'
-            - message: spec.forProvider.key is a required parameter
+            - message: spec.forProvider.keySecretRef is a required parameter
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.key)
-                || (has(self.initProvider) && has(self.initProvider.key))'
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.keySecretRef)'
             - message: spec.forProvider.name is a required parameter
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
@@ -190,9 +209,6 @@ spec:
                     type: string
                   id:
                     description: ID of the certificate.
-                    type: string
-                  key:
-                    description: The private key. Changing this creates a new certificate.
                     type: string
                   name:
                     description: |-

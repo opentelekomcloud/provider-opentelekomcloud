@@ -53,23 +53,38 @@ Test case: `policyv1.yaml` - creates a standalone WAF protection policy.
 
 ## certificatev1.yaml
 
-Test case: `certificatev1.yaml` - creates a WAF dedicated certificate from a
-self-signed test certificate and private key supplied by the datasource values.
+Test case: `certificatev1.yaml` - creates a Secret with the private key, a WAF
+dedicated certificate, and an HTTPS domain protected by that certificate.
 
 ### APIs used
 
 | Kind | Full API name |
 |------|---------------|
+| VpcV1 | `vpcv1s.vpc.opentelekomcloud.m.crossplane.io` |
+| PolicyV1 | `policyv1s.waf.opentelekomcloud.m.crossplane.io` |
 | CertificateV1 | `certificatev1s.waf.opentelekomcloud.m.crossplane.io` |
+| DomainV1 | `domainv1s.waf.opentelekomcloud.m.crossplane.io` |
+| Secret | `secrets` (core/v1) |
 
 ### Configuration needed
 
 | Item | Where | What to do |
 |------|-------|-----------|
-| `${Rand.RFC1123Subdomain}` | metadata name, `spec.forProvider.name` | Replace with a unique RFC1123-compatible suffix (or leave for the example generator to substitute) |
+| `${Rand.RFC1123Subdomain}` | VPC, policy, certificate, and domain names | Replace with a unique RFC1123-compatible suffix (or leave for the example generator to substitute). Do not use it for the Secret name. |
 | `${data.wafdCertificate}` | CertificateV1 `spec.forProvider.content` | PEM certificate from the datasource values (self-signed test certificate valid until 2036-11-15); replace with your own certificate |
-| `${data.wafdPrivateKey}` | CertificateV1 `spec.forProvider.key` | Private key matching `${data.wafdCertificate}` from the datasource values; replace together with the certificate |
+| `${data.wafdPrivateKey}` | Secret `wafd-certificate-key-example` key `privateKey` | Private key matching `${data.wafdCertificate}` from the datasource values; replace together with the certificate |
+| `keySecretRef` | CertificateV1 `spec.forProvider.keySecretRef` | References Secret `wafd-certificate-key-example`, key `privateKey`; the name must match the Secret exactly |
+| `domain: www.wafd-certificate-...example.com` | DomainV1 `spec.forProvider.domain` | Replace with the domain name or IP address to protect |
+| `address: 192.168.0.10`, `port: 8443` | DomainV1 `spec.forProvider.server` | Point at a real HTTPS backend reachable from the selected VPC |
+| `clientProtocol: HTTPS`, `serverProtocol: HTTPS`, `tls: TLS v1.2`, `cipher: cipher_default` | DomainV1 `spec.forProvider` | Adjust the TLS termination and backend protocol; a certificate is required for HTTPS and is supplied by `certificateSelector` |
+| `certificateSelector` | DomainV1 `spec.forProvider.certificateSelector` | Selects the CertificateV1 created by this example |
+| `keepPolicy: true` | DomainV1 `spec.forProvider.keepPolicy` | Keep `true` so deleting the domain does not delete the referenced policy |
 | `namespace: test` | all resources | All resources are created in the `test` namespace - adjust if needed |
+
+The Secret name is intentionally static (`wafd-certificate-key-example`).
+`${Rand.RFC1123Subdomain}` is expanded independently in each occurrence, so
+using it in both `Secret.metadata.name` and `keySecretRef.name` would produce
+two different names and the certificate would be created with an empty key.
 
 ## referencetablev1.yaml
 
