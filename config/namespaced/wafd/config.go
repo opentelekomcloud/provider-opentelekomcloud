@@ -72,6 +72,12 @@ func Configure(p *config.Provider) {
 
 	p.AddResourceConfigurator(tfDomainV1, func(r *config.Resource) {
 		r.Kind = "DomainV1"
+		// protect_status is Optional+Computed and the API reports a non-zero
+		// default, so late-initialization would copy it into forProvider and
+		// drop it from ignore_changes, breaking initProvider semantics.
+		r.LateInitializer = config.LateInitializer{
+			ConditionalIgnoredFields: []string{"protect_status"},
+		}
 		r.References["server.vpc_id"] = config.Reference{
 			TerraformName:     tfVpcV1,
 			SelectorFieldName: selectorFieldNameVPC,

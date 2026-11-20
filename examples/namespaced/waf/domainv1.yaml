@@ -13,7 +13,6 @@ spec:
     name: wafd-domain-vpc-${Rand.RFC1123Subdomain}
 
 ---
-
 apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: SubnetV1
 metadata:
@@ -33,7 +32,6 @@ spec:
         testing.upbound.io/example-name: wafd-domain-vpc
 
 ---
-
 apiVersion: waf.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: PolicyV1
 metadata:
@@ -54,7 +52,6 @@ spec:
     protectionMode: block
 
 ---
-
 apiVersion: waf.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: DomainV1
 metadata:
@@ -67,6 +64,7 @@ metadata:
 spec:
   forProvider:
     domain: www.wafd-${Rand.RFC1123Subdomain}.example.com
+    protectStatus: 1
     keepPolicy: true
     policySelector:
       matchLabels:
