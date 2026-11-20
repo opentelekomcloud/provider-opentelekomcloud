@@ -1,0 +1,16 @@
+apiVersion: waf.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: ReferenceTableV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: waf/v1alpha1/referencetablev1
+  labels:
+    testing.upbound.io/example-name: wafd-reference-table
+  name: wafd-reference-table-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    conditions:
+      - /admin
+      - /manage
+    name: wafd-reference-table-${Rand.RFC1123Subdomain}
+    type: url

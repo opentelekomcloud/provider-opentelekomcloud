@@ -250,21 +250,21 @@ import (
 	ipsecpolicyv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/vpnaas/ipsecpolicyv2"
 	servicev2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/vpnaas/servicev2"
 	siteconnectionv2 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/vpnaas/siteconnectionv2"
-	dedicatedalarmmaskingrulev1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/waf/dedicatedalarmmaskingrulev1"
-	dedicatedanticrawlerrulev1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/waf/dedicatedanticrawlerrulev1"
-	dedicatedantileakagerulev1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/waf/dedicatedantileakagerulev1"
-	dedicatedblacklistrulev1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/waf/dedicatedblacklistrulev1"
-	dedicatedccrulev1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/waf/dedicatedccrulev1"
-	dedicatedcertificatev1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/waf/dedicatedcertificatev1"
-	dedicateddatamaskingrulev1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/waf/dedicateddatamaskingrulev1"
-	dedicateddomainv1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/waf/dedicateddomainv1"
-	dedicatedgeoiprulev1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/waf/dedicatedgeoiprulev1"
-	dedicatedinstancev1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/waf/dedicatedinstancev1"
-	dedicatedknownattacksourcerulev1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/waf/dedicatedknownattacksourcerulev1"
-	dedicatedpolicyv1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/waf/dedicatedpolicyv1"
-	dedicatedpreciseprotectionrulev1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/waf/dedicatedpreciseprotectionrulev1"
-	dedicatedreferencetablev1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/waf/dedicatedreferencetablev1"
-	dedicatedwebtamperrulev1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/waf/dedicatedwebtamperrulev1"
+	alarmmaskingrulev1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/waf/alarmmaskingrulev1"
+	anticrawlerrulev1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/waf/anticrawlerrulev1"
+	antileakagerulev1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/waf/antileakagerulev1"
+	blacklistrulev1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/waf/blacklistrulev1"
+	ccrulev1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/waf/ccrulev1"
+	certificatev1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/waf/certificatev1"
+	datamaskingrulev1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/waf/datamaskingrulev1"
+	domainv1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/waf/domainv1"
+	geoiprulev1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/waf/geoiprulev1"
+	instancev1waf "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/waf/instancev1"
+	knownattacksourcerulev1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/waf/knownattacksourcerulev1"
+	policyv1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/waf/policyv1"
+	preciseprotectionrulev1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/waf/preciseprotectionrulev1"
+	referencetablev1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/waf/referencetablev1"
+	webtamperrulev1 "github.com/opentelekomcloud/provider-opentelekomcloud/internal/controller/namespaced/waf/webtamperrulev1"
 )
 
 // Setup creates all controllers with the supplied logger and adds them to
@@ -512,21 +512,21 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		ipsecpolicyv2.Setup,
 		servicev2.Setup,
 		siteconnectionv2.Setup,
-		dedicatedalarmmaskingrulev1.Setup,
-		dedicatedanticrawlerrulev1.Setup,
-		dedicatedantileakagerulev1.Setup,
-		dedicatedblacklistrulev1.Setup,
-		dedicatedccrulev1.Setup,
-		dedicatedcertificatev1.Setup,
-		dedicateddatamaskingrulev1.Setup,
-		dedicateddomainv1.Setup,
-		dedicatedgeoiprulev1.Setup,
-		dedicatedinstancev1.Setup,
-		dedicatedknownattacksourcerulev1.Setup,
-		dedicatedpolicyv1.Setup,
-		dedicatedpreciseprotectionrulev1.Setup,
-		dedicatedreferencetablev1.Setup,
-		dedicatedwebtamperrulev1.Setup,
+		alarmmaskingrulev1.Setup,
+		anticrawlerrulev1.Setup,
+		antileakagerulev1.Setup,
+		blacklistrulev1.Setup,
+		ccrulev1.Setup,
+		certificatev1.Setup,
+		datamaskingrulev1.Setup,
+		domainv1.Setup,
+		geoiprulev1.Setup,
+		instancev1waf.Setup,
+		knownattacksourcerulev1.Setup,
+		policyv1.Setup,
+		preciseprotectionrulev1.Setup,
+		referencetablev1.Setup,
+		webtamperrulev1.Setup,
 	} {
 		if err := setup(mgr, o); err != nil {
 			return err
@@ -780,21 +780,21 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		ipsecpolicyv2.SetupGated,
 		servicev2.SetupGated,
 		siteconnectionv2.SetupGated,
-		dedicatedalarmmaskingrulev1.SetupGated,
-		dedicatedanticrawlerrulev1.SetupGated,
-		dedicatedantileakagerulev1.SetupGated,
-		dedicatedblacklistrulev1.SetupGated,
-		dedicatedccrulev1.SetupGated,
-		dedicatedcertificatev1.SetupGated,
-		dedicateddatamaskingrulev1.SetupGated,
-		dedicateddomainv1.SetupGated,
-		dedicatedgeoiprulev1.SetupGated,
-		dedicatedinstancev1.SetupGated,
-		dedicatedknownattacksourcerulev1.SetupGated,
-		dedicatedpolicyv1.SetupGated,
-		dedicatedpreciseprotectionrulev1.SetupGated,
-		dedicatedreferencetablev1.SetupGated,
-		dedicatedwebtamperrulev1.SetupGated,
+		alarmmaskingrulev1.SetupGated,
+		anticrawlerrulev1.SetupGated,
+		antileakagerulev1.SetupGated,
+		blacklistrulev1.SetupGated,
+		ccrulev1.SetupGated,
+		certificatev1.SetupGated,
+		datamaskingrulev1.SetupGated,
+		domainv1.SetupGated,
+		geoiprulev1.SetupGated,
+		instancev1waf.SetupGated,
+		knownattacksourcerulev1.SetupGated,
+		policyv1.SetupGated,
+		preciseprotectionrulev1.SetupGated,
+		referencetablev1.SetupGated,
+		webtamperrulev1.SetupGated,
 	} {
 		if err := setup(mgr, o); err != nil {
 			return err

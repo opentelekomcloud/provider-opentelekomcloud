@@ -1,0 +1,24 @@
+apiVersion: waf.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: InstanceV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: waf/v1alpha1/instancev1
+  labels:
+    testing.upbound.io/example-name: wafd_1
+  name: wafd-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    architecture: x86
+    availabilityZone: eu-de-01
+    flavor: s2.large.2
+    name: wafd-instance-1
+    securityGroupRef:
+    - name: opentelekomcloud_networking_secgroup_v2
+    specification: waf.instance.professional
+    subnetSelector:
+      matchLabels:
+        testing.upbound.io/example-name: opentelekomcloud_vpc_subnet_v1
+    vpcSelector:
+      matchLabels:
+        testing.upbound.io/example-name: opentelekomcloud_vpc_subnet_v1

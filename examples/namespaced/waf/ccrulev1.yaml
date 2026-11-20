@@ -1,0 +1,64 @@
+apiVersion: waf.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: PolicyV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: waf/v1alpha1/policyv1
+  labels:
+    testing.upbound.io/example-name: wafd-cc-policy
+  name: wafd-cc-policy-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    name: wafd-cc-policy-${Rand.RFC1123Subdomain}
+
+---
+
+apiVersion: waf.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: ReferenceTableV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: waf/v1alpha1/referencetablev1
+  labels:
+    testing.upbound.io/example-name: wafd-cc-reference-table
+  name: wafd-cc-reference-table-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    conditions:
+      - /admin
+    name: wafd-cc-reference-table-${Rand.RFC1123Subdomain}
+    type: url
+
+---
+
+apiVersion: waf.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: CcRuleV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: waf/v1alpha1/ccrulev1
+  labels:
+    testing.upbound.io/example-name: wafd-cc-rule
+  name: wafd-cc-rule-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    action:
+      - category: block
+        content: '{"error":"forbidden"}'
+        contentType: application/json
+    conditions:
+      - category: url
+        logicOperation: contain_any
+        referenceTableSelector:
+          matchLabels:
+            testing.upbound.io/example-name: wafd-cc-reference-table
+    limitNum: 10
+    limitPeriod: 60
+    lockTime: 10
+    mode: 0
+    policySelector:
+      matchLabels:
+        testing.upbound.io/example-name: wafd-cc-policy
+    tagIndex: sessionid
+    tagType: cookie
+    url: /abc1

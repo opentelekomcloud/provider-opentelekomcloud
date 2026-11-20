@@ -1,0 +1,88 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: wafd-certificate-key-example
+  namespace: test
+type: Opaque
+stringData:
+  privateKey: "${data.wafdPrivateKey}"
+
+---
+apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: VpcV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/vpcv1
+  labels:
+    testing.upbound.io/example-name: wafd-certificate-vpc
+  name: wafd-certificate-vpc-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    cidr: 192.168.0.0/16
+    name: wafd-certificate-vpc-${Rand.RFC1123Subdomain}
+
+---
+apiVersion: waf.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: PolicyV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: waf/v1alpha1/policyv1
+  labels:
+    testing.upbound.io/example-name: wafd-certificate-policy
+  name: wafd-certificate-policy-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    name: wafd-certificate-policy-${Rand.RFC1123Subdomain}
+
+---
+apiVersion: waf.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: CertificateV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: waf/v1alpha1/certificatev1
+  labels:
+    testing.upbound.io/example-name: wafd-certificate
+  name: wafd-certificate-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    content: "${data.wafdCertificate}"
+    keySecretRef:
+      name: wafd-certificate-key-example
+      key: privateKey
+    name: wafd-certificate-${Rand.RFC1123Subdomain}
+
+---
+apiVersion: waf.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: DomainV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: waf/v1alpha1/domainv1
+  labels:
+    testing.upbound.io/example-name: wafd-certificate-domain
+  name: wafd-certificate-domain-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    certificateSelector:
+      matchLabels:
+        testing.upbound.io/example-name: wafd-certificate
+    cipher: cipher_default
+    domain: www.wafd-certificate-${Rand.RFC1123Subdomain}.example.com
+    keepPolicy: true
+    policySelector:
+      matchLabels:
+        testing.upbound.io/example-name: wafd-certificate-policy
+    proxy: true
+    server:
+      - address: 192.168.0.10
+        clientProtocol: HTTPS
+        port: 8443
+        serverProtocol: HTTPS
+        type: ipv4
+        vpcSelector:
+          matchLabels:
+            testing.upbound.io/example-name: wafd-certificate-vpc
+    tls: TLS v1.2

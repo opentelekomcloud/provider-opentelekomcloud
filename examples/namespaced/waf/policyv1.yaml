@@ -1,0 +1,18 @@
+apiVersion: waf.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: PolicyV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: waf/v1alpha1/policyv1
+  labels:
+    testing.upbound.io/example-name: wafd-policy
+  name: wafd-policy-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    fullDetection: true
+    level: 2
+    name: wafd-policy-${Rand.RFC1123Subdomain}
+    options:
+      - cc: true
+        webAttack: true
+    protectionMode: block

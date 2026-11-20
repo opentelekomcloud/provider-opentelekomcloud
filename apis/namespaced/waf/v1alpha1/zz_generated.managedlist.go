@@ -8,8 +8,8 @@ package v1alpha1
 
 import resource "github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 
-// GetItems of this DedicatedAlarmMaskingRuleV1List.
-func (l *DedicatedAlarmMaskingRuleV1List) GetItems() []resource.Managed {
+// GetItems of this AlarmMaskingRuleV1List.
+func (l *AlarmMaskingRuleV1List) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -17,8 +17,8 @@ func (l *DedicatedAlarmMaskingRuleV1List) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this DedicatedAntiCrawlerRuleV1List.
-func (l *DedicatedAntiCrawlerRuleV1List) GetItems() []resource.Managed {
+// GetItems of this AntiCrawlerRuleV1List.
+func (l *AntiCrawlerRuleV1List) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -26,8 +26,8 @@ func (l *DedicatedAntiCrawlerRuleV1List) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this DedicatedAntiLeakageRuleV1List.
-func (l *DedicatedAntiLeakageRuleV1List) GetItems() []resource.Managed {
+// GetItems of this AntiLeakageRuleV1List.
+func (l *AntiLeakageRuleV1List) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -35,8 +35,8 @@ func (l *DedicatedAntiLeakageRuleV1List) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this DedicatedBlacklistRuleV1List.
-func (l *DedicatedBlacklistRuleV1List) GetItems() []resource.Managed {
+// GetItems of this BlacklistRuleV1List.
+func (l *BlacklistRuleV1List) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -44,8 +44,8 @@ func (l *DedicatedBlacklistRuleV1List) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this DedicatedCcRuleV1List.
-func (l *DedicatedCcRuleV1List) GetItems() []resource.Managed {
+// GetItems of this CcRuleV1List.
+func (l *CcRuleV1List) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -53,8 +53,8 @@ func (l *DedicatedCcRuleV1List) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this DedicatedCertificateV1List.
-func (l *DedicatedCertificateV1List) GetItems() []resource.Managed {
+// GetItems of this CertificateV1List.
+func (l *CertificateV1List) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -62,8 +62,8 @@ func (l *DedicatedCertificateV1List) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this DedicatedDataMaskingRuleV1List.
-func (l *DedicatedDataMaskingRuleV1List) GetItems() []resource.Managed {
+// GetItems of this DataMaskingRuleV1List.
+func (l *DataMaskingRuleV1List) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -71,8 +71,8 @@ func (l *DedicatedDataMaskingRuleV1List) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this DedicatedDomainV1List.
-func (l *DedicatedDomainV1List) GetItems() []resource.Managed {
+// GetItems of this DomainV1List.
+func (l *DomainV1List) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -80,8 +80,8 @@ func (l *DedicatedDomainV1List) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this DedicatedGeoIPRuleV1List.
-func (l *DedicatedGeoIPRuleV1List) GetItems() []resource.Managed {
+// GetItems of this GeoIPRuleV1List.
+func (l *GeoIPRuleV1List) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -89,8 +89,8 @@ func (l *DedicatedGeoIPRuleV1List) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this DedicatedInstanceV1List.
-func (l *DedicatedInstanceV1List) GetItems() []resource.Managed {
+// GetItems of this InstanceV1List.
+func (l *InstanceV1List) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -98,8 +98,8 @@ func (l *DedicatedInstanceV1List) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this DedicatedKnownAttackSourceRuleV1List.
-func (l *DedicatedKnownAttackSourceRuleV1List) GetItems() []resource.Managed {
+// GetItems of this KnownAttackSourceRuleV1List.
+func (l *KnownAttackSourceRuleV1List) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -107,8 +107,8 @@ func (l *DedicatedKnownAttackSourceRuleV1List) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this DedicatedPolicyV1List.
-func (l *DedicatedPolicyV1List) GetItems() []resource.Managed {
+// GetItems of this PolicyV1List.
+func (l *PolicyV1List) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -116,8 +116,8 @@ func (l *DedicatedPolicyV1List) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this DedicatedPreciseProtectionRuleV1List.
-func (l *DedicatedPreciseProtectionRuleV1List) GetItems() []resource.Managed {
+// GetItems of this PreciseProtectionRuleV1List.
+func (l *PreciseProtectionRuleV1List) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -125,8 +125,8 @@ func (l *DedicatedPreciseProtectionRuleV1List) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this DedicatedReferenceTableV1List.
-func (l *DedicatedReferenceTableV1List) GetItems() []resource.Managed {
+// GetItems of this ReferenceTableV1List.
+func (l *ReferenceTableV1List) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -134,8 +134,8 @@ func (l *DedicatedReferenceTableV1List) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this DedicatedWebTamperRuleV1List.
-func (l *DedicatedWebTamperRuleV1List) GetItems() []resource.Managed {
+// GetItems of this WebTamperRuleV1List.
+func (l *WebTamperRuleV1List) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
