@@ -13,15 +13,15 @@ spec:
     availableZones:
     - ${data.opentelekomcloud_dms_az_v1.az_1.id}
     brokerNum: 3
-    computeSecurityGroupSelector:
-      matchLabels:
-        testing.upbound.io/example-name: example
     engineVersion: "2.7"
     flavorId: ${data.opentelekomcloud_dms_flavor_v2.test.flavor_id}
     name: kafka_test
     passwordSecretRef:
       key: example-key
       name: example-secret
+    securityGroupSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     sslEnable: true
     storageSpace: 600
     storageSpecCode: ${data.opentelekomcloud_dms_flavor_v2.test.flavors[0].ios[0].storage_spec_code}

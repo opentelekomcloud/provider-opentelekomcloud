@@ -28,7 +28,7 @@ spec:
     subnetSelector:
       matchLabels:
         testing.upbound.io/example-name: dms-subnet
-    computeSecurityGroupSelector:
+    securityGroupSelector:
       matchLabels:
         testing.upbound.io/example-name: dms-sg
     tags:

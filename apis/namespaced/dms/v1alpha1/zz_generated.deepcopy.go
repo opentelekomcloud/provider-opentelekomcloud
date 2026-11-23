@@ -448,16 +448,6 @@ func (in *DedicatedInstanceV2InitParameters) DeepCopyInto(out *DedicatedInstance
 		*out = new(float64)
 		**out = **in
 	}
-	if in.ComputeSecurityGroupRefs != nil {
-		in, out := &in.ComputeSecurityGroupRefs, &out.ComputeSecurityGroupRefs
-		*out = new(v1.NamespacedReference)
-		(*in).DeepCopyInto(*out)
-	}
-	if in.ComputeSecurityGroupSelector != nil {
-		in, out := &in.ComputeSecurityGroupSelector, &out.ComputeSecurityGroupSelector
-		*out = new(v1.NamespacedSelector)
-		(*in).DeepCopyInto(*out)
-	}
 	if in.CrossVPCAccesses != nil {
 		in, out := &in.CrossVPCAccesses, &out.CrossVPCAccesses
 		*out = make([]CrossVPCAccessesInitParameters, len(*in))
@@ -479,6 +469,16 @@ func (in *DedicatedInstanceV2InitParameters) DeepCopyInto(out *DedicatedInstance
 		in, out := &in.DiskEncryptedKey, &out.DiskEncryptedKey
 		*out = new(string)
 		**out = **in
+	}
+	if in.DiskEncryptionKeyRef != nil {
+		in, out := &in.DiskEncryptionKeyRef, &out.DiskEncryptionKeyRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.DiskEncryptionKeySelector != nil {
+		in, out := &in.DiskEncryptionKeySelector, &out.DiskEncryptionKeySelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.EnablePublicip != nil {
 		in, out := &in.EnablePublicip, &out.EnablePublicip
@@ -584,6 +584,16 @@ func (in *DedicatedInstanceV2InitParameters) DeepCopyInto(out *DedicatedInstance
 		in, out := &in.SecurityGroupID, &out.SecurityGroupID
 		*out = new(string)
 		**out = **in
+	}
+	if in.SecurityGroupRef != nil {
+		in, out := &in.SecurityGroupRef, &out.SecurityGroupRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.SecurityGroupSelector != nil {
+		in, out := &in.SecurityGroupSelector, &out.SecurityGroupSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.SecurityProtocol != nil {
 		in, out := &in.SecurityProtocol, &out.SecurityProtocol
@@ -1032,16 +1042,6 @@ func (in *DedicatedInstanceV2Parameters) DeepCopyInto(out *DedicatedInstanceV2Pa
 		*out = new(float64)
 		**out = **in
 	}
-	if in.ComputeSecurityGroupRefs != nil {
-		in, out := &in.ComputeSecurityGroupRefs, &out.ComputeSecurityGroupRefs
-		*out = new(v1.NamespacedReference)
-		(*in).DeepCopyInto(*out)
-	}
-	if in.ComputeSecurityGroupSelector != nil {
-		in, out := &in.ComputeSecurityGroupSelector, &out.ComputeSecurityGroupSelector
-		*out = new(v1.NamespacedSelector)
-		(*in).DeepCopyInto(*out)
-	}
 	if in.CrossVPCAccesses != nil {
 		in, out := &in.CrossVPCAccesses, &out.CrossVPCAccesses
 		*out = make([]CrossVPCAccessesParameters, len(*in))
@@ -1063,6 +1063,16 @@ func (in *DedicatedInstanceV2Parameters) DeepCopyInto(out *DedicatedInstanceV2Pa
 		in, out := &in.DiskEncryptedKey, &out.DiskEncryptedKey
 		*out = new(string)
 		**out = **in
+	}
+	if in.DiskEncryptionKeyRef != nil {
+		in, out := &in.DiskEncryptionKeyRef, &out.DiskEncryptionKeyRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.DiskEncryptionKeySelector != nil {
+		in, out := &in.DiskEncryptionKeySelector, &out.DiskEncryptionKeySelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.EnablePublicip != nil {
 		in, out := &in.EnablePublicip, &out.EnablePublicip
@@ -1168,6 +1178,16 @@ func (in *DedicatedInstanceV2Parameters) DeepCopyInto(out *DedicatedInstanceV2Pa
 		in, out := &in.SecurityGroupID, &out.SecurityGroupID
 		*out = new(string)
 		**out = **in
+	}
+	if in.SecurityGroupRef != nil {
+		in, out := &in.SecurityGroupRef, &out.SecurityGroupRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.SecurityGroupSelector != nil {
+		in, out := &in.SecurityGroupSelector, &out.SecurityGroupSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.SecurityProtocol != nil {
 		in, out := &in.SecurityProtocol, &out.SecurityProtocol
@@ -2230,16 +2250,6 @@ func (in *InstanceV2InitParameters) DeepCopyInto(out *InstanceV2InitParameters) 
 			}
 		}
 	}
-	if in.ComputeSecurityGroupRefs != nil {
-		in, out := &in.ComputeSecurityGroupRefs, &out.ComputeSecurityGroupRefs
-		*out = new(v1.NamespacedReference)
-		(*in).DeepCopyInto(*out)
-	}
-	if in.ComputeSecurityGroupSelector != nil {
-		in, out := &in.ComputeSecurityGroupSelector, &out.ComputeSecurityGroupSelector
-		*out = new(v1.NamespacedSelector)
-		(*in).DeepCopyInto(*out)
-	}
 	if in.Description != nil {
 		in, out := &in.Description, &out.Description
 		*out = new(string)
@@ -2305,18 +2315,6 @@ func (in *InstanceV2InitParameters) DeepCopyInto(out *InstanceV2InitParameters) 
 		*out = new(float64)
 		**out = **in
 	}
-	if in.PublicIPRefs != nil {
-		in, out := &in.PublicIPRefs, &out.PublicIPRefs
-		*out = make([]v1.NamespacedReference, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
-	}
-	if in.PublicIPSelector != nil {
-		in, out := &in.PublicIPSelector, &out.PublicIPSelector
-		*out = new(v1.NamespacedSelector)
-		(*in).DeepCopyInto(*out)
-	}
 	if in.PublicipID != nil {
 		in, out := &in.PublicipID, &out.PublicipID
 		*out = make([]*string, len(*in))
@@ -2358,16 +2356,6 @@ func (in *InstanceV2InitParameters) DeepCopyInto(out *InstanceV2InitParameters) 
 		*out = new(string)
 		**out = **in
 	}
-	if in.SubnetRef != nil {
-		in, out := &in.SubnetRef, &out.SubnetRef
-		*out = new(v1.NamespacedReference)
-		(*in).DeepCopyInto(*out)
-	}
-	if in.SubnetSelector != nil {
-		in, out := &in.SubnetSelector, &out.SubnetSelector
-		*out = new(v1.NamespacedSelector)
-		(*in).DeepCopyInto(*out)
-	}
 	if in.Tags != nil {
 		in, out := &in.Tags, &out.Tags
 		*out = make(map[string]*string, len(*in))
@@ -2388,16 +2376,6 @@ func (in *InstanceV2InitParameters) DeepCopyInto(out *InstanceV2InitParameters) 
 		in, out := &in.VPCID, &out.VPCID
 		*out = new(string)
 		**out = **in
-	}
-	if in.VPCRef != nil {
-		in, out := &in.VPCRef, &out.VPCRef
-		*out = new(v1.NamespacedReference)
-		(*in).DeepCopyInto(*out)
-	}
-	if in.VPCSelector != nil {
-		in, out := &in.VPCSelector, &out.VPCSelector
-		*out = new(v1.NamespacedSelector)
-		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -2721,16 +2699,6 @@ func (in *InstanceV2Parameters) DeepCopyInto(out *InstanceV2Parameters) {
 			}
 		}
 	}
-	if in.ComputeSecurityGroupRefs != nil {
-		in, out := &in.ComputeSecurityGroupRefs, &out.ComputeSecurityGroupRefs
-		*out = new(v1.NamespacedReference)
-		(*in).DeepCopyInto(*out)
-	}
-	if in.ComputeSecurityGroupSelector != nil {
-		in, out := &in.ComputeSecurityGroupSelector, &out.ComputeSecurityGroupSelector
-		*out = new(v1.NamespacedSelector)
-		(*in).DeepCopyInto(*out)
-	}
 	if in.Description != nil {
 		in, out := &in.Description, &out.Description
 		*out = new(string)
@@ -2796,18 +2764,6 @@ func (in *InstanceV2Parameters) DeepCopyInto(out *InstanceV2Parameters) {
 		*out = new(float64)
 		**out = **in
 	}
-	if in.PublicIPRefs != nil {
-		in, out := &in.PublicIPRefs, &out.PublicIPRefs
-		*out = make([]v1.NamespacedReference, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
-	}
-	if in.PublicIPSelector != nil {
-		in, out := &in.PublicIPSelector, &out.PublicIPSelector
-		*out = new(v1.NamespacedSelector)
-		(*in).DeepCopyInto(*out)
-	}
 	if in.PublicipID != nil {
 		in, out := &in.PublicipID, &out.PublicipID
 		*out = make([]*string, len(*in))
@@ -2849,16 +2805,6 @@ func (in *InstanceV2Parameters) DeepCopyInto(out *InstanceV2Parameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.SubnetRef != nil {
-		in, out := &in.SubnetRef, &out.SubnetRef
-		*out = new(v1.NamespacedReference)
-		(*in).DeepCopyInto(*out)
-	}
-	if in.SubnetSelector != nil {
-		in, out := &in.SubnetSelector, &out.SubnetSelector
-		*out = new(v1.NamespacedSelector)
-		(*in).DeepCopyInto(*out)
-	}
 	if in.Tags != nil {
 		in, out := &in.Tags, &out.Tags
 		*out = make(map[string]*string, len(*in))
@@ -2879,16 +2825,6 @@ func (in *InstanceV2Parameters) DeepCopyInto(out *InstanceV2Parameters) {
 		in, out := &in.VPCID, &out.VPCID
 		*out = new(string)
 		**out = **in
-	}
-	if in.VPCRef != nil {
-		in, out := &in.VPCRef, &out.VPCRef
-		*out = new(v1.NamespacedReference)
-		(*in).DeepCopyInto(*out)
-	}
-	if in.VPCSelector != nil {
-		in, out := &in.VPCSelector, &out.VPCSelector
-		*out = new(v1.NamespacedSelector)
-		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -4953,16 +4889,6 @@ func (in *TopicV1InitParameters) DeepCopyInto(out *TopicV1InitParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.InstanceRef != nil {
-		in, out := &in.InstanceRef, &out.InstanceRef
-		*out = new(v1.NamespacedReference)
-		(*in).DeepCopyInto(*out)
-	}
-	if in.InstanceSelector != nil {
-		in, out := &in.InstanceSelector, &out.InstanceSelector
-		*out = new(v1.NamespacedSelector)
-		(*in).DeepCopyInto(*out)
-	}
 	if in.MaxPartitions != nil {
 		in, out := &in.MaxPartitions, &out.MaxPartitions
 		*out = new(float64)
@@ -5129,16 +5055,6 @@ func (in *TopicV1Parameters) DeepCopyInto(out *TopicV1Parameters) {
 		in, out := &in.InstanceID, &out.InstanceID
 		*out = new(string)
 		**out = **in
-	}
-	if in.InstanceRef != nil {
-		in, out := &in.InstanceRef, &out.InstanceRef
-		*out = new(v1.NamespacedReference)
-		(*in).DeepCopyInto(*out)
-	}
-	if in.InstanceSelector != nil {
-		in, out := &in.InstanceSelector, &out.InstanceSelector
-		*out = new(v1.NamespacedSelector)
-		(*in).DeepCopyInto(*out)
 	}
 	if in.MaxPartitions != nil {
 		in, out := &in.MaxPartitions, &out.MaxPartitions

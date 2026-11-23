@@ -47,11 +47,11 @@ spec:
       managed-by: crossplane
 
 ---
-apiVersion: compute.opentelekomcloud.m.crossplane.io/v1alpha1
-kind: SecgroupV2
+apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: SecgroupV3
 metadata:
   annotations:
-    meta.upbound.io/example-id: compute/v1alpha1/secgroupv2
+    meta.upbound.io/example-id: vpc/v1alpha1/secgroupv3
   labels:
     testing.upbound.io/example-name: dms-sg
   name: dms-sg-${Rand.RFC1123Subdomain}
@@ -60,11 +60,29 @@ spec:
   forProvider:
     description: crossplane DMS security group
     name: dms-sg-${Rand.RFC1123Subdomain}
-    rule:
-      - cidr: 192.168.0.0/16
-        fromPort: 9092
-        ipProtocol: tcp
-        toPort: 9095
+
+---
+apiVersion: vpc.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: SecgroupRuleV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/secgrouprulev3
+  labels:
+    testing.upbound.io/example-name: dms-sg-rule
+  name: dms-sg-rule-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    action: allow
+    description: Kafka client ports
+    direction: ingress
+    multiPort: "9092-9095"
+    priority: 1
+    protocol: tcp
+    remoteIpPrefix: 192.168.0.0/16
+    securityGroupSelector:
+      matchLabels:
+        testing.upbound.io/example-name: dms-sg
 
 ---
 apiVersion: dms.opentelekomcloud.m.crossplane.io/v1alpha1
@@ -103,7 +121,7 @@ spec:
     subnetSelector:
       matchLabels:
         testing.upbound.io/example-name: dms-subnet
-    computeSecurityGroupSelector:
+    securityGroupSelector:
       matchLabels:
         testing.upbound.io/example-name: dms-sg
     tags:

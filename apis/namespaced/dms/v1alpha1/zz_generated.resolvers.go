@@ -10,8 +10,8 @@ import (
 	"context"
 	reference "github.com/crossplane/crossplane-runtime/v2/pkg/reference"
 	v1alpha12 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/compute/v1alpha1"
-	v1alpha11 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/networking/v1alpha1"
-	v1alpha1 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1"
+	v1alpha1 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/kms/v1alpha1"
+	v1alpha11 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1"
 	common "github.com/opentelekomcloud/provider-opentelekomcloud/config/common"
 	errors "github.com/pkg/errors"
 	client "sigs.k8s.io/controller-runtime/pkg/client"
@@ -70,14 +70,31 @@ func (mg *DedicatedInstanceV2) ResolveReferences(ctx context.Context, c client.R
 	var err error
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.DiskEncryptedKey),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.DiskEncryptionKeyRef,
+		Selector:     mg.Spec.ForProvider.DiskEncryptionKeySelector,
+		To: reference.To{
+			List:    &v1alpha1.KeyV1List{},
+			Managed: &v1alpha1.KeyV1{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.DiskEncryptedKey")
+	}
+	mg.Spec.ForProvider.DiskEncryptedKey = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.DiskEncryptionKeyRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.NetworkID),
 		Extract:      common.ExtractNetworkID(),
 		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.ForProvider.SubnetRef,
 		Selector:     mg.Spec.ForProvider.SubnetSelector,
 		To: reference.To{
-			List:    &v1alpha1.SubnetV1List{},
-			Managed: &v1alpha1.SubnetV1{},
+			List:    &v1alpha11.SubnetV1List{},
+			Managed: &v1alpha11.SubnetV1{},
 		},
 	})
 	if err != nil {
@@ -93,8 +110,8 @@ func (mg *DedicatedInstanceV2) ResolveReferences(ctx context.Context, c client.R
 		References:    mg.Spec.ForProvider.PublicIPRefs,
 		Selector:      mg.Spec.ForProvider.PublicIPSelector,
 		To: reference.To{
-			List:    &v1alpha11.FloatingipV2List{},
-			Managed: &v1alpha11.FloatingipV2{},
+			List:    &v1alpha11.EIPV1List{},
+			Managed: &v1alpha11.EIPV1{},
 		},
 	})
 	if err != nil {
@@ -107,18 +124,18 @@ func (mg *DedicatedInstanceV2) ResolveReferences(ctx context.Context, c client.R
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.SecurityGroupID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.ForProvider.ComputeSecurityGroupRefs,
-		Selector:     mg.Spec.ForProvider.ComputeSecurityGroupSelector,
+		Reference:    mg.Spec.ForProvider.SecurityGroupRef,
+		Selector:     mg.Spec.ForProvider.SecurityGroupSelector,
 		To: reference.To{
-			List:    &v1alpha12.SecgroupV2List{},
-			Managed: &v1alpha12.SecgroupV2{},
+			List:    &v1alpha11.SecgroupV3List{},
+			Managed: &v1alpha11.SecgroupV3{},
 		},
 	})
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.ForProvider.SecurityGroupID")
 	}
 	mg.Spec.ForProvider.SecurityGroupID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.ComputeSecurityGroupRefs = rsp.ResolvedReference
+	mg.Spec.ForProvider.SecurityGroupRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.VPCID),
@@ -127,8 +144,8 @@ func (mg *DedicatedInstanceV2) ResolveReferences(ctx context.Context, c client.R
 		Reference:    mg.Spec.ForProvider.VPCRef,
 		Selector:     mg.Spec.ForProvider.VPCSelector,
 		To: reference.To{
-			List:    &v1alpha1.VpcV1List{},
-			Managed: &v1alpha1.VpcV1{},
+			List:    &v1alpha11.VpcV1List{},
+			Managed: &v1alpha11.VpcV1{},
 		},
 	})
 	if err != nil {
@@ -138,14 +155,31 @@ func (mg *DedicatedInstanceV2) ResolveReferences(ctx context.Context, c client.R
 	mg.Spec.ForProvider.VPCRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.DiskEncryptedKey),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.DiskEncryptionKeyRef,
+		Selector:     mg.Spec.InitProvider.DiskEncryptionKeySelector,
+		To: reference.To{
+			List:    &v1alpha1.KeyV1List{},
+			Managed: &v1alpha1.KeyV1{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.DiskEncryptedKey")
+	}
+	mg.Spec.InitProvider.DiskEncryptedKey = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.DiskEncryptionKeyRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.NetworkID),
 		Extract:      common.ExtractNetworkID(),
 		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.InitProvider.SubnetRef,
 		Selector:     mg.Spec.InitProvider.SubnetSelector,
 		To: reference.To{
-			List:    &v1alpha1.SubnetV1List{},
-			Managed: &v1alpha1.SubnetV1{},
+			List:    &v1alpha11.SubnetV1List{},
+			Managed: &v1alpha11.SubnetV1{},
 		},
 	})
 	if err != nil {
@@ -161,8 +195,8 @@ func (mg *DedicatedInstanceV2) ResolveReferences(ctx context.Context, c client.R
 		References:    mg.Spec.InitProvider.PublicIPRefs,
 		Selector:      mg.Spec.InitProvider.PublicIPSelector,
 		To: reference.To{
-			List:    &v1alpha11.FloatingipV2List{},
-			Managed: &v1alpha11.FloatingipV2{},
+			List:    &v1alpha11.EIPV1List{},
+			Managed: &v1alpha11.EIPV1{},
 		},
 	})
 	if err != nil {
@@ -175,18 +209,18 @@ func (mg *DedicatedInstanceV2) ResolveReferences(ctx context.Context, c client.R
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.SecurityGroupID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.InitProvider.ComputeSecurityGroupRefs,
-		Selector:     mg.Spec.InitProvider.ComputeSecurityGroupSelector,
+		Reference:    mg.Spec.InitProvider.SecurityGroupRef,
+		Selector:     mg.Spec.InitProvider.SecurityGroupSelector,
 		To: reference.To{
-			List:    &v1alpha12.SecgroupV2List{},
-			Managed: &v1alpha12.SecgroupV2{},
+			List:    &v1alpha11.SecgroupV3List{},
+			Managed: &v1alpha11.SecgroupV3{},
 		},
 	})
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.InitProvider.SecurityGroupID")
 	}
 	mg.Spec.InitProvider.SecurityGroupID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.ComputeSecurityGroupRefs = rsp.ResolvedReference
+	mg.Spec.InitProvider.SecurityGroupRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.VPCID),
@@ -195,8 +229,8 @@ func (mg *DedicatedInstanceV2) ResolveReferences(ctx context.Context, c client.R
 		Reference:    mg.Spec.InitProvider.VPCRef,
 		Selector:     mg.Spec.InitProvider.VPCSelector,
 		To: reference.To{
-			List:    &v1alpha1.VpcV1List{},
-			Managed: &v1alpha1.VpcV1{},
+			List:    &v1alpha11.VpcV1List{},
+			Managed: &v1alpha11.VpcV1{},
 		},
 	})
 	if err != nil {
@@ -239,8 +273,8 @@ func (mg *InstanceV1) ResolveReferences(ctx context.Context, c client.Reader) er
 		Reference:    mg.Spec.ForProvider.SubnetRef,
 		Selector:     mg.Spec.ForProvider.SubnetSelector,
 		To: reference.To{
-			List:    &v1alpha1.SubnetV1List{},
-			Managed: &v1alpha1.SubnetV1{},
+			List:    &v1alpha11.SubnetV1List{},
+			Managed: &v1alpha11.SubnetV1{},
 		},
 	})
 	if err != nil {
@@ -256,8 +290,8 @@ func (mg *InstanceV1) ResolveReferences(ctx context.Context, c client.Reader) er
 		Reference:    mg.Spec.ForProvider.VPCRef,
 		Selector:     mg.Spec.ForProvider.VPCSelector,
 		To: reference.To{
-			List:    &v1alpha1.VpcV1List{},
-			Managed: &v1alpha1.VpcV1{},
+			List:    &v1alpha11.VpcV1List{},
+			Managed: &v1alpha11.VpcV1{},
 		},
 	})
 	if err != nil {
@@ -290,8 +324,8 @@ func (mg *InstanceV1) ResolveReferences(ctx context.Context, c client.Reader) er
 		Reference:    mg.Spec.InitProvider.SubnetRef,
 		Selector:     mg.Spec.InitProvider.SubnetSelector,
 		To: reference.To{
-			List:    &v1alpha1.SubnetV1List{},
-			Managed: &v1alpha1.SubnetV1{},
+			List:    &v1alpha11.SubnetV1List{},
+			Managed: &v1alpha11.SubnetV1{},
 		},
 	})
 	if err != nil {
@@ -307,155 +341,8 @@ func (mg *InstanceV1) ResolveReferences(ctx context.Context, c client.Reader) er
 		Reference:    mg.Spec.InitProvider.VPCRef,
 		Selector:     mg.Spec.InitProvider.VPCSelector,
 		To: reference.To{
-			List:    &v1alpha1.VpcV1List{},
-			Managed: &v1alpha1.VpcV1{},
-		},
-	})
-	if err != nil {
-		return errors.Wrap(err, "mg.Spec.InitProvider.VPCID")
-	}
-	mg.Spec.InitProvider.VPCID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.VPCRef = rsp.ResolvedReference
-
-	return nil
-}
-
-// ResolveReferences of this InstanceV2.
-func (mg *InstanceV2) ResolveReferences(ctx context.Context, c client.Reader) error {
-	r := reference.NewAPINamespacedResolver(c, mg)
-
-	var rsp reference.NamespacedResolutionResponse
-	var mrsp reference.MultiNamespacedResolutionResponse
-	var err error
-
-	mrsp, err = r.ResolveMultiple(ctx, reference.MultiNamespacedResolutionRequest{
-		CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.PublicipID),
-		Extract:       reference.ExternalName(),
-		Namespace:     mg.GetNamespace(),
-		References:    mg.Spec.ForProvider.PublicIPRefs,
-		Selector:      mg.Spec.ForProvider.PublicIPSelector,
-		To: reference.To{
-			List:    &v1alpha11.FloatingipV2List{},
-			Managed: &v1alpha11.FloatingipV2{},
-		},
-	})
-	if err != nil {
-		return errors.Wrap(err, "mg.Spec.ForProvider.PublicipID")
-	}
-	mg.Spec.ForProvider.PublicipID = reference.ToPtrValues(mrsp.ResolvedValues)
-	mg.Spec.ForProvider.PublicIPRefs = mrsp.ResolvedReferences
-
-	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.SecurityGroupID),
-		Extract:      reference.ExternalName(),
-		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.ForProvider.ComputeSecurityGroupRefs,
-		Selector:     mg.Spec.ForProvider.ComputeSecurityGroupSelector,
-		To: reference.To{
-			List:    &v1alpha12.SecgroupV2List{},
-			Managed: &v1alpha12.SecgroupV2{},
-		},
-	})
-	if err != nil {
-		return errors.Wrap(err, "mg.Spec.ForProvider.SecurityGroupID")
-	}
-	mg.Spec.ForProvider.SecurityGroupID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.ComputeSecurityGroupRefs = rsp.ResolvedReference
-
-	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.SubnetID),
-		Extract:      common.ExtractNetworkID(),
-		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.ForProvider.SubnetRef,
-		Selector:     mg.Spec.ForProvider.SubnetSelector,
-		To: reference.To{
-			List:    &v1alpha1.SubnetV1List{},
-			Managed: &v1alpha1.SubnetV1{},
-		},
-	})
-	if err != nil {
-		return errors.Wrap(err, "mg.Spec.ForProvider.SubnetID")
-	}
-	mg.Spec.ForProvider.SubnetID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.SubnetRef = rsp.ResolvedReference
-
-	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.VPCID),
-		Extract:      reference.ExternalName(),
-		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.ForProvider.VPCRef,
-		Selector:     mg.Spec.ForProvider.VPCSelector,
-		To: reference.To{
-			List:    &v1alpha1.VpcV1List{},
-			Managed: &v1alpha1.VpcV1{},
-		},
-	})
-	if err != nil {
-		return errors.Wrap(err, "mg.Spec.ForProvider.VPCID")
-	}
-	mg.Spec.ForProvider.VPCID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.VPCRef = rsp.ResolvedReference
-
-	mrsp, err = r.ResolveMultiple(ctx, reference.MultiNamespacedResolutionRequest{
-		CurrentValues: reference.FromPtrValues(mg.Spec.InitProvider.PublicipID),
-		Extract:       reference.ExternalName(),
-		Namespace:     mg.GetNamespace(),
-		References:    mg.Spec.InitProvider.PublicIPRefs,
-		Selector:      mg.Spec.InitProvider.PublicIPSelector,
-		To: reference.To{
-			List:    &v1alpha11.FloatingipV2List{},
-			Managed: &v1alpha11.FloatingipV2{},
-		},
-	})
-	if err != nil {
-		return errors.Wrap(err, "mg.Spec.InitProvider.PublicipID")
-	}
-	mg.Spec.InitProvider.PublicipID = reference.ToPtrValues(mrsp.ResolvedValues)
-	mg.Spec.InitProvider.PublicIPRefs = mrsp.ResolvedReferences
-
-	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.SecurityGroupID),
-		Extract:      reference.ExternalName(),
-		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.InitProvider.ComputeSecurityGroupRefs,
-		Selector:     mg.Spec.InitProvider.ComputeSecurityGroupSelector,
-		To: reference.To{
-			List:    &v1alpha12.SecgroupV2List{},
-			Managed: &v1alpha12.SecgroupV2{},
-		},
-	})
-	if err != nil {
-		return errors.Wrap(err, "mg.Spec.InitProvider.SecurityGroupID")
-	}
-	mg.Spec.InitProvider.SecurityGroupID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.ComputeSecurityGroupRefs = rsp.ResolvedReference
-
-	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.SubnetID),
-		Extract:      common.ExtractNetworkID(),
-		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.InitProvider.SubnetRef,
-		Selector:     mg.Spec.InitProvider.SubnetSelector,
-		To: reference.To{
-			List:    &v1alpha1.SubnetV1List{},
-			Managed: &v1alpha1.SubnetV1{},
-		},
-	})
-	if err != nil {
-		return errors.Wrap(err, "mg.Spec.InitProvider.SubnetID")
-	}
-	mg.Spec.InitProvider.SubnetID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.SubnetRef = rsp.ResolvedReference
-
-	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.VPCID),
-		Extract:      reference.ExternalName(),
-		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.InitProvider.VPCRef,
-		Selector:     mg.Spec.InitProvider.VPCSelector,
-		To: reference.To{
-			List:    &v1alpha1.VpcV1List{},
-			Managed: &v1alpha1.VpcV1{},
+			List:    &v1alpha11.VpcV1List{},
+			Managed: &v1alpha11.VpcV1{},
 		},
 	})
 	if err != nil {
@@ -778,50 +665,6 @@ func (mg *SmartConnectV2) ResolveReferences(ctx context.Context, c client.Reader
 		To: reference.To{
 			List:    &DedicatedInstanceV2List{},
 			Managed: &DedicatedInstanceV2{},
-		},
-	})
-	if err != nil {
-		return errors.Wrap(err, "mg.Spec.InitProvider.InstanceID")
-	}
-	mg.Spec.InitProvider.InstanceID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.InstanceRef = rsp.ResolvedReference
-
-	return nil
-}
-
-// ResolveReferences of this TopicV1.
-func (mg *TopicV1) ResolveReferences(ctx context.Context, c client.Reader) error {
-	r := reference.NewAPINamespacedResolver(c, mg)
-
-	var rsp reference.NamespacedResolutionResponse
-	var err error
-
-	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.InstanceID),
-		Extract:      reference.ExternalName(),
-		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.ForProvider.InstanceRef,
-		Selector:     mg.Spec.ForProvider.InstanceSelector,
-		To: reference.To{
-			List:    &InstanceV1List{},
-			Managed: &InstanceV1{},
-		},
-	})
-	if err != nil {
-		return errors.Wrap(err, "mg.Spec.ForProvider.InstanceID")
-	}
-	mg.Spec.ForProvider.InstanceID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.InstanceRef = rsp.ResolvedReference
-
-	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.InstanceID),
-		Extract:      reference.ExternalName(),
-		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.InitProvider.InstanceRef,
-		Selector:     mg.Spec.InitProvider.InstanceSelector,
-		To: reference.To{
-			List:    &InstanceV1List{},
-			Managed: &InstanceV1{},
 		},
 	})
 	if err != nil {

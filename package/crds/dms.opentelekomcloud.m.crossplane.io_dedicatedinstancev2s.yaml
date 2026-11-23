@@ -80,9 +80,31 @@ spec:
                   brokerNum:
                     description: Specifies the broker numbers.
                     type: number
-                  computeSecurityGroupRefs:
-                    description: Reference to a SecgroupV2 in compute to populate
-                      securityGroupId.
+                  crossVpcAccesses:
+                    description: |-
+                      Specifies the cross-VPC access information.
+                      The object structure is documented below.
+                    items:
+                      properties:
+                        advertisedIp:
+                          description: The advertised IP Address or domain name.
+                          type: string
+                      type: object
+                    type: array
+                  description:
+                    description: |-
+                      Specifies the description of the DMS Kafka instance. It is a character string
+                      containing not more than 1,024 characters.
+                    type: string
+                  diskEncryptedEnable:
+                    description: Indicates whether to enable disk encryption.
+                    type: boolean
+                  diskEncryptedKey:
+                    description: Disk encryption key. If disk encryption is not enabled,
+                      this parameter is left blank.
+                    type: string
+                  diskEncryptionKeyRef:
+                    description: Reference to a KeyV1 in kms to populate diskEncryptedKey.
                     properties:
                       name:
                         description: Name of the referenced object.
@@ -118,9 +140,8 @@ spec:
                     required:
                     - name
                     type: object
-                  computeSecurityGroupSelector:
-                    description: Selector for a SecgroupV2 in compute to populate
-                      securityGroupId.
+                  diskEncryptionKeySelector:
+                    description: Selector for a KeyV1 in kms to populate diskEncryptedKey.
                     properties:
                       matchControllerRef:
                         description: |-
@@ -162,29 +183,6 @@ spec:
                             type: string
                         type: object
                     type: object
-                  crossVpcAccesses:
-                    description: |-
-                      Specifies the cross-VPC access information.
-                      The object structure is documented below.
-                    items:
-                      properties:
-                        advertisedIp:
-                          description: The advertised IP Address or domain name.
-                          type: string
-                      type: object
-                    type: array
-                  description:
-                    description: |-
-                      Specifies the description of the DMS Kafka instance. It is a character string
-                      containing not more than 1,024 characters.
-                    type: string
-                  diskEncryptedEnable:
-                    description: Indicates whether to enable disk encryption.
-                    type: boolean
-                  diskEncryptedKey:
-                    description: Disk encryption key. If disk encryption is not enabled,
-                      this parameter is left blank.
-                    type: string
                   enablePublicip:
                     description: Whether to enable public access. By default, public
                       access is disabled.
@@ -261,8 +259,7 @@ spec:
                     - name
                     type: object
                   publicIpRefs:
-                    description: References to FloatingipV2 in networking to populate
-                      publicipId.
+                    description: References to EIPV1 in vpc to populate publicipId.
                     items:
                       description: A NamespacedReference to a named object.
                       properties:
@@ -302,8 +299,7 @@ spec:
                       type: object
                     type: array
                   publicIpSelector:
-                    description: Selector for a list of FloatingipV2 in networking
-                      to populate publicipId.
+                    description: Selector for a list of EIPV1 in vpc to populate publicipId.
                     properties:
                       matchControllerRef:
                         description: |-
@@ -358,6 +354,86 @@ spec:
                   securityGroupId:
                     description: Specifies the ID of a security group.
                     type: string
+                  securityGroupRef:
+                    description: Reference to a SecgroupV3 in vpc to populate securityGroupId.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      namespace:
+                        description: Namespace of the referenced object
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  securityGroupSelector:
+                    description: Selector for a SecgroupV3 in vpc to populate securityGroupId.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      namespace:
+                        description: Namespace for the selector
+                        type: string
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
                   securityProtocol:
                     description: 'Specifies the protocol to use after SASL is enabled.
                       Value options:'
@@ -583,9 +659,31 @@ spec:
                   brokerNum:
                     description: Specifies the broker numbers.
                     type: number
-                  computeSecurityGroupRefs:
-                    description: Reference to a SecgroupV2 in compute to populate
-                      securityGroupId.
+                  crossVpcAccesses:
+                    description: |-
+                      Specifies the cross-VPC access information.
+                      The object structure is documented below.
+                    items:
+                      properties:
+                        advertisedIp:
+                          description: The advertised IP Address or domain name.
+                          type: string
+                      type: object
+                    type: array
+                  description:
+                    description: |-
+                      Specifies the description of the DMS Kafka instance. It is a character string
+                      containing not more than 1,024 characters.
+                    type: string
+                  diskEncryptedEnable:
+                    description: Indicates whether to enable disk encryption.
+                    type: boolean
+                  diskEncryptedKey:
+                    description: Disk encryption key. If disk encryption is not enabled,
+                      this parameter is left blank.
+                    type: string
+                  diskEncryptionKeyRef:
+                    description: Reference to a KeyV1 in kms to populate diskEncryptedKey.
                     properties:
                       name:
                         description: Name of the referenced object.
@@ -621,9 +719,8 @@ spec:
                     required:
                     - name
                     type: object
-                  computeSecurityGroupSelector:
-                    description: Selector for a SecgroupV2 in compute to populate
-                      securityGroupId.
+                  diskEncryptionKeySelector:
+                    description: Selector for a KeyV1 in kms to populate diskEncryptedKey.
                     properties:
                       matchControllerRef:
                         description: |-
@@ -665,29 +762,6 @@ spec:
                             type: string
                         type: object
                     type: object
-                  crossVpcAccesses:
-                    description: |-
-                      Specifies the cross-VPC access information.
-                      The object structure is documented below.
-                    items:
-                      properties:
-                        advertisedIp:
-                          description: The advertised IP Address or domain name.
-                          type: string
-                      type: object
-                    type: array
-                  description:
-                    description: |-
-                      Specifies the description of the DMS Kafka instance. It is a character string
-                      containing not more than 1,024 characters.
-                    type: string
-                  diskEncryptedEnable:
-                    description: Indicates whether to enable disk encryption.
-                    type: boolean
-                  diskEncryptedKey:
-                    description: Disk encryption key. If disk encryption is not enabled,
-                      this parameter is left blank.
-                    type: string
                   enablePublicip:
                     description: Whether to enable public access. By default, public
                       access is disabled.
@@ -764,8 +838,7 @@ spec:
                     - name
                     type: object
                   publicIpRefs:
-                    description: References to FloatingipV2 in networking to populate
-                      publicipId.
+                    description: References to EIPV1 in vpc to populate publicipId.
                     items:
                       description: A NamespacedReference to a named object.
                       properties:
@@ -805,8 +878,7 @@ spec:
                       type: object
                     type: array
                   publicIpSelector:
-                    description: Selector for a list of FloatingipV2 in networking
-                      to populate publicipId.
+                    description: Selector for a list of EIPV1 in vpc to populate publicipId.
                     properties:
                       matchControllerRef:
                         description: |-
@@ -861,6 +933,86 @@ spec:
                   securityGroupId:
                     description: Specifies the ID of a security group.
                     type: string
+                  securityGroupRef:
+                    description: Reference to a SecgroupV3 in vpc to populate securityGroupId.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      namespace:
+                        description: Namespace of the referenced object
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  securityGroupSelector:
+                    description: Selector for a SecgroupV3 in vpc to populate securityGroupId.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      namespace:
+                        description: Namespace for the selector
+                        type: string
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
                   securityProtocol:
                     description: 'Specifies the protocol to use after SASL is enabled.
                       Value options:'

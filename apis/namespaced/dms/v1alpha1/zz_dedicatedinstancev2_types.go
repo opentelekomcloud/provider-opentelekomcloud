@@ -60,14 +60,6 @@ type DedicatedInstanceV2InitParameters struct {
 	// Specifies the broker numbers.
 	BrokerNum *float64 `json:"brokerNum,omitempty" tf:"broker_num,omitempty"`
 
-	// Reference to a SecgroupV2 in compute to populate securityGroupId.
-	// +kubebuilder:validation:Optional
-	ComputeSecurityGroupRefs *v1.NamespacedReference `json:"computeSecurityGroupRefs,omitempty" tf:"-"`
-
-	// Selector for a SecgroupV2 in compute to populate securityGroupId.
-	// +kubebuilder:validation:Optional
-	ComputeSecurityGroupSelector *v1.NamespacedSelector `json:"computeSecurityGroupSelector,omitempty" tf:"-"`
-
 	// Specifies the cross-VPC access information.
 	// The object structure is documented below.
 	CrossVPCAccesses []CrossVPCAccessesInitParameters `json:"crossVpcAccesses,omitempty" tf:"cross_vpc_accesses,omitempty"`
@@ -80,7 +72,18 @@ type DedicatedInstanceV2InitParameters struct {
 	DiskEncryptedEnable *bool `json:"diskEncryptedEnable,omitempty" tf:"disk_encrypted_enable,omitempty"`
 
 	// Disk encryption key. If disk encryption is not enabled, this parameter is left blank.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/kms/v1alpha1.KeyV1
+	// +crossplane:generate:reference:refFieldName=DiskEncryptionKeyRef
+	// +crossplane:generate:reference:selectorFieldName=DiskEncryptionKeySelector
 	DiskEncryptedKey *string `json:"diskEncryptedKey,omitempty" tf:"disk_encrypted_key,omitempty"`
+
+	// Reference to a KeyV1 in kms to populate diskEncryptedKey.
+	// +kubebuilder:validation:Optional
+	DiskEncryptionKeyRef *v1.NamespacedReference `json:"diskEncryptionKeyRef,omitempty" tf:"-"`
+
+	// Selector for a KeyV1 in kms to populate diskEncryptedKey.
+	// +kubebuilder:validation:Optional
+	DiskEncryptionKeySelector *v1.NamespacedSelector `json:"diskEncryptionKeySelector,omitempty" tf:"-"`
 
 	// Whether to enable public access. By default, public access is disabled.
 	EnablePublicip *bool `json:"enablePublicip,omitempty" tf:"enable_publicip,omitempty"`
@@ -137,16 +140,16 @@ type DedicatedInstanceV2InitParameters struct {
 	// lowercase letters, uppercase letters, digits, and special characters (`~!@#$%^&*()-_=+\|[{}]:'",<.>/?).
 	PasswordSecretRef *v1.LocalSecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
 
-	// References to FloatingipV2 in networking to populate publicipId.
+	// References to EIPV1 in vpc to populate publicipId.
 	// +kubebuilder:validation:Optional
 	PublicIPRefs []v1.NamespacedReference `json:"publicIpRefs,omitempty" tf:"-"`
 
-	// Selector for a list of FloatingipV2 in networking to populate publicipId.
+	// Selector for a list of EIPV1 in vpc to populate publicipId.
 	// +kubebuilder:validation:Optional
 	PublicIPSelector *v1.NamespacedSelector `json:"publicIpSelector,omitempty" tf:"-"`
 
 	// Specifies a resource ID in UUID format.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/networking/v1alpha1.FloatingipV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.EIPV1
 	// +crossplane:generate:reference:refFieldName=PublicIPRefs
 	// +crossplane:generate:reference:selectorFieldName=PublicIPSelector
 	PublicipID []*string `json:"publicipId,omitempty" tf:"publicip_id,omitempty"`
@@ -160,10 +163,18 @@ type DedicatedInstanceV2InitParameters struct {
 	SSLEnable *bool `json:"sslEnable,omitempty" tf:"ssl_enable,omitempty"`
 
 	// Specifies the ID of a security group.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/compute/v1alpha1.SecgroupV2
-	// +crossplane:generate:reference:refFieldName=ComputeSecurityGroupRefs
-	// +crossplane:generate:reference:selectorFieldName=ComputeSecurityGroupSelector
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.SecgroupV3
+	// +crossplane:generate:reference:refFieldName=SecurityGroupRef
+	// +crossplane:generate:reference:selectorFieldName=SecurityGroupSelector
 	SecurityGroupID *string `json:"securityGroupId,omitempty" tf:"security_group_id,omitempty"`
+
+	// Reference to a SecgroupV3 in vpc to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	SecurityGroupRef *v1.NamespacedReference `json:"securityGroupRef,omitempty" tf:"-"`
+
+	// Selector for a SecgroupV3 in vpc to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	SecurityGroupSelector *v1.NamespacedSelector `json:"securityGroupSelector,omitempty" tf:"-"`
 
 	// Specifies the protocol to use after SASL is enabled. Value options:
 	SecurityProtocol *string `json:"securityProtocol,omitempty" tf:"security_protocol,omitempty"`
@@ -411,14 +422,6 @@ type DedicatedInstanceV2Parameters struct {
 	// +kubebuilder:validation:Optional
 	BrokerNum *float64 `json:"brokerNum,omitempty" tf:"broker_num,omitempty"`
 
-	// Reference to a SecgroupV2 in compute to populate securityGroupId.
-	// +kubebuilder:validation:Optional
-	ComputeSecurityGroupRefs *v1.NamespacedReference `json:"computeSecurityGroupRefs,omitempty" tf:"-"`
-
-	// Selector for a SecgroupV2 in compute to populate securityGroupId.
-	// +kubebuilder:validation:Optional
-	ComputeSecurityGroupSelector *v1.NamespacedSelector `json:"computeSecurityGroupSelector,omitempty" tf:"-"`
-
 	// Specifies the cross-VPC access information.
 	// The object structure is documented below.
 	// +kubebuilder:validation:Optional
@@ -434,8 +437,19 @@ type DedicatedInstanceV2Parameters struct {
 	DiskEncryptedEnable *bool `json:"diskEncryptedEnable,omitempty" tf:"disk_encrypted_enable,omitempty"`
 
 	// Disk encryption key. If disk encryption is not enabled, this parameter is left blank.
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/kms/v1alpha1.KeyV1
+	// +crossplane:generate:reference:refFieldName=DiskEncryptionKeyRef
+	// +crossplane:generate:reference:selectorFieldName=DiskEncryptionKeySelector
 	// +kubebuilder:validation:Optional
 	DiskEncryptedKey *string `json:"diskEncryptedKey,omitempty" tf:"disk_encrypted_key,omitempty"`
+
+	// Reference to a KeyV1 in kms to populate diskEncryptedKey.
+	// +kubebuilder:validation:Optional
+	DiskEncryptionKeyRef *v1.NamespacedReference `json:"diskEncryptionKeyRef,omitempty" tf:"-"`
+
+	// Selector for a KeyV1 in kms to populate diskEncryptedKey.
+	// +kubebuilder:validation:Optional
+	DiskEncryptionKeySelector *v1.NamespacedSelector `json:"diskEncryptionKeySelector,omitempty" tf:"-"`
 
 	// Whether to enable public access. By default, public access is disabled.
 	// +kubebuilder:validation:Optional
@@ -503,16 +517,16 @@ type DedicatedInstanceV2Parameters struct {
 	// +kubebuilder:validation:Optional
 	PasswordSecretRef *v1.LocalSecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
 
-	// References to FloatingipV2 in networking to populate publicipId.
+	// References to EIPV1 in vpc to populate publicipId.
 	// +kubebuilder:validation:Optional
 	PublicIPRefs []v1.NamespacedReference `json:"publicIpRefs,omitempty" tf:"-"`
 
-	// Selector for a list of FloatingipV2 in networking to populate publicipId.
+	// Selector for a list of EIPV1 in vpc to populate publicipId.
 	// +kubebuilder:validation:Optional
 	PublicIPSelector *v1.NamespacedSelector `json:"publicIpSelector,omitempty" tf:"-"`
 
 	// Specifies a resource ID in UUID format.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/networking/v1alpha1.FloatingipV2
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.EIPV1
 	// +crossplane:generate:reference:refFieldName=PublicIPRefs
 	// +crossplane:generate:reference:selectorFieldName=PublicIPSelector
 	// +kubebuilder:validation:Optional
@@ -529,11 +543,19 @@ type DedicatedInstanceV2Parameters struct {
 	SSLEnable *bool `json:"sslEnable,omitempty" tf:"ssl_enable,omitempty"`
 
 	// Specifies the ID of a security group.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/compute/v1alpha1.SecgroupV2
-	// +crossplane:generate:reference:refFieldName=ComputeSecurityGroupRefs
-	// +crossplane:generate:reference:selectorFieldName=ComputeSecurityGroupSelector
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.SecgroupV3
+	// +crossplane:generate:reference:refFieldName=SecurityGroupRef
+	// +crossplane:generate:reference:selectorFieldName=SecurityGroupSelector
 	// +kubebuilder:validation:Optional
 	SecurityGroupID *string `json:"securityGroupId,omitempty" tf:"security_group_id,omitempty"`
+
+	// Reference to a SecgroupV3 in vpc to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	SecurityGroupRef *v1.NamespacedReference `json:"securityGroupRef,omitempty" tf:"-"`
+
+	// Selector for a SecgroupV3 in vpc to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	SecurityGroupSelector *v1.NamespacedSelector `json:"securityGroupSelector,omitempty" tf:"-"`
 
 	// Specifies the protocol to use after SASL is enabled. Value options:
 	// +kubebuilder:validation:Optional
