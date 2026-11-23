@@ -1310,6 +1310,16 @@ func (in *DestinationTaskInitParameters) DeepCopyInto(out *DestinationTaskInitPa
 		*out = new(string)
 		**out = **in
 	}
+	if in.DcsInstanceRef != nil {
+		in, out := &in.DcsInstanceRef, &out.DcsInstanceRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.DcsInstanceSelector != nil {
+		in, out := &in.DcsInstanceSelector, &out.DcsInstanceSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.DeliverTimeInterval != nil {
 		in, out := &in.DeliverTimeInterval, &out.DeliverTimeInterval
 		*out = new(float64)
@@ -1324,6 +1334,16 @@ func (in *DestinationTaskInitParameters) DeepCopyInto(out *DestinationTaskInitPa
 		in, out := &in.ObsBucketName, &out.ObsBucketName
 		*out = new(string)
 		**out = **in
+	}
+	if in.ObsBucketRef != nil {
+		in, out := &in.ObsBucketRef, &out.ObsBucketRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ObsBucketSelector != nil {
+		in, out := &in.ObsBucketSelector, &out.ObsBucketSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ObsPath != nil {
 		in, out := &in.ObsPath, &out.ObsPath
@@ -1515,6 +1535,16 @@ func (in *DestinationTaskParameters) DeepCopyInto(out *DestinationTaskParameters
 		*out = new(string)
 		**out = **in
 	}
+	if in.DcsInstanceRef != nil {
+		in, out := &in.DcsInstanceRef, &out.DcsInstanceRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.DcsInstanceSelector != nil {
+		in, out := &in.DcsInstanceSelector, &out.DcsInstanceSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.DeliverTimeInterval != nil {
 		in, out := &in.DeliverTimeInterval, &out.DeliverTimeInterval
 		*out = new(float64)
@@ -1529,6 +1559,16 @@ func (in *DestinationTaskParameters) DeepCopyInto(out *DestinationTaskParameters
 		in, out := &in.ObsBucketName, &out.ObsBucketName
 		*out = new(string)
 		**out = **in
+	}
+	if in.ObsBucketRef != nil {
+		in, out := &in.ObsBucketRef, &out.ObsBucketRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ObsBucketSelector != nil {
+		in, out := &in.ObsBucketSelector, &out.ObsBucketSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ObsPath != nil {
 		in, out := &in.ObsPath, &out.ObsPath
@@ -1698,16 +1738,6 @@ func (in *InstanceV1InitParameters) DeepCopyInto(out *InstanceV1InitParameters) 
 			}
 		}
 	}
-	if in.ComputeSecurityGroupRefs != nil {
-		in, out := &in.ComputeSecurityGroupRefs, &out.ComputeSecurityGroupRefs
-		*out = new(v1.NamespacedReference)
-		(*in).DeepCopyInto(*out)
-	}
-	if in.ComputeSecurityGroupSelector != nil {
-		in, out := &in.ComputeSecurityGroupSelector, &out.ComputeSecurityGroupSelector
-		*out = new(v1.NamespacedSelector)
-		(*in).DeepCopyInto(*out)
-	}
 	if in.Description != nil {
 		in, out := &in.Description, &out.Description
 		*out = new(string)
@@ -1762,6 +1792,16 @@ func (in *InstanceV1InitParameters) DeepCopyInto(out *InstanceV1InitParameters) 
 		in, out := &in.SecurityGroupID, &out.SecurityGroupID
 		*out = new(string)
 		**out = **in
+	}
+	if in.SecurityGroupRef != nil {
+		in, out := &in.SecurityGroupRef, &out.SecurityGroupRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.SecurityGroupSelector != nil {
+		in, out := &in.SecurityGroupSelector, &out.SecurityGroupSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Specification != nil {
 		in, out := &in.Specification, &out.Specification
@@ -2047,16 +2087,6 @@ func (in *InstanceV1Parameters) DeepCopyInto(out *InstanceV1Parameters) {
 			}
 		}
 	}
-	if in.ComputeSecurityGroupRefs != nil {
-		in, out := &in.ComputeSecurityGroupRefs, &out.ComputeSecurityGroupRefs
-		*out = new(v1.NamespacedReference)
-		(*in).DeepCopyInto(*out)
-	}
-	if in.ComputeSecurityGroupSelector != nil {
-		in, out := &in.ComputeSecurityGroupSelector, &out.ComputeSecurityGroupSelector
-		*out = new(v1.NamespacedSelector)
-		(*in).DeepCopyInto(*out)
-	}
 	if in.Description != nil {
 		in, out := &in.Description, &out.Description
 		*out = new(string)
@@ -2111,6 +2141,16 @@ func (in *InstanceV1Parameters) DeepCopyInto(out *InstanceV1Parameters) {
 		in, out := &in.SecurityGroupID, &out.SecurityGroupID
 		*out = new(string)
 		**out = **in
+	}
+	if in.SecurityGroupRef != nil {
+		in, out := &in.SecurityGroupRef, &out.SecurityGroupRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.SecurityGroupSelector != nil {
+		in, out := &in.SecurityGroupSelector, &out.SecurityGroupSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Specification != nil {
 		in, out := &in.Specification, &out.Specification
@@ -4411,6 +4451,16 @@ func (in *SourceTaskInitParameters) DeepCopyInto(out *SourceTaskInitParameters) 
 		*out = new(string)
 		**out = **in
 	}
+	if in.DcsInstanceRef != nil {
+		in, out := &in.DcsInstanceRef, &out.DcsInstanceRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.DcsInstanceSelector != nil {
+		in, out := &in.DcsInstanceSelector, &out.DcsInstanceSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Direction != nil {
 		in, out := &in.Direction, &out.Direction
 		*out = new(string)
@@ -4714,6 +4764,16 @@ func (in *SourceTaskParameters) DeepCopyInto(out *SourceTaskParameters) {
 		in, out := &in.DcsInstanceID, &out.DcsInstanceID
 		*out = new(string)
 		**out = **in
+	}
+	if in.DcsInstanceRef != nil {
+		in, out := &in.DcsInstanceRef, &out.DcsInstanceRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.DcsInstanceSelector != nil {
+		in, out := &in.DcsInstanceSelector, &out.DcsInstanceSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Direction != nil {
 		in, out := &in.Direction, &out.Direction

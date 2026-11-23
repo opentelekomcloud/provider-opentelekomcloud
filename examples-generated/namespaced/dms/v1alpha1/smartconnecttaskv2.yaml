@@ -14,7 +14,9 @@ spec:
       consumerStrategy: latest
       deliverTimeInterval: 300
       destinationFileType: TEXT
-      obsBucketName: ${var.obs_bucket_name}
+      obsBucketSelector:
+        matchLabels:
+          testing.upbound.io/example-name: example
       obsPath: ${var.obs_path}
       partitionFormat: yyyy/MM/dd/HH/mm
       recordDelimiter: |2+

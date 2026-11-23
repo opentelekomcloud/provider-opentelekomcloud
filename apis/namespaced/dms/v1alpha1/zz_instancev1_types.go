@@ -25,14 +25,6 @@ type InstanceV1InitParameters struct {
 	// Querying AZ Information.
 	AvailableZones []*string `json:"availableZones,omitempty" tf:"available_zones,omitempty"`
 
-	// Reference to a SecgroupV2 in compute to populate securityGroupId.
-	// +kubebuilder:validation:Optional
-	ComputeSecurityGroupRefs *v1.NamespacedReference `json:"computeSecurityGroupRefs,omitempty" tf:"-"`
-
-	// Selector for a SecgroupV2 in compute to populate securityGroupId.
-	// +kubebuilder:validation:Optional
-	ComputeSecurityGroupSelector *v1.NamespacedSelector `json:"computeSecurityGroupSelector,omitempty" tf:"-"`
-
 	// Indicates the description of an instance. It is a character
 	// string containing not more than 1024 characters.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
@@ -74,10 +66,18 @@ type InstanceV1InitParameters struct {
 	RetentionPolicy *string `json:"retentionPolicy,omitempty" tf:"retention_policy,omitempty"`
 
 	// Indicates the ID of a security group.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/compute/v1alpha1.SecgroupV2
-	// +crossplane:generate:reference:refFieldName=ComputeSecurityGroupRefs
-	// +crossplane:generate:reference:selectorFieldName=ComputeSecurityGroupSelector
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.SecgroupV3
+	// +crossplane:generate:reference:refFieldName=SecurityGroupRef
+	// +crossplane:generate:reference:selectorFieldName=SecurityGroupSelector
 	SecurityGroupID *string `json:"securityGroupId,omitempty" tf:"security_group_id,omitempty"`
+
+	// Reference to a SecgroupV3 in vpc to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	SecurityGroupRef *v1.NamespacedReference `json:"securityGroupRef,omitempty" tf:"-"`
+
+	// Selector for a SecgroupV3 in vpc to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	SecurityGroupSelector *v1.NamespacedSelector `json:"securityGroupSelector,omitempty" tf:"-"`
 
 	// This parameter is mandatory if the engine is kafka.
 	// Indicates the baseline bandwidth of a Kafka instance, that is, the maximum amount
@@ -243,14 +243,6 @@ type InstanceV1Parameters struct {
 	// +kubebuilder:validation:Optional
 	AvailableZones []*string `json:"availableZones,omitempty" tf:"available_zones,omitempty"`
 
-	// Reference to a SecgroupV2 in compute to populate securityGroupId.
-	// +kubebuilder:validation:Optional
-	ComputeSecurityGroupRefs *v1.NamespacedReference `json:"computeSecurityGroupRefs,omitempty" tf:"-"`
-
-	// Selector for a SecgroupV2 in compute to populate securityGroupId.
-	// +kubebuilder:validation:Optional
-	ComputeSecurityGroupSelector *v1.NamespacedSelector `json:"computeSecurityGroupSelector,omitempty" tf:"-"`
-
 	// Indicates the description of an instance. It is a character
 	// string containing not more than 1024 characters.
 	// +kubebuilder:validation:Optional
@@ -302,11 +294,19 @@ type InstanceV1Parameters struct {
 	RetentionPolicy *string `json:"retentionPolicy,omitempty" tf:"retention_policy,omitempty"`
 
 	// Indicates the ID of a security group.
-	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/compute/v1alpha1.SecgroupV2
-	// +crossplane:generate:reference:refFieldName=ComputeSecurityGroupRefs
-	// +crossplane:generate:reference:selectorFieldName=ComputeSecurityGroupSelector
+	// +crossplane:generate:reference:type=github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1.SecgroupV3
+	// +crossplane:generate:reference:refFieldName=SecurityGroupRef
+	// +crossplane:generate:reference:selectorFieldName=SecurityGroupSelector
 	// +kubebuilder:validation:Optional
 	SecurityGroupID *string `json:"securityGroupId,omitempty" tf:"security_group_id,omitempty"`
+
+	// Reference to a SecgroupV3 in vpc to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	SecurityGroupRef *v1.NamespacedReference `json:"securityGroupRef,omitempty" tf:"-"`
+
+	// Selector for a SecgroupV3 in vpc to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	SecurityGroupSelector *v1.NamespacedSelector `json:"securityGroupSelector,omitempty" tf:"-"`
 
 	// This parameter is mandatory if the engine is kafka.
 	// Indicates the baseline bandwidth of a Kafka instance, that is, the maximum amount

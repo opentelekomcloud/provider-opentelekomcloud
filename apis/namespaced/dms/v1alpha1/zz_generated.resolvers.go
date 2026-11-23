@@ -9,8 +9,9 @@ package v1alpha1
 import (
 	"context"
 	reference "github.com/crossplane/crossplane-runtime/v2/pkg/reference"
-	v1alpha12 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/compute/v1alpha1"
+	v1alpha12 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/dcs/v1alpha1"
 	v1alpha1 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/kms/v1alpha1"
+	v1alpha13 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/obs/v1alpha1"
 	v1alpha11 "github.com/opentelekomcloud/provider-opentelekomcloud/apis/namespaced/vpc/v1alpha1"
 	common "github.com/opentelekomcloud/provider-opentelekomcloud/config/common"
 	errors "github.com/pkg/errors"
@@ -253,18 +254,18 @@ func (mg *InstanceV1) ResolveReferences(ctx context.Context, c client.Reader) er
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.SecurityGroupID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.ForProvider.ComputeSecurityGroupRefs,
-		Selector:     mg.Spec.ForProvider.ComputeSecurityGroupSelector,
+		Reference:    mg.Spec.ForProvider.SecurityGroupRef,
+		Selector:     mg.Spec.ForProvider.SecurityGroupSelector,
 		To: reference.To{
-			List:    &v1alpha12.SecgroupV2List{},
-			Managed: &v1alpha12.SecgroupV2{},
+			List:    &v1alpha11.SecgroupV3List{},
+			Managed: &v1alpha11.SecgroupV3{},
 		},
 	})
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.ForProvider.SecurityGroupID")
 	}
 	mg.Spec.ForProvider.SecurityGroupID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.ComputeSecurityGroupRefs = rsp.ResolvedReference
+	mg.Spec.ForProvider.SecurityGroupRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.SubnetID),
@@ -304,18 +305,18 @@ func (mg *InstanceV1) ResolveReferences(ctx context.Context, c client.Reader) er
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.SecurityGroupID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.InitProvider.ComputeSecurityGroupRefs,
-		Selector:     mg.Spec.InitProvider.ComputeSecurityGroupSelector,
+		Reference:    mg.Spec.InitProvider.SecurityGroupRef,
+		Selector:     mg.Spec.InitProvider.SecurityGroupSelector,
 		To: reference.To{
-			List:    &v1alpha12.SecgroupV2List{},
-			Managed: &v1alpha12.SecgroupV2{},
+			List:    &v1alpha11.SecgroupV3List{},
+			Managed: &v1alpha11.SecgroupV3{},
 		},
 	})
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.InitProvider.SecurityGroupID")
 	}
 	mg.Spec.InitProvider.SecurityGroupID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.ComputeSecurityGroupRefs = rsp.ResolvedReference
+	mg.Spec.InitProvider.SecurityGroupRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.SubnetID),
@@ -523,6 +524,44 @@ func (mg *SmartConnectTaskV2) ResolveReferences(ctx context.Context, c client.Re
 	var mrsp reference.MultiNamespacedResolutionResponse
 	var err error
 
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.DestinationTask); i3++ {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.DestinationTask[i3].DcsInstanceID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.DestinationTask[i3].DcsInstanceRef,
+			Selector:     mg.Spec.ForProvider.DestinationTask[i3].DcsInstanceSelector,
+			To: reference.To{
+				List:    &v1alpha12.InstanceV2List{},
+				Managed: &v1alpha12.InstanceV2{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.DestinationTask[i3].DcsInstanceID")
+		}
+		mg.Spec.ForProvider.DestinationTask[i3].DcsInstanceID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.DestinationTask[i3].DcsInstanceRef = rsp.ResolvedReference
+
+	}
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.DestinationTask); i3++ {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.DestinationTask[i3].ObsBucketName),
+			Extract:      common.ExtractObsBucket(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.DestinationTask[i3].ObsBucketRef,
+			Selector:     mg.Spec.ForProvider.DestinationTask[i3].ObsBucketSelector,
+			To: reference.To{
+				List:    &v1alpha13.BucketList{},
+				Managed: &v1alpha13.Bucket{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.DestinationTask[i3].ObsBucketName")
+		}
+		mg.Spec.ForProvider.DestinationTask[i3].ObsBucketName = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.DestinationTask[i3].ObsBucketRef = rsp.ResolvedReference
+
+	}
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.InstanceID),
 		Extract:      reference.ExternalName(),
@@ -540,6 +579,25 @@ func (mg *SmartConnectTaskV2) ResolveReferences(ctx context.Context, c client.Re
 	mg.Spec.ForProvider.InstanceID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.InstanceRef = rsp.ResolvedReference
 
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.SourceTask); i3++ {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.SourceTask[i3].DcsInstanceID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.SourceTask[i3].DcsInstanceRef,
+			Selector:     mg.Spec.ForProvider.SourceTask[i3].DcsInstanceSelector,
+			To: reference.To{
+				List:    &v1alpha12.InstanceV2List{},
+				Managed: &v1alpha12.InstanceV2{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.SourceTask[i3].DcsInstanceID")
+		}
+		mg.Spec.ForProvider.SourceTask[i3].DcsInstanceID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.SourceTask[i3].DcsInstanceRef = rsp.ResolvedReference
+
+	}
 	for i3 := 0; i3 < len(mg.Spec.ForProvider.SourceTask); i3++ {
 		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.SourceTask[i3].PeerInstanceID),
@@ -576,6 +634,44 @@ func (mg *SmartConnectTaskV2) ResolveReferences(ctx context.Context, c client.Re
 	mg.Spec.ForProvider.Topics = reference.ToPtrValues(mrsp.ResolvedValues)
 	mg.Spec.ForProvider.TopicRefs = mrsp.ResolvedReferences
 
+	for i3 := 0; i3 < len(mg.Spec.InitProvider.DestinationTask); i3++ {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.DestinationTask[i3].DcsInstanceID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.DestinationTask[i3].DcsInstanceRef,
+			Selector:     mg.Spec.InitProvider.DestinationTask[i3].DcsInstanceSelector,
+			To: reference.To{
+				List:    &v1alpha12.InstanceV2List{},
+				Managed: &v1alpha12.InstanceV2{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.InitProvider.DestinationTask[i3].DcsInstanceID")
+		}
+		mg.Spec.InitProvider.DestinationTask[i3].DcsInstanceID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.InitProvider.DestinationTask[i3].DcsInstanceRef = rsp.ResolvedReference
+
+	}
+	for i3 := 0; i3 < len(mg.Spec.InitProvider.DestinationTask); i3++ {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.DestinationTask[i3].ObsBucketName),
+			Extract:      common.ExtractObsBucket(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.DestinationTask[i3].ObsBucketRef,
+			Selector:     mg.Spec.InitProvider.DestinationTask[i3].ObsBucketSelector,
+			To: reference.To{
+				List:    &v1alpha13.BucketList{},
+				Managed: &v1alpha13.Bucket{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.InitProvider.DestinationTask[i3].ObsBucketName")
+		}
+		mg.Spec.InitProvider.DestinationTask[i3].ObsBucketName = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.InitProvider.DestinationTask[i3].ObsBucketRef = rsp.ResolvedReference
+
+	}
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.InstanceID),
 		Extract:      reference.ExternalName(),
@@ -593,6 +689,25 @@ func (mg *SmartConnectTaskV2) ResolveReferences(ctx context.Context, c client.Re
 	mg.Spec.InitProvider.InstanceID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.InitProvider.InstanceRef = rsp.ResolvedReference
 
+	for i3 := 0; i3 < len(mg.Spec.InitProvider.SourceTask); i3++ {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.SourceTask[i3].DcsInstanceID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.SourceTask[i3].DcsInstanceRef,
+			Selector:     mg.Spec.InitProvider.SourceTask[i3].DcsInstanceSelector,
+			To: reference.To{
+				List:    &v1alpha12.InstanceV2List{},
+				Managed: &v1alpha12.InstanceV2{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.InitProvider.SourceTask[i3].DcsInstanceID")
+		}
+		mg.Spec.InitProvider.SourceTask[i3].DcsInstanceID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.InitProvider.SourceTask[i3].DcsInstanceRef = rsp.ResolvedReference
+
+	}
 	for i3 := 0; i3 < len(mg.Spec.InitProvider.SourceTask); i3++ {
 		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.SourceTask[i3].PeerInstanceID),

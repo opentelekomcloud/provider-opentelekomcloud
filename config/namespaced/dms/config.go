@@ -7,11 +7,12 @@ import (
 )
 
 const (
-	tfComputeSecgroupV2        = "opentelekomcloud_compute_secgroup_v2"
 	tfConsumerGroupV2          = "opentelekomcloud_dms_consumer_group_v2"
+	tfDcsInstanceV2            = "opentelekomcloud_dcs_instance_v2"
 	tfDedicatedInstanceV2      = "opentelekomcloud_dms_dedicated_instance_v2"
 	tfInstanceV1               = "opentelekomcloud_dms_instance_v1"
 	tfKmsKeyV1                 = "opentelekomcloud_kms_key_v1"
+	tfObsBucket                = "opentelekomcloud_obs_bucket"
 	tfReassignPartitionsV2     = "opentelekomcloud_dms_reassign_partitions_v2"
 	tfSmartConnectTaskActionV2 = "opentelekomcloud_dms_smart_connect_task_action_v2"
 	tfSmartConnectTaskV2       = "opentelekomcloud_dms_smart_connect_task_v2"
@@ -24,29 +25,31 @@ const (
 	tfVpcSubnetV1              = "opentelekomcloud_vpc_subnet_v1"
 	tfVpcV1                    = "opentelekomcloud_vpc_v1"
 
-	selectorFieldNameComputeSecurityGroup = "ComputeSecurityGroupSelector"
-	refFieldNameComputeSecurityGroup      = "ComputeSecurityGroupRefs"
-	selectorFieldNameDiskEncryptionKey    = "DiskEncryptionKeySelector"
-	refFieldNameDiskEncryptionKey         = "DiskEncryptionKeyRef"
-	selectorFieldNameInstance             = "InstanceSelector"
-	refFieldNameInstance                  = "InstanceRef"
-	selectorFieldNamePeerInstance         = "PeerInstanceSelector"
-	refFieldNamePeerInstance              = "PeerInstanceRef"
-	selectorFieldNamePublicIP             = "PublicIPSelector"
-	refFieldNamePublicIP                  = "PublicIPRefs"
-	selectorFieldNameSecurityGroup        = "SecurityGroupSelector"
-	refFieldNameSecurityGroup             = "SecurityGroupRef"
-	selectorFieldNameSubnet               = "SubnetSelector"
-	refFieldNameSubnet                    = "SubnetRef"
-	selectorFieldNameTask                 = "TaskSelector"
-	refFieldNameTask                      = "TaskRef"
-	selectorFieldNameTopic                = "TopicSelector"
-	refFieldNameTopic                     = "TopicRef"
-	refFieldNameTopics                    = "TopicRefs"
-	selectorFieldNameUser                 = "UserSelector"
-	refFieldNameUser                      = "UserRef"
-	selectorFieldNameVPC                  = "VPCSelector"
-	refFieldNameVPC                       = "VPCRef"
+	selectorFieldNameDcsInstance       = "DcsInstanceSelector"
+	refFieldNameDcsInstance            = "DcsInstanceRef"
+	selectorFieldNameDiskEncryptionKey = "DiskEncryptionKeySelector"
+	refFieldNameDiskEncryptionKey      = "DiskEncryptionKeyRef"
+	selectorFieldNameInstance          = "InstanceSelector"
+	refFieldNameInstance               = "InstanceRef"
+	selectorFieldNameObsBucket         = "ObsBucketSelector"
+	refFieldNameObsBucket              = "ObsBucketRef"
+	selectorFieldNamePeerInstance      = "PeerInstanceSelector"
+	refFieldNamePeerInstance           = "PeerInstanceRef"
+	selectorFieldNamePublicIP          = "PublicIPSelector"
+	refFieldNamePublicIP               = "PublicIPRefs"
+	selectorFieldNameSecurityGroup     = "SecurityGroupSelector"
+	refFieldNameSecurityGroup          = "SecurityGroupRef"
+	selectorFieldNameSubnet            = "SubnetSelector"
+	refFieldNameSubnet                 = "SubnetRef"
+	selectorFieldNameTask              = "TaskSelector"
+	refFieldNameTask                   = "TaskRef"
+	selectorFieldNameTopic             = "TopicSelector"
+	refFieldNameTopic                  = "TopicRef"
+	refFieldNameTopics                 = "TopicRefs"
+	selectorFieldNameUser              = "UserSelector"
+	refFieldNameUser                   = "UserRef"
+	selectorFieldNameVPC               = "VPCSelector"
+	refFieldNameVPC                    = "VPCRef"
 )
 
 // Configure configures individual resources by adding custom ResourceConfigurators.
@@ -54,21 +57,11 @@ func Configure(p *config.Provider) {
 	p.AddResourceConfigurator(tfInstanceV1, func(r *config.Resource) {
 		r.UseAsync = true
 		networkReferences(r, "subnet_id")
-		r.References["security_group_id"] = config.Reference{
-			TerraformName:     tfComputeSecgroupV2,
-			SelectorFieldName: selectorFieldNameComputeSecurityGroup,
-			RefFieldName:      refFieldNameComputeSecurityGroup,
-		}
 	})
 
 	p.AddResourceConfigurator(tfDedicatedInstanceV2, func(r *config.Resource) {
 		r.UseAsync = true
 		networkReferences(r, "network_id")
-		r.References["security_group_id"] = config.Reference{
-			TerraformName:     tfVpcSecgroupV3,
-			SelectorFieldName: selectorFieldNameSecurityGroup,
-			RefFieldName:      refFieldNameSecurityGroup,
-		}
 		r.References["publicip_id"] = config.Reference{
 			TerraformName:     tfVpcEipV1,
 			SelectorFieldName: selectorFieldNamePublicIP,
@@ -132,6 +125,19 @@ func Configure(p *config.Provider) {
 			SelectorFieldName: selectorFieldNameTopic,
 			RefFieldName:      refFieldNameTopics,
 		}
+		for _, field := range []string{"source_task.dcs_instance_id", "destination_task.dcs_instance_id"} {
+			r.References[field] = config.Reference{
+				TerraformName:     tfDcsInstanceV2,
+				SelectorFieldName: selectorFieldNameDcsInstance,
+				RefFieldName:      refFieldNameDcsInstance,
+			}
+		}
+		r.References["destination_task.obs_bucket_name"] = config.Reference{
+			TerraformName:     tfObsBucket,
+			Extractor:         common.ObsBucketExtractor,
+			SelectorFieldName: selectorFieldNameObsBucket,
+			RefFieldName:      refFieldNameObsBucket,
+		}
 	})
 
 	p.AddResourceConfigurator(tfSmartConnectTaskActionV2, func(r *config.Resource) {
@@ -144,7 +150,7 @@ func Configure(p *config.Provider) {
 	})
 }
 
-// networkReferences adds VPC and subnet references.
+// networkReferences adds VPC, subnet and security group references.
 // DMS expects the neutron network ID, so the subnet field is resolved via NetworkIDExtractor.
 func networkReferences(r *config.Resource, subnetField string) {
 	r.References["vpc_id"] = config.Reference{
@@ -157,6 +163,11 @@ func networkReferences(r *config.Resource, subnetField string) {
 		Extractor:         common.NetworkIDExtractor,
 		SelectorFieldName: selectorFieldNameSubnet,
 		RefFieldName:      refFieldNameSubnet,
+	}
+	r.References["security_group_id"] = config.Reference{
+		TerraformName:     tfVpcSecgroupV3,
+		SelectorFieldName: selectorFieldNameSecurityGroup,
+		RefFieldName:      refFieldNameSecurityGroup,
 	}
 }
 
