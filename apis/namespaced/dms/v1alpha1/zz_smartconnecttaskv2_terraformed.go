@@ -21,7 +21,7 @@ func (mg *SmartConnectTaskV2) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this SmartConnectTaskV2
 func (tr *SmartConnectTaskV2) GetConnectionDetailsMapping() map[string]string {
-	return map[string]string{"destination_task[*].secret_key": "destinationTask[*].secretKeySecretRef", "source_task[*].password": "sourceTask[*].passwordSecretRef"}
+	return map[string]string{"destination_task[*].redis_password": "destinationTask[*].redisPasswordSecretRef", "destination_task[*].secret_key": "destinationTask[*].secretKeySecretRef", "source_task[*].password": "sourceTask[*].passwordSecretRef", "source_task[*].redis_password": "sourceTask[*].redisPasswordSecretRef"}
 }
 
 // GetObservation of this SmartConnectTaskV2

@@ -76,11 +76,25 @@ spec:
                   address:
                     description: Specifies the IP address of the backend server.
                     type: string
+                  adminStateUp:
+                    description: |-
+                      Specifies the administrative state at creation. Both true and
+                      false are supported. Changing this value recreates the member because administrative-state updates are
+                      unsupported by the OTC API.
+                    type: boolean
+                  availabilityZone:
+                    description: |-
+                      Specifies the AZ of an IP-address backend server. This parameter can be
+                      set only for IP-address backends and must identify an available ECS AZ in the current region. It is required
+                      when AZ affinity is enabled on the backend server group. The value can be updated to another non-empty AZ;
+                      removing this argument leaves the current AZ unchanged.
+                    type: string
                   name:
                     description: Specifies the backend server name. The value is a
                       string of 0 to 255 characters.
                     type: string
                   poolId:
+                    description: Specifies the backend server group ID.
                     type: string
                   poolIdRef:
                     description: Reference to a PoolV3 in lb to populate poolId.
@@ -337,11 +351,25 @@ spec:
                   address:
                     description: Specifies the IP address of the backend server.
                     type: string
+                  adminStateUp:
+                    description: |-
+                      Specifies the administrative state at creation. Both true and
+                      false are supported. Changing this value recreates the member because administrative-state updates are
+                      unsupported by the OTC API.
+                    type: boolean
+                  availabilityZone:
+                    description: |-
+                      Specifies the AZ of an IP-address backend server. This parameter can be
+                      set only for IP-address backends and must identify an available ECS AZ in the current region. It is required
+                      when AZ affinity is enabled on the backend server group. The value can be updated to another non-empty AZ;
+                      removing this argument leaves the current AZ unchanged.
+                    type: string
                   name:
                     description: Specifies the backend server name. The value is a
                       string of 0 to 255 characters.
                     type: string
                   poolId:
+                    description: Specifies the backend server group ID.
                     type: string
                   poolIdRef:
                     description: Reference to a PoolV3 in lb to populate poolId.
@@ -685,7 +713,27 @@ spec:
                   address:
                     description: Specifies the IP address of the backend server.
                     type: string
+                  adminStateUp:
+                    description: |-
+                      Specifies the administrative state at creation. Both true and
+                      false are supported. Changing this value recreates the member because administrative-state updates are
+                      unsupported by the OTC API.
+                    type: boolean
+                  availabilityZone:
+                    description: |-
+                      Specifies the AZ of an IP-address backend server. This parameter can be
+                      set only for IP-address backends and must identify an available ECS AZ in the current region. It is required
+                      when AZ affinity is enabled on the backend server group. The value can be updated to another non-empty AZ;
+                      removing this argument leaves the current AZ unchanged.
+                    type: string
+                  createdAt:
+                    description: Creation time. Older resources may not return this
+                      value.
+                    type: string
                   id:
+                    type: string
+                  instanceId:
+                    description: ID of the associated ECS, if any.
                     type: string
                   ipVersion:
                     description: Version of IP based on the address parameter. The
@@ -693,6 +741,9 @@ spec:
                     type: string
                   memberId:
                     description: ID of the pool member.
+                    type: string
+                  memberType:
+                    description: Backend server type.
                     type: string
                   name:
                     description: Specifies the backend server name. The value is a
@@ -702,6 +753,7 @@ spec:
                     description: Specifies the operating status of the backend server.
                     type: string
                   poolId:
+                    description: Specifies the backend server group ID.
                     type: string
                   projectId:
                     description: Specifies the project ID.
@@ -711,8 +763,48 @@ spec:
                       Specifies the port used by the backend server to receive requests. The value should be a
                       valid port.
                     type: number
+                  status:
+                    description: 'Per-listener health status list. Each entry exports:'
+                    items:
+                      properties:
+                        createdAt:
+                          description: Creation time. Older resources may not return
+                            this value.
+                          type: string
+                        listenerId:
+                          description: Listener ID.
+                          type: string
+                        operatingStatus:
+                          description: Specifies the operating status of the backend
+                            server.
+                          type: string
+                        reason:
+                          description: 'Optional health-check failure details:'
+                          items:
+                            properties:
+                              expectedResponse:
+                                description: Expected health-check response code.
+                                type: string
+                              healthcheckResponse:
+                                description: Actual health-check response code.
+                                type: string
+                              reasonCode:
+                                description: Failure code.
+                                type: string
+                            type: object
+                          type: array
+                        updatedAt:
+                          description: Last update time. Older resources may not return
+                            this value.
+                          type: string
+                      type: object
+                    type: array
                   subnetId:
                     description: ', for example, 192.168.3.11.'
+                    type: string
+                  updatedAt:
+                    description: Last update time. Older resources may not return
+                      this value.
                     type: string
                   weight:
                     description: Specifies the weight of the backend server.

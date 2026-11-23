@@ -110,6 +110,7 @@ spec:
       - size: 40
         volumetype: SSD
     runtime: containerd
+    hostnameConfigType: privateIp
 
 ---
 apiVersion: cce.opentelekomcloud.m.crossplane.io/v1alpha1
@@ -150,6 +151,7 @@ spec:
     runtime: containerd
     scaleDownCooldownTime: 100
     scaleEnable: true
+    hostnameConfigType: privateIp
 ---
 apiVersion: cce.opentelekomcloud.m.crossplane.io/v1alpha1
 kind: NodePoolConfigV3

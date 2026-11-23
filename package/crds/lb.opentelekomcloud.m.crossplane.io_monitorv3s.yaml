@@ -75,7 +75,7 @@ spec:
                   expectedCodes:
                     description: |-
                       Specifies the expected HTTP status code. This parameter will take effect only
-                      when type is set to HTTP.
+                      when type is set to HTTP or HTTPS.
                     type: string
                   httpMethod:
                     description: Specifies the HTTP method.
@@ -310,7 +310,7 @@ spec:
                   expectedCodes:
                     description: |-
                       Specifies the expected HTTP status code. This parameter will take effect only
-                      when type is set to HTTP.
+                      when type is set to HTTP or HTTPS.
                     type: string
                   httpMethod:
                     description: Specifies the HTTP method.
@@ -601,6 +601,10 @@ spec:
                       Specifies the administrative status of the health check.
                       true indicates that the health check is enabled, and false indicates that the health check is disabled.
                     type: boolean
+                  createdAt:
+                    description: The time the health check was created, in UTC format
+                      yyyy-MM-dd'T'HH:mm:ss'Z'.
+                    type: string
                   delay:
                     description: Specifies the interval between health checks, in
                       seconds.
@@ -612,7 +616,7 @@ spec:
                   expectedCodes:
                     description: |-
                       Specifies the expected HTTP status code. This parameter will take effect only
-                      when type is set to HTTP.
+                      when type is set to HTTP or HTTPS.
                     type: string
                   httpMethod:
                     description: Specifies the HTTP method.
@@ -654,6 +658,10 @@ spec:
                     type: number
                   type:
                     description: Specifies the health check protocol.
+                    type: string
+                  updatedAt:
+                    description: The time the health check was last updated, in UTC
+                      format yyyy-MM-dd'T'HH:mm:ss'Z'.
                     type: string
                   urlPath:
                     description: Specifies the HTTP request path for the health check.

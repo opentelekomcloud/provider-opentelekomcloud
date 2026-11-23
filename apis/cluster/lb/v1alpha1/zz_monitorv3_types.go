@@ -26,7 +26,7 @@ type MonitorV3InitParameters struct {
 	DomainName *string `json:"domainName,omitempty" tf:"domain_name,omitempty"`
 
 	// Specifies the expected HTTP status code. This parameter will take effect only
-	// when type is set to HTTP.
+	// when type is set to HTTP or HTTPS.
 	ExpectedCodes *string `json:"expectedCodes,omitempty" tf:"expected_codes,omitempty"`
 
 	// Specifies the HTTP method.
@@ -89,6 +89,9 @@ type MonitorV3Observation struct {
 	// true indicates that the health check is enabled, and false indicates that the health check is disabled.
 	AdminStateUp *bool `json:"adminStateUp,omitempty" tf:"admin_state_up,omitempty"`
 
+	// The time the health check was created, in UTC format yyyy-MM-dd'T'HH:mm:ss'Z'.
+	CreatedAt *string `json:"createdAt,omitempty" tf:"created_at,omitempty"`
+
 	// Specifies the interval between health checks, in seconds.
 	Delay *float64 `json:"delay,omitempty" tf:"delay,omitempty"`
 
@@ -96,7 +99,7 @@ type MonitorV3Observation struct {
 	DomainName *string `json:"domainName,omitempty" tf:"domain_name,omitempty"`
 
 	// Specifies the expected HTTP status code. This parameter will take effect only
-	// when type is set to HTTP.
+	// when type is set to HTTP or HTTPS.
 	ExpectedCodes *string `json:"expectedCodes,omitempty" tf:"expected_codes,omitempty"`
 
 	// Specifies the HTTP method.
@@ -136,6 +139,9 @@ type MonitorV3Observation struct {
 
 	// Specifies the HTTP request path for the health check.
 	URLPath *string `json:"urlPath,omitempty" tf:"url_path,omitempty"`
+
+	// The time the health check was last updated, in UTC format yyyy-MM-dd'T'HH:mm:ss'Z'.
+	UpdatedAt *string `json:"updatedAt,omitempty" tf:"updated_at,omitempty"`
 }
 
 type MonitorV3Parameters struct {
@@ -154,7 +160,7 @@ type MonitorV3Parameters struct {
 	DomainName *string `json:"domainName,omitempty" tf:"domain_name,omitempty"`
 
 	// Specifies the expected HTTP status code. This parameter will take effect only
-	// when type is set to HTTP.
+	// when type is set to HTTP or HTTPS.
 	// +kubebuilder:validation:Optional
 	ExpectedCodes *string `json:"expectedCodes,omitempty" tf:"expected_codes,omitempty"`
 

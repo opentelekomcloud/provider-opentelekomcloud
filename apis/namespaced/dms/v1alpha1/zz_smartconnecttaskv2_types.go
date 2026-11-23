@@ -25,6 +25,9 @@ type DestinationTaskInitParameters struct {
 	// Value options:
 	ConsumerStrategy *string `json:"consumerStrategy,omitempty" tf:"consumer_strategy,omitempty"`
 
+	// Specifies the destination DCS instance ID.
+	DcsInstanceID *string `json:"dcsInstanceId,omitempty" tf:"dcs_instance_id,omitempty"`
+
 	// Specifies the deliver time interval of the smart connect task.
 	// It's required when destination_type is OBS_SINK.
 	// The value should be between 30 and 900. Changing this parameter will create a new resource.
@@ -53,6 +56,18 @@ type DestinationTaskInitParameters struct {
 	// Value options: ,, ;, |, \n.
 	// Changing this parameter will create a new resource.
 	RecordDelimiter *string `json:"recordDelimiter,omitempty" tf:"record_delimiter,omitempty"`
+
+	// Specifies the Redis destination addresses, separated by commas.
+	// Applicable when destination_type is REDIS_REPLICATOR_SINK.
+	RedisAddress *string `json:"redisAddress,omitempty" tf:"redis_address,omitempty"`
+
+	// Specifies the destination Redis password.
+	// The API does not return this value; the configured value is retained in state.
+	RedisPasswordSecretRef *v1.LocalSecretKeySelector `json:"redisPasswordSecretRef,omitempty" tf:"-"`
+
+	// Specifies the Redis destination instance type, for example,
+	// standalone or cluster.
+	RedisType *string `json:"redisType,omitempty" tf:"redis_type,omitempty"`
 
 	// Specifies the secret access key used to access the OBS bucket.
 	// It's required when destination_type is OBS_SINK.
@@ -75,6 +90,9 @@ type DestinationTaskObservation struct {
 	// Value options:
 	ConsumerStrategy *string `json:"consumerStrategy,omitempty" tf:"consumer_strategy,omitempty"`
 
+	// Specifies the destination DCS instance ID.
+	DcsInstanceID *string `json:"dcsInstanceId,omitempty" tf:"dcs_instance_id,omitempty"`
+
 	// Specifies the deliver time interval of the smart connect task.
 	// It's required when destination_type is OBS_SINK.
 	// The value should be between 30 and 900. Changing this parameter will create a new resource.
@@ -84,10 +102,22 @@ type DestinationTaskObservation struct {
 	// Only TEXT is supported. Changing this parameter will create a new resource.
 	DestinationFileType *string `json:"destinationFileType,omitempty" tf:"destination_file_type,omitempty"`
 
+	// The OBS flush size.
+	FlushSize *float64 `json:"flushSize,omitempty" tf:"flush_size,omitempty"`
+
+	// The OBS key converter class.
+	KeyConverter *string `json:"keyConverter,omitempty" tf:"key_converter,omitempty"`
+
+	// The OBS key/value delimiter.
+	KvDelimiter *string `json:"kvDelimiter,omitempty" tf:"kv_delimiter,omitempty"`
+
 	// Specifies the obs bucket name of the smart connect task.
 	// It's required when destination_type is OBS_SINK.
 	// Changing this parameter will create a new resource.
 	ObsBucketName *string `json:"obsBucketName,omitempty" tf:"obs_bucket_name,omitempty"`
+
+	// The OBS upload part size in bytes. The service default is 5242880.
+	ObsPartSize *float64 `json:"obsPartSize,omitempty" tf:"obs_part_size,omitempty"`
 
 	// Specifies the obs path of the smart connect task.
 	// Obs path is separated by a slash. Changing this parameter will create a new resource.
@@ -99,14 +129,38 @@ type DestinationTaskObservation struct {
 	// Changing this parameter will create a new resource.
 	PartitionFormat *string `json:"partitionFormat,omitempty" tf:"partition_format,omitempty"`
 
+	// The OBS partitioner class.
+	PartitionerClass *string `json:"partitionerClass,omitempty" tf:"partitioner_class,omitempty"`
+
 	// Specifies the record delimiter of the smart connect task.
 	// Value options: ,, ;, |, \n.
 	// Changing this parameter will create a new resource.
 	RecordDelimiter *string `json:"recordDelimiter,omitempty" tf:"record_delimiter,omitempty"`
 
+	// Specifies the Redis destination addresses, separated by commas.
+	// Applicable when destination_type is REDIS_REPLICATOR_SINK.
+	RedisAddress *string `json:"redisAddress,omitempty" tf:"redis_address,omitempty"`
+
+	// Specifies the Redis destination instance type, for example,
+	// standalone or cluster.
+	RedisType *string `json:"redisType,omitempty" tf:"redis_type,omitempty"`
+
+	// The OBS schema generator class.
+	SchemaGeneratorClass *string `json:"schemaGeneratorClass,omitempty" tf:"schema_generator_class,omitempty"`
+
 	// Specifies whether to dump keys.
 	// Changing this parameter will create a new resource.
 	StoreKeys *bool `json:"storeKeys,omitempty" tf:"store_keys,omitempty"`
+
+	// The Redis destination database, when returned by the API. The service default is -1;
+	// database 0 is preserved.
+	TargetDB *float64 `json:"targetDb,omitempty" tf:"target_db,omitempty"`
+
+	// The time zone used by the OBS task.
+	Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
+
+	// The OBS value converter class.
+	ValueConverter *string `json:"valueConverter,omitempty" tf:"value_converter,omitempty"`
 }
 
 type DestinationTaskParameters struct {
@@ -122,6 +176,10 @@ type DestinationTaskParameters struct {
 	// +kubebuilder:validation:Optional
 	ConsumerStrategy *string `json:"consumerStrategy,omitempty" tf:"consumer_strategy,omitempty"`
 
+	// Specifies the destination DCS instance ID.
+	// +kubebuilder:validation:Optional
+	DcsInstanceID *string `json:"dcsInstanceId,omitempty" tf:"dcs_instance_id,omitempty"`
+
 	// Specifies the deliver time interval of the smart connect task.
 	// It's required when destination_type is OBS_SINK.
 	// The value should be between 30 and 900. Changing this parameter will create a new resource.
@@ -156,6 +214,21 @@ type DestinationTaskParameters struct {
 	// Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
 	RecordDelimiter *string `json:"recordDelimiter,omitempty" tf:"record_delimiter,omitempty"`
+
+	// Specifies the Redis destination addresses, separated by commas.
+	// Applicable when destination_type is REDIS_REPLICATOR_SINK.
+	// +kubebuilder:validation:Optional
+	RedisAddress *string `json:"redisAddress,omitempty" tf:"redis_address,omitempty"`
+
+	// Specifies the destination Redis password.
+	// The API does not return this value; the configured value is retained in state.
+	// +kubebuilder:validation:Optional
+	RedisPasswordSecretRef *v1.LocalSecretKeySelector `json:"redisPasswordSecretRef,omitempty" tf:"-"`
+
+	// Specifies the Redis destination instance type, for example,
+	// standalone or cluster.
+	// +kubebuilder:validation:Optional
+	RedisType *string `json:"redisType,omitempty" tf:"redis_type,omitempty"`
 
 	// Specifies the secret access key used to access the OBS bucket.
 	// It's required when destination_type is OBS_SINK.
@@ -177,7 +250,8 @@ type SmartConnectTaskV2InitParameters struct {
 	DestinationTask []DestinationTaskInitParameters `json:"destinationTask,omitempty" tf:"destination_task,omitempty"`
 
 	// Specifies the destination type of the smart connect task.
-	// Valid values are OBS_SINK and NONE. Changing this parameter will create a new resource.
+	// Valid values are OBS_SINK, REDIS_REPLICATOR_SINK and NONE.
+	// Changing this parameter will create a new resource.
 	DestinationType *string `json:"destinationType,omitempty" tf:"destination_type,omitempty"`
 
 	// Specifies the kafka instance ID.
@@ -201,7 +275,8 @@ type SmartConnectTaskV2InitParameters struct {
 	SourceTask []SourceTaskInitParameters `json:"sourceTask,omitempty" tf:"source_task,omitempty"`
 
 	// Specifies the source type of the smart connect task. Valid values are
-	// KAFKA_REPLICATOR_SOURCE and NONE. Changing this parameter will create a new resource.
+	// KAFKA_REPLICATOR_SOURCE, REDIS_REPLICATOR_SOURCE and NONE.
+	// Changing this parameter will create a new resource.
 	SourceType *string `json:"sourceType,omitempty" tf:"source_type,omitempty"`
 
 	// Specifies whether to start a task later.
@@ -244,7 +319,8 @@ type SmartConnectTaskV2Observation struct {
 	DestinationTask []DestinationTaskObservation `json:"destinationTask,omitempty" tf:"destination_task,omitempty"`
 
 	// Specifies the destination type of the smart connect task.
-	// Valid values are OBS_SINK and NONE. Changing this parameter will create a new resource.
+	// Valid values are OBS_SINK, REDIS_REPLICATOR_SINK and NONE.
+	// Changing this parameter will create a new resource.
 	DestinationType *string `json:"destinationType,omitempty" tf:"destination_type,omitempty"`
 
 	// The resource ID.
@@ -263,7 +339,8 @@ type SmartConnectTaskV2Observation struct {
 	SourceTask []SourceTaskObservation `json:"sourceTask,omitempty" tf:"source_task,omitempty"`
 
 	// Specifies the source type of the smart connect task. Valid values are
-	// KAFKA_REPLICATOR_SOURCE and NONE. Changing this parameter will create a new resource.
+	// KAFKA_REPLICATOR_SOURCE, REDIS_REPLICATOR_SOURCE and NONE.
+	// Changing this parameter will create a new resource.
 	SourceType *string `json:"sourceType,omitempty" tf:"source_type,omitempty"`
 
 	// Specifies whether to start a task later.
@@ -296,7 +373,8 @@ type SmartConnectTaskV2Parameters struct {
 	DestinationTask []DestinationTaskParameters `json:"destinationTask,omitempty" tf:"destination_task,omitempty"`
 
 	// Specifies the destination type of the smart connect task.
-	// Valid values are OBS_SINK and NONE. Changing this parameter will create a new resource.
+	// Valid values are OBS_SINK, REDIS_REPLICATOR_SINK and NONE.
+	// Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
 	DestinationType *string `json:"destinationType,omitempty" tf:"destination_type,omitempty"`
 
@@ -323,7 +401,8 @@ type SmartConnectTaskV2Parameters struct {
 	SourceTask []SourceTaskParameters `json:"sourceTask,omitempty" tf:"source_task,omitempty"`
 
 	// Specifies the source type of the smart connect task. Valid values are
-	// KAFKA_REPLICATOR_SOURCE and NONE. Changing this parameter will create a new resource.
+	// KAFKA_REPLICATOR_SOURCE, REDIS_REPLICATOR_SOURCE and NONE.
+	// Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
 	SourceType *string `json:"sourceType,omitempty" tf:"source_type,omitempty"`
 
@@ -374,8 +453,18 @@ type SourceTaskInitParameters struct {
 	// Changing this parameter will create a new resource.
 	CurrentInstanceAlias *string `json:"currentInstanceAlias,omitempty" tf:"current_instance_alias,omitempty"`
 
+	// Specifies the source DCS instance ID.
+	DcsInstanceID *string `json:"dcsInstanceId,omitempty" tf:"dcs_instance_id,omitempty"`
+
 	// Specifies the sync direction. Valid values are:
 	Direction *string `json:"direction,omitempty" tf:"direction,omitempty"`
+
+	// Specifies the maximum number of full synchronization retries.
+	FullSyncMaxRetry *float64 `json:"fullSyncMaxRetry,omitempty" tf:"full_sync_max_retry,omitempty"`
+
+	// Specifies the interval between full synchronization
+	// retries, in milliseconds.
+	FullSyncWaitMs *float64 `json:"fullSyncWaitMs,omitempty" tf:"full_sync_wait_ms,omitempty"`
 
 	// Specifies the peer Kafka user password.
 	// It's required when security_protocol is SASL_SSL. Changing this parameter will create a new resource.
@@ -409,6 +498,22 @@ type SourceTaskInitParameters struct {
 	// Changing this parameter will create a new resource.
 	ProvenanceHeaderEnabled *bool `json:"provenanceHeaderEnabled,omitempty" tf:"provenance_header_enabled,omitempty"`
 
+	// Specifies the Redis replication rate limit in KB/s.
+	// Set to -1 for no rate limit.
+	Ratelimit *float64 `json:"ratelimit,omitempty" tf:"ratelimit,omitempty"`
+
+	// Specifies the Redis source addresses, separated by commas.
+	// Applicable when source_type is REDIS_REPLICATOR_SOURCE.
+	RedisAddress *string `json:"redisAddress,omitempty" tf:"redis_address,omitempty"`
+
+	// Specifies the source Redis password.
+	// The API does not return this value; the configured value is retained in state.
+	RedisPasswordSecretRef *v1.LocalSecretKeySelector `json:"redisPasswordSecretRef,omitempty" tf:"-"`
+
+	// Specifies the Redis source instance type, for example,
+	// standalone or cluster.
+	RedisType *string `json:"redisType,omitempty" tf:"redis_type,omitempty"`
+
 	// Specifies whether to rename the topic. If true, will add the
 	// alias of the source Kafka instance before the target topic name to form a new name of the target topic.
 	// Changing this parameter will create a new resource.
@@ -428,6 +533,10 @@ type SourceTaskInitParameters struct {
 	// Specifies whether to sync the consumption progress.
 	// Changing this parameter will create a new resource.
 	SyncConsumerOffsetsEnabled *bool `json:"syncConsumerOffsetsEnabled,omitempty" tf:"sync_consumer_offsets_enabled,omitempty"`
+
+	// Specifies Redis synchronization:
+	// RDB_ONLY for full synchronization or CUSTOM_OFFSET for full and incremental synchronization.
+	SyncMode *string `json:"syncMode,omitempty" tf:"sync_mode,omitempty"`
 
 	// Specifies the number of data replication tasks.
 	// If the direction is set to two-way, the actual number of tasks will be twice the number of tasks you configure here.
@@ -458,8 +567,18 @@ type SourceTaskObservation struct {
 	// Changing this parameter will create a new resource.
 	CurrentInstanceAlias *string `json:"currentInstanceAlias,omitempty" tf:"current_instance_alias,omitempty"`
 
+	// Specifies the source DCS instance ID.
+	DcsInstanceID *string `json:"dcsInstanceId,omitempty" tf:"dcs_instance_id,omitempty"`
+
 	// Specifies the sync direction. Valid values are:
 	Direction *string `json:"direction,omitempty" tf:"direction,omitempty"`
+
+	// Specifies the maximum number of full synchronization retries.
+	FullSyncMaxRetry *float64 `json:"fullSyncMaxRetry,omitempty" tf:"full_sync_max_retry,omitempty"`
+
+	// Specifies the interval between full synchronization
+	// retries, in milliseconds.
+	FullSyncWaitMs *float64 `json:"fullSyncWaitMs,omitempty" tf:"full_sync_wait_ms,omitempty"`
 
 	// Specifies the peer Kafka instance address list.
 	// Changing this parameter will create a new resource.
@@ -477,6 +596,18 @@ type SourceTaskObservation struct {
 	// Specifies whether the message header contains the message source.
 	// Changing this parameter will create a new resource.
 	ProvenanceHeaderEnabled *bool `json:"provenanceHeaderEnabled,omitempty" tf:"provenance_header_enabled,omitempty"`
+
+	// Specifies the Redis replication rate limit in KB/s.
+	// Set to -1 for no rate limit.
+	Ratelimit *float64 `json:"ratelimit,omitempty" tf:"ratelimit,omitempty"`
+
+	// Specifies the Redis source addresses, separated by commas.
+	// Applicable when source_type is REDIS_REPLICATOR_SOURCE.
+	RedisAddress *string `json:"redisAddress,omitempty" tf:"redis_address,omitempty"`
+
+	// Specifies the Redis source instance type, for example,
+	// standalone or cluster.
+	RedisType *string `json:"redisType,omitempty" tf:"redis_type,omitempty"`
 
 	// Specifies whether to rename the topic. If true, will add the
 	// alias of the source Kafka instance before the target topic name to form a new name of the target topic.
@@ -497,6 +628,10 @@ type SourceTaskObservation struct {
 	// Specifies whether to sync the consumption progress.
 	// Changing this parameter will create a new resource.
 	SyncConsumerOffsetsEnabled *bool `json:"syncConsumerOffsetsEnabled,omitempty" tf:"sync_consumer_offsets_enabled,omitempty"`
+
+	// Specifies Redis synchronization:
+	// RDB_ONLY for full synchronization or CUSTOM_OFFSET for full and incremental synchronization.
+	SyncMode *string `json:"syncMode,omitempty" tf:"sync_mode,omitempty"`
 
 	// Specifies the number of data replication tasks.
 	// If the direction is set to two-way, the actual number of tasks will be twice the number of tasks you configure here.
@@ -530,9 +665,22 @@ type SourceTaskParameters struct {
 	// +kubebuilder:validation:Optional
 	CurrentInstanceAlias *string `json:"currentInstanceAlias,omitempty" tf:"current_instance_alias,omitempty"`
 
+	// Specifies the source DCS instance ID.
+	// +kubebuilder:validation:Optional
+	DcsInstanceID *string `json:"dcsInstanceId,omitempty" tf:"dcs_instance_id,omitempty"`
+
 	// Specifies the sync direction. Valid values are:
 	// +kubebuilder:validation:Optional
 	Direction *string `json:"direction,omitempty" tf:"direction,omitempty"`
+
+	// Specifies the maximum number of full synchronization retries.
+	// +kubebuilder:validation:Optional
+	FullSyncMaxRetry *float64 `json:"fullSyncMaxRetry,omitempty" tf:"full_sync_max_retry,omitempty"`
+
+	// Specifies the interval between full synchronization
+	// retries, in milliseconds.
+	// +kubebuilder:validation:Optional
+	FullSyncWaitMs *float64 `json:"fullSyncWaitMs,omitempty" tf:"full_sync_wait_ms,omitempty"`
 
 	// Specifies the peer Kafka user password.
 	// It's required when security_protocol is SASL_SSL. Changing this parameter will create a new resource.
@@ -571,6 +719,26 @@ type SourceTaskParameters struct {
 	// +kubebuilder:validation:Optional
 	ProvenanceHeaderEnabled *bool `json:"provenanceHeaderEnabled,omitempty" tf:"provenance_header_enabled,omitempty"`
 
+	// Specifies the Redis replication rate limit in KB/s.
+	// Set to -1 for no rate limit.
+	// +kubebuilder:validation:Optional
+	Ratelimit *float64 `json:"ratelimit,omitempty" tf:"ratelimit,omitempty"`
+
+	// Specifies the Redis source addresses, separated by commas.
+	// Applicable when source_type is REDIS_REPLICATOR_SOURCE.
+	// +kubebuilder:validation:Optional
+	RedisAddress *string `json:"redisAddress,omitempty" tf:"redis_address,omitempty"`
+
+	// Specifies the source Redis password.
+	// The API does not return this value; the configured value is retained in state.
+	// +kubebuilder:validation:Optional
+	RedisPasswordSecretRef *v1.LocalSecretKeySelector `json:"redisPasswordSecretRef,omitempty" tf:"-"`
+
+	// Specifies the Redis source instance type, for example,
+	// standalone or cluster.
+	// +kubebuilder:validation:Optional
+	RedisType *string `json:"redisType,omitempty" tf:"redis_type,omitempty"`
+
 	// Specifies whether to rename the topic. If true, will add the
 	// alias of the source Kafka instance before the target topic name to form a new name of the target topic.
 	// Changing this parameter will create a new resource.
@@ -595,6 +763,11 @@ type SourceTaskParameters struct {
 	// Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
 	SyncConsumerOffsetsEnabled *bool `json:"syncConsumerOffsetsEnabled,omitempty" tf:"sync_consumer_offsets_enabled,omitempty"`
+
+	// Specifies Redis synchronization:
+	// RDB_ONLY for full synchronization or CUSTOM_OFFSET for full and incremental synchronization.
+	// +kubebuilder:validation:Optional
+	SyncMode *string `json:"syncMode,omitempty" tf:"sync_mode,omitempty"`
 
 	// Specifies the number of data replication tasks.
 	// If the direction is set to two-way, the actual number of tasks will be twice the number of tasks you configure here.

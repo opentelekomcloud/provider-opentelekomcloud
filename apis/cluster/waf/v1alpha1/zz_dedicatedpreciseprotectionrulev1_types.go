@@ -47,7 +47,8 @@ type DedicatedPreciseProtectionRuleV1ConditionsInitParameters struct {
 	// Field type. The options are url, user-agent, ip, params, cookie, referer, header, request_line, method, and request.
 	Category *string `json:"category,omitempty" tf:"category,omitempty"`
 
-	// Content of the conditions. This parameter is mandatory when the suffix of logic_operation is not any or all. This parameter is mandatory when the suffix of logic_operation is not any or all. Changing this creates a new rule.
+	// Content of the conditions. This parameter is mandatory when the suffix of logic_operation is not any or all.
+	// Changing explicitly configured contents creates a new rule.
 	Contents []*string `json:"contents,omitempty" tf:"contents,omitempty"`
 
 	// Subfield. Changing this creates a new rule.
@@ -65,7 +66,8 @@ type DedicatedPreciseProtectionRuleV1ConditionsObservation struct {
 	// Field type. The options are url, user-agent, ip, params, cookie, referer, header, request_line, method, and request.
 	Category *string `json:"category,omitempty" tf:"category,omitempty"`
 
-	// Content of the conditions. This parameter is mandatory when the suffix of logic_operation is not any or all. This parameter is mandatory when the suffix of logic_operation is not any or all. Changing this creates a new rule.
+	// Content of the conditions. This parameter is mandatory when the suffix of logic_operation is not any or all.
+	// Changing explicitly configured contents creates a new rule.
 	Contents []*string `json:"contents,omitempty" tf:"contents,omitempty"`
 
 	// Subfield. Changing this creates a new rule.
@@ -84,7 +86,8 @@ type DedicatedPreciseProtectionRuleV1ConditionsParameters struct {
 	// +kubebuilder:validation:Optional
 	Category *string `json:"category,omitempty" tf:"category,omitempty"`
 
-	// Content of the conditions. This parameter is mandatory when the suffix of logic_operation is not any or all. This parameter is mandatory when the suffix of logic_operation is not any or all. Changing this creates a new rule.
+	// Content of the conditions. This parameter is mandatory when the suffix of logic_operation is not any or all.
+	// Changing explicitly configured contents creates a new rule.
 	// +kubebuilder:validation:Optional
 	Contents []*string `json:"contents,omitempty" tf:"contents,omitempty"`
 

@@ -77,6 +77,9 @@ spec:
                             Specifies the consumer strategy of the smart connect task.
                             Value options:
                           type: string
+                        dcsInstanceId:
+                          description: Specifies the destination DCS instance ID.
+                          type: string
                         deliverTimeInterval:
                           description: |-
                             Specifies the deliver time interval of the smart connect task.
@@ -112,6 +115,30 @@ spec:
                             Value options: ,, ;, |, \n.
                             Changing this parameter will create a new resource.
                           type: string
+                        redisAddress:
+                          description: |-
+                            Specifies the Redis destination addresses, separated by commas.
+                            Applicable when destination_type is REDIS_REPLICATOR_SINK.
+                          type: string
+                        redisPasswordSecretRef:
+                          description: |-
+                            Specifies the destination Redis password.
+                            The API does not return this value; the configured value is retained in state.
+                          properties:
+                            key:
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          type: object
+                        redisType:
+                          description: |-
+                            Specifies the Redis destination instance type, for example,
+                            standalone or cluster.
+                          type: string
                         secretKeySecretRef:
                           description: |-
                             Specifies the secret access key used to access the OBS bucket.
@@ -137,7 +164,8 @@ spec:
                   destinationType:
                     description: |-
                       Specifies the destination type of the smart connect task.
-                      Valid values are OBS_SINK and NONE. Changing this parameter will create a new resource.
+                      Valid values are OBS_SINK, REDIS_REPLICATOR_SINK and NONE.
+                      Changing this parameter will create a new resource.
                     type: string
                   instanceId:
                     description: |-
@@ -248,10 +276,22 @@ spec:
                             Specifies the current Kafka instance alias.
                             Changing this parameter will create a new resource.
                           type: string
+                        dcsInstanceId:
+                          description: Specifies the source DCS instance ID.
+                          type: string
                         direction:
                           description: 'Specifies the sync direction. Valid values
                             are:'
                           type: string
+                        fullSyncMaxRetry:
+                          description: Specifies the maximum number of full synchronization
+                            retries.
+                          type: number
+                        fullSyncWaitMs:
+                          description: |-
+                            Specifies the interval between full synchronization
+                            retries, in milliseconds.
+                          type: number
                         passwordSecretRef:
                           description: |-
                             Specifies the peer Kafka user password.
@@ -371,6 +411,35 @@ spec:
                             Specifies whether the message header contains the message source.
                             Changing this parameter will create a new resource.
                           type: boolean
+                        ratelimit:
+                          description: |-
+                            Specifies the Redis replication rate limit in KB/s.
+                            Set to -1 for no rate limit.
+                          type: number
+                        redisAddress:
+                          description: |-
+                            Specifies the Redis source addresses, separated by commas.
+                            Applicable when source_type is REDIS_REPLICATOR_SOURCE.
+                          type: string
+                        redisPasswordSecretRef:
+                          description: |-
+                            Specifies the source Redis password.
+                            The API does not return this value; the configured value is retained in state.
+                          properties:
+                            key:
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          type: object
+                        redisType:
+                          description: |-
+                            Specifies the Redis source instance type, for example,
+                            standalone or cluster.
+                          type: string
                         renameTopicEnabled:
                           description: |-
                             Specifies whether to rename the topic. If true, will add the
@@ -396,6 +465,11 @@ spec:
                             Specifies whether to sync the consumption progress.
                             Changing this parameter will create a new resource.
                           type: boolean
+                        syncMode:
+                          description: |-
+                            Specifies Redis synchronization:
+                            RDB_ONLY for full synchronization or CUSTOM_OFFSET for full and incremental synchronization.
+                          type: string
                         taskNum:
                           description: |-
                             Specifies the number of data replication tasks.
@@ -420,7 +494,8 @@ spec:
                   sourceType:
                     description: |-
                       Specifies the source type of the smart connect task. Valid values are
-                      KAFKA_REPLICATOR_SOURCE and NONE. Changing this parameter will create a new resource.
+                      KAFKA_REPLICATOR_SOURCE, REDIS_REPLICATOR_SOURCE and NONE.
+                      Changing this parameter will create a new resource.
                     type: string
                   startLater:
                     description: |-
@@ -561,6 +636,9 @@ spec:
                             Specifies the consumer strategy of the smart connect task.
                             Value options:
                           type: string
+                        dcsInstanceId:
+                          description: Specifies the destination DCS instance ID.
+                          type: string
                         deliverTimeInterval:
                           description: |-
                             Specifies the deliver time interval of the smart connect task.
@@ -596,6 +674,30 @@ spec:
                             Value options: ,, ;, |, \n.
                             Changing this parameter will create a new resource.
                           type: string
+                        redisAddress:
+                          description: |-
+                            Specifies the Redis destination addresses, separated by commas.
+                            Applicable when destination_type is REDIS_REPLICATOR_SINK.
+                          type: string
+                        redisPasswordSecretRef:
+                          description: |-
+                            Specifies the destination Redis password.
+                            The API does not return this value; the configured value is retained in state.
+                          properties:
+                            key:
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          type: object
+                        redisType:
+                          description: |-
+                            Specifies the Redis destination instance type, for example,
+                            standalone or cluster.
+                          type: string
                         secretKeySecretRef:
                           description: |-
                             Specifies the secret access key used to access the OBS bucket.
@@ -621,7 +723,8 @@ spec:
                   destinationType:
                     description: |-
                       Specifies the destination type of the smart connect task.
-                      Valid values are OBS_SINK and NONE. Changing this parameter will create a new resource.
+                      Valid values are OBS_SINK, REDIS_REPLICATOR_SINK and NONE.
+                      Changing this parameter will create a new resource.
                     type: string
                   instanceId:
                     description: |-
@@ -732,10 +835,22 @@ spec:
                             Specifies the current Kafka instance alias.
                             Changing this parameter will create a new resource.
                           type: string
+                        dcsInstanceId:
+                          description: Specifies the source DCS instance ID.
+                          type: string
                         direction:
                           description: 'Specifies the sync direction. Valid values
                             are:'
                           type: string
+                        fullSyncMaxRetry:
+                          description: Specifies the maximum number of full synchronization
+                            retries.
+                          type: number
+                        fullSyncWaitMs:
+                          description: |-
+                            Specifies the interval between full synchronization
+                            retries, in milliseconds.
+                          type: number
                         passwordSecretRef:
                           description: |-
                             Specifies the peer Kafka user password.
@@ -855,6 +970,35 @@ spec:
                             Specifies whether the message header contains the message source.
                             Changing this parameter will create a new resource.
                           type: boolean
+                        ratelimit:
+                          description: |-
+                            Specifies the Redis replication rate limit in KB/s.
+                            Set to -1 for no rate limit.
+                          type: number
+                        redisAddress:
+                          description: |-
+                            Specifies the Redis source addresses, separated by commas.
+                            Applicable when source_type is REDIS_REPLICATOR_SOURCE.
+                          type: string
+                        redisPasswordSecretRef:
+                          description: |-
+                            Specifies the source Redis password.
+                            The API does not return this value; the configured value is retained in state.
+                          properties:
+                            key:
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          type: object
+                        redisType:
+                          description: |-
+                            Specifies the Redis source instance type, for example,
+                            standalone or cluster.
+                          type: string
                         renameTopicEnabled:
                           description: |-
                             Specifies whether to rename the topic. If true, will add the
@@ -880,6 +1024,11 @@ spec:
                             Specifies whether to sync the consumption progress.
                             Changing this parameter will create a new resource.
                           type: boolean
+                        syncMode:
+                          description: |-
+                            Specifies Redis synchronization:
+                            RDB_ONLY for full synchronization or CUSTOM_OFFSET for full and incremental synchronization.
+                          type: string
                         taskNum:
                           description: |-
                             Specifies the number of data replication tasks.
@@ -904,7 +1053,8 @@ spec:
                   sourceType:
                     description: |-
                       Specifies the source type of the smart connect task. Valid values are
-                      KAFKA_REPLICATOR_SOURCE and NONE. Changing this parameter will create a new resource.
+                      KAFKA_REPLICATOR_SOURCE, REDIS_REPLICATOR_SOURCE and NONE.
+                      Changing this parameter will create a new resource.
                     type: string
                   startLater:
                     description: |-
@@ -1104,6 +1254,9 @@ spec:
                             Specifies the consumer strategy of the smart connect task.
                             Value options:
                           type: string
+                        dcsInstanceId:
+                          description: Specifies the destination DCS instance ID.
+                          type: string
                         deliverTimeInterval:
                           description: |-
                             Specifies the deliver time interval of the smart connect task.
@@ -1115,12 +1268,25 @@ spec:
                             Specifies the destination file type of the smart connect task.
                             Only TEXT is supported. Changing this parameter will create a new resource.
                           type: string
+                        flushSize:
+                          description: The OBS flush size.
+                          type: number
+                        keyConverter:
+                          description: The OBS key converter class.
+                          type: string
+                        kvDelimiter:
+                          description: The OBS key/value delimiter.
+                          type: string
                         obsBucketName:
                           description: |-
                             Specifies the obs bucket name of the smart connect task.
                             It's required when destination_type is OBS_SINK.
                             Changing this parameter will create a new resource.
                           type: string
+                        obsPartSize:
+                          description: The OBS upload part size in bytes. The service
+                            default is 5242880.
+                          type: number
                         obsPath:
                           description: |-
                             Specifies the obs path of the smart connect task.
@@ -1133,23 +1299,51 @@ spec:
                             It's required when destination_type is OBS_SINK.
                             Changing this parameter will create a new resource.
                           type: string
+                        partitionerClass:
+                          description: The OBS partitioner class.
+                          type: string
                         recordDelimiter:
                           description: |-
                             Specifies the record delimiter of the smart connect task.
                             Value options: ,, ;, |, \n.
                             Changing this parameter will create a new resource.
                           type: string
+                        redisAddress:
+                          description: |-
+                            Specifies the Redis destination addresses, separated by commas.
+                            Applicable when destination_type is REDIS_REPLICATOR_SINK.
+                          type: string
+                        redisType:
+                          description: |-
+                            Specifies the Redis destination instance type, for example,
+                            standalone or cluster.
+                          type: string
+                        schemaGeneratorClass:
+                          description: The OBS schema generator class.
+                          type: string
                         storeKeys:
                           description: |-
                             Specifies whether to dump keys.
                             Changing this parameter will create a new resource.
                           type: boolean
+                        targetDb:
+                          description: |-
+                            The Redis destination database, when returned by the API. The service default is -1;
+                            database 0 is preserved.
+                          type: number
+                        timezone:
+                          description: The time zone used by the OBS task.
+                          type: string
+                        valueConverter:
+                          description: The OBS value converter class.
+                          type: string
                       type: object
                     type: array
                   destinationType:
                     description: |-
                       Specifies the destination type of the smart connect task.
-                      Valid values are OBS_SINK and NONE. Changing this parameter will create a new resource.
+                      Valid values are OBS_SINK, REDIS_REPLICATOR_SINK and NONE.
+                      Changing this parameter will create a new resource.
                     type: string
                   id:
                     description: The resource ID.
@@ -1184,10 +1378,22 @@ spec:
                             Specifies the current Kafka instance alias.
                             Changing this parameter will create a new resource.
                           type: string
+                        dcsInstanceId:
+                          description: Specifies the source DCS instance ID.
+                          type: string
                         direction:
                           description: 'Specifies the sync direction. Valid values
                             are:'
                           type: string
+                        fullSyncMaxRetry:
+                          description: Specifies the maximum number of full synchronization
+                            retries.
+                          type: number
+                        fullSyncWaitMs:
+                          description: |-
+                            Specifies the interval between full synchronization
+                            retries, in milliseconds.
+                          type: number
                         peerInstanceAddress:
                           description: |-
                             Specifies the peer Kafka instance address list.
@@ -1211,6 +1417,21 @@ spec:
                             Specifies whether the message header contains the message source.
                             Changing this parameter will create a new resource.
                           type: boolean
+                        ratelimit:
+                          description: |-
+                            Specifies the Redis replication rate limit in KB/s.
+                            Set to -1 for no rate limit.
+                          type: number
+                        redisAddress:
+                          description: |-
+                            Specifies the Redis source addresses, separated by commas.
+                            Applicable when source_type is REDIS_REPLICATOR_SOURCE.
+                          type: string
+                        redisType:
+                          description: |-
+                            Specifies the Redis source instance type, for example,
+                            standalone or cluster.
+                          type: string
                         renameTopicEnabled:
                           description: |-
                             Specifies whether to rename the topic. If true, will add the
@@ -1236,6 +1457,11 @@ spec:
                             Specifies whether to sync the consumption progress.
                             Changing this parameter will create a new resource.
                           type: boolean
+                        syncMode:
+                          description: |-
+                            Specifies Redis synchronization:
+                            RDB_ONLY for full synchronization or CUSTOM_OFFSET for full and incremental synchronization.
+                          type: string
                         taskNum:
                           description: |-
                             Specifies the number of data replication tasks.
@@ -1260,7 +1486,8 @@ spec:
                   sourceType:
                     description: |-
                       Specifies the source type of the smart connect task. Valid values are
-                      KAFKA_REPLICATOR_SOURCE and NONE. Changing this parameter will create a new resource.
+                      KAFKA_REPLICATOR_SOURCE, REDIS_REPLICATOR_SOURCE and NONE.
+                      Changing this parameter will create a new resource.
                     type: string
                   startLater:
                     description: |-
