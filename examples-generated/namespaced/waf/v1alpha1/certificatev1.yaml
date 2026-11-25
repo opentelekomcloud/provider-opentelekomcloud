@@ -1,0 +1,22 @@
+apiVersion: waf.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: CertificateV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: waf/v1alpha1/certificatev1
+  labels:
+    testing.upbound.io/example-name: certificate_1
+  name: certificate-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    content: |
+      -----BEGIN CERTIFICATE-----
+      MIIFazCCA1OgAwIBAgIUN3w1KX8/T/HWVxZIOdHXPhUOnsAwDQYJKoZIhvcNAQEL
+      BQAwRTELMAkGA1UEBhMCQVUxEzARBgNVBAgMClNvbWUtU3RhdGUxITAfBgNVBAoM
+      ...
+      dKvZbPEsygYRIjwyhHHUh/YXH8KDI/uu6u6AxDckQ3rP1BkkKXr5NPBGjVgM3ZI=
+      -----END CERTIFICATE-----
+    keySecretRef:
+      key: example-key
+      name: example-secret
+    name: certificate_1

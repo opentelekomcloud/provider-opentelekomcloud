@@ -1,0 +1,32 @@
+apiVersion: waf.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: PolicyV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: waf/v1alpha1/policyv1
+  labels:
+    testing.upbound.io/example-name: wafd-geoip-policy
+  name: wafd-geoip-policy-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    name: wafd-geoip-policy-${Rand.RFC1123Subdomain}
+
+---
+apiVersion: waf.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: GeoIPRuleV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: waf/v1alpha1/geoiprulev1
+  labels:
+    testing.upbound.io/example-name: wafd-geoip-rule
+  name: wafd-geoip-rule-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    action: 0
+    description: block requests from Brazil(mentioned)
+    name: wafd-geoip-${Rand.RFC1123Subdomain}
+    policySelector:
+      matchLabels:
+        testing.upbound.io/example-name: wafd-geoip-policy
+    regionCode: BR

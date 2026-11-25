@@ -1,0 +1,35 @@
+apiVersion: waf.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: AntiLeakageRuleV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: waf/v1alpha1/antileakagerulev1
+  labels:
+    testing.upbound.io/example-name: rule_1
+  name: rule-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    action: block
+    category: sensitive
+    contents:
+    - id_card
+    description: test description
+    policySelector:
+      matchLabels:
+        testing.upbound.io/example-name: policy_1
+    url: /attack
+
+---
+
+apiVersion: waf.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: PolicyV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: waf/v1alpha1/antileakagerulev1
+  labels:
+    testing.upbound.io/example-name: policy_1
+  name: policy-1
+  namespace: upbound-system
+spec:
+  forProvider:
+    name: policy_al

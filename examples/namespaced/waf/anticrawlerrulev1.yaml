@@ -1,0 +1,33 @@
+apiVersion: waf.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: PolicyV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: waf/v1alpha1/policyv1
+  labels:
+    testing.upbound.io/example-name: wafd-anticrawler-policy
+  name: wafd-anticrawler-policy-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    name: wafd-anticrawler-policy-${Rand.RFC1123Subdomain}
+
+---
+
+apiVersion: waf.opentelekomcloud.m.crossplane.io/v1alpha1
+kind: AntiCrawlerRuleV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: waf/v1alpha1/anticrawlerrulev1
+  labels:
+    testing.upbound.io/example-name: wafd-anticrawler-rule
+  name: wafd-anticrawler-rule-${Rand.RFC1123Subdomain}
+  namespace: test
+spec:
+  forProvider:
+    logic: 3
+    name: wafd-anticrawler-${Rand.RFC1123Subdomain}
+    policySelector:
+      matchLabels:
+        testing.upbound.io/example-name: wafd-anticrawler-policy
+    protectionMode: anticrawler_except_url
+    url: /patent/id

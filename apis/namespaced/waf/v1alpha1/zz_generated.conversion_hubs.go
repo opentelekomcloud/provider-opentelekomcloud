@@ -7,46 +7,46 @@
 package v1alpha1
 
 // Hub marks this type as a conversion hub.
-func (tr *DedicatedAlarmMaskingRuleV1) Hub() {}
+func (tr *AlarmMaskingRuleV1) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *DedicatedAntiCrawlerRuleV1) Hub() {}
+func (tr *AntiCrawlerRuleV1) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *DedicatedAntiLeakageRuleV1) Hub() {}
+func (tr *AntiLeakageRuleV1) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *DedicatedBlacklistRuleV1) Hub() {}
+func (tr *BlacklistRuleV1) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *DedicatedCcRuleV1) Hub() {}
+func (tr *CcRuleV1) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *DedicatedCertificateV1) Hub() {}
+func (tr *CertificateV1) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *DedicatedDataMaskingRuleV1) Hub() {}
+func (tr *DataMaskingRuleV1) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *DedicatedDomainV1) Hub() {}
+func (tr *DomainV1) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *DedicatedGeoIPRuleV1) Hub() {}
+func (tr *GeoIPRuleV1) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *DedicatedInstanceV1) Hub() {}
+func (tr *InstanceV1) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *DedicatedKnownAttackSourceRuleV1) Hub() {}
+func (tr *KnownAttackSourceRuleV1) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *DedicatedPolicyV1) Hub() {}
+func (tr *PolicyV1) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *DedicatedPreciseProtectionRuleV1) Hub() {}
+func (tr *PreciseProtectionRuleV1) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *DedicatedReferenceTableV1) Hub() {}
+func (tr *ReferenceTableV1) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *DedicatedWebTamperRuleV1) Hub() {}
+func (tr *WebTamperRuleV1) Hub() {}
