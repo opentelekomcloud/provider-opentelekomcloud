@@ -62,10 +62,11 @@ metadata:
   namespace: test
 spec:
   forProvider:
+    multiAz: true
     authenticationMode: rbac
     clusterType: VirtualMachine
     description: crossplane
-    flavorId: cce.s1.small
+    flavorId: cce.s2.small
     containerNetworkType: vpc-router
     name: cce-cls-${Rand.RFC1123Subdomain}
     kubeProxyMode: iptables
