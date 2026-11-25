@@ -195,7 +195,7 @@ func Configure(p *config.Provider) {
 
 	p.AddResourceConfigurator(tfBlacklistRuleV1, func(r *config.Resource) {
 		r.Kind = "BlacklistRuleV1"
-		r.MetaResource.ArgumentDocs["followed_action_id"] = "ID of a known attack source rule. Changing this creates a new rule. The WAFD API requires a session tag on the protected domain. The traffic_identifier field is computed only in this provider, so configure the session tag out of band (console or traffic_mark.cookie API) before using this field."
+		r.MetaResource.ArgumentDocs["followed_action_id"] = "ID of a known attack source rule. This parameter can be configured only when action is 0. Changing this creates a new rule. Known attack source rules that block cookie attributes need a session tag on the protected domain, and rules that block params attributes need a user tag. The traffic_identifier field is computed only in the Terraform provider, so configure the required tag out of band (console, or the host update API with traffic_mark.cookie or traffic_mark.params) before using this field."
 		r.References["policy_id"] = config.Reference{
 			TerraformName:     tfPolicyV1,
 			SelectorFieldName: selectorFieldNamePolicy,
