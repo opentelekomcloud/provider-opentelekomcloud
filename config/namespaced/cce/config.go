@@ -18,6 +18,9 @@ const (
 func Configure(p *config.Provider) {
 	p.AddResourceConfigurator(tfCceClusterV3, func(r *config.Resource) {
 		r.UseAsync = true
+		r.LateInitializer = config.LateInitializer{
+			IgnoredFields: []string{"masters", "multi_az"},
+		}
 		r.References["vpc_id"] = config.Reference{
 			TerraformName:     "opentelekomcloud_vpc_v1",
 			SelectorFieldName: "VPCSelector",
