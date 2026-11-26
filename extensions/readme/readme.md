@@ -5,13 +5,13 @@
 ## Provider Resources Overview
 
 `provider-opentelekomcloud` is built on top of the [Terraform T Cloud Public provider](https://github.com/opentelekomcloud/terraform-provider-opentelekomcloud)
-. This means that all resources supported by the Terraform provider are also configurable through our Crossplane provider.
+.
 
-Please note that some services are not yet fully configured. While you can still provision and manage these services, dynamic value assignment is not configured for them. In such cases, cross-resource identifiers must be configured manually. You can check [this](https://github.com/opentelekomcloud/provider-opentelekomcloud/issues/7) issue tracker to see the status of the services.
+Please note that some services are not yet fully configured. While you can still provision and manage these services, cross resource value assignment is not configured for them. In such cases, cross-resource identifiers must be configured manually. You can check our current [service coverage](https://github.com/opentelekomcloud/provider-opentelekomcloud/blob/main/docs/service-coverage.md)
 
 ## Getting Started
 
-For an up to date and detailed installation guide please follow the [getting started](https://github.com/opentelekomcloud/provider-opentelekomcloud#getting-started) guide.
+For an up to date and detailed installation guide please follow the [getting started](https://github.com/opentelekomcloud/provider-opentelekomcloud/blob/main/docs/getting-started.md) guide.
 
 ## Report a Bug
 
