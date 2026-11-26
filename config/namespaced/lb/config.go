@@ -15,6 +15,19 @@ const (
 func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("opentelekomcloud_lb_loadbalancer_v3", func(r *config.Resource) {
 		config.MoveToStatus(r.TerraformResource, "public_ip.ip_type", "public_ip.bandwidth_charge_mode", "public_ip.bandwidth_name", "public_ip.bandwidth_share_type", "public_ip.bandwidth_size")
+		// Make public_ip an SSA map list so the reference resolver owns id/idRef and the
+		// composition owns idSelector, instead of each apply replacing the whole atomic list.
+		r.ServerSideApplyMergeStrategies["public_ip"] = config.MergeStrategy{
+			ListMergeStrategy: config.ListMergeStrategy{
+				ListMapKeys: config.ListMapKeys{
+					InjectedKey: config.InjectedKey{
+						Key:          "index",
+						DefaultValue: "default",
+					},
+				},
+				MergeStrategy: config.ListTypeMap,
+			},
+		}
 		r.LateInitializer = config.LateInitializer{
 			IgnoredFields: []string{
 				"guaranteed", "admin_state_up", "charge_mode",

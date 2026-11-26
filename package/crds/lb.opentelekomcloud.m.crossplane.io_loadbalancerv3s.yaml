@@ -300,8 +300,16 @@ spec:
                                   type: string
                               type: object
                           type: object
+                        index:
+                          default: default
+                          description: This is an injected field with a default value
+                            for being able to merge items of the parent object list.
+                          type: string
                       type: object
                     type: array
+                    x-kubernetes-list-map-keys:
+                    - index
+                    x-kubernetes-list-type: map
                   routerId:
                     description: |-
                       ID of the router (or VPC) this LoadBalancer belongs to. Changing
@@ -736,8 +744,16 @@ spec:
                                   type: string
                               type: object
                           type: object
+                        index:
+                          default: default
+                          description: This is an injected field with a default value
+                            for being able to merge items of the parent object list.
+                          type: string
                       type: object
                     type: array
+                    x-kubernetes-list-map-keys:
+                    - index
+                    x-kubernetes-list-type: map
                   routerId:
                     description: |-
                       ID of the router (or VPC) this LoadBalancer belongs to. Changing
@@ -1225,6 +1241,11 @@ spec:
                           description: ID of an existing elastic IP. Required when
                             using existing EIP.
                           type: string
+                        index:
+                          default: default
+                          description: This is an injected field with a default value
+                            for being able to merge items of the parent object list.
+                          type: string
                         ipType:
                           description: |-
                             Elastic IP type. The value can be 5_bgp or 5_mailbgp.
@@ -1232,6 +1253,9 @@ spec:
                           type: string
                       type: object
                     type: array
+                    x-kubernetes-list-map-keys:
+                    - index
+                    x-kubernetes-list-type: map
                   routerId:
                     description: |-
                       ID of the router (or VPC) this LoadBalancer belongs to. Changing

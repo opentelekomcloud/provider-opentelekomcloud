@@ -140,6 +140,8 @@ type LoadbalancerV3InitParameters struct {
 
 	// The elastic IP address of the instance. The public_ip structure
 	// is described below. Changing this creates a new LoadBalancer.
+	// +listType=map
+	// +listMapKey=index
 	PublicIP []PublicIPInitParameters `json:"publicIp,omitempty" tf:"public_ip,omitempty"`
 
 	// ID of the router (or VPC) this LoadBalancer belongs to. Changing
@@ -322,6 +324,8 @@ type LoadbalancerV3Observation struct {
 
 	// The elastic IP address of the instance. The public_ip structure
 	// is described below. Changing this creates a new LoadBalancer.
+	// +listType=map
+	// +listMapKey=index
 	PublicIP []PublicIPObservation `json:"publicIp,omitempty" tf:"public_ip,omitempty"`
 
 	// ID of the router (or VPC) this LoadBalancer belongs to. Changing
@@ -438,6 +442,8 @@ type LoadbalancerV3Parameters struct {
 	// The elastic IP address of the instance. The public_ip structure
 	// is described below. Changing this creates a new LoadBalancer.
 	// +kubebuilder:validation:Optional
+	// +listType=map
+	// +listMapKey=index
 	PublicIP []PublicIPParameters `json:"publicIp,omitempty" tf:"public_ip,omitempty"`
 
 	// ID of the router (or VPC) this LoadBalancer belongs to. Changing
@@ -513,6 +519,10 @@ type PublicIPInitParameters struct {
 	// Selector for a EIPV1 in vpc to populate id.
 	// +kubebuilder:validation:Optional
 	IDSelector *v1.NamespacedSelector `json:"idSelector,omitempty" tf:"-"`
+
+	// This is an injected field with a default value for being able to merge items of the parent object list.
+	// +kubebuilder:default:=default
+	Index *string `json:"index,omitempty" tf:"-"`
 }
 
 type PublicIPObservation struct {
@@ -538,6 +548,10 @@ type PublicIPObservation struct {
 	// Required when creating a new EIP.
 	IPType *string `json:"ipType,omitempty" tf:"ip_type,omitempty"`
 
+	// This is an injected field with a default value for being able to merge items of the parent object list.
+	// +kubebuilder:default:=default
+	Index *string `json:"index,omitempty" tf:"-"`
+
 	Managed *bool `json:"Managed,omitempty" tf:"_managed,omitempty"`
 }
 
@@ -555,6 +569,11 @@ type PublicIPParameters struct {
 	// Selector for a EIPV1 in vpc to populate id.
 	// +kubebuilder:validation:Optional
 	IDSelector *v1.NamespacedSelector `json:"idSelector,omitempty" tf:"-"`
+
+	// This is an injected field with a default value for being able to merge items of the parent object list.
+	// +kubebuilder:validation:Optional
+	// +kubebuilder:default:=default
+	Index *string `json:"index" tf:"-"`
 }
 
 // LoadbalancerV3Spec defines the desired state of LoadbalancerV3
